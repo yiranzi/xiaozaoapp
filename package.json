@@ -1,0 +1,24 @@
+{
+  "name": "mobile-app",
+  "description": "xiaozao mobile frontend",
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "export": "next export",
+    "eslint": "eslint pages/*",
+    "eslint_fix": "eslint pages/* --fix"
+  },
+  "dependencies": {
+    "next": "3.0.6",
+    "react": "15.6.1",
+    "react-dom": "15.6.1"
+  },
+  "devDependencies": {
+    "eslint": "4.5.0",
+    "eslint-plugin-react": "^7.3.0",
+    "webpack-bundle-analyzer": "^2.9.0"
+  }
+}
