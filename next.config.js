@@ -1,7 +1,8 @@
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 module.exports = {
     exportPathMap: function () {
         return {
-            "/about": { page: "/about" }
-        }
-    },
+            '/school/center': {page: '/school/center'}
+        };
+    }
 }
