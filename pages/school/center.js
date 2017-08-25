@@ -5,9 +5,9 @@ import {DatePicker} from 'antd';
 export default class extends React.Component {
     render() {
         return (
-            <div>
+            <Layout>
                 <DatePicker/>
-            </div>
+            </Layout>
         );
     }
 }
