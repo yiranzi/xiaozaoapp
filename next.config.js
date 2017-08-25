@@ -1,8 +1,14 @@
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const path = require('path')
+const glob = require('glob')
+
 module.exports = {
-    exportPathMap: function () {
-        return {
-            '/school/center': {page: '/school/center'}
-        };
+    webpack: (config, {dev}) => {
+        config.module.rules.push(
+            {
+                test: /\.css$/,
+                use: 'css-loader'
+            }
+        )
+        return config;
     }
 }
