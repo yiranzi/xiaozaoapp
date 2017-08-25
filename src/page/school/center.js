@@ -1,9 +1,10 @@
-import React from 'react';
+import React from 'react'
+import {Button} from 'react-weui';
 
-export default class extends React.Component {
+export default class SchoolCenter extends React.Component {
     render() {
         return (
-            <div>asdfasdf</div>
+            <Button>ASDFASDFASDF</Button>
         );
     }
 }

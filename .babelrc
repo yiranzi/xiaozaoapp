@@ -4,7 +4,8 @@
       "module-resolver", {
       "root": ["."],
       "alias": {
-        "styles": "./styles"
+        "styles": "./styles",
+        "weui": "./node_modules/weui/dist/style/weui.css"
       },
       "cwd": "babelrc"
     }],
