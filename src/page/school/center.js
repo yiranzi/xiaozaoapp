@@ -4,7 +4,11 @@ import {Button} from 'react-weui';
 export default class SchoolCenter extends React.Component {
     render() {
         return (
-            <Button>ASDFASDFASDF</Button>
+            <div>
+                <Button>ASDFASDFASDF</Button>
+                <img src="/static/logo.png"/>
+            </div>
+
         );
     }
 }

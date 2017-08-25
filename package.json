@@ -5,11 +5,13 @@
     "node": ">=8.0.0"
   },
   "scripts": {
-    "dev": "next",
+    "dev": "PORT=3000 node dev_server",
     "build": "next build && next export",
     "eslint": "eslint pages/*"
   },
   "dependencies": {
+    "express": "4.15.4",
+    "http-proxy-middleware": "0.17.4",
     "next": "3.0.6",
     "react": "15.6.1",
     "react-dom": "15.6.1",
