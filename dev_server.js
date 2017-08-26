@@ -3,13 +3,17 @@ const express = require('express');
 const proxy = require('http-proxy-middleware');
 
 const server = express();
-const app = next({ dev: true });
+const app = next({dev: true});
 const handle = app.getRequestHandler();
 const port = process.env.PORT || 3000;
 
 app.prepare().then(() => {
     //处理静态数据
     server.use('/static', proxy({
+        target: 'http://192.168.200.183',
+        changeOrigin: true
+    }));
+    server.user('/api', proxy({
         target: 'http://192.168.200.183',
         changeOrigin: true
     }));
