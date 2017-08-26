@@ -14,7 +14,7 @@ yarn
 
 yarn run dev
 
-yarn run export //导出静态文件，在out/目录下
+./build //生产环境编译，导出静态文件，在out/目录下
 ```
 
 ### 3. 分支介绍
@@ -32,7 +32,7 @@ feature可以提交到远程，合并到dev时，提交merge request，合并完
 
 ### 4. git 提交规范
 
-提交msg要准确，为了定位问题方便
+提交msg要尽量准确
 
 > * feature：新功能（feature）
 > * fix：修补bug
