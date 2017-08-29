@@ -76,10 +76,15 @@ export default class extends React.Component {
                         margin-top: -30px;
                     }
                     .btn {
-                        width: 100px;
+                        width: 150px;
+                        height: 40px;
                         display: block;
+                        line-height: 30px;
                         text-align: center;
                         color: #fff;
+                        background-image: url(/static/round-btn.png);
+                        background-repeat: no-repeat;
+                        background-size: 100% 100%;
                     }
                 `}</style>
             </div>
