@@ -13,6 +13,10 @@ app.prepare().then(() => {
     //     target: 'http://192.168.200.183',
     //     changeOrigin: true
     // }));
+    server.use('/upload', proxy({
+        target: 'https://www.xiaozao.org',
+        changeOrigin: true
+    }));
     server.use('/api', proxy({
         target: 'http://192.168.200.183',
         changeOrigin: true

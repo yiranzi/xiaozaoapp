@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-function AjaxUtil(param) {
+function AxiosUtil(param) {
     const {method, data, url} = param;
 
     const axios_params = Object.assign({}, {
@@ -30,4 +30,4 @@ function AjaxUtil(param) {
     });
 }
 
-module.exports = AjaxUtil;
+module.exports = AxiosUtil;
