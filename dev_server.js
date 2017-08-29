@@ -13,7 +13,7 @@ app.prepare().then(() => {
         target: 'http://192.168.200.183',
         changeOrigin: true
     }));
-    server.user('/api', proxy({
+    server.use('/api', proxy({
         target: 'http://192.168.200.183',
         changeOrigin: true
     }));
