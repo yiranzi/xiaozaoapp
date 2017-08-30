@@ -17,6 +17,77 @@ export default class extends React.Component {
             )
         })
     }
+    
+    renderGlobalCss() {
+        return (
+            <style jsx global>{`
+                .daily-clock-in-form {
+                    display: flex;
+                    align-items: center;
+                    height: 100vh;
+                    flex-direction: column;
+                }
+                .sub-form {
+                    width: 90vw;
+                    padding: 0 10px;
+                    margin-bottom: 30px;
+                }
+                .sub-form:first-child {
+                    margin-top: 100px;
+                }
+                .date-form {
+                    display: flex;
+                }
+                .date-item {
+                    height: 52px;
+                    width: -webkit-fill-available;
+                    margin-right: 1px;
+                    background: rgb(191, 192, 193);
+                    color: #fff;
+                    text-align: center;
+                    line-height: 52px;
+                }
+                .checked {
+                    background: ${Theme.color.writtentestclockmain};
+                }
+                .content-wrapper {
+                    padding: 25px 15px;
+                    border: 1px solid ${Theme.color.writtentestclockmain};
+                    position: relative;
+                }
+                .wrapper-trangle {
+                    position: absolute;
+                    border-left: 15px solid transparent;
+                    border-right: 15px solid transparent;
+                    border-bottom: 20px solid ${Theme.color.writtentestclockmain};
+                    top: -20px;
+                    left: 65px;
+                }
+                .wrapper-trangle span {
+                    display: block;
+                    position: absolute;
+                    border-left: 15px solid transparent;
+                    border-right: 15px solid transparent;
+                    border-bottom: 20px solid rgb(29, 29, 29);
+                    top: 2px;
+                    left: -15px;
+                }
+                .qr-code {
+                    background: #fff;
+                    width: 100px;
+                    height: 100px;
+                    position: absolute;
+                    right: 20px;
+                    top: 15px;
+                    border: 1px solid ${Theme.color.writtentestclockmain};
+                }
+                .score-content {
+                    height: 50px;
+                    line-height: 50px;
+                }
+            `}</style>
+        )
+    }
 
     render() {
         return (
@@ -41,73 +112,8 @@ export default class extends React.Component {
                         <div className='score-content'>活动后测试：</div>
                     </div> 
                 </div>
-                
-                <style>{`
-                    .daily-clock-in-form {
-                        display: flex;
-                        align-items: center;
-                        height: 100vh;
-                        flex-direction: column;
-                    }
-                    .sub-form {
-                        width: 90vw;
-                        padding: 0 10px;
-                        margin-bottom: 30px;
-                    }
-                    .sub-form:first-child {
-                        margin-top: 100px;
-                    }
-                    .date-form {
-                        display: flex;
-                    }
-                    .date-item {
-                        height: 52px;
-                        width: -webkit-fill-available;
-                        margin-right: 1px;
-                        background: rgb(191, 192, 193);
-                        color: #fff;
-                        text-align: center;
-                        line-height: 52px;
-                    }
-                    .checked {
-                        background: ${Theme.color.writtentestclockmain};
-                    }
-                    .content-wrapper {
-                        padding: 25px 15px;
-                        border: 1px solid ${Theme.color.writtentestclockmain};
-                        position: relative;
-                    }
-                    .wrapper-trangle {
-                        position: absolute;
-                        border-left: 15px solid transparent;
-                        border-right: 15px solid transparent;
-                        border-bottom: 20px solid ${Theme.color.writtentestclockmain};
-                        top: -20px;
-                        left: 65px;
-                    }
-                    .wrapper-trangle span {
-                        display: block;
-                        position: absolute;
-                        border-left: 15px solid transparent;
-                        border-right: 15px solid transparent;
-                        border-bottom: 20px solid rgb(29, 29, 29);
-                        top: 2px;
-                        left: -15px;
-                    }
-                    .qr-code {
-                        background: #fff;
-                        width: 100px;
-                        height: 100px;
-                        position: absolute;
-                        right: 20px;
-                        top: 15px;
-                        border: 1px solid ${Theme.color.writtentestclockmain};
-                    }
-                    .score-content {
-                        height: 50px;
-                        line-height: 50px;
-                    }
-                `}</style>
+                {this.renderGlobalCss()}
+               
             </div>
         );
     }
