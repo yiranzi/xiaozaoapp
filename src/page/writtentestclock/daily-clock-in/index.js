@@ -62,7 +62,7 @@ export default class extends React.Component {
                     }
                     .date-item {
                         height: 52px;
-                        width: 100px;
+                        width: -webkit-fill-available;
                         margin-right: 1px;
                         background: rgb(191, 192, 193);
                         color: #fff;
@@ -101,6 +101,7 @@ export default class extends React.Component {
                         position: absolute;
                         right: 20px;
                         top: 15px;
+                        border: 1px solid ${Theme.color.writtentestclockmain};
                     }
                     .score-content {
                         height: 50px;
