@@ -6,18 +6,19 @@ export default class WrittenTestClock extends React.Component {
     renderAnswerOption(options) {
         return options.map((item, index) => {
             const key = `answer_${index}`;
+            const {tag, content} = item;
             return (
                 <FormCell key={key} radio>
                     <CellFooter>
-                        <Radio name="answer-options" value="2"/>
+                        <Radio name='answer-options' value={tag}/>
                     </CellFooter>
-                    <CellBody>{item.tag}</CellBody>
+                    <CellBody>{tag}.{content}</CellBody>
                 </FormCell>
             );
         });
     }
 
-    renderGlobalCss() {
+    renderCss() {
         return (
             <style>{`
                 .subject-detail .progress {
@@ -74,25 +75,27 @@ export default class WrittenTestClock extends React.Component {
 
     render() {
         const {subject, index, total} = this.props;
-        let progress = parseInt(index / total) * 100;
+        let progress = Math.ceil(index / total * 100);
         return (
-            <div className="subject-detail">
-                <div className="text">答题进度条</div>
-                <div className="progress">
-                    <Progress value={80} showCancel={false}/>
-                    <div className="triangle-up"></div>
-                    <div className="percent">{progress}%</div>
+            <div className='subject-detail'>
+                <div className='text'>答题进度条</div>
+                <div className='progress'>
+                    <Progress value={progress} showCancel={false}/>
+                    <div className='percent' style={{'marginLeft': `${progress}%`}}>
+                        <div className='triangle-up'></div>
+                        <div>{progress}%</div>
+                    </div>
                 </div>
-                <div className="material">
+                <div className='material'>
                     <img src={subject.materialContent}/>
                 </div>
                 <div>{index + 1}.{subject.question}</div>
-                <div className="answer-option">
+                <div className='answer-option'>
                     <Form radio>
                         {this.renderAnswerOption(subject.optionDTOList)}
                     </Form>
                 </div>
-                {this.renderGlobalCss()}
+                {this.renderCss()}
             </div>
         );
     }

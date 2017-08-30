@@ -1,8 +1,8 @@
 import React from 'react';
-import SubjectComponent from './components/subject';
-import ThemeConfig from '../../../config/theme';
+import SubjectComponent from '../components/subject';
+import ThemeConfig from '../../../../config/theme';
 
-export default class AnswerPage extends React.Component {
+export default class TestAnswerPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -10,13 +10,11 @@ export default class AnswerPage extends React.Component {
         };
     }
 
-    renderAnswer() {
-        const {currentObjectIndex} = this.state; //当前题目序号
+    renderAnswer(currentObjectIndex) {
         const {questions} = this.props;
         const questionItem = questions[currentObjectIndex];//题目详情
-
         return (
-            <div className="subject-item">
+            <div className='subject-item'>
                 <SubjectComponent
                     subject={questionItem}
                     index={currentObjectIndex}
@@ -24,6 +22,18 @@ export default class AnswerPage extends React.Component {
                 />
             </div>
         );
+    }
+
+    prevAnswer(currentObjectIndex) {
+        this.setState({
+            currentObjectIndex: currentObjectIndex - 1
+        });
+    }
+
+    nextAnswer(currentObjectIndex) {
+        this.setState({
+            currentObjectIndex: currentObjectIndex + 1
+        });
     }
 
     renderCss() {
@@ -48,12 +58,13 @@ export default class AnswerPage extends React.Component {
     }
 
     render() {
+        const {currentObjectIndex} = this.state;//当前题目在数组中的序号
         return (
-            <div className="written-test-clock-answer">
-                {this.renderAnswer()}
-                <div className="action">
-                    <div><img src="/static/prev.png"/></div>
-                    <div><img src="/static/next.png"/></div>
+            <div className='written-test-clock-answer'>
+                {this.renderAnswer(currentObjectIndex)}
+                <div className='action'>
+                    <div onClick={() => {this.prevAnswer(currentObjectIndex);}}><img src='/static/prev.png'/></div>
+                    <div onClick={() => {this.nextAnswer(currentObjectIndex);}}><img src='/static/next.png'/></div>
                 </div>
                 {this.renderCss()}
             </div>
