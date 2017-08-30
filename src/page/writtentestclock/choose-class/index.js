@@ -13,7 +13,6 @@ export default class extends React.Component {
                         <div className='sub-title'>你的学号是：</div>
                         <div className='sub-content-id'>userid</div>
                     </div>
-
                     <div className='sub-form'>
                         <div className='sub-title'>你的学习群：</div>
                         <div>请扫描二维码，进入你的专属学习群</div>
@@ -23,7 +22,7 @@ export default class extends React.Component {
                         <div className='qr-code'></div>
                     </div>
                 </div>
-                <a className='btn' href=''>进入打卡</a>
+                <a className='go-clock-in' href=''></a>
 
                 <style jsx>{`
                     .class-choose-form {
@@ -75,14 +74,13 @@ export default class extends React.Component {
                         margin: 0 auto;
                         margin-top: -30px;
                     }
-                    .btn {
-                        width: 150px;
-                        height: 40px;
+                    .go-clock-in {
+                        width: 180px;
+                        height: 60px;
                         display: block;
-                        line-height: 30px;
                         text-align: center;
                         color: #fff;
-                        background-image: url(/static/round-btn.png);
+                        background-image: url(/static/go-clock-in.png);
                         background-repeat: no-repeat;
                         background-size: 100% 100%;
                     }
