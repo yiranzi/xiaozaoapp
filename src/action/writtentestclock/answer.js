@@ -21,27 +21,27 @@ const AnswerAction = {
                         {
                             "id": 1212,
                             "tag": "A",
-                            "content": ""
+                            "content": "1"
                         },
                         {
                             "id": 1213,
                             "tag": "B",
-                            "content": ""
+                            "content": "1"
                         },
                         {
                             "id": 1214,
                             "tag": "C",
-                            "content": ""
+                            "content": "1"
                         },
                         {
                             "id": 1215,
                             "tag": "D",
-                            "content": ""
+                            "content": "1"
                         },
                         {
                             "id": 1216,
                             "tag": "E",
-                            "content": ""
+                            "content": "1"
                         },
                         {
                             "id": 1217,
@@ -98,17 +98,17 @@ const AnswerAction = {
                         {
                             "id": 1224,
                             "tag": "A",
-                            "content": ""
+                            "content": "2"
                         },
                         {
                             "id": 1225,
                             "tag": "B",
-                            "content": ""
+                            "content": "2"
                         },
                         {
                             "id": 1226,
                             "tag": "C",
-                            "content": ""
+                            "content": "2"
                         },
                         {
                             "id": 1227,

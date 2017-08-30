@@ -19,9 +19,14 @@ export default class TestAnswerPage extends React.Component {
                     subject={questionItem}
                     index={currentObjectIndex}
                     total={questions.length}
+                    onChange={(value)=>{this.answerCheck(value)}}
                 />
             </div>
         );
+    }
+
+    answerCheck(value){
+        console.log(`选中: ${value}`);
     }
 
     prevAnswer(currentObjectIndex) {

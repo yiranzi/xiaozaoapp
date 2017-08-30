@@ -1,19 +1,18 @@
 import React from 'react';
-import {Progress, Form, FormCell, CellBody, CellFooter, Radio} from 'react-weui';
+import {Progress, Form} from 'react-weui';
+import Radio from '../../../components/radio';
 import ThemeConfig from '../../../../config/theme';
 
 export default class WrittenTestClock extends React.Component {
-    renderAnswerOption(options) {
-        return options.map((item, index) => {
-            const key = `answer_${index}`;
+    renderAnswerOption(options, index) {
+        const {onChange} = this.props;
+        return options.map((item, i) => {
             const {tag, content} = item;
+            const key = `answer_${index}_${i}`;
             return (
-                <FormCell key={key} radio>
-                    <CellFooter>
-                        <Radio name='answer-options' value={tag}/>
-                    </CellFooter>
-                    <CellBody>{tag}.{content}</CellBody>
-                </FormCell>
+                <Radio key={key} name={`answer_options_${index}`} label={content} value={tag} onChange={(value) => {
+                    onChange(value);
+                }}/>
             );
         });
     }
@@ -92,7 +91,7 @@ export default class WrittenTestClock extends React.Component {
                 <div>{index + 1}.{subject.question}</div>
                 <div className='answer-option'>
                     <Form radio>
-                        {this.renderAnswerOption(subject.optionDTOList)}
+                        {this.renderAnswerOption(subject.optionDTOList, index)}
                     </Form>
                 </div>
                 {this.renderCss()}
