@@ -14,7 +14,7 @@ export default class extends React.Component {
         return this.state.dates.map((item, index) => {
             const classname = 'date-item ' + (item && 'checked')
             return (
-                <div className={classname}>{index + 1}</div>
+                <div key={index} className={classname}>{index + 1}</div>
             )
         })
     }
