@@ -3,13 +3,18 @@ import {FormCell, CellBody, CellFooter, Radio} from 'react-weui';
 
 export default class Layout extends React.Component {
     render() {
-        const {name, label, value, onChange} = this.props;
+        const {params, onChange} = this.props;
+        const {name, value, defaultValue, label} = params;
         return (
             <FormCell radio>
                 <CellFooter>
-                    <Radio name={name} value={value} onClick={()=>{onChange(value);}}/>
+                    {defaultValue === value ?
+                        <Radio name={name} value={value} defaultChecked onClick={()=>{onChange(value);}}/>:
+                        <Radio name={name} value={value} onClick={()=>{onChange(value);}}/>
+                    }
+
                 </CellFooter>
-                <CellBody>{value}.{label}</CellBody>
+                <CellBody>{label}</CellBody>
             </FormCell>
         );
     }

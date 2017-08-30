@@ -4,13 +4,21 @@ import Radio from '../../../components/radio';
 import ThemeConfig from '../../../../config/theme';
 
 export default class WrittenTestClock extends React.Component {
-    renderAnswerOption(options, index) {
+    renderAnswerOption(currentIndex, options, selectAnswer) {
         const {onChange} = this.props;
+        const name = `answer_${currentIndex}`;
+
         return options.map((item, i) => {
             const {tag, content} = item;
-            const key = `answer_${index}_${i}`;
+            const radioItem = Object.assign({}, {
+                name: name,
+                value: tag,
+                defaultValue: selectAnswer,
+                label: `${tag}.${content}`
+            });
+            const key = `answer_${currentIndex}_${i}`;
             return (
-                <Radio key={key} name={`answer_options_${index}`} label={content} value={tag} onChange={(value) => {
+                <Radio key={key} params={radioItem} onChange={(value) => {
                     onChange(value);
                 }}/>
             );
@@ -73,8 +81,8 @@ export default class WrittenTestClock extends React.Component {
     }
 
     render() {
-        const {subject, index, total} = this.props;
-        let progress = Math.ceil(index / total * 100);
+        const {total, currentIndex, questionItem, selectAnswer} = this.props.subjectItem;
+        let progress = Math.ceil(currentIndex / total * 100);
         return (
             <div className='subject-detail'>
                 <div className='text'>答题进度条</div>
@@ -86,12 +94,12 @@ export default class WrittenTestClock extends React.Component {
                     </div>
                 </div>
                 <div className='material'>
-                    <img src={subject.materialContent}/>
+                    <img src={questionItem.materialContent}/>
                 </div>
-                <div>{index + 1}.{subject.question}</div>
+                <div>{currentIndex + 1}.{questionItem.question}</div>
                 <div className='answer-option'>
                     <Form radio>
-                        {this.renderAnswerOption(subject.optionDTOList, index)}
+                        {this.renderAnswerOption(currentIndex, questionItem.optionDTOList, selectAnswer)}
                     </Form>
                 </div>
                 {this.renderCss()}
