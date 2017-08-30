@@ -1,5 +1,5 @@
 import React from 'react';
-import Theme from '../../../../config/theme';
+import Footer from '../components/footer'
 export default class extends React.Component {
 
     constructor(props) {
@@ -15,12 +15,14 @@ export default class extends React.Component {
                     <a className='btn today-push'></a>
                     <a className='btn test'></a>
                 </div>
+                <Footer/>
                 <style jsx>{`
                     .index-clock-in-form {
                         display: flex;
                         align-items: center;
                         justify-content: center;
                         height: 100vh;
+                        flex-direction: column;
                     }
                     .btn-form {
                         display: flex;
