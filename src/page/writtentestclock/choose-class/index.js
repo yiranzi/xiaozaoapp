@@ -4,10 +4,9 @@ export default class extends React.Component {
     render() {
         return (
             <div className='class-choose-form'>
-                <div className='class-choose-title'>
-                    您已成功选择班级！
-                </div>
-                <div className='trangle'></div>
+                <div className='class-choose-title-bg'></div>
+                <div className='class-choose-title'>您已经成功选择班级!</div>
+                
                 <div className='class-choose-content'>
                     <div className='sub-form'>
                         <div className='sub-title'>你的学号是：</div>
@@ -31,23 +30,21 @@ export default class extends React.Component {
                         align-items: center;
                     }
                     .class-choose-title {
-                        width: 100vw;
-                        text-align: center;
+                        position: absolute;
                         color: #fff;
                         font-size: 30px;
                         font-weight: bold;
-                        background: ${Theme.color.writtentestclockmain};
                         text-shadow: 5px 5px 10px grey;
-                        height: 7rem;
-                        line-height: 8rem;
+                        margin: 2rem 0;
+                    }
+                    .class-choose-title-bg {
+                        height: 100px;
+                        border-left: 100vw solid ${Theme.color.writtentestclockmain};
+                        border-bottom: 26px solid transparent;  
                     }
                     .class-choose-content {
                         width: 18rem;
                         margin-top: 10px;
-                    }
-                    .trangle {
-                        border-top: 30px solid #45cd17;
-                        border-right: 100vw solid transparent;
                     }
                     .sub-form {
                         margin: 35px 0;
