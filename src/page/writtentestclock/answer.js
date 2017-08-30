@@ -26,15 +26,22 @@ export default class AnswerPage extends React.Component {
         );
     }
 
-    renderGlobalCss(){
+    renderCss() {
         return (
-            <style global jsx>{`
+            <style>{`
                 .triangle-up {
                     width: 0;
                     height: 0;
                     border-left: 0.5rem solid transparent;
                     border-right: 0.5rem solid transparent;
                     border-bottom: 1rem solid ${ThemeConfig.color.writtentestclockmain};
+                }
+                .action {
+                    display: flex;
+                    justify-content: space-between;
+                }
+                .action img {
+                    width: 100%;
                 }
             `}</style>
         );
@@ -44,7 +51,11 @@ export default class AnswerPage extends React.Component {
         return (
             <div className="written-test-clock-answer">
                 {this.renderAnswer()}
-                {this.renderGlobalCss()}
+                <div className="action">
+                    <div><img src="/static/prev.png"/></div>
+                    <div><img src="/static/next.png"/></div>
+                </div>
+                {this.renderCss()}
             </div>
         );
     }

@@ -75,7 +75,6 @@ export default class WrittenTestClock extends React.Component {
     render() {
         const {subject, index, total} = this.props;
         let progress = parseInt(index / total) * 100;
-        console.log(subject);
         return (
             <div className="subject-detail">
                 <div className="text">答题进度条</div>
