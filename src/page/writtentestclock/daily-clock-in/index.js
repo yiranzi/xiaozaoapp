@@ -1,5 +1,6 @@
 import React from 'react';
 import Theme from '../../../../config/theme';
+import Footer from '../components/footer'
 export default class extends React.Component {
 
     constructor(props) {
@@ -85,6 +86,13 @@ export default class extends React.Component {
                     height: 50px;
                     line-height: 50px;
                 }
+                .prize {
+                    background-image: url(/static/prize.png);
+                    background-repeat: no-repeat;
+                    background-size: 100% 100%;
+                    width: 10rem;
+                    height: 4rem;
+                }
             `}</style>
         )
     }
@@ -112,6 +120,8 @@ export default class extends React.Component {
                         <div className='score-content'>活动后测试：</div>
                     </div> 
                 </div>
+                <a className='prize'></a>
+                <Footer/>
                 {this.renderGlobalCss()}
                
             </div>

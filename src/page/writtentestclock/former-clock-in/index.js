@@ -1,5 +1,6 @@
 import React from 'react';
 import Theme from '../../../../config/theme';
+import Footer from '../components/footer'
 export default class extends React.Component {
 
     constructor(props) {
@@ -44,7 +45,7 @@ export default class extends React.Component {
                 .clock-in-form {
                     display: flex;
                     align-items: center;
-                    padding: 0 30px;
+                    
                     height: 100vh;
                 }
                 .clock-in-list {
@@ -53,6 +54,7 @@ export default class extends React.Component {
                     background: rgb(30, 31, 32);
                     border: 1px solid ${Theme.color.writtentestclockmain};
                     padding: 0 20px;
+                    margin: 0 30px;
                 }
                 .clock-in-item {
                     position: relative;
@@ -110,6 +112,7 @@ export default class extends React.Component {
                 <div className='clock-in-list'>
                     {this.state.list.map((item, index) => this.renderItem(item, index))}
                 </div>
+                <Footer/>
                 {this.renderGlobalCss()}
             </div>
         );
