@@ -72,8 +72,8 @@ export default class extends React.Component {
                         margin-top: -30px;
                     }
                     .go-clock-in {
-                        width: 180px;
-                        height: 60px;
+                        width: 12rem;
+                        height: 4rem;
                         display: block;
                         text-align: center;
                         color: #fff;
