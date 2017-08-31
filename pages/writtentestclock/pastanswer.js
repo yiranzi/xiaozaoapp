@@ -1,6 +1,6 @@
 import React from 'react';
 import WrittenTestClock from '../../src/page/writtentestclock/components/layout';
-import AnswerPage from '../../src/page/writtentestclock/answer';
+import PastAnswerPage from '../../src/page/writtentestclock/pastanswer';
 import AnswerAction from '../../src/action/writtentestclock/answer';
 
 export default class extends React.Component {
@@ -20,7 +20,7 @@ export default class extends React.Component {
         const {questions} = this.props;
         return (
             <WrittenTestClock>
-                <AnswerPage questions={questions.topicDTOList}/>
+                <PastAnswerPage questions={questions.topicDTOList}/>
             </WrittenTestClock>
         );
     }
