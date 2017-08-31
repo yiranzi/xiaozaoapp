@@ -6,15 +6,15 @@ export default class AnswerPage extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            content: ['恭喜你！报名成功！', '离四大又近了一步', '不过，你也一定很好奇：', 
-                '以我现在的笔试水平，到底有多大把握进四大？', '为了避免', '你在高级班跟不上节奏的尴尬', 
+            content: ['恭喜你！报名成功！', '离四大又近了一步', '不过，你也一定很好奇：',
+                '以我现在的笔试水平，到底有多大把握进四大？', '为了避免', '你在高级班跟不上节奏的尴尬',
                 '在初级班又有孤独求败的体验', '不如趁现在！', '我们花几分钟来个小测试', '搞清楚自己是报笔试基础班还是高级班吧！']
         }
     }
-    
+
     renderGlobalCss = () => {
         return (
-            <style jsx>{`
+            <style global jsx>{`
                 .title {
                     font-size: 25px;
                     font-weight: bold;
@@ -26,10 +26,11 @@ export default class AnswerPage extends React.Component {
                     border: 1px solid;
                     margin: 10px;
                     position: relative;
+                    padding: 20px 0;
                 }
                 .tips {
                     text-align: center;
-                    margin: 15px 0;
+                    margin: 12px 0;
                     text-shadow: 0px 7px 3px #000;
                 }
                 .corner {
@@ -67,6 +68,18 @@ export default class AnswerPage extends React.Component {
                     border-bottom: none;
                     border-right: none;
                 }
+                .img {
+                    color: #000;
+                    display: block;
+                    background-image: url(/static/round-btn.png);
+                    background-repeat: no-repeat;
+                    background-size: 100% 100%;
+                    text-align: center;
+                    height: 50px;
+                    padding-right: 10px;
+                    line-height: 36px;
+                    margin-top: 20px;
+                }
             `}</style>
         )
     }
@@ -81,18 +94,26 @@ export default class AnswerPage extends React.Component {
     render() {
         return (
             <div>
-                <Flex>
+                <Flex >
                     <FlexItem>
                         <div className="title">小灶四大笔试七天打卡计划</div>
                     </FlexItem>
                 </Flex>
                 <Flex>
                     <FlexItem className='tips-form'>
-                    <div className='corner-top-left corner'></div>
-                    <div className='corner-top-right corner'></div>
-                    <div className='corner-bottom-left corner'></div>
-                    <div className='corner-bottom-right corner'></div>
-                    {this.renderContent()}
+                        <div className='corner-top-left corner'></div>
+                        <div className='corner-top-right corner'></div>
+                        <div className='corner-bottom-left corner'></div>
+                        <div className='corner-bottom-right corner'></div>
+                        {this.renderContent()}
+                    </FlexItem>
+                </Flex>
+                <Flex>
+                    <FlexItem>
+                        <a className="img">马上点击测试</a>
+                    </FlexItem>
+                    <FlexItem>
+                        <a className="img">直接选择班级</a>
                     </FlexItem>
                 </Flex>
                 {this.renderGlobalCss()}
