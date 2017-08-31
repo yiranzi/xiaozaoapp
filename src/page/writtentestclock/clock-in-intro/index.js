@@ -5,9 +5,11 @@ export default class extends React.Component {
 
     constructor(props) {
         super(props)
-
+        const { evaluationResult } = props.info
+        console.log(props)
         this.state = {
-            showMore: false
+            showMore: false,
+            isAdvanced: evaluationResult ? evaluationResult > 65 ? 2 : 1 : 0
         }
     }
 
@@ -101,17 +103,18 @@ export default class extends React.Component {
         )
     }
     render() {
-        const { showMore } = this.state
+        const { showMore, isAdvanced } = this.state
+        console.log(isAdvanced)
         return (
             <div>
                 <img className="bg-img" src="/static/intro.jpeg" />
                 <div className='btn-form'>
                     {showMore &&
-                    <div className="choose-class-form">
-                        <div className={classnames('choose-class', {"recommend-left": true})}>全能提升基础班</div>
-                        <div className={classnames('choose-class', {"recommend-right": true})}>全能提升进阶班</div>
-                        <div className="trangle"></div>
-                    </div>
+                        <div className="choose-class-form">
+                            <div className={classnames('choose-class', { "recommend-left": isAdvanced == 1 })}>全能提升基础班</div>
+                            <div className={classnames('choose-class', { "recommend-right": isAdvanced == 2 })}>全能提升进阶班</div>
+                            <div className="trangle"></div>
+                        </div>
                     }
                     <div className="btn-img" onClick={this.showMoreClick}>开启我的笔试进阶修炼</div>
                 </div>
