@@ -1,5 +1,6 @@
 import React from 'react';
 import Theme from '../../../../config/theme'
+import classnames from 'classnames'
 export default class extends React.Component {
 
     constructor(props) {
@@ -72,6 +73,30 @@ export default class extends React.Component {
                     border-top: 20px solid ${Theme.color.writtentestclockmain};
                     top: 30px;
                 }
+                .recommend-left:before {
+                    content: '';
+                    background-image: url(/static/recommend.png);
+                    background-repeat: no-repeat;
+                    background-size: 100% 100%;
+                    height: 40px;
+                    width: 40px;
+                    display: block;
+                    top: 0;
+                    left: -20px;
+                    position: absolute;
+                }
+                .recommend-right:before {
+                    content: '';
+                    background-image: url(/static/recommend.png);
+                    background-repeat: no-repeat;
+                    background-size: 100% 100%;
+                    height: 40px;
+                    width: 40px;
+                    display: block;
+                    top: 0;
+                    right: -20px;
+                    position: absolute;
+                }
             `}</style>
         )
     }
@@ -83,8 +108,8 @@ export default class extends React.Component {
                 <div className='btn-form'>
                     {showMore &&
                     <div className="choose-class-form">
-                        <div className="choose-class">全能提升基础班</div>
-                        <div className="choose-class">全能提升进阶班</div>
+                        <div className={classnames('choose-class', {"recommend-left": true})}>全能提升基础班</div>
+                        <div className={classnames('choose-class', {"recommend-right": true})}>全能提升进阶班</div>
                         <div className="trangle"></div>
                     </div>
                     }
