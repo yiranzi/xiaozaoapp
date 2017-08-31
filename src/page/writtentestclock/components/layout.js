@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from '../../../components/layout';
 import ThemeConfig from '../../../../config/theme';
-import {Toptips} from 'react-weui';
+
 
 export default class WrittenTestClock extends React.Component {
     renderGlobalCss(){
@@ -20,9 +20,8 @@ export default class WrittenTestClock extends React.Component {
     render() {
         const {error} = this.props;
         return (
-            <Layout>
+            <Layout error={error}>
                 <div className="written-test-clock">
-                    {error && <Toptips type="warn" show={true}>{error.message ? error.message : '请检查网络'}</Toptips>}
                     {this.props.children}
                 </div>
                 {this.renderGlobalCss()}
