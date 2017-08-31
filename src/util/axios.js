@@ -1,7 +1,11 @@
 const axios = require('axios');
 
 function AxiosUtil(param) {
-    const {method, data, url} = param;
+    let {method, data, url} = param;
+
+    if(process.env.NODE_ENV === "development"){
+        url = `http://192.168.200.183:8082${url}`;
+    }
 
     const axios_params = Object.assign({}, {
         method: method,

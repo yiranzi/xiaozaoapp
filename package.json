@@ -5,7 +5,7 @@
     "node": ">=8.0.0"
   },
   "scripts": {
-    "dev": "PORT=3000 node dev_server",
+    "dev": "PORT=3000 NODE_ENV=development node dev_server",
     "build": "NODE_ENV=production next build && next export",
     "eslint": "eslint pages/*"
   },

@@ -17,10 +17,6 @@ app.prepare().then(() => {
         target: 'https://www.xiaozao.org',
         changeOrigin: true
     }));
-    server.use('/api', proxy({
-        target: 'http://192.168.200.183:8082',
-        changeOrigin: true
-    }));
     //路由使用next约定处理
     server.all('*', (req, res) => {
         return handle(req, res);
