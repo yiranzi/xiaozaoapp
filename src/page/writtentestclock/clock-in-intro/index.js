@@ -6,7 +6,6 @@ export default class extends React.Component {
     constructor(props) {
         super(props)
         const { evaluationResult } = props.info
-        console.log(props)
         this.state = {
             showMore: false,
             isAdvanced: evaluationResult ? evaluationResult > 65 ? 2 : 1 : 0
@@ -104,7 +103,6 @@ export default class extends React.Component {
     }
     render() {
         const { showMore, isAdvanced } = this.state
-        console.log(isAdvanced)
         return (
             <div>
                 <img className="bg-img" src="/static/intro.jpeg" />
