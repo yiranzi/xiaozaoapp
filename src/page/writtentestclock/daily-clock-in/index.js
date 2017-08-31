@@ -5,8 +5,11 @@ export default class extends React.Component {
 
     constructor(props) {
         super(props)
-        console.log(props)
-        const { completeDay } = props.info
+        const { completeDay, startDay, endDay } = props.info
+        const duringDay = endDay - startDay
+        for(let i = completeDay.length; i < duringDay; i++) {
+            completeDay.push(0)
+        }
         this.state = {
             dates: completeDay
         }
