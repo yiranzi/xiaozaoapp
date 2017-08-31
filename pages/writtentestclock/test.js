@@ -5,22 +5,24 @@ import AnswerAction from '../../src/action/writtentestclock/answer';
 
 export default class extends React.Component {
     static async getInitialProps({req}) {
-        let questions;
+        let questions, error;
         try {
-            questions = AnswerAction.getEntryTest();
-        } catch (error) {
-
+            questions = await AnswerAction.getEvaluation();
+        } catch (err) {
+            error = err;
         }
         return {
-            questions
+            questions,
+            error
         }
     }
 
     render() {
-        const {questions} = this.props;
+        const {questions, error} = this.props;
+        console.log(questions)
         return (
-            <WrittenTestClock>
-                <TestAnswerPage questions={questions.topicDTOList}/>
+            <WrittenTestClock error={error}>
+                {/*<TestAnswerPage questions={questions.topicDTOList}/>*/}
             </WrittenTestClock>
         );
     }

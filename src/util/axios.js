@@ -15,9 +15,9 @@ function AxiosUtil(param) {
         axios_params.data = data;
     }
     return new Promise((resolve, reject) => {
-        axios(axios_params).then((response) => {
-            if (response.status == 200 && response.data.status == 200) {
-                resolve(response.data);
+        axios(axios_params).then((res) => {
+            if (res.status == 200 && res.data.status == 200) {
+                resolve(res.data.response);
             } else {
                 // 接口返回错误
                 const json = {
@@ -29,7 +29,7 @@ function AxiosUtil(param) {
                 reject(json);
             }
         }).catch((error) => {
-            reject(error);
+            reject(error.response.status);
         });
     });
 }
