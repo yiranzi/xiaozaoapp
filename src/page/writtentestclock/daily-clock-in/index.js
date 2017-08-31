@@ -84,6 +84,8 @@ export default class extends React.Component {
                     right: 20px;
                     top: 15px;
                     border: 1px solid ${Theme.color.writtentestclockmain};
+                    background-image: url(/static/demo-qr-code.png);
+                    background-size: 100% 100%;
                 }
                 .score-content {
                     height: 50px;
@@ -101,6 +103,8 @@ export default class extends React.Component {
     }
 
     render() {
+
+        const { no, groupNo, testResult, evaluationResult } = this.props.info
         return (
             <div className='daily-clock-in-form'>
                 <div className='sub-form'>
@@ -110,17 +114,17 @@ export default class extends React.Component {
                 <div className='sub-form'>
                     <div className='title'>我的信息</div>
                     <div className='content-wrapper'>
-                        学号：100050
+                        学号：{no}
                         <div className='wrapper-trangle'><span></span></div>
-                        <div className='qr-code'></div>
+                        <div className='qr-code'>{groupNo}</div>
                     </div>
                 </div>
                 <div className='sub-form'>
                     <div className='title'>我的成绩</div>  
                     <div className='content-wrapper'>
                         <div className='wrapper-trangle'><span></span></div>
-                        <div className='score-content'>入学前测评：</div>
-                        <div className='score-content'>活动后测试：</div>
+                        <div className='score-content'>入学前测评：{evaluationResult || ''}</div>
+                        <div className='score-content'>活动后测试：{testResult || ''}</div>
                     </div> 
                 </div>
                 <a className='prize'></a>

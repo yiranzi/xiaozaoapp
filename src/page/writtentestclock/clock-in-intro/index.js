@@ -67,8 +67,8 @@ export default class extends React.Component {
                 .trangle {
                     display: block;
                     position: absolute;
-                    border-left: 15px solid transparent;
-                    border-right: 15px solid transparent;
+                    border-left: 20px solid transparent;
+                    border-right: 20px solid transparent;
                     border-top: 20px solid ${Theme.color.writtentestclockmain};
                     top: 30px;
                 }

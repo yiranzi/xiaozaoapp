@@ -79,6 +79,8 @@ export default class AnswerPage extends React.Component {
                     background-size: 100% 100%;
                     text-align: center;
                     height: 50px;
+                    width: 150px;
+                    margin: 0 auto;
                     padding-right: 10px;
                     line-height: 36px;
                     margin-top: 20px;

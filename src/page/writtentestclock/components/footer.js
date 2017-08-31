@@ -21,6 +21,7 @@ export default class extends React.Component {
                     height: 30px;
                     width: -webkit-fill-available;
                     text-align: center;
+                    line-height: 30px;
                 }
                 .footer-item:not(:last-child) {
                     border-right: 2px solid #000;

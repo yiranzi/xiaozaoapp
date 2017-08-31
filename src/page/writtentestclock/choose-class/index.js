@@ -1,7 +1,10 @@
 import React from 'react';
 import Theme from '../../../../config/theme'
 export default class extends React.Component {
-
+    constructor(props) {
+        super(props)
+        
+    }
     renderGlobalCss() {
         return (
             <style jsx global>{`
@@ -54,6 +57,8 @@ export default class extends React.Component {
                     height: 130px;
                     margin: 0 auto;
                     margin-top: -30px;
+                    background-image: url(/static/demo-qr-code.png);
+                    background-size: 100% 100%;
                 }
                 .go-clock-in {
                     width: 12rem;
@@ -69,6 +74,8 @@ export default class extends React.Component {
         )
     }
     render() {
+
+        const { no } = this.props.info
         return (
             <div className='class-choose-form'>
                 <div className='class-choose-title-bg'></div>
@@ -77,7 +84,7 @@ export default class extends React.Component {
                 <div className='class-choose-content'>
                     <div className='sub-form'>
                         <div className='sub-title'>你的学号是：</div>
-                        <div className='sub-content-id'>userid</div>
+                        <div className='sub-content-id'>{no}</div>
                     </div>
                     <div className='sub-form'>
                         <div className='sub-title'>你的学习群：</div>
