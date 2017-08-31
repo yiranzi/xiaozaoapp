@@ -5,37 +5,33 @@ export default class extends React.Component {
 
     constructor(props) {
         super(props)
-        console.log(props)
-        this.state = {
-            list: [{
-                date: '8月1日',
-                day: 'day1',
-                check: 'check'
-            }, {
-                date: '8月1日',
-                day: 'day1',
-                check: 'check'
-            }, {
-                date: '8月1日',
-                day: 'day1',
-                check: 'check'
-            }, {
-                date: '8月1日',
-                day: 'day1',
-                check: 'check'
-            }]
+        let obj = {}
+        obj.list = []
+        let {startDay, endDay, completeDay} = props.info
+        const duringDay = Math.ceil((endDay - startDay)/3600/24/1000)
+
+        for(let i = 0; i < duringDay; i++) {
+            const date = new Date(startDay)
+            const Month = date.getMonth()+1
+            const Day = date.getDate()
+            obj.list.push({
+                date: `${Month}月${Day}日`,
+                day: `day${i+1}`,
+                check: completeDay[i] ? 'check' : 'cross'
+            })
+            startDay += 3600*24*1000
         }
+
+        this.state = obj
     }
     renderItem = (item, index) => {
         return (
             <div className='clock-in-item' key={index}>
-                {/* <div className='left-round'></div> */}
                 <div className='content'>
                     <div>{item.date}</div>
                     <div>{item.day}</div>
                     <div className={item.check}></div>
                 </div>
-                {/* <div className='right-round'></div> */}
             </div>
         )
     }
@@ -100,6 +96,13 @@ export default class extends React.Component {
                 }
                 .check{
                     background-image: url(/static/check.png);
+                    background-repeat: no-repeat;
+                    background-size: 100% 100%;
+                    height: 50px;
+                    width: 50px;
+                }
+                .cross{
+                    background-image: url(/static/cross.png);
                     background-repeat: no-repeat;
                     background-size: 100% 100%;
                     height: 50px;
