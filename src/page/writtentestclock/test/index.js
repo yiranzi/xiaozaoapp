@@ -102,11 +102,11 @@ export default class TestAnswerPage extends React.Component {
 
     render() {
         const {currentObjectIndex,finish} = this.state;//当前题目在数组中的序号
-        const {questions} = this.props;
+        const {questionList} = this.props;
         return (
             <div className='written-test-clock-answer'>
-                {this.renderAnswer(currentObjectIndex, questions)}
-                {finish ? this.renderFinishButton() : this.renderActionButton(currentObjectIndex, questions)}
+                {this.renderAnswer(currentObjectIndex, questionList)}
+                {finish ? this.renderFinishButton() : this.renderActionButton(currentObjectIndex, questionList)}
                 {this.renderCss()}
             </div>
         );
