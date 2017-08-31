@@ -11,6 +11,7 @@ export default class WrittenTestClock extends React.Component {
                     min-height: 100vh;
                     color: ${ThemeConfig.color.writtentestclockmain};
                     padding: 1rem;
+                    background-size: 100%;
                 }
             `}</style>
         );
