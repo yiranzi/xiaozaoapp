@@ -19,12 +19,12 @@ function AxiosUtil(param) {
             if (res.status == 200 && res.data.status == 200) {
                 resolve(res.data.response);
             } else {
+                const {data} = res;
                 // 接口返回错误
                 const json = {
-                    status: response.data.status,
-                    message: response.data.message,
-                    url: param.url,
-                    param: data
+                    status: data.status,
+                    message: data.message,
+                    url: param.url
                 };
                 reject(json);
             }

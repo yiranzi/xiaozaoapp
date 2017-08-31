@@ -22,7 +22,7 @@ export default class WrittenTestClock extends React.Component {
         return (
             <Layout>
                 <div className="written-test-clock">
-                    {error && <Toptips type="warn" show={true}>{error}</Toptips>}
+                    {error && <Toptips type="warn" show={true}>{error.message ? error.message : '请检查网络'}</Toptips>}
                     {this.props.children}
                 </div>
                 {this.renderGlobalCss()}

@@ -7,6 +7,13 @@ const AnswerAction = {
             method: 'get',
             url: '/api/clock/getEvaluation'
         });
+    },
+    //获取今日推送题目
+    getToday: function () {
+        return AxiosUtil({
+            method: 'get',
+            url: '/api/clock/getToday'
+        });
     }
 };
 
