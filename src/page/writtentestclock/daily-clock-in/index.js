@@ -42,7 +42,7 @@ export default class extends React.Component {
                     margin-bottom: 30px;
                 }
                 .sub-form:first-child {
-                    margin-top: 100px;
+                    margin-top: 30px;
                 }
                 .date-form {
                     display: flex;
@@ -89,8 +89,10 @@ export default class extends React.Component {
                     right: 20px;
                     top: 15px;
                     border: 1px solid ${Theme.color.writtentestclockmain};
-                    background-image: url(/static/demo-qr-code.png);
-                    background-size: 100% 100%;
+                }
+                .qr-code img{
+                    width: 100px;
+                    height: 100px;
                 }
                 .comment{
                     white-space:normal;
@@ -122,7 +124,9 @@ export default class extends React.Component {
                     <div className='content-wrapper'>
                         学号：{no}
                         <div className='wrapper-trangle'><span></span></div>
-                        <div className='qr-code'>{groupNo}</div>
+                        <div className='qr-code'>
+                            <img src='/static/demo-qr-code.png'/>
+                        </div>
                     </div>
                 </div>
                 <div className='sub-form'>

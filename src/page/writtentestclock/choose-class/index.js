@@ -57,8 +57,10 @@ export default class extends React.Component {
                     height: 130px;
                     margin: 0 auto;
                     margin-top: -30px;
-                    background-image: url(/static/demo-qr-code.png);
-                    background-size: 100% 100%;
+                }
+                .qr-code img {
+                    width: 130px;
+                    height: 130px;
                 }
                 .go-clock-in {
                     width: 12rem;
@@ -92,7 +94,9 @@ export default class extends React.Component {
                     </div>
                     <div className='sub-form'>
                         <div className='sub-title'>二维码：</div>
-                        <div className='qr-code'></div>
+                        <div className='qr-code'>
+                            <img src='/static/demo-qr-code.png'/>
+                        </div>
                     </div>
                 </div>
                 <a className='go-clock-in' href=''></a>
