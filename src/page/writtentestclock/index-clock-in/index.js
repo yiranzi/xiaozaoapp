@@ -5,6 +5,16 @@ export default class extends React.Component {
     constructor(props) {
         super(props)
     }
+
+    renderGlobalClass() {
+        return (
+            <style jsx global>{`
+                .written-test-clock {
+                    padding: 0!important;
+                }
+            `}</style>
+        )
+    }
     
     render() {
         return (
@@ -16,7 +26,9 @@ export default class extends React.Component {
                     <a className='btn test'></a>
                 </div>
                 <Footer/>
+                {this.renderGlobalClass()}
                 <style jsx>{`
+                
                     .index-clock-in-form {
                         display: flex;
                         align-items: center;

@@ -42,6 +42,9 @@ export default class extends React.Component {
     renderGlobalCss() {
         return (
             <style jsx global>{`
+                .written-test-clock {
+                    padding: 0!important;
+                }
                 .clock-in-form {
                     display: flex;
                     align-items: center;

@@ -12,6 +12,9 @@ export default class AnswerPage extends React.Component {
     renderGlobalCss = () => {
         return (
             <style global jsx >{`
+                .written-test-clock {
+                    padding: 0!important;
+                }
                 .square-form {
                     height: 100vh;
                     display: flex;

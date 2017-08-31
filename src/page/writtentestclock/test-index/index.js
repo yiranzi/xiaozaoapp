@@ -15,6 +15,9 @@ export default class AnswerPage extends React.Component {
     renderGlobalCss = () => {
         return (
             <style global jsx>{`
+                .written-test-clock {
+                    padding: 0!important;
+                }
                 .title {
                     font-size: 25px;
                     font-weight: bold;
