@@ -81,8 +81,9 @@ export default class WrittenTestClock extends React.Component {
     }
 
     render() {
-        const {total, currentIndex, questionItem, selectAnswer} = this.props.subjectItem;
-        let progress = Math.ceil(currentIndex / total * 100);
+        const {total, questionItem, selectAnswer} = this.props.subjectItem;
+        const {no} = questionItem;
+        let progress = Math.ceil(no / total * 100);
         return (
             <div className='subject-detail'>
                 <div className='text'>答题进度条</div>
@@ -96,10 +97,10 @@ export default class WrittenTestClock extends React.Component {
                 <div className='material'>
                     <img src={questionItem.materialContent}/>
                 </div>
-                <div>{currentIndex + 1}.{questionItem.question}</div>
+                <div>{questionItem.no}.{questionItem.question}</div>
                 <div className='answer-option'>
                     <Form radio>
-                        {this.renderAnswerOption(currentIndex, questionItem.optionDTOList, selectAnswer)}
+                        {this.renderAnswerOption(no, questionItem.optionDTOList, selectAnswer)}
                     </Form>
                 </div>
                 {this.renderCss()}

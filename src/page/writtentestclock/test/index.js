@@ -19,7 +19,6 @@ export default class TestAnswerPage extends React.Component {
         const questionItem = questions[currentObjectIndex];//题目详情
         const subjectItem = Object.assign({}, {
             total: questions.length,//当前试卷总共多少题
-            currentIndex: currentObjectIndex, //当前题目在数组中的编号
             questionItem: questionItem, //题目数组
             selectAnswer: answerList[questionItem.id],//已选答案
         })
@@ -48,9 +47,10 @@ export default class TestAnswerPage extends React.Component {
 
     nextAnswer(currentObjectIndex, questions) {
         let nextObjectIndex = currentObjectIndex + 1;
-        if(nextObjectIndex >= questions.length){
+        if(nextObjectIndex >= questions.length - 1){
             this.setState({
-                finish: true
+                finish: true,
+                currentObjectIndex: nextObjectIndex
             });
         }else{
             this.setState({
@@ -84,6 +84,10 @@ export default class TestAnswerPage extends React.Component {
                     border-left: 0.5rem solid transparent;
                     border-right: 0.5rem solid transparent;
                     border-bottom: 1rem solid ${ThemeConfig.color.writtentestclockmain};
+                    margin-left: -0.75rem;
+                }
+                .triangle-up + div {
+                    margin-left: -1rem;
                 }
                 .action {
                     display: flex;
