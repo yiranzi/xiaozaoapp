@@ -17,7 +17,7 @@ export default class extends React.Component {
             obj.list.push({
                 date: `${Month}月${Day}日`,
                 day: `DAY${i+1}`,
-                check: completeDay[i] ? 'check' : 'cross'
+                check: completeDay[i]==undefined ? 'unknow' : completeDay[i] ? 'check' : 'cross'
             })
             startDay += 3600*24*1000
         }
@@ -105,6 +105,10 @@ export default class extends React.Component {
                     background-image: url(/static/cross.png);
                     background-repeat: no-repeat;
                     background-size: 100% 100%;
+                    height: 40px;
+                    width: 40px;
+                }
+                .unknow {
                     height: 40px;
                     width: 40px;
                 }
