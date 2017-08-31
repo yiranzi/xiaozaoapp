@@ -1,6 +1,13 @@
 const AxiosUtil = require('../../../src/util/axios');
 
-const AnswerAction = {
+const Action = {
+    //获取历史
+    getHistory: function () {
+        return AxiosUtil({
+            method: 'get',
+            url: '/api/clock/getHistory'
+        });
+    },
     //获取用户信息
     getInfo: function () {
         return AxiosUtil({
@@ -10,4 +17,4 @@ const AnswerAction = {
     }
 };
 
-module.exports = AnswerAction;
+module.exports = Action;
