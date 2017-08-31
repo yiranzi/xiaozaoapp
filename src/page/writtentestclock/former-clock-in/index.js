@@ -16,7 +16,7 @@ export default class extends React.Component {
             const Day = date.getDate()
             obj.list.push({
                 date: `${Month}月${Day}日`,
-                day: `day${i+1}`,
+                day: `DAY${i+1}`,
                 check: completeDay[i] ? 'check' : 'cross'
             })
             startDay += 3600*24*1000
@@ -61,7 +61,7 @@ export default class extends React.Component {
                     height: 80px;
                     border-bottom: 1px dashed ${Theme.color.writtentestclockmain};
                 }
-                .clock-in-item:first-child:before {
+                .clock-in-item:nth-child(2):before {
                     content: '';
                     position: absolute;
                     display: block;
@@ -74,7 +74,7 @@ export default class extends React.Component {
                     height: 20px;
                     border-radius: 0 20px 20px 0;
                 }
-                .clock-in-item:first-child:after {
+                .clock-in-item:nth-child(2):after {
                     content: '';
                     position: absolute;
                     display: block;
@@ -90,7 +90,7 @@ export default class extends React.Component {
                 .content {
                     display: flex;
                     justify-content: space-around;
-                    font-size: 30px;
+                    font-size: 25px;
                     height: 70px;
                     align-items: flex-end;
                 }
@@ -98,15 +98,21 @@ export default class extends React.Component {
                     background-image: url(/static/check.png);
                     background-repeat: no-repeat;
                     background-size: 100% 100%;
-                    height: 50px;
-                    width: 50px;
+                    height: 40px;
+                    width: 40px;
                 }
                 .cross{
                     background-image: url(/static/cross.png);
                     background-repeat: no-repeat;
                     background-size: 100% 100%;
-                    height: 50px;
-                    width: 50px;
+                    height: 40px;
+                    width: 40px;
+                }
+                .title {
+                    text-align: center;
+                    font-size: 28px;
+                    font-weight: bold;
+                    margin-top: 20px;
                 }
             `}</style>  
         )
@@ -117,6 +123,7 @@ export default class extends React.Component {
             <div className='clock-in-form'>
 
                 <div className='clock-in-list'>
+                    <div className="title">入 学 前 测 评</div>
                     {this.state.list.map((item, index) => this.renderItem(item, index))}
                 </div>
                 <Footer/>
