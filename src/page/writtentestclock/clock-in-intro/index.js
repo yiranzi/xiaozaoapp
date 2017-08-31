@@ -20,6 +20,9 @@ export default class extends React.Component {
     renderGlobalCss = () => {
         return (
             <style global jsx>{`
+                .written-test-clock {
+                    padding: 0!important;
+                }
                 .bg-img {
                     width: 100%;
                 }

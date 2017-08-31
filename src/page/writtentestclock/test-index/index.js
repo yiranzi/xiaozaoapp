@@ -110,10 +110,10 @@ export default class AnswerPage extends React.Component {
                 </Flex>
                 <Flex>
                     <FlexItem>
-                        <a className="img">马上点击测试</a>
+                        <a className="img" href='/writtentestclock/test'>马上点击测试</a>
                     </FlexItem>
                     <FlexItem>
-                        <a className="img">直接选择班级</a>
+                        <a className="img" href='/writtentestclock/clock-in-intro'>直接选择班级</a>
                     </FlexItem>
                 </Flex>
                 {this.renderGlobalCss()}
