@@ -4,6 +4,11 @@ export default class extends React.Component {
 
     constructor(props) {
         super(props)
+        const { status } = this.props.info
+        let showYesterday = status != 10002
+        this.state = {
+            showYesterday: showYesterday
+        }
     }
 
     renderGlobalClass() {
@@ -17,10 +22,11 @@ export default class extends React.Component {
     }
     
     render() {
+        const { showYesterday } = this.state
         return (
             <div className='index-clock-in-form'>
                 <div className='btn-form'>
-                    <a className='btn yesterday-achieve-check'></a>
+                    {showYesterday && <a className={`btn yesterday-achieve-check`}></a>}
                     <a className='btn former-test'></a>
                     <a className='btn today-push'></a>
                     <a className='btn test'></a>

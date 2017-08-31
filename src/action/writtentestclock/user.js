@@ -14,6 +14,13 @@ const Action = {
             method: 'get',
             url: '/api/clock/getInfo'
         });
+    },
+    //获取昨天信息
+    getYesterday: function () {
+        return AxiosUtil({
+            method: 'get',
+            url: '/api/clock/getYesterday'
+        });
     }
 };
 
