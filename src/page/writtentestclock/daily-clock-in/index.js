@@ -5,8 +5,10 @@ export default class extends React.Component {
 
     constructor(props) {
         super(props)
+        console.log(props)
+        const { completeDay } = props.info
         this.state = {
-            dates: [true, false, true, false, true, false, true]
+            dates: completeDay
         }
     }
     
@@ -87,9 +89,10 @@ export default class extends React.Component {
                     background-image: url(/static/demo-qr-code.png);
                     background-size: 100% 100%;
                 }
-                .score-content {
-                    height: 50px;
-                    line-height: 50px;
+                .comment{
+                    white-space:normal;
+                    word-break:break-all;
+                    word-wrap:break-word; 
                 }
                 .prize {
                     background-image: url(/static/prize.png);
@@ -123,8 +126,11 @@ export default class extends React.Component {
                     <div className='title'>我的成绩</div>  
                     <div className='content-wrapper'>
                         <div className='wrapper-trangle'><span></span></div>
-                        <div className='score-content'>入学前测评：{evaluationResult || ''}</div>
-                        <div className='score-content'>活动后测试：{testResult || ''}</div>
+                        <div>入学前测评：</div>
+                        <div className='comment'>{evaluationResult || ''}</div>
+                        <div>活动后测试：</div>
+                        <div className='comment'>{testResult || ''}</div>
+
                     </div> 
                 </div>
                 <a className='prize'></a>
