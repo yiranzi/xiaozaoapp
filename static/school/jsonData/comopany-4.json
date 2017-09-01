@@ -1,0 +1,15 @@
+{
+  "status":200,
+  "message":"success",
+  "response":{
+    "companyDetail":{
+      "headerimage":"/static/school/pu.png",
+      "trade":"会计师事务所/咨询/法律",
+      "tag":"世界级知名公司",
+      "isOnlineApply":true,
+      "companyName":"普华永道校招卡",
+      "time":"8月15开启网申",
+      "applyLink":"http://www.careers.pwccn.com/home/chi/students_graduates_home_chi.html"
+    }
+  }
+}

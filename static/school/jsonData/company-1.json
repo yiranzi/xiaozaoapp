@@ -1,0 +1,15 @@
+{
+  "status":200,
+  "message":"success",
+  "response":{
+    "companyDetail":{
+      "headerimage":"/static/school/kpmg.png",
+      "trade":"会计师事务所/咨询/法律",
+      "tag":"世界级知名公司",
+      "isOnlineApply":false,
+      "companyName":"毕马威校招卡",
+      "time":"预计9月初开启校招",
+      "applyLink":"https://home.kpmg.com/cn/zh/home/careers.html"
+    }
+  }
+}

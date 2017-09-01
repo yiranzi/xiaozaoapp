@@ -21,6 +21,11 @@ export default class Layout extends React.Component {
                     max-width: 640px;
                     margin: auto;
                 }
+                .my-text-rowsingle {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
             `}</style>
         );
     }
