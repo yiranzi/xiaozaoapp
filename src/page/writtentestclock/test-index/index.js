@@ -26,6 +26,7 @@ export default class AnswerPage extends React.Component {
                     text-align: center;
                     margin: 10px 0;
                     text-shadow: 0px 7px 3px #000;
+                    font-size: 15px;
                 }
             `}</style>
         )

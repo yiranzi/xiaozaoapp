@@ -21,6 +21,13 @@ const Action = {
             method: 'get',
             url: '/api/clock/getYesterday'
         });
+    },
+    //选择班级
+    selectGroups: function (info) {
+        return AxiosUtil({
+            method: 'get',
+            url: `/api/clock/selectGroup?group=${info.group}`
+        });
     }
 };
 

@@ -1,6 +1,8 @@
 import React from 'react';
 import Theme from '../../../../config/theme'
 import classnames from 'classnames'
+import UserAction from '../../../action/writtentestclock/user'
+import { Toptips } from 'react-weui'
 export default class extends React.Component {
 
     constructor(props) {
@@ -8,7 +10,9 @@ export default class extends React.Component {
         const { evaluationResult } = props.info
         this.state = {
             showMore: false,
-            isAdvanced: evaluationResult ? evaluationResult > 65 ? 2 : 1 : 0
+            isAdvanced: evaluationResult ? evaluationResult > 65 ? 2 : 1 : 0,
+            showTips: false,
+            tipsMsg: ''
         }
     }
 
@@ -29,13 +33,21 @@ export default class extends React.Component {
         )
     }
 
-    chooseClass = (isAdvanced) => {
-        console.log(isAdvanced)
-        location.href='/writtentestclock/choose-class'
+     chooseClass = async (isAdvanced) => {
+        try{
+            const result = await UserAction.selectGroups({ group: isAdvanced ? 'H' : 'N'})
+            location.href='/writtentestclock/choose-class'
+        } catch(error) {
+            this.setState({
+                tipsMsg: error.message,
+                showTips: true
+            })
+            setTimeout(() => this.setState({showTips: false}), 1000)
+        }
     }
 
     render() {
-        const { showMore, isAdvanced } = this.state
+        const { showMore, isAdvanced, showTips, tipsMsg } = this.state
         return (
             <div>
                 <img className="bg-img" src="/static/intro.jpeg" />
@@ -51,6 +63,7 @@ export default class extends React.Component {
                     }
                     <div className="btn-img" onClick={this.showMoreClick}>开启我的笔试进阶修炼</div>
                 </div>
+                <Toptips type="warn" show={showTips}> {tipsMsg} </Toptips>
                 <style jsx>{`
                     .bg-img {
                         width: 100%;
