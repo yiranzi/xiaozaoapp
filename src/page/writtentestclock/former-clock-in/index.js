@@ -28,46 +28,38 @@ export default class extends React.Component {
         return (
             <div className='clock-in-item' key={index}>
                 <div className='content'>
-                    <div>{item.date}</div>
+                    <div className='date'>{item.date}</div>
                     <div>{item.day}</div>
                     <div className={item.check}></div>
                 </div>
-            </div>
-        )
-    }
-
-    renderGlobalCss() {
-        <style jsx global>{`
-        
-        
-        `}</style>
-    }
-
-    render() {
-        return (
-            <div className='clock-in-form'>
-                <div className='clock-in-list'>
-                    <div className="title">入 学 前 测 评</div>
-                    {this.state.list.map((item, index) => this.renderItem(item, index))}
-                </div>
-                <Footer/>
-                <style jsx global>{`
-                    .clock-in-form {
+                <style jsx>{`
+                    .date {
+                        width: 100px;
+                    }
+                    .content {
                         display: flex;
-                        align-items: center;
-                        height: 100vh;
+                        justify-content: space-around;
+                        font-size: 25px;
+                        height: 70px;
+                        align-items: flex-end;
                     }
-                    .clock-in-list {
-                        width: 100%;
-                        height: 90vh;
-                        background: rgb(30, 31, 32);
-                        border: 1px solid ${Theme.color.writtentestclockmain};
-                        padding: 0 20px;
+                    .check{
+                        background-image: url(/static/check.png);
+                        background-repeat: no-repeat;
+                        background-size: 100% 100%;
+                        height: 40px;
+                        width: 40px;
                     }
-                    .clock-in-item {
-                        position: relative;
-                        height: 80px;
-                        border-bottom: 1px dashed ${Theme.color.writtentestclockmain};
+                    .cross{
+                        background-image: url(/static/cross.png);
+                        background-repeat: no-repeat;
+                        background-size: 100% 100%;
+                        height: 40px;
+                        width: 40px;
+                    }
+                    .unknow {
+                        height: 40px;
+                        width: 40px;
                     }
                     .clock-in-item:nth-child(2):before {
                         content: '';
@@ -95,30 +87,37 @@ export default class extends React.Component {
                         height: 20px;
                         border-radius: 20px 0 0 20px;
                     }
-                    .content {
+                `}</style>
+            </div>
+        )
+    }
+
+
+    render() {
+        return (
+            <div className='clock-in-form'>
+                <div className='clock-in-list'>
+                    <div className="title">入 学 前 测 评</div>
+                    {this.state.list.map((item, index) => this.renderItem(item, index))}
+                </div>
+                <Footer/>
+                <style jsx global>{`
+                    .clock-in-form {
                         display: flex;
-                        justify-content: space-around;
-                        font-size: 25px;
-                        height: 70px;
-                        align-items: flex-end;
+                        align-items: center;
+                        height: 100vh;
                     }
-                    .check{
-                        background-image: url(/static/check.png);
-                        background-repeat: no-repeat;
-                        background-size: 100% 100%;
-                        height: 40px;
-                        width: 40px;
+                    .clock-in-list {
+                        width: 100%;
+                        height: 90vh;
+                        background: rgb(30, 31, 32);
+                        border: 1px solid ${Theme.color.writtentestclockmain};
+                        padding: 0 20px;
                     }
-                    .cross{
-                        background-image: url(/static/cross.png);
-                        background-repeat: no-repeat;
-                        background-size: 100% 100%;
-                        height: 40px;
-                        width: 40px;
-                    }
-                    .unknow {
-                        height: 40px;
-                        width: 40px;
+                    .clock-in-item {
+                        position: relative;
+                        height: 80px;
+                        border-bottom: 1px dashed ${Theme.color.writtentestclockmain};
                     }
                     .title {
                         text-align: center;
