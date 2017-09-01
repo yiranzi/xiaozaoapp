@@ -1,6 +1,6 @@
 import React from 'react';
-import Layout from '../../src/components/layout';
-import SchoolProcessPage from '../../src/page/kpmg/schoolprocess/index';
+import Layout from '../../../src/components/layout';
+import SchoolProcessPage from '../../../src/page/de/schoolprocess/index';
 
 export default class extends React.Component {
     // static async getInitialProps({req}) {

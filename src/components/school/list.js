@@ -12,7 +12,6 @@ export default class List extends React.Component {
                     {this.props.list.map((item, key) =>
                         <div className="list-block" key={key}>
                             <a href={item.link}>{item.title}</a>
-                            <span className="time">{item.publishTime}</span>
                         </div>
                     )}
                 </div>

@@ -8,7 +8,7 @@ export default class SchoolProcess extends React.Component {
             <div className="main-section">
                 <CompanyDetail headerimage="/static/school/de.png" trade="会计师事务所/咨询/法律" tag="世界级知名公司"
                                isOnlineApply={true} companyName="德勤校招卡"/>
-                <SchoolNav fromType="school" processLink="/schoolassistantde/schoolprocess" workLink="/schoolassistantde/schoolWork" expLink="/schoolassistantde/schoolExp"/>
+                <SchoolNav fromType="school" processLink="/school/de/schoolprocess" workLink="/school/de/schoolWork" expLink="/school/de/schoolExp"/>
                 <SchoolOnlinApplyTime time="预计9月1开启网申" address="https://www2.deloitte.com/cn/zh/careers/graduates.html?icid=top_graduates" />
                 <style jsx>{`
                     .main-section {

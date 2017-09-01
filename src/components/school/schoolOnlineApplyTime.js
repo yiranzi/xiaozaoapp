@@ -17,7 +17,8 @@ export default class schoolOnlineApplyTime extends React.Component {
                         color:#787886;
                         text-align:center;
                         border-top:1px solid #E6E6E6;
-                        padding-top:30px;
+                        padding:30px 0;
+                        background-color:#efefef;
                     }
                     .school__online_time a {
                         color:#787886;

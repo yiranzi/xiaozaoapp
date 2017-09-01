@@ -12,7 +12,7 @@ export default class schoolExp extends React.Component {
             <div className="main-section">
                 <CompanyDetail headerimage="/static/school/kpmg.png" trade="会计师事务所/咨询/法律" tag="世界级知名公司"
                                isOnlineApply={true} companyName="毕马威校招卡"/>
-                <SchoolNav fromType="exp" processLink="/schoolassistantkpmg/schoolprocess" workLink="/schoolassistantkpmg/schoolWork" expLink="/schoolassistantkpmg/schoolExp"/>
+                <SchoolNav fromType="exp" processLink="/school/kpmg/schoolprocess" workLink="/school/kpmg/schoolWork" expLink="/school/kpmg/schoolExp"/>
             </div>
         );
     }
