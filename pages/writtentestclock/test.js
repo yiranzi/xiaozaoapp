@@ -6,8 +6,13 @@ import AnswerAction from '../../src/action/writtentestclock/answer';
 export default class extends React.Component {
     static async getInitialProps({req}) {
         let questionList, error;
+        let {category} = req.query;
         try {
-            questionList = await AnswerAction.getEvaluation();
+            if (category === 'first') {
+                questionList = await AnswerAction.getEvaluation();
+            } else if (category === 'end') {
+                questionList = await AnswerAction.getTest();
+            }
         } catch (err) {
             error = err;
         }
