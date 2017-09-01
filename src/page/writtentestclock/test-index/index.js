@@ -12,12 +12,9 @@ export default class AnswerPage extends React.Component {
         }
     }
 
-    renderGlobalCss = () => {
+    renderCss = () => {
         return (
-            <style global jsx>{`
-                .written-test-clock {
-                    padding: 0!important;
-                }
+            <style jsx>{`
                 .title {
                     font-size: 25px;
                     font-weight: bold;
@@ -121,7 +118,7 @@ export default class AnswerPage extends React.Component {
                         <a className="img" href='/writtentestclock/clock-in-intro'>直接选择班级</a>
                     </FlexItem>
                 </Flex>
-                {this.renderGlobalCss()}
+                {this.renderCss()}
             </div>
         );
     }

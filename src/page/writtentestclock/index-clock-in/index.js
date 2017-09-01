@@ -10,29 +10,19 @@ export default class extends React.Component {
             showYesterday: showYesterday
         }
     }
-
-    renderGlobalClass() {
-        return (
-            <style jsx global>{`
-                .written-test-clock {
-                    padding: 0!important;
-                }
-            `}</style>
-        )
-    }
     
     render() {
         const { showYesterday } = this.state
         return (
             <div className='index-clock-in-form'>
                 <div className='btn-form'>
-                    {showYesterday && <a className={`btn yesterday-achieve`}></a>}
-                    <a className='btn former-test'></a>
+                    {showYesterday && 
+                    <a className={`btn yesterday-achieve`}></a>}
+                    <a href='/writtentestclock/former-clock-in' className='btn former-test'></a>
                     <a className='btn today-push'></a>
-                    <a className='btn test'></a>
+                    <a href='/writtentestclock/test' className='btn test'></a>
                 </div>
                 <Footer/>
-                {this.renderGlobalClass()}
                 <style jsx>{`
                 
                     .index-clock-in-form {

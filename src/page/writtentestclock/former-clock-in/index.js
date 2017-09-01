@@ -37,101 +37,96 @@ export default class extends React.Component {
     }
 
     renderGlobalCss() {
-        return (
-            <style jsx global>{`
-                .written-test-clock {
-                    padding: 0!important;
-                }
-                .clock-in-form {
-                    display: flex;
-                    align-items: center;
-                    
-                    height: 100vh;
-                }
-                .clock-in-list {
-                    width: 100%;
-                    height: 90vh;
-                    background: rgb(30, 31, 32);
-                    border: 1px solid ${Theme.color.writtentestclockmain};
-                    padding: 0 20px;
-                    margin: 0 30px;
-                }
-                .clock-in-item {
-                    position: relative;
-                    height: 80px;
-                    border-bottom: 1px dashed ${Theme.color.writtentestclockmain};
-                }
-                .clock-in-item:nth-child(2):before {
-                    content: '';
-                    position: absolute;
-                    display: block;
-                    top: 70px;
-                    left: -21px;
-                    border: 1px solid;
-                    border-left: none;
-                    width: 10px;
-                    background: rgb(30, 31, 32);
-                    height: 20px;
-                    border-radius: 0 20px 20px 0;
-                }
-                .clock-in-item:nth-child(2):after {
-                    content: '';
-                    position: absolute;
-                    display: block;
-                    top: 70px;
-                    right: -21px;
-                    border: 1px solid;
-                    border-right: none;
-                    width: 10px;
-                    background: rgb(30, 31, 32);
-                    height: 20px;
-                    border-radius: 20px 0 0 20px;
-                }
-                .content {
-                    display: flex;
-                    justify-content: space-around;
-                    font-size: 25px;
-                    height: 70px;
-                    align-items: flex-end;
-                }
-                .check{
-                    background-image: url(/static/check.png);
-                    background-repeat: no-repeat;
-                    background-size: 100% 100%;
-                    height: 40px;
-                    width: 40px;
-                }
-                .cross{
-                    background-image: url(/static/cross.png);
-                    background-repeat: no-repeat;
-                    background-size: 100% 100%;
-                    height: 40px;
-                    width: 40px;
-                }
-                .unknow {
-                    height: 40px;
-                    width: 40px;
-                }
-                .title {
-                    text-align: center;
-                    font-size: 28px;
-                    font-weight: bold;
-                    margin-top: 20px;
-                }
-            `}</style>  
-        )
+        <style jsx global>{`
+        
+        
+        `}</style>
     }
 
     render() {
         return (
             <div className='clock-in-form'>
-
                 <div className='clock-in-list'>
                     <div className="title">入 学 前 测 评</div>
                     {this.state.list.map((item, index) => this.renderItem(item, index))}
                 </div>
                 <Footer/>
-                {this.renderGlobalCss()}
+                <style jsx global>{`
+                    .clock-in-form {
+                        display: flex;
+                        align-items: center;
+                        height: 100vh;
+                    }
+                    .clock-in-list {
+                        width: 100%;
+                        height: 90vh;
+                        background: rgb(30, 31, 32);
+                        border: 1px solid ${Theme.color.writtentestclockmain};
+                        padding: 0 20px;
+                    }
+                    .clock-in-item {
+                        position: relative;
+                        height: 80px;
+                        border-bottom: 1px dashed ${Theme.color.writtentestclockmain};
+                    }
+                    .clock-in-item:nth-child(2):before {
+                        content: '';
+                        position: absolute;
+                        display: block;
+                        top: 70px;
+                        left: -21px;
+                        border: 1px solid;
+                        border-left: none;
+                        width: 10px;
+                        background: rgb(30, 31, 32);
+                        height: 20px;
+                        border-radius: 0 20px 20px 0;
+                    }
+                    .clock-in-item:nth-child(2):after {
+                        content: '';
+                        position: absolute;
+                        display: block;
+                        top: 70px;
+                        right: -21px;
+                        border: 1px solid;
+                        border-right: none;
+                        width: 10px;
+                        background: rgb(30, 31, 32);
+                        height: 20px;
+                        border-radius: 20px 0 0 20px;
+                    }
+                    .content {
+                        display: flex;
+                        justify-content: space-around;
+                        font-size: 25px;
+                        height: 70px;
+                        align-items: flex-end;
+                    }
+                    .check{
+                        background-image: url(/static/check.png);
+                        background-repeat: no-repeat;
+                        background-size: 100% 100%;
+                        height: 40px;
+                        width: 40px;
+                    }
+                    .cross{
+                        background-image: url(/static/cross.png);
+                        background-repeat: no-repeat;
+                        background-size: 100% 100%;
+                        height: 40px;
+                        width: 40px;
+                    }
+                    .unknow {
+                        height: 40px;
+                        width: 40px;
+                    }
+                    .title {
+                        text-align: center;
+                        font-size: 28px;
+                        font-weight: bold;
+                        margin-top: 20px;
+                    }
+                `}</style>  
             </div>
         );
     }

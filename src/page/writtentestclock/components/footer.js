@@ -9,6 +9,7 @@ export default class extends React.Component {
                     position: fixed;
                     display: flex;
                     bottom: 0;
+                    left: 0;
                     height: 50px;
                     width: 100vw;
                     background: ${Theme.color.writtentestclockmain};
