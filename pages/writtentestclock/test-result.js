@@ -1,31 +1,31 @@
 import React from 'react';
-import ClockInResult from '../../src/page/writtentestclock/clock-in-result';
+import TestResultPage from '../../src/page/writtentestclock/test-result';
 import TestResultAction from '../../src/action/writtentestclock/answer';
 import WrittenTestClock from '../../src/page/writtentestclock/components/layout';
 
 export default class extends React.Component {
     static async getInitialProps() {
-        let todayInfo;
+        let testInfo;
         try {
-            todayInfo = await TestResultAction.getToday();
-            todayInfo = {
+            testInfo = await TestResultAction.getTest();
+            testInfo = {
                 setId: 1,
                 totalScore: 2,
                 answerTime: new Date(),
                 answerDTOList: [],
                 writtenTestTopicDTOList: [{a: '1'}, {a: '2'}, {a: '3'}, {a: '4'}]
-            }
+        }
         } catch (error) {
-            todayInfo = error
+            testInfo = error
         }
         return {
-            todayInfo
+            testInfo
         }
     }
     render() {
         return (
             <WrittenTestClock>
-                <ClockInResult {...this.props}/>
+                <TestResultPage {...this.props}/>
             </WrittenTestClock>
         );
     }
