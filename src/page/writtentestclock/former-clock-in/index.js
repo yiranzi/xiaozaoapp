@@ -24,10 +24,15 @@ export default class extends React.Component {
 
         this.state = obj
     }
+
+    goToPastAnswer = (index) => {
+        location.href = `/writtentestclock/pastanswer?day=${index + 1}`
+    }
+    
     renderItem = (item, index) => {
         return (
             <div className='clock-in-item' key={index}>
-                <div className='content'>
+                <div className='content' onClick={() => this.goToPastAnswer(index)}>
                     <div className='date'>{item.date}</div>
                     <div>{item.day}</div>
                     <div className={item.check}></div>
