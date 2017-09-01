@@ -37,9 +37,7 @@ export default class schoolExp extends React.Component {
         let onlineApply = this.state.list.filter(function (item) {
             return item.tag.indexOf("网申") !== -1;
         })
-        let exam = this.state.list.filter(function (item) {
-            return item.tag.indexOf("笔试") !== -1;
-        })
+        let exam = null
         let interview = this.state.list.filter(function (item) {
             return item.tag.indexOf("面试") !== -1;
         })

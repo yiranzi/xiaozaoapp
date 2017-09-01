@@ -34,7 +34,7 @@ export default class TabList extends React.Component {
                         <List list={this.props.onlineApply}/>
                     </div>
                     <div style={{display: this.state.tab == 2 ? null : 'none'}}>
-                        <List list={this.props.exam}/>
+                        {this.props.exam?<List list={this.props.exam}/>:<div className="tips">安永今年使用的是 cut-e 笔试题库，与毕马威使用的笔试题库类似，而去年使用的 graduACE 不同，因此不推荐参考往年的安永笔经。大家可以前往毕马威的笔经进行查看</div>}
                     </div>
                     <div style={{display: this.state.tab == 3 ? null : 'none'}}>
                         <List list={this.props.interview}/>
@@ -42,6 +42,15 @@ export default class TabList extends React.Component {
                     <div style={{display: this.state.tab == 4 ? null : 'none'}}>
                         <List list={this.props.comphensive}/>
                     </div>
+                    <style jsx>{`
+                        .tips {
+                            font-size:0.8rem;
+                            padding:30px;
+                            color:#cbcfe0;
+                            text-align:center;
+                            margin-bottom:15px;
+                        }
+                    `}</style>
                 </TabBody>
             </Tab>
         );
