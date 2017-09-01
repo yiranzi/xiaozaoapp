@@ -4,7 +4,7 @@ function AxiosUtil(param) {
     let {method, data, url} = param;
 
     if(process.env.NODE_ENV === "development"){
-        url = `http://192.168.200.183:8082${url}`;
+        url = `http://192.168.200.183:81${url}`;
     }
 
     const axios_params = Object.assign({}, {
