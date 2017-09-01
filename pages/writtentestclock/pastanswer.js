@@ -6,8 +6,13 @@ import AnswerAction from '../../src/action/writtentestclock/answer';
 export default class extends React.Component {
     static async getInitialProps({req}) {
         let questionList, error;
+        let {day} = req.query;
         try {
-            questionList = await AnswerAction.getYesterday();
+            if(day){
+                questionList = await AnswerAction.getByToday(day);
+            }else{
+                questionList = await AnswerAction.getYesterday();
+            }
         } catch (err) {
             error = err;
         }
