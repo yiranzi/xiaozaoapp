@@ -72,7 +72,8 @@ export default class extends React.Component {
                     .btn-form {
                         bottom: 0;
                         width: 100%;
-                        padding-bottom: 30px;
+                        padding-bottom: 10px;
+                        position: fixed;
                     }
                     .btn-img {
                         color: #000;
