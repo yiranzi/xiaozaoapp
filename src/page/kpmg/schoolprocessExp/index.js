@@ -2,6 +2,7 @@ import React from 'react';
 import CompanyDetail from '../../../components/school/companyDetail';
 import SchoolNav from '../../../components/school/schoolNav';
 import TabList from '../../../components/school/TabList';
+import SchoolFooter from '../../../components/school/school-footer';
 
 export default class schoolExp extends React.Component {
     constructor(props){
@@ -47,7 +48,7 @@ export default class schoolExp extends React.Component {
         return (
             <div className="main-section">
                 <CompanyDetail headerimage="/static/school/kpmg.png" trade="会计师事务所/咨询/法律" tag="世界级知名公司"
-                               isOnlineApply={true} companyName="毕马威校招卡"/>
+                               isOnlineApply={true} companyName="毕马威"/>
                 <SchoolNav fromType="exp" processLink="/school/kpmg/schoolprocess" workLink="/school/kpmg/schoolWork" expLink="/school/kpmg/schoolExp"/>
                 <TabList onlineApply={onlineApply} exam={exam} interview={interview} all={this.state.list} comphensive={comphensive} />
             </div>

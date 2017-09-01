@@ -41,7 +41,7 @@ export default class SchoolNav extends React.Component {
                     }
 
                     .isCurrent {
-                        background-color:#C0D3FB;
+                        background-color:#efefef;
                     }
                     img {
                         width:80%;

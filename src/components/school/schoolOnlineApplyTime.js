@@ -9,8 +9,9 @@ export default class schoolOnlineApplyTime extends React.Component {
         return (
             <div>
                 <div className="school__online_time">
-                    {this.props.time ? <div>预计校招时间 {this.props.time}</div> : <div>已经开启校招</div>}
+                    {this.props.time ? <div> {this.props.time}，点击官网链接查看详情</div> : <div>已经开启校招，点击官网链接查看详情</div>}
                     <div className="school__online_address my-text-rowsingle"><a href={this.props.address}>{this.props.address}</a></div>
+
                 </div>
                 <style jsx>{`
                     .school__online_time {
