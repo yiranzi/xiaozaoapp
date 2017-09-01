@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import qs from 'qs';
 import SubjectComponent from '../components/subject';
 import ThemeConfig from '../../../../config/theme';
 import AnswerAction from '../../../../src/action/writtentestclock/answer';
