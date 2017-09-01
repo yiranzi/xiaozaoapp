@@ -2,14 +2,16 @@ import React from 'react';
 import classNames from 'classnames';
 import SubjectComponent from '../components/subject';
 import ThemeConfig from '../../../../config/theme';
+import AnswerAction from '../../../../src/action/writtentestclock/answer';
 
 export default class AnswerPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             currentObjectIndex: 0,
-            answerList: {},
+            answerList: [],
             finish: false,
+            initTime: new Date(),
             isShowAnalysis: false
         };
     }
@@ -38,7 +40,9 @@ export default class AnswerPage extends React.Component {
 
     answerCheck(id, value) {
         const {answerList} = this.state;
-        answerList[id] = value;
+        this.setState({
+            answerList: answerList.concat({id: id, answer: value})
+        })
     }
 
     prevAnswer(currentObjectIndex) {
@@ -133,9 +137,27 @@ export default class AnswerPage extends React.Component {
     renderFinishButton() {
         return (
             <div className="finish">
-                <div><img src="/static/complete-test.png"/></div>
+                <div onClick={() => this.answerComplete()}><img src="/static/complete-test.png"/></div>
             </div>
         );
+    }
+
+    answerComplete = async () => {
+        const {answerList, initTime} = this.state;
+        const {setId} = this.props.questionList;
+        try {
+            const spendTime = new Date() - initTime;
+            const data = JSON.stringify({
+                setId: setId,
+                time: spendTime,
+                answerDTOList: answerList
+            });
+
+            let complete = await AnswerAction.complete(encodeURI(data));
+            location.href = '/writtentestclock/clock-in-result';
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     renderCss() {
@@ -165,12 +187,13 @@ export default class AnswerPage extends React.Component {
 
     render() {
         const {currentObjectIndex, finish} = this.state;//当前题目在数组中的序号
-        const {questions} = this.props;
+        const {questionList} = this.props;
+        const {writtenTestTopicDTOList} = questionList;
         return (
             <div className='written-test-clock-answer'>
-                {this.renderAnswer(currentObjectIndex, questions)}
-                {this.renderAnswerAnalysis(currentObjectIndex, questions)}
-                {finish ? this.renderFinishButton() : this.renderActionButton(currentObjectIndex, questions)}
+                {this.renderAnswer(currentObjectIndex, writtenTestTopicDTOList)}
+                {this.renderAnswerAnalysis(currentObjectIndex, writtenTestTopicDTOList)}
+                {finish ? this.renderFinishButton() : this.renderActionButton(currentObjectIndex, writtenTestTopicDTOList)}
                 {this.renderCss()}
             </div>
         );
