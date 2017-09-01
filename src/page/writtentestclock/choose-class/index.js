@@ -1,15 +1,27 @@
 import React from 'react';
 import Theme from '../../../../config/theme'
+import { Toptips } from 'react-weui'
 export default class extends React.Component {
     constructor(props) {
         super(props)
-        
+        const { info } = props
+        this.state = {
+            showTips: info.error,
+            tipsMsg: info.message || ''
+        }
     }
+
     
     render() {
         const { no } = this.props.info
+        const { showTips, tipsMsg } = this.state
+
+        if(showTips){
+            return <Toptips type="warn" show={showTips}> {tipsMsg} </Toptips>
+        }
         return (
             <div className='class-choose-form'>
+                
                 <div className='class-choose-title-bg'></div>
                 <div className='class-choose-title'>您已经成功选择班级!</div>
                 

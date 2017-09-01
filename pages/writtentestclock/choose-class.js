@@ -10,7 +10,10 @@ export default class extends React.Component {
         try {
             info = await UserAction.getInfo();
         } catch (error) {
-            info = error
+            info = {
+                error: true,
+                ...error
+            }
         }
         return {
             info
