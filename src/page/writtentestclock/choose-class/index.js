@@ -15,6 +15,8 @@ export default class extends React.Component {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
+                    height: 100vh;
+                    justify-content: space-between;
                 }
                 .class-choose-title {
                     position: absolute;
@@ -34,7 +36,7 @@ export default class extends React.Component {
                     margin-top: 10px;
                 }
                 .sub-form {
-                    margin: 35px 0;
+                    margin: 25px 0;
                 }
                 .sub-title {
                     color: #fff;
@@ -63,8 +65,8 @@ export default class extends React.Component {
                     height: 130px;
                 }
                 .go-clock-in {
-                    width: 12rem;
-                    height: 4rem;
+                    width: 200px;
+                    height: 65px;
                     display: block;
                     text-align: center;
                     color: #fff;

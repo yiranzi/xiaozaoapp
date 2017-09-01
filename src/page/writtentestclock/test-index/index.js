@@ -22,7 +22,7 @@ export default class AnswerPage extends React.Component {
                     font-size: 25px;
                     font-weight: bold;
                     text-align: center;
-                    margin-top: 50px;
+                    margin-top: 20px;
                 }
                 .tips-form {
                     flex: 1;
@@ -33,7 +33,7 @@ export default class AnswerPage extends React.Component {
                 }
                 .tips {
                     text-align: center;
-                    margin: 12px 0;
+                    margin: 10px 0;
                     text-shadow: 0px 7px 3px #000;
                 }
                 .corner {

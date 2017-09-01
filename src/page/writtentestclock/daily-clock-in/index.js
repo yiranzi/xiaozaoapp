@@ -64,6 +64,10 @@ export default class extends React.Component {
                     border: 1px solid ${Theme.color.writtentestclockmain};
                     position: relative;
                 }
+                .flex-wrapper {
+                    display: flex;
+                    padding: 25px 126px 25px 15px;
+                }
                 .wrapper-trangle {
                     position: absolute;
                     border-left: 15px solid transparent;
@@ -86,8 +90,8 @@ export default class extends React.Component {
                     width: 100px;
                     height: 100px;
                     position: absolute;
-                    right: 20px;
-                    top: 15px;
+                    right: 1rem;
+                    top: 1rem;
                     border: 1px solid ${Theme.color.writtentestclockmain};
                 }
                 .qr-code img{
@@ -106,6 +110,13 @@ export default class extends React.Component {
                     width: 10rem;
                     height: 4rem;
                 }
+                .study-no-title {
+                    width: 55px;
+                }
+                .study-no {
+                    display: inline-block;
+                    word-break: break-all;
+                }
             `}</style>
         )
     }
@@ -121,8 +132,8 @@ export default class extends React.Component {
                 </div>
                 <div className='sub-form'>
                     <div className='title'>我的信息</div>
-                    <div className='content-wrapper'>
-                        学号：{no}
+                    <div className='content-wrapper flex-wrapper'>
+                        <div className='study-no-title'>学号：</div><span className='study-no'>{no}</span>
                         <div className='wrapper-trangle'><span></span></div>
                         <div className='qr-code'>
                             <img src='/static/demo-qr-code.png'/>
