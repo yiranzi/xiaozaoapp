@@ -17,7 +17,7 @@ export default class extends React.Component {
             <div className='index-clock-in-form'>
                 <div className='btn-form'>
                     {showYesterday && 
-                    <a className={`btn yesterday-achieve`}></a>}
+                    <a href='/writtentestclock/pastanswer' className={`btn yesterday-achieve`}></a>}
                     <a href='/writtentestclock/former-clock-in' className='btn former-test'></a>
                     <a className='btn today-push'></a>
                     <a href='/writtentestclock/test' className='btn test'></a>
