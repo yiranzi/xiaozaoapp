@@ -63,10 +63,8 @@ export default class extends React.Component {
                     <div className='title'>我的成绩</div>  
                     <div className='content-wrapper'>
                         <div className='wrapper-trangle'><span></span></div>
-                        <div>入学前测评：</div>
-                        <div className='comment'>{evaluationResult || ''}</div>
-                        <div>活动后测试：</div>
-                        <div className='comment'>{testResult || ''}</div>
+                        <div>入学前测评：{evaluationResult || ''}</div>
+                        <div>活动后测试：{testResult || ''}</div>
 
                     </div> 
                 </div>
@@ -128,11 +126,6 @@ export default class extends React.Component {
                     .qr-code img{
                         width: 100px;
                         height: 100px;
-                    }
-                    .comment{
-                        white-space:normal;
-                        word-break:break-all;
-                        word-wrap:break-word; 
                     }
                     .prize {
                         background-image: url(/static/prize.png);

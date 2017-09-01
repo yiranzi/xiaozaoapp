@@ -18,7 +18,7 @@ export default class extends React.Component {
 
     showMoreClick = () => {
         this.setState({
-            showMore: true
+            showMore: !this.state.showMore
         })
     }
 
