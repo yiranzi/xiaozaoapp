@@ -1,15 +1,18 @@
 import React from 'react';
 import classNames from 'classnames';
+import qs from 'qs';
 import SubjectComponent from '../components/subject';
 import ThemeConfig from '../../../../config/theme';
+import AnswerAction from '../../../../src/action/writtentestclock/answer';
 
 export default class TestAnswerPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             currentObjectIndex: 0,
-            answerList: {},
-            finish: false
+            answerList: [],
+            finish: false,
+            initTime: new Date()
         };
     }
 
@@ -36,7 +39,9 @@ export default class TestAnswerPage extends React.Component {
 
     answerCheck(id, value) {
         const {answerList} = this.state;
-        answerList[id] = value;
+        this.setState({
+            answerList:answerList.concat({id: id, answer: value})
+        })
     }
 
     prevAnswer(currentObjectIndex) {
@@ -47,32 +52,53 @@ export default class TestAnswerPage extends React.Component {
 
     nextAnswer(currentObjectIndex, questions) {
         let nextObjectIndex = currentObjectIndex + 1;
-        if(nextObjectIndex >= questions.length - 1){
+        if (nextObjectIndex >= questions.length - 1) {
             this.setState({
                 finish: true,
                 currentObjectIndex: nextObjectIndex
             });
-        }else{
+        } else {
             this.setState({
                 currentObjectIndex: nextObjectIndex
             });
         }
     }
 
-    renderActionButton(currentObjectIndex, questions){
+    renderActionButton(currentObjectIndex, questions) {
         return (
             <div className='action'>
-                <div onClick={() => {this.prevAnswer(currentObjectIndex);}}><img src='/static/prev.png'/></div>
-                <div onClick={() => {this.nextAnswer(currentObjectIndex, questions);}}><img src='/static/next.png'/></div>
+                <div onClick={() => {
+                    this.prevAnswer(currentObjectIndex);
+                }}><img src='/static/prev.png'/></div>
+                <div onClick={() => {
+                    this.nextAnswer(currentObjectIndex, questions);
+                }}><img src='/static/next.png'/></div>
             </div>
         );
     }
-    renderFinishButton(){
+
+    renderFinishButton() {
         return (
             <div className="finish">
-                <div><img src="/static/complete-test.png"/></div>
+                <div onClick={() => this.answerComplete()}><img src="/static/complete-test.png"/></div>
             </div>
         );
+    }
+
+    answerComplete = async () => {
+        const {answerList, initTime} = this.state;
+        const {setId} = this.props.questionList;
+        try {
+            const spendTime = new Date() - initTime;
+            const data = JSON.stringify({
+                setId: setId,
+                time: spendTime,
+                answerDTOList: answerList
+            });
+            let complete = await AnswerAction.complete(encodeURI(data));
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     renderCss() {
@@ -105,12 +131,13 @@ export default class TestAnswerPage extends React.Component {
     }
 
     render() {
-        const {currentObjectIndex,finish} = this.state;//当前题目在数组中的序号
+        const {currentObjectIndex, finish} = this.state;//当前题目在数组中的序号
         const {questionList} = this.props;
+        const {writtenTestTopicDTOList} = questionList;
         return (
             <div className='written-test-clock-answer'>
-                {this.renderAnswer(currentObjectIndex, questionList)}
-                {finish ? this.renderFinishButton() : this.renderActionButton(currentObjectIndex, questionList)}
+                {this.renderAnswer(currentObjectIndex, writtenTestTopicDTOList)}
+                {finish ? this.renderFinishButton() : this.renderActionButton(currentObjectIndex, writtenTestTopicDTOList)}
                 {this.renderCss()}
             </div>
         );

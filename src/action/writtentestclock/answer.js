@@ -21,6 +21,13 @@ const AnswerAction = {
             method: 'get',
             url: '/api/clock/getYesterday'
         });
+    },
+    //提交做题记录
+    complete: function (data) {
+        return AxiosUtil({
+            method: 'get',
+            url: `/api/clock/complete?info=${data}`,
+        });
     }
 };
 

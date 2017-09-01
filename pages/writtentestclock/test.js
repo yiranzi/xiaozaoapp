@@ -21,7 +21,7 @@ export default class extends React.Component {
         const {questionList, error} = this.props;
         return (
             <WrittenTestClock error={error}>
-                <TestAnswerPage questionList={questionList.writtenTestTopicDTOList}/>
+                <TestAnswerPage questionList={questionList}/>
             </WrittenTestClock>
         );
     }
