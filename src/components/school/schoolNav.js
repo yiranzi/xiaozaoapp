@@ -10,7 +10,7 @@ export default class SchoolNav extends React.Component {
                     <a href={processLink} className={classNames('bg',{
                         'isCurrent': fromType == 'school'
                     })}>
-                        <img src="/static/school/icon/2.png"/>
+                        <img src="/static/school/icon/1.png"/>
                     </a>
                     <div className="logo-text">校招进度</div>
                 </div>
@@ -18,7 +18,7 @@ export default class SchoolNav extends React.Component {
                     <a href={workLink} className={classNames('bg',{
                         'isCurrent': fromType == 'work'
                     })}>
-                        <img src="/static/school/icon/3.png"/>
+                        <img src="/static/school/icon/2.png"/>
                     </a>
                     <div className="logo-text">工作体验</div>
                 </div>
@@ -26,17 +26,15 @@ export default class SchoolNav extends React.Component {
                     <a href={expLink} className={classNames('bg',{
                         'isCurrent': fromType == 'exp'
                     })}>
-                        <img src="/static/school/icon/4.png"/>
+                        <img src="/static/school/icon/3.png"/>
                     </a>
                     <div className="logo-text">面经/笔经</div>
                 </div>
                 <style jsx>{`
                     .bg {
                         display:inline-block;
-                        padding:20px;
-                        width:20px;
-                        height:20px;
-                        border-radius:100%;
+                        padding:10px 5px;
+                        border-radius:50%;
                         display:flex;
                         justify-content:space-around;
                         margin:0 10px;
@@ -44,6 +42,10 @@ export default class SchoolNav extends React.Component {
 
                     .isCurrent {
                         background-color:#C0D3FB;
+                    }
+                    img {
+                        width:80%;
+                        height:80%;
                     }
                     .logo-text {
                         color:#8C9097;

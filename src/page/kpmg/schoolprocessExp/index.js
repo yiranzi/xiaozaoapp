@@ -44,7 +44,6 @@ export default class schoolExp extends React.Component {
         let comphensive = this.state.list.filter(function (item) {
             return item.tag.indexOf("综合") !== -1;
         })
-        console.log(comphensive);
         return (
             <div className="main-section">
                 <CompanyDetail headerimage="/static/school/kpmg.png" trade="会计师事务所/咨询/法律" tag="世界级知名公司"
