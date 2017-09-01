@@ -12,6 +12,7 @@ export default class AnswerPage extends React.Component {
             answerList: [],
             finish: false,
             initTime: new Date(),
+            isShowAnalysisButton: false,
             isShowAnalysis: false
         };
     }
@@ -41,14 +42,16 @@ export default class AnswerPage extends React.Component {
     answerCheck(id, value) {
         const {answerList} = this.state;
         this.setState({
-            answerList: answerList.concat({id: id, answer: value})
+            answerList: answerList.concat({id: id, answer: value}),
+            isShowAnalysisButton: true
         })
     }
 
     prevAnswer(currentObjectIndex) {
         this.setState({
             currentObjectIndex: currentObjectIndex - 1,
-            isShowAnalysis: false
+            isShowAnalysis: false,
+            finish: false
         });
     }
 
@@ -58,30 +61,33 @@ export default class AnswerPage extends React.Component {
             this.setState({
                 currentObjectIndex: nextObjectIndex,
                 finish: true,
-                isShowAnalysis: false
+                isShowAnalysis: false,
+                isShowAnalysisButton: false
             });
         } else {
             this.setState({
                 currentObjectIndex: nextObjectIndex,
-                isShowAnalysis: false
+                isShowAnalysis: false,
+                isShowAnalysisButton: false
             });
         }
     }
 
     renderAnswerAnalysis(currentObjectIndex, questions) {
-        const {isShowAnalysis} = this.state;
+        const {isShowAnalysisButton, isShowAnalysis} = this.state;
         const questionItem = questions[currentObjectIndex];
         const {answer, analysis} = questionItem;
 
         const analysisContent = (
-            <div className="wrapper">
-                <div className="analysis-header">
-                    <div className="answer">答案：{answer}</div>
-                    <div className="line"></div>
-                    <div className="hide-analysis">查看解析</div>
-                </div>
-                <div className="analysis-content">{analysis}</div>
-                <style jsx>{`
+            <div className="analysis">
+                <div className="wrapper">
+                    <div className="analysis-header">
+                        <div className="answer">答案：{answer}</div>
+                        <div className="line"></div>
+                        <div className="hide-analysis">查看解析</div>
+                    </div>
+                    <div className="analysis-content">{analysis}</div>
+                    <style jsx>{`
                     .analysis-header {
                         display: flex;
                         justify-content: space-between;
@@ -95,14 +101,16 @@ export default class AnswerPage extends React.Component {
                         padding: 0.1rem 0.5rem;
                     }
                 `}</style>
+                </div>
             </div>
-        )
+        );
 
-        return (
+        const analysisButton = (
             <div className="analysis">
-                {isShowAnalysis ? analysisContent : <div onClick={() => {
-                    this.showAnalysis(isShowAnalysis);
-                }} className="show-analysis">查看解析</div>}
+                <div className="show-analysis" onClick={() => {
+                    this.showAnalysis(isShowAnalysis)
+                }}>查看解析
+                </div>
                 <style jsx>{`
                     .show-analysis {
                         display: inline-block;
@@ -115,10 +123,18 @@ export default class AnswerPage extends React.Component {
                 `}</style>
             </div>
         );
+
+        if (isShowAnalysisButton) {
+            return analysisButton
+        }
+
+        if (isShowAnalysis) {
+            return analysisContent
+        }
     }
 
     showAnalysis(isShowAnalysis) {
-        this.setState({isShowAnalysis: !isShowAnalysis});
+        this.setState({isShowAnalysis: true, isShowAnalysisButton: false});
     }
 
     renderActionButton(currentObjectIndex, questions) {
@@ -134,10 +150,15 @@ export default class AnswerPage extends React.Component {
         );
     }
 
-    renderFinishButton() {
+    renderFinishButton(currentObjectIndex) {
         return (
             <div className="finish">
-                <div onClick={() => this.answerComplete()}><img src="/static/complete-test.png"/></div>
+                <div onClick={() => {
+                    this.prevAnswer(currentObjectIndex);
+                }}><img src='/static/prev.png'/></div>
+                <div onClick={() => {
+                    this.answerComplete();
+                }}><img src='/static/complete.png'/></div>
             </div>
         );
     }
@@ -170,16 +191,12 @@ export default class AnswerPage extends React.Component {
                     border-right: 0.5rem solid transparent;
                     border-bottom: 1rem solid ${ThemeConfig.color.writtentestclockmain};
                 }
-                .action {
+                .action, .finish {
                     display: flex;
                     justify-content: space-between;
                 }
-                .action img {
+                .action img, .finish img {
                     width: 100%;
-                }
-                .finish {
-                    display: flex;
-                    justify-content: center;
                 }
             `}</style>
         );
@@ -193,7 +210,7 @@ export default class AnswerPage extends React.Component {
             <div className='written-test-clock-answer'>
                 {this.renderAnswer(currentObjectIndex, writtenTestTopicDTOList)}
                 {this.renderAnswerAnalysis(currentObjectIndex, writtenTestTopicDTOList)}
-                {finish ? this.renderFinishButton() : this.renderActionButton(currentObjectIndex, writtenTestTopicDTOList)}
+                {finish ? this.renderFinishButton(currentObjectIndex) : this.renderActionButton(currentObjectIndex, writtenTestTopicDTOList)}
                 {this.renderCss()}
             </div>
         );
