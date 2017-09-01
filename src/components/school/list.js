@@ -28,7 +28,7 @@ export default class List extends React.Component {
                         padding-right:20px;
                     }
                     .list-block {
-                        border-top: 1px solid #E9E9E9;
+                        border-top: 2px solid #E9E9E9;
                         padding:20px;
                         display:flex;
                     }
