@@ -12,15 +12,9 @@ export default class AnswerPage extends React.Component {
         }
     }
 
-    renderCss = () => {
+    renderGlobalCss = () => {
         return (
-            <style jsx>{`
-                .title {
-                    font-size: 25px;
-                    font-weight: bold;
-                    text-align: center;
-                    margin-top: 20px;
-                }
+            <style jsx global>{`
                 .tips-form {
                     flex: 1;
                     border: 1px solid;
@@ -32,55 +26,6 @@ export default class AnswerPage extends React.Component {
                     text-align: center;
                     margin: 10px 0;
                     text-shadow: 0px 7px 3px #000;
-                }
-                .corner {
-                    height: 20px;
-                    width: 20px;
-                    position: absolute;
-                    border: 1px solid;
-                    background: rgb(30,31,32);
-                }
-                .corner-top-left {
-                    top: -1px;
-                    left: -1px;
-                    border-radius: 0 0 20px 0;
-                    border-top: none;
-                    border-left: none;
-                }
-                .corner-top-right {
-                    top: -1px;
-                    right: -1px;
-                    border-radius: 0 0 0 20px;
-                    border-top: none;
-                    border-right: none;
-                }
-                .corner-bottom-left {
-                    bottom: -1px;
-                    left: -1px;
-                    border-radius: 0 20px 0 0;
-                    border-bottom: none;
-                    border-left: none;
-                }
-                .corner-bottom-right {
-                    bottom: -1px;
-                    right: -1px;
-                    border-radius: 20px 0 0 0;
-                    border-bottom: none;
-                    border-right: none;
-                }
-                .img {
-                    color: #000;
-                    display: block;
-                    background-image: url(/static/round-btn.png);
-                    background-repeat: no-repeat;
-                    background-size: 100% 100%;
-                    text-align: center;
-                    height: 50px;
-                    width: 150px;
-                    margin: 0 auto;
-                    padding-right: 10px;
-                    line-height: 36px;
-                    margin-top: 20px;
                 }
             `}</style>
         )
@@ -118,7 +63,65 @@ export default class AnswerPage extends React.Component {
                         <a className="img" href='/writtentestclock/clock-in-intro'>直接选择班级</a>
                     </FlexItem>
                 </Flex>
-                {this.renderCss()}
+                {this.renderGlobalCss()}
+                <style jsx>{`
+                    .title {
+                        font-size: 25px;
+                        font-weight: bold;
+                        text-align: center;
+                        margin-top: 20px;
+                    }
+                    
+                    .corner {
+                        height: 20px;
+                        width: 20px;
+                        position: absolute;
+                        border: 1px solid;
+                        background: rgb(30,31,32);
+                    }
+                    .corner-top-left {
+                        top: -1px;
+                        left: -1px;
+                        border-radius: 0 0 20px 0;
+                        border-top: none;
+                        border-left: none;
+                    }
+                    .corner-top-right {
+                        top: -1px;
+                        right: -1px;
+                        border-radius: 0 0 0 20px;
+                        border-top: none;
+                        border-right: none;
+                    }
+                    .corner-bottom-left {
+                        bottom: -1px;
+                        left: -1px;
+                        border-radius: 0 20px 0 0;
+                        border-bottom: none;
+                        border-left: none;
+                    }
+                    .corner-bottom-right {
+                        bottom: -1px;
+                        right: -1px;
+                        border-radius: 20px 0 0 0;
+                        border-bottom: none;
+                        border-right: none;
+                    }
+                    .img {
+                        color: #000;
+                        display: block;
+                        background-image: url(/static/round-btn.png);
+                        background-repeat: no-repeat;
+                        background-size: 100% 100%;
+                        text-align: center;
+                        height: 50px;
+                        width: 150px;
+                        margin: 0 auto;
+                        padding-right: 10px;
+                        line-height: 36px;
+                        margin-top: 20px;
+                    }
+                `}</style>
             </div>
         );
     }
