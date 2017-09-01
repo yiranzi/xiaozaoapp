@@ -77,13 +77,14 @@ export default class extends React.Component {
                     .choose-class-form {
                         position: relative;
                         display: flex;    
-                        width: 300px;
+                        width: 340px;
                         margin: 0 auto;
                         color: #000;
                         background: ${Theme.color.writtentestclockmain};
                         justify-content: center;
                         align-items: center;
                         height: 40px;
+                        border-radius: 20px;
                     }
                     .choose-class {
                         padding: 5px 15px;
@@ -110,7 +111,7 @@ export default class extends React.Component {
                         width: 40px;
                         display: block;
                         top: 0;
-                        left: -20px;
+                        left: 0;
                         position: absolute;
                     }
                     .recommend-right:before {
@@ -122,7 +123,7 @@ export default class extends React.Component {
                         width: 40px;
                         display: block;
                         top: 0;
-                        right: -20px;
+                        right: 0;
                         position: absolute;
                     }
                 
