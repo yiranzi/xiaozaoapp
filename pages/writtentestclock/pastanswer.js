@@ -18,10 +18,10 @@ export default class extends React.Component {
     }
 
     render() {
-        const {questions, error} = this.props;
+        const {questionList, error} = this.props;
         return (
             <WrittenTestClock error={error}>
-                {/*<PastAnswerPage questions={questions.topicDTOList}/>*/}
+                <PastAnswerPage questionList={questionList}/>
             </WrittenTestClock>
         );
     }

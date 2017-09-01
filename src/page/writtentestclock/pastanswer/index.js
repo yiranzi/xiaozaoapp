@@ -2,27 +2,26 @@ import React from 'react';
 import classNames from 'classnames';
 import SubjectComponent from '../components/subject';
 import ThemeConfig from '../../../../config/theme';
+import Radio from '../../../components/radio';
 
 export default class AnswerPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             currentObjectIndex: 0,
-            answerList: {},
             finish: false
         };
     }
 
-    renderAnswer(currentObjectIndex, questions) {
-        const {answerList} = this.state;
-
-        const questionItem = questions[currentObjectIndex];//题目详情
+    renderAnswer(currentObjectIndex, questionList, answerDTOList) {
+        const questionItem = questionList[currentObjectIndex];//题目详情
         const subjectItem = Object.assign({}, {
-            total: questions.length,//当前试卷总共多少题
+            total: questionList.length,//当前试卷总共多少题
             currentIndex: currentObjectIndex, //当前题目在数组中的编号
             questionItem: questionItem, //题目数组
-            selectAnswer: answerList[questionItem.id],//已选答案
-        })
+            selectAnswer: answerDTOList[currentObjectIndex].answer,//已选答案,
+            disabled: true
+        });
         return (
             <div className='subject-item'>
                 <SubjectComponent
@@ -129,12 +128,13 @@ export default class AnswerPage extends React.Component {
 
     render() {
         const {currentObjectIndex, finish} = this.state;//当前题目在数组中的序号
-        const {questions} = this.props;
+        const {questionList} = this.props;
+        const {writtenTestTopicDTOList, answerDTOList} = questionList;
         return (
             <div className='written-test-clock-answer'>
-                {this.renderAnswer(currentObjectIndex, questions)}
-                {this.renderAnswerAnalysis(currentObjectIndex, questions)}
-                {finish ? this.renderFinishButton() : this.renderActionButton(currentObjectIndex, questions)}
+                {this.renderAnswer(currentObjectIndex, writtenTestTopicDTOList, answerDTOList)}
+                {this.renderAnswerAnalysis(currentObjectIndex, writtenTestTopicDTOList)}
+                {this.renderActionButton(currentObjectIndex, writtenTestTopicDTOList)}
                 {this.renderCss()}
             </div>
         );

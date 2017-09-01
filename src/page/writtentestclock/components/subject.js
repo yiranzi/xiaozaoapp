@@ -4,7 +4,7 @@ import Radio from '../../../components/radio';
 import ThemeConfig from '../../../../config/theme';
 
 export default class WrittenTestClock extends React.Component {
-    renderAnswerOption(currentIndex, options, selectAnswer) {
+    renderAnswerOption(currentIndex, options, selectAnswer, disabled) {
         const {onChange} = this.props;
         const name = `answer_${currentIndex}`;
 
@@ -14,14 +14,22 @@ export default class WrittenTestClock extends React.Component {
                 name: name,
                 value: tag,
                 defaultValue: selectAnswer,
-                label: `${tag}.${content}`
+                label: `${tag}.${content}`,
+                disabled: disabled
             });
             const key = `answer_${currentIndex}_${i}`;
-            return (
-                <Radio key={key} params={radioItem} onChange={(value) => {
-                    onChange(value);
-                }}/>
-            );
+            if (disabled) {
+                return (
+                    <Radio key={key} params={radioItem} disabled={true}/>
+                );
+            } else {
+                return (
+                    <Radio key={key} params={radioItem} onChange={(value) => {
+                        onChange(value);
+                    }}/>
+                );
+            }
+
         });
     }
 
@@ -81,7 +89,7 @@ export default class WrittenTestClock extends React.Component {
     }
 
     render() {
-        const {total, questionItem, selectAnswer} = this.props.subjectItem;
+        const {total, questionItem, selectAnswer, disabled} = this.props.subjectItem;
         const {no} = questionItem;
         let progress = Math.ceil(no / total * 100);
         return (
@@ -100,7 +108,7 @@ export default class WrittenTestClock extends React.Component {
                 <div>{questionItem.no}.{questionItem.question}</div>
                 <div className='answer-option'>
                     <Form radio>
-                        {this.renderAnswerOption(no, questionItem.optionDTOList, selectAnswer)}
+                        {this.renderAnswerOption(no, questionItem.optionDTOList, selectAnswer, disabled)}
                     </Form>
                 </div>
                 {this.renderCss()}
