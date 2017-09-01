@@ -38,11 +38,12 @@ export default class extends React.Component {
             const result = await UserAction.selectGroups({ group: isAdvanced ? 'H' : 'N'})
             location.href='/writtentestclock/choose-class'
         } catch(error) {
+            clearTimeout(this.timeout)
             this.setState({
                 tipsMsg: error.message,
                 showTips: true
             })
-            setTimeout(() => this.setState({showTips: false}), 1000)
+            this.timeout = setTimeout(() => this.setState({showTips: false}), 1000)
         }
     }
 
