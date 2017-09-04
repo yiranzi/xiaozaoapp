@@ -28,6 +28,39 @@ export default class extends React.Component {
     goToPastAnswer = (index) => {
         location.href = `/writtentestclock/pastanswer?day=${index + 1}`
     }
+
+    renderGlobalCss() {
+        return (
+            <style global jsx  >{`
+                .clock-in-list:before {
+                    content: '';
+                    position: absolute;
+                    display: block;
+                    top: 188px;
+                    left: 16px;
+                    border: 1px solid;
+                    border-left: none;
+                    width: 10px;
+                    background: rgb(30, 31, 32);
+                    height: 20px;
+                    border-radius: 0 20px 20px 0;
+                }
+                .clock-in-list:after {
+                    content: '';
+                    position: absolute;
+                    display: block;
+                    top: 188px;
+                    right: 16px;
+                    border: 1px solid;
+                    border-right: none;
+                    width: 10px;
+                    background: rgb(30, 31, 32);
+                    height: 20px;
+                    border-radius: 20px 0 0 20px;
+                }
+            `}</style>
+        )
+    }
     
     renderItem = (item, index) => {
         return (
@@ -66,33 +99,9 @@ export default class extends React.Component {
                         height: 40px;
                         width: 40px;
                     }
-                    .clock-in-item:nth-child(2):before {
-                        content: '';
-                        position: absolute;
-                        display: block;
-                        top: 70px;
-                        left: -21px;
-                        border: 1px solid;
-                        border-left: none;
-                        width: 10px;
-                        background: rgb(30, 31, 32);
-                        height: 20px;
-                        border-radius: 0 20px 20px 0;
-                    }
-                    .clock-in-item:nth-child(2):after {
-                        content: '';
-                        position: absolute;
-                        display: block;
-                        top: 70px;
-                        right: -21px;
-                        border: 1px solid;
-                        border-right: none;
-                        width: 10px;
-                        background: rgb(30, 31, 32);
-                        height: 20px;
-                        border-radius: 20px 0 0 20px;
-                    }
+                    
                 `}</style>
+                {this.renderGlobalCss()}
             </div>
         )
     }
@@ -114,7 +123,8 @@ export default class extends React.Component {
                     }
                     .clock-in-list {
                         width: 100%;
-                        height: 90vh;
+                        height: 85vh;
+                        overflow: auto;
                         background: rgb(30, 31, 32);
                         border: 1px solid ${Theme.color.writtentestclockmain};
                         padding: 0 20px;
