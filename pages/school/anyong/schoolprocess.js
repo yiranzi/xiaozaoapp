@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from '../../../src/components/layout';
+import Layout from '../../../src/components/schoolLayout';
 import SchoolProcessPage from '../../../src/page/anyong/schoolprocess/index';
 
 export default class extends React.Component {
