@@ -26,56 +26,6 @@ export default class TestResultPage extends React.Component {
         });
     }
 
-    renderCss = () => {
-        return (
-            <style jsx>{`
-                .written-test-clock {
-                    padding: 0!important;
-                }
-                .test-result {
-                    padding: 50px 15px;
-                    position: relative;
-                }
-                .result-bg {
-                    width: 100%;
-                }
-                .result-content {
-                    position: absolute;
-                    top: 90px;
-                    width: 100%;
-                    text-align: center;
-                }
-                .test-result .btn1 {
-
-                }
-                .test-result .btn1 img {
-                    width: 160px;
-                    margin: 20px 0;
-                }
-                .test-result .btn2 {
-
-                }
-                .test-result .btn2 img {
-                    width: 200px;
-                    margin: 20px 0 15px;
-                }
-                .test-result .text1 {
-                    font-size: 20px;
-                    font-weight: bold;
-                    margin-bottom: 15px;
-                }
-                .test-result .text2 {
-                    font-size: 14px;
-                    color: #333;
-                }
-                .test-result .text2 .small {
-                    font-size: 10px;
-                    color: #aaa;
-                }
-            `}</style>
-        )
-    }
-
     render() {
         const {testInfo} = this.state;
         const accuracy = !testInfo ? 0 : (!testInfo.writtenTestTopicDTOList || testInfo.writtenTestTopicDTOList.length == 0) ? 0 : Math.round(testInfo.totalScore / testInfo.writtenTestTopicDTOList.length * 100);
@@ -96,7 +46,52 @@ export default class TestResultPage extends React.Component {
                         <a className='btn2' href="/writtentestclock/clock-in-intro"><img src="/static/writtentestclock/start_writtentest.png"/></a>
                     </div>
                 </div>
-                {this.renderCss()}
+                <style jsx>{`
+                    .written-test-clock {
+                        padding: 0!important;
+                    }
+                    .test-result {
+                        padding: 50px 0;
+                        position: relative;
+                    }
+                    .result-bg {
+                        width: 100%;
+                    }
+                    .result-content {
+                        position: absolute;
+                        top: 80px;
+                        left: 8px;
+                        width: 100%;
+                        text-align: center;
+                    }
+                    .test-result .btn1 {
+
+                    }
+                    .test-result .btn1 img {
+                        width: 160px;
+                        margin: 20px 0;
+                    }
+                    .test-result .btn2 {
+
+                    }
+                    .test-result .btn2 img {
+                        width: 200px;
+                        margin: 20px 0 15px;
+                    }
+                    .test-result .text1 {
+                        font-size: 20px;
+                        font-weight: bold;
+                        margin-bottom: 15px;
+                    }
+                    .test-result .text2 {
+                        font-size: 14px;
+                        color: #333;
+                    }
+                    .test-result .text2 .small {
+                        font-size: 10px;
+                        color: #aaa;
+                    }
+                `}</style>
             </div>
         );
     }
