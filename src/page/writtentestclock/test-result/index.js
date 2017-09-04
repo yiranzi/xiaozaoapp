@@ -12,9 +12,9 @@ export default class TestResultPage extends React.Component {
     }
 
     shareWx = () => {
-        this.state = {
-            shareIsShow: !this.state.shareIsShow
-        }
+        this.setState({
+            shareIsShow: true
+        });
     }
 
     renderCss = () => {

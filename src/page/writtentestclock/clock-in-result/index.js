@@ -1,12 +1,20 @@
 import React from 'react';
-import Theme from '../../../../config/theme';
-import { Flex, FlexItem } from 'react-weui';
 import Footer from '../components/footer'
+import ShareWx from '../../../components/sharewx';
 
 export default class AnswerPage extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
 
+        this.state = {
+            shareIsShow: false
+        }
+    }
+
+    shareWx = () => {
+        this.setState({
+            shareIsShow: true
+        });
     }
 
     renderCss = () => {
@@ -96,6 +104,7 @@ export default class AnswerPage extends React.Component {
         //const accuracy = Math.round(testInfo.totalScore / testInfo.writtenTestTopicDTOList.length * 100);
         return (
             <div className='square-form'>
+                <ShareWx isShow={this.state.shareIsShow}/>
                 <div className="square">
                     <div className="inner-square">
                         <div className='score'>成功坚持笔试修炼第<span className="day">3</span>天</div>
@@ -107,7 +116,7 @@ export default class AnswerPage extends React.Component {
                     <img className="correct-bg" src="/static/writtentestclock/clock_result_bg2.png"/>
                     <div className="data1">xx%正确率</div>
                     <div className="data2">击败了超过xx%的参与者</div>
-                    <div className='btn-form'><a className='img'>分享到朋友圈</a></div>
+                    <div className='btn-form'><a className='img' href="javascript:;" onClick={this.shareWx}>分享到朋友圈</a></div>
                 </div>
 
                 <Footer />
