@@ -25,6 +25,7 @@ export default class AnswerPage extends React.Component {
             }else{
                 questionList = await AnswerAction.getYesterday();
             }
+            this.setState({questionList: questionList});
         }catch(error){
             alert(error.message);
         }

@@ -17,18 +17,20 @@ export default class TestAnswerPage extends React.Component {
         };
     }
 
-    componentDidMount() {
-        const _this = this;
+    componentDidMount = async () => {
+        let questionList = {};
         const category = CommonUtil.getQueryString('category');
 
-        if (category === 'first') {
-            AnswerAction.getEvaluation(category).then((res) => {
-                _this.setState({questionList: res});
-            });
-        } else if (category === 'end') {
-            AnswerAction.getTest(category).then((res) => {
-                _this.setState({questionList: res});
-            });
+        try {
+            if (category === 'first') {
+                questionList = await AnswerAction.getEvaluation(category);
+                this.setState({questionList: questionList});
+            } else if (category === 'end') {
+                questionList = await AnswerAction.getTest(category);
+                this.setState({questionList: questionList});
+            }
+        } catch (error) {
+            alert(error.message);
         }
     }
 
