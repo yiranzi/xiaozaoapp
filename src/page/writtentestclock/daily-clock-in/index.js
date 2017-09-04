@@ -15,14 +15,13 @@ export default class extends React.Component {
         }
     }
 
-
     componentDidMount() {
         const _this = this;
         UserAction.getInfo()
         .then(info => {
             const { completeDay, startDay, endDay } = info
             const duringDay = endDay - startDay
-            for(let i = completeDay.length; i < duringDay; i++) {
+            for(let i = completeDay.length; i <= duringDay; i++) {
                 completeDay.push(0)
             }
             _this.setState({
