@@ -112,11 +112,14 @@ export default class TestAnswerPage extends React.Component {
     }
 
     formatAnswerList() {
-        const {answerListResult} = this.state;
+        const {questionList, answerListResult} = this.state;
         let answerList = [];
-        for (let key in answerListResult) {
-            answerList.push({id: key, value: answerListResult[key].tag})
-        }
+
+        questionList.writtenTestTopicDTOList.map((item, index) => {
+            const {id} = item;
+            let seleteAnswer = answerListResult[id] ? answerListResult[id].tag : '';
+            answerList.push({id: item.id, value: seleteAnswer})
+        });
         return answerList;
     }
 
