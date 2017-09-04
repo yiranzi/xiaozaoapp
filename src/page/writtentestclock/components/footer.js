@@ -36,7 +36,7 @@ export default class extends React.Component {
                 <a className='footer-item' href='/writtentestclock/index-clock-in'>
                     每日做题
                 </a>
-                <a className='footer-item' href=''>
+                <a className='footer-item' href='/writtentestclock/more-test'>
                     更多题目
                 </a>
                 <a className='footer-item' href='/writtentestclock/former-clock-in'>

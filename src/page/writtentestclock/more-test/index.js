@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../components/footer'
 export default class extends React.Component {
 
     renderGlobalCss() {
@@ -13,6 +14,7 @@ export default class extends React.Component {
     render() {
         return (
             <div className='more-test-img'>
+                <Footer/>
                 <style jsx>{`
                     .more-test-img {
                         background-image: url(/static/writtentestclock/more-test.jpeg);
