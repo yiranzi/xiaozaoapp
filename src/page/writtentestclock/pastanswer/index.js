@@ -3,14 +3,37 @@ import classNames from 'classnames';
 import SubjectComponent from '../components/subject';
 import ThemeConfig from '../../../../config/theme';
 import Radio from '../../../components/radio';
+import AnswerAction from '../../../../src/action/writtentestclock/answer';
 
 export default class AnswerPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             currentObjectIndex: 0,
-            finish: false
+            finish: false,
+            questionList: {}
         };
+    }
+
+    getQueryString(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+
+    componentDidMount() {
+        const _this = this;
+        const day = this.getQueryString('day');
+        if (day) {
+            AnswerAction.getByToday(day).then((res) => {
+                _this.setState({questionList: res});
+            });
+        } else {
+            AnswerAction.getYesterday().then((res) => {
+                _this.setState({questionList: res});
+            });
+        }
     }
 
     renderAnswer(currentObjectIndex, questionList, answerDTOList) {
@@ -19,7 +42,7 @@ export default class AnswerPage extends React.Component {
             total: questionList.length,//当前试卷总共多少题
             currentIndex: currentObjectIndex, //当前题目在数组中的编号
             questionItem: questionItem, //题目数组
-            selectAnswer: answerDTOList? answerDTOList[currentObjectIndex].answer: '',//已选答案,
+            selectAnswer: answerDTOList ? answerDTOList[currentObjectIndex].answer : '',//已选答案,
             disabled: true
         });
         return (
@@ -127,16 +150,23 @@ export default class AnswerPage extends React.Component {
     }
 
     render() {
-        const {currentObjectIndex, finish} = this.state;//当前题目在数组中的序号
-        const {questionList} = this.props;
+        const {currentObjectIndex, finish, questionList} = this.state;//当前题目在数组中的序号
         const {writtenTestTopicDTOList, answerDTOList} = questionList;
-        return (
-            <div className='written-test-clock-answer'>
-                {this.renderAnswer(currentObjectIndex, writtenTestTopicDTOList, answerDTOList)}
-                {this.renderAnswerAnalysis(currentObjectIndex, writtenTestTopicDTOList)}
-                {this.renderActionButton(currentObjectIndex, writtenTestTopicDTOList)}
-                {this.renderCss()}
-            </div>
-        );
+        if (writtenTestTopicDTOList) {
+            return (
+                <div className='written-test-clock-answer'>
+                    {this.renderAnswer(currentObjectIndex, writtenTestTopicDTOList, answerDTOList)}
+                    {this.renderAnswerAnalysis(currentObjectIndex, writtenTestTopicDTOList)}
+                    {this.renderActionButton(currentObjectIndex, writtenTestTopicDTOList)}
+                    {this.renderCss()}
+                </div>
+            );
+        } else {
+            return (
+                <div className='written-test-clock-answer'>
+                </div>
+            )
+        }
+
     }
 }

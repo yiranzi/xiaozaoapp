@@ -11,8 +11,31 @@ export default class TestAnswerPage extends React.Component {
             currentObjectIndex: 0,
             answerList: [],
             finish: false,
-            initTime: new Date()
+            initTime: new Date(),
+            questionList: {}
         };
+    }
+
+    getQueryString(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+
+    componentDidMount() {
+        const _this = this;
+        const category = this.getQueryString('category');
+
+        if (category === 'first') {
+            AnswerAction.getEvaluation(category).then((res) => {
+                _this.setState({questionList: res});
+            });
+        } else if (category === 'end') {
+            AnswerAction.getTest(category).then((res) => {
+                _this.setState({questionList: res});
+            });
+        }
     }
 
     renderAnswer(currentObjectIndex, questions) {
@@ -39,7 +62,7 @@ export default class TestAnswerPage extends React.Component {
     answerCheck(id, value) {
         const {answerList} = this.state;
         this.setState({
-            answerList:answerList.concat({id: id, answer: value})
+            answerList: answerList.concat({id: id, answer: value})
         })
     }
 
@@ -130,15 +153,22 @@ export default class TestAnswerPage extends React.Component {
     }
 
     render() {
-        const {currentObjectIndex, finish} = this.state;//当前题目在数组中的序号
-        const {questionList} = this.props;
+        const {currentObjectIndex, finish, questionList} = this.state;//当前题目在数组中的序号
         const {writtenTestTopicDTOList} = questionList;
-        return (
-            <div className='written-test-clock-answer'>
-                {this.renderAnswer(currentObjectIndex, writtenTestTopicDTOList)}
-                {finish ? this.renderFinishButton() : this.renderActionButton(currentObjectIndex, writtenTestTopicDTOList)}
-                {this.renderCss()}
-            </div>
-        );
+        if (writtenTestTopicDTOList) {
+            return (
+                <div className='written-test-clock-answer'>
+                    {this.renderAnswer(currentObjectIndex, writtenTestTopicDTOList)}
+                    {finish ? this.renderFinishButton() : this.renderActionButton(currentObjectIndex, writtenTestTopicDTOList)}
+                    {this.renderCss()}
+                </div>
+            );
+        } else {
+            return (
+                <div className='written-test-clock-answer'>
+                </div>
+            );
+        }
+
     }
 }
