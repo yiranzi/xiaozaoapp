@@ -1,28 +1,41 @@
 import React from 'react';
 import Theme from '../../../../config/theme';
 import Footer from '../components/footer'
+import UserAction from '../../../../src/action/writtentestclock/user';
 export default class extends React.Component {
 
     constructor(props) {
         super(props)
-        let obj = {}
-        obj.list = []
-        let {startDay, endDay, completeDay} = props.info
-        const duringDay = Math.ceil((endDay - startDay)/3600/24/1000)
-
-        for(let i = 0; i < duringDay; i++) {
-            const date = new Date(startDay)
-            const Month = date.getMonth()+1
-            const Day = date.getDate()
-            obj.list.push({
-                date: `${Month}月${Day}日`,
-                day: `DAY${i+1}`,
-                check: completeDay[i]==undefined ? 'unknow' : completeDay[i] ? 'check' : 'cross'
-            })
-            startDay += 3600*24*1000
+        this.state = {
+            list: [],
+            showPage: false,
         }
+    }
 
-        this.state = obj
+    componentDidMount() {
+        const _this = this
+        UserAction.getHistory()
+        .then(info => {
+            let obj = {}
+            obj.list = []
+            let {startDay, endDay, completeDay} = info
+            const duringDay = Math.ceil((endDay - startDay)/3600/24/1000)
+            for(let i = 0; i < duringDay; i++) {
+                const date = new Date(startDay)
+                const Month = date.getMonth()+1
+                const Day = date.getDate()
+                obj.list.push({
+                    date: `${Month}月${Day}日`,
+                    day: `DAY${i+1}`,
+                    check: completeDay[i]==undefined ? 'unknow' : completeDay[i] ? 'check' : 'cross'
+                })
+                startDay += 3600*24*1000
+            }
+            _this.setState({
+                ...obj,
+                showPage: true
+            })
+        })
     }
 
     goToPastAnswer = (index) => {
@@ -108,6 +121,8 @@ export default class extends React.Component {
 
 
     render() {
+        const { showPage } = this.state
+        if(!showPage) return <div></div>
         return (
             <div className='clock-in-form'>
                 <div className='clock-in-list'>

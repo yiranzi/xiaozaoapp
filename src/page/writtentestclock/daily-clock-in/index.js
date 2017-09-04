@@ -1,18 +1,44 @@
 import React from 'react';
 import Theme from '../../../../config/theme';
 import Footer from '../components/footer'
+import UserAction from '../../../../src/action/writtentestclock/user';
 export default class extends React.Component {
 
     constructor(props) {
         super(props)
-        const { completeDay, startDay, endDay } = props.info
-        const duringDay = endDay - startDay
-        for(let i = completeDay.length; i < duringDay; i++) {
-            completeDay.push(0)
-        }
+        
         this.state = {
-            dates: completeDay
+            dates: [],
+            showTips: false,
+            tipsMsg: '',
+            showPage: false
         }
+    }
+
+
+    componentDidMount() {
+        const _this = this;
+        UserAction.getInfo()
+        .then(info => {
+            const { completeDay, startDay, endDay } = info
+            const duringDay = endDay - startDay
+            for(let i = completeDay.length; i < duringDay; i++) {
+                completeDay.push(0)
+            }
+            _this.setState({
+                ...info,
+                dates: completeDay,
+                showPage: true
+            })
+        })
+        .catch(error => {
+            _this.setState({
+                error: true,
+                showPage: true,
+                tipsMsg: error.message,
+                showTips: true
+            });
+        })
     }
     
     renderDate = () => {
@@ -42,7 +68,10 @@ export default class extends React.Component {
     
 
     render() {
-        const { no, groupNo, testResult, evaluationResult } = this.props.info
+        const { showPage } = this.state
+        if(!showPage) return <div></div>
+
+        const { no, groupNo, testResult, evaluationResult } = this.state
         return (
             <div className='daily-clock-in-form'>
                 <div className='sub-form'>
@@ -55,7 +84,7 @@ export default class extends React.Component {
                         <div className='study-no-title'>学号：</div><span className='study-no'>{no}</span>
                         <div className='wrapper-trangle'><span></span></div>
                         <div className='qr-code'>
-                            <img src='/static/writtentestclock/demo-qr-code.png'/>
+                            <img src={`/static/writtentestclock/qr-code/${groupNo}.jpg`}/>
                         </div>
                     </div>
                 </div>
