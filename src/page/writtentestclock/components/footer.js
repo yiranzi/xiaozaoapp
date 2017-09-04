@@ -39,7 +39,7 @@ export default class extends React.Component {
                 <a className='footer-item' href='/writtentestclock/more-test'>
                     更多题目
                 </a>
-                <a className='footer-item' href='/writtentestclock/former-clock-in'>
+                <a className='footer-item' href='/writtentestclock/daily-clock-in'>
                     我的打卡
                 </a>
                 {this.renderGlobalCss()}
