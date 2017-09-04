@@ -102,7 +102,6 @@ export default class WrittenTestClock extends React.Component {
     render() {
         const {total, questionItem, selectAnswer, disabled} = this.props.subjectItem;
         const {no, materialType, materialContent} = questionItem;
-        console.log(questionItem);
         let progress = Math.ceil(no / total * 100);
         return (
             <div className='subject-detail'>
