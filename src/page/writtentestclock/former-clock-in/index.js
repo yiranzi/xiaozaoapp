@@ -39,7 +39,7 @@ export default class extends React.Component {
     }
 
     goToPastAnswer = (index) => {
-        location.href = `/writtentestclock/pastanswer?day=${index + 1}`
+        if(this.list.length < index) location.href = `/writtentestclock/pastanswer?day=${index + 1}`
     }
 
     renderGlobalCss() {

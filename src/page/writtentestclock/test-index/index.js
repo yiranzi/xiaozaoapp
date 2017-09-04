@@ -20,7 +20,7 @@ export default class AnswerPage extends React.Component {
                     border: 1px solid;
                     margin: 10px;
                     position: relative;
-                    padding: 20px 0;
+                    padding: 30px 0;
                 }
                 .tips {
                     text-align: center;
@@ -115,11 +115,11 @@ export default class AnswerPage extends React.Component {
                         background-repeat: no-repeat;
                         background-size: 100% 100%;
                         text-align: center;
-                        height: 50px;
-                        width: 150px;
+                        height: 60px;
+                        width: 180px;
                         margin: 0 auto;
                         padding-right: 10px;
-                        line-height: 36px;
+                        line-height: 45px;
                         margin-top: 20px;
                     }
                 `}</style>

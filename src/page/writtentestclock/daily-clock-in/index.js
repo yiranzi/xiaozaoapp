@@ -160,8 +160,8 @@ export default class extends React.Component {
                         background-image: url(/static/writtentestclock/prize.png);
                         background-repeat: no-repeat;
                         background-size: 100% 100%;
-                        width: 10rem;
-                        height: 4rem;
+                        width: 200px;
+                        height: 80px;
                     }
                     .study-no-title {
                         width: 55px;
