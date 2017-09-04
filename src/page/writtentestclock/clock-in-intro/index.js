@@ -65,7 +65,7 @@ export default class extends React.Component {
                 tipsMsg: error.message,
                 showTips: true
             })
-            this.timeout = setTimeout(() => this.setState({showTips: false}), 1000)
+            this.timeout = setTimeout(() => this.setState({showTips: false}), 2000)
         }
     }
 
