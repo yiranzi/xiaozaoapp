@@ -91,9 +91,18 @@ export default class WrittenTestClock extends React.Component {
         );
     }
 
+    isImg(materialType){
+        return materialType === 2;
+    }
+
+    isText(materialType){
+        return materialType === 1;
+    }
+
     render() {
         const {total, questionItem, selectAnswer, disabled} = this.props.subjectItem;
-        const {no} = questionItem;
+        const {no, materialType, materialContent} = questionItem;
+        console.log(questionItem);
         let progress = Math.ceil(no / total * 100);
         return (
             <div className='subject-detail'>
@@ -106,7 +115,8 @@ export default class WrittenTestClock extends React.Component {
                     </div>
                 </div>
                 <div className='material'>
-                    <img src={questionItem.materialContent}/>
+                    {this.isImg(materialType) && <img src={materialContent}/>}
+                    {this.isText(materialType) && <p>{materialContent}</p>}
                 </div>
                 <div>{questionItem.no}.{questionItem.question}</div>
                 <div className='answer-option'>
