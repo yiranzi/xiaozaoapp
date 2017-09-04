@@ -16,17 +16,17 @@ export default class AnswerPage extends React.Component {
         };
     }
 
-    componentDidMount() {
-        const _this = this;
+    componentDidMount = async () => {
+        let questionList = {};
         const day = CommonUtil.getQueryString('day');
-        if (day) {
-            AnswerAction.getByToday(day).then((res) => {
-                _this.setState({questionList: res});
-            });
-        } else {
-            AnswerAction.getYesterday().then((res) => {
-                _this.setState({questionList: res});
-            });
+        try{
+            if(day){
+                questionList = await AnswerAction.getByToday(day);
+            }else{
+                questionList = await AnswerAction.getYesterday();
+            }
+        }catch(error){
+            alert(error.message);
         }
     }
 
