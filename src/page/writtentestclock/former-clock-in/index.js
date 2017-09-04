@@ -150,6 +150,9 @@ export default class extends React.Component {
                         height: 80px;
                         border-bottom: 1px dashed ${Theme.color.writtentestclockmain};
                     }
+                    .clock-in-item:last-child {
+                        margin-bottom: 30px;
+                    }
                     .title {
                         text-align: center;
                         font-size: 28px;
