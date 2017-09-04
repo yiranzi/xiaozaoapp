@@ -20,11 +20,14 @@ export default class AnswerPage extends React.Component {
         };
     }
 
-    componentDidMount() {
-        const _this = this;
-        AnswerAction.getToday().then((res) => {
-            _this.setState({questionList: res});
-        });
+    componentDidMount = async () => {
+        let questionList = {};
+        try {
+            questionList = await AnswerAction.getToday();
+            this.setState({questionList: questionList});
+        } catch (error) {
+            alert(error.message);
+        }
     }
 
     renderAnswer(currentObjectIndex, questions) {
