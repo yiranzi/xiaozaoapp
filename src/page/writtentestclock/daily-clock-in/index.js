@@ -55,7 +55,7 @@ export default class extends React.Component {
                         <div className='study-no-title'>学号：</div><span className='study-no'>{no}</span>
                         <div className='wrapper-trangle'><span></span></div>
                         <div className='qr-code'>
-                            <img src='/static/demo-qr-code.png'/>
+                            <img src='/static/writtentestclock/demo-qr-code.png'/>
                         </div>
                     </div>
                 </div>
@@ -128,7 +128,7 @@ export default class extends React.Component {
                         height: 100px;
                     }
                     .prize {
-                        background-image: url(/static/prize.png);
+                        background-image: url(/static/writtentestclock/prize.png);
                         background-repeat: no-repeat;
                         background-size: 100% 100%;
                         width: 10rem;

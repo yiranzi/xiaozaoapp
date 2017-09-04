@@ -149,10 +149,10 @@ export default class AnswerPage extends React.Component {
             <div className='action'>
                 <div onClick={() => {
                     this.prevAnswer(currentObjectIndex);
-                }}><img src='/static/prev.png'/></div>
+                }}><img src='/static/writtentestclock/prev.png'/></div>
                 <div onClick={() => {
                     this.nextAnswer(currentObjectIndex, questions);
-                }}><img src='/static/next.png'/></div>
+                }}><img src='/static/writtentestclock/next.png'/></div>
             </div>
         );
     }
@@ -162,10 +162,10 @@ export default class AnswerPage extends React.Component {
             <div className="finish">
                 <div onClick={() => {
                     this.prevAnswer(currentObjectIndex);
-                }}><img src='/static/prev.png'/></div>
+                }}><img src='/static/writtentestclock/prev.png'/></div>
                 <div onClick={() => {
                     this.answerComplete();
-                }}><img src='/static/complete.png'/></div>
+                }}><img src='/static/writtentestclock/complete.png'/></div>
             </div>
         );
     }

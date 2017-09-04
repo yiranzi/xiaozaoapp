@@ -51,7 +51,7 @@ export default class extends React.Component {
         const { showMore, isAdvanced, showTips, tipsMsg } = this.state
         return (
             <div>
-                <img className="bg-img" src="/static/intro.jpeg" />
+                <img className="bg-img" src="/static/writtentestclock/intro.jpeg" />
                 <div className='btn-form'>
                     {showMore &&
                     <div className="choose-class-form">
@@ -78,7 +78,7 @@ export default class extends React.Component {
                     .btn-img {
                         color: #000;
                         display: block;
-                        background-image: url(/static/round-btn.png);
+                        background-image: url(/static/writtentestclock/round-btn.png);
                         background-repeat: no-repeat;
                         background-size: 100% 100%;
                         text-align: center;
@@ -119,7 +119,7 @@ export default class extends React.Component {
                     }
                     .recommend-left:before {
                         content: '';
-                        background-image: url(/static/recommend.png);
+                        background-image: url(/static/writtentestclock/recommend.png);
                         background-repeat: no-repeat;
                         background-size: 100% 100%;
                         height: 40px;
@@ -131,7 +131,7 @@ export default class extends React.Component {
                     }
                     .recommend-right:before {
                         content: '';
-                        background-image: url(/static/recommend.png);
+                        background-image: url(/static/writtentestclock/recommend.png);
                         background-repeat: no-repeat;
                         background-size: 100% 100%;
                         height: 40px;

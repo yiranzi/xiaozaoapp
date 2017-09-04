@@ -37,7 +37,7 @@ export default class extends React.Component {
                     <div className='sub-form'>
                         <div className='sub-title'>二维码：</div>
                         <div className='qr-code'>
-                            <img src='/static/demo-qr-code.png'/>
+                            <img src='/static/writtentestclock/demo-qr-code.png'/>
                         </div>
                     </div>
                 </div>
@@ -102,7 +102,7 @@ export default class extends React.Component {
                         display: block;
                         text-align: center;
                         color: #fff;
-                        background-image: url(/static/go-clock-in.png);
+                        background-image: url(/static/writtentestclock/go-clock-in.png);
                         background-repeat: no-repeat;
                         background-size: 100% 100%;
                     }

@@ -44,23 +44,23 @@ export default class extends React.Component {
                         margin: 10px 0;
                     }
                     .yesterday-achieve-check {
-                        background-image: url(/static/yesterday-achieve-check.png);
+                        background-image: url(/static/writtentestclock/yesterday-achieve-check.png);
                     }
                     .yesterday-achieve-cross {
-                        background-image: url(/static/yesterday-achieve-cross.png);
+                        background-image: url(/static/writtentestclock/yesterday-achieve-cross.png);
                     }
                     .yesterday-achieve {
-                        background-image: url(/static/yesterday-achieve.png);
+                        background-image: url(/static/writtentestclock/yesterday-achieve.png);
                     }
 
                     .former-test {
-                        background-image: url(/static/former-test.png);
+                        background-image: url(/static/writtentestclock/former-test.png);
                     }
                     .today-push {
-                        background-image: url(/static/today-push.png);
+                        background-image: url(/static/writtentestclock/today-push.png);
                     }
                     .test {
-                        background-image: url(/static/test.png);
+                        background-image: url(/static/writtentestclock/test.png);
                     }
                 `}</style>
             </div>

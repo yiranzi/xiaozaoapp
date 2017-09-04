@@ -8,7 +8,7 @@ export default class WrittenTestClock extends React.Component {
         return (
             <style global jsx>{`
                 .written-test-clock {
-                    background: url('/static/bg.jpg');
+                    background: url('/static/writtentestclock/bg.jpg');
                     min-height: 100vh;
                     color: ${ThemeConfig.color.writtentestclockmain};
                     padding: 0 1rem;

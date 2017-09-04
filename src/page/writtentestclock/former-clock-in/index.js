@@ -49,14 +49,14 @@ export default class extends React.Component {
                         align-items: flex-end;
                     }
                     .check{
-                        background-image: url(/static/check.png);
+                        background-image: url(/static/writtentestclock/check.png);
                         background-repeat: no-repeat;
                         background-size: 100% 100%;
                         height: 40px;
                         width: 40px;
                     }
                     .cross{
-                        background-image: url(/static/cross.png);
+                        background-image: url(/static/writtentestclock/cross.png);
                         background-repeat: no-repeat;
                         background-size: 100% 100%;
                         height: 40px;

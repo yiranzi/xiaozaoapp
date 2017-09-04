@@ -111,7 +111,7 @@ export default class AnswerPage extends React.Component {
                     .img {
                         color: #000;
                         display: block;
-                        background-image: url(/static/round-btn.png);
+                        background-image: url(/static/writtentestclock/round-btn.png);
                         background-repeat: no-repeat;
                         background-size: 100% 100%;
                         text-align: center;

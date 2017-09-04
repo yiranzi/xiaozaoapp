@@ -27,7 +27,7 @@ export default class AnswerPage extends React.Component {
                     text-align: center;
                 }
                 .inner-square {
-                    background-image: url(/static/clock_result_bg.png);
+                    background-image: url(/static/writtentestclock/clock_result_bg.png);
                     background-size: 100% 100%;
                     padding: 55px 0 70px;
                     font-size: 18px;
@@ -52,7 +52,7 @@ export default class AnswerPage extends React.Component {
                 .img {
                     display: block;
                     margin-top: 30px;
-                    background-image: url(/static/round-btn.png);
+                    background-image: url(/static/writtentestclock/round-btn.png);
                     background-repeat: no-repeat;
                     background-size: 100% 100%;
                     width: 200px;
@@ -104,7 +104,7 @@ export default class AnswerPage extends React.Component {
                     </div>
                 </div>
                 <div className="correct-rate">
-                    <img className="correct-bg" src="/static/clock_result_bg2.png"/>
+                    <img className="correct-bg" src="/static/writtentestclock/clock_result_bg2.png"/>
                     <div className="data1">xx%正确率</div>
                     <div className="data2">击败了超过xx%的参与者</div>
                     <div className='btn-form'><a className='img'>分享到朋友圈</a></div>

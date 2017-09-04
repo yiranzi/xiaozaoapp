@@ -72,7 +72,7 @@ export default class WrittenTestClock extends React.Component {
                 }
                 .subject-detail .weui-cells_radio .weui-check:checked+.weui-icon-checked:before {
                     color: transparent;
-                    background: url(/static/check.png);
+                    background: url(/static/writtentestclock/check.png);
                     background-size: 100%;
                     width: 2.5rem;
                     height: 2.5rem;
