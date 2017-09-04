@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import SubjectComponent from '../components/subject';
 import ThemeConfig from '../../../../config/theme';
 import AnswerAction from '../../../../src/action/writtentestclock/answer';
+import CommonUtil from '../../../../src/util/common';
 
 export default class AnswerPage extends React.Component {
     constructor(props) {
@@ -14,8 +15,23 @@ export default class AnswerPage extends React.Component {
             finish: false,
             initTime: new Date(),
             isShowAnalysisButton: false,
-            isShowAnalysis: false
+            isShowAnalysis: false,
+            questionList: {}
         };
+    }
+
+    componentDidMount() {
+        const _this = this;
+        const day = CommonUtil.getQueryString('day');
+        if (day) {
+            AnswerAction.getByToday(day).then((res) => {
+                _this.setState({questionList: res});
+            });
+        } else {
+            AnswerAction.getYesterday().then((res) => {
+                _this.setState({questionList: res});
+            });
+        }
     }
 
     renderAnswer(currentObjectIndex, questions) {
@@ -173,7 +189,7 @@ export default class AnswerPage extends React.Component {
     formatAnswerList() {
         const {answerListResult} = this.state;
         let answerList = [];
-        for(let key in answerListResult){
+        for (let key in answerListResult) {
             answerList.push({id: key, value: answerListResult[key].tag})
         }
         return answerList;
@@ -224,16 +240,23 @@ export default class AnswerPage extends React.Component {
     }
 
     render() {
-        const {currentObjectIndex, finish} = this.state;//当前题目在数组中的序号
-        const {questionList} = this.props;
+        const {currentObjectIndex, finish, questionList} = this.state;//当前题目在数组中的序号
         const {writtenTestTopicDTOList} = questionList;
-        return (
-            <div className='written-test-clock-answer'>
-                {this.renderAnswer(currentObjectIndex, writtenTestTopicDTOList)}
-                {this.renderAnswerAnalysis(currentObjectIndex, writtenTestTopicDTOList)}
-                {finish ? this.renderFinishButton(currentObjectIndex) : this.renderActionButton(currentObjectIndex, writtenTestTopicDTOList)}
-                {this.renderCss()}
-            </div>
-        );
+        if (writtenTestTopicDTOList) {
+            return (
+                <div className='written-test-clock-answer'>
+                    {this.renderAnswer(currentObjectIndex, writtenTestTopicDTOList)}
+                    {this.renderAnswerAnalysis(currentObjectIndex, writtenTestTopicDTOList)}
+                    {finish ? this.renderFinishButton(currentObjectIndex) : this.renderActionButton(currentObjectIndex, writtenTestTopicDTOList)}
+                    {this.renderCss()}
+                </div>
+            );
+        } else {
+            return (
+                <div className='written-test-clock-answer'>
+                </div>
+            )
+        }
+
     }
 }
