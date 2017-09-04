@@ -33,8 +33,8 @@ export default class extends React.Component {
                     .btn {
                         background-repeat: no-repeat;
                         background-size: 100% 100%;
-                        width: 15rem;
-                        height: 5rem;
+                        width: 280px;
+                        height: 100px;
                         margin: 10px 0;
                     }
                     .yesterday-achieve-check {

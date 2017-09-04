@@ -20,7 +20,7 @@ export default class extends React.Component {
             obj.list = []
             let {startDay, endDay, completeDay} = info
             const duringDay = Math.ceil((endDay - startDay)/3600/24/1000)
-            for(let i = 0; i < duringDay; i++) {
+            for(let i = 0; i <= duringDay; i++) {
                 const date = new Date(startDay)
                 const Month = date.getMonth()+1
                 const Day = date.getDate()
