@@ -7,14 +7,7 @@ export default class extends React.Component {
     static async getInitialProps() {
         let testInfo;
         try {
-            testInfo = await TestResultAction.getTest();
-            testInfo = {
-                setId: 1,
-                totalScore: 2,
-                answerTime: new Date(),
-                answerDTOList: [],
-                writtenTestTopicDTOList: [{a: '1'}, {a: '2'}, {a: '3'}, {a: '4'}]
-        }
+            testInfo = await TestResultAction.getEvaluation();
         } catch (error) {
             testInfo = error
         }

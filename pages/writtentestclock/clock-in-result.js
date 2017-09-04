@@ -8,13 +8,6 @@ export default class extends React.Component {
         let todayInfo;
         try {
             todayInfo = await TestResultAction.getToday();
-            todayInfo = {
-                setId: 1,
-                totalScore: 2,
-                answerTime: new Date(),
-                answerDTOList: [],
-                writtenTestTopicDTOList: [{a: '1'}, {a: '2'}, {a: '3'}, {a: '4'}]
-            }
         } catch (error) {
             todayInfo = error
         }

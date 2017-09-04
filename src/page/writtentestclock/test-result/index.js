@@ -7,7 +7,8 @@ export default class TestResultPage extends React.Component {
 
         const {testInfo} = this.props;
         this.state = {
-            shareIsShow: false
+            shareIsShow: false,
+            exceeds: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 8, 8, 8, 9, 9, 9, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 39, 42, 44, 46, 48, 51, 54, 57, 60, 63, 65, 67, 69, 72, 75, 77, 80, 82, 84, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 96, 96, 96, 96, 97, 97, 97, 97, 97, 98, 98, 98, 98, 98, 99, 99, 99, 99, 99, 100]
         }
     }
 
@@ -69,16 +70,15 @@ export default class TestResultPage extends React.Component {
 
     render() {
         const {testInfo} = this.props;
-        console.log(testInfo);
-        //const accuracy = Math.round(testInfo.totalScore / testInfo.writtenTestTopicDTOList.length * 100);
+        const accuracy = testInfo.writtenTestTopicDTOList.length == 0 ? 0 : Math.round(testInfo.totalScore / testInfo.writtenTestTopicDTOList.length * 100);
         return (
             <div>
                 <ShareWx isShow={this.state.shareIsShow}/>
                 <div className="test-result">
                     <img className="result-bg" src="/static/writtentestclock/test_result_bg.png"/>
                     <div className="result-content">
-                        <div className="text1">恭喜您本次测试答对{this.props.testInfo.totalScore}道题<br/>总正确率xx%！</div>
-                        <div className="text2">小伙伴，你的笔试答题战斗力<br/>超过了xx%的笔试打卡学习者！</div>
+                        <div className="text1">恭喜您本次测试答对{this.props.testInfo.totalScore}道题<br/>总正确率{accuracy}%！</div>
+                        <div className="text2">小伙伴，你的笔试答题战斗力<br/>超过了{this.props.exceeds[accuracy]}%的笔试打卡学习者！</div>
                         <a className='btn1' href="javascript:;" onClick={this.shareWx}><img src="/static/writtentestclock/share.png"/></a>
                         <div className="text2">实力总是需要有人见证的！<br/>（从这一刻开始改变）<br/>少侠，笔试训练也是一个打怪升级的过程</div>
                         <br/>
