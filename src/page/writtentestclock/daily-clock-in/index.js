@@ -2,6 +2,7 @@ import React from 'react';
 import Theme from '../../../../config/theme';
 import Footer from '../components/footer'
 import UserAction from '../../../../src/action/writtentestclock/user';
+import AnswerAction from '../../../../src/action/writtentestclock/answer';
 export default class extends React.Component {
 
     constructor(props) {
@@ -11,33 +12,40 @@ export default class extends React.Component {
             dates: [],
             showTips: false,
             tipsMsg: '',
-            showPage: false
+            showPage: false,
+            testInfo: null,
+            exceeds: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 8, 8, 8, 9, 9, 9, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 39, 42, 44, 46, 48, 51, 54, 57, 60, 63, 65, 67, 69, 72, 75, 77, 80, 82, 84, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 96, 96, 96, 96, 97, 97, 97, 97, 97, 98, 98, 98, 98, 98, 99, 99, 99, 99, 99, 100]
         }
     }
 
-    componentDidMount() {
-        const _this = this;
-        UserAction.getInfo()
-        .then(info => {
+    componentDidMount = async() => {
+
+        try{
+            const info = await UserAction.getInfo()
+            const res = await AnswerAction.getEvaluation()
+            
             const { completeDay, startDay, endDay } = info
             const duringDay = endDay - startDay
             for(let i = completeDay.length; i <= duringDay; i++) {
                 completeDay.push(0)
             }
-            _this.setState({
+            this.setState({
                 ...info,
                 dates: completeDay,
-                showPage: true
+                showPage: true,
+                testInfo: res
             })
-        })
-        .catch(error => {
-            _this.setState({
+
+
+        } catch(error) {
+            this.setState({
                 error: true,
                 showPage: true,
                 tipsMsg: error.message,
                 showTips: true
             });
-        })
+        }
+        
     }
     
     renderDate = () => {
@@ -70,7 +78,15 @@ export default class extends React.Component {
         const { showPage } = this.state
         if(!showPage) return <div></div>
 
-        const { no, groupNo, testResult, evaluationResult } = this.state
+        const { no, groupNo, testResult, evaluationResult, testInfo } = this.state
+
+        let testResultContent = ''
+        if(testResult) {
+            const currPersent = testResult ? (testResult + '%') : '0%'
+            const beatPersent = this.state.exceeds[testResult] || 0
+            testResultContent = `正确率为${ currPersent }, 击败了${ beatPersent }%的人`
+        }
+
         return (
             <div className='daily-clock-in-form'>
                 <div className='sub-form'>
@@ -91,9 +107,8 @@ export default class extends React.Component {
                     <div className='title'>我的成绩</div>  
                     <div className='content-wrapper'>
                         <div className='wrapper-trangle'><span></span></div>
-                        <div>入学前测评：{evaluationResult || ''}</div>
-                        <div>活动后测试：{testResult || ''}</div>
-
+                        <div>入学前测评：正确率为{ evaluationResult ? (evaluationResult + '%') : '0%'}, 击败了{this.state.exceeds[evaluationResult] || 0}%的人</div>
+                        <div>活动后测试：{testResultContent}</div>
                     </div> 
                 </div>
                 <a className='prize'></a>
