@@ -84,14 +84,34 @@ export default class AnswerPage extends React.Component {
                             <div className="answer">答案：{answer}</div>
                         </div>
                         <div className="analysis-content">{analysis}</div>
-                        <style jsx>{`
-                            .analysis-header {
-                                display: flex;
-                                justify-content: space-between;
-                            }
-                        `}</style>
                     </div>
                 </div>
+                <style jsx>{`
+                    .analysis {
+                        padding: 1rem;
+                    }
+                    .analysis-header {
+                        font-weight: bold;
+                    }
+                    .analysis-content {
+                        padding: 0.5rem 1rem;
+                        border: 1px solid ${ThemeConfig.color.writtentestclockmain};
+                        position: relative;
+                        margin-top: 1rem;
+                    }
+                    .analysis-content:before {
+                        content: "";
+                        width: 1rem;
+                        height: 1rem;
+                        border: 1px solid ${ThemeConfig.color.writtentestclockmain};
+                        border-right: none;
+                        border-bottom: none;
+                        position: absolute;
+                        top: -0.65rem;
+                        left: 5rem;
+                        transform: rotate(45deg);
+                    }
+                `}</style>
             </div>
         );
     }
@@ -133,10 +153,11 @@ export default class AnswerPage extends React.Component {
                 }
                 .action {
                     display: flex;
-                    justify-content: space-between;
+                    justify-content: center;
+                    padding: 1rem 0;
                 }
                 .action img {
-                    width: 100%;
+                    width: 85%;
                 }
                 .finish {
                     display: flex;
