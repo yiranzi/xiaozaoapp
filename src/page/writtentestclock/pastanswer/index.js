@@ -4,6 +4,7 @@ import SubjectComponent from '../components/subject';
 import ThemeConfig from '../../../../config/theme';
 import Radio from '../../../components/radio';
 import AnswerAction from '../../../../src/action/writtentestclock/answer';
+import CommonUtil from '../../../../src/util/common';
 
 export default class AnswerPage extends React.Component {
     constructor(props) {
@@ -15,16 +16,9 @@ export default class AnswerPage extends React.Component {
         };
     }
 
-    getQueryString(name) {
-        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
-        var r = window.location.search.substr(1).match(reg);
-        if (r != null) return unescape(r[2]);
-        return null;
-    }
-
     componentDidMount() {
         const _this = this;
-        const day = this.getQueryString('day');
+        const day = CommonUtil.getQueryString('day');
         if (day) {
             AnswerAction.getByToday(day).then((res) => {
                 _this.setState({questionList: res});

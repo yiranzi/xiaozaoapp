@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import SubjectComponent from '../components/subject';
 import ThemeConfig from '../../../../config/theme';
 import AnswerAction from '../../../../src/action/writtentestclock/answer';
+import CommonUtil from '../../../../src/util/common';
 
 export default class TestAnswerPage extends React.Component {
     constructor(props) {
@@ -16,16 +17,9 @@ export default class TestAnswerPage extends React.Component {
         };
     }
 
-    getQueryString(name) {
-        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
-        var r = window.location.search.substr(1).match(reg);
-        if (r != null) return unescape(r[2]);
-        return null;
-    }
-
     componentDidMount() {
         const _this = this;
-        const category = this.getQueryString('category');
+        const category = CommonUtil.getQueryString('category');
 
         if (category === 'first') {
             AnswerAction.getEvaluation(category).then((res) => {
