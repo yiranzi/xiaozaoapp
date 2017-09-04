@@ -3,14 +3,31 @@ import classNames from 'classnames';
 import SubjectComponent from '../components/subject';
 import ThemeConfig from '../../../../config/theme';
 import Radio from '../../../components/radio';
+import AnswerAction from '../../../../src/action/writtentestclock/answer';
+import CommonUtil from '../../../../src/util/common';
 
 export default class AnswerPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             currentObjectIndex: 0,
-            finish: false
+            finish: false,
+            questionList: {}
         };
+    }
+
+    componentDidMount() {
+        const _this = this;
+        const day = CommonUtil.getQueryString('day');
+        if (day) {
+            AnswerAction.getByToday(day).then((res) => {
+                _this.setState({questionList: res});
+            });
+        } else {
+            AnswerAction.getYesterday().then((res) => {
+                _this.setState({questionList: res});
+            });
+        }
     }
 
     renderAnswer(currentObjectIndex, questionList, answerDTOList) {
@@ -19,7 +36,7 @@ export default class AnswerPage extends React.Component {
             total: questionList.length,//当前试卷总共多少题
             currentIndex: currentObjectIndex, //当前题目在数组中的编号
             questionItem: questionItem, //题目数组
-            selectAnswer: answerDTOList? answerDTOList[currentObjectIndex].answer: '',//已选答案,
+            selectAnswer: answerDTOList ? answerDTOList[currentObjectIndex].answer : '',//已选答案,
             disabled: true
         });
         return (
@@ -37,21 +54,20 @@ export default class AnswerPage extends React.Component {
     }
 
     prevAnswer(currentObjectIndex) {
-        this.setState({
-            currentObjectIndex: currentObjectIndex - 1
-        });
+        if (currentObjectIndex >= 1) {
+            this.setState({
+                currentObjectIndex: currentObjectIndex - 1
+            });
+        }
+
     }
 
     nextAnswer(currentObjectIndex, questions) {
         let nextObjectIndex = currentObjectIndex + 1;
-        if (nextObjectIndex >= questions.length - 1) {
+        if (nextObjectIndex <= questions.length - 1) {
             this.setState({
                 currentObjectIndex: nextObjectIndex,
                 finish: true
-            });
-        } else {
-            this.setState({
-                currentObjectIndex: nextObjectIndex
             });
         }
     }
@@ -68,14 +84,34 @@ export default class AnswerPage extends React.Component {
                             <div className="answer">答案：{answer}</div>
                         </div>
                         <div className="analysis-content">{analysis}</div>
-                        <style jsx>{`
-                            .analysis-header {
-                                display: flex;
-                                justify-content: space-between;
-                            }
-                        `}</style>
                     </div>
                 </div>
+                <style jsx>{`
+                    .analysis {
+                        padding: 1rem;
+                    }
+                    .analysis-header {
+                        font-weight: bold;
+                    }
+                    .analysis-content {
+                        padding: 0.5rem 1rem;
+                        border: 1px solid ${ThemeConfig.color.writtentestclockmain};
+                        position: relative;
+                        margin-top: 1rem;
+                    }
+                    .analysis-content:before {
+                        content: "";
+                        width: 1rem;
+                        height: 1rem;
+                        border: 1px solid ${ThemeConfig.color.writtentestclockmain};
+                        border-right: none;
+                        border-bottom: none;
+                        position: absolute;
+                        top: -0.65rem;
+                        left: 5rem;
+                        transform: rotate(45deg);
+                    }
+                `}</style>
             </div>
         );
     }
@@ -110,13 +146,18 @@ export default class AnswerPage extends React.Component {
                     border-left: 0.5rem solid transparent;
                     border-right: 0.5rem solid transparent;
                     border-bottom: 1rem solid ${ThemeConfig.color.writtentestclockmain};
+                    margin-left: -0.75rem;
+                }
+                .triangle-up + div {
+                    margin-left: -1rem;
                 }
                 .action {
                     display: flex;
-                    justify-content: space-between;
+                    justify-content: center;
+                    padding: 1rem 0;
                 }
                 .action img {
-                    width: 100%;
+                    width: 85%;
                 }
                 .finish {
                     display: flex;
@@ -127,16 +168,23 @@ export default class AnswerPage extends React.Component {
     }
 
     render() {
-        const {currentObjectIndex, finish} = this.state;//当前题目在数组中的序号
-        const {questionList} = this.props;
+        const {currentObjectIndex, finish, questionList} = this.state;//当前题目在数组中的序号
         const {writtenTestTopicDTOList, answerDTOList} = questionList;
-        return (
-            <div className='written-test-clock-answer'>
-                {this.renderAnswer(currentObjectIndex, writtenTestTopicDTOList, answerDTOList)}
-                {this.renderAnswerAnalysis(currentObjectIndex, writtenTestTopicDTOList)}
-                {this.renderActionButton(currentObjectIndex, writtenTestTopicDTOList)}
-                {this.renderCss()}
-            </div>
-        );
+        if (writtenTestTopicDTOList) {
+            return (
+                <div className='written-test-clock-answer'>
+                    {this.renderAnswer(currentObjectIndex, writtenTestTopicDTOList, answerDTOList)}
+                    {this.renderAnswerAnalysis(currentObjectIndex, writtenTestTopicDTOList)}
+                    {this.renderActionButton(currentObjectIndex, writtenTestTopicDTOList)}
+                    {this.renderCss()}
+                </div>
+            );
+        } else {
+            return (
+                <div className='written-test-clock-answer'>
+                </div>
+            )
+        }
+
     }
 }

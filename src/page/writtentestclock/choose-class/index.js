@@ -1,21 +1,47 @@
 import React from 'react';
 import Theme from '../../../../config/theme'
 import { Toptips } from 'react-weui'
+import UserAction from '../../../../src/action/writtentestclock/user';
 export default class extends React.Component {
     constructor(props) {
         super(props)
-        const { info } = props
+        // const { info } = props'
         this.state = {
-            showTips: info.error,
-            tipsMsg: info.message || ''
+            showTips: '',
+            tipsMsg: '',
+            info: '',
+            showPage: false
         }
+    }
+    
+    componentDidMount() {
+        const _this = this;
+        UserAction.getInfo()
+        .then((info) => {
+            _this.setState({
+                info,
+                showTips: info.error,
+                tipsMsg: info.message || '',
+                showPage: true
+            });
+        })
+        .catch(error => {
+            _this.setState({
+                error: true,
+                showPage: true,
+                ...error
+            });
+        })
+
     }
 
     
     render() {
-        const { no } = this.props.info
-        const { showTips, tipsMsg } = this.state
+        
+        const { showTips, tipsMsg, showPage } = this.state
+        const { no } = this.state.info
 
+        if(!showPage) return <div></div>
         if(showTips){
             return <Toptips type="warn" show={showTips}> {tipsMsg} </Toptips>
         }

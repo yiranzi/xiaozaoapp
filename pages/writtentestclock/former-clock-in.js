@@ -3,20 +3,20 @@ import {Button} from 'react-weui';
 import FormerClockIn from '../../src/page/writtentestclock/former-clock-in'
 import WrittenTestClock from '../../src/page/writtentestclock/components/layout';
 
-import UserAction from '../../src/action/writtentestclock/user';
+// import UserAction from '../../src/action/writtentestclock/user';
 
 export default class extends React.Component {
-    static async getInitialProps() {
-        let info;
-        try {
-            info = await UserAction.getHistory();
-        } catch (error) {
+    // static async getInitialProps() {
+    //     let info;
+    //     try {
+    //         info = await UserAction.getHistory();
+    //     } catch (error) {
 
-        }
-        return {
-            info
-        }
-    }
+    //     }
+    //     return {
+    //         info
+    //     }
+    // }
     render() {
         return (
             <WrittenTestClock>

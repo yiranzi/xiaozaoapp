@@ -1,19 +1,41 @@
 import React from 'react';
 import Theme from '../../../../config/theme'
 import classnames from 'classnames'
-import UserAction from '../../../action/writtentestclock/user'
 import { Toptips } from 'react-weui'
+import UserAction from '../../../../src/action/writtentestclock/user';
 export default class extends React.Component {
 
     constructor(props) {
         super(props)
-        const { evaluationResult } = props.info
         this.state = {
             showMore: false,
-            isAdvanced: evaluationResult ? evaluationResult > 65 ? 2 : 1 : 0,
+            isAdvanced: 0,
             showTips: false,
-            tipsMsg: ''
+            tipsMsg: '',
+            showPage: false
         }
+    }
+
+    componentDidMount() {
+        const _this = this;
+        UserAction.getInfo()
+        .then((info) => {
+            const { evaluationResult } = info
+            _this.setState({
+                info,
+                showPage: true,
+                isAdvanced: evaluationResult ? evaluationResult > 65 ? 2 : 1 : 0,
+            });
+        })
+        .catch(error => {
+            _this.setState({
+                error: true,
+                showPage: true,
+                tipsMsg: error.message,
+                showTips: true
+            });
+        })
+
     }
 
     showMoreClick = () => {
@@ -48,7 +70,8 @@ export default class extends React.Component {
     }
 
     render() {
-        const { showMore, isAdvanced, showTips, tipsMsg } = this.state
+        const { showMore, isAdvanced, showTips, tipsMsg, showPage } = this.state
+        if(!showPage) return <div></div>
         return (
             <div>
                 <img className="bg-img" src="/static/writtentestclock/intro.jpeg" />

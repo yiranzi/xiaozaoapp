@@ -33,13 +33,13 @@ export default class extends React.Component {
     render() {
         return (
             <div className="footer-wrapper">
-                <a className='footer-item'>
+                <a className='footer-item' href='/writtentestclock/index-clock-in'>
                     每日做题
                 </a>
-                <a className='footer-item'>
+                <a className='footer-item' href='/writtentestclock/more-test'>
                     更多题目
                 </a>
-                <a className='footer-item'>
+                <a className='footer-item' href='/writtentestclock/former-clock-in'>
                     我的打卡
                 </a>
                 {this.renderGlobalCss()}

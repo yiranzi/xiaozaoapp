@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import SubjectComponent from '../components/subject';
 import ThemeConfig from '../../../../config/theme';
 import AnswerAction from '../../../../src/action/writtentestclock/answer';
+import CommonUtil from '../../../../src/util/common';
 
 export default class AnswerPage extends React.Component {
     constructor(props) {
@@ -14,8 +15,16 @@ export default class AnswerPage extends React.Component {
             finish: false,
             initTime: new Date(),
             isShowAnalysisButton: false,
-            isShowAnalysis: false
+            isShowAnalysis: false,
+            questionList: {}
         };
+    }
+
+    componentDidMount() {
+        const _this = this;
+        AnswerAction.getToday().then((res) => {
+            _this.setState({questionList: res});
+        });
     }
 
     renderAnswer(currentObjectIndex, questions) {
@@ -171,17 +180,20 @@ export default class AnswerPage extends React.Component {
     }
 
     formatAnswerList() {
-        const {answerListResult} = this.state;
+        const {questionList, answerListResult} = this.state;
         let answerList = [];
-        for(let key in answerListResult){
-            answerList.push({id: key, value: answerListResult[key].tag})
-        }
+
+        questionList.writtenTestTopicDTOList.map((item, index) => {
+            const {id} = item;
+            let seleteAnswer = answerListResult[id] ? answerListResult[id].tag : '';
+            answerList.push({id: item.id, value: seleteAnswer})
+        });
         return answerList;
     }
 
     answerComplete = async () => {
         const {initTime} = this.state;
-        const {setId} = this.props.questionList;
+        const {setId} = this.state.questionList;
         const answerList = this.formatAnswerList();
         try {
             const spendTime = new Date() - initTime;
@@ -207,6 +219,10 @@ export default class AnswerPage extends React.Component {
                     border-left: 0.5rem solid transparent;
                     border-right: 0.5rem solid transparent;
                     border-bottom: 1rem solid ${ThemeConfig.color.writtentestclockmain};
+                    margin-left: -0.75rem;
+                }
+                .triangle-up + div {
+                    margin-left: -1rem;
                 }
                 .action, .finish {
                     display: flex;
@@ -220,16 +236,23 @@ export default class AnswerPage extends React.Component {
     }
 
     render() {
-        const {currentObjectIndex, finish} = this.state;//当前题目在数组中的序号
-        const {questionList} = this.props;
+        const {currentObjectIndex, finish, questionList} = this.state;//当前题目在数组中的序号
         const {writtenTestTopicDTOList} = questionList;
-        return (
-            <div className='written-test-clock-answer'>
-                {this.renderAnswer(currentObjectIndex, writtenTestTopicDTOList)}
-                {this.renderAnswerAnalysis(currentObjectIndex, writtenTestTopicDTOList)}
-                {finish ? this.renderFinishButton(currentObjectIndex) : this.renderActionButton(currentObjectIndex, writtenTestTopicDTOList)}
-                {this.renderCss()}
-            </div>
-        );
+        if (writtenTestTopicDTOList) {
+            return (
+                <div className='written-test-clock-answer'>
+                    {this.renderAnswer(currentObjectIndex, writtenTestTopicDTOList)}
+                    {this.renderAnswerAnalysis(currentObjectIndex, writtenTestTopicDTOList)}
+                    {finish ? this.renderFinishButton(currentObjectIndex) : this.renderActionButton(currentObjectIndex, writtenTestTopicDTOList)}
+                    {this.renderCss()}
+                </div>
+            );
+        } else {
+            return (
+                <div className='written-test-clock-answer'>
+                </div>
+            )
+        }
+
     }
 }
