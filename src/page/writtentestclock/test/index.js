@@ -120,7 +120,7 @@ export default class TestAnswerPage extends React.Component {
         questionList.writtenTestTopicDTOList.map((item, index) => {
             const {id} = item;
             let seleteAnswer = answerListResult[id] ? answerListResult[id].tag : '';
-            answerList.push({id: item.id, value: seleteAnswer})
+            answerList.push({id: item.id, answer: seleteAnswer})
         });
         return answerList;
     }

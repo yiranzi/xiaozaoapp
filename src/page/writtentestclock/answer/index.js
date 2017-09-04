@@ -144,11 +144,11 @@ export default class AnswerPage extends React.Component {
         );
 
         if (isShowAnalysisButton) {
-            return analysisButton
+            return analysisButton;
         }
 
         if (isShowAnalysis) {
-            return analysisContent
+            return analysisContent;
         }
     }
 
@@ -189,7 +189,7 @@ export default class AnswerPage extends React.Component {
         questionList.writtenTestTopicDTOList.map((item, index) => {
             const {id} = item;
             let seleteAnswer = answerListResult[id] ? answerListResult[id].tag : '';
-            answerList.push({id: item.id, value: seleteAnswer})
+            answerList.push({id: item.id, answer: seleteAnswer})
         });
         return answerList;
     }
