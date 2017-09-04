@@ -47,7 +47,7 @@ module.exports = {
             '/writtentestclock/daily-clock-in': {page: '/writtentestclock/daily-clock-in'},
             '/writtentestclock/former-clock-in': {page: '/writtentestclock/former-clock-in'},
             '/writtentestclock/index-clock-in': {page: '/writtentestclock/index-clock-in'},
-            '/writtentestclock/test-index': {page: '/writtentestclock/test-index'},
+            '/writtentestclock/test-entry': {page: '/writtentestclock/test-entry'},
             '/writtentestclock/test-result': {page: '/writtentestclock/test-result'},
             '/writtentestclock/more-test': {page: '/writtentestclock/more-test'}
         };
