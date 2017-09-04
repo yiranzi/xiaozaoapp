@@ -54,21 +54,20 @@ export default class AnswerPage extends React.Component {
     }
 
     prevAnswer(currentObjectIndex) {
-        this.setState({
-            currentObjectIndex: currentObjectIndex - 1
-        });
+        if (currentObjectIndex >= 1) {
+            this.setState({
+                currentObjectIndex: currentObjectIndex - 1
+            });
+        }
+
     }
 
     nextAnswer(currentObjectIndex, questions) {
         let nextObjectIndex = currentObjectIndex + 1;
-        if (nextObjectIndex >= questions.length - 1) {
+        if (nextObjectIndex <= questions.length - 1) {
             this.setState({
                 currentObjectIndex: nextObjectIndex,
                 finish: true
-            });
-        } else {
-            this.setState({
-                currentObjectIndex: nextObjectIndex
             });
         }
     }
