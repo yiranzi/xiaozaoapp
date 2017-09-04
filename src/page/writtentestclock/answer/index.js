@@ -9,7 +9,8 @@ export default class AnswerPage extends React.Component {
         super(props);
         this.state = {
             currentObjectIndex: 0,
-            answerList: [],
+            answerListResult: {},
+            // answerList: [],//题目答案[{id: , tag: }]
             finish: false,
             initTime: new Date(),
             isShowAnalysisButton: false,
@@ -18,14 +19,16 @@ export default class AnswerPage extends React.Component {
     }
 
     renderAnswer(currentObjectIndex, questions) {
-        const {answerList} = this.state;
-
+        // const {answerList} = this.state;
+        let {answerListResult} = this.state;
         const questionItem = questions[currentObjectIndex];//题目详情
+        let selectAnswer = answerListResult[questionItem.id] ? answerListResult[questionItem.id].tag : '';
+
         const subjectItem = Object.assign({}, {
             total: questions.length,//当前试卷总共多少题
             currentIndex: currentObjectIndex, //当前题目在数组中的编号
             questionItem: questionItem, //题目数组
-            selectAnswer: answerList[questionItem.id],//已选答案
+            selectAnswer: selectAnswer//已选答案
         })
         return (
             <div className='subject-item'>
@@ -40,9 +43,13 @@ export default class AnswerPage extends React.Component {
     }
 
     answerCheck(id, value) {
-        const {answerList} = this.state;
+        // const {answerList} = this.state;
+        let {answerListResult} = this.state;
+        answerListResult[id] = answerListResult[id] || {};
+        answerListResult[id].tag = value;
         this.setState({
-            answerList: answerList.concat({id: id, answer: value}),
+            answerListResult: answerListResult,
+            // answerList: answerList.concat({id: id, answer: value}),
             isShowAnalysisButton: true
         })
     }
@@ -163,9 +170,19 @@ export default class AnswerPage extends React.Component {
         );
     }
 
+    formatAnswerList() {
+        const {answerListResult} = this.state;
+        let answerList = [];
+        for(let key in answerListResult){
+            answerList.push({id: key, value: answerListResult[key].tag})
+        }
+        return answerList;
+    }
+
     answerComplete = async () => {
-        const {answerList, initTime} = this.state;
+        const {initTime} = this.state;
         const {setId} = this.props.questionList;
+        const answerList = this.formatAnswerList();
         try {
             const spendTime = new Date() - initTime;
             const data = JSON.stringify({
