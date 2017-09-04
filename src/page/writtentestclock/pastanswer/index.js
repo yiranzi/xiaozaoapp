@@ -126,6 +126,10 @@ export default class AnswerPage extends React.Component {
                     border-left: 0.5rem solid transparent;
                     border-right: 0.5rem solid transparent;
                     border-bottom: 1rem solid ${ThemeConfig.color.writtentestclockmain};
+                    margin-left: -0.75rem;
+                }
+                .triangle-up + div {
+                    margin-left: -1rem;
                 }
                 .action {
                     display: flex;
