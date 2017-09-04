@@ -190,7 +190,7 @@ export default class AnswerPage extends React.Component {
 
     answerComplete = async () => {
         const {initTime} = this.state;
-        const {setId} = this.props.questionList;
+        const {setId} = this.state.questionList;
         const answerList = this.formatAnswerList();
         try {
             const spendTime = new Date() - initTime;
