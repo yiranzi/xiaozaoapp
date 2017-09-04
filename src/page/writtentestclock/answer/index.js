@@ -22,16 +22,9 @@ export default class AnswerPage extends React.Component {
 
     componentDidMount() {
         const _this = this;
-        const day = CommonUtil.getQueryString('day');
-        if (day) {
-            AnswerAction.getByToday(day).then((res) => {
-                _this.setState({questionList: res});
-            });
-        } else {
-            AnswerAction.getYesterday().then((res) => {
-                _this.setState({questionList: res});
-            });
-        }
+        AnswerAction.getToday().then((res) => {
+            _this.setState({questionList: res});
+        });
     }
 
     renderAnswer(currentObjectIndex, questions) {
