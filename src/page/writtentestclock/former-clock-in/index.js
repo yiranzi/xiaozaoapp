@@ -33,13 +33,14 @@ export default class extends React.Component {
             }
             _this.setState({
                 ...obj,
-                showPage: true
+                showPage: true,
+                completeDayLength: info.completeDay.length
             })
         })
     }
 
     goToPastAnswer = (index) => {
-        if(this.list.length < index) location.href = `/writtentestclock/pastanswer?day=${index + 1}`
+        if(this.state.completeDayLength >= index + 1) location.href = `/writtentestclock/pastanswer?day=${index + 1}`
     }
 
     renderGlobalCss() {
