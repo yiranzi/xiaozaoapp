@@ -39,7 +39,7 @@ export default class extends React.Component {
     render() {
         
         const { showTips, tipsMsg, showPage } = this.state
-        const { no } = this.state.info
+        const { no, groupNo } = this.state.info
 
         if(!showPage) return <div></div>
         if(showTips){
@@ -63,7 +63,7 @@ export default class extends React.Component {
                     <div className='sub-form'>
                         <div className='sub-title'>二维码：</div>
                         <div className='qr-code'>
-                            <img src='/static/writtentestclock/demo-qr-code.png'/>
+                            <img src={`/static/writtentestclock/qr-code/${groupNo}.jpg`}/>
                         </div>
                     </div>
                 </div>
