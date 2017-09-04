@@ -147,9 +147,9 @@ export default class TestAnswerPage extends React.Component {
                 .triangle-up {
                     width: 0;
                     height: 0;
-                    border-left: 0.5rem solid transparent;
-                    border-right: 0.5rem solid transparent;
-                    border-bottom: 1rem solid ${ThemeConfig.color.writtentestclockmain};
+                    border-left: 6px solid transparent;
+                    border-right: 6px solid transparent;
+                    border-bottom: 12px solid ${ThemeConfig.color.writtentestclockmain};
                     margin-left: -0.75rem;
                 }
                 .triangle-up + div {

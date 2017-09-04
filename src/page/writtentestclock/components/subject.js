@@ -39,6 +39,9 @@ export default class WrittenTestClock extends React.Component {
                 .subject-detail .progress {
                     padding: 1rem 0;
                 }
+                .subject-detail .progress .percent {
+                    margin-top: 0.5rem;
+                }
                 .subject-detail .text {
                     text-align: center;
                     font-size: ${ThemeConfig.size.large};
@@ -81,7 +84,7 @@ export default class WrittenTestClock extends React.Component {
                     top: -0.5rem;
                 }
                 /*-----------*/
-                .subject-detail .material {
+                .subject-detail .material img {
                     border: 2px solid ${ThemeConfig.color.writtentestclockmain};
                 }
             `}</style>

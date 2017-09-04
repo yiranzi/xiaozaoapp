@@ -14,6 +14,9 @@ export default class WrittenTestClock extends React.Component {
                     padding: 0 1rem;
                     background-size: 100%;
                 }
+                .written-test-clock-answer {
+                    padding: 1rem 0;
+                }
             `}</style>
         );
     }
