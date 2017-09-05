@@ -1,0 +1,23 @@
+{
+  "plugins": [
+    [
+      "module-resolver", {
+      "root": ["."],
+      "alias": {
+        "styles": "./styles",
+        "weui": "./node_modules/weui/dist/style/weui.css"
+      },
+      "cwd": "babelrc"
+    }],
+    [
+      "wrap-in-js",
+      {
+        "extensions": ["css$", "scss$"]
+      }
+    ]
+  ],
+  "presets": [
+    "next/babel"
+  ],
+  "ignore": []
+}

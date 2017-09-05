@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from './partical/header';
-import Footer from './partical/footer';
+import Header from './school/header';
+import Footer from './school/footer';
 import {Toptips} from 'react-weui';
 import weui from 'weui';
 
@@ -37,6 +37,7 @@ export default class Layout extends React.Component {
                 <style dangerouslySetInnerHTML={{__html: weui}}/>
                 {this.renderChild()}
                 {this.renderGlobalCss()}
+                <Footer fromType={this.props.fromType}/>
             </div>
         );
     }
