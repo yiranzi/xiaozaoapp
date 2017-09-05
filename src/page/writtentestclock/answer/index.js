@@ -229,10 +229,12 @@ export default class AnswerPage extends React.Component {
                 }
                 .action, .finish {
                     display: flex;
-                    justify-content: space-between;
+                    justify-content: center;
+                    padding: 1rem 0;
+                    text-align: center;
                 }
                 .action img, .finish img {
-                    width: 100%;
+                    width: 85%;
                 }
             `}</style>
         );

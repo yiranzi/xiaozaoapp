@@ -161,6 +161,7 @@ export default class TestAnswerPage extends React.Component {
                     display: flex;
                     justify-content: center;
                     padding: 1rem 0;
+                    text-align: center;
                 }
                 .action img, .finish img {
                     width: 85%;

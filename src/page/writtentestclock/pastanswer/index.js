@@ -152,17 +152,14 @@ export default class AnswerPage extends React.Component {
                 .triangle-up + div {
                     margin-left: -1rem;
                 }
-                .action {
+                .action, .finish {
                     display: flex;
                     justify-content: center;
                     padding: 1rem 0;
+                    text-align: center;
                 }
-                .action img {
+                .action img, .finish img {
                     width: 85%;
-                }
-                .finish {
-                    display: flex;
-                    justify-content: center;
                 }
             `}</style>
         );
