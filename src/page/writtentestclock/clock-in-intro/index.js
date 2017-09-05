@@ -105,11 +105,11 @@ export default class extends React.Component {
                         background-repeat: no-repeat;
                         background-size: 100% 100%;
                         text-align: center;
-                        height: 50px;
+                        height: 60px;
                         width: 220px;
                         margin: 0 auto;
                         padding-right: 10px;
-                        line-height: 36px;
+                        line-height: 46px;
                         margin-top: 20px;
                     }
                     .choose-class-form {
