@@ -12,30 +12,28 @@ export default class extends React.Component {
         }
     }
 
-    componentDidMount() {
-        const _this = this
-        UserAction.getHistory()
-        .then(info => {
-            let obj = {}
-            obj.list = []
-            let {startDay, endDay, completeDay} = info
-            const duringDay = Math.ceil((endDay - startDay)/3600/24/1000)
-            for(let i = 0; i <= duringDay; i++) {
-                const date = new Date(startDay)
-                const Month = date.getMonth()+1
-                const Day = date.getDate()
-                obj.list.push({
-                    date: `${Month}月${Day}日`,
-                    day: `DAY${i+1}`,
-                    check: completeDay[i]==undefined ? 'unknow' : completeDay[i] ? 'check' : 'cross'
-                })
-                startDay += 3600*24*1000
-            }
-            _this.setState({
-                ...obj,
-                showPage: true,
-                completeDayLength: info.completeDay.length
+    componentDidMount = async () => {
+        const info = await UserAction.getHistory()
+        let obj = {}
+        obj.list = []
+        let {startDay, endDay, completeDay} = info
+        const duringDay = Math.ceil((endDay - startDay)/3600/24/1000)
+        for(let i = 0; i <= duringDay; i++) {
+            const date = new Date(startDay)
+            const Month = date.getMonth()+1
+            const Day = date.getDate()
+            obj.list.push({
+                date: `${Month}月${Day}日`,
+                day: `DAY${i+1}`,
+                check: completeDay[i]==undefined ? 'unknow' : completeDay[i] ? 'check' : 'cross'
             })
+            startDay += 3600*24*1000
+        }
+        this.setState({
+            ...obj,
+            evaluationId: info.evaluationId,
+            showPage: true,
+            completeDayLength: info.completeDay.length
         })
     }
 
@@ -90,7 +88,7 @@ export default class extends React.Component {
                     }
                     .content {
                         display: flex;
-                        justify-content: space-around;
+                        justify-content: space-between;
                         font-size: 25px;
                         height: 70px;
                         align-items: flex-end;
@@ -120,6 +118,9 @@ export default class extends React.Component {
         )
     }
 
+    goToPreSchollAnswer() {
+        if(this.state.evaluationId) location.href = '/writtentestclock/pastanswer?day=test'
+    }
 
     render() {
         const { showPage } = this.state
@@ -127,7 +128,7 @@ export default class extends React.Component {
         return (
             <div className='clock-in-form'>
                 <div className='clock-in-list'>
-                    <div className="title">入 学 前 测 评</div>
+                    <div className="title" onClick={() => this.goToPreSchollAnswer()}>入学前测评</div>
                     {this.state.list.map((item, index) => this.renderItem(item, index))}
                 </div>
                 <Footer/>
@@ -154,7 +155,6 @@ export default class extends React.Component {
                         margin-bottom: 30px;
                     }
                     .title {
-                        text-align: center;
                         font-size: 28px;
                         font-weight: bold;
                         margin-top: 20px;
