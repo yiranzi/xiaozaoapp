@@ -46,7 +46,7 @@ export default class Footer extends React.Component {
                         flex:1;
                         text-align:center;
                         color:black;
-                        padding:5px;
+                        padding:15px 5px;
                         font-size:0.8rem;
                     }
                     .isActive {
