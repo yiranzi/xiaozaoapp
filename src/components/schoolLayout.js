@@ -37,7 +37,7 @@ export default class Layout extends React.Component {
                 <style dangerouslySetInnerHTML={{__html: weui}}/>
                 {this.renderChild()}
                 {this.renderGlobalCss()}
-                <Footer />
+                <Footer fromType={this.props.fromType}/>
             </div>
         );
     }

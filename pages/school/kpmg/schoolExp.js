@@ -5,7 +5,7 @@ import SchoolProcessExpPage from '../../../src/page/kpmg/schoolprocessExp/index'
 export default class extends React.Component {
     render() {
         return (
-            <Layout>
+            <Layout fromType="kpmg">
                 <SchoolProcessExpPage />
             </Layout>
         );

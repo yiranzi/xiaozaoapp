@@ -5,7 +5,7 @@ import SchoolProcessWorkPage from '../../../src/page/de/schoolprocessWork/index'
 export default class extends React.Component {
     render() {
         return (
-            <Layout>
+            <Layout fromType="de">
                 <SchoolProcessWorkPage />
             </Layout>
         );
