@@ -51,7 +51,7 @@ export default class AnswerPage extends React.Component {
                     <img className="correct-bg" src="/static/writtentestclock/clock_result_bg2.png"/>
                     <div className="data1">{accuracy}%正确率</div>
                     <div className="data2">击败了超过{this.state.exceeds[accuracy]}%的参与者</div>
-                    <div className='btn-form'><a className='img' href="javascript:;" onClick={this.shareWx}>分享到朋友圈</a></div>
+                    {/* <div className='btn-form'><a className='img' href="javascript:;" onClick={this.shareWx}>分享到朋友圈</a></div> */}
                 </div>
 
                 <Footer />
