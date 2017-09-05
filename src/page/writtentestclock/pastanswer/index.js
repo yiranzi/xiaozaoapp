@@ -19,14 +19,19 @@ export default class AnswerPage extends React.Component {
     componentDidMount = async () => {
         let questionList = {};
         const day = CommonUtil.getQueryString('day');
-        try{
-            if(day){
-                questionList = await AnswerAction.getByToday(day);
-            }else{
+        try {
+            if (day) {
+                if (day === 'test') {
+                    questionList = await AnswerAction.getEvaluation();
+                } else {
+                    questionList = await AnswerAction.getByToday(day);
+                }
+
+            } else {
                 questionList = await AnswerAction.getYesterday();
             }
             this.setState({questionList: questionList});
-        }catch(error){
+        } catch (error) {
             alert(error.message);
         }
     }
@@ -104,6 +109,7 @@ export default class AnswerPage extends React.Component {
                         content: "";
                         width: 1rem;
                         height: 1rem;
+                        background: #1f1f1f;
                         border: 1px solid ${ThemeConfig.color.writtentestclockmain};
                         border-right: none;
                         border-bottom: none;
@@ -144,9 +150,9 @@ export default class AnswerPage extends React.Component {
                 .triangle-up {
                     width: 0;
                     height: 0;
-                    border-left: 0.5rem solid transparent;
-                    border-right: 0.5rem solid transparent;
-                    border-bottom: 1rem solid ${ThemeConfig.color.writtentestclockmain};
+                    border-left: 6px solid transparent;
+                    border-right: 6px solid transparent;
+                    border-bottom: 12px solid ${ThemeConfig.color.writtentestclockmain};
                     margin-left: -0.75rem;
                 }
                 .triangle-up + div {
