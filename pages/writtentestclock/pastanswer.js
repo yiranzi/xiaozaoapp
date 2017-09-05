@@ -8,30 +8,30 @@ import PastAnswerPage from '../../src/page/writtentestclock/pastanswer';
 // const PastAnswerPage = dynamic(import('../../src/page/writtentestclock/pastanswer'));
 
 export default class extends React.Component {
-    // static async getInitialProps({req}) {
-    //     let questionList, error;
-    //     // let {day} = req.query;
-    //     try {
-    //         // if(day){
-    //         //     questionList = await AnswerAction.getByToday(day);
-    //         // }else{
-    //             questionList = await AnswerAction.getYesterday();
-    //         // }
-    //     } catch (err) {
-    //         error = err;
-    //     }
-    //     return {
-    //         questionList,
-    //         error
-    //     }
-    // }
+  // static async getInitialProps({req}) {
+  //     let questionList, error;
+  //     // let {day} = req.query;
+  //     try {
+  //         // if(day){
+  //         //     questionList = await AnswerAction.getByToday(day);
+  //         // }else{
+  //             questionList = await AnswerAction.getYesterday();
+  //         // }
+  //     } catch (err) {
+  //         error = err;
+  //     }
+  //     return {
+  //         questionList,
+  //         error
+  //     }
+  // }
 
-    render() {
-        // const {questionList, error} = this.props;
-        return (
-            <WrittenTestClock>
-                <PastAnswerPage/>
-            </WrittenTestClock>
-        );
-    }
+  render () {
+    // const {questionList, error} = this.props;
+    return (
+      <WrittenTestClock>
+        <PastAnswerPage />
+      </WrittenTestClock>
+    );
+  }
 }
