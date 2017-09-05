@@ -83,6 +83,10 @@ export default class extends React.Component {
                         font-weight: bold;
                         text-shadow: 5px 5px 10px grey;
                         margin: 2rem 0;
+                        top: 0;
+                        left: 0;
+                        width: 100vw;
+                        text-align: center;
                     }
                     .class-choose-title-bg {
                         height: 100px;
