@@ -34,6 +34,16 @@ export default class AnswerPage extends React.Component {
         });
     }
 
+    renderGlobalCss() {
+        return (
+            <style global jsx>{`
+                .written-test-clock {
+                    padding: 0!important;
+                }
+            `}</style>
+        )
+    }
+
     render() {
         const {todayInfo} = this.state;
         const accuracy = !todayInfo ? 0 : todayInfo.writtenTestTopicDTOList.length == 0 ? 0 : Math.round(todayInfo.totalScore / todayInfo.writtenTestTopicDTOList.length * 100);
@@ -55,6 +65,7 @@ export default class AnswerPage extends React.Component {
                 </div>
 
                 <Footer />
+                {this.renderGlobalCss()}
                 <style jsx>{`
                     .written-test-clock {
                         padding: 0!important;
@@ -73,9 +84,10 @@ export default class AnswerPage extends React.Component {
                     .inner-square {
                         background-image: url(/static/writtentestclock/clock_result_bg.png);
                         background-size: 100% 100%;
-                        padding: 55px 0 70px;
-                        font-size: 18px;
+                        padding: 55px 0 85px;
+                        font-size: 20px;
                         font-weight: bold;
+                        
                     }
                     .score:first-child {
 
@@ -121,10 +133,11 @@ export default class AnswerPage extends React.Component {
                     }
                     .correct-rate .data2 {
                         position: absolute;
-                        top: 55px;
+                        top: 66px;
                         text-align: center;
                         width: 100%;
                         color: #fff;
+                        font-size: 14px;
                     }
                 `}</style>
             </div>
