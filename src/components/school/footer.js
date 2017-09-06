@@ -28,10 +28,10 @@ export default class Footer extends React.Component {
         return (
             <div className="footer">
                 <div className="footer-nav">
-                    <a href="/school/kpmg/schoolprocess/index.html" className={classNames('a__bg',{'isActive': fromType == 'kpmg'})}>毕马威</a>
-                    <a href="/school/anyong/schoolprocess/index.html" className={classNames('a__bg',{'isActive': fromType == 'anyong'})}>安永</a>
-                    <a href="/school/pwccn/schoolprocess/index.html" className={classNames('a__bg',{'isActive': fromType == 'pwccn'})}>普华永道</a>
-                    <a href="/school/de/schoolprocess/index.html" className={classNames('a__bg',{'isActive': fromType == 'de'})}>德勤</a>
+                    <a href="/school/kpmg/schoolprocess" className={classNames('a__bg',{'isActive': fromType == 'kpmg'})}>毕马威</a>
+                    <a href="/school/anyong/schoolprocessl" className={classNames('a__bg',{'isActive': fromType == 'anyong'})}>安永</a>
+                    <a href="/school/pwccn/schoolprocessl" className={classNames('a__bg',{'isActive': fromType == 'pwccn'})}>普华永道</a>
+                    <a href="/school/de/schoolprocess" className={classNames('a__bg',{'isActive': fromType == 'de'})}>德勤</a>
                     <a onClick={() => alert("更多公司的校招信息和求职干货 会在9月初【校招助手移动端】一同上线")} className="a__bg">更多企业</a>
                 </div>
                 <style jsx>{`
