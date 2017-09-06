@@ -71,6 +71,16 @@ export default class navigation extends React.Component {
                         </div>
                     </div>
                 </section>
+                <section className="block">
+                    <header>互联网</header>
+                    <div className="container">
+                        <img src="/static/school/jd.png" alt=""/>
+                        <div className="right">
+                            <div><a>京东</a><span>2018校招已于7月22日开启</span></div>
+                            <div><a className="work" href="/school/jd/schoolWork">工作体验</a><a className="exp" href="/school/jd/schoolExp">面经/笔经</a></div>
+                        </div>
+                    </div>
+                </section>
                 <div className="nav__footer">
                     <p>更多企业的攻略和工作体验讲在9月初上线</p>
                     你有什么建议，可以添加小灶产品经理Frank反馈(微信:xiaozaoPM)
