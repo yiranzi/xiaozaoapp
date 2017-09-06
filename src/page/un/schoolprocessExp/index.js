@@ -10,9 +10,9 @@ export default class schoolExp extends React.Component {
         this.state = {
             list:[
                 {title:"联合利华2016校招上海CD面试经验分享",link:"http://bbs.yingjiesheng.com/forum.php?mod=viewthread&tid=2007156&extra=page=1",tag:["面试","","",""]},
-                {title:"联合利华的管培生有什么要求？",link:"https://www.zhihu.com/question/24527961",tag:["","","","综合经验"]},
+                {title:"联合利华的管培生有什么要求？",link:"https://www.zhihu.com/question/24527961",tag:["","","","综合"]},
                 {title:"[面试]造福社会，联合利华VI面试内容分享。",link:"http://bbs.yingjiesheng.com/forum.php?mod=viewthread&tid=2063958&extra=page%3D1%26filter%3Ddigest%26digest%3D1",tag:["面试","","",""]},
-                {title:"[面试]从网申到VI",link:"http://bbs.yingjiesheng.com/forum.php?mod=viewthread&tid=2060659&extra=page%3D1%26filter%3Ddigest%26digest%3D1",tag:["网申","笔试","面试","综合经验"]},
+                {title:"[面试]从网申到VI",link:"http://bbs.yingjiesheng.com/forum.php?mod=viewthread&tid=2060659&extra=page%3D1%26filter%3Ddigest%26digest%3D1",tag:["网申","笔试","面试","综合"]},
                 {title:"[面试]上海CD一面分享",link:"http://bbs.yingjiesheng.com/forum.php?mod=viewthread&tid=2007156&extra=page%3D1%26filter%3Ddigest%26digest%3D1",tag:["面试","","",""]},
                 {title:"[综合经验]联合利华—浙江个护面经—Offer通知",link:"http://bbs.yingjiesheng.com/forum.php?mod=viewthread&tid=2029843&extra=page%3D1%26filter%3Ddigest%26digest%3D1",tag:["面试","笔试","",""]},
                 {title:"[面试]人生第一场求职面试——U家foodsolutionmkt",link:"http://bbs.yingjiesheng.com/forum.php?mod=viewthread&tid=2006358&extra=page%3D1%26filter%3Ddigest%26digest%3D1",tag:["面试","","",""]},
