@@ -20,8 +20,9 @@ export default class extends React.Component {
     componentDidMount = async () =>  {
         try{
             const info = await AnswerAction.getEvaluation();
-            const { totalScore, answerDTOList } = info
-            const score = Math.round(totalScore / answerDTOList.length * 100)
+            const { totalScore, writtenTestTopicDTOList } = info
+            const score = Math.round(totalScore / writtenTestTopicDTOList.length * 100)
+            console.log(score)
             this.setState({
                 info,
                 showPage: true,
