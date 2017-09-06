@@ -5,43 +5,45 @@ const AnswerAction = {
     getEvaluation: function () {
         return AxiosUtil({
             method: 'get',
-            url: '/api/clock/getEvaluation'
+            url: '/api/written-test-clock/getEvaluation'
         });
     },
     //获取测试题目
     getTest: function () {
         return AxiosUtil({
             method: 'get',
-            url: '/api/clock/getTest'
+            url: '/api/written-test-clock/getTest'
         });
     },
     //获取今日推送题目
     getToday: function () {
         return AxiosUtil({
             method: 'get',
-            url: '/api/clock/getToday'
+            url: '/api/written-test-clock/getToday'
         });
     },
     //获取昨日推送
     getYesterday: function () {
         return AxiosUtil({
             method: 'get',
-            url: '/api/clock/getYesterday'
+            url: '/api/written-test-clock/getYesterday'
         });
     },
     //获取指定做题记录
     getByToday: function (day) {
         return AxiosUtil({
             method: 'get',
-            url: `/api/clock/getByDay?day=${day}`
+            url: `/api/written-test-clock/getByDay?day=${day}`
         });
     },
 
     //提交做题记录
     complete: function (data) {
+        console.log(data)
         return AxiosUtil({
-            method: 'get',
-            url: `/api/clock/complete?info=${data}`,
+            method: 'post',
+            url: `/api/written-test-clock/complete`,
+            data: data
         });
     }
 };

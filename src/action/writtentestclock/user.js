@@ -5,21 +5,21 @@ const Action = {
     getHistory: function () {
         return AxiosUtil({
             method: 'get',
-            url: '/api/clock/getHistory'
+            url: '/api/written-test-clock/getHistory'
         });
     },
     //获取用户信息
     getInfo: function () {
         return AxiosUtil({
             method: 'get',
-            url: '/api/clock/getInfo'
+            url: '/api/written-test-clock/getInfo'
         });
     },
     //选择班级
     selectGroups: function (info) {
         return AxiosUtil({
             method: 'get',
-            url: `/api/clock/selectGroup?group=${info.group}`
+            url: `/api/written-test-clock/selectGroup?group=${info.group}`
         });
     }
 };

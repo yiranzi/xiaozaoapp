@@ -3,9 +3,9 @@ const axios = require('axios');
 function AxiosUtil(param) {
     let {method, data, url} = param;
 
-    if(process.env.NODE_ENV === "development"){
-        url = `http://192.168.200.183:81${url}`;
-    }
+    // if(process.env.NODE_ENV === "development"){
+    //     url = `http://192.168.200.183:82${url}`;
+    // }
 
     const axios_params = Object.assign({}, {
         method: method,
@@ -13,6 +13,9 @@ function AxiosUtil(param) {
     });
     if (data) {
         axios_params.data = data;
+    }
+    if(method == 'post') {
+        axios_params.headers = {"Content-Type": "application/json"};
     }
     return new Promise((resolve, reject) => {
         axios(axios_params).then((res) => {

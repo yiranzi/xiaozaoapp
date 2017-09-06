@@ -206,7 +206,7 @@ export default class AnswerPage extends React.Component {
                 answerDTOList: answerList
             });
 
-            let complete = await AnswerAction.complete(encodeURI(data));
+            let complete = await AnswerAction.complete(data);
             location.href = '/writtentestclock/clock-in-result';
         } catch (e) {
             console.log(e);
