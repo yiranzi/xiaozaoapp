@@ -3,6 +3,7 @@ import Theme from '../../../../config/theme'
 import classnames from 'classnames'
 import { Toptips } from 'react-weui'
 import AnswerAction from '../../../../src/action/writtentestclock/answer';
+import UserAction from '../../../../src/action/writtentestclock/user';
 export default class extends React.Component {
 
     constructor(props) {
