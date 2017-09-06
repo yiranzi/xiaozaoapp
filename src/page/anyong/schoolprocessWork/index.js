@@ -10,6 +10,7 @@ export default class schoolExp extends React.Component {
         this.state = {
             list:[
                 {title:"「四大」到底为何吸引学生？",link:"https://www.zhihu.com/question/20949243/answer/201464792"},
+                {title:"过来人说“四大”审计！",link:"https://mp.weixin.qq.com/s/pd34VLtdtWh5LBVV7cRNuA"},
                 {title:"四大的Consulting和Advisory部门有什么区别？",link:"https://mp.weixin.qq.com/s?__biz=MzIyNjAwMDc3Mg==&mid=404307133&idx=1&sn=c468936b7311e5862ed80f977ce5f0f2&scene=4"},
                 {title:"审计篇：在安永做审计的机会与局限",link:"https://www.linkedin.com/wukong-web/companyReflection/1073-600003?ts=1502762112768&trk=company_review_review_share_wechat"},
                 {title:"安永是这样对待离职员工的",link:"https://www.linkedin.com/wukong-web/companyReflection/1073-302211?ts=1502762146310&trk=company_review_review_share_wechat"},
@@ -31,7 +32,7 @@ export default class schoolExp extends React.Component {
             <div className="main-section">
                 <CompanyDetail headerimage="/static/school/anyong.png" trade="会计师事务所/咨询/法律" tag="世界级知名公司"
                                isOnlineApply={true} companyName="安永"/>
-                <SchoolNav fromType="work" processLink="/school/anyong/schoolprocess/index.html" workLink="/school/anyong/schoolWork/index.html" expLink="/school/anyong/schoolExp/index.html"/>
+                <SchoolNav fromType="work" processLink="/school/anyong/schoolprocess" workLink="/school/anyong/schoolWork" expLink="/school/anyong/schoolExp"/>
                 <List list={this.state.list} />
             </div>
         );

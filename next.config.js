@@ -26,6 +26,7 @@ module.exports = {
   },
   exportPathMap: function () {
     return {
+      '/school/navigation': {page: '/school/navigation'},
       '/school/anyong/schoolExp': {page: '/school/anyong/schoolExp'},
       '/school/anyong/schoolprocess': {page: '/school/anyong/schoolprocess'},
       '/school/anyong/schoolWork': {page: '/school/anyong/schoolWork'},
@@ -50,6 +51,9 @@ module.exports = {
       '/school/mercer/schoolExp': {page: '/school/mercer/schoolExp'},
       '/school/mercer/schoolprocess': {page: '/school/mercer/schoolprocess'},
       '/school/mercer/schoolWork': {page: '/school/mercer/schoolWork'},
+      '/school/jd/schoolExp': {page: '/school/jd/schoolExp'},
+      '/school/jd/schoolprocess': {page: '/school/jd/schoolprocess'},
+      '/school/jd/schoolWork': {page: '/school/jd/schoolWork'},
       '/writtentestclock/test': {page: '/writtentestclock/test'},
       '/writtentestclock/answer': {page: '/writtentestclock/answer'},
       '/writtentestclock/pastanswer': {page: '/writtentestclock/pastanswer'},

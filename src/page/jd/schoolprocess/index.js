@@ -8,12 +8,12 @@ export default class SchoolProcess extends React.Component {
     render() {
         return (
             <div className="main-section">
-                <CompanyDetail headerimage="/static/school/mck.png" trade="会计师事务所/咨询/法律" tag="世界级知名公司"
-                               isOnlineApply={true} companyName="麦肯锡"/>
-                <SchoolNav fromType="school" processLink="/school/mck/schoolprocess" workLink="/school/mck/schoolWork" expLink="/school/mck/schoolExp"/>
+                <CompanyDetail headerimage="/static/school/jd.png" trade="互联网" tag="2017世界500强"
+                               isOnlineApply={true} companyName="京东"/>
+                <SchoolNav fromType="school" processLink="/school/jd/schoolprocess" workLink="/school/jd/schoolWork" expLink="/school/jd/schoolExp"/>
                 <div className="school__online_time">
-                    <div>预计9月中旬开启网申，点击官网链接查看详情</div>
-                    <div className="school__online_address my-text-rowsingle"><a href="http://www.mckinsey.com/careers/students">http://www.mckinsey.com/careers/students</a></div>
+                    <div>已于7月22日开启网申，点击官网链接查看详情</div>
+                    <div className="school__online_address my-text-rowsingle"><a href="http://campus.jd.com/web/job/job_index?t=6">http://campus.jd.com/web/job/job_index?t=6</a></div>
                 </div>
                 <SchoolFooter />
                 <style jsx>{`

@@ -36,8 +36,8 @@ feature可以提交到远程，合并到dev时，提交merge request，合并完
 
 > * feature：新功能（feature）
 > * fix：修补bug
-> * docs：文档（documentation）
-> * style： 格式（不影响代码运行的变动）
-> * refactor：重构（即不是新增功能，也不是修改bug的代码变动）
+> * docs：文档|文案修改
+> * style： 样式
+> * refactor：重构
 > * test：增加测试
-> * chore：构建过程或辅助工具的变动
+> * chore：构建过程或工具的变动

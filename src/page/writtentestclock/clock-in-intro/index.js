@@ -2,6 +2,7 @@ import React from 'react';
 import Theme from '../../../../config/theme'
 import classnames from 'classnames'
 import { Toptips } from 'react-weui'
+import AnswerAction from '../../../../src/action/writtentestclock/answer';
 import UserAction from '../../../../src/action/writtentestclock/user';
 export default class extends React.Component {
 
@@ -16,26 +17,26 @@ export default class extends React.Component {
         }
     }
 
-    componentDidMount() {
-        const _this = this;
-        UserAction.getInfo()
-        .then((info) => {
-            const { evaluationResult } = info
-            _this.setState({
+    componentDidMount = async () =>  {
+        try{
+            const info = await AnswerAction.getEvaluation();
+            const { totalScore, writtenTestTopicDTOList } = info
+            const score = Math.round(totalScore / writtenTestTopicDTOList.length * 100)
+            console.log(score)
+            this.setState({
                 info,
                 showPage: true,
-                isAdvanced: evaluationResult ? evaluationResult > 65 ? 2 : 1 : 0,
+                isAdvanced: score ? score > 65 ? 2 : 1 : 0,
             });
-        })
-        .catch(error => {
-            _this.setState({
+        } catch(eroor) {
+            this.setState({
                 error: true,
                 showPage: true,
                 tipsMsg: error.message,
                 showTips: true
             });
-        })
-
+        }
+        
     }
 
     showMoreClick = () => {

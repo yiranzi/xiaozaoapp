@@ -10,7 +10,7 @@ export default class SchoolProcess extends React.Component {
             <div className="main-section">
                 <CompanyDetail headerimage="/static/school/mars.png" trade="消费品/零售/贸易" tag="世界级知名公司"
                                isOnlineApply={true} companyName="玛氏"/>
-                <SchoolNav fromType="school" processLink="/school/mars/schoolprocess/index.html" workLink="/school/mars/schoolWork/index.html" expLink="/school/mars/schoolExp/index.html"/>
+                <SchoolNav fromType="school" processLink="/school/mars/schoolprocess" workLink="/school/mars/schoolWork" expLink="/school/mars/schoolExp"/>
                 <div className="school__online_time">
                     <div>已于9月4日开启网申，点击官网链接查看详情</div>
                     <div className="school__online_address my-text-rowsingle"><a href="http://www.marscampus.com.cn/index.aspx">http://www.marscampus.com.cn/index.aspx</a></div>

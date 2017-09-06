@@ -10,7 +10,7 @@ export default class SchoolProcess extends React.Component {
             <div className="main-section">
                 <CompanyDetail headerimage="/static/school/mercer.png" trade="会计师事务所/咨询/法律" tag="世界级知名公司"
                                isOnlineApply={true} companyName="美世咨询"/>
-                <SchoolNav fromType="school" processLink="/school/mercer/schoolprocess/index.html" workLink="/school/mercer/schoolWork/index.html" expLink="/school/mercer/schoolExp/index.html"/>
+                <SchoolNav fromType="school" processLink="/school/mercer/schoolprocess" workLink="/school/mercer/schoolWork" expLink="/school/mercer/schoolExp"/>
                 <div className="school__online_time">
                     <div>预计10月初开启网申，点击官网链接查看详情</div>
                     <div className="school__online_address my-text-rowsingle"><a href="https://www.mercer.us/mercer-careers/campus-recruits.html">https://www.mercer.us/mercer-careers/campus-recruits.html</a></div>
