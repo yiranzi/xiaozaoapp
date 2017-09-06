@@ -36,7 +36,7 @@ export default class schoolExp extends React.Component {
             <div className="main-section">
                 <CompanyDetail headerimage="/static/school/mars.png" trade="消费品/零售/贸易" tag="世界级知名公司"
                                isOnlineApply={true} companyName="玛氏"/>
-                <SchoolNav fromType="exp" processLink="/school/mars/schoolprocess/index.html" workLink="/school/mars/schoolWork/index.html" expLink="/school/mars/schoolExp/index.html"/>
+                <SchoolNav fromType="exp" processLink="/school/mars/schoolprocess" workLink="/school/mars/schoolWork" expLink="/school/mars/schoolExp"/>
                 <TabList onlineApply={onlineApply} exam={exam} interview={interview} all={this.state.list} comphensive={comphensive} />
             </div>
         );

@@ -12,28 +12,28 @@ export default class navigation extends React.Component {
                         <img src="/static/school/kpmg.png" />
                         <div className="right">
                             <div><a>毕马威</a><span>2018校招已与9月初开启</span></div>
-                            <div><a className="work" href="/school/kpmg/schoolWork/index.html">工作体验</a><a className="exp" href="/school/kpmg/schoolExp/index.html">面经/笔经</a></div>
+                            <div><a className="work" href="/school/kpmg/schoolWork">工作体验</a><a className="exp" href="/school/kpmg/schoolExp">面经/笔经</a></div>
                         </div>
                     </div>
                     <div className="container">
                         <img src="/static/school/pwccn.png" />
                         <div className="right">
                             <div><a>普华永道</a><span>2018校招已与8月15日开启</span></div>
-                            <div><a className="work" href="/school/pwccn/schoolWork/index.html">工作体验</a><a className="exp" href="/school/pwccn/schoolExp/index.html">面经/笔经</a></div>
+                            <div><a className="work" href="/school/pwccn/schoolWork">工作体验</a><a className="exp" href="/school/pwccn/schoolExp">面经/笔经</a></div>
                         </div>
                     </div>
                     <div className="container">
                         <img src="/static/school/de.png" />
                         <div className="right">
                             <div><a>德勤</a><span>2018校招已与9月1日开启</span></div>
-                            <div><a className="work" href="/school/de/schoolWork/index.html">工作体验</a><a className="exp" href="/school/de/schoolExp/index.html">面经/笔经</a></div>
+                            <div><a className="work" href="/school/de/schoolWork">工作体验</a><a className="exp" href="/school/de/schoolExp">面经/笔经</a></div>
                         </div>
                     </div>
                     <div className="container">
                         <img src="/static/school/anyong.png" />
                         <div className="right">
                             <div><a>安永</a><span>2018校招已与9月1日开启</span></div>
-                            <div><a className="work" href="/school/anyong/schoolWork/index.html">工作体验</a><a className="exp" href="/school/anyong/schoolExp/index.html">面经/笔经</a></div>
+                            <div><a className="work" href="/school/anyong/schoolWork">工作体验</a><a className="exp" href="/school/anyong/schoolExp">面经/笔经</a></div>
                         </div>
                     </div>
                 </section>
@@ -43,14 +43,14 @@ export default class navigation extends React.Component {
                         <img src="/static/school/mars.png" />
                         <div className="right">
                             <div><a>玛氏</a><span>2018校招已与9月初开启</span></div>
-                            <div><a className="work" href="/school/mars/schoolWork/index.html">工作体验</a><a className="exp" href="/school/mars/schoolExp/index.html">面经/笔经</a></div>
+                            <div><a className="work" href="/school/mars/schoolWork">工作体验</a><a className="exp" href="/school/mars/schoolExp">面经/笔经</a></div>
                         </div>
                     </div>
                     <div className="container">
                         <img src="/static/school/un1.png" />
                         <div className="right">
                             <div><a>联合利华</a><span>2018校招已与8月15日开启</span></div>
-                            <div><a className="work" href="/school/un/schoolWork/index.html">工作体验</a><a className="exp" href="/school/un/schoolExp/index.html">面经/笔经</a></div>
+                            <div><a className="work" href="/school/un/schoolWork">工作体验</a><a className="exp" href="/school/un/schoolExp">面经/笔经</a></div>
                         </div>
                     </div>
                 </section>
@@ -60,14 +60,14 @@ export default class navigation extends React.Component {
                         <img src="/static/school/mercer.png" alt=""/>
                         <div className="right">
                             <div><a>美世咨询</a><span>2018校招已与9月初开启</span></div>
-                            <div><a className="work" href="/school/mercer/schoolWork/index.html">工作体验</a><a className="exp" href="/school/mercer/schoolExp/index.html">面经/笔经</a></div>
+                            <div><a className="work" href="/school/mercer/schoolWork">工作体验</a><a className="exp" href="/school/mercer/schoolExp">面经/笔经</a></div>
                         </div>
                     </div>
                     <div className="container">
                         <img src="/static/school/mck.png" />
                         <div className="right">
                             <div><a>麦肯锡</a><span>2018校招已与8月15日开启</span></div>
-                            <div><a className="work" href="/school/mck/schoolWork/index.html">工作体验</a><a className="exp" href="/school/mck/schoolExp/index.html">面经/笔经</a></div>
+                            <div><a className="work" href="/school/mck/schoolWork">工作体验</a><a className="exp" href="/school/mck/schoolExp">面经/笔经</a></div>
                         </div>
                     </div>
                 </section>
