@@ -11,6 +11,7 @@ export default class extends React.Component {
         return (
             <div className='index-clock-in-form'>
                 <div className='btn-form'>
+                    <img className='title-img' src='/static/writtentestclock/index-clock-in-logo.png'/>
                     <a href='/writtentestclock/pastanswer' className={`btn yesterday-achieve`}></a>
                     <a href='/writtentestclock/former-clock-in' className='btn former-test'></a>
                     <a href='/writtentestclock/answer' className='btn today-push'></a>
@@ -18,24 +19,30 @@ export default class extends React.Component {
                 </div>
                 <Footer/>
                 <style jsx>{`
-                
+                    .title-img {
+                        width: 100vw; 
+                        margin-top: 30px;
+                        margin-bottom: 15px;
+                    }
                     .index-clock-in-form {
                         display: flex;
                         align-items: center;
-                        justify-content: center;
+                        justify-content: flex-start;
                         height: 100vh;
                         flex-direction: column;
                     }
                     .btn-form {
                         display: flex;
                         flex-direction: column;
+                        align-items: center;
                     }
                     .btn {
                         background-repeat: no-repeat;
                         background-size: 100% 100%;
-                        width: 280px;
-                        height: 100px;
-                        margin: 10px 0;
+                        width: 220px;
+                        height: 80px;
+                        margin: 3px 0;
+                        margin-left: 1rem;
                     }
                     .yesterday-achieve-check {
                         background-image: url(/static/writtentestclock/yesterday-achieve-check.png);
