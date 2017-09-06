@@ -87,7 +87,7 @@ export default class navigation extends React.Component {
                         text-align:center;
                     }
                     .block {
-                        margin:0 20px;
+                        margin:10px 20px;
                     }
                     header {
                         background-color:#F4F6FA;
@@ -101,14 +101,15 @@ export default class navigation extends React.Component {
                         display:flex;
                     }
                     img {
-                        width:100px;
-                        height:100px;
+                        width:80px;
+                        height:80px;
+                        border:1px solid #BFBFBF;
                     }
                     .right {
                         display:flex;
                         flex-direction:column;
                         justify-content:center;
-                        margin-left:5px;
+                        margin-left:10px;
                     }
                     .right a + span {
                         color:#BFBFBF;
@@ -140,6 +141,9 @@ export default class navigation extends React.Component {
                         padding:30px;
                         color:#cbcfe0;
                         text-align:center;
+                    }
+                    .container {
+                        margin-top:20px;
                     }
                 `}</style>
             </div>
