@@ -47,7 +47,7 @@ export default class TestResultPage extends React.Component {
                         <div className="text2">{content}<br/>少侠，笔试训练也是一个打怪升级的过程</div>
                         <br/>
                         <div className="text2"><span className="small">//////////</span> 您目前最适合进入 <span className="small">//////////</span><br/>
-                            全能提升基础班
+                            {accuracy > 65 ? '全能提升进阶班' : '全能提升基础班'}
                         </div>
                         <a className='btn2' href="/writtentestclock/clock-in-intro"><img
                             src="/static/writtentestclock/start_writtentest.png"/></a>
