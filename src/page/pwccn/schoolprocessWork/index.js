@@ -9,6 +9,7 @@ export default class schoolExp extends React.Component {
         super(props);
         this.state = {
             list:[{title:"「四大」到底为何吸引学生？",link:"https://www.zhihu.com/question/20949243/answer/201464792"},
+                {title:"过来人说“四大”审计！",link:"https://mp.weixin.qq.com/s/pd34VLtdtWh5LBVV7cRNuA"},
                 {title:"四大的Consulting和Advisory部门有什么区别？",link:"https://mp.weixin.qq.com/s?__biz=MzIyNjAwMDc3Mg==&mid=404307133&idx=1&sn=c468936b7311e5862ed80f977ce5f0f2&scene=4"},
                 {title:"咨询篇：在普华永道的财务咨询部门工作是什么体验？",link:"https://www.zhihu.com/question/37927666"},
                 {title:"咨询篇：在普华永道当咨询师是怎样一番体验?",link:"https://www.linkedin.com/wukong-web/companyReflection/1044-600006?ts=1502767579328&trk=company_review_review_share_wechat"},
