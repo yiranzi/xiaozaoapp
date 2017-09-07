@@ -33,7 +33,7 @@ const AnswerAction = {
   getByToday: function (day) {
     return AxiosUtil({
       method: 'get',
-      url: `/api/written-test-clock/getByDay?day=${day}`
+      url: `/api/written-test-clock/getByDay/${day}`
     });
   },
 
