@@ -33,23 +33,41 @@ export default class AnswerPage extends React.Component {
     let {answerListResult} = this.state;
     const questionItem = questions[currentObjectIndex];// 题目详情
     let selectAnswer = answerListResult[questionItem.id] ? answerListResult[questionItem.id].tag : '';
+    let isCheckAnalysis = answerListResult[questionItem.id] ? answerListResult[questionItem.id].isShowAnalysis : '';
 
-    const subjectItem = Object.assign({}, {
-      total: questions.length, // 当前试卷总共多少题
-      currentIndex: currentObjectIndex, // 当前题目在数组中的编号
-      questionItem: questionItem, // 题目数组
-      selectAnswer: selectAnswer// 已选答案
-    });
-    return (
-      <div className='subject-item'>
-        <SubjectComponent
-          subjectItem={subjectItem}
-          onChange={(value) => {
-            this.answerCheck(questionItem.id, value);
-          }}
-        />
-      </div>
-    );
+    if (isCheckAnalysis) {
+      const subjectItem = Object.assign({}, {
+        total: questions.length, // 当前试卷总共多少题
+        currentIndex: currentObjectIndex, // 当前题目在数组中的编号
+        questionItem: questionItem, // 题目数组
+        selectAnswer: selectAnswer, // 已选答案,
+        disabled: true
+      });
+      return (
+        <div className='subject-item'>
+          <SubjectComponent
+            subjectItem={subjectItem}
+          />
+        </div>
+      );
+    } else {
+      const subjectItem = Object.assign({}, {
+        total: questions.length, // 当前试卷总共多少题
+        currentIndex: currentObjectIndex, // 当前题目在数组中的编号
+        questionItem: questionItem, // 题目数组
+        selectAnswer: selectAnswer// 已选答案
+      });
+      return (
+        <div className='subject-item'>
+          <SubjectComponent
+            subjectItem={subjectItem}
+            onChange={(value) => {
+              this.answerCheck(questionItem.id, value);
+            }}
+          />
+        </div>
+      );
+    }
   }
 
   answerCheck (id, value) {
@@ -91,9 +109,9 @@ export default class AnswerPage extends React.Component {
   }
 
   renderAnswerAnalysis (currentObjectIndex, questions) {
-    const {isShowAnalysisButton, isShowAnalysis} = this.state;
+    const {answerListResult, isShowAnalysisButton, isShowAnalysis} = this.state;
     const questionItem = questions[currentObjectIndex];
-    const {answer, analysis} = questionItem;
+    const {id, answer, analysis} = questionItem;
 
     const analysisContent = (
       <div className='analysis'>
@@ -125,7 +143,7 @@ export default class AnswerPage extends React.Component {
     const analysisButton = (
       <div className='analysis'>
         <div className='show-analysis' onClick={() => {
-          this.showAnalysis(isShowAnalysis);
+          this.showAnalysis(currentObjectIndex, questions, isShowAnalysis);
         }}>查看解析
         </div>
         <style jsx>{`
@@ -141,17 +159,28 @@ export default class AnswerPage extends React.Component {
       </div>
     );
 
-    if (isShowAnalysisButton) {
-      return analysisButton;
-    }
-
-    if (isShowAnalysis) {
+    let isCheckAnalysis = answerListResult[id] ? answerListResult[id].isShowAnalysis : false;
+    let canShowAnalysis = answerListResult[id] ? answerListResult[id].tag : false;
+    if (isShowAnalysis || isCheckAnalysis) {
       return analysisContent;
+    }
+    if (isShowAnalysisButton || canShowAnalysis) {
+      return analysisButton;
     }
   }
 
-  showAnalysis (isShowAnalysis) {
-    this.setState({isShowAnalysis: true, isShowAnalysisButton: false});
+  showAnalysis (currentObjectIndex, questions, isShowAnalysis) {
+    const questionItem = questions[currentObjectIndex];// 题目详情
+    const id = questionItem.id;
+
+    let {answerListResult} = this.state;
+    answerListResult[id] = answerListResult[id] || {};
+    answerListResult[id].isShowAnalysis = true;
+    this.setState({
+      answerListResult: answerListResult,
+      isShowAnalysis: !isShowAnalysis,
+      isShowAnalysisButton: false
+    });
   }
 
   renderActionButton (currentObjectIndex, questions) {
