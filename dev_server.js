@@ -23,7 +23,7 @@ app.prepare().then(() => {
         target: 'http://192.168.200.183:802',
         changeOrigin: true
     }));
-    
+
 
     //路由
     Router.load(server);
