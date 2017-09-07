@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from './school/header';
+import Header from './header';
 import {Toptips} from 'react-weui';
 import weui from 'weui';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from '../../../src/components/schoolLayout';
+import Layout from '../../../src/components/school/schoolLayout';
 import SchoolProcessWorkPage from '../../../src/page/mck/schoolprocessWork/index';
 
 export default class extends React.Component {

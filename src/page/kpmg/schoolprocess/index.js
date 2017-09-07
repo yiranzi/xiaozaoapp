@@ -2,7 +2,7 @@ import React from 'react';
 import CompanyDetail from '../../../components/school/companyDetail';
 import SchoolNav from '../../../components/school/schoolNav';
 import SchoolOnlinApplyTime from '../../../components/school/schoolOnlineApplyTime';
-import SchoolFooter from '../../../components/school/school-footer';
+import SchoolFooter from '../../../components/school/schoolFooter';
 
 export default class SchoolProcess extends React.Component {
   render () {

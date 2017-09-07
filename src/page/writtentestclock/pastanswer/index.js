@@ -39,7 +39,7 @@ export default class AnswerPage extends React.Component {
       total: questionList.length, // 当前试卷总共多少题
       currentIndex: currentObjectIndex, // 当前题目在数组中的编号
       questionItem: questionItem, // 题目数组
-      selectAnswer: answerDTOList ? answerDTOList[currentObjectIndex].answer : '', // 已选答案,
+      selectAnswer: answerDTOList[currentObjectIndex] ? answerDTOList[currentObjectIndex].answer : '', // 已选答案,
       disabled: true
     });
     return (
