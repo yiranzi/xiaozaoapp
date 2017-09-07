@@ -1,20 +1,19 @@
 import React from 'react';
-import ThemeConfig from '../../../../config/theme';
 import { Flex, FlexItem } from 'react-weui';
 
 export default class AnswerPage extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            content: ['恭喜你！', '离四大又近了一步', '不过，你也一定很好奇：',
-                '以我现在的笔试水平，到底有多大把握进四大？', '为了避免', '你在高级班跟不上节奏的尴尬',
-                '在初级班又有孤独求败的体验', '不如趁现在！', '我们花几分钟来个小测试', '搞清楚自己是报笔试基础班还是高级班吧！']
-        }
-    }
+  constructor (props) {
+    super(props);
+    this.state = {
+      content: ['恭喜你！', '离四大又近了一步', '不过，你也一定很好奇：',
+        '以我现在的笔试水平，到底有多大把握进四大？', '为了避免', '你在高级班跟不上节奏的尴尬',
+        '在初级班又有孤独求败的体验', '不如趁现在！', '我们花几分钟来个小测试', '搞清楚自己是报笔试基础班还是高级班吧！']
+    };
+  }
 
     renderGlobalCss = () => {
-        return (
-            <style jsx global>{`
+      return (
+        <style jsx global>{`
                 .tips-form {
                     flex: 1;
                     border: 1px solid;
@@ -29,43 +28,43 @@ export default class AnswerPage extends React.Component {
                     font-size: 15px;
                 }
             `}</style>
-        )
+      );
     }
 
-    renderContent() {
-        const { content } = this.state
-        return content.map((item, i) => (
-            <div key={i} className="tips">{item}</div>
-        ))
+    renderContent () {
+      const { content } = this.state;
+      return content.map((item, i) => (
+        <div key={i} className='tips'>{item}</div>
+      ));
     }
 
-    render() {
-        return (
-            <div>
-                <Flex >
-                    <FlexItem>
-                        <div className="title">小灶四大笔试七天打卡计划</div>
-                    </FlexItem>
-                </Flex>
-                <Flex>
-                    <FlexItem className='tips-form'>
-                        <div className='corner-top-left corner'></div>
-                        <div className='corner-top-right corner'></div>
-                        <div className='corner-bottom-left corner'></div>
-                        <div className='corner-bottom-right corner'></div>
-                        {this.renderContent()}
-                    </FlexItem>
-                </Flex>
-                <Flex>
-                    <FlexItem>
-                        <a className="img" href='/writtentestclock/test?category=first'>马上点击测试</a>
-                    </FlexItem>
-                    <FlexItem>
-                        <a className="img" href='/writtentestclock/clock-in-intro'>直接选择班级</a>
-                    </FlexItem>
-                </Flex>
-                {this.renderGlobalCss()}
-                <style jsx>{`
+    render () {
+      return (
+        <div>
+          <Flex >
+            <FlexItem>
+              <div className='title'>小灶四大笔试七天打卡计划</div>
+            </FlexItem>
+          </Flex>
+          <Flex>
+            <FlexItem className='tips-form'>
+              <div className='corner-top-left corner' />
+              <div className='corner-top-right corner' />
+              <div className='corner-bottom-left corner' />
+              <div className='corner-bottom-right corner' />
+              {this.renderContent()}
+            </FlexItem>
+          </Flex>
+          <Flex>
+            <FlexItem>
+              <a className='img' href='/writtentestclock/test?category=first'>马上点击测试</a>
+            </FlexItem>
+            <FlexItem>
+              <a className='img' href='/writtentestclock/clock-in-intro'>直接选择班级</a>
+            </FlexItem>
+          </Flex>
+          {this.renderGlobalCss()}
+          <style jsx>{`
                     .title {
                         font-size: 25px;
                         font-weight: bold;
@@ -123,7 +122,7 @@ export default class AnswerPage extends React.Component {
                         margin-top: 20px;
                     }
                 `}</style>
-            </div>
-        );
+        </div>
+      );
     }
 }

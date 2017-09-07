@@ -3,12 +3,11 @@ import Layout from '../../../src/components/schoolLayout';
 import SchoolProcessExpPage from '../../../src/page/jd/schoolprocessExp/index';
 
 export default class extends React.Component {
-    render() {
-        return (
-            <Layout fromType="jd">
-                <SchoolProcessExpPage />
-            </Layout>
-        );
-
-    }
+  render () {
+    return (
+      <Layout fromType='jd'>
+        <SchoolProcessExpPage />
+      </Layout>
+    );
+  }
 }

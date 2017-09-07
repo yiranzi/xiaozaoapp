@@ -4,38 +4,37 @@ import Radio from '../../../components/radio';
 import ThemeConfig from '../../../../config/theme';
 
 export default class WrittenTestClock extends React.Component {
-    renderAnswerOption(currentIndex, options, selectAnswer, disabled) {
-        const {onChange} = this.props;
-        const name = `answer_${currentIndex}`;
+  renderAnswerOption (currentIndex, options, selectAnswer, disabled) {
+    const {onChange} = this.props;
+    const name = `answer_${currentIndex}`;
 
-        return options.map((item, i) => {
-            const {tag, content} = item;
-            const radioItem = Object.assign({}, {
-                name: name,
-                value: tag,
-                defaultValue: selectAnswer,
-                label: `${tag}.${content}`,
-                disabled: disabled
-            });
-            const key = `answer_${currentIndex}_${i}`;
-            if (disabled) {
-                return (
-                    <Radio key={key} params={radioItem} disabled={true}/>
-                );
-            } else {
-                return (
-                    <Radio key={key} params={radioItem} onChange={(value) => {
-                        onChange(value);
-                    }}/>
-                );
-            }
-
-        });
-    }
-
-    renderCss() {
+    return options.map((item, i) => {
+      const {tag, content} = item;
+      const radioItem = Object.assign({}, {
+        name: name,
+        value: tag,
+        defaultValue: selectAnswer,
+        label: `${tag}.${content}`,
+        disabled: disabled
+      });
+      const key = `answer_${currentIndex}_${i}`;
+      if (disabled) {
         return (
-            <style>{`
+          <Radio key={key} params={radioItem} disabled />
+        );
+      } else {
+        return (
+          <Radio key={key} params={radioItem} onChange={(value) => {
+            onChange(value);
+          }} />
+        );
+      }
+    });
+  }
+
+  renderCss () {
+    return (
+      <style>{`
                 .subject-detail .progress {
                     padding: 1rem 0;
                 }
@@ -88,43 +87,43 @@ export default class WrittenTestClock extends React.Component {
                     border: 2px solid ${ThemeConfig.color.writtentestclockmain};
                 }
             `}</style>
-        );
-    }
+    );
+  }
 
-    isImg(materialType){
-        return materialType === 2;
-    }
+  isImg (materialType) {
+    return materialType === 2;
+  }
 
-    isText(materialType){
-        return materialType === 1;
-    }
+  isText (materialType) {
+    return materialType === 1;
+  }
 
-    render() {
-        const {total, questionItem, selectAnswer, disabled} = this.props.subjectItem;
-        const {no, materialType, materialContent} = questionItem;
-        let progress = Math.ceil(no / total * 100);
-        return (
-            <div className='subject-detail'>
-                <div className='text'>答题进度条</div>
-                <div className='progress'>
-                    <Progress value={progress} showCancel={false}/>
-                    <div className='percent' style={{'marginLeft': `${progress}%`}}>
-                        <div className='triangle-up'></div>
-                        <div>{progress}%</div>
-                    </div>
-                </div>
-                <div className='material'>
-                    {this.isImg(materialType) && <img src={materialContent}/>}
-                    {this.isText(materialType) && <p>{materialContent}</p>}
-                </div>
-                <div>{questionItem.no}.{questionItem.question}</div>
-                <div className='answer-option'>
-                    <Form radio>
-                        {this.renderAnswerOption(no, questionItem.optionDTOList, selectAnswer, disabled)}
-                    </Form>
-                </div>
-                {this.renderCss()}
-            </div>
-        );
-    }
+  render () {
+    const {total, questionItem, selectAnswer, disabled} = this.props.subjectItem;
+    const {no, materialType, materialContent} = questionItem;
+    let progress = Math.ceil(no / total * 100);
+    return (
+      <div className='subject-detail'>
+        <div className='text'>答题进度条</div>
+        <div className='progress'>
+          <Progress value={progress} showCancel={false} />
+          <div className='percent' style={{'marginLeft': `${progress}%`}}>
+            <div className='triangle-up' />
+            <div>{progress}%</div>
+          </div>
+        </div>
+        <div className='material'>
+          {this.isImg(materialType) && <img src={materialContent} />}
+          {this.isText(materialType) && <p>{materialContent}</p>}
+        </div>
+        <div>{questionItem.no}.{questionItem.question}</div>
+        <div className='answer-option'>
+          <Form radio>
+            {this.renderAnswerOption(no, questionItem.optionDTOList, selectAnswer, disabled)}
+          </Form>
+        </div>
+        {this.renderCss()}
+      </div>
+    );
+  }
 }

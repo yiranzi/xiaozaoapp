@@ -1,5 +1,5 @@
 import React from 'react';
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 import WrittenTestClock from '../../src/page/writtentestclock/components/layout';
 import PastAnswerPage from '../../src/page/writtentestclock/pastanswer';
 // import AnswerAction from '../../src/action/writtentestclock/answer';

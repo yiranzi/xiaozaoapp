@@ -1,74 +1,71 @@
 import React from 'react';
-import Theme from '../../../../config/theme'
-import { Toptips } from 'react-weui'
+import Theme from '../../../../config/theme';
+import { Toptips } from 'react-weui';
 import UserAction from '../../../../src/action/writtentestclock/user';
 export default class extends React.Component {
-    constructor(props) {
-        super(props)
-        // const { info } = props'
-        this.state = {
-            showTips: '',
-            tipsMsg: '',
-            info: '',
-            showPage: false
-        }
+  constructor (props) {
+    super(props);
+    // const { info } = props'
+    this.state = {
+      showTips: '',
+      tipsMsg: '',
+      info: '',
+      showPage: false
+    };
+  }
+
+  componentDidMount () {
+    const _this = this;
+    UserAction.getInfo()
+      .then((info) => {
+        _this.setState({
+          info,
+          showTips: info.error,
+          tipsMsg: info.message || '',
+          showPage: true
+        });
+      })
+      .catch(error => {
+        _this.setState({
+          error: true,
+          showPage: true,
+          ...error
+        });
+      });
+  }
+
+  render () {
+    const { showTips, tipsMsg, showPage } = this.state;
+    const { no, groupNo } = this.state.info;
+
+    if (!showPage) return <div />;
+    if (showTips) {
+      return <Toptips type='warn' show={showTips}> {tipsMsg} </Toptips>;
     }
-    
-    componentDidMount() {
-        const _this = this;
-        UserAction.getInfo()
-        .then((info) => {
-            _this.setState({
-                info,
-                showTips: info.error,
-                tipsMsg: info.message || '',
-                showPage: true
-            });
-        })
-        .catch(error => {
-            _this.setState({
-                error: true,
-                showPage: true,
-                ...error
-            });
-        })
+    return (
+      <div className='class-choose-form'>
 
-    }
+        <div className='class-choose-title-bg' />
+        <div className='class-choose-title'>您已经成功选择班级!</div>
 
-    
-    render() {
-        
-        const { showTips, tipsMsg, showPage } = this.state
-        const { no, groupNo } = this.state.info
-
-        if(!showPage) return <div></div>
-        if(showTips){
-            return <Toptips type="warn" show={showTips}> {tipsMsg} </Toptips>
-        }
-        return (
-            <div className='class-choose-form'>
-                
-                <div className='class-choose-title-bg'></div>
-                <div className='class-choose-title'>您已经成功选择班级!</div>
-                
-                <div className='class-choose-content'>
-                    <div className='sub-form'>
-                        <div className='sub-title'>你的学号是：</div>
-                        <div className='sub-content-id'>{no || ''}</div>
-                    </div>
-                    <div className='sub-form'>
-                        <div className='sub-title'>你的学习群：</div>
-                        <div>请扫描二维码，进入你的专属学习群</div>
-                    </div>
-                    <div className='sub-form'>
-                        <div className='sub-title'>二维码：</div>
-                        <div className='qr-code'>
-                            <img src={`/static/writtentestclock/qr-code/${groupNo}.jpg`}/>
-                        </div>
-                    </div>
-                </div>
-                <a className='go-clock-in' href='/writtentestclock/index-clock-in'></a>
-                <style jsx>{`
+        <div className='class-choose-content'>
+          <div className='sub-form'>
+            <div className='sub-title'>你的学号是：</div>
+            <div className='sub-content-id'>{no || ''}</div>
+          </div>
+          <div className='sub-form'>
+            <div className='sub-title'>你的学习群：</div>
+            <div>请扫描二维码，进入你的专属学习群</div>
+          </div>
+          <div className='sub-form'>
+            <div className='sub-title'>二维码：</div>
+            <div className='qr-code'>
+              <img src={`/static/writtentestclock/qr-code/${groupNo}.jpg`} />
+            </div>
+          </div>
+        </div>
+        <a className='go-clock-in' href='/writtentestclock/index-clock-in' />
+        <style jsx>{`
                     .class-choose-form {
                         display: flex;
                         flex-direction: column;
@@ -137,7 +134,7 @@ export default class extends React.Component {
                         background-size: 100% 100%;
                     }
                 `}</style>
-            </div>
-        );
-    }
+      </div>
+    );
+  }
 }
