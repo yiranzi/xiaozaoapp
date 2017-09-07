@@ -122,7 +122,7 @@ export default class navigation extends React.Component {
             color:#838589;
             margin-top:10px;
             padding:5px 0px 5px 15px;
-            border-radius:5px;
+            border-radius:10px;
             border:1px solid #BFBFBF;
           }
           .container {
@@ -131,7 +131,6 @@ export default class navigation extends React.Component {
           img {
             width:80px;
             height:80px;
-            border:1px solid #BFBFBF;
           }
           .right {
             display:flex;
@@ -172,6 +171,9 @@ export default class navigation extends React.Component {
           }
           .container {
             margin-top:20px;
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
           }
         `}</style>
       </div>
