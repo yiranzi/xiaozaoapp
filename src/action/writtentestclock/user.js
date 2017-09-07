@@ -19,7 +19,7 @@ const Action = {
     selectGroups: function (info) {
         return AxiosUtil({
             method: 'get',
-            url: `/api/written-test-clock/selectGroup?group=${info.group}`
+            url: `/api/written-test-clock/selectGroup/${info.group}`
         });
     }
 };
