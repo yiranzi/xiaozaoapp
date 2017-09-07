@@ -1,6 +1,6 @@
 module.exports = {
   webpack: (config, {dev}) => {
-    //处理weui样式
+    // 处理weui样式
     config.module.rules.push(
       {
         test: /\.(css)/,
@@ -14,8 +14,8 @@ module.exports = {
         test: /\.css$/,
         use: ['babel-loader', 'raw-loader', 'postcss-loader']
       });
-    //静态资源路径处理
-    if (process.env.NODE_ENV == 'production') {
+    // 静态资源路径处理
+    if (process.env.NODE_ENV === 'production') {
       config.module.rules.push({
         test: /\.js(\?[^?]*)?$/,
         loader: './src/loader/static-path',

@@ -3,28 +3,27 @@ import Layout from '../../../src/components/schoolLayout';
 import SchoolProcessPage from '../../../src/page/mck/schoolprocess/index';
 
 export default class extends React.Component {
-    // static async getInitialProps({req}) {
-    //     let error, companyDetail;
-    //     let {companyId} = req.params;
-    //     companyId = parseInt(companyId);
-    //     try {
-    //         const setJson = await CompanyAction.getCompany(companyId);
-    //         companyDetail = setJson.response;
-    //         console.log(companyDetail);
-    //     } catch (err) {
-    //
-    //     }
-    //     return {
-    //         companyDetail
-    //     }
-    // }
+  // static async getInitialProps({req}) {
+  //     let error, companyDetail;
+  //     let {companyId} = req.params;
+  //     companyId = parseInt(companyId);
+  //     try {
+  //         const setJson = await CompanyAction.getCompany(companyId);
+  //         companyDetail = setJson.response;
+  //         console.log(companyDetail);
+  //     } catch (err) {
+  //
+  //     }
+  //     return {
+  //         companyDetail
+  //     }
+  // }
 
-    render() {
-        return (
-            <Layout fromType="mck">
-                <SchoolProcessPage/>
-            </Layout>
-        );
-
-    }
+  render () {
+    return (
+      <Layout fromType='mck'>
+        <SchoolProcessPage />
+      </Layout>
+    );
+  }
 }

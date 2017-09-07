@@ -1,5 +1,4 @@
 import React from 'react';
-import {Button} from 'react-weui';
 import IndexClockIn from '../../src/page/writtentestclock/index-clock-in';
 import WrittenTestClock from '../../src/page/writtentestclock/components/layout';
 
