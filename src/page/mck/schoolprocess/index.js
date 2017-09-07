@@ -11,7 +11,7 @@ export default class SchoolProcess extends React.Component {
           isOnlineApply companyName='麦肯锡' />
         <SchoolNav fromType='school' processLink='/school/mck/schoolprocess' workLink='/school/mck/schoolWork' expLink='/school/mck/schoolExp' />
         <div className='school__online_time'>
-          <div>预计9月中旬开启网申，点击官网链接查看详情</div>
+          <div>预计10月份s开启网申，点击官网链接查看详情</div>
           <div className='school__online_address my-text-rowsingle'><a href='http://www.mckinsey.com/careers/students'>http://www.mckinsey.com/careers/students</a></div>
         </div>
         <SchoolFooter />

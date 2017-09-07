@@ -50,7 +50,7 @@ export default class navigation extends React.Component {
           <div className='container'>
             <img src='/static/school/mars.png' />
             <div className='right'>
-              <div><a>玛氏</a><span>2018校招已于9月初开启</span></div>
+              <div><a>玛氏</a><span>2018校招已于9月4日开启</span></div>
               <div><a className='work' href='/school/mars/schoolWork'>工作体验</a><a className='exp'
                 href='/school/mars/schoolExp'>面经/笔经</a>
               </div>
@@ -59,7 +59,7 @@ export default class navigation extends React.Component {
           <div className='container'>
             <img src='/static/school/un1.png' />
             <div className='right'>
-              <div><a>联合利华</a><span>2018校招已于8月15日开启</span></div>
+              <div><a>联合利华</a><span>2018校招已于9月1日开启</span></div>
               <div><a className='work' href='/school/un/schoolWork'>工作体验</a><a className='exp'
                 href='/school/un/schoolExp'>面经/笔经</a>
               </div>
@@ -71,7 +71,7 @@ export default class navigation extends React.Component {
           <div className='container'>
             <img src='/static/school/mercer.png' alt='' />
             <div className='right'>
-              <div><a>美世咨询</a><span>2018校招已于9月初开启</span></div>
+              <div><a>美世咨询</a><span>2018校招预计10月份开启</span></div>
               <div><a className='work' href='/school/mercer/schoolWork'>工作体验</a><a className='exp'
                 href='/school/mercer/schoolExp'>面经/笔经</a>
               </div>
@@ -80,7 +80,7 @@ export default class navigation extends React.Component {
           <div className='container'>
             <img src='/static/school/mck.png' />
             <div className='right'>
-              <div><a>麦肯锡</a><span>2018校招已于8月15日开启</span></div>
+              <div><a>麦肯锡</a><span>2018校招预计10月份开启</span></div>
               <div><a className='work' href='/school/mck/schoolWork'>工作体验</a><a className='exp'
                 href='/school/mck/schoolExp'>面经/笔经</a>
               </div>
