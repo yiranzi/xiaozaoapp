@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from './school/header';
-import Footer from './school/footer';
+import Header from './header';
+import Footer from './footer';
 import {Toptips} from 'react-weui';
 import weui from 'weui';
 
