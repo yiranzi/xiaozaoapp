@@ -24,8 +24,9 @@ export default class AnswerPage extends React.Component {
       questionList = await AnswerAction.getToday();
       if (questionList.answerTime) {
         location.href = '/writtentestclock/pastanswer?day=today';
+      } else {
+        this.setState({questionList: questionList});
       }
-      this.setState({questionList: questionList});
     } catch (error) {
       alert(error.message);
     }
