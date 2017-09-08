@@ -293,17 +293,17 @@ export default class extends React.Component {
           }
           .btn {
             background-repeat: no-repeat;
-            background-size: 100% 100%;
+            background-size: contain;
             width: 220px;
             height: 80px;
             margin: 3px 0;
             margin-left: 1rem;
           }
           .today-push {
-            background-image: url(/static/writtentestclock/today-push.png);
+            background-image: url(/static/writtentestclock/today-push-1.png);
           }
           .test {
-            background-image: url(/static/writtentestclock/after-class-test-disabled.png);
+            background-image: url(/static/writtentestclock/after-class-test-disabled-1.png);
           }
           .avatar {
             background-size: 100%;
