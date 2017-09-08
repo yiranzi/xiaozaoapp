@@ -169,7 +169,7 @@ export default class extends React.Component {
           </div>
           <div className='accomplish-until'>
             {
-              hasPrize 
+              hasPrize
                 ? <div><span>你离通关时间还差</span><span className='date'>{countdownDay}</span><span>天哦</span></div> 
                 : <div><span>很遗憾您已无法获得本期奖品</span></div>
             }
@@ -273,17 +273,17 @@ export default class extends React.Component {
           }
           .accomplish-until div {
             display: block;
-            width: 82vw;
-            font-size: 1rem;
+            font-size: 17px;
             text-align: right;
             font-weight: bold;
+            margin-left: 2rem;
           }
           .accomplish-until .date {
-            width: 25px;
-            height: 25px;
+            width: 27px;
+            height: 27px;
             text-align: center;
             background: #fff;
-            border-radius: 32px;
+            border-radius: 27px;
             margin: 4px;
             color: ${Theme.color.writtentestclockmain};
           }
