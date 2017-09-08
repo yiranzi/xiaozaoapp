@@ -132,6 +132,7 @@ export default class extends React.Component {
             margin: 0 auto;
             justify-content: center;
             align-items: center;
+            position: relative;
           }
           .choose-class {
             padding: 5px 15px;
