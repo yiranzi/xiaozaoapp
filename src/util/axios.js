@@ -14,7 +14,7 @@ function AxiosUtil (param) {
   if (data) {
     axiosParam.data = data;
   }
-  if(method === 'post') {
+  if (method === 'post') {
     axiosParam.headers = { 'Content-Type': 'application/json' };
   }
   return new Promise((resolve, reject) => {
