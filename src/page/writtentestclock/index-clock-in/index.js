@@ -19,7 +19,7 @@ export default class extends React.Component {
     try {
       const info = await UserAction.getHistory();
       const { startDay, endDay, completeDay, evaluationAccuracy } = info;
-      const dateLength = Math.ceil((endDay - startDay) / 3600 / 24 / 1000);
+      const dateLength = Math.ceil((endDay - startDay) / 3600 / 24 / 1000) + 1;
       let renderList = []
       let totalUser = info.totalUserCount
       let hasPrize = true
@@ -171,7 +171,7 @@ export default class extends React.Component {
           <div className='accomplish-until'>
             {
               hasPrize
-                ? <div><span>你离通关时间还差</span><span className='date'>{countdownDay}</span><span>天哦</span></div> 
+                ? <div><span>你离通关奖品还差</span><span className='date'>{countdownDay}</span><span>天打卡</span></div> 
                 : <div><span>很遗憾您已无法获得本期奖品</span></div>
             }
           </div>
@@ -303,7 +303,7 @@ export default class extends React.Component {
             background-image: url(/static/writtentestclock/today-push.png);
           }
           .test {
-            background-image: url(/static/writtentestclock/after-class-test.png);
+            background-image: url(/static/writtentestclock/after-class-test-disabled.png);
           }
           .avatar {
             background-size: 100%;
