@@ -22,24 +22,35 @@ export default class AnswerPage extends React.Component {
     let questionList = {};
     try {
       questionList = await AnswerAction.getToday();
-      if (questionList.answerTime) {
-        location.href = '/writtentestclock/pastanswer?day=today';
-      } else {
-        this.setState({questionList: questionList});
-      }
+      this.setState({questionList: questionList});
     } catch (error) {
       alert(error.message);
     }
   };
 
-  renderAnswer (currentObjectIndex, questions) {
+  renderAnswer (currentObjectIndex, answerList, questions) {
     // const {answerList} = this.state;
     let {answerListResult} = this.state;
     const questionItem = questions[currentObjectIndex];// 题目详情
     let selectAnswer = answerListResult[questionItem.id] ? answerListResult[questionItem.id].tag : '';
     let isCheckAnalysis = answerListResult[questionItem.id] ? answerListResult[questionItem.id].isShowAnalysis : '';
 
-    if (isCheckAnalysis) {
+    if (answerList.hasOwnProperty(questionItem.id)) {
+      const subjectItem = Object.assign({}, {
+        total: questions.length, // 当前试卷总共多少题
+        currentIndex: currentObjectIndex, // 当前题目在数组中的编号
+        questionItem: questionItem, // 题目数组
+        selectAnswer: answerList[questionItem.id], // 已选答案,
+        disabled: true
+      });
+      return (
+        <div className='subject-item'>
+          <SubjectComponent
+            subjectItem={subjectItem}
+          />
+        </div>
+      );
+    } else if (isCheckAnalysis) {
       const subjectItem = Object.assign({}, {
         total: questions.length, // 当前试卷总共多少题
         currentIndex: currentObjectIndex, // 当前题目在数组中的编号
@@ -72,6 +83,14 @@ export default class AnswerPage extends React.Component {
         </div>
       );
     }
+  }
+
+  formatAnswerDTOList (answerDTOList) {
+    let json = {};
+    answerDTOList.map((item, index) => {
+      json[item.id] = item.answer;
+    });
+    return json;
   }
 
   answerCheck (id, value) {
@@ -112,7 +131,7 @@ export default class AnswerPage extends React.Component {
     }
   }
 
-  renderAnswerAnalysis (currentObjectIndex, questions) {
+  renderAnswerAnalysis (currentObjectIndex, answerList, questions) {
     const {answerListResult, isShowAnalysisButton, isShowAnalysis} = this.state;
     const questionItem = questions[currentObjectIndex];
     const {id, answer, analysis} = questionItem;
@@ -165,7 +184,7 @@ export default class AnswerPage extends React.Component {
 
     let isCheckAnalysis = answerListResult[id] ? answerListResult[id].isShowAnalysis : false;
     let canShowAnalysis = answerListResult[id] ? answerListResult[id].tag : false;
-    if (isShowAnalysis || isCheckAnalysis) {
+    if (isShowAnalysis || isCheckAnalysis || answerList.hasOwnProperty(id)) {
       return analysisContent;
     }
     if (isShowAnalysisButton || canShowAnalysis) {
@@ -273,12 +292,13 @@ export default class AnswerPage extends React.Component {
 
   render () {
     const {currentObjectIndex, finish, questionList} = this.state;// 当前题目在数组中的序号
-    const {writtenTestTopicDTOList} = questionList;
+    const {answerDTOList, writtenTestTopicDTOList} = questionList;
     if (writtenTestTopicDTOList) {
+      let answerList = this.formatAnswerDTOList(answerDTOList);
       return (
         <div className='written-test-clock-answer'>
-          {this.renderAnswer(currentObjectIndex, writtenTestTopicDTOList)}
-          {this.renderAnswerAnalysis(currentObjectIndex, writtenTestTopicDTOList)}
+          {this.renderAnswer(currentObjectIndex, answerList, writtenTestTopicDTOList)}
+          {this.renderAnswerAnalysis(currentObjectIndex, answerList, writtenTestTopicDTOList)}
           {finish ? this.renderFinishButton(currentObjectIndex) : this.renderActionButton(currentObjectIndex, writtenTestTopicDTOList)}
           {this.renderCss()}
         </div>
