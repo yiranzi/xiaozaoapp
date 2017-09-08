@@ -18,7 +18,7 @@ export default class extends React.Component {
   componentDidMount = async () => {
     try {
       const info = await UserAction.getHistory();
-      const { startDay, endDay, completeDay } = info;
+      const { startDay, endDay, completeDay, evaluationAccuracy } = info;
       const dateLength = Math.ceil((endDay - startDay) / 3600 / 24 / 1000);
       let renderList = []
       let totalUser = info.totalUserCount
@@ -35,6 +35,7 @@ export default class extends React.Component {
         renderList.push(item)
       }
       this.setState({
+        evaluationAccuracy,
         countdownDay,
         completeDay,
         dateLength,
@@ -123,7 +124,7 @@ export default class extends React.Component {
   }
 
   render() {
-    const { showPage, tipsMsg, countdownDay } = this.state
+    const { showPage, tipsMsg } = this.state
     if (!showPage) return (
       <div>
         <Footer />
@@ -137,7 +138,7 @@ export default class extends React.Component {
       </div>
     )
 
-    const { renderList, totalUser, hasPrize } = this.state
+    const { renderList, totalUser, hasPrize, countdownDay, evaluationAccuracy, exceeds  } = this.state
 
     return (
       <div className='index-clock-in-form'>
@@ -145,7 +146,7 @@ export default class extends React.Component {
           <img className='title-img' src='/static/writtentestclock/index-clock-in-index.png' />
           <div className='sub-title'>小灶笔试打卡第一期<span> ( 限时免费 ) </span></div>
           <a className='middle-banner' href='/writtentestclock/pastanswer?day=test'>
-            <div>入学前测评－正确率90%－击败了50%人</div>
+            <div>入学前测评－正确率{evaluationAccuracy || 0}%－击败了{exceeds[evaluationAccuracy || 0]}%人</div>
           </a>
           <div className='table'>
             <div className='table-title'>
