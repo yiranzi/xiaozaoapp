@@ -65,6 +65,14 @@ export default class navigation extends React.Component {
               </div>
             </div>
           </div>
+          <div className='container'>
+            <img src='/static/school/pg.png' />
+            <div className='right'>
+              <div><a>宝洁</a><span>2018校招9月9日开启</span></div>
+              <div><a className='work' href='/school/pg/schoolWork'>工作体验</a><a className='exp' href='/school/pg/schoolExp'>面经/笔经</a>
+              </div>
+            </div>
+          </div>
         </section>
         <section className='block'>
           <header>咨询</header>

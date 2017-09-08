@@ -1,12 +1,12 @@
 import React from 'react';
 import Theme from '../../../../config/theme';
 import classnames from 'classnames';
-import {Toptips} from 'react-weui';
+import { Toptips } from 'react-weui';
 import AnswerAction from '../../../../src/action/writtentestclock/answer';
 import UserAction from '../../../../src/action/writtentestclock/user';
 
 export default class extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       showMore: false,
@@ -20,7 +20,7 @@ export default class extends React.Component {
   componentDidMount = async () => {
     try {
       const info = await AnswerAction.getEvaluation();
-      const {totalScore, writtenTestTopicDTOList} = info;
+      const { totalScore, writtenTestTopicDTOList } = info;
       const score = Math.round(totalScore / writtenTestTopicDTOList.length * 100);
       console.log(score);
       this.setState({
@@ -56,7 +56,7 @@ export default class extends React.Component {
 
   chooseClass = async (isAdvanced) => {
     try {
-      await UserAction.selectGroups({group: isAdvanced ? 'H' : 'N'});
+      await UserAction.selectGroups({ group: isAdvanced ? 'H' : 'N' });
       location.href = '/writtentestclock/choose-class';
     } catch (error) {
       clearTimeout(this.timeout);
@@ -64,27 +64,28 @@ export default class extends React.Component {
         tipsMsg: error.message,
         showTips: true
       });
-      this.timeout = setTimeout(() => this.setState({showTips: false}), 2000);
+      this.timeout = setTimeout(() => this.setState({ showTips: false }), 2000);
     }
   };
 
   render () {
-    const {showMore, isAdvanced, showTips, tipsMsg, showPage} = this.state;
+    const { showMore, isAdvanced, showTips, tipsMsg, showPage } = this.state;
     if (!showPage) return <div />;
     return (
       <div>
         <img className='bg-img' src='/static/writtentestclock/intro.jpeg' />
         <div className='btn-form'>
           {showMore &&
-          <div className='choose-class-form'>
-            <div className={classnames('choose-class', {'recommend-left': isAdvanced === 1})}
-              onClick={() => this.chooseClass(false)}>全能提升基础班
+            <div className='choose-class-form'>
+              <div className='choose-class-form-inner'>
+                <div className={classnames('choose-class', { 'recommend-left': isAdvanced === 1 })}
+                  onClick={() => this.chooseClass(false)}>全能提升基础班
+                </div>
+                <div className={classnames('choose-class', { 'recommend-right': isAdvanced === 2 })}
+                  onClick={() => this.chooseClass(true)}>全能提升进阶班
+                </div>
+              </div>
             </div>
-            <div className={classnames('choose-class', {'recommend-right': isAdvanced === 2})}
-              onClick={() => this.chooseClass(true)}>全能提升进阶班
-            </div>
-            <div className='trangle' />
-          </div>
           }
           <div className='btn-img' onClick={this.showMoreClick}>开启我的笔试进阶修炼</div>
         </div>
@@ -114,16 +115,24 @@ export default class extends React.Component {
             margin-top: 20px;
           }
           .choose-class-form {
-            position: relative;
             display: flex;
-            width: 340px;
             margin: 0 auto;
             color: #000;
-            background: ${Theme.color.writtentestclockmain};
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+          }
+          .choose-class-form-inner {
+            display: flex;
+            flex-direction: row;
+            background: ${Theme.color.writtentestclockmain};
             height: 40px;
             border-radius: 20px;
+            width: 340px;
+            margin: 0 auto;
+            justify-content: center;
+            align-items: center;
+            position: relative;
           }
           .choose-class {
             padding: 5px 15px;
@@ -133,13 +142,13 @@ export default class extends React.Component {
           .choose-class:first-child {
             border-right: 1px solid #000;
           }
-          .trangle {
+          .choose-class-form:after {
+            content: '';
             display: block;
-            position: absolute;
             border-left: 20px solid transparent;
             border-right: 20px solid transparent;
             border-top: 20px solid ${Theme.color.writtentestclockmain};
-            top: 30px;
+            margin-top: -10px;
           }
           .recommend-left:before {
             content: '';
