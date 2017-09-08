@@ -22,6 +22,9 @@ export default class AnswerPage extends React.Component {
     let questionList = {};
     try {
       questionList = await AnswerAction.getToday();
+      if (questionList.answerTime) {
+        location.href = '/writtentestclock/pastanswer?day=today';
+      }
       this.setState({questionList: questionList});
     } catch (error) {
       alert(error.message);
@@ -118,7 +121,7 @@ export default class AnswerPage extends React.Component {
         <div className='wrapper'>
           <div className='analysis-header'>
             <div className='answer'>答案：{answer}</div>
-            <div className='line' />
+            <div className='line'/>
             <div className='hide-analysis'>查看解析</div>
           </div>
           <div className='analysis-content'>{analysis}</div>
@@ -188,10 +191,10 @@ export default class AnswerPage extends React.Component {
       <div className='action'>
         <div onClick={() => {
           this.prevAnswer(currentObjectIndex);
-        }}><img src='/static/writtentestclock/prev.png' /></div>
+        }}><img src='/static/writtentestclock/prev.png'/></div>
         <div onClick={() => {
           this.nextAnswer(currentObjectIndex, questions);
-        }}><img src='/static/writtentestclock/next.png' /></div>
+        }}><img src='/static/writtentestclock/next.png'/></div>
       </div>
     );
   }
@@ -201,10 +204,10 @@ export default class AnswerPage extends React.Component {
       <div className='finish'>
         <div onClick={() => {
           this.prevAnswer(currentObjectIndex);
-        }}><img src='/static/writtentestclock/prev.png' /></div>
+        }}><img src='/static/writtentestclock/prev.png'/></div>
         <div onClick={() => {
           this.answerComplete();
-        }}><img src='/static/writtentestclock/complete.png' /></div>
+        }}><img src='/static/writtentestclock/complete.png'/></div>
       </div>
     );
   }
@@ -281,7 +284,7 @@ export default class AnswerPage extends React.Component {
       );
     } else {
       return (
-        <div className='written-test-clock-answer' />
+        <div className='written-test-clock-answer'/>
       );
     }
   }

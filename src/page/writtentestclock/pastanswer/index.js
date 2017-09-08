@@ -21,6 +21,8 @@ export default class AnswerPage extends React.Component {
       if (day) {
         if (day === 'test') {
           questionList = await AnswerAction.getEvaluation();
+        } else if (day === 'today') {
+          questionList = await AnswerAction.getToday();
         } else {
           questionList = await AnswerAction.getByToday(day);
         }
@@ -124,10 +126,10 @@ export default class AnswerPage extends React.Component {
       <div className='action'>
         <div onClick={() => {
           this.prevAnswer(currentObjectIndex);
-        }}><img src='/static/writtentestclock/prev.png' /></div>
+        }}><img src='/static/writtentestclock/prev.png'/></div>
         <div onClick={() => {
           this.nextAnswer(currentObjectIndex, questions);
-        }}><img src='/static/writtentestclock/next.png' /></div>
+        }}><img src='/static/writtentestclock/next.png'/></div>
       </div>
     );
   }
@@ -135,7 +137,7 @@ export default class AnswerPage extends React.Component {
   renderFinishButton () {
     return (
       <div className='finish'>
-        <div><img src='/static/writtentestclock/complete-test.png' /></div>
+        <div><img src='/static/writtentestclock/complete-test.png'/></div>
       </div>
     );
   }
@@ -181,7 +183,7 @@ export default class AnswerPage extends React.Component {
       );
     } else {
       return (
-        <div className='written-test-clock-answer' />
+        <div className='written-test-clock-answer'/>
       );
     }
   }
