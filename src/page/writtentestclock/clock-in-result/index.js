@@ -81,7 +81,7 @@ export default class AnswerPage extends React.Component {
             .inner-square {
               background-image: url(/static/writtentestclock/clock_result_bg.png);
               background-size: 100% 100%;
-              padding: 55px 0 85px;
+              padding: 10% 0 15%;
               font-size: 20px;
               font-weight: bold;
             }

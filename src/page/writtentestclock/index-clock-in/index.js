@@ -55,7 +55,7 @@ export default class extends React.Component {
             background-image: url(/static/writtentestclock/today-push.png);
           }
           .test {
-            background-image: url(/static/writtentestclock/test.png);
+            background-image: url(/static/writtentestclock/after-class-test.png);
           }
         `}</style>
       </div>
