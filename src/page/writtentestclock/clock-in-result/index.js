@@ -12,20 +12,25 @@ export default class AnswerPage extends React.Component {
       todayInfo: null,
       todayNo: 1,
       shareIsShow: false,
+      showPage: false,
       exceeds: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 8, 8, 8, 9, 9, 9, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 39, 42, 44, 46, 48, 51, 54, 57, 60, 63, 65, 67, 69, 72, 75, 77, 80, 82, 84, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 96, 96, 96, 96, 97, 97, 97, 97, 97, 98, 98, 98, 98, 98, 99, 99, 99, 99, 99, 100]
     };
   }
 
-  componentDidMount () {
-    const _this = this;
-    AnswerAction.getToday().then((res) => {
-      _this.setState({todayInfo: res});
-    });
-    UserAction.getHistory().then((res) => {
-      if (res.state === 200) {
-        _this.setState({todayNo: res.completeDay.length + 1});
-      }
-    });
+  componentDidMount = async() => {
+    try{
+      const todayInfo = await AnswerAction.getToday();
+      const res = await UserAction.getHistory();
+      this.setState({
+        todayInfo,
+        todayNo: res.completeDay.length,
+        showPage: true
+      });
+    } catch(err) {
+      this.setState({
+        showPage: true
+      });
+    }
   }
 
     shareWx = () => {
@@ -45,7 +50,8 @@ export default class AnswerPage extends React.Component {
     }
 
     render () {
-      const {todayInfo} = this.state;
+      const {todayInfo, showPage} = this.state;
+      if(!showPage) return <Footer/>;
       const accuracy = !todayInfo ? 0 : todayInfo.writtenTestTopicDTOList.length === 0 ? 0 : Math.round(todayInfo.totalScore / todayInfo.writtenTestTopicDTOList.length * 100);
       return (
         <div className='square-form'>
