@@ -21,9 +21,9 @@ export default class Footer extends React.Component {
       <div className='footer'>
         <div className='footer-nav'>
           <a href='/school/kpmg/schoolprocess' className={classNames('a__bg', {'isActive': fromType === 'kpmg'})}>毕马威</a>
-          <a href='/school/anyong/schoolprocessl'
+          <a href='/school/anyong/schoolprocess'
             className={classNames('a__bg', {'isActive': fromType === 'anyong'})}>安永</a>
-          <a href='/school/pwccn/schoolprocessl'
+          <a href='/school/pwccn/schoolprocess'
             className={classNames('a__bg', {'isActive': fromType === 'pwccn'})}>普华永道</a>
           <a href='/school/de/schoolprocess' className={classNames('a__bg', {'isActive': fromType === 'de'})}>德勤</a>
           <a href='/school/navigation' className='a__bg'>更多企业</a>
