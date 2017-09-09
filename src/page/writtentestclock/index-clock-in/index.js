@@ -195,6 +195,7 @@ export default class extends React.Component {
                 : <div><span>很遗憾您已无法获得本期奖品<br />坚持打卡结束，也会有新的收获哦</span></div>
             }
           </div>
+          <a href='/writtentestclock/preview-prize' className='btn preview-prize' />
           <a href='/writtentestclock/answer' className='btn today-push' />
           <a className='btn test' />
         </div>
@@ -321,6 +322,9 @@ export default class extends React.Component {
           }
           .today-push {
             background-image: url(/static/writtentestclock/today-push-1.png);
+          }
+          .preview-prize {
+            background-image: url(/static/writtentestclock/preview-prize.png);
           }
           .test {
             background-image: url(/static/writtentestclock/after-class-test-disabled-1.png);

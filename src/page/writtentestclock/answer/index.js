@@ -10,6 +10,7 @@ export default class AnswerPage extends React.Component {
       currentObjectIndex: 0,
       answerListResult: {},
       // answerList: [],//题目答案[{id: , tag: }]
+      isChecked: false,
       finish: false,
       initTime: new Date(),
       isShowAnalysisButton: false,
@@ -22,7 +23,12 @@ export default class AnswerPage extends React.Component {
     let questionList = {};
     try {
       questionList = await AnswerAction.getToday();
-      this.setState({questionList: questionList});
+      console.log(questionList);
+      if (questionList.answerDTOList.length > 1) {
+        this.setState({questionList: questionList, isChecked: true});
+      } else {
+        this.setState({questionList: questionList});
+      }
     } catch (error) {
       alert(error.message);
     }
@@ -106,11 +112,13 @@ export default class AnswerPage extends React.Component {
   }
 
   prevAnswer (currentObjectIndex) {
-    this.setState({
-      currentObjectIndex: currentObjectIndex - 1,
-      isShowAnalysis: false,
-      finish: false
-    });
+    if (currentObjectIndex >= 1) {
+      this.setState({
+        currentObjectIndex: currentObjectIndex - 1,
+        isShowAnalysis: false,
+        finish: false
+      });
+    }
   }
 
   nextAnswer (currentObjectIndex, questions) {
@@ -220,16 +228,28 @@ export default class AnswerPage extends React.Component {
   }
 
   renderFinishButton (currentObjectIndex) {
-    return (
-      <div className='finish'>
-        <div onClick={() => {
-          this.prevAnswer(currentObjectIndex);
-        }}><img src='/static/writtentestclock/prev.png' /></div>
-        <div onClick={() => {
-          this.answerComplete();
-        }}><img src='/static/writtentestclock/complete.png' /></div>
-      </div>
-    );
+    const {isChecked} = this.state;
+    if (isChecked) {
+      return (
+        <div className='action'>
+          <div onClick={() => {
+            this.prevAnswer(currentObjectIndex);
+          }}><img src='/static/writtentestclock/prev.png' /></div>
+          <div><img src='/static/writtentestclock/next.png' /></div>
+        </div>
+      );
+    } else {
+      return (
+        <div className='finish'>
+          <div onClick={() => {
+            this.prevAnswer(currentObjectIndex);
+          }}><img src='/static/writtentestclock/prev.png' /></div>
+          <div onClick={() => {
+            this.answerComplete();
+          }}><img src='/static/writtentestclock/complete.png' /></div>
+        </div>
+      );
+    }
   }
 
   formatAnswerList () {
