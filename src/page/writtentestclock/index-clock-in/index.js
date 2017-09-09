@@ -20,21 +20,40 @@ export default class extends React.Component {
       const info = await UserAction.getHistory();
       const { startDay, endDay, completeDay, evaluationAccuracy } = info;
       const dateLength = Math.ceil((endDay - startDay) / 3600 / 24 / 1000) + 1;
+      const currentDayIndex = completeDay.length
       let renderList = []
       let totalUser = info.totalUserCount
       let hasPrize = true
       let countdownDay = dateLength - completeDay.length
       for (let i = 0; i < dateLength; i++) {
         const item = completeDay[i] || {}
+        /** item.type
+          * 2: 打卡完成
+          * 1: 打卡未完成
+          * 0: 打卡未开始／当日尚未打卡
+          **/
         if(completeDay[i]) {
-          item.type = completeDay[i].completed ? 2 : 1
-          if(!completeDay[i].completed) hasPrize = false
+          if(completeDay[i].completed) {
+            item.type = 2
+          } else {
+            if(currentDayIndex === i + 1) {
+              item.type = 0
+            } else {
+              item.type = 1
+            }
+          }
+
+          if(!completeDay[i].completed 
+            && (currentDayIndex !== i + 1)) {
+              hasPrize = false
+          }
         } else {
           item.type = 0
         }
         renderList.push(item)
       }
       this.setState({
+        currentDayIndex,
         evaluationAccuracy,
         countdownDay,
         completeDay,
@@ -53,6 +72,7 @@ export default class extends React.Component {
   }
 
   rowClick = (type, index) => {
+    const { currentDayIndex } = this.state
     if(type != 0) location.href = `/writtentestclock/pastanswer?day=${index + 1}`
   }
 
@@ -60,10 +80,11 @@ export default class extends React.Component {
   renderRow = (item, index) => {
     const { accuracy, completeUser } = item
     const beat = accuracy ? this.state.exceeds[accuracy] : ''
+    const dayIndex = index + 1
     return (
       <div onClick={ () => this.rowClick(item.type, index) } key={index} className={classnames('table-row', { 'check': item.type == 2, 'cross': item.type == 1, 'next-todo': item.type == 0 })}>
         <div className='table-content'>
-          <div>Day{index + 1}</div>
+          <div>Day{dayIndex}</div>
           <div>{completeUser}</div>
           <div>{accuracy ? accuracy + '%' : ''}</div>
           <div>{beat ? beat + '%' : ''}</div>
@@ -124,7 +145,7 @@ export default class extends React.Component {
   }
 
   render() {
-    const { showPage, tipsMsg } = this.state
+    const { showPage, tipsMsg, renderList, totalUser, hasPrize, countdownDay, evaluationAccuracy, exceeds } = this.state
     if (!showPage) return (
       <div>
         <Footer />
@@ -137,8 +158,6 @@ export default class extends React.Component {
         <Footer />
       </div>
     )
-
-    const { renderList, totalUser, hasPrize, countdownDay, evaluationAccuracy, exceeds  } = this.state
 
     return (
       <div className='index-clock-in-form'>
@@ -170,9 +189,9 @@ export default class extends React.Component {
           </div>
           <div className='accomplish-until'>
             {
-              hasPrize
+              !hasPrize
                 ? <div><span>你离通关奖品还差</span><span className='date'>{countdownDay}</span><span>天打卡</span></div> 
-                : <div><span>很遗憾您已无法获得本期奖品</span></div>
+                : <div><span>很遗憾您已无法获得本期奖品<br/>坚持打卡结束，也会有新的收获哦</span></div>
             }
           </div>
           <a href='/writtentestclock/answer' className='btn today-push' />
@@ -232,7 +251,6 @@ export default class extends React.Component {
             width: 25%;
             text-align: center;
           }
-          
           .partake {
             overflow: hidden;
             display: flex;
@@ -290,6 +308,7 @@ export default class extends React.Component {
           }
           .accomplish-until div span {
             display: inline-block;
+            text-align: center;
           }
           .btn {
             background-repeat: no-repeat;

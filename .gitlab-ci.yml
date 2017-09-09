@@ -5,7 +5,16 @@ cache:
 stages:
   - build
 
-build:
+dev_build:
+  stage: build
+  only:
+   - dev
+  script:
+   - yarn
+   - npm run build
+   - "sudo rsync -av --exclude=node_modules --exclude=.git --exclude=out . /usr/local/wechat-app && cd /usr/local/wechat-app && yarn && sudo pm2 restart dev_server"
+
+master_build:
   stage: build
   only: 
    - master
