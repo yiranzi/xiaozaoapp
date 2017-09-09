@@ -12,7 +12,7 @@ dev_build:
   script:
    - yarn
    - npm run build
-   - "sudo rsync -av --exclude=node_modules --exclude=.git --exclude=out . /usr/local/wechat-app && cd /usr/local/wechat-app && yarn && sudo PORT=702 pm2 start dev_server.js"
+   - "sudo rsync -av --exclude=node_modules --exclude=.git --exclude=out . /usr/local/wechat-app && cd /usr/local/wechat-app && yarn && sudo PORT=702 pm2 restart dev_server.js"
 
 master_build:
   stage: build
