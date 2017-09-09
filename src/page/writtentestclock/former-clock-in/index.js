@@ -3,7 +3,7 @@ import Theme from '../../../../config/theme';
 import Footer from '../components/footer';
 import UserAction from '../../../../src/action/writtentestclock/user';
 export default class extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       list: [],
@@ -40,7 +40,7 @@ export default class extends React.Component {
     if (this.state.completeDayLength >= index + 1) location.href = `/writtentestclock/pastanswer?day=${index + 1}`;
   }
 
-  renderGlobalCss() {
+  renderGlobalCss () {
     return (
       <style global jsx >{`
         .clock-in-list:before {
@@ -116,11 +116,11 @@ export default class extends React.Component {
     );
   }
 
-  goToPreSchollAnswer() {
+  goToPreSchollAnswer () {
     if (this.state.evaluationId) location.href = '/writtentestclock/pastanswer?day=test';
   }
 
-  render() {
+  render () {
     const { showPage } = this.state;
     if (!showPage) return <div />;
     return (

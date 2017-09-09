@@ -6,7 +6,7 @@ import AnswerAction from '../../../../src/action/writtentestclock/answer';
 import UserAction from '../../../../src/action/writtentestclock/user';
 
 export default class extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       showMore: false,

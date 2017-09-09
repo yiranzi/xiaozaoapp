@@ -17,8 +17,8 @@ export default class AnswerPage extends React.Component {
     };
   }
 
-  componentDidMount = async() => {
-    try{
+  componentDidMount = async () => {
+    try {
       const todayInfo = await AnswerAction.getToday();
       const res = await UserAction.getHistory();
       this.setState({
@@ -26,7 +26,7 @@ export default class AnswerPage extends React.Component {
         todayNo: res.completeDay.length,
         showPage: true
       });
-    } catch(err) {
+    } catch (err) {
       this.setState({
         showPage: true
       });
@@ -51,7 +51,7 @@ export default class AnswerPage extends React.Component {
 
     render () {
       const {todayInfo, showPage} = this.state;
-      if(!showPage) return <Footer/>;
+      if (!showPage) return <Footer />;
       const accuracy = !todayInfo ? 0 : todayInfo.writtenTestTopicDTOList.length === 0 ? 0 : Math.round(todayInfo.totalScore / todayInfo.writtenTestTopicDTOList.length * 100);
       return (
         <div className='square-form'>

@@ -5,7 +5,7 @@ import UserAction from '../../../../src/action/writtentestclock/user';
 import AnswerAction from '../../../../src/action/writtentestclock/answer';
 import { Toptips } from 'react-weui';
 export default class extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
 
     this.state = {
@@ -69,20 +69,24 @@ export default class extends React.Component {
     });
   }
 
-  render() {
+  render () {
     const { showPage, tipsMsg } = this.state;
-    if (!showPage) return (
-      <div>
-        <Footer />
-      </div>
-    )
+    if (!showPage) {
+      return (
+        <div>
+          <Footer />
+        </div>
+      );
+    }
 
-    if (tipsMsg) return (
-      <div>
-        <Toptips type='warn' show> {tipsMsg} </Toptips>
-        <Footer />
-      </div>
-    )
+    if (tipsMsg) {
+      return (
+        <div>
+          <Toptips type='warn' show> {tipsMsg} </Toptips>
+          <Footer />
+        </div>
+      );
+    }
 
     const { no, groupNo, testResult, evaluationResult } = this.state;
 
