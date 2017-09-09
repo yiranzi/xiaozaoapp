@@ -189,7 +189,7 @@ export default class extends React.Component {
           </div>
           <div className='accomplish-until'>
             {
-              hasPrize
+              !hasPrize
                 ? <div><span>你离通关奖品还差</span><span className='date'>{countdownDay}</span><span>天打卡</span></div> 
                 : <div><span>很遗憾您已无法获得本期奖品<br/>坚持打卡结束，也会有新的收获哦</span></div>
             }
@@ -308,6 +308,7 @@ export default class extends React.Component {
           }
           .accomplish-until div span {
             display: inline-block;
+            text-align: center;
           }
           .btn {
             background-repeat: no-repeat;
