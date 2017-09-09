@@ -23,7 +23,7 @@ export default class AnswerPage extends React.Component {
       const res = await UserAction.getHistory();
       this.setState({
         todayInfo,
-        todayNo: res.completeDay.length + 1,
+        todayNo: res.completeDay.length,
         showPage: true
       });
     } catch(err) {
