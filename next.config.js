@@ -65,7 +65,8 @@ module.exports = {
       '/writtentestclock/index-clock-in': {page: '/writtentestclock/index-clock-in'},
       '/writtentestclock/test-entry': {page: '/writtentestclock/test-entry'},
       '/writtentestclock/test-result': {page: '/writtentestclock/test-result'},
-      '/writtentestclock/more-test': {page: '/writtentestclock/more-test'}
+      '/writtentestclock/more-test': {page: '/writtentestclock/more-test'},
+      '/writtentestclock/preview-prize': {page: '/writtentestclock/preview-prize'}
     };
   }
 };
