@@ -7,12 +7,12 @@ export default class SchoolProcess extends React.Component {
   render () {
     return (
       <div className='main-section'>
-        <CompanyDetail headerimage='/static/school/zhaoshang.jpg' trade='银行/证券/基金/保险/投资公司' tag='2017世界500强'
-          isOnlineApply companyName='招商银行' />
-        <SchoolNav fromType='school' processLink='/school/zhaoshang/schoolprocess' workLink='/school/zhaoshang/schoolWork' expLink='/school/zhaoshang/schoolExp' />
+        <CompanyDetail headerimage='/static/school/un.png' trade='消费品/零售/贸易' tag='2017世界500强'
+          isOnlineApply companyName='联合利华' />
+        <SchoolNav fromType='school' processLink='/school/un/schoolprocess' workLink='/school/un/schoolWork' expLink='/school/un/schoolExp' />
         <div className='school__online_time'>
-          <div>已于8月22日开启网申，点击官网链接查看详情</div>
-          <div className='school__online_address my-text-rowsingle'><a href='http://cmbcc.zhiye.com/'>http://cmbcc.zhiye.com/</a></div>
+          <div>已于9月1日开启网申，点击官网链接查看详情</div>
+          <div className='school__online_address my-text-rowsingle'><a href='https://mp.weixin.qq.com/s/fZGzd__xslM6NcBbEgPrjQ'>https://mp.weixin.qq.com/s/fZGzd__xslM6NcBbEgPrjQ</a></div>
         </div>
         <SchoolFooter />
         <style jsx>{`
