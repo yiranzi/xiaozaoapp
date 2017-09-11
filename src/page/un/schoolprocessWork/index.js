@@ -8,8 +8,7 @@ export default class schoolExp extends React.Component {
     super(props);
     this.state = {
       list: [
-        {title: '在联合利华工作是一番怎样的体验？', link: 'https://www.zhihu.com/question/24429824'},
-        {title: '和联合利华管理培训生玩耍是怎样一种体验', link: 'https://zhuanlan.zhihu.com/p/21587600'}
+        {title: '在招商银行工作是一种怎样的体验？', link: 'https://www.zhihu.com/question/26738012'}
       ]
     };
   }
@@ -17,9 +16,9 @@ export default class schoolExp extends React.Component {
   render () {
     return (
       <div className='main-section'>
-        <CompanyDetail headerimage='/static/school/un.png' trade='消费品/零售/贸易' tag='2017世界500强'
-          isOnlineApply companyName='联合利华' />
-        <SchoolNav fromType='work' processLink='/school/un/schoolprocess' workLink='/school/un/schoolWork' expLink='/school/un/schoolExp' />
+        <CompanyDetail headerimage='/static/school/zhaoshang.jpg' trade='银行/证券/基金/保险/投资公司' tag='2017世界500强'
+          isOnlineApply companyName='招商银行' />
+        <SchoolNav fromType='work' processLink='/school/zhaoshang/schoolprocess' workLink='/school/zhaoshang/schoolWork' expLink='/school/zhaoshang/schoolExp' />
         <List list={this.state.list} />
       </div>
     );
