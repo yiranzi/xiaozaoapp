@@ -7,7 +7,13 @@ export default class schoolExp extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      list: [{title: '2017毕马威春季精英计划网申与笔试之旅', link: 'http://bbs.yingjiesheng.com/thread-2099161-1-1.html', tag: ['网申', '笔试', '', '']},
+      list: [
+        {title: '全流程解析，教你夺取四大实习和全职offer', link: 'https://m.qlchat.com/topic/230000407013921.htm?isGuide=Y', tag: ['综合']},
+        {title: '错过秋招怎么办？拿过3家四大5个offer的老司机教你如何霸面！', link: 'https://m.qlchat.com/topic/220000279173866.htm?isGuide=Y', tag: ['面试']},
+        {title: '直播 | 四大面试官在面试时，最喜欢问的问题是', link: 'https://m.qlchat.com/topic/230000208042607.htm?isGuide=Y', tag: ['面试']},
+        {title: '直播 | 听懂这10道笔试题，不再怕四大笔试！', link: 'https://m.qlchat.com/live/batchCodeIn/280000038008709/290000024067343.htm', tag: ['笔试']},
+        {title: '直播间密码699 | 四大HR和经理喜欢的简历长什么样子？', link: 'https://m.qlchat.com/topic/240000101029490.htm?isGuide=Y', tag: ['网申']},
+        {title: '2017毕马威春季精英计划网申与笔试之旅', link: 'http://bbs.yingjiesheng.com/thread-2099161-1-1.html', tag: ['网申', '笔试', '', '']},
         {title: '我的2017秋招之路-毕马威、普华永道和安永', link: 'http://bbs.yingjiesheng.com/thread-2069233-1-1.html', tag: ['面试', '', '', '']},
         {title: '毕马威香港——從M面到簽約的13天经历', link: 'http://bbs.yingjiesheng.com/forum.php?mod=viewthread&tid=2051387&extra=page%3D1%26filter%3Dauthor%26orderby%3Ddateline', tag: ['面试', '', '', '']},
         {title: '毕马威（KPMG）2017校招笔试回忆', link: 'http://bbs.yingjiesheng.com/forum.php?mod=viewthread&tid=2050655&extra=page%3D1%26filter%3Dauthor%26orderby%3Ddateline', tag: ['笔试', '', '', '']},

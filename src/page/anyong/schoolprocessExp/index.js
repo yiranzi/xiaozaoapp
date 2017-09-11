@@ -8,6 +8,11 @@ export default class schoolExp extends React.Component {
     super(props);
     this.state = {
       list: [
+        {title: '全流程解析，教你夺取四大实习和全职offer', link: 'https://m.qlchat.com/topic/230000407013921.htm?isGuide=Y', tag: ['综合']},
+        {title: '安永补招怎么破？申过一次还可以再申吗？', link: 'https://m.qlchat.com/topic/230000322013032.htm?isGuide=Y', tag: ['网申', '', '']},
+        {title: '错过秋招怎么办？拿过3家四大5个offer的老司机教你如何霸面！', link: 'https://m.qlchat.com/topic/220000279173866.htm?isGuide=Y', tag: ['面试']},
+        {title: '直播 | 四大面试官在面试时，最喜欢问的问题是', link: 'https://m.qlchat.com/topic/230000208042607.htm?isGuide=Y', tag: ['面试']},
+        {title: '直播间密码699 | 四大HR和经理喜欢的简历长什么样子？', link: 'https://m.qlchat.com/topic/240000101029490.htm?isGuide=Y', tag: ['网申', '', '']},
         {title: 'Tax|安永HK所ustax视频面试流程攒人品', link: 'http://bbs.yingjiesheng.com/thread-2109215-1-1.html', tag: ['面试', '', '', '']},
         {title: '安永2017年3月春招补录面经流程', link: 'http://bbs.yingjiesheng.com/thread-2094571-1-1.html', tag: ['面试', '', '', '']},
         {title: '审计|安永2017校园招聘全程笔经面经', link: 'http://bbs.yingjiesheng.com/thread-2072289-1-1.html', tag: ['网申', '面试', '', '']},
