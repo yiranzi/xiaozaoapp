@@ -8,6 +8,12 @@ export default class schoolExp extends React.Component {
     super(props);
     this.state = {
       list: [
+        {title: '全流程解析，教你夺取四大实习和全职offer', link: 'https://m.qlchat.com/topic/230000407013921.htm?isGuide=Y', tag: ['综合']},
+        {title: '“每次网申都过不了，德勤网申需要什么条件呢？”德勤补招专场答疑', link: 'https://m.qlchat.com/topic/240000308353679.htm?isGuide=Y', tag: ['网申']},
+        {title: '错过秋招怎么办？拿过3家四大5个offer的老司机教你如何霸面！', link: 'https://m.qlchat.com/topic/220000279173866.htm?isGuide=Y', tag: ['面试']},
+        {title: '直播 | 四大面试官在面试时，最喜欢问的问题是', link: 'https://m.qlchat.com/topic/230000208042607.htm?isGuide=Y', tag: ['面试']},
+        {title: '直播 | 听懂这10道笔试题，不再怕四大笔试！', link: 'https://m.qlchat.com/live/batchCodeIn/280000038008709/290000024067343.htm', tag: ['笔试']},
+        {title: '直播间密码699 | 四大HR和经理喜欢的简历长什么样子？', link: 'https://m.qlchat.com/topic/240000101029490.htm?isGuide=Y', tag: ['网申']},
         {title: '审计|德勤审计17春季校招补招经验分享', link: 'http://bbs.yingjiesheng.com/thread-2099985-1-1.html', tag: ['笔试', '面试', '', '']},
         {title: '审计|2017德勤春招审计GA面经分享', link: 'http://bbs.yingjiesheng.com/thread-2093414-1-1.html', tag: ['面试', '', '', '']},
         {title: '咨询|德勤2017上海财务咨询面经分享', link: 'http://bbs.yingjiesheng.com/forum.php?mod=viewthread&tid=2092836&modthreadkey=5b47df55d10da1601f0efd78622b7c84', tag: ['笔试', '面试', '', '']},

@@ -8,6 +8,7 @@ export default class schoolExp extends React.Component {
     super(props);
     this.state = {
       list: [
+        {title: '直播间密码668 | 拿过3家四大5份offer的老司机和你聊四大！', link: 'https://m.qlchat.com/topic/240000058017415.htm?isGuide=Y'},
         {title: '「四大」到底为何吸引学生？', link: 'https://www.zhihu.com/question/20949243/answer/201464792'},
         {title: '过来人说“四大”审计！', link: 'https://mp.weixin.qq.com/s/pd34VLtdtWh5LBVV7cRNuA'},
         {title: '四大的Consulting和Advisory部门有什么区别？', link: 'https://mp.weixin.qq.com/s?__biz=MzIyNjAwMDc3Mg==&mid=404307133&idx=1&sn=c468936b7311e5862ed80f977ce5f0f2&scene=4'},
