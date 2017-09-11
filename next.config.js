@@ -26,6 +26,7 @@ module.exports = {
   },
   exportPathMap: function () {
     return {
+      '/school/navigation': {page: '/school/navigation'},
       '/school/anyong/schoolExp': {page: '/school/anyong/schoolExp'},
       '/school/anyong/schoolprocess': {page: '/school/anyong/schoolprocess'},
       '/school/anyong/schoolWork': {page: '/school/anyong/schoolWork'},
