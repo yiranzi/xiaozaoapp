@@ -11,8 +11,8 @@ export default class SchoolProcess extends React.Component {
           isOnlineApply companyName='渣打银行' />
         <SchoolNav fromType='school' processLink='/school/zhada/schoolprocess' workLink='/school/zhada/schoolWork' expLink='/school/zhada/schoolExp' />
         <div className='school__online_time'>
-          <div>已于8月22日开启网申，点击官网链接查看详情</div>
-          <div className='school__online_address my-text-rowsingle'><a href='http://cmbcc.zhiye.com/'>http://cmbcc.zhiye.com/</a></div>
+          {/* <div>已于8月22日开启网申，点击官网链接查看详情</div> */}
+          {/* <div className='school__online_address my-text-rowsingle'><a href='http://cmbcc.zhiye.com/'>http://cmbcc.zhiye.com/</a></div> */}
         </div>
         <SchoolFooter />
         <style jsx>{`
