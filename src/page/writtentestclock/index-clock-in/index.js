@@ -2,6 +2,7 @@ import React from 'react';
 import Footer from '../components/footer';
 import Theme from '../../../../config/theme';
 import UserAction from '../../../../src/action/writtentestclock/user';
+import AnswerAction from '../../../../src/action/writtentestclock/answer';
 import { Toptips } from 'react-weui';
 import classnames from 'classnames';
 export default class extends React.Component {
@@ -10,6 +11,7 @@ export default class extends React.Component {
     this.state = {
       tipsMsg: '',
       showPage: false,
+      testUrl: '',
       exceeds: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 8, 8, 8, 9, 9, 9, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 39, 42, 44, 46, 48, 51, 54, 57, 60, 63, 65, 67, 69, 72, 75, 77, 80, 82, 84, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 96, 96, 96, 96, 97, 97, 97, 97, 97, 98, 98, 98, 98, 98, 99, 99, 99, 99, 99, 100]
     };
   }
@@ -17,6 +19,10 @@ export default class extends React.Component {
   componentDidMount = async () => {
     try {
       const info = await UserAction.getHistory();
+      const result = await AnswerAction.getTest();
+      const {answerDTOList} = result
+      let testUrl = '/writtentestclock/test?category=end'
+      if(answerDTOList.length) testUrl= '/writtentestclock/pastanswer?day=end';
       const { startDay, endDay, completeDay, evaluationAccuracy } = info;
       const dateLength = Math.ceil((endDay - startDay) / 3600 / 24 / 1000) + 1;
       const currentDayIndex = completeDay.length;
@@ -60,6 +66,7 @@ export default class extends React.Component {
         renderList,
         totalUser,
         hasPrize,
+        testUrl,
         showPage: true
       });
     } catch (error) {
@@ -142,7 +149,7 @@ export default class extends React.Component {
   }
 
   render () {
-    const { showPage, tipsMsg, renderList, totalUser, hasPrize, countdownDay, evaluationAccuracy, exceeds } = this.state;
+    const { showPage, tipsMsg, renderList, totalUser, hasPrize, countdownDay, evaluationAccuracy, exceeds, testUrl } = this.state;
     if (!showPage) {
       return (
         <div>
@@ -197,7 +204,7 @@ export default class extends React.Component {
           </div>
           <a href='/writtentestclock/preview-prize' className='btn preview-prize' />
           <a href='/writtentestclock/answer' className='btn today-push' />
-          <a href='/writtentestclock/test?category=end' className='btn test' />
+          <a href={testUrl} className='btn test' />
         </div>
         <Footer />
         <style jsx>{`
