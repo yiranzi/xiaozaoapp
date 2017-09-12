@@ -15,7 +15,6 @@ export default class schoolExp extends React.Component {
         {title: '[面试]上海CD一面分享', link: 'http://bbs.yingjiesheng.com/forum.php?mod=viewthread&tid=2007156&extra=page%3D1%26filter%3Ddigest%26digest%3D1', tag: ['面试', '', '', '']},
         {title: '[综合经验]联合利华—浙江个护面经—Offer通知', link: 'http://bbs.yingjiesheng.com/forum.php?mod=viewthread&tid=2029843&extra=page%3D1%26filter%3Ddigest%26digest%3D1', tag: ['面试', '笔试', '', '']},
         {title: '[面试]人生第一场求职面试——U家foodsolutionmkt', link: 'http://bbs.yingjiesheng.com/forum.php?mod=viewthread&tid=2006358&extra=page%3D1%26filter%3Ddigest%26digest%3D1', tag: ['面试', '', '', '']},
-        {title: '联合利华面经|从网申到AC面', link: 'https://mp.weixin.qq.com/s?src=3&timestamp=1504600299&ver=1&signature=8MktR6lU88wDBtj0XTvs0JC48PoOnryd8wrv7ZeE-ou14NzAMSkBZFx47FOFT4EvNLSeLHG6uex7hzv2mT-AIS3sEwu5NgsFfI0XcW0L1Edlvhkzhu-gEHtKKeN-PqHxmQG6EoDtho789L7dNGS7V5wrdkUujRMQ9fNJ40M15PI=', tag: ['网申', '笔试', '面试', '']}
       ]
     };
   }
