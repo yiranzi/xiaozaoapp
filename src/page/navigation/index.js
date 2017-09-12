@@ -106,6 +106,15 @@ export default class navigation extends React.Component {
               </div>
             </div>
           </div>
+          <div className='container'>
+            <img src='/static/school/ali.jpg' alt='' />
+            <div className='right'>
+              <div><a>阿里巴巴</a><span>2018校招已于07月21日开启</span></div>
+              <div><a className='work' href='/school/ali/schoolWork'>工作体验</a><a className='exp'
+                                                                               href='/school/ali/schoolExp'>面经/笔经</a>
+              </div>
+            </div>
+          </div>
         </section>
         <section className='block'>
           <header>银行/证券/基金/保险/投资公司</header>
@@ -115,6 +124,15 @@ export default class navigation extends React.Component {
               <div><a>招商银行</a><span>2018校招已于7月22日开启</span></div>
               <div><a className='work' href='/school/zhaoshang/schoolWork'>工作体验</a><a className='exp'
                 href='/school/zhaoshang/schoolExp'>面经/笔经</a>
+              </div>
+            </div>
+          </div>
+          <div className='container'>
+            <img src='/static/school/zhada.png' alt='' />
+            <div className='right'>
+              <div><a>渣打银行</a><span>2018校招尚未开启</span></div>
+              <div><a className='work' href='/school/zhada/schoolWork'>工作体验</a><a className='exp'
+                                                                                      href='/school/zhada/schoolExp'>面经/笔经</a>
               </div>
             </div>
           </div>
