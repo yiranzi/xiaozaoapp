@@ -119,6 +119,18 @@ export default class navigation extends React.Component {
             </div>
           </div>
         </section>
+        <section className='block'>
+          <header>医疗/健康/制药</header>
+          <div className='container'>
+            <img src='/static/school/qiangsheng.jpg' alt='' />
+            <div className='right'>
+              <div><a>强生</a><span>2018校招已于9月1日开启</span></div>
+              <div><a className='work' href='/school/qiangsheng/schoolWork'>工作体验</a><a className='exp'
+                                                                                      href='/school/qiangsheng/schoolExp'>面经/笔经</a>
+              </div>
+            </div>
+          </div>
+        </section>
         <div className='nav__footer'>
           <p>更多企业的攻略和工作体验讲在9月初上线</p>
           你有什么建议，可以添加小灶产品经理Frank反馈(微信:xiaozaoPM)
