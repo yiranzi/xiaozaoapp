@@ -8,6 +8,7 @@ export default class TestAnswerPage extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
+      category: '',
       currentObjectIndex: 0,
       answerListResult: {},
       finish: false,
@@ -23,10 +24,10 @@ export default class TestAnswerPage extends React.Component {
       try {
         if (category === 'first') {
           questionList = await AnswerAction.getEvaluation(category);
-          this.setState({questionList: questionList});
+          this.setState({questionList: questionList, category: category});
         } else if (category === 'end') {
           questionList = await AnswerAction.getTest(category);
-          this.setState({questionList: questionList});
+          this.setState({questionList: questionList, category: category});
         }
       } catch (error) {
         alert(error.message);
@@ -125,7 +126,7 @@ export default class TestAnswerPage extends React.Component {
     }
 
     answerComplete = async () => {
-      const {initTime} = this.state;
+      const {initTime, category} = this.state;
       const {setId} = this.state.questionList;
       const answerList = this.formatAnswerList();
       try {
@@ -136,7 +137,11 @@ export default class TestAnswerPage extends React.Component {
           answerDTOList: answerList
         });
         await AnswerAction.complete(data);
-        location.href = '/writtentestclock/test-result';
+        if (category === 'first') {
+          location.href = '/writtentestclock/test-result';
+        } else if (category === 'end') {
+          location.href = '/writtentestclock/exam-result';
+        }
       } catch (e) {
         console.log(e);
       }
