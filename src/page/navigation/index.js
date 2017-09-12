@@ -114,7 +114,7 @@ export default class navigation extends React.Component {
             <div className='right'>
               <div><a>招商银行</a><span>2018校招已于7月22日开启</span></div>
               <div><a className='work' href='/school/zhaoshang/schoolWork'>工作体验</a><a className='exp'
-                                                                               href='/school/zhaoshang/schoolExp'>面经/笔经</a>
+                href='/school/zhaoshang/schoolExp'>面经/笔经</a>
               </div>
             </div>
           </div>
@@ -126,7 +126,7 @@ export default class navigation extends React.Component {
             <div className='right'>
               <div><a>强生</a><span>2018校招已于9月1日开启</span></div>
               <div><a className='work' href='/school/qiangsheng/schoolWork'>工作体验</a><a className='exp'
-                                                                                      href='/school/qiangsheng/schoolExp'>面经/笔经</a>
+                href='/school/qiangsheng/schoolExp'>面经/笔经</a>
               </div>
             </div>
           </div>

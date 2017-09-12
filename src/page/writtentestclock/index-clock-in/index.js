@@ -197,7 +197,7 @@ export default class extends React.Component {
           </div>
           <a href='/writtentestclock/preview-prize' className='btn preview-prize' />
           <a href='/writtentestclock/answer' className='btn today-push' />
-          <a className='btn test' />
+          <a href='/writtentestclock/test?category=end' className='btn test' />
         </div>
         <Footer />
         <style jsx>{`
@@ -327,7 +327,7 @@ export default class extends React.Component {
             background-image: url(/static/writtentestclock/preview-prize.png);
           }
           .test {
-            background-image: url(/static/writtentestclock/after-class-test-disabled-1.png);
+            background-image: url(/static/writtentestclock/after-class-test.png);
           }
           .avatar {
             background-size: 100%;
