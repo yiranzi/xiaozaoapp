@@ -142,7 +142,7 @@ export default class navigation extends React.Component {
           <div className='container'>
             <img src='/static/school/qiangsheng.jpg' alt='' />
             <div className='right'>
-              <div><a>强生</a><span>2018校招已于9月1日开启</span></div>
+              <div><a>强生</a><span>2018校招已于9月11日开启</span></div>
               <div><a className='work' href='/school/qiangsheng/schoolWork'>工作体验</a><a className='exp'
                 href='/school/qiangsheng/schoolExp'>面经/笔经</a>
               </div>
