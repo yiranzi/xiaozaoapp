@@ -204,7 +204,7 @@ export default class extends React.Component {
           </div>
           <a href='/writtentestclock/preview-prize' className='btn preview-prize' />
           <a href='/writtentestclock/answer' className='btn today-push' />
-          <a href={testUrl} className='btn test' />
+          <a className='btn test' />
         </div>
         <Footer />
         <style jsx>{`
