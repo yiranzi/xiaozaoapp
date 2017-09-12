@@ -21,6 +21,8 @@ export default class AnswerPage extends React.Component {
       if (day) {
         if (day === 'test') {
           questionList = await AnswerAction.getEvaluation();
+        } else if (day === 'end') {
+          questionList = await AnswerAction.getTest();
         } else {
           questionList = await AnswerAction.getByToday(day);
         }
