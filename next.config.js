@@ -72,7 +72,8 @@ module.exports = {
       '/writtentestclock/test-entry': {page: '/writtentestclock/test-entry'},
       '/writtentestclock/test-result': {page: '/writtentestclock/test-result'},
       '/writtentestclock/more-test': {page: '/writtentestclock/more-test'},
-      '/writtentestclock/preview-prize': {page: '/writtentestclock/preview-prize'}
+      '/writtentestclock/preview-prize': {page: '/writtentestclock/preview-prize'},
+      '/writtentestclock/exam-test': {page: '/writtentestclock/exam-test'}
     };
   }
 };
