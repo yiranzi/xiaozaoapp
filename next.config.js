@@ -79,7 +79,7 @@ module.exports = {
       '/writtentestclock/test-result': {page: '/writtentestclock/test-result'},
       '/writtentestclock/more-test': {page: '/writtentestclock/more-test'},
       '/writtentestclock/preview-prize': {page: '/writtentestclock/preview-prize'},
-      '/writtentestclock/exam-test': {page: '/writtentestclock/exam-test'}
+      '/writtentestclock/exam-result': {page: '/writtentestclock/exam-result'}
     };
   }
 };
