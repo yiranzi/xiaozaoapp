@@ -57,6 +57,15 @@ module.exports = {
       '/school/zhaoshang/schoolExp': {page: '/school/zhaoshang/schoolExp'},
       '/school/zhaoshang/schoolprocess': {page: '/school/zhaoshang/schoolprocess'},
       '/school/zhaoshang/schoolWork': {page: '/school/zhaoshang/schoolWork'},
+      '/school/qiangsheng/schoolExp': {page: '/school/qiangsheng/schoolExp'},
+      '/school/qiangsheng/schoolprocess': {page: '/school/qiangsheng/schoolprocess'},
+      '/school/qiangsheng/schoolWork': {page: '/school/qiangsheng/schoolWork'},
+      '/school/ali/schoolExp': {page: '/school/ali/schoolExp'},
+      '/school/ali/schoolprocess': {page: '/school/ali/schoolprocess'},
+      '/school/ali/schoolWork': {page: '/school/ali/schoolWork'},
+      '/school/zhada/schoolExp': {page: '/school/zhada/schoolExp'},
+      '/school/zhada/schoolprocess': {page: '/school/zhada/schoolprocess'},
+      '/school/zhada/schoolWork': {page: '/school/zhada/schoolWork'},
       '/writtentestclock/test': {page: '/writtentestclock/test'},
       '/writtentestclock/answer': {page: '/writtentestclock/answer'},
       '/writtentestclock/pastanswer': {page: '/writtentestclock/pastanswer'},
@@ -69,7 +78,8 @@ module.exports = {
       '/writtentestclock/test-entry': {page: '/writtentestclock/test-entry'},
       '/writtentestclock/test-result': {page: '/writtentestclock/test-result'},
       '/writtentestclock/more-test': {page: '/writtentestclock/more-test'},
-      '/writtentestclock/preview-prize': {page: '/writtentestclock/preview-prize'}
+      '/writtentestclock/preview-prize': {page: '/writtentestclock/preview-prize'},
+      '/writtentestclock/exam-result': {page: '/writtentestclock/exam-result'}
     };
   }
 };

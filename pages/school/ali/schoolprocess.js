@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '../../../src/components/school/schoolLayout';
-import SchoolProcessPage from '../../../src/page/zhaoshang/schoolprocess/index';
+import SchoolProcessPage from '../../../src/page/ali/schoolprocess/index';
 
 export default class extends React.Component {
   // static async getInitialProps({req}) {
@@ -21,7 +21,7 @@ export default class extends React.Component {
 
   render () {
     return (
-      <Layout fromType='zhaoshang'>
+      <Layout fromType='ali'>
         <SchoolProcessPage />
       </Layout>
     );

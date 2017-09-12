@@ -1,12 +1,12 @@
 import React from 'react';
 import Layout from '../../../src/components/school/schoolLayout';
-import SchoolProcessExpPage from '../../../src/page/zhaoshang/schoolprocessExp/index';
+import SchoolProcessWorkPage from '../../../src/page/zhada/schoolprocessWork/index';
 
 export default class extends React.Component {
   render () {
     return (
-      <Layout fromType='zhaoshang'>
-        <SchoolProcessExpPage />
+      <Layout fromType='zhada'>
+        <SchoolProcessWorkPage />
       </Layout>
     );
   }

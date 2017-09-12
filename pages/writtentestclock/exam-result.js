@@ -1,12 +1,12 @@
 import React from 'react';
+import ExamResult from '../../src/page/writtentestclock/exam-result';
 import WrittenTestClock from '../../src/page/writtentestclock/components/layout';
-import PrizePreview from '../../src/page/writtentestclock/preview-prize';
 
 export default class extends React.Component {
   render () {
     return (
       <WrittenTestClock>
-        <PrizePreview />
+        <ExamResult />
       </WrittenTestClock>
     );
   }

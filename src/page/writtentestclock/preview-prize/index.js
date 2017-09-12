@@ -12,7 +12,7 @@ export default class extends React.Component {
   render () {
     return (
       <div>
-        <img src='/static/writtentestclock/preview-prize-detail.jpeg' className='prize-detail-img'/>
+        <img src='/static/writtentestclock/preview-prize-detail.jpeg' className='prize-detail-img' />
         <style jsx>{`
           .prize-detail-img {
             width: 100vw;
