@@ -78,7 +78,7 @@ export default class extends React.Component {
     } else {
       return (
         <div>
-          <div>本次笔测试，你答对了{{totalScore}}道题，总正确率{{currPersent}}%！</div>
+          <div>本次笔测试，你答对了{totalScore}道题，总正确率{currPersent}%！</div>
           <div>与七天前的你相比，个人正确率提高了{exceeds[currPersent]}%</div>
           <div>你总共坚持打卡{checkDays}天，未完成本期打卡任务</div>
         </div>
