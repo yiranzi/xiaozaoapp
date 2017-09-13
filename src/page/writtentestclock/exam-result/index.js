@@ -26,7 +26,7 @@ export default class extends React.Component {
       const { testResult, startDay, endDay } = info;
       const {totalScore, writtenTestTopicDTOList} = result;
       const totalDay = endDay - startDay + 1;
-      const currPersent = Math.round(totalScore / writtenTestTopicDTOList.length);
+      const currPersent = Math.round(totalScore / writtenTestTopicDTOList.length * 100);
 
       let clockInCompleted = true;
       let checkDays = 0;
@@ -78,10 +78,9 @@ export default class extends React.Component {
     } else {
       return (
         <div>
-          <div>您总共坚持打卡{checkDays}天，缺席打卡{totalDay - checkDays}天</div>
-          <div>（很遗憾）</div>
-          <div>未完成本期笔试打卡任务</div>
-          <div>再接再厉</div>
+          <div>本次笔测试，你答对了{{totalScore}}道题，总正确率{{currPersent}}%！</div>
+          <div>与七天前的你相比，个人正确率提高了{exceeds[currPersent]}%</div>
+          <div>你总共坚持打卡{checkDays}天，未完成本期打卡任务</div>
         </div>
       );
     }
