@@ -35,58 +35,58 @@ export default class WrittenTestClock extends React.Component {
   renderCss () {
     return (
       <style>{`
-                .subject-detail .progress {
-                    padding: 1rem 0;
-                }
-                .subject-detail .progress .percent {
-                    margin-top: 0.5rem;
-                }
-                .subject-detail .text {
-                    text-align: center;
-                    font-size: ${ThemeConfig.size.large};
-                }
-                .subject-detail img {
-                    width: 100%;
-                }
-                /*微信样式*/
-                .subject-detail .weui-progress__bar {
-                    height: 0.75rem;
-                    border-radius: 0.75rem;
-                }
-                .subject-detail .weui-progress__inner-bar {
-                    border-radius: 0.75rem;
-                }
-                /*微信radio样式*/
-                .subject-detail .weui-cells, .subject-detail .weui-check__label:active {
-                    background-color: transparent;
-                }
-                .subject-detail .weui-cell:before, .subject-detail .weui-cells:before, .subject-detail .weui-cells:after {
-                    border-top: none;
-                    border-bottom: none;
-                }
-                .subject-detail span.weui-icon-checked {
-                    width: 1.5rem;
-                    height: 1.5rem;
-                    background: ${ThemeConfig.color.white};
-                    border-radius: 1rem;
-                    margin-right: 1rem;
-                    position: relative;
-                }
-                .subject-detail .weui-cells_radio .weui-check:checked+.weui-icon-checked:before {
-                    color: transparent;
-                    background: url(/static/writtentestclock/check.png);
-                    background-size: 100%;
-                    width: 2.5rem;
-                    height: 2.5rem;
-                    position: absolute;
-                    left: -0.8rem;
-                    top: -0.5rem;
-                }
-                /*-----------*/
-                .subject-detail .material img {
-                    border: 2px solid ${ThemeConfig.color.writtentestclockmain};
-                }
-            `}</style>
+        .subject-detail .progress {
+          padding: 1rem 0;
+        }
+        .subject-detail .progress .percent {
+          margin-top: 0.5rem;
+        }
+        .subject-detail .text {
+          text-align: center;
+          font-size: ${ThemeConfig.size.large};
+        }
+        .subject-detail img {
+          width: 100%;
+        }
+        /*微信样式*/
+        .subject-detail .weui-progress__bar {
+          height: 0.75rem;
+          border-radius: 0.75rem;
+        }
+        .subject-detail .weui-progress__inner-bar {
+          border-radius: 0.75rem;
+        }
+        /*微信radio样式*/
+        .subject-detail .weui-cells, .subject-detail .weui-check__label:active {
+          background-color: transparent;
+        }
+        .subject-detail .weui-cell:before, .subject-detail .weui-cells:before, .subject-detail .weui-cells:after {
+          border-top: none;
+          border-bottom: none;
+        }
+        .subject-detail span.weui-icon-checked {
+          width: 1.5rem;
+          height: 1.5rem;
+          background: ${ThemeConfig.color.white};
+          border-radius: 1rem;
+          margin-right: 1rem;
+          position: relative;
+        }
+        .subject-detail .weui-cells_radio .weui-check:checked+.weui-icon-checked:before {
+          color: transparent;
+          background: url(/static/writtentestclock/check.png);
+          background-size: 100%;
+          width: 2.5rem;
+          height: 2.5rem;
+          position: absolute;
+          left: -0.8rem;
+          top: -0.5rem;
+        }
+        /*-----------*/
+        .subject-detail .material img {
+          border: 2px solid ${ThemeConfig.color.writtentestclockmain};
+        }
+      `}</style>
     );
   }
 

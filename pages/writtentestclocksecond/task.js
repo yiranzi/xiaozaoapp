@@ -29,7 +29,6 @@ export default class extends React.Component {
       if (category === 'entrance') {
         const action = ToolsUtil.getQueryString('action');
         questionList = await WrittenTestClockSecondAction.getEvaluation();
-
         if (action === 'review') {
           // 查看解析
           this.setState({questionList: questionList, isShowAnalysis: true});
@@ -67,27 +66,46 @@ export default class extends React.Component {
   };
 
   renderAnswer (currentObjectIndex, questionList) {
-    const {writtenTestTopicDTOList} = questionList;
-    const questionItem = writtenTestTopicDTOList[currentObjectIndex];
+    const {answerDTOList, writtenTestTopicDTOList} = questionList;
+    const questionItem = writtenTestTopicDTOList[currentObjectIndex];// 题目详情
 
-    const {answerListResult} = this.state;
-    const selectAnswer = answerListResult[questionItem.id] ? answerListResult[questionItem.id].tag : '';
-    const subjectItem = {
-      total: writtenTestTopicDTOList.length, // 当前试卷总共多少题
-      currentIndex: currentObjectIndex, // 当前题目在数组中的编号
-      questionItem: questionItem, // 题目数组
-      selectAnswer: selectAnswer// 已选答案
-    };
-    return (
-      <div className='subject-item' >
-        <SubjectComponent
-          subjectItem={subjectItem}
-          onChange={(value) => {
-            this.answerCheck(questionItem.id, value);
-          }}
-        />
-      </div >
-    );
+    const {answerListResult, isShowAnalysis} = this.state;
+    // 显示答题记录
+    if (isShowAnalysis) {
+      const subjectItem = {
+        total: writtenTestTopicDTOList.length, // 当前试卷总共多少题
+        currentIndex: currentObjectIndex, // 当前题目在数组中的编号
+        questionItem: questionItem, // 题目数组
+        selectAnswer: answerDTOList[currentObjectIndex] ? answerDTOList[currentObjectIndex].answer : '', // 已选答案,
+        disabled: true
+      };
+      return (
+        <div className='subject-item' >
+          <SubjectComponent
+            subjectItem={subjectItem}
+          />
+        </div >
+      );
+      // 答题过程
+    } else {
+      const selectAnswer = answerListResult[questionItem.id] ? answerListResult[questionItem.id].tag : '';
+      const subjectItem = {
+        total: writtenTestTopicDTOList.length, // 当前试卷总共多少题
+        currentIndex: currentObjectIndex, // 当前题目在数组中的编号
+        questionItem: questionItem, // 题目数组
+        selectAnswer: selectAnswer// 已选答案
+      };
+      return (
+        <div className='subject-item' >
+          <SubjectComponent
+            subjectItem={subjectItem}
+            onChange={(value) => {
+              this.answerCheck(questionItem.id, value);
+            }}
+          />
+        </div >
+      );
+    }
   }
 
   answerCheck (id, value) {
