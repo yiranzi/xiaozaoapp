@@ -3,8 +3,12 @@ const next = require('next')
 const express = require('express');
 =======
 const express = require('express')
+<<<<<<< a434e6f56a0d309d89aabe0876cebdf65a92f7c2
 >>>>>>> update: eslinit code style
 const proxy = require('http-proxy-middleware')
+=======
+const proxy = require('http-proxy-middleware');
+>>>>>>> delete: 自定义路由
 
 const server = express()
 const app = next({dev: true})
