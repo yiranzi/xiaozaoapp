@@ -38,6 +38,7 @@ export default class Layout extends React.Component {
       <div>
         <Header />
         <style dangerouslySetInnerHTML={{__html: weui}} />
+        <style dangerouslySetInnerHTML={{__html: styles}} />
         {this.renderChild()}
         {this.renderGlobalCss()}
       </div>
