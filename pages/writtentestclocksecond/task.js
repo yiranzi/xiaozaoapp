@@ -1,55 +1,82 @@
 import React from 'react';
+import ToolsUtil from '../../src/util/tools';
+import ThemeConfig from '../../config/theme';
 import WrittenTestClock from '../../src/page/writtentestclock/components/layout';
 import WrittenTestClockSecondAction from '../../src/action/writtentestclocksecond/index';
 import SubjectComponent from '../../src/page/writtentestclock/components/subject';
-import ToolsUtil from '../../src/util/tools';
-import ThemeConfig from '../../config/theme';
+import Loading from '../../src/components/loading';
 
 export default class extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
+      category: '',
+      day: '',
       currentObjectIndex: 0,
       answerListResult: {},
       questionList: {},
       initTime: 0,
-      isShowAnalysis: false
+      isShowAnalysis: false,
+      isSubmit: false
     };
   }
 
   componentDidMount = async () => {
     const category = ToolsUtil.getQueryString('category');
-    const day = ToolsUtil.getQueryString('day');
     let questionList;
-    if (category === 'entrance') { // 首次测评
-      questionList = await WrittenTestClockSecondAction.getEvaluation();
-    } else if (category === 'review') {
-      const day = ToolsUtil.getQueryString('day');
-      if (day) {
-        questionList = await WrittenTestClock.getByToday(day);
-      } else {
-        questionList = await WrittenTestClock.getYesterday();
+    // 首次测评
+    try {
+      if (category === 'entrance') {
+        const action = ToolsUtil.getQueryString('action');
+        questionList = await WrittenTestClockSecondAction.getEvaluation();
+
+        if (action === 'review') {
+          // 查看解析
+          this.setState({questionList: questionList, isShowAnalysis: true});
+        } else {
+          // 做题
+          this.setState({questionList: questionList});
+        }
+        // 最后测评
+      } else if (category === 'finish') {
+        const action = ToolsUtil.getQueryString('action');
+        questionList = await WrittenTestClockSecondAction.getTest();
+        if (action === 'review') {
+          // 查看解析
+          this.setState({questionList: questionList, isShowAnalysis: true});
+        } else {
+          // 最后测评
+          this.setState({questionList: questionList});
+        }
+        // 每日做题
+      } else if (category === 'task') {
+        const day = ToolsUtil.getQueryString('day');
+        questionList = await WrittenTestClockSecondAction.getByDay(day);
+        // 需要判断是查看过去的还是今日打卡
+        this.setState({questionList: questionList});
       }
-    } else if (category === 'finish') {
-      questionList = await WrittenTestClock.getTest();
-    } else {
-      if (day) {
-        questionList = await WrittenTestClock.getByToday(day);
+    } catch (e) {
+      this.setState({isSubmit: false});
+      const {message} = e;
+      if (message) {
+        alert(message);
       } else {
-        questionList = await WrittenTestClockSecondAction.getToday();
+        alert(e);
       }
     }
-    this.setState({questionList: questionList});
   };
 
   renderAnswer (currentObjectIndex, questionList) {
     const {writtenTestTopicDTOList} = questionList;
     const questionItem = writtenTestTopicDTOList[currentObjectIndex];
+
+    const {answerListResult} = this.state;
+    const selectAnswer = answerListResult[questionItem.id] ? answerListResult[questionItem.id].tag : '';
     const subjectItem = {
       total: writtenTestTopicDTOList.length, // 当前试卷总共多少题
       currentIndex: currentObjectIndex, // 当前题目在数组中的编号
       questionItem: questionItem, // 题目数组
-      selectAnswer: ''// 已选答案
+      selectAnswer: selectAnswer// 已选答案
     };
     return (
       <div className='subject-item' >
@@ -107,7 +134,12 @@ export default class extends React.Component {
       </div >
     );
 
-    if (isShowAnalysis || answerList.hasOwnProperty(id)) {
+    const category = ToolsUtil.getQueryString('category');
+
+    if (isShowAnalysis) {
+      return analysisContent;
+    }
+    if (category === 'task' && answerList.hasOwnProperty(id)) {
       return analysisContent;
     }
   }
@@ -121,6 +153,7 @@ export default class extends React.Component {
   }
 
   renderFinishButton (currentObjectIndex) {
+    const {isSubmit} = this.state;
     return (
       <div className='finish' >
         <div onClick={() => {
@@ -128,31 +161,36 @@ export default class extends React.Component {
         }} >
           <img src='/static/writtentestclock/prev.png' />
         </div >
-        <div onClick={() => {
+        {isSubmit ? <div ><img src='/static/writtentestclock/complete.png' /></div > : <div onClick={() => {
           this.answerComplete();
-        }} ><img src='/static/writtentestclock/complete.png' /></div >
+        }} >
+          <img src='/static/writtentestclock/complete.png' />
+        </div >}
       </div >
     );
   }
+
   answerComplete = async () => {
     const {initTime} = this.state;
     const {setId} = this.state.questionList;
     const answerList = this.formatAnswerList();
-    console.log(answerList);
-    // try {
-    //   const spendTime = new Date() - initTime;
-    //   const data = JSON.stringify({
-    //     setId: setId,
-    //     time: spendTime,
-    //     answerDTOList: answerList
-    //   });
-    //
-    //   await WrittenTestClockSecondAction.complete(data);
-    //   location.href = '/writtentestclock/clock-in-result';
-    // } catch (e) {
-    //   console.log(e);
-    // }
+    try {
+      this.setState({isSubmit: true});
+      const spendTime = new Date() - initTime;
+      const data = JSON.stringify({
+        setId: setId,
+        time: spendTime,
+        answerDTOList: answerList
+      });
+
+      await WrittenTestClockSecondAction.complete(data);
+      // location.href = '/writtentestclock/clock-in-result';
+    } catch (e) {
+      console.log(e);
+      this.setState({isSubmit: false});
+    }
   };
+
   formatAnswerList () {
     const {questionList, answerListResult} = this.state;
     let answerList = [];
@@ -179,10 +217,12 @@ export default class extends React.Component {
   }
 
   prevAnswer (currentObjectIndex) {
-    this.setState({
-      currentObjectIndex: currentObjectIndex - 1,
-      finish: false
-    });
+    if (currentObjectIndex > 0) {
+      this.setState({
+        currentObjectIndex: currentObjectIndex - 1,
+        finish: false
+      });
+    }
   }
 
   nextAnswer (currentObjectIndex, questionList) {
@@ -201,16 +241,25 @@ export default class extends React.Component {
   }
 
   render () {
-    const {currentObjectIndex, questionList, finish} = this.state;
+    const {currentObjectIndex, questionList, finish, isSubmit} = this.state;
     if (questionList.hasOwnProperty('setId')) {
       return (
         <WrittenTestClock >
-          {this.renderAnswer(currentObjectIndex, questionList)} {this.renderAnswerAnalysis(currentObjectIndex, questionList)} {finish ? this.renderFinishButton(currentObjectIndex) : this.renderActionButton(currentObjectIndex, questionList)}
+          <div className='task-content' >
+            {this.renderAnswer(currentObjectIndex, questionList)}
+          </div >
+          <div className='task-analysis' >
+            {this.renderAnswerAnalysis(currentObjectIndex, questionList)}
+          </div >
+          <div className='task-action' >
+            {finish ? this.renderFinishButton(currentObjectIndex) : this.renderActionButton(currentObjectIndex, questionList)}
+          </div >
+          {isSubmit && <Loading loading />}
         </WrittenTestClock >
       );
     } else {
       return (
-        <WrittenTestClock />
+        <WrittenTestClock > <Loading loading /> </WrittenTestClock >
       );
     }
   }
