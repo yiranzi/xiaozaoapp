@@ -43,6 +43,6 @@ module.exports = {
     return config;
   },
   exportPathMap: function () {
-    return ToolsUtil.exportPathMap();
+    return ToolsUtil.exportPathMap()
   }
 }

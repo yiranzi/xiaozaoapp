@@ -1,6 +1,12 @@
+<<<<<<< 3004cee318ef336f39b8393311f4e6c51b43cdba
 import React from 'react'
 import Layout from '../../../components/school/schoolLayout'
 import SchoolProcessPage from '../../../containers/ford/schoolprocess/index'
+=======
+import React from 'react';
+import Layout from '../../../src/components/school/schoolLayout';
+import SchoolProcessPage from '../../../src/page/ford/schoolprocess/index';
+>>>>>>> update:add company and refactor the code
 
 export default class extends React.Component {
   // static async getInitialProps({req}) {
@@ -24,6 +30,10 @@ export default class extends React.Component {
       <Layout fromType='ford'>
         <SchoolProcessPage />
       </Layout>
+<<<<<<< 3004cee318ef336f39b8393311f4e6c51b43cdba
     )
+=======
+    );
+>>>>>>> update:add company and refactor the code
   }
 }
