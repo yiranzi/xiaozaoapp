@@ -98,7 +98,7 @@ module.exports = {
       '/school/zhitong/schoolWork': {page: '/school/zhitong/schoolWork'},
       '/school/yiqi/schoolExp': {page: '/school/yiqi/schoolExp'},
       '/school/yiqi/schoolprocess': {page: '/school/yiqi/schoolprocess'},
-      '/school/nyiqiier/schoolWork': {page: '/school/yiqi/schoolWork'},
+      '/school/yiqi/schoolWork': {page: '/school/yiqi/schoolWork'},
       '/writtentestclock/test': {page: '/writtentestclock/test'},
       '/writtentestclock/answer': {page: '/writtentestclock/answer'},
       '/writtentestclock/pastanswer': {page: '/writtentestclock/pastanswer'},
