@@ -70,7 +70,7 @@ export default class navigation extends React.Component {
         <div>仅面向小灶学员开放</div>
         {this.state.trade.map((item, key) => <Header title={item} key={key}>{renderBlock(item)}</Header>) }
         <div className='nav__footer'>
-          <p>更多企业的攻略和工作体验讲在9月初上线</p>
+          <p>更多企业的攻略和工作体验将会陆续上线</p>
           你有什么建议，可以添加小灶产品经理Frank反馈(微信:xiaozaoPM)
         </div>
         <style jsx>{`
