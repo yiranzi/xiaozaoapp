@@ -30,7 +30,7 @@ const WrittenTestClockSecondAction = {
     });
   },
   // 获取指定做题记录
-  getByToday: function (day) {
+  getByDay: function (day) {
     return AxiosUtil({
       method: 'get',
       url: `/api/written-test-clock/getByDay/${day}`
