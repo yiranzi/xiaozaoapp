@@ -1,7 +1,6 @@
 const next = require('next');
 const express = require('express');
 const proxy = require('http-proxy-middleware');
-const Router = require('./config/router');
 
 const server = express();
 const app = next({dev: true});
@@ -24,8 +23,6 @@ app.prepare().then(() => {
     changeOrigin: true
   }));
 
-  // 路由
-  Router.load(server);
   // 路由使用next约定处理
   server.all('*', (req, res) => {
     return handle(req, res);
