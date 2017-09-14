@@ -1,5 +1,6 @@
 import React from 'react';
 import UserAction from '../../../../src/action/writtentestclock/user';
+import { Toptips } from 'react-weui';
 export default class extends React.Component {
   themeConfig = {
     color: '#fe5c4b',
@@ -9,7 +10,8 @@ export default class extends React.Component {
     super(props);
     this.state = {
       showPage: false,
-      checkedLevel: 0
+      checkedLevel: 0,
+      tipsMsg: ''
     };
   }
   componentDidMount = async () => {
@@ -32,9 +34,10 @@ export default class extends React.Component {
         checkedLevel,
         showPage: true
       });
-    } catch (e) {
+    } catch (error) {
       this.setState({
-        showPage: true
+        showPage: true,
+        tipsMsg: error.message
       });
     }
   }
@@ -72,8 +75,11 @@ export default class extends React.Component {
     }
   }
   render () {
-    const { showPage } = this.state;
+    const { showPage, tipsMsg } = this.state;
     if (!showPage) return <div />;
+    if (tipsMsg) {
+      return <Toptips type='warn' show> {tipsMsg} </Toptips>;
+    };
     return (
       <div className='prize-form'>
         <div className='coupon-form'>
