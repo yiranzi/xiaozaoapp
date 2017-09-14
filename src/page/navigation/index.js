@@ -26,9 +26,13 @@ export default class navigation extends React.Component {
         {companyName: '贝恩', time: '2018校招已开启', tag: ['咨询'], image: '/static/school/bain.png', href: '/school/bain/schoolprocess'},
         {companyName: '滴滴出行', time: '已于8月31日开启网申', tag: ['互联网'], image: '/static/school/didi.png', href: '/school/didi/schoolprocess'},
         {companyName: '福特', time: '已于9月8日开启网申', tag: ['汽车/车联网/智能交通'], image: '/static/school/ford.png', href: '/school/ford/schoolprocess'},
-        {companyName: '立信', time: '已于8月18日开启网申', tag: ['会计师事务所/咨询/法律/其他专业服务'], image: '/static/school/bdo.png', href: '/school/bdo/schoolprocess'}
+        {companyName: '一汽大众', time: '已于8月30日开启网申', tag: ['汽车/车联网/智能交通'], image: '/static/school/yiqi.png', href: '/school/yiqi/schoolprocess'},
+        {companyName: '立信', time: '已于8月18日开启网申', tag: ['会计师事务所/咨询/法律/其他专业服务'], image: '/static/school/bdo.png', href: '/school/bdo/schoolprocess'},
+        {companyName: '天职', time: '预计9月中下旬开启网申', tag: ['会计师事务所/咨询/法律/其他专业服务'], image: '/static/school/tianzhi.png', href: '/school/tianzhi/schoolprocess'},
+        {companyName: '致同', time: '已经开启，于9月18日截止', tag: ['会计师事务所'], image: '/static/school/zhitong.png', href: '/school/zhitong/schoolprocess'},
+        {companyName: '尼尔森', time: '请登录尼尔森官网查看', tag: ['咨询'], image: '/static/school/nier.png', href: '/school/nier/schoolprocess'}
       ],
-      trade: ['四大事务所', '快消', '咨询', '互联网', '银行/证券/基金/保险/投资公司', '医疗/健康/制药', '汽车/车联网/智能交通', '金融','会计师事务所/咨询/法律/其他专业服务']
+      trade: ['四大事务所', '快消', '咨询', '互联网', '银行/证券/基金/保险/投资公司', '医疗/健康/制药', '汽车/车联网/智能交通', '金融', '会计师事务所/咨询/法律/其他专业服务', '会计师事务所']
     };
   }
   render () {
@@ -47,6 +51,7 @@ export default class navigation extends React.Component {
         case '汽车/车联网/智能交通': return car;
         case '金融': return fin;
         case '会计师事务所/咨询/法律/其他专业服务': return kuaiji;
+        case '会计师事务所': return kuai;
       }
     }
     const sida = renderHeader(this.state.company, '四大事务所');
@@ -58,6 +63,7 @@ export default class navigation extends React.Component {
     const car = renderHeader(this.state.company, '汽车/车联网/智能交通');
     const fin = renderHeader(this.state.company, '金融');
     const kuaiji = renderHeader(this.state.company, '会计师事务所/咨询/法律/其他专业服务');
+    const kuai = renderHeader(this.state.company, '会计师事务所');
     return (
       <div className='wrapper'>
         <h2>小灶学员求职攻略合集</h2>
