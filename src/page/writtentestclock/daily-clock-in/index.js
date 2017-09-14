@@ -121,7 +121,7 @@ export default class extends React.Component {
             <div>活动后测试：{testResultContent}</div>
           </div>
         </div>
-        <a className='prize' href='/writtentestclick/preview-prize' />
+        <a className='prize' href='/writtentestclock/preview-prize' />
         <Footer />
         <style jsx>{`
             .daily-clock-in-form {
