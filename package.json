@@ -35,9 +35,11 @@
     "eslint-plugin-promise": "3.5.0",
     "eslint-plugin-react": "7.3.0",
     "eslint-plugin-standard": "3.0.1",
+    "node-sass": "^4.5.3",
     "postcss-easy-import": "2.1.0",
     "postcss-loader": "2.0.6",
     "raw-loader": "0.5.1",
+    "sass-loader": "^6.0.6",
     "webpack-bundle-analyzer": "2.9.0"
   },
   "standard": {
