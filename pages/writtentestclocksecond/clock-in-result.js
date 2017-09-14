@@ -3,9 +3,10 @@ import WrittenTestClock from '../../src/page/writtentestclock/components/layout'
 import Footer from '../../src/page/writtentestclocksecond/footer';
 import ShareWx from '../../src/page/writtentestclocksecond/sharewx';
 import Action from '../../src/action/writtentestclocksecond';
+import React from 'react';
 
 export default class extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
 
     this.state = {
@@ -39,7 +40,7 @@ export default class extends React.Component {
     });
   }
 
-  renderGlobalCss() {
+  renderGlobalCss () {
     return (
       <style global jsx>{`
               .written-test-clock {
@@ -48,7 +49,7 @@ export default class extends React.Component {
             `}</style>
     );
   }
-  render() {
+  render () {
     const { todayInfo, showPage } = this.state;
     if (!showPage) return <Footer />;
     const accuracy = !todayInfo ? 0 : todayInfo.writtenTestTopicDTOList.length === 0 ? 0 : Math.round(todayInfo.totalScore / todayInfo.writtenTestTopicDTOList.length * 100);
