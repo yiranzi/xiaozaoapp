@@ -1,5 +1,5 @@
 const next = require('next')
-const express = require('express')
+const express = require('express');
 const proxy = require('http-proxy-middleware')
 
 const server = express()
