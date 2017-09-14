@@ -7,14 +7,17 @@ export default class Loading extends React.Component {
       <div className='loading-page' >
         <LoadMore loading={this.props.loading} />
         <style global jsx >{`
-          .loading-page .weui-loadmore {
-            width: auto;
-            margin: auto;
-            position: fixed;
+          .loading-page {
             width: 100%;
+            height: 100%;
+            background: rgba(0,0,0, 0.5);
+            opacity: 0.5;
+            position: fixed;
             left: 0;
-            top: 50%;
-            transform: translateY(-3rem);
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
           .loading-page .weui-loadmore .weui-loading {
             width: 3rem;
