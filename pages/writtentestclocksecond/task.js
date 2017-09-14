@@ -195,7 +195,7 @@ export default class extends React.Component {
       });
     } else {
       this.setState({
-        currentObjectIndex: nextObjectIndex,
+        currentObjectIndex: nextObjectIndex
       });
     }
   }
@@ -210,9 +210,8 @@ export default class extends React.Component {
       );
     } else {
       return (
-        <WrittenTestClock > </WrittenTestClock >
+        <WrittenTestClock />
       );
     }
-
   }
 }

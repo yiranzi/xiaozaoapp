@@ -2,22 +2,21 @@ import React from 'react';
 import WrittenTestClock from '../../src/page/writtentestclock/components/layout';
 
 export default class extends React.Component {
-
-  renderContent() {
+  renderContent () {
     return (
-      <div></div>
-    )
+      <div />
+    );
   }
-  renderGlobalCss() {
+  renderGlobalCss () {
     return (
       <style jsx global>{`
         .main .written-test-clock {
           padding: 0;
         }
       `}</style>
-    )
+    );
   }
-  render() {
+  render () {
     return (
       <WrittenTestClock>
         <div className='intro-bg'>
@@ -30,7 +29,7 @@ export default class extends React.Component {
             <div>dafsdf</div>
           </div>
         </div>
-        
+
         {this.renderGlobalCss()}
         <style jsx>{`
           .intro-bg {

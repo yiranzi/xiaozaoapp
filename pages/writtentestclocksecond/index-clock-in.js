@@ -8,8 +8,7 @@ import { Toptips } from 'react-weui';
 import classnames from 'classnames';
 
 export default class extends React.Component {
-
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       tipsMsg: '',
@@ -145,7 +144,7 @@ export default class extends React.Component {
     );
   }
 
-  render() {
+  render () {
     const { showPage, tipsMsg, renderList, totalUser, hasPrize, countdownDay, evaluationAccuracy, exceeds } = this.state;
     if (!showPage) {
       return (

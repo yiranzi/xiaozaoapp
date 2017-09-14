@@ -1,8 +1,9 @@
 import WrittenTestClock from '../../src/page/writtentestclock/components/layout';
 import Action from '../../src/action/writtentestclocksecond';
+import React from 'react';
 
 export default class extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
 
     this.state = {
@@ -13,7 +14,7 @@ export default class extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount () {
     const _this = this;
     Action.getEvaluation().then((res) => {
       _this.setState({
@@ -29,12 +30,12 @@ export default class extends React.Component {
     });
   }
 
-  render() {
+  render () {
     if (!this.state.showPage) return <div />;
     const {testInfo} = this.state;
     const content = this.state.testInfo.totalScore >= 65 ? '实力总是需要有人见证的！' : '从这一刻开始改变！';
     const accuracy = !testInfo ? 0 : (!testInfo.writtenTestTopicDTOList || testInfo.writtenTestTopicDTOList.length === 0) ? 0 : Math.round(testInfo.totalScore / testInfo.writtenTestTopicDTOList.length * 100);
-    
+
     return (
       <WrittenTestClock>
         <div className='test-result-page'>

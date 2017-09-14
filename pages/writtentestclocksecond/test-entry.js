@@ -3,7 +3,7 @@ import WrittenTestClock from '../../src/page/writtentestclock/components/layout'
 import { Flex, FlexItem } from 'react-weui';
 
 export default class extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       content: ['恭喜你！', '离四大又近了一步', '不过，你也一定很好奇：',
@@ -32,39 +32,39 @@ export default class extends React.Component {
     );
   }
 
-  renderContent() {
+  renderContent () {
     const { content } = this.state;
     return content.map((item, i) => (
       <div key={i} className='tips'>{item}</div>
     ));
   }
-  render() {
+  render () {
     return (
       <WrittenTestClock>
         <Flex >
-            <FlexItem>
-              <div className='title'>小灶四大笔试七天打卡计划</div>
-            </FlexItem>
-          </Flex>
-          <Flex>
-            <FlexItem className='tips-form'>
-              <div className='corner-top-left corner' />
-              <div className='corner-top-right corner' />
-              <div className='corner-bottom-left corner' />
-              <div className='corner-bottom-right corner' />
-              {this.renderContent()}
-            </FlexItem>
-          </Flex>
-          <Flex>
-            <FlexItem>
-              <a className='img' href='/writtentestclocksecond/test?category=first'>马上点击测试</a>
-            </FlexItem>
-            <FlexItem>
-              <a className='img' href='/writtentestclocksecond/clock-in-intro'>直接选择班级</a>
-            </FlexItem>
-          </Flex>
-          {this.renderGlobalCss()}
-          <style jsx>{`
+          <FlexItem>
+            <div className='title'>小灶四大笔试七天打卡计划</div>
+          </FlexItem>
+        </Flex>
+        <Flex>
+          <FlexItem className='tips-form'>
+            <div className='corner-top-left corner' />
+            <div className='corner-top-right corner' />
+            <div className='corner-bottom-left corner' />
+            <div className='corner-bottom-right corner' />
+            {this.renderContent()}
+          </FlexItem>
+        </Flex>
+        <Flex>
+          <FlexItem>
+            <a className='img' href='/writtentestclocksecond/test?category=first'>马上点击测试</a>
+          </FlexItem>
+          <FlexItem>
+            <a className='img' href='/writtentestclocksecond/clock-in-intro'>直接选择班级</a>
+          </FlexItem>
+        </Flex>
+        {this.renderGlobalCss()}
+        <style jsx>{`
             .title {
                 font-size: 25px;
                 font-weight: bold;

@@ -1,12 +1,12 @@
 
 import WrittenTestClock from '../../src/page/writtentestclock/components/layout';
-
+import React from 'react';
 import Theme from '../../config/theme';
 import { Toptips } from 'react-weui';
 import Action from '../../src/action/writtentestclocksecond';
 
 export default class extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     // const { info } = props'
     this.state = {
@@ -17,7 +17,7 @@ export default class extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount () {
     const _this = this;
     Action.getInfo()
       .then((info) => {
@@ -37,7 +37,7 @@ export default class extends React.Component {
       });
   }
 
-  render() {
+  render () {
     const { showTips, tipsMsg, showPage } = this.state;
     const { no, groupNo } = this.state.info;
 

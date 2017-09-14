@@ -4,6 +4,7 @@ import Theme from '../../config/theme';
 import classnames from 'classnames';
 import { Toptips } from 'react-weui';
 import Action from '../../src/action/writtentestclocksecond';
+import Dialog from '../../src/page/writtentestclocksecond/dialog';
 
 export default class extends React.Component {
   constructor (props) {
@@ -13,7 +14,9 @@ export default class extends React.Component {
       isAdvanced: 0,
       showTips: false,
       tipsMsg: '',
-      showPage: false
+      showPage: false,
+      showDialog: false,
+      dialogContent: 'dfasdfasdf'
     };
   }
 
@@ -22,7 +25,6 @@ export default class extends React.Component {
       const info = await Action.getEvaluation();
       const { totalScore, writtenTestTopicDTOList } = info;
       const score = Math.round(totalScore / writtenTestTopicDTOList.length * 100);
-      console.log(score);
       this.setState({
         info,
         showPage: true,
@@ -54,7 +56,14 @@ export default class extends React.Component {
     );
   };
 
-  chooseClass = async (isAdvanced) => {
+  chooseClass = (isAdvanced) => {
+    this.setState({
+      showDialog: true,
+      dialogContent: isAdvanced ? '确认选择提升进阶班' : '确认选择提升基础班'
+    });
+  };
+
+  doRequest = async (isAdvanced) => {
     try {
       await Action.selectGroups({ group: isAdvanced ? 'H' : 'N' });
       location.href = '/writtentestclock/choose-class';
@@ -66,11 +75,32 @@ export default class extends React.Component {
       });
       this.timeout = setTimeout(() => this.setState({ showTips: false }), 2000);
     }
-  };
+  }
 
+  dialogConfig = {
+    title: '',
+    buttons: [
+      {
+        type: 'default',
+        label: '取消',
+        onClick: () => {
+          this.setState({ showDialog: false });
+        }
+      }, {
+        type: 'primary',
+        label: '确定',
+        onClick: () => {
+          this.doRequest();
+          this.setState({ showDialog: false });
+        }
+      }
+    ]
+  }
 
   render () {
-    const { showMore, isAdvanced, showTips, tipsMsg, showPage } = this.state;
+    const { showMore, isAdvanced, showTips, tipsMsg, showPage, showDialog, dialogContent } = this.state;
+    const { title, buttons } = this.dialogConfig;
+
     if (!showPage) return <div />;
     return (
       <WrittenTestClock>
@@ -91,6 +121,7 @@ export default class extends React.Component {
           <div className='btn-img' onClick={this.showMoreClick}>开启我的笔试进阶修炼</div>
         </div>
         <Toptips type='warn' show={showTips}> {tipsMsg} </Toptips>
+        <Dialog type='ios' title={title} buttons={buttons} show={showDialog} content={dialogContent} />
         <style jsx>{`
           .bg-img {
             width: 100%;
