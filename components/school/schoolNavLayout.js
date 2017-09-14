@@ -1,3 +1,4 @@
+<<<<<<< 7561a7441aeacdb8c2ba06ad57cc673154a71b81
 import React from 'react'
 import Header from './header'
 <<<<<<< 3d843ce39f62e8ec68779be84e8636590d893324
@@ -10,6 +11,13 @@ import {Toptips} from 'react-weui'
 import {Toptips} from 'react-weui'
 >>>>>>> update: project constructor
 import weui from 'weui'
+=======
+import React from 'react';
+import Header from './partical/header';
+import {Toptips} from 'react-weui';
+import weui from 'weui';
+import styles from '../scss/global.scss';
+>>>>>>> style: add scss loader
 
 export default class Layout extends React.Component {
   renderChild () {
@@ -69,7 +77,11 @@ export default class Layout extends React.Component {
         <style dangerouslySetInnerHTML={{ __html: weui }} />
 =======
         <style dangerouslySetInnerHTML={{__html: weui}} />
+<<<<<<< 7561a7441aeacdb8c2ba06ad57cc673154a71b81
 >>>>>>> update: project constructor
+=======
+        <style dangerouslySetInnerHTML={{__html: styles}} />
+>>>>>>> style: add scss loader
         {this.renderChild()}
         {this.renderGlobalCss()}
       </div>
