@@ -1,5 +1,6 @@
 import React from 'react';
 import UserAction from '../../../../src/action/writtentestclock/user';
+import AnswerAction from '../../../../src/action/writtentestclock/answer';
 import { Toptips } from 'react-weui';
 import classnames from 'classnames';
 export default class extends React.Component {
@@ -18,9 +19,12 @@ export default class extends React.Component {
   componentDidMount = async () => {
     try {
       const info = await UserAction.getInfo();
+      const result = await AnswerAction.getTest();
       const { completeDay } = info;
       const checkedList = completeDay.filter(item => item);
-      const length = checkedList.length;
+      let length = checkedList.length;
+      if(result.answerDTOList.length) length++;
+      
       let checkedLevel = 0;
 
       if (length >= 3 && length < 5) {
