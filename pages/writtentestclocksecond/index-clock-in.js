@@ -10,9 +10,16 @@ import classnames from 'classnames';
 export default class extends React.Component {
   constructor (props) {
     super(props);
+    let set = new Set();
+    while (set.size < 5) {
+      set.add(Math.round(200 * Math.random()));
+    }
+    let randomAvatars = Array.from(set);
+
     this.state = {
       tipsMsg: '',
       showPage: false,
+      randomAvatars,
       exceeds: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 8, 8, 8, 9, 9, 9, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 39, 42, 44, 46, 48, 51, 54, 57, 60, 63, 65, 67, 69, 72, 75, 77, 80, 82, 84, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 96, 96, 96, 96, 97, 97, 97, 97, 97, 98, 98, 98, 98, 98, 99, 99, 99, 99, 99, 100]
     };
   }
@@ -54,6 +61,7 @@ export default class extends React.Component {
         }
         renderList.push(item);
       }
+
       this.setState({
         currentDayIndex,
         evaluationAccuracy,
@@ -145,7 +153,7 @@ export default class extends React.Component {
   }
 
   render () {
-    const { showPage, tipsMsg, renderList, totalUser, hasPrize, countdownDay, evaluationAccuracy, exceeds } = this.state;
+    const { showPage, tipsMsg, renderList, totalUser, hasPrize, countdownDay, evaluationAccuracy, exceeds, randomAvatars } = this.state;
     if (!showPage) {
       return (
         <WrittenTestClock>
@@ -183,11 +191,9 @@ export default class extends React.Component {
               })}
               <div className='partake'>
                 <div className='count'>已有{totalUser}人参加</div>
-                <div className='avatar a' />
-                <div className='avatar b' />
-                <div className='avatar c' />
-                <div className='avatar d' />
-                <div className='avatar e' />
+                {randomAvatars.map((item, index) => {
+                  return <div key={index} className='avatar' style={{backgroundImage: `url(/static/writtentestclocksecond/avatars/${item}.jpg)`}} />;
+                })}
                 <div className='ellipsis'>······</div>
               </div>
             </div>
@@ -330,21 +336,6 @@ export default class extends React.Component {
           }
           .avatar {
             background-size: 100%;
-          }
-          .avatar.a {
-            background-image: url(/static/writtentestclock/avatars/avatar1.jpeg);
-          }
-          .avatar.b {
-            background-image: url(/static/writtentestclock/avatars/avatar2.jpeg);
-          }
-          .avatar.c {
-            background-image: url(/static/writtentestclock/avatars/avatar3.jpeg);
-          }
-          .avatar.d {
-            background-image: url(/static/writtentestclock/avatars/avatar4.jpeg);
-          }
-          .avatar.e {
-            background-image: url(/static/writtentestclock/avatars/avatar5.jpeg);
           }
         `}</style>
         </div>
