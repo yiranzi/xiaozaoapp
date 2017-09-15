@@ -25,9 +25,9 @@ export default class extends React.Component {
 
       if (length >= 3 && length < 5) {
         checkedLevel = 1;
-      } else if (length >= 5 && length < 7) {
+      } else if (length == 5) {
         checkedLevel = 2;
-      } else if (length >= 7) {
+      } else if (length > 5) {
         checkedLevel = 3;
       }
 
