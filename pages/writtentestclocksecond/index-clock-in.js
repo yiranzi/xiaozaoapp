@@ -153,7 +153,7 @@ export default class extends React.Component {
   }
 
   render () {
-    const { showPage, tipsMsg, renderList, totalUser, hasPrize, countdownDay, evaluationAccuracy, exceeds, randomAvatars } = this.state;
+    const { showPage, tipsMsg, renderList, totalUser, hasPrize, countdownDay, evaluationAccuracy, exceeds, randomAvatars, currentDayIndex } = this.state;
     if (!showPage) {
       return (
         <WrittenTestClock>
@@ -204,7 +204,7 @@ export default class extends React.Component {
                   : <div><span>很遗憾您已无法获得本期奖品<br />坚持打卡结束，也会有新的收获哦</span></div>
               }
             </div>
-            <a href='/writtentestclocksecond/answer' className='btn today-push' />
+            <a href={`/writtentestclocksecond/task?category=task&day=${currentDayIndex}`} className='btn today-push' />
             <a className='btn test' />
           </div>
           <Footer />
