@@ -1,6 +1,7 @@
 import React from 'react';
 import UserAction from '../../../../src/action/writtentestclock/user';
 import { Toptips } from 'react-weui';
+import classnames from 'classnames';
 export default class extends React.Component {
   themeConfig = {
     color: '#fe5c4b',
@@ -75,7 +76,7 @@ export default class extends React.Component {
     }
   }
   render () {
-    const { showPage, tipsMsg } = this.state;
+    const { showPage, tipsMsg, checkedLevel } = this.state;
     if (!showPage) return <div />;
     if (tipsMsg) {
       return <Toptips type='warn' show> {tipsMsg} </Toptips>;
@@ -88,20 +89,20 @@ export default class extends React.Component {
             <img src='/static/writtentestclocksecond/coupon50.png' />
             <div>连续3天打卡，</div>
             <div>即可获得50元四大线上课程学习基金</div>
-            <a onClick={() => this.chooseCoupon(1)}>点击立即领取</a>
+            <a className={classnames({'disabled': checkedLevel !== 1})} onClick={() => this.chooseCoupon(1)}>点击立即领取</a>
           </div>
           <div className='coupon'>
             <img src='/static/writtentestclocksecond/coupon100.png' />
             <div>连续5天打卡，</div>
             <div>即可获得100元四大线上课程学习基金</div>
-            <a onClick={() => this.chooseCoupon(2)}>点击立即领取</a>
+            <a className={classnames({'disabled': checkedLevel !== 2})} onClick={() => this.chooseCoupon(2)}>点击立即领取</a>
           </div>
           <div className='coupon'>
             <img src='/static/writtentestclocksecond/coupon150.png' />
             <div>连续7天打卡，</div>
             <div>即可获得150元四大线上课程学习基金</div>
             <div>学习基金＋解锁第二期笔试打卡权限</div>
-            <a onClick={() => this.chooseCoupon(3)}>点击立即领取</a>
+            <a className={classnames({'disabled': checkedLevel !== 3})} onClick={() => this.chooseCoupon(3)}>点击立即领取</a>
           </div>
         </div>
 
@@ -160,6 +161,9 @@ export default class extends React.Component {
             border-radius: 5px;
             width: 150px;
             margin: 30px 0;
+          }
+          .coupon .disabled {
+            background: #ccc;
           }
           .middle-title {
             width: 100%;
