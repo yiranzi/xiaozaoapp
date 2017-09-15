@@ -73,7 +73,7 @@ export default class extends React.Component {
           location.href = 'https://h5.youzan.com/v2/ump/promocard/fetch?alias=48jrv06d';
           break;
         case 3:
-          location.href = 'https://h5.youzan.com/v2/ump/promocard/fetch?alias=v0ehqsng';
+          location.href = 'https://h5.youzan.com/v2/ump/promocard/fetch?alias=37z6iy1k';
           break;
         default:
       }
