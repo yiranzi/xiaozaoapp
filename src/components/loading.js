@@ -5,7 +5,7 @@ export default class Loading extends React.Component {
   render () {
     return (
       <div className='loading-page' >
-        <LoadMore loading={this.props.loading} />
+        <LoadMore loading />
         <style global jsx >{`
           .loading-page {
             width: 100%;
