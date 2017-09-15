@@ -17,8 +17,8 @@ export default class extends React.Component {
   componentDidMount = async () => {
     try {
       const info = await UserAction.getInfo();
-      const { completeDate } = info;
-      const checkedList = completeDate.filter(item => item);
+      const { completeDay } = info;
+      const checkedList = completeDay.filter(item => item);
       const length = checkedList.length;
       let checkedLevel = 0;
 
