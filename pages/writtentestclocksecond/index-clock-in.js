@@ -74,7 +74,7 @@ export default class extends React.Component {
   }
 
   rowClick = (type, index) => {
-    if (type !== 0) location.href = `/writtentestclock/pastanswer?day=${index + 1}`;
+    if (type !== 0) location.href = `/writtentestclocksecond/task?category=task&day=${index + 1}`;
   }
 
   renderRow = (item, index) => {
@@ -168,7 +168,7 @@ export default class extends React.Component {
           <div className='btn-form'>
             <img className='title-img' src='/static/writtentestclock/index-clock-in-index.png' />
             <div className='sub-title'>小灶笔试打卡第一期<span> ( 限时免费 ) </span></div>
-            <a className='middle-banner' href='/writtentestclocksecond/pastanswer?day=test'>
+            <a className='middle-banner' href='/writtentestclocksecond/task?category=entrance&action=review'>
               <div>入学前测评－正确率{evaluationAccuracy || 0}%－击败了{exceeds[evaluationAccuracy || 0]}%人</div>
             </a>
             <div className='table'>

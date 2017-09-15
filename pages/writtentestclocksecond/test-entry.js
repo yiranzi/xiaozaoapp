@@ -57,7 +57,7 @@ export default class extends React.Component {
         </Flex>
         <Flex>
           <FlexItem>
-            <a className='img' href='/writtentestclocksecond/test?category=first'>马上点击测试</a>
+            <a className='img' href='/writtentestclocksecond/task?category=entrance'>马上点击测试</a>
           </FlexItem>
           <FlexItem>
             <a className='img' href='/writtentestclocksecond/clock-in-intro'>直接选择班级</a>
