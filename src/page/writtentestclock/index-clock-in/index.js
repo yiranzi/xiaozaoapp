@@ -20,9 +20,9 @@ export default class extends React.Component {
     try {
       const info = await UserAction.getHistory();
       const result = await AnswerAction.getTest();
-      const {answerDTOList} = result
-      let testUrl = '/writtentestclock/test?category=end'
-      if(answerDTOList.length) testUrl= '/writtentestclock/pastanswer?day=end';
+      const {answerDTOList} = result;
+      let testUrl = '/writtentestclock/test?category=end';
+      if (answerDTOList.length) testUrl = '/writtentestclock/pastanswer?day=end';
       const { startDay, endDay, completeDay, evaluationAccuracy } = info;
       const dateLength = Math.ceil((endDay - startDay) / 3600 / 24 / 1000) + 1;
       const currentDayIndex = completeDay.length;
