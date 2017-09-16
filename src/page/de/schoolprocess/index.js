@@ -1,8 +1,8 @@
-import React from 'react';
-import CompanyDetail from '../../../components/school/companyDetail';
-import SchoolNav from '../../../components/school/schoolNav';
-import SchoolOnlinApplyTime from '../../../components/school/schoolOnlineApplyTime';
-import SchoolFooter from '../../../components/school/schoolFooter';
+import React from 'react'
+import CompanyDetail from '../../../components/school/companyDetail'
+import SchoolNav from '../../../components/school/schoolNav'
+import SchoolOnlinApplyTime from '../../../components/school/schoolOnlineApplyTime'
+import SchoolFooter from '../../../components/school/schoolFooter'
 
 export default class SchoolProcess extends React.Component {
   render () {
@@ -20,6 +20,6 @@ export default class SchoolProcess extends React.Component {
           }
         `}</style>
       </div>
-    );
+    )
   }
 }

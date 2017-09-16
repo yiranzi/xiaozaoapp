@@ -1,14 +1,14 @@
-import React from 'react';
-import { Flex, FlexItem } from 'react-weui';
+import React from 'react'
+import { Flex, FlexItem } from 'react-weui'
 
 export default class AnswerPage extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       content: ['恭喜你！', '离四大又近了一步', '不过，你也一定很好奇：',
         '以我现在的笔试水平，到底有多大把握进四大？', '为了避免', '你在高级班跟不上节奏的尴尬',
         '在初级班又有孤独求败的体验', '不如趁现在！', '我们花几分钟来个小测试', '搞清楚自己是报笔试基础班还是高级班吧！']
-    };
+    }
   }
 
     renderGlobalCss = () => {
@@ -28,14 +28,14 @@ export default class AnswerPage extends React.Component {
                     font-size: 15px;
                 }
             `}</style>
-      );
+      )
     }
 
     renderContent () {
-      const { content } = this.state;
+      const { content } = this.state
       return content.map((item, i) => (
         <div key={i} className='tips'>{item}</div>
-      ));
+      ))
     }
 
     render () {
@@ -123,6 +123,6 @@ export default class AnswerPage extends React.Component {
                     }
                 `}</style>
         </div>
-      );
+      )
     }
 }

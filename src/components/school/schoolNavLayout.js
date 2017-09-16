@@ -1,15 +1,15 @@
-import React from 'react';
-import Header from './header';
-import {Toptips} from 'react-weui';
-import weui from 'weui';
+import React from 'react'
+import Header from './header'
+import {Toptips} from 'react-weui'
+import weui from 'weui'
 
 export default class Layout extends React.Component {
   renderChild () {
-    const {error} = this.props;
+    const {error} = this.props
     if (error) {
-      return <div className='main'><Toptips type='warn' show>{error.message}</Toptips></div>;
+      return <div className='main'><Toptips type='warn' show>{error.message}</Toptips></div>
     } else {
-      return <div className='main'>{this.props.children}</div>;
+      return <div className='main'>{this.props.children}</div>
     }
   }
 
@@ -26,7 +26,7 @@ export default class Layout extends React.Component {
           white-space: nowrap;
         }
       `}</style>
-    );
+    )
   }
 
   render () {
@@ -37,6 +37,6 @@ export default class Layout extends React.Component {
         {this.renderChild()}
         {this.renderGlobalCss()}
       </div>
-    );
+    )
   }
 }

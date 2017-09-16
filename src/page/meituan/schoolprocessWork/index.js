@@ -1,11 +1,11 @@
-import React from 'react';
-import CompanyDetail from '../../../components/school/companyDetail';
-import SchoolNav from '../../../components/school/schoolNav';
-import List from '../../../components/school/list';
+import React from 'react'
+import CompanyDetail from '../../../components/school/companyDetail'
+import SchoolNav from '../../../components/school/schoolNav'
+import List from '../../../components/school/list'
 
 export default class schoolExp extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       list: [
         {title: '美团企业文化之我见', link: 'https://www.linkedin.com/wukong-web/companyReflection/1166424-301204?ts=1502778831478&trk=company_review_review_share_wechat'},
@@ -14,7 +14,7 @@ export default class schoolExp extends React.Component {
         {title: '新美大广告平台工作的四点感受', link: 'https://www.linkedin.com/wukong-web/companyReflection/1166424-302182?ts=1502778914712&trk=company_review_review_share_wechat'},
         {title: '在美团做BD的十点体会', link: 'https://www.linkedin.com/wukong-web/companyReflection/1166424-200202?ts=1502778745566&trk=company_review_review_share_wechat'}
       ]
-    };
+    }
   }
 
   render () {
@@ -25,6 +25,6 @@ export default class schoolExp extends React.Component {
         <SchoolNav fromType='work' processLink='/school/meituan/schoolprocess' workLink='/school/meituan/schoolWork' expLink='/school/meituan/schoolExp' />
         <List list={this.state.list} />
       </div>
-    );
+    )
   }
 }

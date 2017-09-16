@@ -1,6 +1,6 @@
-import React from 'react';
-import Layout from '../../../components/layout';
-import ThemeConfig from '../../../../config/theme';
+import React from 'react'
+import Layout from '../../../components/layout'
+import ThemeConfig from '../../../../config/theme'
 
 export default class WrittenTestClock extends React.Component {
   renderGlobalCss () {
@@ -17,10 +17,10 @@ export default class WrittenTestClock extends React.Component {
                     padding: 1rem 0;
                 }
             `}</style>
-    );
+    )
   }
   render () {
-    const {error} = this.props;
+    const {error} = this.props
     return (
       <Layout error={error}>
         <div className='written-test-clock'>
@@ -28,6 +28,6 @@ export default class WrittenTestClock extends React.Component {
         </div>
         {this.renderGlobalCss()}
       </Layout>
-    );
+    )
   }
 }

@@ -1,6 +1,6 @@
-import React from 'react';
-import TestResultPage from '../../src/page/writtentestclock/test-result';
-import WrittenTestClock from '../../src/page/writtentestclock/components/layout';
+import React from 'react'
+import TestResultPage from '../../src/page/writtentestclock/test-result'
+import WrittenTestClock from '../../src/page/writtentestclock/components/layout'
 
 export default class extends React.Component {
   render () {
@@ -8,6 +8,6 @@ export default class extends React.Component {
       <WrittenTestClock>
         <TestResultPage />
       </WrittenTestClock>
-    );
+    )
   }
 }

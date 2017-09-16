@@ -1,21 +1,21 @@
-import React from 'react';
-import Theme from '../../../../config/theme';
-import { Toptips } from 'react-weui';
-import UserAction from '../../../../src/action/writtentestclock/user';
+import React from 'react'
+import Theme from '../../../../config/theme'
+import { Toptips } from 'react-weui'
+import UserAction from '../../../../src/action/writtentestclock/user'
 export default class extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     // const { info } = props'
     this.state = {
       showTips: '',
       tipsMsg: '',
       info: '',
       showPage: false
-    };
+    }
   }
 
   componentDidMount () {
-    const _this = this;
+    const _this = this
     UserAction.getInfo()
       .then((info) => {
         _this.setState({
@@ -23,24 +23,24 @@ export default class extends React.Component {
           showTips: info.error,
           tipsMsg: info.message || '',
           showPage: true
-        });
+        })
       })
       .catch(error => {
         _this.setState({
           error: true,
           showPage: true,
           ...error
-        });
-      });
+        })
+      })
   }
 
   render () {
-    const { showTips, tipsMsg, showPage } = this.state;
-    const { no, groupNo } = this.state.info;
+    const { showTips, tipsMsg, showPage } = this.state
+    const { no, groupNo } = this.state.info
 
-    if (!showPage) return <div />;
+    if (!showPage) return <div />
     if (showTips) {
-      return <Toptips type='warn' show={showTips}> {tipsMsg} </Toptips>;
+      return <Toptips type='warn' show={showTips}> {tipsMsg} </Toptips>
     }
     return (
       <div className='class-choose-form'>
@@ -135,6 +135,6 @@ export default class extends React.Component {
                     }
                 `}</style>
       </div>
-    );
+    )
   }
 }

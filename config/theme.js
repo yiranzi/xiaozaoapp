@@ -8,6 +8,6 @@ const config = {
     normal: '1.25rem',
     large: '1.5rem'
   }
-};
+}
 
-module.exports = config;
+module.exports = config

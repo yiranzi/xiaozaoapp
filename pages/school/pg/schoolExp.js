@@ -1,6 +1,6 @@
-import React from 'react';
-import Layout from '../../../src/components/school/schoolLayout';
-import SchoolProcessExpPage from '../../../src/page/pg/schoolprocessExp/index';
+import React from 'react'
+import Layout from '../../../src/components/school/schoolLayout'
+import SchoolProcessExpPage from '../../../src/page/pg/schoolprocessExp/index'
 
 export default class extends React.Component {
   render () {
@@ -8,6 +8,6 @@ export default class extends React.Component {
       <Layout fromType='pg'>
         <SchoolProcessExpPage />
       </Layout>
-    );
+    )
   }
 }

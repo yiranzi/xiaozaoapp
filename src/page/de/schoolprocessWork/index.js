@@ -1,11 +1,11 @@
-import React from 'react';
-import CompanyDetail from '../../../components/school/companyDetail';
-import SchoolNav from '../../../components/school/schoolNav';
-import List from '../../../components/school/list';
+import React from 'react'
+import CompanyDetail from '../../../components/school/companyDetail'
+import SchoolNav from '../../../components/school/schoolNav'
+import List from '../../../components/school/list'
 
 export default class schoolExp extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       list: [
         {title: '直播间密码668 | 拿过3家四大5份offer的老司机和你聊四大！', link: 'https://m.qlchat.com/topic/240000058017415.htm?isGuide=Y'},
@@ -19,7 +19,7 @@ export default class schoolExp extends React.Component {
         {title: '咨询篇：最新！刚刚结束在德勤ERS部门的实习，和大家分享一下', link: 'https://mp.weixin.qq.com/s?__biz=MzIyNjAwMDc3Mg==&mid=2654875549&idx=2&sn=9da9295a7aa943e3033a3a596752637b&chksm=f3bda576c4ca2c602d09eaab0a1ba8e1cd5baf3c46f3873e16781bdbd663070af58a28bf3e6e&scene=4'},
         {title: '审计篇：美国会计硕士后加入德勤纽约是种怎样的体验？', link: 'https://www.linkedin.com/wukong-web/companyReflection/1038-301220?ts=1502764079742&trk=company_review_review_share_wechat'}
       ]
-    };
+    }
   }
 
   render () {
@@ -30,6 +30,6 @@ export default class schoolExp extends React.Component {
         <SchoolNav fromType='work' processLink='/school/de/schoolprocess' workLink='/school/de/schoolWork' expLink='/school/de/schoolExp' />
         <List list={this.state.list} />
       </div>
-    );
+    )
   }
 }

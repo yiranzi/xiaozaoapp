@@ -1,11 +1,11 @@
-import React from 'react';
-import CompanyDetail from '../../../components/school/companyDetail';
-import SchoolNav from '../../../components/school/schoolNav';
-import List from '../../../components/school/list';
+import React from 'react'
+import CompanyDetail from '../../../components/school/companyDetail'
+import SchoolNav from '../../../components/school/schoolNav'
+import List from '../../../components/school/list'
 
 export default class schoolExp extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       list: [
         {title: '直播间密码668 | 拿过3家四大5份offer的老司机和你聊四大！', link: 'https://m.qlchat.com/topic/240000058017415.htm?isGuide=Y'},
@@ -18,7 +18,7 @@ export default class schoolExp extends React.Component {
         {title: '咨询篇：你所不知道的KPMG Deal Advisory', link: 'https://www.linkedin.com/wukong-web/companyReflection/1079-302200?ts=1502763582551&trk=company_review_review_share_wechat'},
         {title: 'KPMG教会我的那些事儿', link: 'https://www.linkedin.com/wukong-web/companyReflection/1079-200205?ts=1502763605415&trk=company_review_review_share_wechat'},
         {title: '审计 | One Year In KPMG', link: 'https://www.linkedin.com/wukong-web/companyReflection/1079-302158?ts=1502763628273&trk=company_review_review_share_wechat'}]
-    };
+    }
   }
 
   render () {
@@ -29,6 +29,6 @@ export default class schoolExp extends React.Component {
         <SchoolNav fromType='work' processLink='/school/kpmg/schoolprocess' workLink='/school/kpmg/schoolWork' expLink='/school/kpmg/schoolExp' />
         <List list={this.state.list} />
       </div>
-    );
+    )
   }
 }

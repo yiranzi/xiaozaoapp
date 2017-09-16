@@ -1,23 +1,23 @@
-import React from 'react';
+import React from 'react'
 
 export default class ShareWx extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
 
-    const {isShow} = this.props;
+    const {isShow} = this.props
     this.state = {
       isShow: isShow
-    };
+    }
   }
 
     componentWillReceiveProps = (nextProps) => {
-      this.state.isShow = nextProps.isShow;
+      this.state.isShow = nextProps.isShow
     }
 
     shareHide = () => {
       this.setState({
         isShow: false
-      });
+      })
     }
 
     render () {
@@ -35,6 +35,6 @@ export default class ShareWx extends React.Component {
                     }
                 `}</style>
         </div>
-      );
+      )
     }
 }

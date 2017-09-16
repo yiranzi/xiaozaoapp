@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const Header = ({title, children}) =>
   <section className='block'>
@@ -17,6 +17,6 @@ const Header = ({title, children}) =>
             border:1px solid #BFBFBF;
           }
     `}</style>
-  </section>;
+  </section>
 
-export default Header;
+export default Header

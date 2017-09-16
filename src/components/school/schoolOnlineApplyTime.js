@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 export default class schoolOnlineApplyTime extends React.Component {
   render () {
@@ -26,6 +26,6 @@ export default class schoolOnlineApplyTime extends React.Component {
           }
         `}</style>
       </div>
-    );
+    )
   }
 }

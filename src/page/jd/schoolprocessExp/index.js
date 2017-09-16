@@ -1,11 +1,11 @@
-import React from 'react';
-import CompanyDetail from '../../../components/school/companyDetail';
-import SchoolNav from '../../../components/school/schoolNav';
-import TabList from '../../../components/school/TabList';
+import React from 'react'
+import CompanyDetail from '../../../components/school/companyDetail'
+import SchoolNav from '../../../components/school/schoolNav'
+import TabList from '../../../components/school/TabList'
 
 export default class schoolExp extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       list: [
         {title: '京东Java实习生面经', link: 'http://www.jianshu.com/p/9f15b01ef0a6', tag: [' ', ' ', '面试', ' ']},
@@ -33,22 +33,22 @@ export default class schoolExp extends React.Component {
         {title: '活捉一道京东算法题', link: 'http://www.jianshu.com/p/b490a6d84e04', tag: [' ', '', ' ', ' ']},
         {title: '2016京东非技术类', link: 'http://www.jianshu.com/p/efb29f0e768f', tag: [' ', '', ' ', ' ']}
       ]
-    };
+    }
   }
 
   render () {
     let onlineApply = this.state.list.filter(function (item) {
-      return item.tag.indexOf('网申') !== -1;
-    });
+      return item.tag.indexOf('网申') !== -1
+    })
     let exam = this.state.list.filter(function (item) {
-      return item.tag.indexOf('笔试') !== -1;
-    });
+      return item.tag.indexOf('笔试') !== -1
+    })
     let interview = this.state.list.filter(function (item) {
-      return item.tag.indexOf('面试') !== -1;
-    });
+      return item.tag.indexOf('面试') !== -1
+    })
     let comphensive = this.state.list.filter(function (item) {
-      return item.tag.indexOf('综合') !== -1;
-    });
+      return item.tag.indexOf('综合') !== -1
+    })
     return (
       <div className='main-section'>
         <CompanyDetail headerimage='/static/school/jd.png' trade='互联网' tag='2017世界500强'
@@ -56,6 +56,6 @@ export default class schoolExp extends React.Component {
         <SchoolNav fromType='exp' processLink='/school/jd/schoolprocess' workLink='/school/jd/schoolWork' expLink='/school/jd/schoolExp' />
         <TabList onlineApply={onlineApply} exam={exam} interview={interview} all={this.state.list} comphensive={comphensive} />
       </div>
-    );
+    )
   }
 }

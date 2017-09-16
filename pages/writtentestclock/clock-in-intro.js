@@ -1,6 +1,6 @@
-import React from 'react';
-import ClockInIntro from '../../src/page/writtentestclock/clock-in-intro';
-import WrittenTestClock from '../../src/page/writtentestclock/components/layout';
+import React from 'react'
+import ClockInIntro from '../../src/page/writtentestclock/clock-in-intro'
+import WrittenTestClock from '../../src/page/writtentestclock/components/layout'
 // import UserAction from '../../src/action/writtentestclock/user';
 
 export default class extends React.Component {
@@ -20,6 +20,6 @@ export default class extends React.Component {
       <WrittenTestClock>
         <ClockInIntro {...this.props} />
       </WrittenTestClock>
-    );
+    )
   }
 }

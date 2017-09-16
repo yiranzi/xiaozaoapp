@@ -1,11 +1,11 @@
-import React from 'react';
-import CompanyDetail from '../../../components/school/companyDetail';
-import SchoolNav from '../../../components/school/schoolNav';
-import TabList from '../../../components/school/TabList';
+import React from 'react'
+import CompanyDetail from '../../../components/school/companyDetail'
+import SchoolNav from '../../../components/school/schoolNav'
+import TabList from '../../../components/school/TabList'
 
 export default class schoolExp extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       list: [
         {title: '2017招商银行重庆分行校招综合经验分享', link: 'http://bbs.yingjiesheng.com/thread-2087774-1-1.html', tag: ['网申', '笔试', '面试', '综合']},
@@ -25,22 +25,22 @@ export default class schoolExp extends React.Component {
         {title: '[笔试]11.7/8交通招商上海浦发四家银行笔试经验，希望对以后的童鞋有所帮助吧', link: 'http://bbs.yingjiesheng.com/forum.php?mod=viewthread&tid=2004576&extra=page%3D1%26filter%3Ddigest%26digest%3D1', tag: ['', '笔试', '', '']},
         {title: '[笔试]2015.10.17招商证券2016校招笔试', link: 'http://bbs.yingjiesheng.com/forum.php?mod=viewthread&tid=1989291&extra=page%3D1%26filter%3Ddigest%26digest%3D1', tag: ['', '笔试', '', '']}
       ]
-    };
+    }
   }
 
   render () {
     let onlineApply = this.state.list.filter(function (item) {
-      return item.tag.indexOf('网申') !== -1;
-    });
+      return item.tag.indexOf('网申') !== -1
+    })
     let exam = this.state.list.filter(function (item) {
-      return item.tag.indexOf('笔试') !== -1;
-    });
+      return item.tag.indexOf('笔试') !== -1
+    })
     let interview = this.state.list.filter(function (item) {
-      return item.tag.indexOf('面试') !== -1;
-    });
+      return item.tag.indexOf('面试') !== -1
+    })
     let comphensive = this.state.list.filter(function (item) {
-      return item.tag.indexOf('综合') !== -1;
-    });
+      return item.tag.indexOf('综合') !== -1
+    })
     return (
       <div className='main-section'>
         <CompanyDetail headerimage='/static/school/zhaoshang.jpg' trade='银行/证券/基金/保险/投资公司' tag='2017世界500强'
@@ -48,6 +48,6 @@ export default class schoolExp extends React.Component {
         <SchoolNav fromType='exp' processLink='/school/zhaoshang/schoolprocess' workLink='/school/zhaoshang/schoolWork' expLink='/school/zhaoshang/schoolExp' />
         <TabList onlineApply={onlineApply} exam={exam} interview={interview} all={this.state.list} comphensive={comphensive} />
       </div>
-    );
+    )
   }
 }

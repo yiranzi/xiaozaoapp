@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 export default class companyDetail extends React.Component {
   render () {
@@ -72,6 +72,6 @@ export default class companyDetail extends React.Component {
           }
         `}</style>
       </div>
-    );
+    )
   }
 }

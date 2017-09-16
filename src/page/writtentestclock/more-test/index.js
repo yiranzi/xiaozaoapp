@@ -1,5 +1,5 @@
-import React from 'react';
-import Footer from '../components/footer';
+import React from 'react'
+import Footer from '../components/footer'
 export default class extends React.Component {
   renderGlobalCss () {
     return (
@@ -8,7 +8,7 @@ export default class extends React.Component {
                     padding: 0!important;
                 }
             `}</style>
-    );
+    )
   }
   render () {
     return (
@@ -26,6 +26,6 @@ export default class extends React.Component {
                 `}</style>
         {this.renderGlobalCss()}
       </div>
-    );
+    )
   }
 }

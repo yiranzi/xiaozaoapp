@@ -1,12 +1,12 @@
-import React from 'react';
-import Theme from '../../../../config/theme';
-import Footer from '../components/footer';
-import UserAction from '../../../../src/action/writtentestclock/user';
-import AnswerAction from '../../../../src/action/writtentestclock/answer';
-import { Toptips } from 'react-weui';
+import React from 'react'
+import Theme from '../../../../config/theme'
+import Footer from '../components/footer'
+import UserAction from '../../../../src/action/writtentestclock/user'
+import AnswerAction from '../../../../src/action/writtentestclock/answer'
+import { Toptips } from 'react-weui'
 export default class extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
 
     this.state = {
       dates: [],
@@ -15,38 +15,38 @@ export default class extends React.Component {
       showPage: false,
       testInfo: null,
       exceeds: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 8, 8, 8, 9, 9, 9, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 39, 42, 44, 46, 48, 51, 54, 57, 60, 63, 65, 67, 69, 72, 75, 77, 80, 82, 84, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 96, 96, 96, 96, 97, 97, 97, 97, 97, 98, 98, 98, 98, 98, 99, 99, 99, 99, 99, 100]
-    };
+    }
   }
 
   componentDidMount = async () => {
     try {
-      const info = await UserAction.getInfo();
-      const res = await AnswerAction.getEvaluation();
+      const info = await UserAction.getInfo()
+      const res = await AnswerAction.getEvaluation()
 
-      const { completeDay, startDay, endDay } = info;
-      const duringDay = endDay - startDay;
+      const { completeDay, startDay, endDay } = info
+      const duringDay = endDay - startDay
       for (let i = completeDay.length; i <= duringDay; i++) {
-        completeDay.push(0);
+        completeDay.push(0)
       }
       this.setState({
         ...info,
         dates: completeDay,
         showPage: true,
         testInfo: res
-      });
+      })
     } catch (error) {
       this.setState({
         error: true,
         showPage: true,
         tipsMsg: error.message,
         showTips: true
-      });
+      })
     }
   }
 
   renderDate = () => {
     return this.state.dates.map((item, index) => {
-      const classname = 'date-item ' + (item && 'checked');
+      const classname = 'date-item ' + (item && 'checked')
       return (
         <div key={index} className={classname}>
           {index + 1}
@@ -65,18 +65,18 @@ export default class extends React.Component {
             }
           `}</style>
         </div>
-      );
-    });
+      )
+    })
   }
 
   render () {
-    const { showPage, tipsMsg } = this.state;
+    const { showPage, tipsMsg } = this.state
     if (!showPage) {
       return (
         <div>
           <Footer />
         </div>
-      );
+      )
     }
 
     if (tipsMsg) {
@@ -85,16 +85,16 @@ export default class extends React.Component {
           <Toptips type='warn' show> {tipsMsg} </Toptips>
           <Footer />
         </div>
-      );
+      )
     }
 
-    const { no, groupNo, testResult, evaluationResult } = this.state;
+    const { no, groupNo, testResult, evaluationResult } = this.state
 
-    let testResultContent = '';
+    let testResultContent = ''
     if (testResult) {
-      const currPersent = testResult ? (testResult + '%') : '0%';
-      const beatPersent = this.state.exceeds[testResult] || 0;
-      testResultContent = `正确率为${currPersent}, 击败了${beatPersent}%的人`;
+      const currPersent = testResult ? (testResult + '%') : '0%'
+      const beatPersent = this.state.exceeds[testResult] || 0
+      testResultContent = `正确率为${currPersent}, 击败了${beatPersent}%的人`
     }
 
     return (
@@ -196,6 +196,6 @@ export default class extends React.Component {
             }
         `}</style>
       </div>
-    );
+    )
   }
 }
