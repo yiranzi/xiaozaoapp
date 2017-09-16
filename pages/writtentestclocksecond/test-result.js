@@ -1,5 +1,5 @@
-import WrittenTestClock from '../../src/page/writtentestclock/components/layout';
-import Action from '../../src/action/writtentestclocksecond';
+import WrittenTestClock from '../../containers/writtentestclock/components/layout';
+import Action from '../../action/writtentestclocksecond';
 import React from 'react';
 
 export default class extends React.Component {

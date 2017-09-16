@@ -2,7 +2,7 @@ import React from 'react'
 import SubjectComponent from '../components/subject'
 import ThemeConfig from '../../../config/theme'
 import AnswerAction from '../../../action/writtentestclock/answer'
-import CommonUtil from '../../../util/common'
+import ToolsUtil from '../../../util/tools'
 
 export default class TestAnswerPage extends React.Component {
   constructor (props) {
@@ -19,7 +19,7 @@ export default class TestAnswerPage extends React.Component {
 
     componentDidMount = async () => {
       let questionList = {}
-      const category = CommonUtil.getQueryString('category')
+      const category = ToolsUtil.getQueryString('category')
 
       try {
         if (category === 'first') {

@@ -1,9 +1,9 @@
 
-import WrittenTestClock from '../../src/page/writtentestclock/components/layout';
+import WrittenTestClock from '../../containers/writtentestclock/components/layout';
 import React from 'react';
-import Footer from '../../src/page/writtentestclocksecond/footer';
+import Footer from '../../containers/writtentestclocksecond/footer';
 import Theme from '../../config/theme';
-import Action from '../../src/action/writtentestclocksecond';
+import Action from '../../action/writtentestclocksecond';
 import { Toptips } from 'react-weui';
 import classnames from 'classnames';
 

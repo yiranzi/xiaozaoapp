@@ -1,7 +1,7 @@
 const path = require('path');
 const glob = require('glob');
 
-const ToolsUtil = require('./src/util/tools');
+const ToolsUtil = require('./util/tools');
 
 module.exports = {
   webpack: (config, {dev}) => {

@@ -1,8 +1,8 @@
 
-import WrittenTestClock from '../../src/page/writtentestclock/components/layout';
+import WrittenTestClock from '../../containers/writtentestclock/components/layout';
 import Theme from '../../config/theme';
-import Footer from '../../src/page/writtentestclocksecond/footer';
-import Action from '../../src/action/writtentestclocksecond';
+import Footer from '../../containers/writtentestclocksecond/footer';
+import Action from '../../action/writtentestclocksecond';
 import { Toptips } from 'react-weui';
 import React from 'react';
 export default class extends React.Component {
