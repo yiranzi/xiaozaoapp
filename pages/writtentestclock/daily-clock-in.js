@@ -1,7 +1,7 @@
 import React from 'react'
-import DailyClockIn from '../../src/page/writtentestclock/daily-clock-in'
-import WrittenTestClock from '../../src/page/writtentestclock/components/layout'
-// import UserAction from '../../src/action/writtentestclock/user';
+import DailyClockIn from '../../page/writtentestclock/daily-clock-in'
+import WrittenTestClock from '../../page/writtentestclock/components/layout'
+// import UserAction from '../../action/writtentestclock/user';
 
 export default class extends React.Component {
   // static async getInitialProps() {

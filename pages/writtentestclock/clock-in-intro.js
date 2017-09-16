@@ -1,7 +1,7 @@
 import React from 'react'
-import ClockInIntro from '../../src/page/writtentestclock/clock-in-intro'
-import WrittenTestClock from '../../src/page/writtentestclock/components/layout'
-// import UserAction from '../../src/action/writtentestclock/user';
+import ClockInIntro from '../../page/writtentestclock/clock-in-intro'
+import WrittenTestClock from '../../page/writtentestclock/components/layout'
+// import UserAction from '../../action/writtentestclock/user';
 
 export default class extends React.Component {
   // static async getInitialProps() {
