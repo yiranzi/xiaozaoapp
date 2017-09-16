@@ -354,6 +354,7 @@
 // }
 import React from 'react'
 import SubjectComponent from '../components/subject'
+<<<<<<< 3d843ce39f62e8ec68779be84e8636590d893324:containers/writtentestclock/answer/index.js
 <<<<<<< 976b0990b9936056310b888556cd1b6d55a35a44:containers/writtentestclock/answer/index.js
 import ThemeConfig from '../../../config/theme'
 import AnswerAction from '../../../action/writtentestclock/answer'
@@ -363,6 +364,11 @@ import ThemeConfig from '../../../../config/theme'
 import AnswerAction from '../../../../src/action/writtentestclock/answer'
 import CommonUtil from '../../../../src/util/common'
 >>>>>>> update: eslinit code style:src/page/writtentestclock/answer/index.js
+=======
+import ThemeConfig from '../../../config/theme'
+import AnswerAction from '../../../action/writtentestclock/answer'
+import CommonUtil from '../../../util/common'
+>>>>>>> update: project constructor:containers/writtentestclock/answer/index.js
 
 export default class AnswerPage extends React.Component {
   constructor (props) {

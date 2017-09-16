@@ -10,9 +10,14 @@ import SchoolProcessPage from '../../../src/page/didi/schoolprocess/index';
 >>>>>>> update:add company and refactor the code
 =======
 import React from 'react'
+<<<<<<< 3d843ce39f62e8ec68779be84e8636590d893324
 import Layout from '../../../src/components/school/schoolLayout'
 import SchoolProcessPage from '../../../src/page/didi/schoolprocess/index'
 >>>>>>> update: eslinit code style
+=======
+import Layout from '../../../components/school/schoolLayout'
+import SchoolProcessPage from '../../../page/didi/schoolprocess/index'
+>>>>>>> update: project constructor
 
 export default class extends React.Component {
   // static async getInitialProps({req}) {

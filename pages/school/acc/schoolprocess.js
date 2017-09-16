@@ -11,6 +11,7 @@ import Layout from '../../../src/components/school/schoolLayout';
 import SchoolProcessPage from '../../../src/page/acc/schoolprocess/index';
 =======
 import React from 'react'
+<<<<<<< 3d843ce39f62e8ec68779be84e8636590d893324
 import Layout from '../../../src/components/school/schoolLayout'
 import SchoolProcessPage from '../../../src/page/acc/schoolprocess/index'
 >>>>>>> update: eslinit code style
@@ -33,6 +34,12 @@ export default class extends React.Component {
   // }
 
 >>>>>>> update:add company and refactor the code
+=======
+import Layout from '../../../components/school/schoolLayout'
+import SchoolProcessPage from '../../../page/acc/schoolprocess/index'
+
+export default class extends React.Component {
+>>>>>>> update: project constructor
   render () {
     return (
       <Layout fromType='acc'>
