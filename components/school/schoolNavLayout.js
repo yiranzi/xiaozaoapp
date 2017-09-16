@@ -13,11 +13,14 @@ import {Toptips} from 'react-weui'
 import weui from 'weui'
 =======
 import React from 'react';
-import Header from './partical/header';
+import Header from '../partical/header';
 import {Toptips} from 'react-weui';
 import weui from 'weui';
+<<<<<<< b804211441c4503475c314425b207580923bc267
 import styles from '../scss/global.scss';
 >>>>>>> style: add scss loader
+=======
+>>>>>>> update: 调整目录结构
 
 export default class Layout extends React.Component {
   renderChild () {
@@ -77,11 +80,14 @@ export default class Layout extends React.Component {
         <style dangerouslySetInnerHTML={{ __html: weui }} />
 =======
         <style dangerouslySetInnerHTML={{__html: weui}} />
+<<<<<<< b804211441c4503475c314425b207580923bc267
 <<<<<<< 7561a7441aeacdb8c2ba06ad57cc673154a71b81
 >>>>>>> update: project constructor
 =======
         <style dangerouslySetInnerHTML={{__html: styles}} />
 >>>>>>> style: add scss loader
+=======
+>>>>>>> update: 调整目录结构
         {this.renderChild()}
         {this.renderGlobalCss()}
       </div>

@@ -4,6 +4,7 @@ import SubjectComponent from '../components/subject'
 <<<<<<< 976b0990b9936056310b888556cd1b6d55a35a44:containers/writtentestclock/pastanswer/index.js
 import ThemeConfig from '../../../config/theme'
 import AnswerAction from '../../../action/writtentestclock/answer'
+<<<<<<< b804211441c4503475c314425b207580923bc267
 import CommonUtil from '../../../util/common'
 =======
 import ThemeConfig from '../../../../config/theme'
@@ -15,6 +16,9 @@ import ThemeConfig from '../../../config/theme'
 import AnswerAction from '../../../action/writtentestclock/answer'
 import CommonUtil from '../../../util/common'
 >>>>>>> update: project constructor:containers/writtentestclock/pastanswer/index.js
+=======
+import ToolsUtil from '../../../util/tools'
+>>>>>>> update: 调整目录结构
 
 export default class AnswerPage extends React.Component {
   constructor (props) {
@@ -28,7 +32,7 @@ export default class AnswerPage extends React.Component {
 
   componentDidMount = async () => {
     let questionList = {}
-    const day = CommonUtil.getQueryString('day')
+    const day = ToolsUtil.getQueryString('day')
     try {
       if (day) {
         if (day === 'test') {

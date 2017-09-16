@@ -1,8 +1,8 @@
 
-import WrittenTestClock from '../../src/page/writtentestclock/components/layout';
-import Footer from '../../src/page/writtentestclocksecond/footer';
-import ShareWx from '../../src/page/writtentestclocksecond/sharewx';
-import Action from '../../src/action/writtentestclocksecond';
+import WrittenTestClock from '../../containers/writtentestclock/components/layout';
+import Footer from '../../containers/writtentestclocksecond/footer';
+import ShareWx from '../../containers/writtentestclocksecond/sharewx';
+import Action from '../../action/writtentestclocksecond';
 import React from 'react';
 
 export default class extends React.Component {

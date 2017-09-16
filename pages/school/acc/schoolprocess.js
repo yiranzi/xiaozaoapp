@@ -2,7 +2,7 @@
 <<<<<<< 3004cee318ef336f39b8393311f4e6c51b43cdba
 import React from 'react'
 import Layout from '../../../components/school/schoolLayout'
-import SchoolProcessPage from '../../../containers/acc/schoolprocess/index'
+import SchoolProcessPage from '../../../containers/school/acc/schoolprocess/index'
 
 export default class extends React.Component {
 =======

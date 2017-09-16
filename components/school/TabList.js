@@ -5,7 +5,7 @@ import {
   NavBar,
   NavBarItem
 } from 'react-weui'
-import List from '../../components/school/list'
+import List from './list'
 
 export default class TabList extends React.Component {
   constructor (props) {

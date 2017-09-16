@@ -1,10 +1,10 @@
 import React from 'react';
-import ToolsUtil from '../../src/util/tools';
+import ToolsUtil from '../../util/tools';
 import ThemeConfig from '../../config/theme';
-import WrittenTestClock from '../../src/page/writtentestclock/components/layout';
-import WrittenTestClockSecondAction from '../../src/action/writtentestclocksecond/index';
-import SubjectComponent from '../../src/page/writtentestclock/components/subject';
-import Loading from '../../src/components/loading';
+import WrittenTestClock from '../../containers/writtentestclock/components/layout';
+import WrittenTestClockSecondAction from '../../action/writtentestclocksecond/index';
+import SubjectComponent from '../../containers/writtentestclock/components/subject';
+import Loading from '../../components/loading';
 
 export default class extends React.Component {
   constructor (props) {

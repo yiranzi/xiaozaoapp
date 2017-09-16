@@ -2,6 +2,7 @@
 <<<<<<< 3004cee318ef336f39b8393311f4e6c51b43cdba
 import React from 'react'
 import Layout from '../../../components/school/schoolLayout'
+<<<<<<< b804211441c4503475c314425b207580923bc267
 import SchoolProcessExpPage from '../../../containers/didi/schoolprocessExp/index'
 =======
 import React from 'react';
@@ -18,6 +19,9 @@ import SchoolProcessExpPage from '../../../src/page/didi/schoolprocessExp/index'
 import Layout from '../../../components/school/schoolLayout'
 import SchoolProcessExpPage from '../../../page/didi/schoolprocessExp/index'
 >>>>>>> update: project constructor
+=======
+import SchoolProcessExpPage from '../../../containers/school/didi/schoolprocessExp/index'
+>>>>>>> update: 调整目录结构
 
 export default class extends React.Component {
   render () {

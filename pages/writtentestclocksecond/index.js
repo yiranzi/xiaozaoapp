@@ -1,5 +1,5 @@
 import React from 'react';
-import WrittenTestClock from '../../src/page/writtentestclock/components/layout';
+import WrittenTestClock from '../../containers/writtentestclock/components/layout';
 
 export default class extends React.Component {
   renderContent () {

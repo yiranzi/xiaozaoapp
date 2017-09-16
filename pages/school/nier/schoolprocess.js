@@ -2,6 +2,7 @@
 <<<<<<< 151815eb1135c264f1e54fb6f09acc1f82b0fb1a
 import React from 'react'
 import Layout from '../../../components/school/schoolLayout'
+<<<<<<< b804211441c4503475c314425b207580923bc267
 import SchoolProcessPage from '../../../containers/nier/schoolprocess/index'
 =======
 import React from 'react';
@@ -18,6 +19,9 @@ import SchoolProcessPage from '../../../src/page/nier/schoolprocess/index'
 import Layout from '../../../components/school/schoolLayout'
 import SchoolProcessPage from '../../../page/nier/schoolprocess/index'
 >>>>>>> update: project constructor
+=======
+import SchoolProcessPage from '../../../containers/school/nier/schoolprocess/index'
+>>>>>>> update: 调整目录结构
 
 export default class extends React.Component {
   // static async getInitialProps({req}) {
