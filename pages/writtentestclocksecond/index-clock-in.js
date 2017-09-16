@@ -1,41 +1,41 @@
 
-import WrittenTestClock from '../../containers/writtentestclock/components/layout';
-import React from 'react';
-import Footer from '../../containers/writtentestclocksecond/footer';
-import Theme from '../../config/theme';
-import Action from '../../action/writtentestclocksecond';
-import { Toptips } from 'react-weui';
-import classnames from 'classnames';
+import WrittenTestClock from '../../containers/writtentestclock/components/layout'
+import React from 'react'
+import Footer from '../../containers/writtentestclocksecond/footer'
+import Theme from '../../config/theme'
+import Action from '../../action/writtentestclocksecond'
+import { Toptips } from 'react-weui'
+import classnames from 'classnames'
 
 export default class extends React.Component {
   constructor (props) {
-    super(props);
-    let set = new Set();
+    super(props)
+    let set = new Set()
     while (set.size < 5) {
-      set.add(Math.round(200 * Math.random()));
+      set.add(Math.round(200 * Math.random()))
     }
-    let randomAvatars = Array.from(set);
+    let randomAvatars = Array.from(set)
 
     this.state = {
       tipsMsg: '',
       showPage: false,
       randomAvatars,
       exceeds: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 8, 8, 8, 9, 9, 9, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 39, 42, 44, 46, 48, 51, 54, 57, 60, 63, 65, 67, 69, 72, 75, 77, 80, 82, 84, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 96, 96, 96, 96, 97, 97, 97, 97, 97, 98, 98, 98, 98, 98, 99, 99, 99, 99, 99, 100]
-    };
+    }
   }
 
   componentDidMount = async () => {
     try {
-      const info = await Action.getHistory();
-      const { startDay, endDay, completeDay, evaluationAccuracy } = info;
-      const dateLength = Math.ceil((endDay - startDay) / 3600 / 24 / 1000) + 1;
-      const currentDayIndex = completeDay.length;
-      let renderList = [];
-      let totalUser = info.totalUserCount;
-      let hasPrize = true;
-      let countdownDay = dateLength - completeDay.length;
+      const info = await Action.getHistory()
+      const { startDay, endDay, completeDay, evaluationAccuracy } = info
+      const dateLength = Math.ceil((endDay - startDay) / 3600 / 24 / 1000) + 1
+      const currentDayIndex = completeDay.length
+      let renderList = []
+      let totalUser = info.totalUserCount
+      let hasPrize = true
+      let countdownDay = dateLength - completeDay.length
       for (let i = 0; i < dateLength; i++) {
-        const item = completeDay[i] || {};
+        const item = completeDay[i] || {}
         /** item.type
           * 2: 打卡完成
           * 1: 打卡未完成
@@ -43,23 +43,23 @@ export default class extends React.Component {
           **/
         if (completeDay[i]) {
           if (completeDay[i].completed) {
-            item.type = 2;
+            item.type = 2
           } else {
             if (currentDayIndex === i + 1) {
-              item.type = 0;
+              item.type = 0
             } else {
-              item.type = 1;
+              item.type = 1
             }
           }
 
           if (!completeDay[i].completed &&
             (currentDayIndex !== i + 1)) {
-            hasPrize = false;
+            hasPrize = false
           }
         } else {
-          item.type = 0;
+          item.type = 0
         }
-        renderList.push(item);
+        renderList.push(item)
       }
 
       this.setState({
@@ -72,23 +72,23 @@ export default class extends React.Component {
         totalUser,
         hasPrize,
         showPage: true
-      });
+      })
     } catch (error) {
       this.setState({
         tipsMsg: error.message,
         showPage: true
-      });
+      })
     }
   }
 
   rowClick = (type, index) => {
-    if (type !== 0) location.href = `/writtentestclocksecond/task?category=task&day=${index + 1}`;
+    if (type !== 0) location.href = `/writtentestclocksecond/task?category=task&day=${index + 1}`
   }
 
   renderRow = (item, index) => {
-    const { accuracy, completeUser } = item;
-    const beat = accuracy ? this.state.exceeds[accuracy] : '';
-    const dayIndex = index + 1;
+    const { accuracy, completeUser } = item
+    const beat = accuracy ? this.state.exceeds[accuracy] : ''
+    const dayIndex = index + 1
     return (
       <div onClick={() => this.rowClick(item.type, index)} key={index} className={classnames('table-row', { 'check': item.type === 2, 'cross': item.type === 1, 'next-todo': item.type === 0 })}>
         <div className='table-content'>
@@ -149,17 +149,17 @@ export default class extends React.Component {
           }
         `}</style>
       </div>
-    );
+    )
   }
 
   render () {
-    const { showPage, tipsMsg, renderList, totalUser, hasPrize, countdownDay, evaluationAccuracy, exceeds, randomAvatars, currentDayIndex } = this.state;
+    const { showPage, tipsMsg, renderList, totalUser, hasPrize, countdownDay, evaluationAccuracy, exceeds, randomAvatars, currentDayIndex } = this.state
     if (!showPage) {
       return (
         <WrittenTestClock>
           <Footer />
         </WrittenTestClock>
-      );
+      )
     }
 
     if (tipsMsg) {
@@ -168,7 +168,7 @@ export default class extends React.Component {
           <Toptips type='warn' show> {tipsMsg} </Toptips>
           <Footer />
         </WrittenTestClock>
-      );
+      )
     }
     return (
       <WrittenTestClock>
@@ -187,12 +187,12 @@ export default class extends React.Component {
                 <div>击败了</div>
               </div>
               {renderList.map((item, index) => {
-                return this.renderRow(item, index);
+                return this.renderRow(item, index)
               })}
               <div className='partake'>
                 <div className='count'>已有{totalUser}人参加</div>
                 {randomAvatars.map((item, index) => {
-                  return <div key={index} className='avatar' style={{backgroundImage: `url(/static/writtentestclocksecond/avatars/${item}.jpg)`}} />;
+                  return <div key={index} className='avatar' style={{backgroundImage: `url(/static/writtentestclocksecond/avatars/${item}.jpg)`}} />
                 })}
                 <div className='ellipsis'>······</div>
               </div>
@@ -340,6 +340,6 @@ export default class extends React.Component {
         `}</style>
         </div>
       </WrittenTestClock>
-    );
+    )
   }
 }

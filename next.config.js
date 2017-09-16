@@ -1,7 +1,7 @@
-const path = require('path');
-const glob = require('glob');
+const path = require('path')
+const glob = require('glob')
 
-const ToolsUtil = require('./util/tools');
+const ToolsUtil = require('./util/tools')
 
 module.exports = {
   webpack: (config, {dev}) => {
@@ -39,10 +39,10 @@ module.exports = {
         exclude: /node_modules/
       })
     }
-    config.target = 'async-node';
-    return config;
+    config.target = 'async-node'
+    return config
   },
   exportPathMap: function () {
-    return ToolsUtil.exportPathMap();
+    return ToolsUtil.exportPathMap()
   }
 }

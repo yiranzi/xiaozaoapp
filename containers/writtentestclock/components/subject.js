@@ -87,7 +87,7 @@ export default class WrittenTestClock extends React.Component {
           border: 2px solid ${ThemeConfig.color.writtentestclockmain};
         }
       `}</style>
-    );
+    )
   }
 
   isImg (materialType) {

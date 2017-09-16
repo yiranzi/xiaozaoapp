@@ -1,7 +1,7 @@
-import React from 'react';
-import Header from '../partical/header';
-import {Toptips} from 'react-weui';
-import weui from 'weui';
+import React from 'react'
+import Header from '../partical/header'
+import {Toptips} from 'react-weui'
+import weui from 'weui'
 
 export default class Layout extends React.Component {
   renderChild () {

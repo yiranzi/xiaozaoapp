@@ -1,5 +1,5 @@
-import React from 'react';
-import Theme from '../../config/theme';
+import React from 'react'
+import Theme from '../../config/theme'
 
 export default class extends React.Component {
   renderGlobalCss () {
@@ -28,7 +28,7 @@ export default class extends React.Component {
               border-right: 2px solid #000;
           }
       `}</style>
-    );
+    )
   }
   render () {
     return (
@@ -44,6 +44,6 @@ export default class extends React.Component {
         </a>
         {this.renderGlobalCss()}
       </div>
-    );
+    )
   }
 }
