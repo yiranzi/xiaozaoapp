@@ -1,6 +1,6 @@
 import React from 'react'
 import Layout from '../../../components/school/schoolLayout'
-import SchoolProcessExpPage from '../../../page/nier/schoolprocessExp/index'
+import SchoolProcessExpPage from '../../../containers/nier/schoolprocessExp/index'
 
 export default class extends React.Component {
   render () {

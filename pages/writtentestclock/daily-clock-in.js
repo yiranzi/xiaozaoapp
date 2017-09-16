@@ -1,6 +1,6 @@
 import React from 'react'
-import DailyClockIn from '../../page/writtentestclock/daily-clock-in'
-import WrittenTestClock from '../../page/writtentestclock/components/layout'
+import DailyClockIn from '../../containers/writtentestclock/daily-clock-in'
+import WrittenTestClock from '../../containers/writtentestclock/components/layout'
 // import UserAction from '../../action/writtentestclock/user';
 
 export default class extends React.Component {

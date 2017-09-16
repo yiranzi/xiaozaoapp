@@ -1,6 +1,6 @@
 import React from 'react'
-import FormerClockIn from '../../page/writtentestclock/former-clock-in'
-import WrittenTestClock from '../../page/writtentestclock/components/layout'
+import FormerClockIn from '../../containers/writtentestclock/former-clock-in'
+import WrittenTestClock from '../../containers/writtentestclock/components/layout'
 
 // import UserAction from '../../action/writtentestclock/user';
 

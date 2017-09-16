@@ -1,6 +1,6 @@
 import React from 'react'
 import Layout from '../../../components/school/schoolLayout'
-import SchoolProcessWorkPage from '../../../page/tianzhi/schoolprocessWork/index'
+import SchoolProcessWorkPage from '../../../containers/tianzhi/schoolprocessWork/index'
 
 export default class extends React.Component {
   render () {
