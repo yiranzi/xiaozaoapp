@@ -40,9 +40,9 @@ module.exports = {
       })
     }
     config.target = 'async-node';
-    return config
+    return config;
   },
   exportPathMap: function () {
-    return ToolsUtil.exportPathMap()
+    return ToolsUtil.exportPathMap();
   }
 }
