@@ -26,7 +26,7 @@ ToolsUtil.walkDir = function (dir, files) {
 };
 // next.config.js exportPathMap
 ToolsUtil.exportPathMap = function () {
-  const dir = path.join(__dirname, '../../pages');
+  const dir = path.join(__dirname, '../pages');
 
   let files = [];
   ToolsUtil.walkDir(dir, files);
