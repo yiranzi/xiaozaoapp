@@ -1,6 +1,6 @@
 import React from 'react'
-import WrittenTestClock from '../../page/writtentestclock/components/layout'
-import AnswerPage from '../../page/writtentestclock/answer'
+import WrittenTestClock from '../../containers/writtentestclock/components/layout'
+import AnswerPage from '../../containers/writtentestclock/answer'
 // import AnswerAction from '../../action/writtentestclock/answer';
 
 export default class extends React.Component {

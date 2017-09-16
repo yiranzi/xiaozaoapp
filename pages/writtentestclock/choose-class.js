@@ -1,6 +1,6 @@
 import React from 'react'
-import ChooseClass from '../../page/writtentestclock/choose-class'
-import WrittenTestClock from '../../page/writtentestclock/components/layout'
+import ChooseClass from '../../containers/writtentestclock/choose-class'
+import WrittenTestClock from '../../containers/writtentestclock/components/layout'
 // import UserAction from '../../action/writtentestclock/user';
 
 export default class extends React.Component {
