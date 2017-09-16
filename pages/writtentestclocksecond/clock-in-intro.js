@@ -1,14 +1,14 @@
-import React from 'react';
-import WrittenTestClock from '../../containers/writtentestclock/components/layout';
-import Theme from '../../config/theme';
-import classnames from 'classnames';
-import { Toptips } from 'react-weui';
-import Action from '../../action/writtentestclocksecond';
-import Dialog from '../../containers/writtentestclocksecond/dialog';
+import React from 'react'
+import WrittenTestClock from '../../containers/writtentestclock/components/layout'
+import Theme from '../../config/theme'
+import classnames from 'classnames'
+import { Toptips } from 'react-weui'
+import Action from '../../action/writtentestclocksecond'
+import Dialog from '../../containers/writtentestclocksecond/dialog'
 
 export default class extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       showMore: false,
       isAdvanced: 0,
@@ -17,33 +17,33 @@ export default class extends React.Component {
       showPage: false,
       showDialog: false,
       dialogContent: 'dfasdfasdf'
-    };
+    }
   }
 
   componentDidMount = async () => {
     try {
-      const info = await Action.getEvaluation();
-      const { totalScore, writtenTestTopicDTOList } = info;
-      const score = Math.round(totalScore / writtenTestTopicDTOList.length * 100);
+      const info = await Action.getEvaluation()
+      const { totalScore, writtenTestTopicDTOList } = info
+      const score = Math.round(totalScore / writtenTestTopicDTOList.length * 100)
       this.setState({
         info,
         showPage: true,
         isAdvanced: score ? score > 65 ? 2 : 1 : 0
-      });
+      })
     } catch (error) {
       this.setState({
         error: true,
         showPage: true,
         tipsMsg: error.message,
         showTips: true
-      });
+      })
     }
   };
 
   showMoreClick = () => {
     this.setState({
       showMore: !this.state.showMore
-    });
+    })
   };
 
   renderGlobalCss = () => {
@@ -53,27 +53,27 @@ export default class extends React.Component {
             padding: 0!important;
           }
         `}</style>
-    );
+    )
   };
 
   chooseClass = (isAdvanced) => {
     this.setState({
       showDialog: true,
       dialogContent: isAdvanced ? '确认选择提升进阶班' : '确认选择提升基础班'
-    });
+    })
   };
 
   doRequest = async (isAdvanced) => {
     try {
-      await Action.selectGroups({ group: isAdvanced ? 'H' : 'N' });
-      location.href = '/writtentestclock/choose-class';
+      await Action.selectGroups({ group: isAdvanced ? 'H' : 'N' })
+      location.href = '/writtentestclock/choose-class'
     } catch (error) {
-      clearTimeout(this.timeout);
+      clearTimeout(this.timeout)
       this.setState({
         tipsMsg: error.message,
         showTips: true
-      });
-      this.timeout = setTimeout(() => this.setState({ showTips: false }), 2000);
+      })
+      this.timeout = setTimeout(() => this.setState({ showTips: false }), 2000)
     }
   }
 
@@ -84,24 +84,24 @@ export default class extends React.Component {
         type: 'default',
         label: '取消',
         onClick: () => {
-          this.setState({ showDialog: false });
+          this.setState({ showDialog: false })
         }
       }, {
         type: 'primary',
         label: '确定',
         onClick: () => {
-          this.doRequest();
-          this.setState({ showDialog: false });
+          this.doRequest()
+          this.setState({ showDialog: false })
         }
       }
     ]
   }
 
   render () {
-    const { showMore, isAdvanced, showTips, tipsMsg, showPage, showDialog, dialogContent } = this.state;
-    const { title, buttons } = this.dialogConfig;
+    const { showMore, isAdvanced, showTips, tipsMsg, showPage, showDialog, dialogContent } = this.state
+    const { title, buttons } = this.dialogConfig
 
-    if (!showPage) return <div />;
+    if (!showPage) return <div />
     return (
       <WrittenTestClock>
         <img className='bg-img' src='/static/writtentestclock/intro.jpeg' />
@@ -209,6 +209,6 @@ export default class extends React.Component {
         `}</style>
         {this.renderGlobalCss()}
       </WrittenTestClock>
-    );
+    )
   }
 }

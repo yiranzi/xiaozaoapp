@@ -1,14 +1,14 @@
-import React from 'react';
-import ToolsUtil from '../../util/tools';
-import ThemeConfig from '../../config/theme';
-import WrittenTestClock from '../../containers/writtentestclock/components/layout';
-import WrittenTestClockSecondAction from '../../action/writtentestclocksecond/index';
-import SubjectComponent from '../../containers/writtentestclock/components/subject';
-import Loading from '../../components/loading';
+import React from 'react'
+import ToolsUtil from '../../util/tools'
+import ThemeConfig from '../../config/theme'
+import WrittenTestClock from '../../containers/writtentestclock/components/layout'
+import WrittenTestClockSecondAction from '../../action/writtentestclocksecond/index'
+import SubjectComponent from '../../containers/writtentestclock/components/subject'
+import Loading from '../../components/loading'
 
 export default class extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       category: '',
       day: '',
@@ -19,62 +19,62 @@ export default class extends React.Component {
       isShowAnalysis: false,
       isSubmit: false,
       isLoading: true
-    };
+    }
   }
 
   componentDidMount = async () => {
-    const category = ToolsUtil.getQueryString('category');
-    let questionList;
+    const category = ToolsUtil.getQueryString('category')
+    let questionList
     // 首次测评
     try {
       if (category === 'entrance') {
-        const action = ToolsUtil.getQueryString('action');
-        questionList = await WrittenTestClockSecondAction.getEvaluation();
+        const action = ToolsUtil.getQueryString('action')
+        questionList = await WrittenTestClockSecondAction.getEvaluation()
         if (action === 'review') {
           // 查看解析
-          this.setState({questionList: questionList, isShowAnalysis: true, category: 'entrance'});
+          this.setState({questionList: questionList, isShowAnalysis: true, category: 'entrance'})
         } else {
           // 做题
-          this.setState({questionList: questionList, category: 'entrance'});
+          this.setState({questionList: questionList, category: 'entrance'})
         }
         // 最后测评
       } else if (category === 'finish') {
-        const action = ToolsUtil.getQueryString('action');
-        questionList = await WrittenTestClockSecondAction.getTest();
+        const action = ToolsUtil.getQueryString('action')
+        questionList = await WrittenTestClockSecondAction.getTest()
         if (action === 'review') {
           // 查看解析
-          this.setState({questionList: questionList, isShowAnalysis: true, category: 'finish'});
+          this.setState({questionList: questionList, isShowAnalysis: true, category: 'finish'})
         } else {
           // 最后测评
-          this.setState({questionList: questionList, category: 'finish'});
+          this.setState({questionList: questionList, category: 'finish'})
         }
         // 每日做题
       } else if (category === 'task') {
-        const day = ToolsUtil.getQueryString('day');
-        questionList = await WrittenTestClockSecondAction.getByDay(day);
+        const day = ToolsUtil.getQueryString('day')
+        questionList = await WrittenTestClockSecondAction.getByDay(day)
         // 需要判断是查看过去的还是今日打卡
         if (questionList.today) {
-          this.setState({questionList: questionList});
+          this.setState({questionList: questionList})
         } else {
-          this.setState({questionList: questionList, isShowAnalysis: true});
+          this.setState({questionList: questionList, isShowAnalysis: true})
         }
       }
     } catch (e) {
-      this.setState({isSubmit: false, isLoading: false});
-      const {message} = e;
+      this.setState({isSubmit: false, isLoading: false})
+      const {message} = e
       if (message) {
-        alert(message);
+        alert(message)
       } else {
-        alert(e);
+        alert(e)
       }
     }
   };
 
   renderAnswer (currentObjectIndex, questionList) {
-    const {answerDTOList, writtenTestTopicDTOList} = questionList;
-    const questionItem = writtenTestTopicDTOList[currentObjectIndex];// 题目详情
+    const {answerDTOList, writtenTestTopicDTOList} = questionList
+    const questionItem = writtenTestTopicDTOList[currentObjectIndex]// 题目详情
 
-    const {answerListResult, isShowAnalysis} = this.state;
+    const {answerListResult, isShowAnalysis} = this.state
     // 显示答题记录
     if (isShowAnalysis || answerDTOList.length > 1) {
       const subjectItem = {
@@ -83,52 +83,52 @@ export default class extends React.Component {
         questionItem: questionItem, // 题目数组
         selectAnswer: answerDTOList[currentObjectIndex] ? answerDTOList[currentObjectIndex].answer : '', // 已选答案,
         disabled: true
-      };
+      }
       return (
         <div className='subject-item' >
           <SubjectComponent
             subjectItem={subjectItem}
           />
         </div >
-      );
+      )
       // 答题过程
     } else {
-      const selectAnswer = answerListResult[questionItem.id] ? answerListResult[questionItem.id].tag : '';
+      const selectAnswer = answerListResult[questionItem.id] ? answerListResult[questionItem.id].tag : ''
       const subjectItem = {
         total: writtenTestTopicDTOList.length, // 当前试卷总共多少题
         currentIndex: currentObjectIndex, // 当前题目在数组中的编号
         questionItem: questionItem, // 题目数组
         selectAnswer: selectAnswer// 已选答案
-      };
+      }
       return (
         <div className='subject-item' >
           <SubjectComponent
             subjectItem={subjectItem}
             onChange={(value) => {
-              this.answerCheck(questionItem.id, value);
+              this.answerCheck(questionItem.id, value)
             }}
           />
         </div >
-      );
+      )
     }
   }
 
   answerCheck (id, value) {
     // const {answerList} = this.state;
-    let {answerListResult} = this.state;
-    answerListResult[id] = answerListResult[id] || {};
-    answerListResult[id].tag = value;
+    let {answerListResult} = this.state
+    answerListResult[id] = answerListResult[id] || {}
+    answerListResult[id].tag = value
     this.setState({
       answerListResult: answerListResult
-    });
+    })
   }
 
   renderAnswerAnalysis (currentObjectIndex, questionList) {
-    const {isShowAnalysis} = this.state;
-    const {answerDTOList, writtenTestTopicDTOList} = questionList;
-    const questionItem = writtenTestTopicDTOList[currentObjectIndex];
-    const {id, answer, analysis} = questionItem;
-    const answerList = this.formatAnswerDTOList(answerDTOList);
+    const {isShowAnalysis} = this.state
+    const {answerDTOList, writtenTestTopicDTOList} = questionList
+    const questionItem = writtenTestTopicDTOList[currentObjectIndex]
+    const {id, answer, analysis} = questionItem
+    const answerList = this.formatAnswerDTOList(answerDTOList)
 
     const analysisContent = (
       <div className='analysis' >
@@ -155,99 +155,98 @@ export default class extends React.Component {
             `}</style >
         </div >
       </div >
-    );
+    )
 
-    const category = ToolsUtil.getQueryString('category');
+    const category = ToolsUtil.getQueryString('category')
 
     if (isShowAnalysis) {
-      return analysisContent;
+      return analysisContent
     }
     if (category === 'task' && answerList.hasOwnProperty(id)) {
-      return analysisContent;
+      return analysisContent
     }
   }
 
   formatAnswerDTOList (answerDTOList) {
-    let json = {};
+    let json = {}
     answerDTOList.map((item, index) => {
-      json[item.id] = item.answer;
-    });
-    return json;
+      json[item.id] = item.answer
+    })
+    return json
   }
 
   renderFinishButton (currentObjectIndex) {
     return (
       <div className='finish' >
         <div onClick={() => {
-          this.prevAnswer(currentObjectIndex);
+          this.prevAnswer(currentObjectIndex)
         }} >
           <img src='/static/writtentestclock/prev.png' />
         </div >
         {this.renderCompleteButton()}
       </div >
-    );
+    )
   }
 
   renderCompleteButton () {
-    const {category} = this.state;
+    const {category} = this.state
     if (category === 'entrance' || category === 'finish') {
       return (
         <div onClick={() => this.answerComplete()} >
           <img src='/static/writtentestclock/complete-test.png' />
         </div >
-      );
+      )
     } else {
       return (
         <div onClick={() => this.answerComplete()} ><img src='/static/writtentestclock/complete.png' /></div >
-      );
-
+      )
     }
   }
 
   answerComplete = async () => {
-    const {initTime} = this.state;
-    const {setId} = this.state.questionList;
-    const answerList = this.formatAnswerList();
+    const {initTime} = this.state
+    const {setId} = this.state.questionList
+    const answerList = this.formatAnswerList()
     try {
-      this.setState({isSubmit: true});
-      const spendTime = new Date() - initTime;
+      this.setState({isSubmit: true})
+      const spendTime = new Date() - initTime
       const data = JSON.stringify({
         setId: setId,
         time: spendTime,
         answerDTOList: answerList
-      });
+      })
 
-      await WrittenTestClockSecondAction.complete(data);
+      await WrittenTestClockSecondAction.complete(data)
       // location.href = '/writtentestclock/clock-in-result';
     } catch (e) {
-      console.log(e);
-      this.setState({isSubmit: false});
+      console.log(e)
+      this.setState({isSubmit: false})
     }
   };
 
   formatAnswerList () {
-    const {questionList, answerListResult} = this.state;
-    let answerList = [];
+    const {questionList, answerListResult} = this.state
+    let answerList = []
 
     questionList.writtenTestTopicDTOList.map((item, index) => {
-      const {id} = item;
-      let seleteAnswer = answerListResult[id] ? answerListResult[id].tag : '';
-      answerList.push({id: item.id, answer: seleteAnswer});
-    });
-    return answerList;
+      const {id} = item
+      let seleteAnswer = answerListResult[id] ? answerListResult[id].tag : ''
+      answerList.push({id: item.id, answer: seleteAnswer})
+    })
+    return answerList
   }
 
   renderActionButton (currentObjectIndex, questions) {
     return (
       <div className='action' >
         <div onClick={() => {
-          this.prevAnswer(currentObjectIndex);
+          this.prevAnswer(currentObjectIndex)
         }} ><img src='/static/writtentestclock/prev.png' /></div >
         <div onClick={() => {
-          this.nextAnswer(currentObjectIndex, questions);
+          this.nextAnswer(currentObjectIndex, questions)
         }} ><img src='/static/writtentestclock/next.png' /></div >
       </div >
-    );
+    )
   }
 
   prevAnswer (currentObjectIndex) {
@@ -255,40 +254,40 @@ export default class extends React.Component {
       this.setState({
         currentObjectIndex: currentObjectIndex - 1,
         finish: false
-      });
+      })
     }
   }
 
   nextAnswer (currentObjectIndex, questionList) {
-    let nextObjectIndex = currentObjectIndex + 1;
-    const {writtenTestTopicDTOList} = questionList;
+    let nextObjectIndex = currentObjectIndex + 1
+    const {writtenTestTopicDTOList} = questionList
     if (nextObjectIndex >= writtenTestTopicDTOList.length - 1) {
       this.setState({
         finish: true
-      });
+      })
     } else {
       this.setState({
         currentObjectIndex: nextObjectIndex
-      });
+      })
     }
   }
 
   renderAnalysisActionButton (currentObjectIndex, questionList) {
-    return this.renderActionButton(currentObjectIndex, questionList);
+    return this.renderActionButton(currentObjectIndex, questionList)
   }
 
   renderTaskActionButton (currentObjectIndex, questionList) {
-    const {finish} = this.state;
-    const {answerDTOList} = this.state.questionList;
+    const {finish} = this.state
+    const {answerDTOList} = this.state.questionList
     if (finish && answerDTOList.length < 1) {
-      return this.renderFinishButton(currentObjectIndex);
+      return this.renderFinishButton(currentObjectIndex)
     } else {
-      return this.renderActionButton(currentObjectIndex, questionList);
+      return this.renderActionButton(currentObjectIndex, questionList)
     }
   }
 
   render () {
-    const {currentObjectIndex, questionList, isSubmit, isLoading, isShowAnalysis} = this.state;
+    const {currentObjectIndex, questionList, isSubmit, isLoading, isShowAnalysis} = this.state
     if (questionList.hasOwnProperty('setId')) {
       return (
         <WrittenTestClock >
@@ -303,13 +302,13 @@ export default class extends React.Component {
           </div >
           {isSubmit && <Loading />}
         </WrittenTestClock >
-      );
+      )
     } else {
       return (
         <WrittenTestClock >
           {isLoading && <Loading />}
         </WrittenTestClock >
-      );
+      )
     }
   }
 }

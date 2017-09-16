@@ -1,11 +1,11 @@
-import React from 'react';
-import WrittenTestClock from '../../containers/writtentestclock/components/layout';
+import React from 'react'
+import WrittenTestClock from '../../containers/writtentestclock/components/layout'
 
 export default class extends React.Component {
   renderContent () {
     return (
       <div />
-    );
+    )
   }
   renderGlobalCss () {
     return (
@@ -14,7 +14,7 @@ export default class extends React.Component {
           padding: 0;
         }
       `}</style>
-    );
+    )
   }
   render () {
     return (
@@ -49,6 +49,6 @@ export default class extends React.Component {
           }
         `}</style>
       </WrittenTestClock>
-    );
+    )
   }
 }

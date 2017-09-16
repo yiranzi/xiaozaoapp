@@ -1,3 +1,4 @@
+<<<<<<< dae871440af7e7651c950803f0c1774b8f7df1dd
 <<<<<<< 7561a7441aeacdb8c2ba06ad57cc673154a71b81
 import React from 'react'
 import Header from './header'
@@ -21,6 +22,12 @@ import styles from '../scss/global.scss';
 >>>>>>> style: add scss loader
 =======
 >>>>>>> update: 调整目录结构
+=======
+import React from 'react'
+import Header from '../partical/header'
+import {Toptips} from 'react-weui'
+import weui from 'weui'
+>>>>>>> update: eslint .
 
 export default class Layout extends React.Component {
   renderChild () {

@@ -1,6 +1,6 @@
-import WrittenTestClock from '../../containers/writtentestclock/components/layout';
-import Footer from '../../containers/writtentestclocksecond/footer';
-import React from 'react';
+import WrittenTestClock from '../../containers/writtentestclock/components/layout'
+import Footer from '../../containers/writtentestclocksecond/footer'
+import React from 'react'
 
 export default class extends React.Component {
   renderGlobalCss () {
@@ -10,7 +10,7 @@ export default class extends React.Component {
           padding: 0!important;
         }
       `}</style>
-    );
+    )
   }
   render () {
     return (
@@ -30,6 +30,6 @@ export default class extends React.Component {
           `}</style>
         </div>
       </WrittenTestClock>
-    );
+    )
   }
 }

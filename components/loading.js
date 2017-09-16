@@ -1,5 +1,5 @@
-import React from 'react';
-import {LoadMore} from 'react-weui';
+import React from 'react'
+import {LoadMore} from 'react-weui'
 
 export default class Loading extends React.Component {
   render () {
@@ -25,6 +25,6 @@ export default class Loading extends React.Component {
           }
         `}</style >
       </div >
-    );
+    )
   }
 }

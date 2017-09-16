@@ -1,13 +1,13 @@
 
-import WrittenTestClock from '../../containers/writtentestclock/components/layout';
-import Footer from '../../containers/writtentestclocksecond/footer';
-import ShareWx from '../../containers/writtentestclocksecond/sharewx';
-import Action from '../../action/writtentestclocksecond';
-import React from 'react';
+import WrittenTestClock from '../../containers/writtentestclock/components/layout'
+import Footer from '../../containers/writtentestclocksecond/footer'
+import ShareWx from '../../containers/writtentestclocksecond/sharewx'
+import Action from '../../action/writtentestclocksecond'
+import React from 'react'
 
 export default class extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
 
     this.state = {
       todayInfo: null,
@@ -15,29 +15,29 @@ export default class extends React.Component {
       shareIsShow: false,
       showPage: false,
       exceeds: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 8, 8, 8, 9, 9, 9, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 39, 42, 44, 46, 48, 51, 54, 57, 60, 63, 65, 67, 69, 72, 75, 77, 80, 82, 84, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 96, 96, 96, 96, 97, 97, 97, 97, 97, 98, 98, 98, 98, 98, 99, 99, 99, 99, 99, 100]
-    };
+    }
   }
 
   componentDidMount = async () => {
     try {
-      const todayInfo = await Action.getToday();
-      const res = await Action.getHistory();
+      const todayInfo = await Action.getToday()
+      const res = await Action.getHistory()
       this.setState({
         todayInfo,
         todayNo: res.completeDay.length,
         showPage: true
-      });
+      })
     } catch (err) {
       this.setState({
         showPage: true
-      });
+      })
     }
   }
 
   shareWx = () => {
     this.setState({
       shareIsShow: true
-    });
+    })
   }
 
   renderGlobalCss () {
@@ -47,12 +47,12 @@ export default class extends React.Component {
                   padding: 0!important;
               }
             `}</style>
-    );
+    )
   }
   render () {
-    const { todayInfo, showPage } = this.state;
-    if (!showPage) return <Footer />;
-    const accuracy = !todayInfo ? 0 : todayInfo.writtenTestTopicDTOList.length === 0 ? 0 : Math.round(todayInfo.totalScore / todayInfo.writtenTestTopicDTOList.length * 100);
+    const { todayInfo, showPage } = this.state
+    if (!showPage) return <Footer />
+    const accuracy = !todayInfo ? 0 : todayInfo.writtenTestTopicDTOList.length === 0 ? 0 : Math.round(todayInfo.totalScore / todayInfo.writtenTestTopicDTOList.length * 100)
 
     return (
       <WrittenTestClock>
@@ -143,6 +143,6 @@ export default class extends React.Component {
         `}</style>
         </div>
       </WrittenTestClock>
-    );
+    )
   }
 }
