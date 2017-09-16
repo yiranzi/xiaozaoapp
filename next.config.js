@@ -18,7 +18,7 @@ module.exports = {
     if (process.env.NODE_ENV === 'production') {
       config.module.rules.push({
         test: /\.js(\?[^?]*)?$/,
-        loader: './src/loader/static-path',
+        loader: './loader/static-path',
         exclude: /node_modules/
       })
     }
