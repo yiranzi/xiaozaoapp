@@ -1,8 +1,15 @@
 import React from 'react'
+<<<<<<< 976b0990b9936056310b888556cd1b6d55a35a44:containers/writtentestclock/daily-clock-in/index.js
 import Theme from '../../../config/theme'
 import Footer from '../components/footer'
 import UserAction from '../../../action/writtentestclock/user'
 import AnswerAction from '../../../action/writtentestclock/answer'
+=======
+import Theme from '../../../../config/theme'
+import Footer from '../components/footer'
+import UserAction from '../../../../src/action/writtentestclock/user'
+import AnswerAction from '../../../../src/action/writtentestclock/answer'
+>>>>>>> update: eslinit code style:src/page/writtentestclock/daily-clock-in/index.js
 import { Toptips } from 'react-weui'
 export default class extends React.Component {
   constructor (props) {

@@ -1,10 +1,10 @@
-import React from 'react';
-import Theme from '../../../../config/theme';
-import UserAction from '../../../../src/action/writtentestclock/user';
-import AnswerAction from '../../../../src/action/writtentestclock/answer';
+import React from 'react'
+import Theme from '../../../../config/theme'
+import UserAction from '../../../../src/action/writtentestclock/user'
+import AnswerAction from '../../../../src/action/writtentestclock/answer'
 export default class extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       list: [],
       showPage: false,
@@ -16,27 +16,36 @@ export default class extends React.Component {
       currPersent: 0,
       exceeds: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 8, 8, 8, 9, 9, 9, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 39, 42, 44, 46, 48, 51, 54, 57, 60, 63, 65, 67, 69, 72, 75, 77, 80, 82, 84, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 96, 96, 96, 96, 97, 97, 97, 97, 97, 98, 98, 98, 98, 98, 99, 99, 99, 99, 99, 100]
 
-    };
+    }
   }
 
   componentDidMount = async () => {
     try {
+<<<<<<< 976b0990b9936056310b888556cd1b6d55a35a44
       const info = await UserAction.getInfo();
       const result = await AnswerAction.getTest();
       const { testResult, startDay, endDay } = info;
       const {totalScore, writtenTestTopicDTOList} = result;
       const totalDay = endDay - startDay + 1;
       const currPersent = Math.round(totalScore / writtenTestTopicDTOList.length);
+=======
+      const info = await UserAction.getInfo()
+      const result = await AnswerAction.getTest()
+      const { testResult, startDay, endDay } = info
+      const {totalScore, writtenTestTopicDTOList} = result
+      const totalDay = endDay - startDay + 1
+      const currPersent = Math.round(totalScore / writtenTestTopicDTOList.length * 100)
+>>>>>>> update: eslinit code style
 
-      let clockInCompleted = true;
-      let checkDays = 0;
+      let clockInCompleted = true
+      let checkDays = 0
       info.completeDay.forEach((item, index) => {
         if (item) {
-          checkDays++;
+          checkDays++
         } else {
-          clockInCompleted = false;
+          clockInCompleted = false
         }
-      });
+      })
 
       this.setState({
         currPersent,
@@ -46,12 +55,12 @@ export default class extends React.Component {
         clockInCompleted,
         totalDay,
         showPage: true
-      });
+      })
     } catch (error) {
       this.setState({
         tipsMsg: error.message,
         showPage: true
-      });
+      })
     }
   }
 
@@ -62,11 +71,11 @@ export default class extends React.Component {
           padding: 0!important;
         }
       `}</style>
-    );
+    )
   }
 
   renderTop = () => {
-    const {clockInCompleted, checkDays, totalDay, totalScore, currPersent, exceeds} = this.state;
+    const {clockInCompleted, checkDays, totalDay, totalScore, currPersent, exceeds} = this.state
     if (clockInCompleted) {
       return (
         <div>
@@ -74,7 +83,7 @@ export default class extends React.Component {
           <div>本次笔试测试你答对{totalScore}道题，总正确率{currPersent}％</div>
           <div>笔试答题战斗力超过了{exceeds[currPersent]}％的笔试打卡学习者！</div>
         </div>
-      );
+      )
     } else {
       return (
         <div>
@@ -83,12 +92,12 @@ export default class extends React.Component {
           <div>未完成本期笔试打卡任务</div>
           <div>再接再厉</div>
         </div>
-      );
+      )
     }
   }
 
   renderMiddle = () => {
-    const {clockInCompleted, checkDays} = this.state;
+    const {clockInCompleted, checkDays} = this.state
     if (clockInCompleted) {
       return (
         <div>
@@ -106,7 +115,7 @@ export default class extends React.Component {
             }
           `}</style>
         </div>
-      );
+      )
     } else {
       return (
         <div>
@@ -114,14 +123,14 @@ export default class extends React.Component {
           <div>分享报名卡解锁第二期笔试打卡权限吧！</div>
           <div>从这一刻开始改变！</div>
         </div>
-      );
+      )
     }
   }
 
   render () {
-    const { showPage } = this.state;
+    const { showPage } = this.state
 
-    if (!showPage) return <div />;
+    if (!showPage) return <div />
 
     return (
       <div className='exam-result-layout'>
@@ -202,6 +211,6 @@ export default class extends React.Component {
           }
         `}</style>
       </div>
-    );
+    )
   }
 }

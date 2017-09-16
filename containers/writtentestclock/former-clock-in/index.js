@@ -1,7 +1,13 @@
 import React from 'react'
+<<<<<<< 976b0990b9936056310b888556cd1b6d55a35a44:containers/writtentestclock/former-clock-in/index.js
 import Theme from '../../../config/theme'
 import Footer from '../components/footer'
 import UserAction from '../../../action/writtentestclock/user'
+=======
+import Theme from '../../../../config/theme'
+import Footer from '../components/footer'
+import UserAction from '../../../../src/action/writtentestclock/user'
+>>>>>>> update: eslinit code style:src/page/writtentestclock/former-clock-in/index.js
 export default class extends React.Component {
   constructor (props) {
     super(props)

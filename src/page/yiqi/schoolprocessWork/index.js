@@ -1,16 +1,16 @@
-import React from 'react';
-import CompanyDetail from '../../../components/school/companyDetail';
-import SchoolNav from '../../../components/school/schoolNav';
-import List from '../../../components/school/list';
+import React from 'react'
+import CompanyDetail from '../../../components/school/companyDetail'
+import SchoolNav from '../../../components/school/schoolNav'
+import List from '../../../components/school/list'
 
 export default class schoolExp extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       list: [
         {title: '一汽大众销售岗工作体验？', link: 'https://www.zhihu.com/question/28319310'},
         {title: '在上海大众、一汽大众公司工作是一种怎样的体验？', link: 'https://www.zhihu.com/question/24545997'} ]
-    };
+    }
   }
 
   render () {
@@ -21,6 +21,6 @@ export default class schoolExp extends React.Component {
         <SchoolNav fromType='work' processLink='/school/yiqi/schoolprocess' workLink='/school/yiqi/schoolWork' expLink='/school/yiqi/schoolExp' />
         <List list={this.state.list} />
       </div>
-    );
+    )
   }
 }

@@ -1,5 +1,9 @@
 const next = require('next')
+<<<<<<< 976b0990b9936056310b888556cd1b6d55a35a44
 const express = require('express');
+=======
+const express = require('express')
+>>>>>>> update: eslinit code style
 const proxy = require('http-proxy-middleware')
 
 const server = express()

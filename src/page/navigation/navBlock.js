@@ -1,10 +1,10 @@
-import React from 'react';
+import React from 'react'
 export default class NavBlock extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
   }
   render () {
-    const { CompanyName, Image, Time, Href } = this.props;
+    const { CompanyName, Image, Time, Href } = this.props
     return (
       <div className='container'>
         <a href={Href}><img src={Image} /></a>
@@ -58,6 +58,6 @@ export default class NavBlock extends React.Component {
           }
         `}</style>
       </div>
-    );
+    )
   }
 }

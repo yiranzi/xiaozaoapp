@@ -1,5 +1,9 @@
 import React from 'react'
+<<<<<<< 976b0990b9936056310b888556cd1b6d55a35a44:containers/writtentestclock/test-result/index.js
 import AnswerAction from '../../../action/writtentestclock/answer'
+=======
+import AnswerAction from '../../../../src/action/writtentestclock/answer'
+>>>>>>> update: eslinit code style:src/page/writtentestclock/test-result/index.js
 
 export default class TestResultPage extends React.Component {
   constructor (props) {

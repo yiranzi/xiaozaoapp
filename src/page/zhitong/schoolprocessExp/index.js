@@ -1,11 +1,11 @@
-import React from 'react';
-import CompanyDetail from '../../../components/school/companyDetail';
-import SchoolNav from '../../../components/school/schoolNav';
-import TabList from '../../../components/school/TabList';
+import React from 'react'
+import CompanyDetail from '../../../components/school/companyDetail'
+import SchoolNav from '../../../components/school/schoolNav'
+import TabList from '../../../components/school/TabList'
 
 export default class schoolExp extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       list: [
         {title: '致同2016春招笔经+面经', link: 'http://bbs.yingjiesheng.com/thread-2036611-1-1.html', tag: ['笔试', '面试', '', '']},
@@ -23,22 +23,22 @@ export default class schoolExp extends React.Component {
         {title: '重庆理工大学笔试-群面-par面-等offer中', link: 'http://bbs.yingjiesheng.com/forum.php?mod=viewthread&tid=2011826&extra=page%3D1%26filter%3Ddigest%26digest%3D1', tag: ['笔试', '面试', '', '']},
         {title: '致同（SZ）笔试+群面+par面~已拿offer', link: 'http://bbs.yingjiesheng.com/forum.php?mod=viewthread&tid=2007368&extra=page%3D1%26filter%3Ddigest%26digest%3D1', tag: ['笔试', '面试', '', '']}
       ]
-    };
+    }
   }
 
   render () {
     let onlineApply = this.state.list.filter(function (item) {
-      return item.tag.indexOf('网申') !== -1;
-    });
+      return item.tag.indexOf('网申') !== -1
+    })
     let exam = this.state.list.filter(function (item) {
-      return item.tag.indexOf('笔试') !== -1;
-    });
+      return item.tag.indexOf('笔试') !== -1
+    })
     let interview = this.state.list.filter(function (item) {
-      return item.tag.indexOf('面试') !== -1;
-    });
+      return item.tag.indexOf('面试') !== -1
+    })
     let comphensive = this.state.list.filter(function (item) {
-      return item.tag.indexOf('综合') !== -1;
-    });
+      return item.tag.indexOf('综合') !== -1
+    })
     return (
       <div className='main-section'>
         <CompanyDetail headerimage='/static/school/zhitong.png' trade='会计师事务所/咨询/法律/其他专业服务' tag='中国会计师事务所排名 (前20强)'
@@ -46,6 +46,6 @@ export default class schoolExp extends React.Component {
         <SchoolNav fromType='exp' processLink='/school/zhitong/schoolprocess' workLink='/school/zhitong/schoolWork' expLink='/school/zhitong/schoolExp' />
         <TabList onlineApply={onlineApply} exam={exam} interview={interview} all={this.state.list} comphensive={comphensive} />
       </div>
-    );
+    )
   }
 }

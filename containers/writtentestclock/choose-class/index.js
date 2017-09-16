@@ -1,7 +1,13 @@
 import React from 'react'
+<<<<<<< 976b0990b9936056310b888556cd1b6d55a35a44:containers/writtentestclock/choose-class/index.js
 import Theme from '../../../config/theme'
 import { Toptips } from 'react-weui'
 import UserAction from '../../../action/writtentestclock/user'
+=======
+import Theme from '../../../../config/theme'
+import { Toptips } from 'react-weui'
+import UserAction from '../../../../src/action/writtentestclock/user'
+>>>>>>> update: eslinit code style:src/page/writtentestclock/choose-class/index.js
 export default class extends React.Component {
   constructor (props) {
     super(props)

@@ -1,8 +1,14 @@
 import React from 'react'
 import SubjectComponent from '../components/subject'
+<<<<<<< 976b0990b9936056310b888556cd1b6d55a35a44:containers/writtentestclock/test/index.js
 import ThemeConfig from '../../../config/theme'
 import AnswerAction from '../../../action/writtentestclock/answer'
 import CommonUtil from '../../../util/common'
+=======
+import ThemeConfig from '../../../../config/theme'
+import AnswerAction from '../../../../src/action/writtentestclock/answer'
+import CommonUtil from '../../../../src/util/common'
+>>>>>>> update: eslinit code style:src/page/writtentestclock/test/index.js
 
 export default class TestAnswerPage extends React.Component {
   constructor (props) {

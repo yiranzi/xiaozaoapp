@@ -1,16 +1,16 @@
-import React from 'react';
-import CompanyDetail from '../../../components/school/companyDetail';
-import SchoolNav from '../../../components/school/schoolNav';
-import List from '../../../components/school/list';
+import React from 'react'
+import CompanyDetail from '../../../components/school/companyDetail'
+import SchoolNav from '../../../components/school/schoolNav'
+import List from '../../../components/school/list'
 
 export default class schoolExp extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       list: [
         {title: '福特汽车管培岗的校招攻略', link: 'https://www.linkedin.com/wukong-web/companyReflection/1483-200218?ts=1502764975694&trk=company_review_review_share_wechat'}
       ]
-    };
+    }
   }
 
   render () {
@@ -21,6 +21,6 @@ export default class schoolExp extends React.Component {
         <SchoolNav fromType='work' processLink='/school/ford/schoolprocess' workLink='/school/ford/schoolWork' expLink='/school/ford/schoolExp' />
         <List list={this.state.list} />
       </div>
-    );
+    )
   }
 }

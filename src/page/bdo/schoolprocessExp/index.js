@@ -1,11 +1,11 @@
-import React from 'react';
-import CompanyDetail from '../../../components/school/companyDetail';
-import SchoolNav from '../../../components/school/schoolNav';
-import TabList from '../../../components/school/TabList';
+import React from 'react'
+import CompanyDetail from '../../../components/school/companyDetail'
+import SchoolNav from '../../../components/school/schoolNav'
+import TabList from '../../../components/school/TabList'
 
 export default class schoolExp extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       list: [
         {title: '如何用系统思维实践“MECE分析法”', link: 'https://mp.weixin.qq.com/s?__biz=MzIyNjAwMDc3Mg==&mid=2654873335&idx=1&sn=bdac2cbadb4342c0ccc6bcd7b42a8178&scene=4', tag: ['综合', '', '', '']},
@@ -22,22 +22,22 @@ export default class schoolExp extends React.Component {
         {title: '干货贴 | 行业研究不会做？咨询顾问来教你（二）', link: 'https://mp.weixin.qq.com/s?__biz=MzIyNjAwMDc3Mg==&mid=2654875655&idx=3&sn=92d3a9385942b3a0dfce455c92b71168&chksm=f3bdbaecc4ca33fa7ec3c5e1410447ce545389e54fd1cfeb003552c7cee7c3072c51ab1e7d4c&scene=4', tag: ['综合', '', '', '']},
         {title: '干货贴 | 行业研究不会做？咨询顾问来教你（三）', link: 'https://mp.weixin.qq.com/s/VdcUsjJTNV8k9Q7UQScIhw', tag: ['综合', '', '', '']}
       ]
-    };
+    }
   }
 
   render () {
     let onlineApply = this.state.list.filter(function (item) {
-      return item.tag.indexOf('网申') !== -1;
-    });
+      return item.tag.indexOf('网申') !== -1
+    })
     let exam = this.state.list.filter(function (item) {
-      return item.tag.indexOf('笔试') !== -1;
-    });
+      return item.tag.indexOf('笔试') !== -1
+    })
     let interview = this.state.list.filter(function (item) {
-      return item.tag.indexOf('面试') !== -1;
-    });
+      return item.tag.indexOf('面试') !== -1
+    })
     let comphensive = this.state.list.filter(function (item) {
-      return item.tag.indexOf('综合') !== -1;
-    });
+      return item.tag.indexOf('综合') !== -1
+    })
     return (
       <div className='main-section'>
         <CompanyDetail headerimage='/static/school/bain.png' trade='会计师事务所/咨询/法律/其他专业服务' tag='2017Vault咨询公司'
@@ -45,6 +45,6 @@ export default class schoolExp extends React.Component {
         <SchoolNav fromType='exp' processLink='/school/bain/schoolprocess' workLink='/school/bain/schoolWork' expLink='/school/bain/schoolExp' />
         <TabList onlineApply={onlineApply} exam={exam} interview={interview} all={this.state.list} comphensive={comphensive} />
       </div>
-    );
+    )
   }
 }

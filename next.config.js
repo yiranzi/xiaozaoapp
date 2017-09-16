@@ -30,7 +30,7 @@ module.exports = {
             }
           }
         ]
-      });
+      })
     // 静态资源路径处理
     if (process.env.NODE_ENV === 'production') {
       config.module.rules.push({
@@ -40,7 +40,7 @@ module.exports = {
       })
     }
     config.target = 'async-node';
-    return config;
+    return config
   },
   exportPathMap: function () {
     return ToolsUtil.exportPathMap()

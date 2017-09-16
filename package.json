@@ -6,8 +6,12 @@
   },
   "scripts": {
     "dev": "PORT=3000 NODE_ENV=development node dev_server",
+<<<<<<< 976b0990b9936056310b888556cd1b6d55a35a44
     "prebuild": "npm run eslint",
     "build": "NODE_ENV=production next build",
+=======
+    "build": "NODE_ENV=production next build && next export",
+>>>>>>> update: eslinit code style
     "eslint": "eslint .",
     "eslint-fix": "eslint --fix ."
   },

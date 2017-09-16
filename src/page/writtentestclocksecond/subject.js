@@ -1,35 +1,35 @@
-import React from 'react';
-import {Progress, Form} from 'react-weui';
-import Radio from '../../../components/radio';
-import ThemeConfig from '../../../../config/theme';
+import React from 'react'
+import {Progress, Form} from 'react-weui'
+import Radio from '../../../components/radio'
+import ThemeConfig from '../../../../config/theme'
 
 export default class WrittenTestClock extends React.Component {
   renderAnswerOption (currentIndex, options, selectAnswer, disabled) {
-    const {onChange} = this.props;
-    const name = `answer_${currentIndex}`;
+    const {onChange} = this.props
+    const name = `answer_${currentIndex}`
 
     return options.map((item, i) => {
-      const {tag, content} = item;
+      const {tag, content} = item
       const radioItem = Object.assign({}, {
         name: name,
         value: tag,
         defaultValue: selectAnswer,
         label: `${tag}.${content}`,
         disabled: disabled
-      });
-      const key = `answer_${currentIndex}_${i}`;
+      })
+      const key = `answer_${currentIndex}_${i}`
       if (disabled) {
         return (
           <Radio key={key} params={radioItem} disabled />
-        );
+        )
       } else {
         return (
           <Radio key={key} params={radioItem} onChange={(value) => {
-            onChange(value);
+            onChange(value)
           }} />
-        );
+        )
       }
-    });
+    })
   }
 
   renderCss () {
@@ -91,17 +91,17 @@ export default class WrittenTestClock extends React.Component {
   }
 
   isImg (materialType) {
-    return materialType === 2;
+    return materialType === 2
   }
 
   isText (materialType) {
-    return materialType === 1;
+    return materialType === 1
   }
 
   render () {
-    const {total, questionItem, selectAnswer, disabled} = this.props.subjectItem;
-    const {no, materialType, materialContent} = questionItem;
-    let progress = Math.ceil(no / total * 100);
+    const {total, questionItem, selectAnswer, disabled} = this.props.subjectItem
+    const {no, materialType, materialContent} = questionItem
+    let progress = Math.ceil(no / total * 100)
     return (
       <div className='subject-detail'>
         <div className='text'>答题进度条</div>
@@ -124,6 +124,6 @@ export default class WrittenTestClock extends React.Component {
         </div>
         {this.renderCss()}
       </div>
-    );
+    )
   }
 }

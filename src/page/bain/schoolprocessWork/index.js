@@ -1,16 +1,16 @@
-import React from 'react';
-import CompanyDetail from '../../../components/school/companyDetail';
-import SchoolNav from '../../../components/school/schoolNav';
-import List from '../../../components/school/list';
+import React from 'react'
+import CompanyDetail from '../../../components/school/companyDetail'
+import SchoolNav from '../../../components/school/schoolNav'
+import List from '../../../components/school/list'
 
 export default class schoolExp extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       list: [
         {title: '在立信会计师事务所的实习体验', link: 'http://bbs.yingjiesheng.com/thread-1977297-1-1.html'}
       ]
-    };
+    }
   }
 
   render () {
@@ -21,6 +21,6 @@ export default class schoolExp extends React.Component {
         <SchoolNav fromType='work' processLink='/school/bdo/schoolprocess' workLink='/school/bdo/schoolWork' expLink='/school/bdo/schoolExp' />
         <List list={this.state.list} />
       </div>
-    );
+    )
   }
 }
