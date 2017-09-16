@@ -1,11 +1,11 @@
-import React from 'react';
-import CompanyDetail from '../../../components/school/companyDetail';
-import SchoolNav from '../../../components/school/schoolNav';
-import List from '../../../components/school/list';
+import React from 'react'
+import CompanyDetail from '../../../components/school/companyDetail'
+import SchoolNav from '../../../components/school/schoolNav'
+import List from '../../../components/school/list'
 
 export default class schoolExp extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       list: [
         {title: '直播间密码668 | 拿过3家四大5份offer的老司机和你聊四大！', link: 'https://m.qlchat.com/topic/240000058017415.htm?isGuide=Y'},
@@ -23,7 +23,7 @@ export default class schoolExp extends React.Component {
         {title: '咨询篇：普华永道做咨询的个人体会', link: 'https://www.linkedin.com/wukong-web/companyReflection/1044-302151?ts=1502767732613&trk=company_review_review_share_wechat'},
         {title: '审计篇：两年PwC，我的成长和收获', link: 'https://www.linkedin.com/wukong-web/companyReflection/1044-300155?ts=1502767754323&trk=company_review_review_share_wechat'},
         {title: '税务篇：四大会计事务所工作状态究竟如何？——前普华永道员工亲身讲解', link: 'http://www.jianshu.com/p/437fe441dc18'}]
-    };
+    }
   }
 
   render () {
@@ -34,6 +34,6 @@ export default class schoolExp extends React.Component {
         <SchoolNav fromType='work' processLink='/school/pwccn/schoolprocess' workLink='/school/pwccn/schoolWork' expLink='/school/pwccn/schoolExp' />
         <List list={this.state.list} />
       </div>
-    );
+    )
   }
 }

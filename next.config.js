@@ -30,19 +30,19 @@ module.exports = {
             }
           }
         ]
-      });
+      })
     // 静态资源路径处理
     if (process.env.NODE_ENV === 'production') {
       config.module.rules.push({
         test: /\.js(\?[^?]*)?$/,
         loader: './src/loader/static-path',
         exclude: /node_modules/
-      });
+      })
     }
     config.target = 'async-node';
-    return config;
+    return config
   },
   exportPathMap: function () {
     return ToolsUtil.exportPathMap()
   }
-};
+}

@@ -1,7 +1,7 @@
-const axios = require('axios');
+const axios = require('axios')
 
 function AxiosUtil (param) {
-  let {method, data, url} = param;
+  let {method, data, url} = param
 
   // if (process.env.NODE_ENV === 'development') {
   //   url = `http://192.168.200.183:81${url}`;
@@ -10,31 +10,31 @@ function AxiosUtil (param) {
   let axiosParam = Object.assign({}, {
     method: method,
     url: url
-  });
+  })
   if (data) {
-    axiosParam.data = data;
+    axiosParam.data = data
   }
   if (method === 'post') {
-    axiosParam.headers = { 'Content-Type': 'application/json' };
+    axiosParam.headers = { 'Content-Type': 'application/json' }
   }
   return new Promise((resolve, reject) => {
     axios(axiosParam).then((res) => {
       if (res.status === 200 && res.data.status === 200) {
-        resolve(res.data.response);
+        resolve(res.data.response)
       } else {
-        const {data} = res;
+        const {data} = res
         // 接口返回错误
         const json = {
           status: data.status,
           message: data.message,
           url: param.url
-        };
-        reject(json);
+        }
+        reject(json)
       }
     }).catch((error) => {
-      reject(error.response.status);
-    });
-  });
+      reject(error.response.status)
+    })
+  })
 }
 
-module.exports = AxiosUtil;
+module.exports = AxiosUtil

@@ -1,18 +1,18 @@
-import React from 'react';
+import React from 'react'
 import {
   Tab,
   TabBody,
   NavBar,
   NavBarItem
-} from 'react-weui';
-import List from '../../components/school/list';
+} from 'react-weui'
+import List from '../../components/school/list'
 
 export default class TabList extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       tab: 0
-    };
+    }
   }
 
   render () {
@@ -52,6 +52,6 @@ export default class TabList extends React.Component {
           `}</style>
         </TabBody>
       </Tab>
-    );
+    )
   }
 }

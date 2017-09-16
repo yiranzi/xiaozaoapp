@@ -1,22 +1,22 @@
-import React from 'react';
-import classNames from 'classnames';
+import React from 'react'
+import classNames from 'classnames'
 
 export default class Footer extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       showDialog: false
-    };
+    }
   }
 
   hideDialog () {
     this.setState({
       showDialog: false
-    });
+    })
   }
 
   render () {
-    let {fromType} = this.props;
+    let {fromType} = this.props
     return (
       <div className='footer'>
         <div className='footer-nav'>
@@ -48,6 +48,6 @@ export default class Footer extends React.Component {
           }
         `}</style>
       </div>
-    );
+    )
   }
 }

@@ -1,84 +1,84 @@
-import React from 'react';
-import SubjectComponent from '../components/subject';
-import ThemeConfig from '../../../../config/theme';
-import AnswerAction from '../../../../src/action/writtentestclock/answer';
-import CommonUtil from '../../../../src/util/common';
+import React from 'react'
+import SubjectComponent from '../components/subject'
+import ThemeConfig from '../../../../config/theme'
+import AnswerAction from '../../../../src/action/writtentestclock/answer'
+import CommonUtil from '../../../../src/util/common'
 
 export default class AnswerPage extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       currentObjectIndex: 0,
       finish: false,
       questionList: {}
-    };
+    }
   }
 
   componentDidMount = async () => {
-    let questionList = {};
-    const day = CommonUtil.getQueryString('day');
+    let questionList = {}
+    const day = CommonUtil.getQueryString('day')
     try {
       if (day) {
         if (day === 'test') {
-          questionList = await AnswerAction.getEvaluation();
+          questionList = await AnswerAction.getEvaluation()
         } else if (day === 'end') {
-          questionList = await AnswerAction.getTest();
+          questionList = await AnswerAction.getTest()
         } else {
-          questionList = await AnswerAction.getByToday(day);
+          questionList = await AnswerAction.getByToday(day)
         }
       } else {
-        questionList = await AnswerAction.getYesterday();
+        questionList = await AnswerAction.getYesterday()
       }
-      this.setState({questionList: questionList});
+      this.setState({questionList: questionList})
     } catch (error) {
-      alert(error.message);
+      alert(error.message)
     }
   };
 
   renderAnswer (currentObjectIndex, questionList, answerDTOList) {
-    const questionItem = questionList[currentObjectIndex];// 题目详情
+    const questionItem = questionList[currentObjectIndex]// 题目详情
     const subjectItem = Object.assign({}, {
       total: questionList.length, // 当前试卷总共多少题
       currentIndex: currentObjectIndex, // 当前题目在数组中的编号
       questionItem: questionItem, // 题目数组
       selectAnswer: answerDTOList[currentObjectIndex] ? answerDTOList[currentObjectIndex].answer : '', // 已选答案,
       disabled: true
-    });
+    })
     return (
       <div className='subject-item'>
         <SubjectComponent
           subjectItem={subjectItem}
         />
       </div>
-    );
+    )
   }
 
   answerCheck (id, value) {
-    const {answerList} = this.state;
-    answerList[id] = value;
+    const {answerList} = this.state
+    answerList[id] = value
   }
 
   prevAnswer (currentObjectIndex) {
     if (currentObjectIndex >= 1) {
       this.setState({
         currentObjectIndex: currentObjectIndex - 1
-      });
+      })
     }
   }
 
   nextAnswer (currentObjectIndex, questions) {
-    let nextObjectIndex = currentObjectIndex + 1;
+    let nextObjectIndex = currentObjectIndex + 1
     if (nextObjectIndex <= questions.length - 1) {
       this.setState({
         currentObjectIndex: nextObjectIndex,
         finish: true
-      });
+      })
     }
   }
 
   renderAnswerAnalysis (currentObjectIndex, questions) {
-    const questionItem = questions[currentObjectIndex];
-    const {answer, analysis} = questionItem;
+    const questionItem = questions[currentObjectIndex]
+    const {answer, analysis} = questionItem
 
     return (
       <div className='analysis'>
@@ -118,20 +118,20 @@ export default class AnswerPage extends React.Component {
           }
         `}</style>
       </div>
-    );
+    )
   }
 
   renderActionButton (currentObjectIndex, questions) {
     return (
       <div className='action'>
         <div onClick={() => {
-          this.prevAnswer(currentObjectIndex);
+          this.prevAnswer(currentObjectIndex)
         }}><img src='/static/writtentestclock/prev.png' /></div>
         <div onClick={() => {
-          this.nextAnswer(currentObjectIndex, questions);
+          this.nextAnswer(currentObjectIndex, questions)
         }}><img src='/static/writtentestclock/next.png' /></div>
       </div>
-    );
+    )
   }
 
   renderFinishButton () {
@@ -139,7 +139,7 @@ export default class AnswerPage extends React.Component {
       <div className='finish'>
         <div><img src='/static/writtentestclock/complete-test.png' /></div>
       </div>
-    );
+    )
   }
 
   renderCss () {
@@ -166,12 +166,12 @@ export default class AnswerPage extends React.Component {
           width: 85%;
         }
       `}</style>
-    );
+    )
   }
 
   render () {
-    const {currentObjectIndex, questionList} = this.state;// 当前题目在数组中的序号
-    const {writtenTestTopicDTOList, answerDTOList} = questionList;
+    const {currentObjectIndex, questionList} = this.state// 当前题目在数组中的序号
+    const {writtenTestTopicDTOList, answerDTOList} = questionList
     if (writtenTestTopicDTOList) {
       return (
         <div className='written-test-clock-answer'>
@@ -180,11 +180,11 @@ export default class AnswerPage extends React.Component {
           {this.renderActionButton(currentObjectIndex, writtenTestTopicDTOList)}
           {this.renderCss()}
         </div>
-      );
+      )
     } else {
       return (
         <div className='written-test-clock-answer' />
-      );
+      )
     }
   }
 }

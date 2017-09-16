@@ -3,4 +3,4 @@ module.exports = {
     require('postcss-easy-import')({prefix: '_'}),
     require('autoprefixer')({})
   ]
-};
+}

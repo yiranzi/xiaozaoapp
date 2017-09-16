@@ -1,11 +1,11 @@
-import React from 'react';
-import CompanyDetail from '../../../components/school/companyDetail';
-import SchoolNav from '../../../components/school/schoolNav';
-import List from '../../../components/school/list';
+import React from 'react'
+import CompanyDetail from '../../../components/school/companyDetail'
+import SchoolNav from '../../../components/school/schoolNav'
+import List from '../../../components/school/list'
 
 export default class schoolExp extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
   }
 
   render () {
@@ -16,6 +16,6 @@ export default class schoolExp extends React.Component {
         <SchoolNav fromType='work' processLink='/school/zhitong/schoolprocess' workLink='/school/zhitong/schoolWork' expLink='/school/zhitong/schoolExp' />
         {/* <List list={this.state.list} /> */}
       </div>
-    );
+    )
   }
 }

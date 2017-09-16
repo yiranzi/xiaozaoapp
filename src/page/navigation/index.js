@@ -1,9 +1,9 @@
-import React from 'react';
-import NavBlock from './navBlock';
-import Header from './header';
+import React from 'react'
+import NavBlock from './navBlock'
+import Header from './header'
 export default class navigation extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       company: [
         {companyName: '毕马威', time: '2018校招已于9月初开启', tag: ['四大事务所'], image: '/static/school/kpmg.png', href: '/school/kpmg/schoolprocess'},
@@ -33,37 +33,37 @@ export default class navigation extends React.Component {
         {companyName: '尼尔森', time: '请登录尼尔森官网查看', tag: ['咨询'], image: '/static/school/nier.png', href: '/school/nier/schoolprocess'}
       ],
       trade: ['四大事务所', '快消', '咨询', '互联网', '银行/证券/基金/保险/投资公司', '医疗/健康/制药', '汽车/车联网/智能交通', '金融', '会计师事务所/咨询/法律/其他专业服务', '会计师事务所']
-    };
+    }
   }
   render () {
     function renderHeader (company, title) {
       return company.filter(item => item.tag.includes(title)).map((item, key) =>
-        <NavBlock CompanyName={item.companyName} Image={item.image} Time={item.time} Href={item.href} key={key} />);
+        <NavBlock CompanyName={item.companyName} Image={item.image} Time={item.time} Href={item.href} key={key} />)
     }
     function renderBlock (item) {
       switch (item) {
-        case '四大事务所': return sida;
-        case '快消': return kuaixiao;
-        case '咨询': return zixun;
-        case '互联网': return hulianwang;
-        case '银行/证券/基金/保险/投资公司': return bank;
-        case '医疗/健康/制药': return med;
-        case '汽车/车联网/智能交通': return car;
-        case '金融': return fin;
-        case '会计师事务所/咨询/法律/其他专业服务': return kuaiji;
-        case '会计师事务所': return kuai;
+        case '四大事务所': return sida
+        case '快消': return kuaixiao
+        case '咨询': return zixun
+        case '互联网': return hulianwang
+        case '银行/证券/基金/保险/投资公司': return bank
+        case '医疗/健康/制药': return med
+        case '汽车/车联网/智能交通': return car
+        case '金融': return fin
+        case '会计师事务所/咨询/法律/其他专业服务': return kuaiji
+        case '会计师事务所': return kuai
       }
     }
-    const sida = renderHeader(this.state.company, '四大事务所');
-    const kuaixiao = renderHeader(this.state.company, '快消');
-    const zixun = renderHeader(this.state.company, '咨询');
-    const hulianwang = renderHeader(this.state.company, '互联网');
-    const bank = renderHeader(this.state.company, '银行/证券/基金/保险/投资公司');
-    const med = renderHeader(this.state.company, '医疗/健康/制药');
-    const car = renderHeader(this.state.company, '汽车/车联网/智能交通');
-    const fin = renderHeader(this.state.company, '金融');
-    const kuaiji = renderHeader(this.state.company, '会计师事务所/咨询/法律/其他专业服务');
-    const kuai = renderHeader(this.state.company, '会计师事务所');
+    const sida = renderHeader(this.state.company, '四大事务所')
+    const kuaixiao = renderHeader(this.state.company, '快消')
+    const zixun = renderHeader(this.state.company, '咨询')
+    const hulianwang = renderHeader(this.state.company, '互联网')
+    const bank = renderHeader(this.state.company, '银行/证券/基金/保险/投资公司')
+    const med = renderHeader(this.state.company, '医疗/健康/制药')
+    const car = renderHeader(this.state.company, '汽车/车联网/智能交通')
+    const fin = renderHeader(this.state.company, '金融')
+    const kuaiji = renderHeader(this.state.company, '会计师事务所/咨询/法律/其他专业服务')
+    const kuai = renderHeader(this.state.company, '会计师事务所')
     return (
       <div className='wrapper'>
         <h2>小灶学员求职攻略合集</h2>
@@ -103,6 +103,6 @@ export default class navigation extends React.Component {
           }
         `}</style>
       </div>
-    );
+    )
   }
 }

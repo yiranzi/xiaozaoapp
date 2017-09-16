@@ -1,11 +1,11 @@
-import React from 'react';
-import CompanyDetail from '../../../components/school/companyDetail';
-import SchoolNav from '../../../components/school/schoolNav';
-import List from '../../../components/school/list';
+import React from 'react'
+import CompanyDetail from '../../../components/school/companyDetail'
+import SchoolNav from '../../../components/school/schoolNav'
+import List from '../../../components/school/list'
 
 export default class schoolExp extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       list: [
         {title: '快销巨头宝洁的企业文化：我们到底需要什么样的人？', link: 'https://www.linkedin.com/wukong-web/companyReflection/1116-300210?ts=1502763166432&trk=company_review_review_share_wechat'},
@@ -14,7 +14,7 @@ export default class schoolExp extends React.Component {
         {title: '宝洁九年半，离开后的感悟（整理版）', link: 'http://www.jianshu.com/p/dd3394516055'},
         {title: '一个宝洁老兵的心路历程', link: 'http://www.jianshu.com/p/f4a1856d0e96'}
       ]
-    };
+    }
   }
 
   render () {
@@ -25,6 +25,6 @@ export default class schoolExp extends React.Component {
         <SchoolNav fromType='work' processLink='/school/pg/schoolprocess' workLink='/school/pg/schoolWork' expLink='/school/pg/schoolExp' />
         <List list={this.state.list} />
       </div>
-    );
+    )
   }
 }

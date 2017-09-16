@@ -1,47 +1,47 @@
-import React from 'react';
-import Theme from '../../../../config/theme';
-import classnames from 'classnames';
-import { Toptips } from 'react-weui';
-import AnswerAction from '../../../../src/action/writtentestclock/answer';
-import UserAction from '../../../../src/action/writtentestclock/user';
+import React from 'react'
+import Theme from '../../../../config/theme'
+import classnames from 'classnames'
+import { Toptips } from 'react-weui'
+import AnswerAction from '../../../../src/action/writtentestclock/answer'
+import UserAction from '../../../../src/action/writtentestclock/user'
 
 export default class extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       showMore: false,
       isAdvanced: 0,
       showTips: false,
       tipsMsg: '',
       showPage: false
-    };
+    }
   }
 
   componentDidMount = async () => {
     try {
-      const info = await AnswerAction.getEvaluation();
-      const { totalScore, writtenTestTopicDTOList } = info;
-      const score = Math.round(totalScore / writtenTestTopicDTOList.length * 100);
-      console.log(score);
+      const info = await AnswerAction.getEvaluation()
+      const { totalScore, writtenTestTopicDTOList } = info
+      const score = Math.round(totalScore / writtenTestTopicDTOList.length * 100)
+      console.log(score)
       this.setState({
         info,
         showPage: true,
         isAdvanced: score ? score > 65 ? 2 : 1 : 0
-      });
+      })
     } catch (error) {
       this.setState({
         error: true,
         showPage: true,
         tipsMsg: error.message,
         showTips: true
-      });
+      })
     }
   };
 
   showMoreClick = () => {
     this.setState({
       showMore: !this.state.showMore
-    });
+    })
   };
 
   renderGlobalCss = () => {
@@ -51,26 +51,26 @@ export default class extends React.Component {
             padding: 0!important;
           }
         `}</style>
-    );
+    )
   };
 
   chooseClass = async (isAdvanced) => {
     try {
-      await UserAction.selectGroups({ group: isAdvanced ? 'H' : 'N' });
-      location.href = '/writtentestclock/choose-class';
+      await UserAction.selectGroups({ group: isAdvanced ? 'H' : 'N' })
+      location.href = '/writtentestclock/choose-class'
     } catch (error) {
-      clearTimeout(this.timeout);
+      clearTimeout(this.timeout)
       this.setState({
         tipsMsg: error.message,
         showTips: true
-      });
-      this.timeout = setTimeout(() => this.setState({ showTips: false }), 2000);
+      })
+      this.timeout = setTimeout(() => this.setState({ showTips: false }), 2000)
     }
   };
 
   render () {
-    const { showMore, isAdvanced, showTips, tipsMsg, showPage } = this.state;
-    if (!showPage) return <div />;
+    const { showMore, isAdvanced, showTips, tipsMsg, showPage } = this.state
+    if (!showPage) return <div />
     return (
       <div>
         <img className='bg-img' src='/static/writtentestclock/intro.jpeg' />
@@ -177,6 +177,6 @@ export default class extends React.Component {
         `}</style>
         {this.renderGlobalCss()}
       </div>
-    );
+    )
   }
 }

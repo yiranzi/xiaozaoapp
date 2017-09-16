@@ -1,6 +1,6 @@
-import React from 'react';
-import WrittenTestClock from '../../src/page/writtentestclock/components/layout';
-import AnswerPage from '../../src/page/writtentestclock/answer';
+import React from 'react'
+import WrittenTestClock from '../../src/page/writtentestclock/components/layout'
+import AnswerPage from '../../src/page/writtentestclock/answer'
 // import AnswerAction from '../../src/action/writtentestclock/answer';
 
 export default class extends React.Component {
@@ -23,6 +23,6 @@ export default class extends React.Component {
       <WrittenTestClock>
         <AnswerPage />
       </WrittenTestClock>
-    );
+    )
   }
 }

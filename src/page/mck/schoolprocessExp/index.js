@@ -1,11 +1,11 @@
-import React from 'react';
-import CompanyDetail from '../../../components/school/companyDetail';
-import SchoolNav from '../../../components/school/schoolNav';
-import TabList from '../../../components/school/TabList';
+import React from 'react'
+import CompanyDetail from '../../../components/school/companyDetail'
+import SchoolNav from '../../../components/school/schoolNav'
+import TabList from '../../../components/school/TabList'
 
 export default class schoolExp extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       list: [
         {title: '帮你分析咨询业申请的三大关卡：简历，case，behavior', link: 'https://mp.weixin.qq.com/s?__biz=MzIyNjAwMDc3Mg==&mid=2654874334&idx=2&sn=762781c191074cd8b2ec929470218e89&scene=4', tag: ['网申', '面试', '综合', '']},
@@ -19,22 +19,22 @@ export default class schoolExp extends React.Component {
         {title: '[笔试]麥肯錫PST筆試分享+誠徵CasePartner!', link: 'http://bbs.yingjiesheng.com/forum.php?mod=viewthread&tid=2037495&extra=page%3D1%26filter%3Ddigest%26digest%3D1', tag: ['笔试', '', '', '']},
         {title: '[笔试]16年9月PST刚过，简略笔经顺求PhoneInterview面经', link: 'http://bbs.yingjiesheng.com/forum.php?mod=viewthread&tid=2054206&extra=page%3D1%26filter%3Ddigest%26digest%3D1', tag: ['笔试', '', '', '']}
       ]
-    };
+    }
   }
 
   render () {
     let onlineApply = this.state.list.filter(function (item) {
-      return item.tag.indexOf('网申') !== -1;
-    });
+      return item.tag.indexOf('网申') !== -1
+    })
     let exam = this.state.list.filter(function (item) {
-      return item.tag.indexOf('笔试') !== -1;
-    });
+      return item.tag.indexOf('笔试') !== -1
+    })
     let interview = this.state.list.filter(function (item) {
-      return item.tag.indexOf('面试') !== -1;
-    });
+      return item.tag.indexOf('面试') !== -1
+    })
     let comphensive = this.state.list.filter(function (item) {
-      return item.tag.indexOf('综合') !== -1;
-    });
+      return item.tag.indexOf('综合') !== -1
+    })
     return (
       <div className='main-section'>
         <CompanyDetail headerimage='/static/school/mck.png' trade='会计师事务所/咨询/法律' tag='世界级知名公司'
@@ -42,6 +42,6 @@ export default class schoolExp extends React.Component {
         <SchoolNav fromType='exp' processLink='/school/mck/schoolprocess' workLink='/school/mck/schoolWork' expLink='/school/mck/schoolExp' />
         <TabList onlineApply={onlineApply} exam={exam} interview={interview} all={this.state.list} comphensive={comphensive} />
       </div>
-    );
+    )
   }
 }

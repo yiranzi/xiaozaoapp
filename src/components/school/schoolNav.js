@@ -1,9 +1,9 @@
-import React from 'react';
-import classNames from 'classnames';
+import React from 'react'
+import classNames from 'classnames'
 
 export default class SchoolNav extends React.Component {
   render () {
-    let {fromType, processLink, workLink, expLink} = this.props;
+    let {fromType, processLink, workLink, expLink} = this.props
     return (
       <div className='nav'>
         <div>
@@ -59,6 +59,6 @@ export default class SchoolNav extends React.Component {
           }
         `}</style>
       </div>
-    );
+    )
   }
 }

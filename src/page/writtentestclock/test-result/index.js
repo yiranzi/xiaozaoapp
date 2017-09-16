@@ -1,39 +1,39 @@
-import React from 'react';
-import AnswerAction from '../../../../src/action/writtentestclock/answer';
+import React from 'react'
+import AnswerAction from '../../../../src/action/writtentestclock/answer'
 
 export default class TestResultPage extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
 
     this.state = {
       testInfo: null,
       shareIsShow: false,
       exceeds: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 8, 8, 8, 9, 9, 9, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 39, 42, 44, 46, 48, 51, 54, 57, 60, 63, 65, 67, 69, 72, 75, 77, 80, 82, 84, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 96, 96, 96, 96, 97, 97, 97, 97, 97, 98, 98, 98, 98, 98, 99, 99, 99, 99, 99, 100],
       showPage: false
-    };
+    }
   }
 
   componentDidMount () {
-    const _this = this;
+    const _this = this
     AnswerAction.getEvaluation().then((res) => {
       _this.setState({
         testInfo: res,
         showPage: true
-      });
-    });
+      })
+    })
   }
 
     shareWx = () => {
       this.setState({
         shareIsShow: true
-      });
+      })
     }
 
     render () {
-      if (!this.state.showPage) return <div />;
-      const {testInfo} = this.state;
-      const content = this.state.testInfo.totalScore >= 65 ? '实力总是需要有人见证的！' : '从这一刻开始改变！';
-      const accuracy = !testInfo ? 0 : (!testInfo.writtenTestTopicDTOList || testInfo.writtenTestTopicDTOList.length === 0) ? 0 : Math.round(testInfo.totalScore / testInfo.writtenTestTopicDTOList.length * 100);
+      if (!this.state.showPage) return <div />
+      const {testInfo} = this.state
+      const content = this.state.testInfo.totalScore >= 65 ? '实力总是需要有人见证的！' : '从这一刻开始改变！'
+      const accuracy = !testInfo ? 0 : (!testInfo.writtenTestTopicDTOList || testInfo.writtenTestTopicDTOList.length === 0) ? 0 : Math.round(testInfo.totalScore / testInfo.writtenTestTopicDTOList.length * 100)
       return (
         <div className='test-result-page'>
           <div className='test-result'>
@@ -97,6 +97,6 @@ export default class TestResultPage extends React.Component {
             }
           `}</style>
         </div>
-      );
+      )
     }
 }

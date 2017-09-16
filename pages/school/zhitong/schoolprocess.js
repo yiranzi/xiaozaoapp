@@ -1,6 +1,6 @@
-import React from 'react';
-import Layout from '../../../src/components/school/schoolLayout';
-import SchoolProcessPage from '../../../src/page/zhitong/schoolprocess/index';
+import React from 'react'
+import Layout from '../../../src/components/school/schoolLayout'
+import SchoolProcessPage from '../../../src/page/zhitong/schoolprocess/index'
 
 export default class extends React.Component {
   // static async getInitialProps({req}) {
@@ -24,6 +24,6 @@ export default class extends React.Component {
       <Layout fromType='zhitong'>
         <SchoolProcessPage />
       </Layout>
-    );
+    )
   }
 }

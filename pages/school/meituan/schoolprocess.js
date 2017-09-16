@@ -1,6 +1,6 @@
-import React from 'react';
-import Layout from '../../../src/components/school/schoolLayout';
-import SchoolProcessPage from '../../../src/page/meituan/schoolprocess/index';
+import React from 'react'
+import Layout from '../../../src/components/school/schoolLayout'
+import SchoolProcessPage from '../../../src/page/meituan/schoolprocess/index'
 
 export default class extends React.Component {
   // static async getInitialProps({req}) {
@@ -24,6 +24,6 @@ export default class extends React.Component {
       <Layout fromType='meituan'>
         <SchoolProcessPage />
       </Layout>
-    );
+    )
   }
 }

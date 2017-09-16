@@ -1,11 +1,11 @@
-import React from 'react';
-import CompanyDetail from '../../../components/school/companyDetail';
-import SchoolNav from '../../../components/school/schoolNav';
-import List from '../../../components/school/list';
+import React from 'react'
+import CompanyDetail from '../../../components/school/companyDetail'
+import SchoolNav from '../../../components/school/schoolNav'
+import List from '../../../components/school/list'
 
 export default class schoolExp extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       list: [
         {title: '一名小小的“一年香”阿里人所感受到的阿里文化和价值观', link: 'https://www.linkedin.com/wukong-web/companyReflection/14160-302186?ts=1502761360732&trk=company_review_review_share_wechat'},
@@ -18,7 +18,7 @@ export default class schoolExp extends React.Component {
         {title: '在阿里巴巴当HR是怎样一种体验？', link: 'https://www.zhihu.com/question/26981318'},
         {title: '在阿里巴巴工作是怎样一番体验？', link: 'https://www.zhihu.com/question/22394450'}
       ]
-    };
+    }
   }
 
   render () {
@@ -29,6 +29,6 @@ export default class schoolExp extends React.Component {
         <SchoolNav fromType='work' processLink='/school/ali/schoolprocess' workLink='/school/ali/schoolWork' expLink='/school/ali/schoolExp' />
         <List list={this.state.list} />
       </div>
-    );
+    )
   }
 }

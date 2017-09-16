@@ -1,11 +1,11 @@
-import React from 'react';
-import CompanyDetail from '../../../components/school/companyDetail';
-import SchoolNav from '../../../components/school/schoolNav';
-import TabList from '../../../components/school/TabList';
+import React from 'react'
+import CompanyDetail from '../../../components/school/companyDetail'
+import SchoolNav from '../../../components/school/schoolNav'
+import TabList from '../../../components/school/TabList'
 
 export default class schoolExp extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       list: [
         {title: '全流程解析，教你夺取四大实习和全职offer', link: 'https://m.qlchat.com/topic/230000407013921.htm?isGuide=Y', tag: ['综合']},
@@ -33,20 +33,20 @@ export default class schoolExp extends React.Component {
         {title: 'Advisory|春招EYBJ咨询FSRM全流程', link: 'http://bbs.yingjiesheng.com/forum.php?mod=viewthread&tid=2037948&extra=page%3D1%26filter%3Ddigest%26digest%3D1', tag: ['面试', '', '', '']},
         {title: '税务|2016.7.13上海所已拿offerSLP总结', link: 'http://bbs.yingjiesheng.com/forum.php?mod=viewthread&tid=2049061&extra=page%3D1%26filter%3Ddigest%26digest%3D1', tag: ['面试', '', '', '']}
       ]
-    };
+    }
   }
 
   render () {
     let onlineApply = this.state.list.filter(function (item) {
-      return item.tag.indexOf('网申') !== -1;
-    });
-    let exam = null;
+      return item.tag.indexOf('网申') !== -1
+    })
+    let exam = null
     let interview = this.state.list.filter(function (item) {
-      return item.tag.indexOf('面试') !== -1;
-    });
+      return item.tag.indexOf('面试') !== -1
+    })
     let comphensive = this.state.list.filter(function (item) {
-      return item.tag.indexOf('综合') !== -1;
-    });
+      return item.tag.indexOf('综合') !== -1
+    })
     return (
       <div className='main-section'>
         <CompanyDetail headerimage='/static/school/anyong.png' trade='会计师事务所/咨询/法律' tag='世界级知名公司'
@@ -54,6 +54,6 @@ export default class schoolExp extends React.Component {
         <SchoolNav fromType='exp' processLink='/school/anyong/schoolprocess' workLink='/school/anyong/schoolWork' expLink='/school/anyong/schoolExp' />
         <TabList onlineApply={onlineApply} exam={exam} interview={interview} all={this.state.list} comphensive={comphensive} />
       </div>
-    );
+    )
   }
 }

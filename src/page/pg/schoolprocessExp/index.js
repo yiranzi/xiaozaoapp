@@ -1,11 +1,11 @@
-import React from 'react';
-import CompanyDetail from '../../../components/school/companyDetail';
-import SchoolNav from '../../../components/school/schoolNav';
-import TabList from '../../../components/school/TabList';
+import React from 'react'
+import CompanyDetail from '../../../components/school/companyDetail'
+import SchoolNav from '../../../components/school/schoolNav'
+import TabList from '../../../components/school/TabList'
 
 export default class schoolExp extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       list: [
         {title: '如何回答「宝洁八大问」？', link: 'https://www.zhihu.com/question/19889186', tag: ['', '', '面试', '']},
@@ -27,22 +27,22 @@ export default class schoolExp extends React.Component {
         {title: '那一年，我追到的宝洁,附两轮面试笔试面经', link: 'https://mp.weixin.qq.com/s?src=3&timestamp=1504839627&ver=1&signature=lidqRlM31yIB1AS47Ch6aw7zzNTA9vPKMMHjFg5yh0sdnQ4SvDLAGxWYpX2DWyCJdrKhrvlTt1V8iTdbzQdpbAJ44UJUKf2YWYt9Bu-2DuErw6nG2WnmRUYhTh-iozUzsleZUJ8KG40M6z9DaAsDYw==', tag: ['网申', '笔试', '面试', '综合']},
         {title: '职经验分享：实力+努力+运气=满意求职【宝洁Offer】', link: 'http://www.jianshu.com/p/e4411e80e2f6', tag: ['', '', '面试', '综合']}
       ]
-    };
+    }
   }
 
   render () {
     let onlineApply = this.state.list.filter(function (item) {
-      return item.tag.indexOf('网申') !== -1;
-    });
+      return item.tag.indexOf('网申') !== -1
+    })
     let exam = this.state.list.filter(function (item) {
-      return item.tag.indexOf('笔试') !== -1;
-    });
+      return item.tag.indexOf('笔试') !== -1
+    })
     let interview = this.state.list.filter(function (item) {
-      return item.tag.indexOf('面试') !== -1;
-    });
+      return item.tag.indexOf('面试') !== -1
+    })
     let comphensive = this.state.list.filter(function (item) {
-      return item.tag.indexOf('综合') !== -1;
-    });
+      return item.tag.indexOf('综合') !== -1
+    })
     return (
       <div className='main-section'>
         <CompanyDetail headerimage='/static/school/pg.png' trade='消费品/零售/贸易' tag='2017世界500强'
@@ -50,6 +50,6 @@ export default class schoolExp extends React.Component {
         <SchoolNav fromType='exp' processLink='/school/pg/schoolprocess' workLink='/school/pg/schoolWork' expLink='/school/pg/schoolExp' />
         <TabList onlineApply={onlineApply} exam={exam} interview={interview} all={this.state.list} comphensive={comphensive} />
       </div>
-    );
+    )
   }
 }

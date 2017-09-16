@@ -1,11 +1,11 @@
-import React from 'react';
-import CompanyDetail from '../../../components/school/companyDetail';
-import SchoolNav from '../../../components/school/schoolNav';
-import List from '../../../components/school/list';
+import React from 'react'
+import CompanyDetail from '../../../components/school/companyDetail'
+import SchoolNav from '../../../components/school/schoolNav'
+import List from '../../../components/school/list'
 
 export default class schoolExp extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       list: [
         {title: '直播间密码668 | 拿过3家四大5份offer的老司机和你聊四大！', link: 'https://m.qlchat.com/topic/240000058017415.htm?isGuide=Y'},
@@ -24,7 +24,7 @@ export default class schoolExp extends React.Component {
         {title: '咨询篇：在帕特侬工作 ', link: 'http://bbs.yingjiesheng.com/thread-1994064-1-1.html'},
         {title: '咨询篇： 在Parthenon工作的日子3', link: 'http://bbs.yingjiesheng.com/thread-1984373-1-1.html'}
       ]
-    };
+    }
   }
 
   render () {
@@ -35,6 +35,6 @@ export default class schoolExp extends React.Component {
         <SchoolNav fromType='work' processLink='/school/anyong/schoolprocess' workLink='/school/anyong/schoolWork' expLink='/school/anyong/schoolExp' />
         <List list={this.state.list} />
       </div>
-    );
+    )
   }
 }
