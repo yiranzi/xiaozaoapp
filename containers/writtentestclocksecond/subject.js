@@ -4,6 +4,30 @@ import Radio from '../../components/radio'
 import ThemeConfig from '../../config/theme'
 
 export default class WrittenTestSubject extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      limitTime: this.props.subjectItem.limitTime * 60
+    }
+  }
+
+  componentDidMount () {
+    const {disabled} = this.props.subjectItem
+    if (!disabled) {
+      let interval = setInterval(() => {
+        let {limitTime} = this.state
+        if (limitTime >= 1) {
+          this.setState({
+            limitTime: limitTime - 1
+          })
+        } else {
+          clearInterval(interval)
+          this.props.timeDown()
+        }
+      }, 1 * 1000)
+    }
+  }
+
   renderAnswerOption (currentIndex, options, selectAnswer, disabled) {
     const {onChange} = this.props
     const name = `answer_${currentIndex}`
@@ -99,6 +123,13 @@ export default class WrittenTestSubject extends React.Component {
     return materialType === 1
   }
 
+  renderLeftTime () {
+    let {limitTime} = this.state
+    let minute = parseInt(limitTime / 60)
+    let second = limitTime % 60
+    return `${minute} : ${second}`
+  }
+
   render () {
     const {total, questionItem, selectAnswer, disabled} = this.props.subjectItem
     const {no, materialType, materialContent} = questionItem
@@ -110,20 +141,21 @@ export default class WrittenTestSubject extends React.Component {
           <div className='text' >答题进度条<span >{progress}%</span ></div >
           <div className='progress' >
             <Progress value={progress} showCancel={false} />
+            <div >{this.renderLeftTime()}</div >
           </div >
         </div >
         }
         <div className='material' >
-          <div className='left'>
+          <div className='left' >
             <img src='/static/writtentestclocksecond/form-left.png' />
-          </div>
-          <div className='content'>
-            {this.isImg(materialType) && <img src={materialContent} />}
-            {this.isText(materialType) && <p>{materialContent}</p >}
-          </div>
-          <div className='right'>
+          </div >
+          <div className='content' >
+            {this.isImg(materialType) && <img src={materialContent} />} {this.isText(materialType) &&
+          <p >{materialContent}</p >}
+          </div >
+          <div className='right' >
             <img src='/static/writtentestclocksecond/entry-form-right.png' />
-          </div>
+          </div >
         </div >
         <div >{questionItem.no}.{questionItem.question}</div >
         <div className='answer-option' >
