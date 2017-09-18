@@ -51,8 +51,8 @@ export default class extends React.Component {
       <div className='footer-wrapper'>
         <div className='cross-line'/>
         <a className='footer-item my-clock-in' href='/writtentestclocksecond/index-clock-in'></a>
-        <a className='footer-item my-prize' href='/writtentestclocksecond/more-test'></a>
-        <a className='footer-item clock-in-intro' href='/writtentestclocksecond/daily-clock-in'></a>
+        <a className='footer-item my-prize' href='/writtentestclocksecond/daily-clock-in'></a>
+        <a className='footer-item clock-in-intro' href='/writtentestclocksecond/more-test'></a>
         {this.renderGlobalCss()}
       </div>
     )
