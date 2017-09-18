@@ -246,6 +246,8 @@ export default class extends React.Component {
             display: flex;
             flex-direction: column;
             align-items: center;
+            text-aligns: center;
+            position: relative;
           }
           .table {
             background: url(/static/writtentestclocksecond/clock-in-result-form.png) no-repeat;
@@ -347,10 +349,15 @@ export default class extends React.Component {
           }
           .top-content {
             position: absolute;
-            margin-top: 83%;
+            margin: 0 auto;
+            margin-top: 83vw;
+            top: 0;
+            width: 90vw;
+            left: calc(50% - 45vw);
           }
           .middle-form {
             margin: 25px 0;
+            font-size: 12px;
           }
           .middle-form .row {
             padding: 0 10px;
@@ -368,6 +375,7 @@ export default class extends React.Component {
             display: flex;
             justify-content: space-between;
             width: 90vw;
+            line-height: 30px;
             margin-bottom: 10px;
           }
           .result-form .row img {
