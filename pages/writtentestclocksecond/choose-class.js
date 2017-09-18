@@ -73,7 +73,7 @@ export default class extends React.Component {
             <div className='hint'>*若长按扫码无法加群</div>
             <div className='hint'>请输入QQ号进入专属打卡群</div>
           </div>
-          <a className='go-clock-in' href='/writtentestclock/index-clock-in' />
+          <a className='go-clock-in' href='/writtentestclocksecond/index-clock-in' />
           {this.renderGolbalCss()}
           <style jsx>{`
             .class-choose-form {
@@ -208,8 +208,9 @@ export default class extends React.Component {
               color: #fff;
               background-image: url(/static/writtentestclocksecond/choose-class-btn.png);
               background-repeat: no-repeat;
-              background-size: 100% 100%;
+              background-size: 100%;
               margin: 0 auto;
+              margin-top: 60px;
             }
             
         `}</style>
