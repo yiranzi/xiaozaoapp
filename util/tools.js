@@ -1,5 +1,5 @@
-// const fs = require('fs')
-// const path = require('path')
+const fs = require('fs')
+const path = require('path')
 
 let ToolsUtil = {}
 
@@ -12,30 +12,30 @@ ToolsUtil.getQueryString = function (name) {
 }
 
 // 遍历文件夹
-// ToolsUtil.walkDir = function (dir, files) {
-//   files = files || []
-//   fs.readdirSync(dir).forEach((file) => {
-//     let filePath = `${dir}/${file}`
-//     let stats = fs.statSync(filePath)
-//     if (stats.isDirectory()) {
-//       ToolsUtil.walkDir(filePath, files)
-//     } else {
-//       files.push(filePath)
-//     }
-//   })
-// }
-// // next.config.js exportPathMap
-// ToolsUtil.exportPathMap = function () {
-//   const dir = path.join(__dirname, '../pages')
-//
-//   let files = []
-//   ToolsUtil.walkDir(dir, files)
-//   let pathMap = {}
-//   files.forEach((file) => {
-//     let filePath = file.replace(dir, '').replace('.js', '')
-//     pathMap[filePath] = {page: filePath}
-//   })
-//   return pathMap
-// }
+ToolsUtil.walkDir = function (dir, files) {
+  files = files || []
+  fs.readdirSync(dir).forEach((file) => {
+    let filePath = `${dir}/${file}`
+    let stats = fs.statSync(filePath)
+    if (stats.isDirectory()) {
+      ToolsUtil.walkDir(filePath, files)
+    } else {
+      files.push(filePath)
+    }
+  })
+}
+// next.config.js exportPathMap
+ToolsUtil.exportPathMap = function () {
+  const dir = path.join(__dirname, '../pages')
+
+  let files = []
+  ToolsUtil.walkDir(dir, files)
+  let pathMap = {}
+  files.forEach((file) => {
+    let filePath = file.replace(dir, '').replace('.js', '')
+    pathMap[filePath] = {page: filePath}
+  })
+  return pathMap
+}
 
 module.exports = ToolsUtil

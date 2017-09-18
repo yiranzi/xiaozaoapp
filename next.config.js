@@ -39,7 +39,10 @@ module.exports = {
         exclude: /node_modules/
       })
     }
-    // config.target = 'async-node'
+    // 跳过fs编译
+    config.node = {
+      fs: 'empty'
+    }
     return config
   },
   exportPathMap: function () {
