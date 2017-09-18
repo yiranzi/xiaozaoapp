@@ -1,5 +1,6 @@
 import React from 'react'
 import Layout from '../../components/layout'
+import ThemeConfig from '../../config/theme'
 
 export default class WrittenTestClockSecond extends React.Component {
   renderGlobalCss () {
@@ -7,8 +8,8 @@ export default class WrittenTestClockSecond extends React.Component {
       <style global jsx>{`
         .written-test-clock-second {
           background: url('/static/writtentestclocksecond/bg.png');
+          color: ${ThemeConfig.color.writtentestclocksecondmain}
           min-height: 100vh;
-          padding: 0 1rem;
           background-size: 100% 100%;
         }
     `}</style>

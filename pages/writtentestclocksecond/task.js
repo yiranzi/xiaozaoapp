@@ -3,7 +3,7 @@ import ToolsUtil from '../../util/tools'
 import ThemeConfig from '../../config/theme'
 import WrittenTestClockSecond from '../../containers/writtentestclocksecond/layout'
 import WrittenTestClockSecondAction from '../../action/writtentestclocksecond/index'
-import SubjectComponent from '../../containers/writtentestclock/components/subject'
+import WrittenTestSubject from '../../containers/writtentestclocksecond/subject'
 import Loading from '../../components/loading'
 
 export default class extends React.Component {
@@ -32,7 +32,11 @@ export default class extends React.Component {
         questionList = await WrittenTestClockSecondAction.getEvaluation()
         if (action === 'review') {
           // 查看解析
-          this.setState({questionList: questionList, isShowAnalysis: true, category: 'entrance'})
+          this.setState({
+            questionList: questionList,
+            isShowAnalysis: true,
+            category: 'entrance'
+          })
         } else {
           // 做题
           this.setState({questionList: questionList, category: 'entrance'})
@@ -43,7 +47,11 @@ export default class extends React.Component {
         questionList = await WrittenTestClockSecondAction.getTest()
         if (action === 'review') {
           // 查看解析
-          this.setState({questionList: questionList, isShowAnalysis: true, category: 'finish'})
+          this.setState({
+            questionList: questionList,
+            isShowAnalysis: true,
+            category: 'finish'
+          })
         } else {
           // 最后测评
           this.setState({questionList: questionList, category: 'finish'})
@@ -77,16 +85,17 @@ export default class extends React.Component {
     const {answerListResult, isShowAnalysis} = this.state
     // 显示答题记录
     if (isShowAnalysis) {
+      const selectAnswer = answerDTOList[currentObjectIndex] ? answerDTOList[currentObjectIndex].answer : ''
       const subjectItem = {
         total: writtenTestTopicDTOList.length, // 当前试卷总共多少题
         currentIndex: currentObjectIndex, // 当前题目在数组中的编号
         questionItem: questionItem, // 题目数组
-        selectAnswer: answerDTOList[currentObjectIndex] ? answerDTOList[currentObjectIndex].answer : '', // 已选答案,
+        selectAnswer: selectAnswer, // 已选答案,
         disabled: true
       }
       return (
         <div className='subject-item' >
-          <SubjectComponent
+          <WrittenTestSubject
             subjectItem={subjectItem}
           />
         </div >
@@ -102,7 +111,7 @@ export default class extends React.Component {
       }
       return (
         <div className='subject-item' >
-          <SubjectComponent
+          <WrittenTestSubject
             subjectItem={subjectItem}
             onChange={(value) => {
               this.answerCheck(questionItem.id, value)
@@ -135,22 +144,12 @@ export default class extends React.Component {
         <div className='wrapper' >
           <div className='analysis-header' >
             <div className='answer' >答案：{answer}</div >
-            <div className='line' />
-            <div className='hide-analysis' >查看解析</div >
           </div >
           <div className='analysis-content' >{analysis}</div >
           <style jsx >{`
               .analysis-header {
                 display: flex;
                 justify-content: space-between;
-              }
-              .hide-analysis {
-                display: inline-block;
-                border: 1px solid ${ThemeConfig.color.writtentestclockmain};
-                font-size: ${ThemeConfig.size.normal};
-                font-weight: bold;
-                border-radius: 1rem;
-                padding: 0.1rem 0.5rem;
               }
             `}</style >
         </div >
@@ -198,7 +197,9 @@ export default class extends React.Component {
       )
     } else {
       return (
-        <div onClick={() => this.answerComplete()} ><img src='/static/writtentestclock/complete.png' /></div >
+        <div onClick={() => this.answerComplete()} >
+          <img src='/static/writtentestclock/complete.png' />
+        </div >
       )
     }
   }
@@ -217,7 +218,7 @@ export default class extends React.Component {
       })
 
       await WrittenTestClockSecondAction.complete(data)
-      // location.href = '/writtentestclock/clock-in-result';
+      location.href = '/writtentestclocksecond/clock-in-result'
     } catch (e) {
       console.log(e)
       this.setState({isSubmit: false})
@@ -237,14 +238,18 @@ export default class extends React.Component {
   }
 
   renderActionButton (currentObjectIndex, questions) {
+    const {finish} = this.state
     return (
       <div className='action' >
         <div onClick={() => {
           this.prevAnswer(currentObjectIndex)
         }} ><img src='/static/writtentestclock/prev.png' /></div >
-        <div onClick={() => {
-          this.nextAnswer(currentObjectIndex, questions)
-        }} ><img src='/static/writtentestclock/next.png' /></div >
+        {finish
+          ? <div><img src='/static/writtentestclock/next.png' /></div >
+          : <div onClick={() => {
+            this.nextAnswer(currentObjectIndex, questions)
+          }} ><img src='/static/writtentestclock/next.png' /></div >
+        }
       </div >
     )
   }
@@ -263,6 +268,7 @@ export default class extends React.Component {
     const {writtenTestTopicDTOList} = questionList
     if (nextObjectIndex >= writtenTestTopicDTOList.length - 1) {
       this.setState({
+        currentObjectIndex: nextObjectIndex,
         finish: true
       })
     } else {
@@ -277,9 +283,8 @@ export default class extends React.Component {
   }
 
   renderTaskActionButton (currentObjectIndex, questionList) {
-    const {finish} = this.state
-    const {answerDTOList} = this.state.questionList
-    if (finish && answerDTOList.length < 1) {
+    const {finish, isShowAnalysis} = this.state
+    if (finish) {
       return this.renderFinishButton(currentObjectIndex)
     } else {
       return this.renderActionButton(currentObjectIndex, questionList)
@@ -298,7 +303,9 @@ export default class extends React.Component {
             {this.renderAnswerAnalysis(currentObjectIndex, questionList)}
           </div >
           <div className='task-action' >
-            {isShowAnalysis ? this.renderAnalysisActionButton(currentObjectIndex, questionList) : this.renderTaskActionButton(currentObjectIndex, questionList)}
+            {isShowAnalysis
+              ? this.renderAnalysisActionButton(currentObjectIndex, questionList)
+              : this.renderTaskActionButton(currentObjectIndex, questionList)}
           </div >
           {isSubmit && <Loading />}
         </WrittenTestClockSecond >
