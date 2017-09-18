@@ -16,6 +16,7 @@ rules:
   max-len:
   - error
   - 90
+  - ignoreUrls: true
   max-lines:
   - warn
   - 400
