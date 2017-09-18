@@ -27,6 +27,7 @@ export default class extends React.Component {
   componentDidMount = async () => {
     try {
       const info = await Action.getHistory()
+      const user = await Action.getInfo()
       const { startDay, endDay, completeDay, evaluationAccuracy } = info
       const dateLength = Math.ceil((endDay - startDay) / 3600 / 24 / 1000) + 1
       const currentDayIndex = completeDay.length
@@ -71,6 +72,7 @@ export default class extends React.Component {
         renderList,
         totalUser,
         hasPrize,
+        user,
         showPage: true
       })
     } catch (error) {
@@ -154,7 +156,7 @@ export default class extends React.Component {
   }
 
   render() {
-    const { showPage, tipsMsg, renderList, totalUser, hasPrize, countdownDay, evaluationAccuracy, exceeds, randomAvatars, currentDayIndex } = this.state
+    const { showPage, tipsMsg, renderList, totalUser, hasPrize, countdownDay, evaluationAccuracy, exceeds, randomAvatars, currentDayIndex, user } = this.state
     if (!showPage) {
       return (
         <WrittenTestClock>
@@ -185,23 +187,22 @@ export default class extends React.Component {
                 <div className='ellipsis'>······</div>
               </div>
               <div className='middle-form'>
-                <div className='row'>学号：<span className='content'>123123123123</span></div>
-                <div className='row'>QQ群号：<span className='content'>123123123123</span></div>
+                <div className='row'><span>学号：</span><span className='content'>{user.no || ''}</span></div>
+                <div className='row'><span>QQ群号：</span><span className='content'>871162172</span></div>
               </div>
-
             </div>
             <a href={`/writtentestclocksecond/task?category=task&day=${currentDayIndex}`} className='btn today-push' />
 
             <div className='result-form'>
               <div className='row'>
                 <img src='/static/writtentestclocksecond/evaluation-result-btn.png' />
-                <div>正确率9%</div>
-                <div>击败了8%的人</div>
+                <div>正确率{evaluationAccuracy}%</div>
+                <div>击败了{exceeds[evaluationAccuracy || 0]}%的人</div>
               </div>
               <div className='row'>
                 <img src='/static/writtentestclocksecond/clock-in-result.png' />
                 <div>正确率9%</div>
-                <div>正确率9%</div>
+                <div>击败了%的人</div>
               </div>
             </div>
             <div className='hint'><span>点击查看</span><img src='/static/writtentestclocksecond/hand.png' /></div>
@@ -339,6 +340,7 @@ export default class extends React.Component {
           .today-push {
             background-image: url(/static/writtentestclocksecond/clock-in-today.png);
             margin-top: -40px;
+            z-index: 1;
           }
           .avatar {
             background-size: 100%;
@@ -349,10 +351,10 @@ export default class extends React.Component {
           }
           .middle-form {
             margin: 25px 0;
-            display: flex;
           }
           .middle-form .row {
             padding: 0 10px;
+            display: inline-block;
           }
           .middle-form .content {
             border-bottom: 1px solid;
