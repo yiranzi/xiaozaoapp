@@ -12,20 +12,36 @@ export default class extends React.Component {
               left: 0;
               height: 50px;
               width: 100vw;
-              background: ${Theme.color.writtentestclockmain};
               justify-content: space-around;
               align-items: center;
           }
           .footer-item {
               display: block;
               color: #000;
-              height: 30px;
+              height: 50px;
               width: -webkit-fill-available;
               text-align: center;
-              line-height: 30px;
           }
-          .footer-item:not(:last-child) {
-              border-right: 2px solid #000;
+          .footer-item {
+          }
+          .my-clock-in {
+            background: url(/static/writtentestclocksecond/choose-class-btn.png);
+            background-size: 100%;
+          }
+          .my-prize {
+            background: url(/static/writtentestclocksecond/choose-class-btn.png);
+            background-size: 100%;
+          }
+          .clock-in-intro {
+            background: url(/static/writtentestclocksecond/choose-class-btn.png);
+            background-size: 100%;
+          }
+          .cross-line {
+            width: 100vw;
+            position: absolute;
+            height: 10px;
+            background: ${Theme.color.writtentestclocksecondmain};
+            z-index: -1;
           }
       `}</style>
     )
@@ -33,15 +49,10 @@ export default class extends React.Component {
   render () {
     return (
       <div className='footer-wrapper'>
-        <a className='footer-item' href='/writtentestclocksecond/index-clock-in'>
-                    每日做题
-        </a>
-        <a className='footer-item' href='/writtentestclocksecond/more-test'>
-                    更多题目
-        </a>
-        <a className='footer-item' href='/writtentestclocksecond/daily-clock-in'>
-                    我的打卡
-        </a>
+        <div className='cross-line'/>
+        <a className='footer-item my-clock-in' href='/writtentestclocksecond/index-clock-in'></a>
+        <a className='footer-item my-prize' href='/writtentestclocksecond/more-test'></a>
+        <a className='footer-item clock-in-intro' href='/writtentestclocksecond/daily-clock-in'></a>
         {this.renderGlobalCss()}
       </div>
     )

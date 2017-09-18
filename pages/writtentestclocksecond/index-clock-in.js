@@ -1,5 +1,5 @@
 
-import WrittenTestClock from '../../containers/writtentestclock/components/layout'
+import WrittenTestClock from '../../containers/writtentestclocksecond/layout'
 import React from 'react'
 import Footer from '../../containers/writtentestclocksecond/footer'
 import Theme from '../../config/theme'
