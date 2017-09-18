@@ -16,24 +16,22 @@ export default class extends React.Component {
     }
   }
 
-  componentDidMount () {
-    const _this = this
-    Action.getInfo()
-      .then((info) => {
-        _this.setState({
-          info,
-          showTips: info.error,
-          tipsMsg: info.message || '',
-          showPage: true
-        })
+  componentDidMount = async() => {
+    try{
+      const info = await Action.getInfo()
+      this.setState({
+        info,
+        showTips: info.error,
+        tipsMsg: info.message || '',
+        showPage: true
       })
-      .catch(error => {
-        _this.setState({
-          error: true,
-          showPage: true,
-          ...error
-        })
+    }catch(error) {
+      this.setState({
+        error: true,
+        showPage: true,
+        ...error
       })
+    }
   }
 
   render () {

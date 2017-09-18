@@ -104,7 +104,7 @@ export default class extends React.Component {
     if (!showPage) return <div />
     return (
       <WrittenTestClock>
-        <img className='bg-img' src='/static/writtentestclock/intro.jpeg' />
+        <img className='bg-img' src='/static/writtentestclocksecond/clock-in-intro-bg-1.jpg' />
         <div className='btn-form'>
           {showMore &&
             <div className='choose-class-form'>
@@ -118,7 +118,7 @@ export default class extends React.Component {
               </div>
             </div>
           }
-          <div className='btn-img' onClick={this.showMoreClick}>开启我的笔试进阶修炼</div>
+          <div className='btn-img' onClick={this.showMoreClick}></div>
         </div>
         <Toptips type='warn' show={showTips}> {tipsMsg} </Toptips>
         <Dialog type='ios' title={title} buttons={buttons} show={showDialog} content={dialogContent} />
@@ -135,12 +135,12 @@ export default class extends React.Component {
           .btn-img {
             color: #000;
             display: block;
-            background-image: url(/static/writtentestclock/round-btn.png);
+            background-image: url(/static/writtentestclocksecond/choose-now.png);
             background-repeat: no-repeat;
             background-size: 100% 100%;
             text-align: center;
             height: 60px;
-            width: 220px;
+            width: 150px;
             margin: 0 auto;
             padding-right: 10px;
             line-height: 46px;
@@ -153,57 +153,59 @@ export default class extends React.Component {
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            font-weight: bold;
           }
           .choose-class-form-inner {
             display: flex;
             flex-direction: row;
-            background: ${Theme.color.writtentestclockmain};
+            border: 3px solid ${Theme.color.writtentestclocksecondmain};
             height: 40px;
-            border-radius: 20px;
-            width: 340px;
+            border-radius: 40px;
             margin: 0 auto;
             justify-content: center;
             align-items: center;
             position: relative;
+            color: ${Theme.color.writtentestclocksecondmain};
+            background: #f8efdb;
           }
           .choose-class {
-            padding: 5px 15px;
+            padding: 6px 35px;
             height: 10px;
             line-height: 10px;
           }
           .choose-class:first-child {
-            border-right: 1px solid #000;
+            border-right: 2px solid ${Theme.color.writtentestclocksecondmain};
           }
-          .choose-class-form:after {
+          {/* .choose-class-form:after {
             content: '';
             display: block;
             border-left: 20px solid transparent;
             border-right: 20px solid transparent;
-            border-top: 20px solid ${Theme.color.writtentestclockmain};
+            border-top: 20px solid ${Theme.color.writtentestclocksecondmain};
             margin-top: -10px;
-          }
+          } */}
           .recommend-left:before {
             content: '';
-            background-image: url(/static/writtentestclock/recommend.png);
+            background-image: url(/static/writtentestclocksecond/recommend.png);
             background-repeat: no-repeat;
             background-size: 100% 100%;
-            height: 40px;
-            width: 40px;
+            height: 30px;
+            width: 30px;
             display: block;
-            top: 0;
-            left: 0;
+            top: -18px;
+            left: 16%;
             position: absolute;
           }
           .recommend-right:before {
             content: '';
-            background-image: url(/static/writtentestclock/recommend.png);
+            background-image: url(/static/writtentestclocksecond/recommend.png);
             background-repeat: no-repeat;
             background-size: 100% 100%;
-            height: 40px;
-            width: 40px;
+            height: 30px;
+            width: 30px;
             display: block;
-            top: 0;
-            right: 0;
+            top: -18px;
+            right: 16%;
             position: absolute;
           }
         `}</style>
