@@ -116,13 +116,18 @@ export default class WrittenTestSubject extends React.Component {
         }
         .subject-detail .border-left img {
           width: 100%;
+          height: 100%;
         }
         .subject-detail .options {
           width: 80%;
           margin-top: 3rem;
+          padding-bottom: 3rem;
         }
         .subject-detail .question-no {
-          padding-left: 10%;
+          color: ${ThemeConfig.color.writtentestclocksecondmain};
+        }
+        .subject-detail .analysis {
+          margin-top: 1rem;
           color: ${ThemeConfig.color.writtentestclocksecondmain};
         }
         .subject-detail .answer-option {
@@ -197,6 +202,27 @@ export default class WrittenTestSubject extends React.Component {
     return `${minute} : ${second}`
   }
 
+  renderAnswerAnalysis (questionItem) {
+    const {answer, analysis} = questionItem
+
+    return (
+      <div className='analysis' >
+        <div className='wrapper' >
+          <div className='analysis-header' >
+            <div className='answer' >答案：{answer}</div >
+          </div >
+          <div className='analysis-content' >{analysis}</div >
+          <style jsx >{`
+              .analysis-header {
+                display: flex;
+                justify-content: space-between;
+              }
+            `}</style >
+        </div >
+      </div >
+    )
+  }
+
   render () {
     const {total, questionItem, selectAnswer, disabled} = this.props.subjectItem
     const {no, materialType, materialContent} = questionItem
@@ -224,11 +250,14 @@ export default class WrittenTestSubject extends React.Component {
           </div>
           <div className='options'>
             <div className='question-no'>{questionItem.no}.{questionItem.question}</div >
-            <div className='answer-option' >
-              <Form radio >
-                {this.renderAnswerOption(no, questionItem.optionDTOList, selectAnswer, disabled)}
-              </Form >
-            </div >
+            {disabled && this.renderAnswerAnalysis(questionItem)}
+            {!disabled &&
+              <div className='answer-option' >
+                <Form radio >
+                  {this.renderAnswerOption(no, questionItem.optionDTOList, selectAnswer, disabled)}
+                </Form >
+              </div>
+            }
           </div>
         </div>
         {this.renderCss()}
