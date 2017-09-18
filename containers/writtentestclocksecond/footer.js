@@ -25,15 +25,15 @@ export default class extends React.Component {
           .footer-item {
           }
           .my-clock-in {
-            background: url(/static/writtentestclocksecond/choose-class-btn.png);
+            background: url(/static/writtentestclocksecond/my-clock-in.png);
             background-size: 100%;
           }
           .my-prize {
-            background: url(/static/writtentestclocksecond/choose-class-btn.png);
+            background: url(/static/writtentestclocksecond/my-prize.png);
             background-size: 100%;
           }
           .clock-in-intro {
-            background: url(/static/writtentestclocksecond/choose-class-btn.png);
+            background: url(/static/writtentestclocksecond/clock-in-intro.png);
             background-size: 100%;
           }
           .cross-line {
