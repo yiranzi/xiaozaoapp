@@ -86,7 +86,7 @@ export default class extends React.Component {
                 background: url(/static/writtentestclocksecond/choose-class-form.png);
                 background-size: 100%;
                 background-repeat: no-repeat;
-                height: 27%;
+                height: 47vw;
                 width: 80vw;
                 text-align: center;
                 margin: 0 auto;
@@ -117,7 +117,7 @@ export default class extends React.Component {
               color: #fff;
               font-size: 23px;
               font-weight: bold;
-              padding-top: 1vh;
+              padding-top: 2vw;
             }
             .class-choose-title-bg {
                 height: 100px;
