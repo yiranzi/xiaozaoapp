@@ -187,8 +187,8 @@ export default class extends React.Component {
         <div onClick={() => {
           this.prevAnswer(currentObjectIndex)
         }} >
-          <img src='/static/writtentestclock/prev.png' />
-        </div >
+          <img src='/static/writtentestclocksecond/prev.png' />
+        </div>
         {this.renderCompleteButton()}
       </div >
     )
@@ -199,13 +199,13 @@ export default class extends React.Component {
     if (category === 'entrance' || category === 'finish') {
       return (
         <div onClick={() => this.answerComplete()} >
-          <img src='/static/writtentestclock/complete-test.png' />
+          <img src='/static/writtentestclocksecond/test-complete.png' />
         </div >
       )
     } else {
       return (
         <div onClick={() => this.answerComplete()} >
-          <img src='/static/writtentestclock/complete.png' />
+          <img src='/static/writtentestclocksecond/test-complete.png' />
         </div >
       )
     }
@@ -308,6 +308,21 @@ export default class extends React.Component {
     }
   }
 
+  renderGlobalCss(){
+    return (
+      <style global jsx>{`
+        .finish {
+          display: flex;
+          jusity-content: center;
+          align-items: center;
+        }
+        .finish img {
+          width: 100%;
+        }
+      `}</style>
+    )
+  }
+
   render () {
     const {currentObjectIndex, questionList, isSubmit, isLoading, isShowAnalysis} = this.state
     if (questionList.hasOwnProperty('setId')) {
@@ -316,9 +331,6 @@ export default class extends React.Component {
           <div className='task-main'>
             <div className='task-content' >
               {this.renderAnswer(currentObjectIndex, questionList)}
-            </div >
-            <div className='task-analysis' >
-              {this.renderAnswerAnalysis(currentObjectIndex, questionList)}
             </div >
             <div className='task-action' >
               {isShowAnalysis
@@ -337,6 +349,7 @@ export default class extends React.Component {
               margin-top: -3rem;
             }
           `}</style>
+          {this.renderGlobalCss()}
         </WrittenTestClockSecond >
       )
     } else {
