@@ -39,7 +39,7 @@ module.exports = {
         exclude: /node_modules/
       })
     }
-    config.target = 'async-node'
+    // config.target = 'async-node'
     return config
   },
   exportPathMap: function () {
