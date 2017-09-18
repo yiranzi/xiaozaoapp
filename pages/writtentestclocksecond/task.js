@@ -76,10 +76,10 @@ export default class extends React.Component {
         alert(e)
       }
     }
-  };
+  }
 
   renderAnswer (currentObjectIndex, questionList) {
-    const {answerDTOList, writtenTestTopicDTOList} = questionList
+    const {limitTime, answerDTOList, writtenTestTopicDTOList} = questionList
     const questionItem = writtenTestTopicDTOList[currentObjectIndex]// 题目详情
 
     const {answerListResult, isShowAnalysis} = this.state
@@ -104,6 +104,7 @@ export default class extends React.Component {
     } else {
       const selectAnswer = answerListResult[questionItem.id] ? answerListResult[questionItem.id].tag : ''
       const subjectItem = {
+        limitTime: limitTime,
         total: writtenTestTopicDTOList.length, // 当前试卷总共多少题
         currentIndex: currentObjectIndex, // 当前题目在数组中的编号
         questionItem: questionItem, // 题目数组
@@ -116,10 +117,16 @@ export default class extends React.Component {
             onChange={(value) => {
               this.answerCheck(questionItem.id, value)
             }}
+            timeDown={() => this.timeDown()}
           />
         </div >
       )
     }
+  }
+
+  timeDown () {
+    alert('时间到')
+    this.answerComplete()
   }
 
   answerCheck (id, value) {
@@ -223,7 +230,7 @@ export default class extends React.Component {
       console.log(e)
       this.setState({isSubmit: false})
     }
-  };
+  }
 
   formatAnswerList () {
     const {questionList, answerListResult} = this.state
@@ -245,7 +252,7 @@ export default class extends React.Component {
           this.prevAnswer(currentObjectIndex)
         }} ><img src='/static/writtentestclock/prev.png' /></div >
         {finish
-          ? <div><img src='/static/writtentestclock/next.png' /></div >
+          ? <div ><img src='/static/writtentestclock/next.png' /></div >
           : <div onClick={() => {
             this.nextAnswer(currentObjectIndex, questions)
           }} ><img src='/static/writtentestclock/next.png' /></div >
