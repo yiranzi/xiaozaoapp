@@ -8,7 +8,7 @@ import { Toptips } from 'react-weui'
 import classnames from 'classnames'
 
 export default class extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     let set = new Set()
     while (set.size < 5) {
@@ -123,7 +123,8 @@ export default class extends React.Component {
             float: left;
           }
           .check .table-content {
-            background: #cbcbcb;
+            background: #ec4242;
+            color: #fff;
           }
           .check-icon {
             width: 35px;
@@ -132,27 +133,27 @@ export default class extends React.Component {
             float: right;
           }
           .check .check-icon {
-            background: url(/static/writtentestclock/check-blank.png) no-repeat center center ${Theme.color.writtentestclockmain};
+            background: url(/static/writtentestclock/check-blank.png) no-repeat center center #ec4242;
             background-size: 75%;
           }
           .cross .table-content,
           .next-todo .table-content {
-            background: #515151;
-            color: #cbcbcb;
+            background: #d3d3d3;
+            color: #ec4242;
           }
           .cross .check-icon {
-            background: url(/static/writtentestclock/cross-blank.png) no-repeat center center #515151;
+            background: url(/static/writtentestclock/cross-blank.png) no-repeat center center #d3d3d3;
             background-size: 75%;
           }  
           .next-todo .check-icon {
-            background: #515151;
+            background: #d3d3d3;
           }
         `}</style>
       </div>
     )
   }
 
-  render () {
+  render() {
     const { showPage, tipsMsg, renderList, totalUser, hasPrize, countdownDay, evaluationAccuracy, exceeds, randomAvatars, currentDayIndex } = this.state
     if (!showPage) {
       return (
@@ -174,81 +175,89 @@ export default class extends React.Component {
       <WrittenTestClock>
         <div className='index-clock-in-form'>
           <div className='btn-form'>
-            <img className='title-img' src='/static/writtentestclock/index-clock-in-index.png' />
-            <div className='sub-title'>小灶笔试打卡第一期<span> ( 限时免费 ) </span></div>
-            <a className='middle-banner' href='/writtentestclocksecond/task?category=entrance&action=review'>
-              <div>入学前测评－正确率{evaluationAccuracy || 0}%－击败了{exceeds[evaluationAccuracy || 0]}%人</div>
-            </a>
-            <div className='table'>
-              <div className='table-title'>
-                <div>天数</div>
-                <div>完成人数</div>
-                <div>正确率</div>
-                <div>击败了</div>
-              </div>
-              {renderList.map((item, index) => {
-                return this.renderRow(item, index)
-              })}
+            <img className='title-img' src='/static/writtentestclocksecond/index-clock-in-top.png' />
+            <div className='top-content'>
               <div className='partake'>
                 <div className='count'>已有{totalUser}人参加</div>
                 {randomAvatars.map((item, index) => {
-                  return <div key={index} className='avatar' style={{backgroundImage: `url(/static/writtentestclocksecond/avatars/${item}.jpg)`}} />
+                  return <div key={index} className='avatar' style={{ backgroundImage: `url(/static/writtentestclocksecond/avatars/${item}.jpg)` }} />
                 })}
                 <div className='ellipsis'>······</div>
               </div>
+              <div className='middle-form'>
+                <div className='row'>学号：<span className='content'>123123123123</span></div>
+                <div className='row'>QQ群号：<span className='content'>123123123123</span></div>
+              </div>
+
             </div>
+            <a href={`/writtentestclocksecond/task?category=task&day=${currentDayIndex}`} className='btn today-push' />
+
+            <div className='result-form'>
+              <div className='row'>
+                <img src='/static/writtentestclocksecond/evaluation-result-btn.png' />
+                <div>正确率9%</div>
+                <div>击败了8%的人</div>
+              </div>
+              <div className='row'>
+                <img src='/static/writtentestclocksecond/clock-in-result.png' />
+                <div>正确率9%</div>
+                <div>正确率9%</div>
+              </div>
+            </div>
+            <div className='hint'><span>点击查看</span><img src='/static/writtentestclocksecond/hand.png' /></div>
+
+            <div className='table'>
+              <div className='table-content'>
+                <div className='table-title'>
+                  <div>天数</div>
+                  <div>完成人数</div>
+                  <div>正确率</div>
+                  <div>击败了</div>
+                </div>
+                {renderList.map((item, index) => {
+                  return this.renderRow(item, index)
+                })}
+              </div>
+            </div>
+            
             <div className='accomplish-until'>
+              <img src='/static/writtentestclocksecond/prize.png'/>
               {
-                hasPrize
+                !hasPrize
                   ? <div><span>你离通关奖品还差</span><span className='date'>{countdownDay}</span><span>天打卡</span></div>
                   : <div><span>很遗憾您已无法获得本期奖品<br />坚持打卡结束，也会有新的收获哦</span></div>
               }
             </div>
-            <a href={`/writtentestclocksecond/task?category=task&day=${currentDayIndex}`} className='btn today-push' />
-            <a className='btn test' />
           </div>
           <Footer />
           <style jsx>{`
           .title-img {
             width: 100vw;
-            margin: 15px 0;
-          }
-          .sub-title {
-            font-size: ${Theme.size.normal}
-            font-weight: bold;
-          }
-          .sub-title span {
-            color: red;
           }
           .index-clock-in-form {
             display: flex;
             align-items: center;
             justify-content: flex-start;
             flex-direction: column;
-            margin-bottom: 50px;
+            padding-bottom: 50px;
           }
           .btn-form {
             display: flex;
             flex-direction: column;
             align-items: center;
           }
-          .middle-banner {
-            background: url(/static/writtentestclock/index-clock-in-middle-bar-1.png) no-repeat center center;
-            background-size: 91%;
-            height: 80px;
-            width: 100vw;
-            color: #000;
-            line-height: 70px;
-            text-align: center;
-            font-size: 14px;
-          }
-          .middle-banner div {
-            text-align: center;
-            width: 90vw;
-          }
           .table {
-            width: 90vw;
+            background: url(/static/writtentestclocksecond/clock-in-result-form.png) no-repeat;
+            background-size: 100%;
+            width: 100vw;
+            margin-top: 10px;
             margin-bottom: 20px;
+            height: 115vw;
+          }
+          .table-content {
+            width: 90vw;
+            margin: 0 auto;
+            margin-top: 20px;
           }
           .table-title {
             justify-content: space-around;
@@ -283,29 +292,28 @@ export default class extends React.Component {
             width: 25px;
             border-radius: 25px;
             margin-left: 5px;
+            border: 1px solid;
           }
           .ellipsis {
-            color: #fff;
+            color: ${Theme.color.writtentestclocksecondmain};
             margin-left: 5px;
             width: 30px;
           }
           .accomplish-until {
-            background: url(/static/writtentestclock/prize-count-down.png) no-repeat center center;
-            background-size: 91%;
             height: 80px;
             width: 100vw;
             margin-bottom: 30px;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #fff;
+            color: #ec4242;
           }
           .accomplish-until div {
             display: block;
             font-size: 17px;
             text-align: right;
             font-weight: bold;
-            margin-left: 2rem;
+            margin-left: 1rem;
           }
           .accomplish-until .date {
             width: 27px;
@@ -314,7 +322,7 @@ export default class extends React.Component {
             background: #fff;
             border-radius: 27px;
             margin: 4px;
-            color: ${Theme.color.writtentestclockmain};
+            color: #ec4242;
           }
           .accomplish-until div span {
             display: inline-block;
@@ -323,19 +331,60 @@ export default class extends React.Component {
           .btn {
             background-repeat: no-repeat;
             background-size: contain;
-            width: 220px;
+            width: 175px;
             height: 80px;
-            margin: 3px 0;
-            margin-left: 1rem;
+            margin: 0 auto;
+            display: block;
           }
           .today-push {
-            background-image: url(/static/writtentestclock/today-push-1.png);
-          }
-          .test {
-            background-image: url(/static/writtentestclock/after-class-test-disabled-1.png);
+            background-image: url(/static/writtentestclocksecond/clock-in-today.png);
+            margin-top: -40px;
           }
           .avatar {
             background-size: 100%;
+          }
+          .top-content {
+            position: absolute;
+            margin-top: 83%;
+          }
+          .middle-form {
+            margin: 25px 0;
+            display: flex;
+          }
+          .middle-form .row {
+            padding: 0 10px;
+          }
+          .middle-form .content {
+            border-bottom: 1px solid;
+          }
+          .result-form {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #af7534;
+          }
+          .result-form .row {
+            display: flex;
+            justify-content: space-between;
+            width: 90vw;
+            margin-bottom: 10px;
+          }
+          .result-form .row img {
+            width: 120px;
+            height: 30px;
+          }
+          .result-form .row div {
+            width: 110px;
+            text-align: right;
+          }
+          .hint {
+            font-size: 12px;
+            color: #af7534;
+            text-align: left;
+            width: 80vw;
+          }
+          .hint img {
+            width: 20px;
+            vertical-align: middle;
           }
         `}</style>
         </div>
