@@ -208,7 +208,7 @@ export default class extends React.Component {
             <div className='hint'><span>点击查看</span><img src='/static/writtentestclocksecond/hand.png' /></div>
 
             <div className='table'>
-              <div className='table-content'>
+              <div className='table-content-wrap'>
                 <div className='table-title'>
                   <div>天数</div>
                   <div>完成人数</div>
@@ -257,10 +257,14 @@ export default class extends React.Component {
             margin-bottom: 20px;
             height: 115vw;
           }
-          .table-content {
+          .table-content-wrap {
             width: 90vw;
+            height: 90vw;
             margin: 0 auto;
             margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
           }
           .table-title {
             justify-content: space-around;
@@ -358,6 +362,7 @@ export default class extends React.Component {
           .middle-form {
             margin: 25px 0;
             font-size: 12px;
+            text-align: center;
           }
           .middle-form .row {
             padding: 0 10px;
