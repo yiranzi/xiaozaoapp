@@ -15,7 +15,7 @@ export default class extends React.Component {
       showTips: false,
       tipsMsg: '',
       showPage: false,
-      showDialog: true,
+      showDialog: false,
       dialogContent: '基础班',
       level: '简单'
     }
