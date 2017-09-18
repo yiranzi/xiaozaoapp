@@ -9,7 +9,10 @@ export default class companyDetail extends React.Component {
           <div className='trade'>
             <div className='trade__text my-text-rowsingle'>
               {this.props.trade}
-              <span>{this.props.isOnlineApply && <span className='trade__isOnlineApply'>申</span>}</span>
+              <span>{
+                this.props.isOnlineApply &&
+                <span className='trade__isOnlineApply'>申</span>
+              }</span>
             </div>
           </div>
           <div className='company__name'>{this.props.companyName}</div>
