@@ -18,7 +18,7 @@ export default class extends React.Component {
           .footer-item {
               display: block;
               color: #000;
-              height: 50px;
+              height: 12vw;
               width: -webkit-fill-available;
               text-align: center;
           }
