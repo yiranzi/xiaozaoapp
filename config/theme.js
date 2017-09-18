@@ -3,6 +3,7 @@ const config = {
     white: '#fff',
     black: '#333',
     writtentestclockmain: '#45cd17',
+    writtentestclocksecondmainlight: '#dc3a3a',
     writtentestclocksecondmain: '#960c0c',
     writtentestclocksecondfont: '#fbd301'
   },

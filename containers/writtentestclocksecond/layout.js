@@ -27,7 +27,7 @@ export default class WrittenTestClockSecond extends React.Component {
       <style global jsx>{`
         .written-test-clock-second {
           background: url('/static/writtentestclocksecond/bg.png');
-          color: ${ThemeConfig.color.writtentestclocksecondmain}
+          color: ${ThemeConfig.color.writtentestclocksecondmainlight};
           min-height: 100vh;
           background-size: 100% 100%;
         }
