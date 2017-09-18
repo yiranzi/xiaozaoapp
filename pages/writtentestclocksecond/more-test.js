@@ -1,4 +1,4 @@
-import WrittenTestClock from '../../containers/writtentestclock/components/layout'
+import WrittenTestClock from '../../containers/writtentestclocksecond/layout'
 import Footer from '../../containers/writtentestclocksecond/footer'
 import React from 'react'
 
@@ -16,16 +16,12 @@ export default class extends React.Component {
     return (
       <WrittenTestClock>
         <div className='more-test-img'>
+          <img src='/static/writtentestclocksecond/intro-bg.jpg'/>
           <Footer />
           {this.renderGlobalCss()}
           <style jsx>{`
-            .more-test-img {
-              background-image: url(/static/writtentestclock/more-test.jpeg);
-              background-repeat: no-repeat;
-              background-size: 100% 100%;
-              height: 100vh;
+            .more-test-img img {
               width: 100vw;
-              margin-bottom: 30px;
             }
           `}</style>
         </div>
