@@ -1,7 +1,7 @@
 import React from 'react'
 import ToolsUtil from '../../util/tools'
 import ThemeConfig from '../../config/theme'
-import WrittenTestClock from '../../containers/writtentestclock/components/layout'
+import WrittenTestClockSecond from '../../containers/writtentestclocksecond/layout'
 import WrittenTestClockSecondAction from '../../action/writtentestclocksecond/index'
 import SubjectComponent from '../../containers/writtentestclock/components/subject'
 import Loading from '../../components/loading'
@@ -290,7 +290,7 @@ export default class extends React.Component {
     const {currentObjectIndex, questionList, isSubmit, isLoading, isShowAnalysis} = this.state
     if (questionList.hasOwnProperty('setId')) {
       return (
-        <WrittenTestClock >
+        <WrittenTestClockSecond >
           <div className='task-content' >
             {this.renderAnswer(currentObjectIndex, questionList)}
           </div >
@@ -301,13 +301,13 @@ export default class extends React.Component {
             {isShowAnalysis ? this.renderAnalysisActionButton(currentObjectIndex, questionList) : this.renderTaskActionButton(currentObjectIndex, questionList)}
           </div >
           {isSubmit && <Loading />}
-        </WrittenTestClock >
+        </WrittenTestClockSecond >
       )
     } else {
       return (
-        <WrittenTestClock >
+        <WrittenTestClockSecond >
           {isLoading && <Loading />}
-        </WrittenTestClock >
+        </WrittenTestClockSecond >
       )
     }
   }

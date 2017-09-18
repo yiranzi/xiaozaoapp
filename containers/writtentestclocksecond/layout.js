@@ -11,31 +11,30 @@ import ThemeConfig from '../../../../config/theme';
 =======
 import React from 'react'
 import Layout from '../../components/layout'
+<<<<<<< ab0da13ee4900a14dea1c2a3f925524462366913
 import ThemeConfig from '../../../../config/theme'
 >>>>>>> update: eslint .
+=======
+>>>>>>> update: 笔试打卡第二期layout
 
-export default class WrittenTestClock extends React.Component {
+export default class WrittenTestClockSecond extends React.Component {
   renderGlobalCss () {
     return (
       <style global jsx>{`
-                .written-test-clock {
-                    background: url('/static/writtentestclock/bg.jpg');
-                    min-height: 100vh;
-                    color: ${ThemeConfig.color.writtentestclockmain};
-                    padding: 0 1rem;
-                    background-size: 100%;
-                }
-                .written-test-clock-answer {
-                    padding: 1rem 0;
-                }
-            `}</style>
+        .written-test-clock-second {
+          background: url('/static/writtentestclocksecond/bg.png');
+          min-height: 100vh;
+          padding: 0 1rem;
+          background-size: 100% 100%;
+        }
+    `}</style>
     )
   }
   render () {
     const {error} = this.props
     return (
       <Layout error={error}>
-        <div className='written-test-clock'>
+        <div className='written-test-clock-second'>
           {this.props.children}
         </div>
         {this.renderGlobalCss()}
