@@ -14,10 +14,14 @@ import ThemeConfig from '../../../../config/theme';
 import React from 'react'
 import {Progress, Form} from 'react-weui'
 import Radio from '../../components/radio'
+<<<<<<< cc8a374ced86544ab8f67a36974c5236cb4bd271
 import ThemeConfig from '../../../../config/theme'
 >>>>>>> update: eslint .
+=======
+import ThemeConfig from '../../config/theme'
+>>>>>>> update: 笔试大赛第二期答题
 
-export default class WrittenTestClock extends React.Component {
+export default class WrittenTestSubject extends React.Component {
   renderAnswerOption (currentIndex, options, selectAnswer, disabled) {
     const {onChange} = this.props
     const name = `answer_${currentIndex}`
@@ -32,11 +36,7 @@ export default class WrittenTestClock extends React.Component {
         disabled: disabled
       })
       const key = `answer_${currentIndex}_${i}`
-      if (disabled) {
-        return (
-          <Radio key={key} params={radioItem} disabled />
-        )
-      } else {
+      if (!disabled) {
         return (
           <Radio key={key} params={radioItem} onChange={(value) => {
             onChange(value)
@@ -48,26 +48,35 @@ export default class WrittenTestClock extends React.Component {
 
   renderCss () {
     return (
-      <style>{`
+      <style >{`
         .subject-detail .progress {
           padding: 1rem 0;
         }
         .subject-detail .progress .percent {
           margin-top: 0.5rem;
         }
-        .subject-detail .text {
-          text-align: center;
-          font-size: ${ThemeConfig.size.large};
-        }
-        .subject-detail img {
-          width: 100%;
-        }
         /*微信样式*/
         .subject-detail .weui-progress__bar {
           height: 0.75rem;
           border-radius: 0.75rem;
         }
+        .material {
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+        }
+        .material .left, .material .right {
+          width: 10%;
+        }
+        .material .content {
+          width: 80%;
+          align-self: flex-start;
+        }
+        .material img {
+          width: 100%;
+        }
         .subject-detail .weui-progress__inner-bar {
+          background-color: ${ThemeConfig.color.writtentestclocksecondmain};
           border-radius: 0.75rem;
         }
         /*微信radio样式*/
@@ -81,7 +90,7 @@ export default class WrittenTestClock extends React.Component {
         .subject-detail span.weui-icon-checked {
           width: 1.5rem;
           height: 1.5rem;
-          background: ${ThemeConfig.color.white};
+          background: ${ThemeConfig.color.writtentestclocksecondmain};
           border-radius: 1rem;
           margin-right: 1rem;
           position: relative;
@@ -96,11 +105,7 @@ export default class WrittenTestClock extends React.Component {
           left: -0.8rem;
           top: -0.5rem;
         }
-        /*-----------*/
-        .subject-detail .material img {
-          border: 2px solid ${ThemeConfig.color.writtentestclockmain};
-        }
-      `}</style>
+      `}</style >
     )
   }
 
@@ -117,27 +122,35 @@ export default class WrittenTestClock extends React.Component {
     const {no, materialType, materialContent} = questionItem
     let progress = Math.ceil(no / total * 100)
     return (
-      <div className='subject-detail'>
-        <div className='text'>答题进度条</div>
-        <div className='progress'>
-          <Progress value={progress} showCancel={false} />
-          <div className='percent' style={{'marginLeft': `${progress}%`}}>
-            <div className='triangle-up' />
-            <div>{progress}%</div>
+      <div className='subject-detail' >
+        {!disabled &&
+        <div >
+          <div className='text' >答题进度条<span >{progress}%</span ></div >
+          <div className='progress' >
+            <Progress value={progress} showCancel={false} />
+          </div >
+        </div >
+        }
+        <div className='material' >
+          <div className='left'>
+            <img src='/static/writtentestclocksecond/form-left.png' />
           </div>
-        </div>
-        <div className='material'>
-          {this.isImg(materialType) && <img src={materialContent} />}
-          {this.isText(materialType) && <p>{materialContent}</p>}
-        </div>
-        <div>{questionItem.no}.{questionItem.question}</div>
-        <div className='answer-option'>
-          <Form radio>
+          <div className='content'>
+            {this.isImg(materialType) && <img src={materialContent} />}
+            {this.isText(materialType) && <p>{materialContent}</p >}
+          </div>
+          <div className='right'>
+            <img src='/static/writtentestclocksecond/entry-form-right.png' />
+          </div>
+        </div >
+        <div >{questionItem.no}.{questionItem.question}</div >
+        <div className='answer-option' >
+          <Form radio >
             {this.renderAnswerOption(no, questionItem.optionDTOList, selectAnswer, disabled)}
-          </Form>
-        </div>
+          </Form >
+        </div >
         {this.renderCss()}
-      </div>
+      </div >
     )
   }
 }
