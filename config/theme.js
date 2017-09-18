@@ -1,6 +1,7 @@
 const config = {
   color: {
     white: '#fff',
+    black: '#333',
     writtentestclockmain: '#45cd17',
     writtentestclocksecondmain: '#960c0c',
     writtentestclocksecondfont: '#fbd301'

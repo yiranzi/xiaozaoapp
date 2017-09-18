@@ -1,10 +1,10 @@
 import React from 'react'
-import WrittenTestClock from '../../containers/writtentestclock/components/layout'
+import WrittenTestClock from '../../containers/writtentestclocksecond/layout'
 import Theme from '../../config/theme'
 import classnames from 'classnames'
 import { Toptips } from 'react-weui'
 import Action from '../../action/writtentestclocksecond'
-import Dialog from '../../containers/writtentestclocksecond/dialog'
+import JoinClass from '../../containers/writtentestclocksecond/joinClass'
 
 export default class extends React.Component {
   constructor (props) {
@@ -15,8 +15,9 @@ export default class extends React.Component {
       showTips: false,
       tipsMsg: '',
       showPage: false,
-      showDialog: false,
-      dialogContent: 'dfasdfasdf'
+      showDialog: true,
+      dialogContent: '基础班',
+      level: '简单'
     }
   }
 
@@ -59,11 +60,13 @@ export default class extends React.Component {
   chooseClass = (isAdvanced) => {
     this.setState({
       showDialog: true,
-      dialogContent: isAdvanced ? '确认选择提升进阶班' : '确认选择提升基础班'
+      dialogContent: isAdvanced ? '高级班' : '基础班',
+      level: isAdvanced ? '简单' : '提高'
     })
   };
 
-  doRequest = async (isAdvanced) => {
+  doRequest = async () => {
+    const {isAdvanced} = this.state;
     try {
       await Action.selectGroups({ group: isAdvanced ? 'H' : 'N' })
       location.href = '/writtentestclock/choose-class'
@@ -76,30 +79,14 @@ export default class extends React.Component {
       this.timeout = setTimeout(() => this.setState({ showTips: false }), 2000)
     }
   }
-
-  dialogConfig = {
-    title: '',
-    buttons: [
-      {
-        type: 'default',
-        label: '取消',
-        onClick: () => {
-          this.setState({ showDialog: false })
-        }
-      }, {
-        type: 'primary',
-        label: '确定',
-        onClick: () => {
-          this.doRequest()
-          this.setState({ showDialog: false })
-        }
-      }
-    ]
+  closeDialog (){
+    this.setState({
+      showDialog: false
+    })
   }
 
   render () {
-    const { showMore, isAdvanced, showTips, tipsMsg, showPage, showDialog, dialogContent } = this.state
-    const { title, buttons } = this.dialogConfig
+    const { showMore, isAdvanced, showTips, tipsMsg, showPage, showDialog, dialogContent, level } = this.state
 
     if (!showPage) return <div />
     return (
@@ -121,7 +108,13 @@ export default class extends React.Component {
           <div className='btn-img' onClick={this.showMoreClick}></div>
         </div>
         <Toptips type='warn' show={showTips}> {tipsMsg} </Toptips>
-        <Dialog type='ios' title={title} buttons={buttons} show={showDialog} content={dialogContent} />
+        {showDialog &&
+          <JoinClass
+            dialogContent={dialogContent}
+            level={level}
+            ok={() => this.doRequest()}
+            cancel={() => this.closeDialog()}
+          />}
         <style jsx>{`
           .bg-img {
             width: 100%;
