@@ -250,13 +250,23 @@ export default class extends React.Component {
       <div className='action' >
         <div onClick={() => {
           this.prevAnswer(currentObjectIndex)
-        }} ><img src='/static/writtentestclock/prev.png' /></div >
+        }} ><img src='/static/writtentestclocksecond/prev.png' /></div >
         {finish
-          ? <div ><img src='/static/writtentestclock/next.png' /></div >
+          ? <div ><img src='/static/writtentestclocksecond/next.png' /></div >
           : <div onClick={() => {
             this.nextAnswer(currentObjectIndex, questions)
-          }} ><img src='/static/writtentestclock/next.png' /></div >
+          }} ><img src='/static/writtentestclocksecond/next.png' /></div >
         }
+        <style jsx>{`
+          .action {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+          }
+          .action img {
+            width: 100%;
+          }
+        `}</style>
       </div >
     )
   }
@@ -303,18 +313,30 @@ export default class extends React.Component {
     if (questionList.hasOwnProperty('setId')) {
       return (
         <WrittenTestClockSecond >
-          <div className='task-content' >
-            {this.renderAnswer(currentObjectIndex, questionList)}
-          </div >
-          <div className='task-analysis' >
-            {this.renderAnswerAnalysis(currentObjectIndex, questionList)}
-          </div >
-          <div className='task-action' >
-            {isShowAnalysis
-              ? this.renderAnalysisActionButton(currentObjectIndex, questionList)
-              : this.renderTaskActionButton(currentObjectIndex, questionList)}
-          </div >
-          {isSubmit && <Loading />}
+          <div className='task-main'>
+            <div className='task-content' >
+              {this.renderAnswer(currentObjectIndex, questionList)}
+            </div >
+            <div className='task-analysis' >
+              {this.renderAnswerAnalysis(currentObjectIndex, questionList)}
+            </div >
+            <div className='task-action' >
+              {isShowAnalysis
+                ? this.renderAnalysisActionButton(currentObjectIndex, questionList)
+                : this.renderTaskActionButton(currentObjectIndex, questionList)}
+            </div >
+            {isSubmit && <Loading />}
+          </div>
+          <style jsx>{`
+            .task-main {
+              padding: 1.5rem 0;
+            }
+            .task-action {
+              width: 80%;
+              margin: auto;
+              margin-top: -3rem;
+            }
+          `}</style>
         </WrittenTestClockSecond >
       )
     } else {
