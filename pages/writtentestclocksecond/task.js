@@ -76,7 +76,7 @@ export default class extends React.Component {
 
     const {answerListResult, isShowAnalysis} = this.state
     // 显示答题记录
-    if (isShowAnalysis || answerDTOList.length > 1) {
+    if (isShowAnalysis) {
       const subjectItem = {
         total: writtenTestTopicDTOList.length, // 当前试卷总共多少题
         currentIndex: currentObjectIndex, // 当前题目在数组中的编号
