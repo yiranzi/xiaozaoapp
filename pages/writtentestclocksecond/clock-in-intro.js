@@ -69,13 +69,17 @@ export default class extends React.Component {
     const {isAdvanced} = this.state;
     try {
       await Action.selectGroups({ group: isAdvanced ? 'H' : 'N' })
-      location.href = '/writtentestclock/choose-class'
+      location.href = '/writtentestclocksecond/choose-class'
     } catch (error) {
       clearTimeout(this.timeout)
-      this.setState({
-        tipsMsg: error.message,
-        showTips: true
-      })
+      if (error.status === 10003){
+        location.href = '/writtentestclocksecond/choose-class'
+      } else {
+        this.setState({
+          tipsMsg: error.message,
+          showTips: true
+        })
+      }
       this.timeout = setTimeout(() => this.setState({ showTips: false }), 2000)
     }
   }
