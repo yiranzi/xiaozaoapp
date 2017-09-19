@@ -70,7 +70,7 @@ export default class extends React.Component {
               <p >您目前最适合进入</p >
               <p className='class' >{accuracy > 65 ? '全能提升进阶班' : '全能提升基础班'}</p >
             </div >
-            <a className='jour' href='/writtentestclocksecond/choose-class' >
+            <a className='jour' href='/writtentestclocksecond/clock-in-intro' >
               <img src='/static/writtentestclocksecond/start-traning.png' />
             </a >
           </div >
