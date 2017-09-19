@@ -107,7 +107,6 @@ export default class WrittenTestSubject extends React.Component {
         .subject-detail .ask {
           width: 100%;
           margin: auto;
-          margin-top: -2rem;
           display: flex;
           justify-content: flex-start;
         }
@@ -120,8 +119,8 @@ export default class WrittenTestSubject extends React.Component {
         }
         .subject-detail .options {
           width: 80%;
-          margin-top: 3rem;
-          padding-bottom: 3rem;
+          margin: auto;
+          padding: 1rem 0;
         }
         .subject-detail .question-no {
           color: ${ThemeConfig.color.writtentestclocksecondmain};
@@ -129,9 +128,6 @@ export default class WrittenTestSubject extends React.Component {
         .subject-detail .analysis {
           margin-top: 1rem;
           color: ${ThemeConfig.color.writtentestclocksecondmain};
-        }
-        .subject-detail .answer-option {
-          padding-left: 10%;
         }
         /*微信样式*/
         .subject-detail .weui-progress {
@@ -249,9 +245,6 @@ export default class WrittenTestSubject extends React.Component {
           </div >
         </div >
         <div className='ask' >
-          <div className='border-left' >
-            <img src='/static/writtentestclocksecond/border-left-1.png' />
-          </div >
           <div className='options' >
             <div className='question-no' >{questionItem.no}.{questionItem.question}</div >
             {disabled && this.renderAnswerAnalysis(questionItem)} {!disabled &&

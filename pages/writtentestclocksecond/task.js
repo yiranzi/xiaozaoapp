@@ -357,7 +357,6 @@ export default class extends React.Component {
             .task-action {
               width: 80%;
               margin: auto;
-              margin-top: -3rem;
             }
           `}</style >
           {this.renderGlobalCss()}
