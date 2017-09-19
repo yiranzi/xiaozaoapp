@@ -25,7 +25,7 @@ export default class extends React.Component {
             margin: 0 10vw;
             padding: 4vh 0;
             justify-content: space-between;
-            height: 44vh;
+            height: 79vw;
           }
           .tips-form:before {
             content: ' ';
@@ -51,7 +51,6 @@ export default class extends React.Component {
           }
           .tips {
             text-align: center;
-            margin: 5px 0;
             color: #fff;
             font-size: 14px;
             font-weight: 200;
@@ -98,6 +97,7 @@ export default class extends React.Component {
             font-size: 25px;
             font-weight: bold;
             text-align: center;
+            margin-bottom: 20px;
           }
           .corner {
             height: 20px;
