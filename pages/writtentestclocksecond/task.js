@@ -188,7 +188,7 @@ export default class extends React.Component {
           this.prevAnswer(currentObjectIndex)
         }} >
           <img src='/static/writtentestclocksecond/prev.png' />
-        </div>
+        </div >
         {this.renderCompleteButton()}
       </div >
     )
@@ -212,7 +212,7 @@ export default class extends React.Component {
   }
 
   answerComplete = async () => {
-    const {initTime} = this.state
+    const {initTime, category} = this.state
     const {setId} = this.state.questionList
     const answerList = this.formatAnswerList()
     try {
@@ -225,7 +225,13 @@ export default class extends React.Component {
       })
 
       await WrittenTestClockSecondAction.complete(data)
-      location.href = '/writtentestclocksecond/clock-in-result'
+      if (category === 'entrance') {
+        location.href = '/writtentestclocksecond/test-result'
+      } else if (category === 'finish') {
+        location.href = '/writtentestclocksecond/clock-in-result'
+      } else {
+        location.href = '/writtentestclocksecond/clock-in-result'
+      }
     } catch (e) {
       console.log(e)
       this.setState({isSubmit: false})
@@ -257,7 +263,7 @@ export default class extends React.Component {
             this.nextAnswer(currentObjectIndex, questions)
           }} ><img src='/static/writtentestclocksecond/next.png' /></div >
         }
-        <style jsx>{`
+        <style jsx >{`
           .action {
             display: flex;
             justify-content: center;
@@ -266,7 +272,7 @@ export default class extends React.Component {
           .action img {
             width: 100%;
           }
-        `}</style>
+        `}</style >
       </div >
     )
   }
@@ -308,9 +314,9 @@ export default class extends React.Component {
     }
   }
 
-  renderGlobalCss(){
+  renderGlobalCss () {
     return (
-      <style global jsx>{`
+      <style global jsx >{`
         .finish {
           display: flex;
           jusity-content: center;
@@ -319,7 +325,7 @@ export default class extends React.Component {
         .finish img {
           width: 100%;
         }
-      `}</style>
+      `}</style >
     )
   }
 
@@ -328,7 +334,7 @@ export default class extends React.Component {
     if (questionList.hasOwnProperty('setId')) {
       return (
         <WrittenTestClockSecond >
-          <div className='task-main'>
+          <div className='task-main' >
             <div className='task-content' >
               {this.renderAnswer(currentObjectIndex, questionList)}
             </div >
@@ -338,8 +344,8 @@ export default class extends React.Component {
                 : this.renderTaskActionButton(currentObjectIndex, questionList)}
             </div >
             {isSubmit && <Loading />}
-          </div>
-          <style jsx>{`
+          </div >
+          <style jsx >{`
             .task-main {
               padding: 1.5rem 0;
             }
@@ -348,7 +354,7 @@ export default class extends React.Component {
               margin: auto;
               margin-top: -3rem;
             }
-          `}</style>
+          `}</style >
           {this.renderGlobalCss()}
         </WrittenTestClockSecond >
       )
