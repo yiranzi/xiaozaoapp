@@ -18,18 +18,6 @@ module.exports = {
       {
         test: /\.css$/,
         use: ['babel-loader', 'raw-loader', 'postcss-loader']
-      }, {
-        test: /\.s(a|c)ss$/,
-        use: ['babel-loader', 'raw-loader', 'postcss-loader',
-          { loader: 'sass-loader',
-            options: {
-              includePaths: ['styles', 'node_modules']
-                .map((d) => path.join(__dirname, d))
-                .map((g) => glob.sync(g))
-                .reduce((a, c) => a.concat(c), [])
-            }
-          }
-        ]
       })
     // 静态资源路径处理
     if (process.env.NODE_ENV === 'production') {
