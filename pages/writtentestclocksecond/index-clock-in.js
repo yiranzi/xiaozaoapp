@@ -27,7 +27,8 @@ export default class extends React.Component {
   }
 
   initState = (info, user, test) => {
-    const { startDay, endDay, completeDay, evaluationAccuracy } = info
+    const { startDay, endDay, completeDay } = info
+    const { evaluationResult } = user
     const dateLength = Math.ceil((endDay - startDay) / 3600 / 24 / 1000) + 1
     const currentDayIndex = completeDay.length
     let renderList = []
@@ -64,7 +65,7 @@ export default class extends React.Component {
 
     this.setState({
       currentDayIndex,
-      evaluationAccuracy,
+      evaluationResult,
       countdownDay,
       completeDay,
       dateLength,
@@ -168,7 +169,7 @@ export default class extends React.Component {
   }
 
   render() {
-    const { showPage, tipsMsg, renderList, totalUser, hasPrize, countdownDay, evaluationAccuracy, exceeds, randomAvatars, currentDayIndex, user, test } = this.state
+    const { showPage, tipsMsg, renderList, totalUser, hasPrize, countdownDay, evaluationResult, exceeds, randomAvatars, currentDayIndex, user, test } = this.state
     
     let currPersent = 0;
     if(test) {
@@ -218,8 +219,8 @@ export default class extends React.Component {
                 <a href='/writtentestclocksecond/task?category=entrance&&action=review'>
                   <img src='/static/writtentestclocksecond/evaluation-result-btn.png' />
                 </a>
-                <div>正确率{evaluationAccuracy}%</div>
-                <div>击败了{exceeds[evaluationAccuracy || 0]}%的人</div>
+                <div>正确率{evaluationResult}%</div>
+                <div>击败了{exceeds[evaluationResult || 0]}%的人</div>
               </div>
               <div className='row'>
                 {
