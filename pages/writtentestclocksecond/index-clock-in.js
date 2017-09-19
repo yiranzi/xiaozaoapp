@@ -7,6 +7,7 @@ import Constants from '../../config/constants'
 import Action from '../../action/writtentestclocksecond'
 import { Toptips } from 'react-weui'
 import classnames from 'classnames'
+import Loading from '../../components/loading'
 
 export default class extends React.Component {
   constructor(props) {
@@ -178,6 +179,7 @@ export default class extends React.Component {
     if (!showPage) {
       return (
         <WrittenTestClock>
+          <Loading />
           <Footer />
         </WrittenTestClock>
       )

@@ -4,6 +4,7 @@ import Constants from '../../config/constants'
 import Theme from '../../config/theme'
 import { Toptips } from 'react-weui'
 import Action from '../../action/writtentestclocksecond'
+import Loading from '../../components/loading'
 
 export default class extends React.Component {
   constructor (props) {
@@ -49,7 +50,7 @@ export default class extends React.Component {
     const { showTips, tipsMsg, showPage } = this.state
     const { no, groupNo } = this.state.info
 
-    if (!showPage) return <div />
+    if (!showPage) return <Loading />
     if (showTips) {
       return <Toptips type='warn' show={showTips}> {tipsMsg} </Toptips>
     }
@@ -66,7 +67,7 @@ export default class extends React.Component {
           </div>
 
           <div className='class-choose-content'>
-            <img src={`/static/writtentestclock/qr-code/${groupNo}.jpg`} />
+            <img src={`/static/writtentestclocksecond/qr-code/${groupNo}.png`} />
           </div>
 
           <div className='class-choose-qq'>
@@ -93,6 +94,7 @@ export default class extends React.Component {
                 width: 80vw;
                 text-align: center;
                 margin: 0 auto;
+                margin-top: 30px;
             }
             .class-choose-top-form:before {
               content: ' ';

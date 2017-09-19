@@ -42,6 +42,7 @@ export default class extends React.Component {
             height: 10px;
             background: ${Theme.color.writtentestclocksecondmain};
             z-index: -1;
+            top: 20px;
           }
       `}</style>
     )
