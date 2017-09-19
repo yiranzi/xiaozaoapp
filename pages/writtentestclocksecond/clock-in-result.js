@@ -1,9 +1,10 @@
 
-import WrittenTestClock from '../../containers/writtentestclock/components/layout'
+import WrittenTestClock from '../../containers/writtentestclocksecond/layout'
 import Footer from '../../containers/writtentestclocksecond/footer'
 import ShareWx from '../../containers/writtentestclocksecond/sharewx'
 import Action from '../../action/writtentestclocksecond'
 import React from 'react'
+import Theme from '../../config/theme'
 
 export default class extends React.Component {
   constructor (props) {
@@ -43,10 +44,10 @@ export default class extends React.Component {
   renderGlobalCss () {
     return (
       <style global jsx>{`
-              .written-test-clock {
-                  padding: 0!important;
-              }
-            `}</style>
+        .written-test-clock {
+          padding: 0!important;
+        }
+      `}</style>
     )
   }
   render () {
@@ -60,23 +61,29 @@ export default class extends React.Component {
           <ShareWx isShow={this.state.shareIsShow} />
           <div className='square'>
             <div className='inner-square'>
-              <div className='score'>成功坚持笔试修炼第<span className='day'>{this.state.todayNo}</span>天</div>
-              <div className='score'>打卡成功！</div>
-              <div className='score'>您的今日笔试打卡成绩</div>
+              <div className='score'>你成功坚持笔试修炼第<span className='day'>{this.state.todayNo}</span>天，打卡成功！</div>
+              <div className='score'>今日笔试打卡成绩</div>
             </div>
           </div>
           <div className='correct-rate'>
-            <img className='correct-bg' src='/static/writtentestclock/clock_result_bg2.png' />
-            <div className='data1'>{accuracy}%正确率</div>
-            <div className='data2'>击败了超过{this.state.exceeds[accuracy]}%的参与者</div>
-            {/* <div className='btn-form'><a className='img' href="javascript:;" onClick={this.shareWx}>分享到朋友圈</a></div> */}
+            <div className='data1'><span>{accuracy}%</span>正确率</div>
           </div>
-
+          <div className='bottom-form'>
+            <div>击败了超过{this.state.exceeds[accuracy]}%的参与者，继续努力吧！</div>
+            <div>分享成就卡</div>
+            <div>每一份坚持</div>
+            <div>都是在实现自己平凡生活里的英雄梦</div>
+          </div>
+          <div className='bottom-back'>返回点击Day，即可查看当日笔试任务答案解析</div>
+          <a className='go-clock-in' href='/writtentestclocksecond/index-clock-in' />
           <Footer />
           {this.renderGlobalCss()}
           <style jsx>{`
             .written-test-clock {
               padding: 0!important;
+            }
+            .square-form {
+              padding-bottom: 40px;
             }
             .flex-item {
               flex: 1;
@@ -87,39 +94,49 @@ export default class extends React.Component {
               text-align: center;
             }
             .inner-square {
-              background-image: url(/static/writtentestclock/clock_result_bg.png);
-              background-size: 100% 100%;
-              padding: 10% 0 15%;
+              padding: 12vw 0 2vw;
               font-size: 20px;
               font-weight: bold;
             }
-            .score .day {
-              background-color: #45cd17;
-              border-radius: 50%;
-              margin: 0 6px;
-              color: #fff;
-              padding: 0 7px;
+            .inner-square .score {
+              margin-bottom: 10px;
             }
             .btn-form {
               margin: 30px 0;
-            }
-            .img {
-              display: block;
-              margin-top: 30px;
-              background-image: url(/static/writtentestclock/round-btn.png);
-              background-repeat: no-repeat;
-              background-size: 100% 100%;
-              width: 200px;
-              height: 50px;
-              margin: 0 auto;
-              color: #000;
-              text-align: center;
-              line-height: 35px;
             }
             .correct-rate {
               margin-top: 30px;
               position: relative;
               text-align: center;
+              background: url(/static/writtentestclocksecond/result-form.png) center center;
+              background-size: 100%;
+              background-repeat: no-repeat;
+              height: 43vw;
+              width: 80vw;
+              margin: 0 auto;
+            }
+            .correct-rate:before {
+              content: ' ';
+              position: absolute;
+              background: url(/static/writtentestclocksecond/entry-form-left.png);
+              left: -34px;
+              width: 100px;
+              top: 9%;
+              height: 111px;
+              background-size: 35%;
+              background-repeat: no-repeat;
+              
+            }
+            .correct-rate:after {
+              content: ' ';
+              position: absolute;
+              background: url(/static/writtentestclocksecond/choose-class-form-right.png);
+              right: -99px;
+              width: 100px;
+              top: 47%;
+              height: 75px;
+              background-size: 45%;
+              background-repeat: no-repeat;
             }
             .correct-bg {
               width: 85%;
@@ -127,18 +144,36 @@ export default class extends React.Component {
             }
             .correct-rate .data1 {
               position: absolute;
-              top: 1px;
+              top: 19vw;
               text-align: center;
               width: 100%;
-              color: #fff;
+              color: ${Theme.color.writtentestclocksecondfont};
             }
-            .correct-rate .data2 {
-              position: absolute;
-              top: 66px;
+            .correct-rate .data1 span {
+              font-size: 30px;
+            }
+            .bottom-form {
               text-align: center;
-              width: 100%;
+              padding-top: 20px;
+            }
+            .bottom-form div {
+              margin-bottom: 3px;
+            }
+            .bottom-back {
+              padding-top: 20px;
+              text-align: center;
+            }
+            .go-clock-in {
+              width: 150px;
+              height: 65px;
+              display: block;
+              text-align: center;
               color: #fff;
-              font-size: 14px;
+              background-image: url(/static/writtentestclocksecond/choose-class-btn.png);
+              background-repeat: no-repeat;
+              background-size: 100%;
+              margin: 0 auto;
+              margin-top: 20px;
             }
         `}</style>
         </div>
