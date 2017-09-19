@@ -1,6 +1,7 @@
+import React from 'react'
 import WrittenTestClockSecondLayout from '../../containers/writtentestclocksecond/layout'
 import WrittenTestClockSecondAction from '../../action/writtentestclocksecond'
-import React from 'react'
+import ThemeConfig from '../../config/theme'
 
 export default class extends React.Component {
   constructor (props) {
@@ -14,18 +15,15 @@ export default class extends React.Component {
   }
 
   componentDidMount = async () => {
-    let testInfo = await WrittenTestClockSecondAction.getEvaluation()
-    console.log(testInfo)
-    this.setState({
-      testInfo: testInfo,
-      showPage: true
-    })
-  }
-
-  shareWx = () => {
-    this.setState({
-      shareIsShow: true
-    })
+    try {
+      let testInfo = await WrittenTestClockSecondAction.getEvaluation()
+      this.setState({
+        testInfo: testInfo,
+        showPage: true
+      })
+    } catch (err) {
+      alert(err.message)
+    }
   }
 
   renderGlobalCss () {
@@ -33,6 +31,10 @@ export default class extends React.Component {
       <style global jsx >{`
         .written-test-clock {
           padding: 0!important;
+        }
+        .written-test-clock-second {
+          background: url(/static/writtentestclocksecond/test-result-bg.png);
+          background-size: 100% 100%;
         }
       `}</style >
     )
@@ -48,49 +50,67 @@ export default class extends React.Component {
         <WrittenTestClockSecondLayout >
           <div className='square-form' >
             <div className='left' >
-              <img src='/static/writtentestclocksecond/form-left.png' />
-            </div>
+              <img src='/static/writtentestclocksecond/entry-form-left-3.png' />
+            </div >
             <div className='content' >
-              <div className='right-count' >本次测试打对{testInfo.totalSize}道题</div >
+              <div className='right-count' >{accuracy > 65 ? '' : '很遗憾，'}本次测试打对{testInfo.totalSize}道题</div >
               <div className='data1' >总正确率{accuracy}%</div >
               <div className='data2' >你的笔试战斗力超过了{this.state.exceeds[accuracy]}%的笔试打卡学习者</div >
             </div >
             <div className='right' >
-              <img src='/static/writtentestclocksecond/entry-form-right.png' />
+              <img src='/static/writtentestclocksecond/entry-form-right-3.png' />
             </div >
           </div >
-          <div className='class-prefer'>
-            <p>少侠，笔试训练也是一个打怪升级的过程</p>
-            <p>您目前最适合进入</p>
-            <p>{accuracy > 65 ? '全能提升进阶班' : '全能提升基础班'}</p>
-          </div>
-          <a className='jour' href='/writtentestclocksecond/clock-in-intro'>
-            <img src='/static/writtentestclocksecond/'/>
-          </a>
-          <style jsx >{`
-          .square-form {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-          }
-          .square-form .left, .square-form .right {
-            width: 10%;
-          }
-          .square-form .left, .square-form .content, .square-form .right {
+          <div className='text' >
+            <div className='class-prefer' >
+              <p >少侠，笔试训练也是一个打怪升级的过程</p >
+              <p >您目前最适合进入</p >
+              <p className='class' >{accuracy > 65 ? '全能提升进阶班' : '全能提升基础班'}</p >
+            </div >
+            <a className='jour' href='/writtentestclocksecond/clock-in-intro' >
+              {/*<img src='/static/writtentestclocksecond/' />*/}
+            </a >
+          </div >
 
-          }
-          .square-form img {
-            width: 100%;
-          }
-          .square-form .content {
-            width: 70%;
-            background: url(/static/writtentestclocksecond/form.png);
-            background-size: 100% 100%;
-            padding: 4rem 2rem;
-            text-align: center;
-          }
-        `}</style >
-        </WrittenTestClockSecondLayout>
+          <style jsx >{`
+            .written-test-clock-second {
+              background: url(/static/writtentestclocksecond/test-result.png)
+            }
+            .square-form {
+              color: ${ThemeConfig.color.white};
+              display: flex;
+              justify-content: center;
+            }
+            .square-form .content {
+              width: 80%;
+              box-sizing: border-box;
+              background: url(/static/writtentestclocksecond/form.png);
+              background-size: 100% 100%;
+              margin: auto;
+              padding: 3rem 2rem;
+              text-align: center;
+              font-weight: bold;
+              margin-top: 3rem;
+            }
+            .square-form .left, .square-form .right {
+              width: 10%;
+            }
+            .square-form .left img, .square-form .right img {
+              width: 100%;
+            }
+            .text {
+              padding: 1rem 10%;
+              text-align: center;
+              color: ${ThemeConfig.color.writtentestclocksecondfont};
+            }
+            .text .class {
+              color: ${ThemeConfig.color.writtentestclocksecondmainlight};
+              font-size: ${ThemeConfig.size.large};
+              font-weight: bold;
+            }
+          `}</style >
+          {this.renderGlobalCss()}
+        </WrittenTestClockSecondLayout >
       )
     } else {
       return (
