@@ -1,8 +1,6 @@
 import React from 'react'
 import ThemeConfig from '../../config/theme'
-import React from 'react'
 import Layout from '../../components/layout'
-import ThemeConfig from '../../config/theme'
 
 export default class WrittenTestClockSecond extends React.Component {
   renderGlobalCss () {
