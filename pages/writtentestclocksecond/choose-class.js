@@ -66,7 +66,7 @@ export default class extends React.Component {
           </div>
 
           <div className='class-choose-content'>
-            <img src={`/static/writtentestclocksecond/qr-code/${groupNo}.png`} />
+            <img src={`/static/writtentestclock/qr-code/${groupNo}.jpg`} />
           </div>
 
           <div className='class-choose-qq'>
@@ -93,7 +93,6 @@ export default class extends React.Component {
                 width: 80vw;
                 text-align: center;
                 margin: 0 auto;
-                margin-top: 30px;
             }
             .class-choose-top-form:before {
               content: ' ';

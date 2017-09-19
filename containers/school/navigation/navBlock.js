@@ -9,7 +9,7 @@ export default class NavBlock extends React.Component {
       <div className='container'>
         <a href={Href}><img src={Image} /></a>
         <div className='right'>
-          <div><a>{CompanyName}</a><span>{Time}</span></div>
+          <div><a href={Href}>{CompanyName}</a><span>{Time}</span></div>
           <div><span className='work'>工作体验</span><span className='exp'>面经/笔经</span>
           </div>
         </div>

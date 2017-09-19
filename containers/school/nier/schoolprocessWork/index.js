@@ -16,7 +16,7 @@ export default class schoolExp extends React.Component {
     return (
       <div className='main-section'>
         <CompanyDetail headerimage='/static/school/nier.png' trade='会计师事务所/咨询/法律/其他专业服务' tag='世界级知名公司'
-          isOnlineApply companyName='埃森哲' />
+          isOnlineApply companyName='尼尔森' />
         <SchoolNav fromType='work' processLink='/school/nier/schoolprocess' workLink='/school/nier/schoolWork' expLink='/school/nier/schoolExp' />
         <List list={this.state.list} />
       </div>
