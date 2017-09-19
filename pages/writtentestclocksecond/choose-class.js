@@ -74,6 +74,8 @@ export default class extends React.Component {
             <div className='qq'>QQ群号：{Constants.qqGroupNum[groupNo]}</div>
             <div className='hint'>*若长按扫码无法加群</div>
             <div className='hint'>请输入QQ号进入专属打卡群</div>
+            <div className='hint'>本群主要用于问题讨论</div>
+            
           </div>
           <a className='go-clock-in' href='/writtentestclocksecond/index-clock-in' />
           {this.renderGolbalCss()}
@@ -155,13 +157,13 @@ export default class extends React.Component {
               position: relative;
               background: url(/static/writtentestclocksecond/qr-code.png);
               background-repeat: no-repeat;
-              background-position: center;
+              background-position: top center;
               background-size: 70%;
               height: 200px;
               margin-top: 10px;
               display: flex;
               flex-direction: column;
-              width: 18rem;
+              width: 290px;
               text-align: center;
               margin: 0 auto;
             }
@@ -189,9 +191,7 @@ export default class extends React.Component {
             }
             .class-choose-content img {
                 margin: 0 auto;
-                width: 180px;
-                height: 180px;
-                margin-top: 10px;
+                height: 100%;
             }
             .class-choose-qq {
               text-align: center;

@@ -287,9 +287,9 @@ export default class extends React.Component {
           }
           .table-content-wrap {
             width: 90vw;
-            height: 90vw;
+            height: 100vw;
             margin: 0 auto;
-            margin-top: 20px;
+            margin-top: 10px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -417,7 +417,7 @@ export default class extends React.Component {
           }
           .result-form .row div {
             width: 110px;
-            text-align: right;
+            text-align: center;
           }
           .hint {
             font-size: 12px;
