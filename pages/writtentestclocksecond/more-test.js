@@ -9,6 +9,9 @@ export default class extends React.Component {
         .written-test-clock {
           padding: 0!important;
         }
+        .more-test-img {
+          padding-bottom: 40px;
+        }
       `}</style>
     )
   }
