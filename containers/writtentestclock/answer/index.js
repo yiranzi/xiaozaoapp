@@ -356,7 +356,6 @@ import React from 'react'
 import SubjectComponent from '../components/subject'
 import ThemeConfig from '../../../config/theme'
 import AnswerAction from '../../../action/writtentestclock/answer'
-import CommonUtil from '../../../util/common'
 
 export default class AnswerPage extends React.Component {
   constructor (props) {

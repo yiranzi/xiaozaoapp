@@ -1,7 +1,11 @@
 const config = {
   color: {
     white: '#fff',
-    writtentestclockmain: '#45cd17'
+    black: '#333',
+    writtentestclockmain: '#45cd17',
+    writtentestclocksecondmainlight: '#dc3a3a',
+    writtentestclocksecondmain: '#960c0c',
+    writtentestclocksecondfont: '#fbd301'
   },
   size: {
     small: '1rem',

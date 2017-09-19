@@ -1,7 +1,6 @@
 import React from 'react'
 import WrittenTestClock from '../../containers/writtentestclock/components/layout'
 import TestAnswerPage from '../../containers/writtentestclock/test/index'
-// import AnswerAction from '../../action/writtentestclock/answer';
 
 export default class extends React.Component {
   // static async getInitialProps({req}) {
