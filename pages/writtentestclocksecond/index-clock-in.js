@@ -24,63 +24,75 @@ export default class extends React.Component {
     }
   }
 
+  initState = (info, user, test) => {
+    const { startDay, endDay, completeDay, evaluationAccuracy } = info
+    const dateLength = Math.ceil((endDay - startDay) / 3600 / 24 / 1000) + 1
+    const currentDayIndex = completeDay.length
+    let renderList = []
+    let totalUser = info.totalUserCount
+    let hasPrize = true
+    let countdownDay = dateLength - completeDay.length
+    for (let i = 0; i < dateLength; i++) {
+      const item = completeDay[i] || {}
+      /** item.type
+        * 2: 打卡完成
+        * 1: 打卡未完成
+        * 0: 打卡未开始／当日尚未打卡
+        **/
+      if (completeDay[i]) {
+        if (completeDay[i].completed) {
+          item.type = 2
+        } else {
+          if (currentDayIndex === i + 1) {
+            item.type = 0
+          } else {
+            item.type = 1
+          }
+        }
+
+        if (!completeDay[i].completed &&
+          (currentDayIndex !== i + 1)) {
+          hasPrize = false
+        }
+      } else {
+        item.type = 0
+      }
+      renderList.push(item)
+    }
+
+    this.setState({
+      currentDayIndex,
+      evaluationAccuracy,
+      countdownDay,
+      completeDay,
+      dateLength,
+      renderList,
+      totalUser,
+      hasPrize,
+      user,
+      test,
+      showPage: true
+    })
+  }
+
   componentDidMount = async () => {
     try {
-      const info = await Action.getHistory()
-      const user = await Action.getInfo()
-      const { startDay, endDay, completeDay, evaluationAccuracy } = info
-      const dateLength = Math.ceil((endDay - startDay) / 3600 / 24 / 1000) + 1
-      const currentDayIndex = completeDay.length
-      let renderList = []
-      let totalUser = info.totalUserCount
-      let hasPrize = true
-      let countdownDay = dateLength - completeDay.length
-      for (let i = 0; i < dateLength; i++) {
-        const item = completeDay[i] || {}
-        /** item.type
-          * 2: 打卡完成
-          * 1: 打卡未完成
-          * 0: 打卡未开始／当日尚未打卡
-          **/
-        if (completeDay[i]) {
-          if (completeDay[i].completed) {
-            item.type = 2
-          } else {
-            if (currentDayIndex === i + 1) {
-              item.type = 0
-            } else {
-              item.type = 1
-            }
-          }
-
-          if (!completeDay[i].completed &&
-            (currentDayIndex !== i + 1)) {
-            hasPrize = false
-          }
-        } else {
-          item.type = 0
-        }
-        renderList.push(item)
-      }
-
-      this.setState({
-        currentDayIndex,
-        evaluationAccuracy,
-        countdownDay,
-        completeDay,
-        dateLength,
-        renderList,
-        totalUser,
-        hasPrize,
-        user,
-        showPage: true
-      })
+      this.info = await Action.getHistory()
+      this.user = await Action.getInfo()
+      this.test = await Action.getTest()
+      this.initState(this.info, this.user, this.test)
     } catch (error) {
-      this.setState({
-        tipsMsg: error.message,
-        showPage: true
-      })
+      if(error.url.indexOf('getTest')) {
+        this.initState(this.info, this.user)
+      } else {
+        this.setState({
+          tipsMsg: error.message,
+          showPage: true
+        })
+      }
+      
     }
+    
   }
 
   rowClick = (type, index) => {
@@ -156,7 +168,7 @@ export default class extends React.Component {
   }
 
   render() {
-    const { showPage, tipsMsg, renderList, totalUser, hasPrize, countdownDay, evaluationAccuracy, exceeds, randomAvatars, currentDayIndex, user } = this.state
+    const { showPage, tipsMsg, renderList, totalUser, hasPrize, countdownDay, evaluationAccuracy, exceeds, randomAvatars, currentDayIndex, user, test } = this.state
     if (!showPage) {
       return (
         <WrittenTestClock>
@@ -195,12 +207,20 @@ export default class extends React.Component {
 
             <div className='result-form'>
               <div className='row'>
-                <img src='/static/writtentestclocksecond/evaluation-result-btn.png' />
+                <a href='/writtentestclocksecond/task?category=entrance&&action=review'>
+                  <img src='/static/writtentestclocksecond/evaluation-result-btn.png' />
+                </a>
                 <div>正确率{evaluationAccuracy}%</div>
                 <div>击败了{exceeds[evaluationAccuracy || 0]}%的人</div>
               </div>
               <div className='row'>
-                <img src='/static/writtentestclocksecond/clock-in-result.png' />
+                {
+                  test
+                  ? <a href='/writtentestclocksecond/task?category=finish&&action=review'>
+                      <img src='/static/writtentestclocksecond/clock-in-result.png' />
+                    </a>
+                  :  <a><img src='/static/writtentestclocksecond/clock-in-result.png' /></a>
+                }
                 <div>正确率9%</div>
                 <div>击败了%的人</div>
               </div>
