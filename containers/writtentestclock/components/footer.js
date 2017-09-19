@@ -1,13 +1,5 @@
 import React from 'react'
-<<<<<<< 3d843ce39f62e8ec68779be84e8636590d893324:containers/writtentestclock/components/footer.js
-<<<<<<< 976b0990b9936056310b888556cd1b6d55a35a44:containers/writtentestclock/components/footer.js
 import Theme from '../../../config/theme'
-=======
-import Theme from '../../../../config/theme'
->>>>>>> update: eslinit code style:src/page/writtentestclock/components/footer.js
-=======
-import Theme from '../../../config/theme'
->>>>>>> update: project constructor:containers/writtentestclock/components/footer.js
 
 export default class extends React.Component {
   renderGlobalCss () {
