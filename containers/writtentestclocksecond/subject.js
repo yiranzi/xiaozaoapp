@@ -199,7 +199,11 @@ export default class WrittenTestSubject extends React.Component {
     let {limitTime} = this.state
     let minute = parseInt(limitTime / 60)
     let second = limitTime % 60
-    return `${minute} : ${second}`
+    if (second < 10) {
+      return `${minute} : 0${second}`
+    } else {
+      return `${minute} : ${second}`
+    }
   }
 
   renderAnswerAnalysis (questionItem) {
@@ -231,35 +235,34 @@ export default class WrittenTestSubject extends React.Component {
       <div className='subject-detail' >
         <div className='material' >
           {!disabled &&
-            <div className='progress'>
-              <div className='text' >答题进度条<span >{progress}%</span ></div >
-              <div className='progress-sub' >
-                <Progress value={progress} showCancel={false} />
-                <div className='count-down' >{this.renderLeftTime()}</div >
-              </div >
-            </div>
+          <div className='progress' >
+            <div className='text' >答题进度条<span >{progress}%</span ></div >
+            <div className='progress-sub' >
+              <Progress value={progress} showCancel={false} />
+              <div className='count-down' >{this.renderLeftTime()}</div >
+            </div >
+          </div >
           }
-          <div className='question'>
-            {this.isImg(materialType) && <img src={materialContent} />}
-            {this.isText(materialType) && <p >{materialContent}</p >}
-          </div>
-        </div>
-        <div className='ask'>
-          <div className='border-left'>
+          <div className='question' >
+            {this.isImg(materialType) && <img src={materialContent} />} {this.isText(materialType) &&
+          <p >{materialContent}</p >}
+          </div >
+        </div >
+        <div className='ask' >
+          <div className='border-left' >
             <img src='/static/writtentestclocksecond/border-left-1.png' />
-          </div>
-          <div className='options'>
-            <div className='question-no'>{questionItem.no}.{questionItem.question}</div >
-            {disabled && this.renderAnswerAnalysis(questionItem)}
-            {!disabled &&
-              <div className='answer-option' >
-                <Form radio >
-                  {this.renderAnswerOption(no, questionItem.optionDTOList, selectAnswer, disabled)}
-                </Form >
-              </div>
-            }
-          </div>
-        </div>
+          </div >
+          <div className='options' >
+            <div className='question-no' >{questionItem.no}.{questionItem.question}</div >
+            {disabled && this.renderAnswerAnalysis(questionItem)} {!disabled &&
+          <div className='answer-option' >
+            <Form radio >
+              {this.renderAnswerOption(no, questionItem.optionDTOList, selectAnswer, disabled)}
+            </Form >
+          </div >
+          }
+          </div >
+        </div >
         {this.renderCss()}
       </div >
     )
