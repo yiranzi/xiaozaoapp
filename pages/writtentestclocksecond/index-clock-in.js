@@ -365,7 +365,7 @@ export default class extends React.Component {
             text-align: center;
           }
           .middle-form .row {
-            padding: 0 10px;
+            padding: 0 5px;
             display: inline-block;
           }
           .middle-form .content {

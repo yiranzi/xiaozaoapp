@@ -162,7 +162,7 @@ export default class extends React.Component {
             background: #f8efdb;
           }
           .choose-class {
-            padding: 6px 35px;
+            padding: 6px 20px;
             height: 10px;
             line-height: 10px;
           }
