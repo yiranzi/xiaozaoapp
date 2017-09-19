@@ -73,7 +73,7 @@ export default class extends React.Component {
       <WrittenTestClock>
         <Flex >
           <FlexItem>
-            <div className='title'>恭喜你！</div>
+            <div className='title'>恭喜你!</div>
             <div className='sub-title'>离 四 大 又 近 了 一 步</div>
           </FlexItem>
         </Flex>
