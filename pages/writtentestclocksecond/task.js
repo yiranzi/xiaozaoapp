@@ -1,6 +1,5 @@
 import React from 'react'
 import ToolsUtil from '../../util/tools'
-import ThemeConfig from '../../config/theme'
 import WrittenTestClockSecond from '../../containers/writtentestclocksecond/layout'
 import WrittenTestClockSecondAction from '../../action/writtentestclocksecond/index'
 import WrittenTestSubject from '../../containers/writtentestclocksecond/subject'

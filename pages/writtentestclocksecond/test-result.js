@@ -35,6 +35,9 @@ export default class extends React.Component {
         .written-test-clock-second {
           background: url(/static/writtentestclocksecond/test-result-bg.png);
           background-size: 100% 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
         }
       `}</style >
     )
@@ -67,15 +70,12 @@ export default class extends React.Component {
               <p >您目前最适合进入</p >
               <p className='class' >{accuracy > 65 ? '全能提升进阶班' : '全能提升基础班'}</p >
             </div >
-            <a className='jour' href='/writtentestclocksecond/clock-in-intro' >
-              {/*<img src='/static/writtentestclocksecond/' />*/}
+            <a className='jour' href='/writtentestclocksecond/choose-class' >
+              <img src='/static/writtentestclocksecond/start-traning.png' />
             </a >
           </div >
 
           <style jsx >{`
-            .written-test-clock-second {
-              background: url(/static/writtentestclocksecond/test-result.png)
-            }
             .square-form {
               color: ${ThemeConfig.color.white};
               display: flex;
@@ -101,12 +101,21 @@ export default class extends React.Component {
             .text {
               padding: 1rem 10%;
               text-align: center;
-              color: ${ThemeConfig.color.writtentestclocksecondfont};
+              color: #af7534;
+              font-weight: bold;
+              margin-bottom: 1rem;
             }
             .text .class {
               color: ${ThemeConfig.color.writtentestclocksecondmainlight};
               font-size: ${ThemeConfig.size.large};
-              font-weight: bold;
+              margin: 1.5rem 0;
+            }
+            .text .jour {
+              display: inline-block;
+              width: 80%;
+            }
+            .text .jour img {
+              width: 100%;
             }
           `}</style >
           {this.renderGlobalCss()}
