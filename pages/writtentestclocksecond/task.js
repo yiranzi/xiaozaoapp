@@ -351,9 +351,6 @@ export default class extends React.Component {
             {isSubmit && <Loading />}
           </div >
           <style jsx >{`
-            .task-main {
-              padding: 1.5rem 0;
-            }
             .task-action {
               width: 80%;
               margin: auto;

@@ -69,15 +69,16 @@ export default class WrittenTestSubject extends React.Component {
           width: 80%;
           margin: auto;
           position: relative;
+          padding-top: 2rem;
         }
         .subject-detail .material::before {
           content: '';
           width: 13%;
-          height: 15%;
-          background: url(/static/writtentestclocksecond/form-left.png) no-repeat;
+          height: 60%;
+          background: url(/static/writtentestclocksecond/entry-form-left-2.png) no-repeat;
           position: absolute;
           left: -13%;
-          top: 45%;
+          top: 0;
           background-size: 100% 100%;
         }
         .subject-detail .material::after {
@@ -103,6 +104,7 @@ export default class WrittenTestSubject extends React.Component {
           padding: 0.5rem;
           background: url(/static/writtentestclocksecond/question-form.png) no-repeat;
           background-size: 100% 100%;
+          min-height: 10rem;
         }
         .subject-detail .ask {
           width: 100%;
