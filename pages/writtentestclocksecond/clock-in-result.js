@@ -12,7 +12,7 @@ export default class extends React.Component {
 
     this.state = {
       todayInfo: null,
-      todayNo: 1,
+      clockInCount: 1,
       shareIsShow: false,
       showPage: false,
       exceeds: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 8, 8, 8, 9, 9, 9, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 39, 42, 44, 46, 48, 51, 54, 57, 60, 63, 65, 67, 69, 72, 75, 77, 80, 82, 84, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 96, 96, 96, 96, 97, 97, 97, 97, 97, 98, 98, 98, 98, 98, 99, 99, 99, 99, 99, 100]
@@ -23,9 +23,10 @@ export default class extends React.Component {
     try {
       const todayInfo = await Action.getToday()
       const res = await Action.getHistory()
+      const clockInCount = res.completeDay.filter(item => item.completed).length
       this.setState({
         todayInfo,
-        todayNo: res.completeDay.length,
+        clockInCount,
         showPage: true
       })
     } catch (err) {
@@ -61,7 +62,7 @@ export default class extends React.Component {
           <ShareWx isShow={this.state.shareIsShow} />
           <div className='square'>
             <div className='inner-square'>
-              <div className='score'>你成功坚持笔试修炼第<span className='day'>{this.state.todayNo}</span>天，打卡成功！</div>
+              <div className='score'>打卡成功！你累计坚持笔试打卡<span className='day'>{this.state.clockInCount}</span>天</div>
               <div className='score'>今日笔试打卡成绩</div>
             </div>
           </div>
