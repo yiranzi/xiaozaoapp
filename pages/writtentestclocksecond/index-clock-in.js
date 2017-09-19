@@ -3,6 +3,7 @@ import WrittenTestClock from '../../containers/writtentestclocksecond/layout'
 import React from 'react'
 import Footer from '../../containers/writtentestclocksecond/footer'
 import Theme from '../../config/theme'
+import Constants from '../../config/constants'
 import Action from '../../action/writtentestclocksecond'
 import { Toptips } from 'react-weui'
 import classnames from 'classnames'
@@ -14,7 +15,7 @@ export default class extends React.Component {
     while (set.size < 5) {
       set.add(Math.round(200 * Math.random()))
     }
-    let randomAvatars = Array.from(set)
+    let randomAvatars = [...set]
 
     this.state = {
       tipsMsg: '',
@@ -90,9 +91,7 @@ export default class extends React.Component {
           showPage: true
         })
       }
-      
     }
-    
   }
 
   rowClick = (type, index) => {
@@ -169,6 +168,13 @@ export default class extends React.Component {
 
   render() {
     const { showPage, tipsMsg, renderList, totalUser, hasPrize, countdownDay, evaluationAccuracy, exceeds, randomAvatars, currentDayIndex, user, test } = this.state
+    
+    let currPersent = 0;
+    if(test) {
+      currPersent = Math.round(test.totalScore / test.writtenTestTopicDTOList.length * 100)
+    }
+    
+    
     if (!showPage) {
       return (
         <WrittenTestClock>
@@ -200,7 +206,7 @@ export default class extends React.Component {
               </div>
               <div className='middle-form'>
                 <div className='row'><span>学号：</span><span className='content'>{user.no || ''}</span></div>
-                <div className='row'><span>QQ群号：</span><span className='content'>871162172</span></div>
+                <div className='row'><span>QQ群号：</span><span className='content'>{Constants.qqGroupNum[user.groupNo]}</span></div>
               </div>
             </div>
             <a href={`/writtentestclocksecond/task?category=task&day=${currentDayIndex}`} className='btn today-push' />
@@ -221,8 +227,8 @@ export default class extends React.Component {
                     </a>
                   :  <a><img src='/static/writtentestclocksecond/clock-in-result.png' /></a>
                 }
-                <div>正确率9%</div>
-                <div>击败了%的人</div>
+                <div>正确率{currPersent}%</div>
+                <div>击败了{exceeds[currPersent || 0]}%的人</div>
               </div>
             </div>
             <div className='hint'><span>点击查看</span><img src='/static/writtentestclocksecond/hand.png' /></div>

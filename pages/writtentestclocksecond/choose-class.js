@@ -1,5 +1,6 @@
 import WrittenTestClock from '../../containers/writtentestclocksecond/layout'
 import React from 'react'
+import Constants from '../../config/constants'
 import Theme from '../../config/theme'
 import { Toptips } from 'react-weui'
 import Action from '../../action/writtentestclocksecond'
@@ -69,7 +70,7 @@ export default class extends React.Component {
           </div>
 
           <div className='class-choose-qq'>
-            <div className='qq'>QQ群号：12345678</div>
+            <div className='qq'>QQ群号：{Constants.qqGroupNum[groupNo]}</div>
             <div className='hint'>*若长按扫码无法加群</div>
             <div className='hint'>请输入QQ号进入专属打卡群</div>
           </div>
@@ -79,7 +80,9 @@ export default class extends React.Component {
             .class-choose-form {
                 align-items: center;
                 height: 100vh;
-                padding-top: 20px;
+                display: flex; 
+                flex-direction: column;
+                justify-content: space-around;
             }
             .class-choose-top-form {
                 position: relative;
@@ -201,7 +204,7 @@ export default class extends React.Component {
               font-size: 12px;
             }
             .go-clock-in {
-              width: 200px;
+              width: 150px;
               height: 65px;
               display: block;
               text-align: center;
@@ -210,7 +213,6 @@ export default class extends React.Component {
               background-repeat: no-repeat;
               background-size: 100%;
               margin: 0 auto;
-              margin-top: 60px;
             }
             
         `}</style>
