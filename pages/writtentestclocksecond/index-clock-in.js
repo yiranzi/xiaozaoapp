@@ -85,7 +85,7 @@ export default class extends React.Component {
       this.test = await Action.getTest()
       this.initState(this.info, this.user, this.test)
     } catch (error) {
-      if(error.url.indexOf('getTest')) {
+      if (error.url.indexOf('getTest')) {
         this.initState(this.info, this.user)
       } else {
         this.setState({
@@ -97,13 +97,46 @@ export default class extends React.Component {
   }
 
   rowClick = (type, index) => {
-    if (type !== 0) location.href = `/writtentestclocksecond/task?category=task&day=${index + 1}`
+    switch(index + 1) {
+      case 6:
+        const { test } = this.state
+        if(test) location.href = `/writtentestclocksecond/task?category=finish&&action=review`
+        break;
+      case 7:
+        // location.href = `/writtentestclocksecond/task?category=finish&&action=review`
+        break;
+      default: 
+        if (type !== 0) location.href = `/writtentestclocksecond/task?category=task&day=${index + 1}`
+    }
   }
 
   renderRow = (item, index) => {
     const { accuracy, completeUser } = item
     const beat = accuracy ? this.state.exceeds[accuracy] : ''
     const dayIndex = index + 1
+    if (dayIndex === 6) {
+      return (
+        <div onClick={() => this.rowClick(item.type, index)} key={index} className={classnames('table-row', { 'check': item.type === 2, 'cross': item.type === 1, 'next-todo': item.type === 0 })}>
+          <div className='table-content'>
+            <div>Day{dayIndex}</div>
+            <div className='test-and-analyze'>笔试打卡阶段测试</div>
+          </div>
+          <div className='check-icon' />
+        </div>
+      )
+    }
+    if (dayIndex === 7) {
+      return (
+        <div onClick={() => this.rowClick(item.type, index)} key={index} className={classnames('table-row', { 'check': item.type === 2, 'cross': item.type === 1, 'next-todo': item.type === 0 })}>
+          <div className='table-content'>
+            <div>Day{dayIndex}</div>
+            <div className='test-and-analyze'>高频错题解析汇总</div>
+          </div>
+          <div className='check-icon' />
+        </div>
+      )
+    }
+
     return (
       <div onClick={() => this.rowClick(item.type, index)} key={index} className={classnames('table-row', { 'check': item.type === 2, 'cross': item.type === 1, 'next-todo': item.type === 0 })}>
         <div className='table-content'>
@@ -113,70 +146,78 @@ export default class extends React.Component {
           <div>{beat ? beat + '%' : (beat === 0 ? '0%' : '')}</div>
         </div>
         <div className='check-icon' />
-        <style jsx>{`
-          .table-content {
-            justify-content: space-around;
-            display: flex;
-            width: 85%;
-            padding: 5px 0;
-            font-size: 15px;
-          }
-          .table-content div {
-            width: 25%;
-            text-align: center;
-          }
-          .table-title {
-            font-weight: bold;
-          }
-          .table-row {
-            overflow: hidden;
-            margin-bottom: 10px;
-          }
-          .table-content {
-            color: #000;
-            border-radius: 5px;
-            float: left;
-          }
-          .check .table-content {
-            background: #ec4242;
-            color: #fff;
-          }
-          .check-icon {
-            width: 35px;
-            height: 35px;
-            border-radius: 5px;
-            float: right;
-          }
-          .check .check-icon {
-            background: url(/static/writtentestclock/check-blank.png) no-repeat center center #ec4242;
-            background-size: 75%;
-          }
-          .cross .table-content,
-          .next-todo .table-content {
-            background: #d3d3d3;
-            color: #ec4242;
-          }
-          .cross .check-icon {
-            background: url(/static/writtentestclock/cross-blank.png) no-repeat center center #d3d3d3;
-            background-size: 75%;
-          }  
-          .next-todo .check-icon {
-            background: #d3d3d3;
-          }
-        `}</style>
       </div>
+    )
+  }
+
+  renderGlobalCss() {
+    return (
+      <style global jsx >{`
+      .table-content {
+        justify-content: space-around;
+        display: flex;
+        width: 85%;
+        padding: 5px 0;
+        font-size: 15px;
+      }
+      .table-content div {
+        width: 25%;
+        text-align: center;
+      }
+      .table-title {
+        font-weight: bold;
+      }
+      .table-row {
+        overflow: hidden;
+        margin-bottom: 10px;
+      }
+      .table-content {
+        color: #000;
+        border-radius: 5px;
+        float: left;
+      }
+      .check .table-content {
+        background: #ec4242;
+        color: #fff;
+      }
+      .check-icon {
+        width: 35px;
+        height: 35px;
+        border-radius: 5px;
+        float: right;
+      }
+      .check .check-icon {
+        background: url(/static/writtentestclock/check-blank.png) no-repeat center center #ec4242;
+        background-size: 75%;
+      }
+      .cross .table-content,
+      .next-todo .table-content {
+        background: #d3d3d3;
+        color: #ec4242;
+      }
+      .cross .check-icon {
+        background: url(/static/writtentestclock/cross-blank.png) no-repeat center center #d3d3d3;
+        background-size: 75%;
+      }  
+      .next-todo .check-icon {
+        background: #d3d3d3;
+      }
+      .table-content .test-and-analyze {
+        width: 75%;
+      }
+    `}</style>
     )
   }
 
   render() {
     const { showPage, tipsMsg, renderList, totalUser, hasPrize, countdownDay, evaluationResult, exceeds, randomAvatars, currentDayIndex, user, test } = this.state
-    
+
     let currPersent = 0;
-    if(test) {
+    if (test) {
       currPersent = Math.round(test.totalScore / test.writtenTestTopicDTOList.length * 100)
     }
-    
-    
+
+
     if (!showPage) {
       return (
         <WrittenTestClock>
@@ -225,10 +266,10 @@ export default class extends React.Component {
               <div className='row'>
                 {
                   test
-                  ? <a href='/writtentestclocksecond/task?category=finish&&action=review'>
+                    ? <a href='/writtentestclocksecond/task?category=finish&&action=review'>
                       <img src='/static/writtentestclocksecond/clock-in-result.png' />
                     </a>
-                  :  <a><img src='/static/writtentestclocksecond/clock-in-result.png' /></a>
+                    : <a><img src='/static/writtentestclocksecond/clock-in-result.png' /></a>
                 }
                 <div>正确率{currPersent}%</div>
                 <div>击败了{exceeds[currPersent || 0]}%的人</div>
@@ -249,9 +290,9 @@ export default class extends React.Component {
                 })}
               </div>
             </div>
-            
+
             <div className='accomplish-until'>
-              <img src='/static/writtentestclocksecond/prize.png'/>
+              <img src='/static/writtentestclocksecond/prize.png' />
               {
                 hasPrize
                   ? <div><span>你离通关奖品还差</span><span className='date'>{countdownDay}</span><span>天打卡</span></div>
@@ -260,6 +301,7 @@ export default class extends React.Component {
             </div>
           </div>
           <Footer />
+          {this.renderGlobalCss()}
           <style jsx>{`
           .title-img {
             width: 100vw;
