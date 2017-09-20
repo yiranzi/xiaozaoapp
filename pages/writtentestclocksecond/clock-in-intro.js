@@ -73,14 +73,10 @@ export default class extends React.Component {
       location.href = '/writtentestclocksecond/choose-class'
     } catch (error) {
       clearTimeout(this.timeout)
-      if (error.status === 10003){
-        location.href = '/writtentestclocksecond/choose-class'
-      } else {
-        this.setState({
-          tipsMsg: error.message,
-          showTips: true
-        })
-      }
+      this.setState({
+        tipsMsg: error.message,
+        showTips: true
+      })
       this.timeout = setTimeout(() => this.setState({ showTips: false }), 2000)
     }
   }
