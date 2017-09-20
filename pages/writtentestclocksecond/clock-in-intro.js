@@ -29,7 +29,7 @@ export default class extends React.Component {
         info,
         showPage: true,
         recommend: score > 65 ? '提高' : '简单',
-        dialogContent: score > 65 ? '高级班' : '基础班'
+        dialogContent: score > 65 ? '进阶班' : '基础班'
       })
     } catch (error) {
       this.setState({
@@ -58,7 +58,7 @@ export default class extends React.Component {
   chooseClass = (isAdvanced) => {
     this.setState({
       showDialog: true,
-      dialogContent: isAdvanced ? '高级班' : '基础班',
+      dialogContent: isAdvanced ? '进阶班' : '基础班',
       level: isAdvanced ? '提高' : '简单'
     })
   };

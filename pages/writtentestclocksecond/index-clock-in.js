@@ -249,8 +249,11 @@ export default class extends React.Component {
                 <div className='ellipsis'>······</div>
               </div>
               <div className='middle-form'>
-                <div className='row'><span>学号：</span><span className='content'>{user.no || ''}</span></div>
-                <div className='row'><span>QQ群号：</span><span className='content'>{Constants.qqGroupNum[user.groupNo]}</span></div>
+                <div className='row'>
+                  <span>学号：</span><span className='content'>{user.no || ''}</span>   
+                  <span>&nbsp;&nbsp;QQ群号：</span><span className='content'>{Constants.qqGroupNum[user.groupNo]}</span>
+                </div>
+                <div className='row'>您的班级：{user.groupNo.indexOf('N') !== -1 ? '全能提升基础班' : '全能提升提高班'}</div>
               </div>
             </div>
             <a href={`/writtentestclocksecond/task?category=task&day=${currentDayIndex}`} className='btn today-push' />
@@ -352,7 +355,7 @@ export default class extends React.Component {
             overflow: hidden;
             display: flex;
             justify-content: space-evenly;
-            margin-top: 20px;
+            margin-top: 5px;
             line-height: 25px;
             text-align: center;
             align-items: center;
@@ -431,13 +434,12 @@ export default class extends React.Component {
             left: calc(50% - 45vw);
           }
           .middle-form {
-            margin: 25px 0;
+            margin: 10px 0;
             font-size: 12px;
             text-align: center;
           }
           .middle-form .row {
-            padding: 0 5px;
-            display: inline-block;
+            padding: 5px 0;
           }
           .middle-form .content {
             border-bottom: 1px solid;
