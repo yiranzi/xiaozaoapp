@@ -88,7 +88,7 @@ export default class extends React.Component {
     if (!showPage) return <div />
     return (
       <WrittenTestClock>
-        <img className='bg-img' src='/static/writtentestclocksecond/clock-in-intro-bg-1.jpg' />
+        <img className='bg-img' src='/static/writtentestclocksecond/clock-in-intro-bg-2.jpg' />
         <div className='btn-form'>
           {showMore &&
             <div className='choose-class-form'>
