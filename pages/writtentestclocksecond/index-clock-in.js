@@ -17,7 +17,6 @@ export default class extends React.Component {
       set.add(Math.round(200 * Math.random()))
     }
     let randomAvatars = [...set]
-
     this.state = {
       tipsMsg: '',
       showPage: false,
@@ -53,7 +52,6 @@ export default class extends React.Component {
             item.type = 1
           }
         }
-
         if (!completeDay[i].completed &&
           (currentDayIndex !== i + 1)) {
           hasPrize = false
@@ -63,7 +61,6 @@ export default class extends React.Component {
       }
       renderList.push(item)
     }
-
     this.setState({
       currentDayIndex,
       evaluationResult,
@@ -87,7 +84,7 @@ export default class extends React.Component {
       this.test = await Action.getTest()
       this.initState(this.info, this.user, this.test)
     } catch (error) {
-      if (error.url.indexOf('getTest')) {
+      if (error.url.indexOf('getTest') >= 0) {
         this.initState(this.info, this.user)
       } else {
         this.setState({
@@ -218,7 +215,6 @@ export default class extends React.Component {
     if (test) {
       currPersent = Math.round(test.totalScore / test.writtenTestTopicDTOList.length * 100)
     }
-
 
     if (!showPage) {
       return (
