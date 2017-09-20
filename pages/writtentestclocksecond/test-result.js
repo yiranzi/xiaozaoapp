@@ -56,7 +56,7 @@ export default class extends React.Component {
               <img src='/static/writtentestclocksecond/entry-form-left-3.png' />
             </div >
             <div className='content' >
-              <div className='right-count' >{accuracy > 65 ? '' : '很遗憾，'}本次测试打对{testInfo.totalSize}道题</div >
+              <div className='right-count' >{accuracy > 65 ? '' : '很遗憾，'}本次测试答对{testInfo.totalScore}道题</div >
               <div className='data1' >总正确率{accuracy}%</div >
               <div className='data2' >你的笔试战斗力超过了{this.state.exceeds[accuracy]}%的笔试打卡学习者</div >
             </div >
