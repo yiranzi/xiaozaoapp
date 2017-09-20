@@ -1,6 +1,6 @@
-import React from 'react';
-import NavLayout from '../../src/components/school/schoolNavLayout';
-import SchoolNavigationPage from '../../src/page/navigation/index';
+import React from 'react'
+import NavLayout from '../../components/school/schoolNavLayout'
+import SchoolNavigationPage from '../../containers/school/navigation/index'
 
 export default class extends React.Component {
   render () {
@@ -8,6 +8,6 @@ export default class extends React.Component {
       <NavLayout>
         <SchoolNavigationPage />
       </NavLayout>
-    );
+    )
   }
 }

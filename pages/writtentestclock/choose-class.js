@@ -1,7 +1,6 @@
-import React from 'react';
-import ChooseClass from '../../src/page/writtentestclock/choose-class';
-import WrittenTestClock from '../../src/page/writtentestclock/components/layout';
-// import UserAction from '../../src/action/writtentestclock/user';
+import React from 'react'
+import ChooseClass from '../../containers/writtentestclock/choose-class'
+import WrittenTestClock from '../../containers/writtentestclock/components/layout'
 
 export default class extends React.Component {
   // static async getInitialProps() {
@@ -23,6 +22,6 @@ export default class extends React.Component {
       <WrittenTestClock>
         <ChooseClass {...this.props} />
       </WrittenTestClock>
-    );
+    )
   }
 }

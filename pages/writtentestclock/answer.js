@@ -1,7 +1,6 @@
-import React from 'react';
-import WrittenTestClock from '../../src/page/writtentestclock/components/layout';
-import AnswerPage from '../../src/page/writtentestclock/answer';
-// import AnswerAction from '../../src/action/writtentestclock/answer';
+import React from 'react'
+import WrittenTestClock from '../../containers/writtentestclock/components/layout'
+import AnswerPage from '../../containers/writtentestclock/answer'
 
 export default class extends React.Component {
   // static async getInitialProps({req}) {
@@ -23,6 +22,6 @@ export default class extends React.Component {
       <WrittenTestClock>
         <AnswerPage />
       </WrittenTestClock>
-    );
+    )
   }
 }

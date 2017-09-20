@@ -7,11 +7,12 @@
   "scripts": {
     "dev": "PORT=3000 NODE_ENV=development node dev_server",
     "build": "NODE_ENV=production next build && next export",
-    "eslint": "eslint --fix ."
+    "eslint": "eslint .",
+    "eslint-fix": "eslint --fix ."
   },
   "dependencies": {
     "axios": "0.16.2",
-    "classnames": "^2.2.5",
+    "classnames": "2.2.5",
     "express": "4.15.4",
     "http-proxy-middleware": "0.17.4",
     "next": "3.0.6",
@@ -22,7 +23,7 @@
   },
   "devDependencies": {
     "autoprefixer": "7.1.2",
-    "babel-eslint": "^7.2.3",
+    "babel-eslint": "7.2.3",
     "babel-loader": "7.1.2",
     "babel-plugin-module-resolver": "2.7.1",
     "babel-plugin-wrap-in-js": "1.1.1",

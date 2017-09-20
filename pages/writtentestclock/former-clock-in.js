@@ -1,8 +1,8 @@
-import React from 'react';
-import FormerClockIn from '../../src/page/writtentestclock/former-clock-in';
-import WrittenTestClock from '../../src/page/writtentestclock/components/layout';
+import React from 'react'
+import FormerClockIn from '../../containers/writtentestclock/former-clock-in'
+import WrittenTestClock from '../../containers/writtentestclock/components/layout'
 
-// import UserAction from '../../src/action/writtentestclock/user';
+// import UserAction from '../../action/writtentestclock/user';
 
 export default class extends React.Component {
   // static async getInitialProps() {
@@ -21,6 +21,6 @@ export default class extends React.Component {
       <WrittenTestClock>
         <FormerClockIn {...this.props} />
       </WrittenTestClock>
-    );
+    )
   }
 }

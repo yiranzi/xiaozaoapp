@@ -1,29 +1,13 @@
-import React from 'react';
-import Layout from '../../../src/components/school/schoolLayout';
-import SchoolProcessPage from '../../../src/page/zhitong/schoolprocess/index';
+import React from 'react'
+import Layout from '../../../components/school/schoolLayout'
+import SchoolProcessPage from '../../../containers/school/zhitong/schoolprocess/index'
 
 export default class extends React.Component {
-  // static async getInitialProps({req}) {
-  //     let error, companyDetail;
-  //     let {companyId} = req.params;
-  //     companyId = parseInt(companyId);
-  //     try {
-  //         const setJson = await CompanyAction.getCompany(companyId);
-  //         companyDetail = setJson.response;
-  //         console.log(companyDetail);
-  //     } catch (err) {
-  //
-  //     }
-  //     return {
-  //         companyDetail
-  //     }
-  // }
-
-  render () {
+ render () {
     return (
       <Layout fromType='zhitong'>
         <SchoolProcessPage />
       </Layout>
-    );
+    )
   }
 }

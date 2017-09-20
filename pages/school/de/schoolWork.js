@@ -1,6 +1,6 @@
-import React from 'react';
-import Layout from '../../../src/components/school/schoolLayout';
-import SchoolProcessWorkPage from '../../../src/page/de/schoolprocessWork/index';
+import React from 'react'
+import Layout from '../../../components/school/schoolLayout'
+import SchoolProcessWorkPage from '../../../containers/school/de/schoolprocessWork/index'
 
 export default class extends React.Component {
   render () {
@@ -8,6 +8,6 @@ export default class extends React.Component {
       <Layout fromType='de'>
         <SchoolProcessWorkPage />
       </Layout>
-    );
+    )
   }
 }
