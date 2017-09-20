@@ -61,7 +61,7 @@ export default class extends React.Component {
     this.setState({
       showDialog: true,
       dialogContent: isAdvanced ? '高级班' : '基础班',
-      level: isAdvanced ? '简单' : '提高'
+      level: isAdvanced ? '提高' : '简单'
     })
   };
 
