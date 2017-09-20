@@ -130,7 +130,7 @@ export default class extends React.Component {
   }
 
   timeDown () {
-    alert('时间到')
+    alert('答题时间到,强制交卷')
     this.answerComplete()
   }
 

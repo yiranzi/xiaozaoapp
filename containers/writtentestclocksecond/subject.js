@@ -42,10 +42,14 @@ export default class WrittenTestSubject extends React.Component {
         disabled: disabled
       })
       const key = `answer_${currentIndex}_${i}`
-      if (!disabled) {
+      if (disabled) {
+        return (
+          <Radio key={key} params={radioItem} disabled />
+        )
+      } else {
         return (
           <Radio key={key} params={radioItem} onChange={(value) => {
-            onChange(value)
+              onChange(value)
           }} />
         )
       }
@@ -248,13 +252,12 @@ export default class WrittenTestSubject extends React.Component {
         <div className='ask' >
           <div className='options' >
             <div className='question-no' >{questionItem.no}.{questionItem.question}</div >
-            {disabled && this.renderAnswerAnalysis(questionItem)} {!disabled &&
-          <div className='answer-option' >
-            <Form radio >
-              {this.renderAnswerOption(no, questionItem.optionDTOList, selectAnswer, disabled)}
-            </Form >
-          </div >
-          }
+            <div className='answer-option' >
+              <Form radio >
+                  {this.renderAnswerOption(no, questionItem.optionDTOList, selectAnswer, disabled)}
+              </Form >
+            </div >
+            {disabled && this.renderAnswerAnalysis(questionItem)}
           </div >
         </div >
         {this.renderCss()}
