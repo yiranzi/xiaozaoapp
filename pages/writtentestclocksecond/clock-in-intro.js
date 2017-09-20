@@ -11,8 +11,6 @@ export default class extends React.Component {
     super(props)
     this.state = {
       showMore: false,
-      isAdvanced: 0,
-      showTips: false,
       tipsMsg: '',
       showPage: false,
       showDialog: false,
@@ -30,14 +28,13 @@ export default class extends React.Component {
       this.setState({
         info,
         showPage: true,
-        isAdvanced: score > 65 ? 2 : 1
+        level: score > 65 ? '提高' : '简单',
+          dialogContent: score > 65 ? '高级班':'基础班'
       })
     } catch (error) {
       this.setState({
         error: true,
-        showPage: true,
-        tipsMsg: error.message,
-        showTips: true
+        showPage: true
       })
     }
   };
@@ -67,17 +64,16 @@ export default class extends React.Component {
   };
 
   doRequest = async () => {
-    const {isAdvanced} = this.state;
+    let group = this.state.level === '简单' ? 'N' : 'H'
     try {
-      await Action.selectGroups({ group: isAdvanced ? 'H' : 'N' })
+      await Action.selectGroups({ group: group })
       location.href = '/writtentestclocksecond/choose-class'
     } catch (error) {
-      clearTimeout(this.timeout)
-      this.setState({
-        tipsMsg: error.message,
-        showTips: true
-      })
-      this.timeout = setTimeout(() => this.setState({ showTips: false }), 2000)
+      if (error.status === 10003){
+        location.href = '/writtentestclocksecond/choose-class?joinClass=true'
+      } else {
+        alert(error.message)
+      }
     }
   }
   closeDialog (){
@@ -87,7 +83,8 @@ export default class extends React.Component {
   }
 
   render () {
-    const { showMore, isAdvanced, showTips, tipsMsg, showPage, showDialog, dialogContent, level } = this.state
+    const { showMore, showPage, showDialog, dialogContent, level } = this.state
+      console.log('level:', level)
 
     if (!showPage) return <div />
     return (
@@ -97,10 +94,10 @@ export default class extends React.Component {
           {showMore &&
             <div className='choose-class-form'>
               <div className='choose-class-form-inner'>
-                <div className={classnames('choose-class', { 'recommend-left': isAdvanced === 1 })}
+                <div className={classnames('choose-class', { 'recommend-left': level === '简单' })}
                   onClick={() => this.chooseClass(false)}>全能提升基础班
                 </div>
-                <div className={classnames('choose-class', { 'recommend-right': isAdvanced === 2 })}
+                <div className={classnames('choose-class', { 'recommend-right': level === '提高' })}
                   onClick={() => this.chooseClass(true)}>全能提升进阶班
                 </div>
               </div>
@@ -108,7 +105,6 @@ export default class extends React.Component {
           }
           <div className='btn-img' onClick={this.showMoreClick}></div>
         </div>
-        <Toptips type='warn' show={showTips}> {tipsMsg} </Toptips>
         {showDialog &&
           <JoinClass
             dialogContent={dialogContent}
