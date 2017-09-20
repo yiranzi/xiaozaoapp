@@ -117,6 +117,10 @@ export default class extends React.Component {
             .text .jour img {
               width: 100%;
             }
+            .data2 {
+              width: 205px;
+              margin: 0 auto;
+            }
           `}</style >
           {this.renderGlobalCss()}
         </WrittenTestClockSecondLayout >
