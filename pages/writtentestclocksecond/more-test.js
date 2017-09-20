@@ -19,7 +19,7 @@ export default class extends React.Component {
     return (
       <WrittenTestClock>
         <div className='more-test-img'>
-          <img src='/static/writtentestclocksecond/intro-bg.jpg'/>
+          <img src='/static/writtentestclocksecond/intro-bg-1.jpeg'/>
           <Footer />
           {this.renderGlobalCss()}
           <style jsx>{`
