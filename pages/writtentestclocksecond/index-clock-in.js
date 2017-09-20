@@ -279,7 +279,7 @@ export default class extends React.Component {
                 <div>击败了{exceeds[currPersent || 0]}%的人</div>
               </div>
             </div>
-            <div className='hint'><span>点击查看</span><img src='/static/writtentestclocksecond/hand.png' /></div>
+            <div className='hint'><span>点击查看解析</span><img src='/static/writtentestclocksecond/hand.png' /></div>
 
             <div className='table'>
               <div className='table-content-wrap'>
