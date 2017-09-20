@@ -92,7 +92,6 @@ export default class WrittenTestSubject extends React.Component {
           background-size: 100% 100%;
         }
         .subject-detail .count-down {
-          flex: 1;
           color: #fff;
           padding: 1rem 0.5rem 0.5rem 0.5rem;
           margin-left: 1rem;
