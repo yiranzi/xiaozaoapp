@@ -259,6 +259,7 @@ export default class extends React.Component {
                 ? <a href={`/writtentestclocksecond/task?category=finish`} className='btn today-push' />
                 : <a href={`/writtentestclocksecond/task?category=task&day=${currentDayIndex}`} className='btn today-push' />
             }
+            <div className='hint'><span>点击查看解析</span></div>
             <div className='result-form'>
               <div className='row'>
                 <a href='/writtentestclocksecond/task?category=entrance&&action=review'>
@@ -279,7 +280,7 @@ export default class extends React.Component {
                 <div>击败了{exceeds[currPersent || 0]}%的人</div>
               </div>
             </div>
-            <div className='hint'><span>点击查看</span><img src='/static/writtentestclocksecond/hand.png' /></div>
+            
 
             <div className='table'>
               <div className='table-content-wrap'>
@@ -446,7 +447,7 @@ export default class extends React.Component {
             border-bottom: 1px solid;
           }
           .result-form {
-            margin-top: 20px;
+            margin-top: 10px;
             font-size: 14px;
             color: #af7534;
           }
@@ -469,7 +470,7 @@ export default class extends React.Component {
             font-size: 12px;
             color: #af7534;
             text-align: left;
-            width: 80vw;
+            width: 77vw;
           }
           .hint img {
             width: 20px;
