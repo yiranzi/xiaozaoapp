@@ -110,7 +110,7 @@ export default class extends React.Component {
           <div>Day{dayIndex}</div>
           <div>{completeUser}</div>
           <div>{accuracy ? accuracy + '%' : ''}</div>
-          <div>{beat ? beat + '%' : ''}</div>
+          <div>{beat ? beat + '%' : (beat === 0 ? '0%' : '')}</div>
         </div>
         <div className='check-icon' />
         <style jsx>{`
