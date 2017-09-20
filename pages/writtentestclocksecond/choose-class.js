@@ -5,6 +5,7 @@ import Theme from '../../config/theme'
 import { Toptips } from 'react-weui'
 import Action from '../../action/writtentestclocksecond'
 import Loading from '../../components/loading'
+import ToolsUtil from '../../util/tools'
 
 export default class extends React.Component {
   constructor (props) {
@@ -14,11 +15,16 @@ export default class extends React.Component {
       showTips: '',
       tipsMsg: '',
       info: '',
-      showPage: false
+      showPage: false,
+      isJoinClass: false
     }
   }
 
   componentDidMount = async() => {
+    const joinClass = ToolsUtil.getQueryString('joinClass')
+    if(joinClass){
+      this.setState({isJoinClass:true})
+    }
     try{
       const info = await Action.getInfo()
       this.setState({
@@ -47,7 +53,7 @@ export default class extends React.Component {
   }
 
   render () {
-    const { showTips, tipsMsg, showPage } = this.state
+    const { showTips, tipsMsg, showPage, isJoinClass } = this.state
     const { no, groupNo } = this.state.info
 
     if (!showPage) return <Loading />
@@ -56,6 +62,7 @@ export default class extends React.Component {
     }
     return (
       <WrittenTestClock>
+          {isJoinClass && <Toptips type='warn' show={true}> 您已选过班级，请扫描二维码或群号加入班级群 </Toptips>}
         <div className='class-choose-form'>
 
           <div className='class-choose-top-form'>
