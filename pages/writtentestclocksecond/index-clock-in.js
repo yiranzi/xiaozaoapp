@@ -31,6 +31,7 @@ export default class extends React.Component {
     const { evaluationResult } = user
     const dateLength = Math.ceil((endDay - startDay) / 3600 / 24 / 1000) + 1
     const currentDayIndex = completeDay.length
+    const isTestDay = currentDayIndex === 6
     let renderList = []
     let totalUser = info.totalUserCount
     let hasPrize = true
@@ -66,6 +67,7 @@ export default class extends React.Component {
     this.setState({
       currentDayIndex,
       evaluationResult,
+      isTestDay,
       countdownDay,
       completeDay,
       dateLength,
@@ -210,7 +212,7 @@ export default class extends React.Component {
   }
 
   render() {
-    const { showPage, tipsMsg, renderList, totalUser, hasPrize, countdownDay, evaluationResult, exceeds, randomAvatars, currentDayIndex, user, test } = this.state
+    const { showPage, tipsMsg, renderList, totalUser, hasPrize, countdownDay, evaluationResult, exceeds, randomAvatars, currentDayIndex, user, test, isTestDay } = this.state
 
     let currPersent = 0;
     if (test) {
@@ -256,8 +258,11 @@ export default class extends React.Component {
                 <div className='row'>您的班级：{user.groupNo.indexOf('N') !== -1 ? '全能提升基础班' : '全能提升提高班'}</div>
               </div>
             </div>
-            <a href={`/writtentestclocksecond/task?category=task&day=${currentDayIndex}`} className='btn today-push' />
-
+            {
+              isTestDay
+                ? <a href={`/writtentestclocksecond/task?category=finish`} className='btn today-push' />
+                : <a href={`/writtentestclocksecond/task?category=task&day=${currentDayIndex}`} className='btn today-push' />
+            }
             <div className='result-form'>
               <div className='row'>
                 <a href='/writtentestclocksecond/task?category=entrance&&action=review'>
