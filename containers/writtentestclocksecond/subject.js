@@ -109,6 +109,9 @@ export default class WrittenTestSubject extends React.Component {
           background-size: 100% 100%;
           min-height: 10rem;
         }
+        .subject-detail .question .body {
+          background-color: ${ThemeConfig.color.white};
+        }
         .subject-detail .ask {
           width: 100%;
           margin: auto;
@@ -245,8 +248,10 @@ export default class WrittenTestSubject extends React.Component {
           </div >
           }
           <div className='question' >
-            {this.isImg(materialType) && <img src={materialContent} />} {this.isText(materialType) &&
-          <p >{materialContent}</p >}
+            <div className='body'>
+              {this.isImg(materialType) && <img src={materialContent} />}
+              {this.isText(materialType) && <p >{materialContent}</p >}
+            </div>
           </div >
         </div >
         <div className='ask' >
