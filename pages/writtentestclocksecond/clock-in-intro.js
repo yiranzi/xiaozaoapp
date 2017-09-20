@@ -2,7 +2,6 @@ import React from 'react'
 import WrittenTestClock from '../../containers/writtentestclocksecond/layout'
 import Theme from '../../config/theme'
 import classnames from 'classnames'
-import { Toptips } from 'react-weui'
 import Action from '../../action/writtentestclocksecond'
 import JoinClass from '../../containers/writtentestclocksecond/joinClass'
 
@@ -14,8 +13,9 @@ export default class extends React.Component {
       tipsMsg: '',
       showPage: false,
       showDialog: false,
-      dialogContent: '基础班',
-      level: '简单'
+      dialogContent: '',
+      level: '',
+      recommend: ''
     }
   }
 
@@ -28,8 +28,8 @@ export default class extends React.Component {
       this.setState({
         info,
         showPage: true,
-        level: score > 65 ? '提高' : '简单',
-          dialogContent: score > 65 ? '高级班':'基础班'
+        recommend: score > 65 ? '提高' : '简单',
+        dialogContent: score > 65 ? '高级班' : '基础班'
       })
     } catch (error) {
       this.setState({
@@ -48,10 +48,10 @@ export default class extends React.Component {
   renderGlobalCss = () => {
     return (
       <style global jsx>{`
-          .written-test-clock {
-            padding: 0!important;
-          }
-        `}</style>
+        .written-test-clock {
+          padding: 0!important;
+        }
+      `}</style>
     )
   };
 
@@ -83,8 +83,7 @@ export default class extends React.Component {
   }
 
   render () {
-    const { showMore, showPage, showDialog, dialogContent, level } = this.state
-      console.log('level:', level)
+    const { showMore, showPage, showDialog, dialogContent, recommend, level } = this.state
 
     if (!showPage) return <div />
     return (
@@ -94,10 +93,10 @@ export default class extends React.Component {
           {showMore &&
             <div className='choose-class-form'>
               <div className='choose-class-form-inner'>
-                <div className={classnames('choose-class', { 'recommend-left': level === '简单' })}
+                <div className={classnames('choose-class', { 'recommend-left': recommend === '简单' })}
                   onClick={() => this.chooseClass(false)}>全能提升基础班
                 </div>
-                <div className={classnames('choose-class', { 'recommend-right': level === '提高' })}
+                <div className={classnames('choose-class', { 'recommend-right': recommend === '提高' })}
                   onClick={() => this.chooseClass(true)}>全能提升进阶班
                 </div>
               </div>
