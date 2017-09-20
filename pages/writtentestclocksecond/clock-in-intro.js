@@ -26,10 +26,11 @@ export default class extends React.Component {
       const info = await Action.getEvaluation()
       const { totalScore, writtenTestTopicDTOList } = info
       const score = Math.round(totalScore / writtenTestTopicDTOList.length * 100)
+
       this.setState({
         info,
         showPage: true,
-        isAdvanced: score ? score > 65 ? 2 : 1 : 0
+        isAdvanced: score > 65 ? 2 : 1
       })
     } catch (error) {
       this.setState({
