@@ -9,7 +9,7 @@ export default class Loading extends React.Component {
       <div className='modal-page' >
         <LoadMore>
           <div className='bg'>
-            <div className='close' onClick={cancel}></div>
+            <div className='close' onClick={cancel} />
             <div className='title'>是否确认选择{dialogContent}？</div>
             <div className='tips'>
               *提示：班级选择完成后将无法修改，{dialogContent}题目为正式笔试测试中的{level}部分。

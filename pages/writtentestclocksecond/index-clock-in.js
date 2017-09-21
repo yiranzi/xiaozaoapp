@@ -1,11 +1,11 @@
-import WrittenTestClock from '../../containers/writtentestclocksecond/layout'
 import React from 'react'
-import Footer from '../../containers/writtentestclocksecond/footer'
+import classnames from 'classnames'
+import { Toptips } from 'react-weui'
 import Theme from '../../config/theme'
 import Constants from '../../config/constants'
 import Action from '../../action/writtentestclocksecond'
-import { Toptips } from 'react-weui'
-import classnames from 'classnames'
+import Footer from '../../containers/writtentestclocksecond/footer'
+import WrittenTestClock from '../../containers/writtentestclocksecond/layout'
 import Loading from '../../components/loading'
 import ToolsUtil from '../../util/tools'
 
@@ -114,7 +114,11 @@ export default class extends React.Component {
     const dayIndex = index + 1
     if (dayIndex === 6) {
       return (
-        <div onClick={() => this.rowClick(item.type, index)} key={index} className={classnames('table-row', { 'check': item.type === 2, 'cross': item.type === 1, 'next-todo': item.type === 0 })}>
+        <div
+          key={index}
+          className={classnames('table-row', { 'check': item.type === 2, 'cross': item.type === 1, 'next-todo': item.type === 0 })}
+          onClick={() => this.rowClick(item.type, index)}
+        >
           <div className='table-content'>
             <div>Day{dayIndex}</div>
             <div className='test-and-analyze'>笔试打卡阶段测试</div>
@@ -125,7 +129,11 @@ export default class extends React.Component {
     }
     if (dayIndex === 7) {
       return (
-        <div onClick={() => this.rowClick(item.type, index)} key={index} className={classnames('table-row', { 'check': item.type === 2, 'cross': item.type === 1, 'next-todo': item.type === 0 })}>
+        <div
+          key={index}
+          className={classnames('table-row', { 'check': item.type === 2, 'cross': item.type === 1, 'next-todo': item.type === 0 })}
+          onClick={() => this.rowClick(item.type, index)}
+        >
           <div className='table-content'>
             <div>Day{dayIndex}</div>
             <div className='test-and-analyze'>高频错题解析汇总</div>
@@ -136,7 +144,11 @@ export default class extends React.Component {
     }
 
     return (
-      <div onClick={() => this.rowClick(item.type, index)} key={index} className={classnames('table-row', { 'check': item.type === 2, 'cross': item.type === 1, 'next-todo': item.type === 0 })}>
+      <div
+        key={index}
+        className={classnames('table-row', { 'check': item.type === 2, 'cross': item.type === 1, 'next-todo': item.type === 0 })}
+        onClick={() => this.rowClick(item.type, index)}
+      >
         <div className='table-content'>
           <div>Day{dayIndex}</div>
           <div>{completeUser}</div>

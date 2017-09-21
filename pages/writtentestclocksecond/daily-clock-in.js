@@ -1,10 +1,11 @@
-
-import WrittenTestClock from '../../containers/writtentestclock/components/layout'
-import Theme from '../../config/theme'
-import Footer from '../../containers/writtentestclocksecond/footer'
-import Action from '../../action/writtentestclocksecond'
-import { Toptips } from 'react-weui'
 import React from 'react'
+import { Toptips } from 'react-weui'
+import Theme from '../../config/theme'
+import ToolsUtil from '../../util/tools'
+import Action from '../../action/writtentestclocksecond'
+import Footer from '../../containers/writtentestclocksecond/footer'
+import WrittenTestClock from '../../containers/writtentestclock/components/layout'
+
 export default class extends React.Component {
   constructor (props) {
     super(props)
@@ -14,8 +15,7 @@ export default class extends React.Component {
       showTips: false,
       tipsMsg: '',
       showPage: false,
-      testInfo: null,
-      exceeds: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 8, 8, 8, 9, 9, 9, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 39, 42, 44, 46, 48, 51, 54, 57, 60, 63, 65, 67, 69, 72, 75, 77, 80, 82, 84, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 96, 96, 96, 96, 97, 97, 97, 97, 97, 98, 98, 98, 98, 98, 99, 99, 99, 99, 99, 100]
+      testInfo: null
     }
   }
 
@@ -93,7 +93,7 @@ export default class extends React.Component {
    let testResultContent = ''
    if (testResult) {
      const currPersent = testResult ? (testResult + '%') : '0%'
-     const beatPersent = this.state.exceeds[testResult] || 0
+     const beatPersent = ToolsUtil.exceeds[testResult] || 0
      testResultContent = `正确率为${currPersent}, 击败了${beatPersent}%的人`
    }
    return (
@@ -106,7 +106,8 @@ export default class extends React.Component {
          <div className='sub-form'>
            <div className='title'>我的信息</div>
            <div className='content-wrapper flex-wrapper'>
-             <div className='study-no-title'>学号：</div><span className='study-no'>{no}</span>
+             <div className='study-no-title'>学号：</div>
+             <span className='study-no'>{no}</span>
              <div className='wrapper-trangle'><span /></div>
              <div className='qr-code'>
                <img src={`/static/writtentestclock/qr-code/${groupNo}.jpg`} />
@@ -117,7 +118,7 @@ export default class extends React.Component {
            <div className='title'>我的成绩</div>
            <div className='content-wrapper'>
              <div className='wrapper-trangle'><span /></div>
-             <div>入学前测评：正确率为{evaluationResult ? (evaluationResult + '%') : '0%'}, 击败了{this.state.exceeds[evaluationResult] || 0}%的人</div>
+             <div>入学前测评：正确率为{evaluationResult ? (evaluationResult + '%') : '0%'}, 击败了{ToolsUtil.exceeds[evaluationResult] || 0}%的人</div>
              <div>活动后测试：{testResultContent}</div>
            </div>
          </div>

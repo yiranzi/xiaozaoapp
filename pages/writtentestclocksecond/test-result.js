@@ -1,7 +1,8 @@
 import React from 'react'
-import WrittenTestClockSecondLayout from '../../containers/writtentestclocksecond/layout'
-import WrittenTestClockSecondAction from '../../action/writtentestclocksecond'
 import ThemeConfig from '../../config/theme'
+import ToolsUtil from '../../util/tools'
+import WrittenTestClockSecondAction from '../../action/writtentestclocksecond'
+import WrittenTestClockSecondLayout from '../../containers/writtentestclocksecond/layout'
 
 export default class extends React.Component {
   constructor (props) {
@@ -9,8 +10,7 @@ export default class extends React.Component {
 
     this.state = {
       testInfo: {},
-      showPage: false,
-      exceeds: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 8, 8, 8, 9, 9, 9, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 39, 42, 44, 46, 48, 51, 54, 57, 60, 63, 65, 67, 69, 72, 75, 77, 80, 82, 84, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 96, 96, 96, 96, 97, 97, 97, 97, 97, 98, 98, 98, 98, 98, 99, 99, 99, 99, 99, 100]
+      showPage: false
     }
   }
 
@@ -58,7 +58,7 @@ export default class extends React.Component {
             <div className='content' >
               <div>{accuracy > 65 ? '' : '很遗憾，'}本次测试答对{testInfo.totalScore}道题</div >
               <div>总正确率{accuracy}%</div >
-              <div>你的笔试战斗力超过了{this.state.exceeds[accuracy]}%的笔试打卡学习者</div >
+              <div>你的笔试战斗力超过了{ToolsUtil.exceeds[accuracy]}%的笔试打卡学习者</div >
             </div >
             <div className='right' >
               <img src='/static/writtentestclocksecond/entry-form-right-3.png' />

@@ -1,9 +1,9 @@
 import React from 'react'
-import WrittenTestClock from '../../containers/writtentestclocksecond/layout'
-import Theme from '../../config/theme'
 import classnames from 'classnames'
+import Theme from '../../config/theme'
 import Action from '../../action/writtentestclocksecond'
 import JoinClass from '../../containers/writtentestclocksecond/joinClass'
+import WrittenTestClock from '../../containers/writtentestclocksecond/layout'
 
 export default class extends React.Component {
   constructor (props) {
@@ -88,12 +88,14 @@ export default class extends React.Component {
     if (!showPage) return <div />
     return (
       <WrittenTestClock>
-        <img className='bg-img' src='/static/writtentestclocksecond/clock-in-intro-bg-2.jpg' />
+        <img
+          className='bg-img'
+          src='/static/writtentestclocksecond/clock-in-intro-bg-2.jpg' />
         <div className='btn-form'>
           {showMore &&
             <div className='choose-class-form'>
               <div className='choose-class-form-inner'>
-                <div className={classnames('choose-class', { 'recommend-left': recommend === '简单' })}
+                <div className={classnames('choose-class',{ 'recommend-left': recommend === '简单' })}
                   onClick={() => this.chooseClass(false)}>全能提升基础班
                 </div>
                 <div className={classnames('choose-class', { 'recommend-right': recommend === '提高' })}

@@ -3,3 +3,5 @@ node_modules/*
 out/*
 containers/school/*
 pages/school/*
+// 临时过滤
+components/school/TabList.js
