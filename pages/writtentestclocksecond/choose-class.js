@@ -20,12 +20,12 @@ export default class extends React.Component {
     }
   }
 
-  componentDidMount = async() => {
+  componentDidMount = async () => {
     const joinClass = ToolsUtil.getQueryString('joinClass')
-    if(joinClass){
-      this.setState({isJoinClass:true})
+    if (joinClass) {
+      this.setState({isJoinClass: true})
     }
-    try{
+    try {
       const info = await Action.getInfo()
       this.setState({
         info,
@@ -33,7 +33,7 @@ export default class extends React.Component {
         tipsMsg: info.message || '',
         showPage: true
       })
-    }catch(error) {
+    } catch (error) {
       this.setState({
         error: true,
         showPage: true,
@@ -42,7 +42,7 @@ export default class extends React.Component {
     }
   }
 
-  renderGolbalCss() {
+  renderGolbalCss () {
     return (
       <style global jsx>{`
         .written-test-clock-second {
@@ -62,7 +62,7 @@ export default class extends React.Component {
     }
     return (
       <WrittenTestClock>
-          {isJoinClass && <Toptips type='warn' show={true}> 您已选过班级，请扫描二维码或群号加入班级群 </Toptips>}
+        {isJoinClass && <Toptips type='warn' show> 您已选过班级，请扫描二维码或群号加入班级群 </Toptips>}
         <div className='class-choose-form'>
 
           <div className='class-choose-top-form'>
@@ -82,7 +82,7 @@ export default class extends React.Component {
             <div className='hint'>*若长按扫码无法加群</div>
             <div className='hint'>请输入QQ号进入专属打卡群</div>
             <div className='hint'>本群主要用于问题讨论</div>
-            
+
           </div>
           <a className='go-clock-in' href='/writtentestclocksecond/index-clock-in' />
           {this.renderGolbalCss()}

@@ -69,14 +69,14 @@ export default class extends React.Component {
       await Action.selectGroups({ group: group })
       location.href = '/writtentestclocksecond/choose-class'
     } catch (error) {
-      if (error.status === 10003){
+      if (error.status === 10003) {
         location.href = '/writtentestclocksecond/choose-class?joinClass=true'
       } else {
         alert(error.message)
       }
     }
   }
-  closeDialog (){
+  closeDialog () {
     this.setState({
       showDialog: false
     })
@@ -102,7 +102,7 @@ export default class extends React.Component {
               </div>
             </div>
           }
-          <div className='btn-img' onClick={this.showMoreClick}></div>
+          <div className='btn-img' onClick={this.showMoreClick} />
         </div>
         {showDialog &&
           <JoinClass

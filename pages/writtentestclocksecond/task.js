@@ -59,15 +59,14 @@ export default class extends React.Component {
       } else if (category === 'task') {
         const day = ToolsUtil.getQueryString('day')
         questionList = await WrittenTestClockSecondAction.getByDay(day)
-          const {answerDTOList} = questionList;
+        const {answerDTOList} = questionList
         // 需要判断是查看过去的还是今日打卡
         if (questionList.today) {
-          if(answerDTOList.length > 1){
-              this.setState({questionList: questionList, isShowAnalysis: true})
-          }else{
-              this.setState({questionList: questionList})
+          if (answerDTOList.length > 1) {
+            this.setState({questionList: questionList, isShowAnalysis: true})
+          } else {
+            this.setState({questionList: questionList})
           }
-
         } else {
           this.setState({questionList: questionList, isShowAnalysis: true})
         }
@@ -311,7 +310,7 @@ export default class extends React.Component {
   }
 
   renderTaskActionButton (currentObjectIndex, questionList) {
-    const {finish, isShowAnalysis} = this.state
+    const {finish} = this.state
     if (finish) {
       return this.renderFinishButton(currentObjectIndex)
     } else {

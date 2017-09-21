@@ -4,7 +4,7 @@ import Action from '../../action/writtentestclocksecond'
 import WrittenTestClock from '../../containers/writtentestclocksecond/layout'
 
 export default class extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       list: [],
@@ -56,7 +56,7 @@ export default class extends React.Component {
     }
   }
 
-  renderGlobalCss() {
+  renderGlobalCss () {
     return (
       <style jsx global>{`
             .written-test-clock {
@@ -67,7 +67,7 @@ export default class extends React.Component {
   }
 
   renderTop = () => {
-    const { clockInCompleted, checkDays, totalDay, totalScore, currPersent, exceeds } = this.state
+    const { clockInCompleted, checkDays, totalScore, currPersent, exceeds } = this.state
     if (clockInCompleted) {
       return (
         <div>
@@ -116,7 +116,7 @@ export default class extends React.Component {
       )
     }
   }
-  render() {
+  render () {
     const { showPage } = this.state
 
     if (!showPage) return <div />

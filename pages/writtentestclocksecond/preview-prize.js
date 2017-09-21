@@ -1,6 +1,5 @@
 import React from 'react'
 import WrittenTestClock from '../../containers/writtentestclocksecond/layout'
-import PrizePreview from '../../containers/writtentestclock/preview-prize'
 import Action from '../../action/writtentestclocksecond'
 import { Toptips } from 'react-weui'
 import classnames from 'classnames'
@@ -31,7 +30,7 @@ export default class extends React.Component {
 
       if (length >= 3 && length < 5) {
         checkedLevel = 1
-      } else if (length == 5) {
+      } else if (length === 5) {
         checkedLevel = 2
       } else if (length > 5) {
         checkedLevel = 3
@@ -81,7 +80,7 @@ export default class extends React.Component {
       }
     }
   }
-  render() {
+  render () {
     const { showPage, tipsMsg, checkedLevel } = this.state
     if (!showPage) return <div />
     if (tipsMsg) {

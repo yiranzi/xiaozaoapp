@@ -1,4 +1,3 @@
-
 import WrittenTestClock from '../../containers/writtentestclocksecond/layout'
 import React from 'react'
 import Footer from '../../containers/writtentestclocksecond/footer'
@@ -8,9 +7,10 @@ import Action from '../../action/writtentestclocksecond'
 import { Toptips } from 'react-weui'
 import classnames from 'classnames'
 import Loading from '../../components/loading'
+import ToolsUtil from '../../util/tools'
 
 export default class extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     let set = new Set()
     while (set.size < 5) {
@@ -20,8 +20,7 @@ export default class extends React.Component {
     this.state = {
       tipsMsg: '',
       showPage: false,
-      randomAvatars,
-      exceeds: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 8, 8, 8, 9, 9, 9, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 39, 42, 44, 46, 48, 51, 54, 57, 60, 63, 65, 67, 69, 72, 75, 77, 80, 82, 84, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 96, 96, 96, 96, 97, 97, 97, 97, 97, 98, 98, 98, 98, 98, 99, 99, 99, 99, 99, 100]
+      randomAvatars
     }
   }
 
@@ -96,22 +95,22 @@ export default class extends React.Component {
   }
 
   rowClick = (type, index) => {
-    switch(index + 1) {
+    switch (index + 1) {
       case 6:
         const { test } = this.state
-        if(test) location.href = `/writtentestclocksecond/task?category=finish&&action=review`
-        break;
+        if (test) location.href = `/writtentestclocksecond/task?category=finish&&action=review`
+        break
       case 7:
         // location.href = `/writtentestclocksecond/task?category=finish&&action=review`
-        break;
-      default: 
+        break
+      default:
         if (type !== 0) location.href = `/writtentestclocksecond/task?category=task&day=${index + 1}`
     }
   }
 
   renderRow = (item, index) => {
     const { accuracy, completeUser } = item
-    const beat = accuracy ? this.state.exceeds[accuracy] : ''
+    const beat = accuracy ? ToolsUtil.exceeds[accuracy] : ''
     const dayIndex = index + 1
     if (dayIndex === 6) {
       return (
@@ -149,7 +148,7 @@ export default class extends React.Component {
     )
   }
 
-  renderGlobalCss() {
+  renderGlobalCss () {
     return (
       <style global jsx >{`
       .table-content {
@@ -208,10 +207,11 @@ export default class extends React.Component {
     )
   }
 
-  render() {
-    const { showPage, tipsMsg, renderList, totalUser, hasPrize, countdownDay, evaluationResult, exceeds, randomAvatars, currentDayIndex, user, test, isTestDay } = this.state
+  render () {
+    const { showPage, tipsMsg, renderList, totalUser, hasPrize, countdownDay, evaluationResult, randomAvatars, currentDayIndex, user, test, isTestDay } = this.state
+    const exceeds = ToolsUtil.exceeds
 
-    let currPersent = 0;
+    let currPersent = 0
     if (test) {
       currPersent = Math.round(test.totalScore / test.writtenTestTopicDTOList.length * 100)
     }
@@ -248,7 +248,7 @@ export default class extends React.Component {
               </div>
               <div className='middle-form'>
                 <div className='row'>
-                  <span>学号：</span><span className='content'>{user.no || ''}</span>   
+                  <span>学号：</span><span className='content'>{user.no || ''}</span>
                   <span>&nbsp;&nbsp;QQ群号：</span><span className='content'>{Constants.qqGroupNum[user.groupNo]}</span>
                 </div>
                 <div className='row'>您的班级：{user.groupNo.indexOf('N') !== -1 ? '全能提升基础班' : '全能提升提高班'}</div>
@@ -278,10 +278,9 @@ export default class extends React.Component {
                 }
                 { isTestDay ? <div>正确率{currPersent}%</div> : ''}
                 { isTestDay ? <div>击败了{exceeds[currPersent || 0]}%的人</div> : ''}
-                
+
               </div>
             </div>
-            
 
             <div className='table'>
               <div className='table-content-wrap'>

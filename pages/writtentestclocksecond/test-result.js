@@ -127,7 +127,7 @@ export default class extends React.Component {
       )
     } else {
       return (
-        <WrittenTestClockSecondLayout > </WrittenTestClockSecondLayout >
+        <WrittenTestClockSecondLayout />
       )
     }
   }
