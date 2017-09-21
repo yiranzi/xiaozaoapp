@@ -19,11 +19,26 @@ export default class TabList extends React.Component {
     return (
       <Tab style={{borderTop: '1px solid #efefef'}}>
         <NavBar>
-          <NavBarItem active={this.state.tab === 0} onClick={e => this.setState({tab: 0})}>全部</NavBarItem>
-          <NavBarItem active={this.state.tab === 1} onClick={e => this.setState({tab: 1})}>网申</NavBarItem>
-          <NavBarItem active={this.state.tab === 2} onClick={e => this.setState({tab: 2})}>笔试</NavBarItem>
-          <NavBarItem active={this.state.tab === 3} onClick={e => this.setState({tab: 3})}>面试</NavBarItem>
-          <NavBarItem active={this.state.tab === 4} onClick={e => this.setState({tab: 4})}>综合经验</NavBarItem>
+          <NavBarItem
+            active={this.state.tab === 0}
+            onClick={e => this.setState({tab: 0})}
+          >全部</NavBarItem>
+          <NavBarItem
+            active={this.state.tab === 1}
+            onClick={e => this.setState({tab: 1})}
+          >网申</NavBarItem>
+          <NavBarItem
+            active={this.state.tab === 2}
+            onClick={e => this.setState({tab: 2})}
+          >笔试</NavBarItem>
+          <NavBarItem
+            active={this.state.tab === 3}
+            onClick={e => this.setState({tab: 3})}
+          >面试</NavBarItem>
+          <NavBarItem
+            active={this.state.tab === 4}
+            onClick={e => this.setState({tab: 4})}
+          >综合经验</NavBarItem>
         </NavBar>
         <TabBody>
           <div style={{display: this.state.tab === 0 ? null : 'none'}}>
@@ -33,7 +48,7 @@ export default class TabList extends React.Component {
             <List list={this.props.onlineApply} />
           </div>
           <div style={{display: this.state.tab === 2 ? null : 'none'}}>
-            {this.props.exam ? <List list={this.props.exam} /> : <div className='tips'>安永今年使用的是 cut-e 笔试题库，与毕马威使用的笔试题库类似，而去年使用的 graduACE 不同，因此不推荐参考往年的安永笔经。大家可以前往毕马威的笔经进行查看</div>}
+            {this.props.exam ? <List list={this.props.exam} /> :<div className='tips'>安永今年使用的是 cut-e 笔试题库，与毕马威使用的笔试题库类似，而去年使用的 graduACE 不同，因此不推荐参考往年的安永笔经。大家可以前往毕马威的笔经进行查看</div>}
           </div>
           <div style={{display: this.state.tab === 3 ? null : 'none'}}>
             <List list={this.props.interview} />

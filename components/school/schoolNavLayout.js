@@ -7,7 +7,11 @@ export default class Layout extends React.Component {
   renderChild () {
     const {error} = this.props
     if (error) {
-      return <div className='main'><Toptips type='warn' show>{error.message}</Toptips></div>
+      return (
+        <div className='main'>
+          <Toptips type='warn' show>{error.message}</Toptips>
+        </div>
+      )
     } else {
       return <div className='main'>{this.props.children}</div>
     }

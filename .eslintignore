@@ -1,4 +1,5 @@
 node_modules/*
 .next/*
 out/*
-containers
+containers/school/*
+pages/school/*
