@@ -270,14 +270,15 @@ export default class extends React.Component {
               </div>
               <div className='row'>
                 {
-                  test
+                  isTestDay
                     ? <a href='/writtentestclocksecond/task?category=finish&&action=review'>
                       <img src='/static/writtentestclocksecond/clock-in-result.png' />
                     </a>
                     : <a><img src='/static/writtentestclocksecond/clock-in-result.png' /></a>
                 }
-                <div>正确率{currPersent}%</div>
-                <div>击败了{exceeds[currPersent || 0]}%的人</div>
+                { isTestDay ? <div>正确率{currPersent}%</div> : ''}
+                { isTestDay ? <div>击败了{exceeds[currPersent || 0]}%的人</div> : ''}
+                
               </div>
             </div>
             
