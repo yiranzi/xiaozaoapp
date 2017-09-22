@@ -34,7 +34,6 @@ export default class extends React.Component {
     }
   }
 
-
   renderGlobalCss () {
     return (
       <style global jsx>{`
@@ -54,7 +53,9 @@ export default class extends React.Component {
         <div className='square-form'>
           <div className='square'>
             <div className='inner-square'>
-              <div className='score'>打卡成功！你累计坚持笔试打卡<span className='day'>{this.state.clockInCount}</span>天</div>
+              <div className='score'>打卡成功！你累计坚持笔试打卡
+                <span className='day'>{this.state.clockInCount}</span>
+                天</div>
               <div className='score'>今日笔试打卡成绩</div>
             </div>
           </div>

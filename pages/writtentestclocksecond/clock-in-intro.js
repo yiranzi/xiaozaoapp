@@ -95,10 +95,12 @@ export default class extends React.Component {
           {showMore &&
             <div className='choose-class-form'>
               <div className='choose-class-form-inner'>
-                <div className={classnames('choose-class', { 'recommend-left': recommend === '简单' })}
+                <div
+                  className={classnames('choose-class', { 'recommend-left': recommend === '简单' })}
                   onClick={() => this.chooseClass(false)}>全能提升基础班
                 </div>
-                <div className={classnames('choose-class', { 'recommend-right': recommend === '提高' })}
+                <div
+                  className={classnames('choose-class', { 'recommend-right': recommend === '提高' })}
                   onClick={() => this.chooseClass(true)}>全能提升进阶班
                 </div>
               </div>
