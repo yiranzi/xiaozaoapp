@@ -3,7 +3,6 @@ import Theme from '../../config/theme'
 import ToolsUtil from '../../util/tools'
 import Action from '../../action/writtentestclocksecond'
 import WrittenTestClock from '../../containers/writtentestclocksecond/layout'
-import ToolsUtil from '../../util/tools'
 
 export default class extends React.Component {
   constructor (props) {
