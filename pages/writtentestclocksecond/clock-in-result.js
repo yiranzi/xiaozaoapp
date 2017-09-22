@@ -34,6 +34,7 @@ export default class extends React.Component {
     }
   }
 
+
   renderGlobalCss () {
     return (
       <style global jsx>{`
@@ -76,6 +77,7 @@ export default class extends React.Component {
             }
             .square-form {
               padding-bottom: 40px;
+              overflow-x: hidden;
             }
             .flex-item {
               flex: 1;
