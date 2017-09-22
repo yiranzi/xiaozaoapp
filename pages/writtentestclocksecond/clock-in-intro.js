@@ -95,7 +95,7 @@ export default class extends React.Component {
           {showMore &&
             <div className='choose-class-form'>
               <div className='choose-class-form-inner'>
-                <div className={classnames('choose-class',{ 'recommend-left': recommend === '简单' })}
+                <div className={classnames('choose-class', { 'recommend-left': recommend === '简单' })}
                   onClick={() => this.chooseClass(false)}>全能提升基础班
                 </div>
                 <div className={classnames('choose-class', { 'recommend-right': recommend === '提高' })}
@@ -167,14 +167,6 @@ export default class extends React.Component {
           .choose-class:first-child {
             border-right: 2px solid ${Theme.color.writtentestclocksecondmain};
           }
-          {/* .choose-class-form:after {
-            content: '';
-            display: block;
-            border-left: 20px solid transparent;
-            border-right: 20px solid transparent;
-            border-top: 20px solid ${Theme.color.writtentestclocksecondmain};
-            margin-top: -10px;
-          } */}
           .recommend-left:before {
             content: '';
             background-image: url(/static/writtentestclocksecond/recommend.png);

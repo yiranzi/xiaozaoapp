@@ -4,7 +4,7 @@ import Theme from '../../config/theme'
 import ToolsUtil from '../../util/tools'
 import Action from '../../action/writtentestclocksecond'
 import Footer from '../../containers/writtentestclocksecond/footer'
-import WrittenTestClock from '../../containers/writtentestclock/components/layout'
+import WrittenTestClock from '../../containers/writtentestclocksecond/layout'
 
 export default class extends React.Component {
   constructor (props) {
