@@ -277,7 +277,7 @@ export default class extends React.Component {
                 <a href='/writtentestclocksecond/task?category=entrance&&action=review'>
                   <img src='/static/writtentestclocksecond/evaluation-result-btn.png' />
                 </a>
-                <div>正确率{evaluationResult}%</div>
+                <div>正确率{evaluationResult || 0}%</div>
                 <div>击败了{exceeds[evaluationResult || 0]}%的人</div>
               </div>
               <div className='row'>
