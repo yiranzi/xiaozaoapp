@@ -18,6 +18,16 @@ ToolsUtil.exceeds = [
   98, 98, 99, 99, 99, 99, 99, 100
 ]
 
+// qq群号
+ToolsUtil.qqGroupNum = {
+  H1: '671189317',
+  H2: '654059046',
+  H3: '563500464',
+  N1: '653401771',
+  N2: '671178421',
+  N3: '659427669'
+}
+
 // 获取url参数
 ToolsUtil.getQueryString = function (name) {
   var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i')

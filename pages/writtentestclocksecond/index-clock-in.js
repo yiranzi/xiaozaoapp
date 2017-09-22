@@ -2,7 +2,6 @@ import React from 'react'
 import classnames from 'classnames'
 import { Toptips } from 'react-weui'
 import Theme from '../../config/theme'
-import Constants from '../../config/constants'
 import Action from '../../action/writtentestclocksecond'
 import Footer from '../../containers/writtentestclocksecond/footer'
 import WrittenTestClock from '../../containers/writtentestclocksecond/layout'
@@ -261,7 +260,7 @@ export default class extends React.Component {
               <div className='middle-form'>
                 <div className='row'>
                   <span>学号：</span><span className='content'>{user.no || ''}</span>
-                  <span>&nbsp;&nbsp;QQ群号：</span><span className='content'>{Constants.qqGroupNum[user.groupNo]}</span>
+                  <span>&nbsp;&nbsp;QQ群号：</span><span className='content'>{ToolsUtil.qqGroupNum[user.groupNo]}</span>
                 </div>
                 <div className='row'>您的班级：{user.groupNo.indexOf('N') !== -1 ? '全能提升基础班' : '全能提升提高班'}</div>
               </div>

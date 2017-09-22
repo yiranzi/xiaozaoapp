@@ -3,7 +3,6 @@ import { Toptips } from 'react-weui'
 import Theme from '../../config/theme'
 import ToolsUtil from '../../util/tools'
 import Loading from '../../components/loading'
-import Constants from '../../config/constants'
 import Action from '../../action/writtentestclocksecond'
 import WrittenTestClock from '../../containers/writtentestclocksecond/layout'
 
@@ -78,7 +77,7 @@ export default class extends React.Component {
           </div>
 
           <div className='class-choose-qq'>
-            <div className='qq'>QQ群号：{Constants.qqGroupNum[groupNo]}</div>
+            <div className='qq'>QQ群号：{ToolsUtil.qqGroupNum[groupNo]}</div>
             <div className='hint'>*若长按扫码无法加群</div>
             <div className='hint'>请输入QQ号进入专属打卡群</div>
             <div className='hint'>本群主要用于问题讨论</div>
