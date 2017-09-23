@@ -48,9 +48,7 @@ export default class WrittenTestSubject extends React.Component {
         )
       } else {
         return (
-          <Radio key={key} params={radioItem} onChange={(value) => {
-              onChange(value)
-          }} />
+          <Radio key={key} params={radioItem} onChange={(value) => { onChange(value) }} />
         )
       }
     })
@@ -233,7 +231,7 @@ export default class WrittenTestSubject extends React.Component {
 
   render () {
     const {total, questionItem, selectAnswer, disabled} = this.props.subjectItem
-    const {no, materialType, materialContent} = questionItem
+    const {no, materialType, materialContent, optionDTOList} = questionItem
     let progress = Math.ceil(no / total * 100)
     return (
       <div className='subject-detail' >
@@ -256,10 +254,10 @@ export default class WrittenTestSubject extends React.Component {
         </div >
         <div className='ask' >
           <div className='options' >
-            <div className='question-no' >{questionItem.no}.{questionItem.question}</div >
+            <div className='question-no' >{no}.{questionItem.question}</div >
             <div className='answer-option' >
               <Form radio >
-                  {this.renderAnswerOption(no, questionItem.optionDTOList, selectAnswer, disabled)}
+                {this.renderAnswerOption(no, optionDTOList, selectAnswer, disabled)}
               </Form >
             </div >
             {disabled && this.renderAnswerAnalysis(questionItem)}

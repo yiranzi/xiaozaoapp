@@ -10,31 +10,35 @@ export default class ShareWx extends React.Component {
     }
   }
 
-    componentWillReceiveProps = (nextProps) => {
-      this.state.isShow = nextProps.isShow
-    }
+  componentWillReceiveProps = (nextProps) => {
+    this.state.isShow = nextProps.isShow
+  }
 
-    shareHide = () => {
-      this.setState({
-        isShow: false
-      })
-    }
+  shareHide = () => {
+    this.setState({
+      isShow: false
+    })
+  }
 
-    render () {
-      return (
-        <div>
-          {
-            this.state.isShow &&
-            <img src='/static/writtentestclock/sharebg.png' className='share-img' onClick={this.shareHide} />
+  render () {
+    return (
+      <div>
+        {
+          this.state.isShow &&
+          <img
+            src='/static/writtentestclock/sharebg.png'
+            className='share-img'
+            onClick={this.shareHide}
+          />
+        }
+        <style jsx>{`
+          .share-img {
+            position: absolute;
+            z-index: 999;
+            width: 100%;
           }
-          <style jsx>{`
-                    .share-img {
-                        position: absolute;
-                        z-index: 999;
-                        width: 100%;
-                    }
-                `}</style>
-        </div>
-      )
-    }
+        `}</style>
+      </div>
+    )
+  }
 }

@@ -3,7 +3,7 @@ import Layout from '../../../components/school/schoolLayout'
 import SchoolProcessPage from '../../../containers/school/zhitong/schoolprocess/index'
 
 export default class extends React.Component {
- render () {
+  render () {
     return (
       <Layout fromType='zhitong'>
         <SchoolProcessPage />

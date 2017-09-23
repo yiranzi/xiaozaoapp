@@ -1,9 +1,9 @@
 import React from 'react'
-import WrittenTestClock from '../../containers/writtentestclocksecond/layout'
-import Theme from '../../config/theme'
 import classnames from 'classnames'
+import Theme from '../../config/theme'
 import Action from '../../action/writtentestclocksecond'
 import JoinClass from '../../containers/writtentestclocksecond/joinClass'
+import WrittenTestClock from '../../containers/writtentestclocksecond/layout'
 
 export default class extends React.Component {
   constructor (props) {
@@ -69,14 +69,14 @@ export default class extends React.Component {
       await Action.selectGroups({ group: group })
       location.href = '/writtentestclocksecond/choose-class'
     } catch (error) {
-      if (error.status === 10003){
+      if (error.status === 10003) {
         location.href = '/writtentestclocksecond/choose-class?joinClass=true'
       } else {
         alert(error.message)
       }
     }
   }
-  closeDialog (){
+  closeDialog () {
     this.setState({
       showDialog: false
     })
@@ -88,21 +88,25 @@ export default class extends React.Component {
     if (!showPage) return <div />
     return (
       <WrittenTestClock>
-        <img className='bg-img' src='/static/writtentestclocksecond/clock-in-intro-bg-2.jpg' />
+        <img
+          className='bg-img'
+          src='/static/writtentestclocksecond/clock-in-intro-bg-2.jpg' />
         <div className='btn-form'>
           {showMore &&
             <div className='choose-class-form'>
               <div className='choose-class-form-inner'>
-                <div className={classnames('choose-class', { 'recommend-left': recommend === '简单' })}
+                <div
+                  className={classnames('choose-class', { 'recommend-left': recommend === '简单' })}
                   onClick={() => this.chooseClass(false)}>全能提升基础班
                 </div>
-                <div className={classnames('choose-class', { 'recommend-right': recommend === '提高' })}
+                <div
+                  className={classnames('choose-class', { 'recommend-right': recommend === '提高' })}
                   onClick={() => this.chooseClass(true)}>全能提升进阶班
                 </div>
               </div>
             </div>
           }
-          <div className='btn-img' onClick={this.showMoreClick}></div>
+          <div className='btn-img' onClick={this.showMoreClick} />
         </div>
         {showDialog &&
           <JoinClass
@@ -165,14 +169,6 @@ export default class extends React.Component {
           .choose-class:first-child {
             border-right: 2px solid ${Theme.color.writtentestclocksecondmain};
           }
-          {/* .choose-class-form:after {
-            content: '';
-            display: block;
-            border-left: 20px solid transparent;
-            border-right: 20px solid transparent;
-            border-top: 20px solid ${Theme.color.writtentestclocksecondmain};
-            margin-top: -10px;
-          } */}
           .recommend-left:before {
             content: '';
             background-image: url(/static/writtentestclocksecond/recommend.png);

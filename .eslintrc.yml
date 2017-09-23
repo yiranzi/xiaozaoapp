@@ -16,7 +16,7 @@ rules:
   max-len:
   - error
   - 90
-  - ignoreUrls: true
+  - ignoreStrings: true
   - ignoreTemplateLiterals: true
   max-lines:
   - warn

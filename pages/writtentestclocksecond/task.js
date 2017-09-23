@@ -9,14 +9,14 @@ export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      category: '',
-      day: '',
-      currentObjectIndex: 0,
-      answerListResult: {},
-      questionList: {},
-      initTime: 0,
-      isShowAnalysis: false,
-      isSubmit: false,
+      category: '', // 当前做题类型
+      day: '', // 第几天的答题
+      currentObjectIndex: 0, // 当前做题序号
+      answerListResult: {}, // 答案列表
+      questionList: {}, // 题目列表
+      initTime: 0, // 记录做题时间
+      isShowAnalysis: false, // 是否需要显示解析
+      isSubmit: false, // 提交答题结果
       isLoading: true
     }
   }
@@ -59,15 +59,14 @@ export default class extends React.Component {
       } else if (category === 'task') {
         const day = ToolsUtil.getQueryString('day')
         questionList = await WrittenTestClockSecondAction.getByDay(day)
-          const {answerDTOList} = questionList;
+        const {answerDTOList} = questionList
         // 需要判断是查看过去的还是今日打卡
         if (questionList.today) {
-          if(answerDTOList.length > 1){
-              this.setState({questionList: questionList, isShowAnalysis: true})
-          }else{
-              this.setState({questionList: questionList})
+          if (answerDTOList.length > 1) {
+            this.setState({questionList: questionList, isShowAnalysis: true})
+          } else {
+            this.setState({questionList: questionList})
           }
-
         } else {
           this.setState({questionList: questionList, isShowAnalysis: true})
         }
@@ -311,7 +310,7 @@ export default class extends React.Component {
   }
 
   renderTaskActionButton (currentObjectIndex, questionList) {
-    const {finish, isShowAnalysis} = this.state
+    const {finish} = this.state
     if (finish) {
       return this.renderFinishButton(currentObjectIndex)
     } else {
@@ -335,7 +334,13 @@ export default class extends React.Component {
   }
 
   render () {
-    const {currentObjectIndex, questionList, isSubmit, isLoading, isShowAnalysis} = this.state
+    const {
+      currentObjectIndex,
+      questionList,
+      isSubmit,
+      isLoading,
+      isShowAnalysis
+    } = this.state
     if (questionList.hasOwnProperty('setId')) {
       return (
         <WrittenTestClockSecond >

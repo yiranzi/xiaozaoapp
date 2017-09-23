@@ -1,9 +1,8 @@
 import React from 'react'
-import WrittenTestClock from '../../containers/writtentestclocksecond/layout'
-import PrizePreview from '../../containers/writtentestclock/preview-prize'
-import Action from '../../action/writtentestclocksecond'
-import { Toptips } from 'react-weui'
 import classnames from 'classnames'
+import { Toptips } from 'react-weui'
+import Action from '../../action/writtentestclocksecond'
+import WrittenTestClock from '../../containers/writtentestclocksecond/layout'
 
 export default class extends React.Component {
   themeConfig = {
@@ -31,7 +30,7 @@ export default class extends React.Component {
 
       if (length >= 3 && length < 5) {
         checkedLevel = 1
-      } else if (length == 5) {
+      } else if (length === 5) {
         checkedLevel = 2
       } else if (length > 5) {
         checkedLevel = 3
@@ -81,7 +80,7 @@ export default class extends React.Component {
       }
     }
   }
-  render() {
+  render () {
     const { showPage, tipsMsg, checkedLevel } = this.state
     if (!showPage) return <div />
     if (tipsMsg) {
@@ -96,24 +95,32 @@ export default class extends React.Component {
               <img src='/static/writtentestclocksecond/coupon50.png' />
               <div>连续3天打卡，</div>
               <div>即可获得50元四大线上课程学习基金</div>
-              <a className={classnames({ 'disabled': checkedLevel !== 1 })} onClick={() => this.chooseCoupon(1)}>点击立即领取</a>
+              <a
+                className={classnames({ 'disabled': checkedLevel !== 1 })}
+                onClick={() => this.chooseCoupon(1)}>点击立即领取</a>
             </div>
             <div className='coupon'>
               <img src='/static/writtentestclocksecond/coupon100.png' />
               <div>连续5天打卡，</div>
               <div>即可获得100元四大线上课程学习基金</div>
-              <a className={classnames({ 'disabled': checkedLevel !== 2 })} onClick={() => this.chooseCoupon(2)}>点击立即领取</a>
+              <a
+                className={classnames({ 'disabled': checkedLevel !== 2 })}
+                onClick={() => this.chooseCoupon(2)}>点击立即领取</a>
             </div>
             <div className='coupon'>
               <img src='/static/writtentestclocksecond/coupon150.png' />
               <div>连续7天打卡，</div>
               <div>即可获得150元四大线上课程学习基金</div>
               <div>学习基金＋解锁第二期笔试打卡权限</div>
-              <a className={classnames({ 'disabled': checkedLevel !== 3 })} onClick={() => this.chooseCoupon(3)}>点击立即领取</a>
+              <a
+                className={classnames({ 'disabled': checkedLevel !== 3 })}
+                onClick={() => this.chooseCoupon(3)}>点击立即领取</a>
             </div>
           </div>
 
-          <img className='middle-title' src='/static/writtentestclocksecond/prize-middle-title.png' />
+          <img
+            className='middle-title'
+            src='/static/writtentestclocksecond/prize-middle-title.png' />
 
           <div className='class-block'>
             <a href='https://h5.youzan.com/v2/showcase/homepage?alias=ph3y0wi&dc_ps=27851&redirect_count=2' />

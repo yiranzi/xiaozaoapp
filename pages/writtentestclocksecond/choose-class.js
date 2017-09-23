@@ -1,11 +1,10 @@
-import WrittenTestClock from '../../containers/writtentestclocksecond/layout'
 import React from 'react'
-import Constants from '../../config/constants'
-import Theme from '../../config/theme'
 import { Toptips } from 'react-weui'
-import Action from '../../action/writtentestclocksecond'
-import Loading from '../../components/loading'
+import Theme from '../../config/theme'
 import ToolsUtil from '../../util/tools'
+import Loading from '../../components/loading'
+import Action from '../../action/writtentestclocksecond'
+import WrittenTestClock from '../../containers/writtentestclocksecond/layout'
 
 export default class extends React.Component {
   constructor (props) {
@@ -20,12 +19,12 @@ export default class extends React.Component {
     }
   }
 
-  componentDidMount = async() => {
+  componentDidMount = async () => {
     const joinClass = ToolsUtil.getQueryString('joinClass')
-    if(joinClass){
-      this.setState({isJoinClass:true})
+    if (joinClass) {
+      this.setState({isJoinClass: true})
     }
-    try{
+    try {
       const info = await Action.getInfo()
       this.setState({
         info,
@@ -33,7 +32,7 @@ export default class extends React.Component {
         tipsMsg: info.message || '',
         showPage: true
       })
-    }catch(error) {
+    } catch (error) {
       this.setState({
         error: true,
         showPage: true,
@@ -42,7 +41,7 @@ export default class extends React.Component {
     }
   }
 
-  renderGolbalCss() {
+  renderGolbalCss () {
     return (
       <style global jsx>{`
         .written-test-clock-second {
@@ -62,7 +61,7 @@ export default class extends React.Component {
     }
     return (
       <WrittenTestClock>
-          {isJoinClass && <Toptips type='warn' show={true}> 您已选过班级，请扫描二维码或群号加入班级群 </Toptips>}
+        {isJoinClass && <Toptips type='warn' show> 您已选过班级，请扫描二维码或群号加入班级群 </Toptips>}
         <div className='class-choose-form'>
 
           <div className='class-choose-top-form'>
@@ -78,32 +77,32 @@ export default class extends React.Component {
           </div>
 
           <div className='class-choose-qq'>
-            <div className='qq'>QQ群号：{Constants.qqGroupNum[groupNo]}</div>
+            <div className='qq'>QQ群号：{ToolsUtil.qqGroupNum[groupNo]}</div>
             <div className='hint'>*若长按扫码无法加群</div>
             <div className='hint'>请输入QQ号进入专属打卡群</div>
             <div className='hint'>本群主要用于问题讨论</div>
-            
+
           </div>
           <a className='go-clock-in' href='/writtentestclocksecond/index-clock-in' />
           {this.renderGolbalCss()}
           <style jsx>{`
             .class-choose-form {
-                align-items: center;
-                height: 100vh;
-                display: flex; 
-                flex-direction: column;
-                justify-content: space-around;
+              align-items: center;
+              height: 100vh;
+              display: flex;
+              flex-direction: column;
+              justify-content: space-around;
             }
             .class-choose-top-form {
-                position: relative;
-                background: url(/static/writtentestclocksecond/choose-class-form.png);
-                background-size: 100%;
-                background-repeat: no-repeat;
-                height: 47vw;
-                width: 80vw;
-                text-align: center;
-                margin: 0 auto;
-                margin-top: 30px;
+              position: relative;
+              background: url(/static/writtentestclocksecond/choose-class-form.png);
+              background-size: 100%;
+              background-repeat: no-repeat;
+              height: 47vw;
+              width: 80vw;
+              text-align: center;
+              margin: 0 auto;
+              margin-top: 30px;
             }
             .class-choose-top-form:before {
               content: ' ';
@@ -134,9 +133,9 @@ export default class extends React.Component {
               padding-top: 2vw;
             }
             .class-choose-title-bg {
-                height: 100px;
-                border-left: 100vw solid ${Theme.color.writtentestclockmain};
-                border-bottom: 26px solid transparent;  
+              height: 100px;
+              border-left: 100vw solid ${Theme.color.writtentestclockmain};
+              border-bottom: 26px solid transparent;
             }
             
             .sub-form {
@@ -147,18 +146,18 @@ export default class extends React.Component {
               height: 10vh;
             }
             .sub-title {
-                color: ${Theme.color.writtentestclocksecondfont};
-                height: 30px;
-                font-size: 13px;
-                font-weight: 200;
+              color: ${Theme.color.writtentestclocksecondfont};
+              height: 30px;
+              font-size: 13px;
+              font-weight: 200;
             }
             .sub-content-id {
-                height: 25px;
-                color: ${Theme.color.writtentestclocksecondfont};
-                text-align: center;
-                line-height: 25px;
-                margin: 0 -10px;
-                font-size: 25px;
+              height: 25px;
+              color: ${Theme.color.writtentestclocksecondfont};
+              text-align: center;
+              line-height: 25px;
+              margin: 0 -10px;
+              font-size: 25px;
             }
             .class-choose-content {
               position: relative;
@@ -197,8 +196,8 @@ export default class extends React.Component {
               background-repeat: no-repeat;
             }
             .class-choose-content img {
-                margin: 0 auto;
-                height: 100%;
+              margin: 0 auto;
+              height: 100%;
             }
             .class-choose-qq {
               text-align: center;

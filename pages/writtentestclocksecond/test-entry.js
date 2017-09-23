@@ -81,10 +81,16 @@ export default class extends React.Component {
           {this.renderContent()}
         </div>
         <div className='bottom-btn'>
-              <a className='btn-test' href='/writtentestclocksecond/task?category=entrance'></a>
-              <a className='btn-choose' href='/writtentestclocksecond/clock-in-intro'></a>
-            </div>
-        
+          <a
+            className='btn-test'
+            href='/writtentestclocksecond/task?category=entrance'
+          />
+          <a
+            className='btn-choose'
+            href='/writtentestclocksecond/clock-in-intro'
+          />
+        </div>
+
         {this.renderGlobalCss()}
         <style jsx>{`
           .title {

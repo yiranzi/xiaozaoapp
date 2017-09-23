@@ -30,9 +30,14 @@ export default class navigation extends React.Component {
         {companyName: '立信', time: '已于8月18日开启网申', tag: ['会计师事务所/咨询/法律/其他专业服务'], image: '/static/school/bdo.png', href: '/school/bdo/schoolprocess'},
         {companyName: '天职', time: '预计9月中下旬开启网申', tag: ['会计师事务所/咨询/法律/其他专业服务'], image: '/static/school/tianzhi.png', href: '/school/tianzhi/schoolprocess'},
         {companyName: '致同', time: '已经开启，于9月18日截止', tag: ['会计师事务所'], image: '/static/school/zhitong.png', href: '/school/zhitong/schoolprocess'},
-        {companyName: '尼尔森', time: '请登录尼尔森官网查看', tag: ['咨询'], image: '/static/school/nier.png', href: '/school/nier/schoolprocess'}
+        {companyName: '尼尔森', time: '请登录尼尔森官网查看', tag: ['咨询'], image: '/static/school/nier.png', href: '/school/nier/schoolprocess'},
+        {companyName: '欧莱雅', time: '9月1日开启网申，10月26日结束网申', tag: ['消费品/零售/贸易'], image: '/static/school/oulaiya.png', href: '/school/olaiya/schoolprocess'},
+        {companyName: '雀巢', time: '9月开启网申，12月结束', tag: ['消费品/零售/贸易'], image: '/static/school/quechao.png', href: '/school/quechao/schoolprocess'},
+        {companyName: '卡夫亨氏', time: '9月11日开始网申，10月20日结束', tag: ['消费品/零售/贸易'], image: '/static/school/kafu.png', href: '/school/kafu/schoolprocess'},
+        {companyName: '可口可乐', time: '9月4日开始网申，10月21日结束', tag: ['消费品/零售/贸易'], image: '/static/school/kekou.png', href: '/school/kekou/schoolprocess'},
+        {companyName: '百威英博', time: '9月已开启，10月结束', tag: ['消费品/零售/贸易'], image: '/static/school/baiwei.png', href: '/school/baiwei/schoolprocess'}
       ],
-      trade: ['四大事务所', '快消', '咨询', '互联网', '银行/证券/基金/保险/投资公司', '医疗/健康/制药', '汽车/车联网/智能交通', '金融', '会计师事务所/咨询/法律/其他专业服务', '会计师事务所']
+      trade: ['四大事务所', '快消', '咨询', '互联网', '银行/证券/基金/保险/投资公司', '医疗/健康/制药', '汽车/车联网/智能交通', '金融', '会计师事务所/咨询/法律/其他专业服务', '会计师事务所','消费品/零售/贸易']
     }
   }
   render () {
@@ -52,6 +57,7 @@ export default class navigation extends React.Component {
         case '金融': return fin
         case '会计师事务所/咨询/法律/其他专业服务': return kuaiji
         case '会计师事务所': return kuai
+        case '消费品/零售/贸易': return xiaofei
       }
     }
     const sida = renderHeader(this.state.company, '四大事务所')
@@ -64,6 +70,7 @@ export default class navigation extends React.Component {
     const fin = renderHeader(this.state.company, '金融')
     const kuaiji = renderHeader(this.state.company, '会计师事务所/咨询/法律/其他专业服务')
     const kuai = renderHeader(this.state.company, '会计师事务所')
+    const xiaofei = renderHeader(this.state.company, '消费品/零售/贸易')
     return (
       <div className='wrapper'>
         <h2>小灶学员求职攻略合集</h2>

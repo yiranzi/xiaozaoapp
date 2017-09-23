@@ -1,10 +1,11 @@
 import React from 'react'
 import Theme from '../../config/theme'
+import ToolsUtil from '../../util/tools'
 import Action from '../../action/writtentestclocksecond'
 import WrittenTestClock from '../../containers/writtentestclocksecond/layout'
 
 export default class extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       list: [],
@@ -14,9 +15,7 @@ export default class extends React.Component {
       testResult: 0,
       totalDay: 0,
       totalScore: 0,
-      currPersent: 0,
-      exceeds: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 8, 8, 8, 9, 9, 9, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 39, 42, 44, 46, 48, 51, 54, 57, 60, 63, 65, 67, 69, 72, 75, 77, 80, 82, 84, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 96, 96, 96, 96, 97, 97, 97, 97, 97, 98, 98, 98, 98, 98, 99, 99, 99, 99, 99, 100]
-
+      currPersent: 0
     }
   }
 
@@ -56,7 +55,7 @@ export default class extends React.Component {
     }
   }
 
-  renderGlobalCss() {
+  renderGlobalCss () {
     return (
       <style jsx global>{`
             .written-test-clock {
@@ -67,13 +66,13 @@ export default class extends React.Component {
   }
 
   renderTop = () => {
-    const { clockInCompleted, checkDays, totalDay, totalScore, currPersent, exceeds } = this.state
+    const { clockInCompleted, checkDays, totalScore, currPersent } = this.state
     if (clockInCompleted) {
       return (
         <div>
           <div>小伙伴</div>
           <div>本次笔试测试你答对{totalScore}道题，总正确率{currPersent}％</div>
-          <div>笔试答题战斗力超过了{exceeds[currPersent]}％的笔试打卡学习者！</div>
+          <div>笔试答题战斗力超过了{ToolsUtil.exceeds[currPersent]}％的笔试打卡学习者！</div>
         </div>
       )
     } else {
@@ -96,14 +95,14 @@ export default class extends React.Component {
           <div>顺利完成本期笔试打卡任务！</div>
           <div>已成功解锁第二期笔试打卡参与权限！</div>
           <style jsx>{`
-                .check-day {
-                  background-color: ${Theme.color.writtentestclockmain};
-                  border-radius: 50%;
-                  margin: 0 6px;
-                  color: #fff;
-                  padding: 2px 6px;
-                }
-              `}</style>
+            .check-day {
+              background-color: ${Theme.color.writtentestclockmain};
+              border-radius: 50%;
+              margin: 0 6px;
+              color: #fff;
+              padding: 2px 6px;
+            }
+          `}</style>
         </div>
       )
     } else {
@@ -116,7 +115,7 @@ export default class extends React.Component {
       )
     }
   }
-  render() {
+  render () {
     const { showPage } = this.state
 
     if (!showPage) return <div />
@@ -130,11 +129,17 @@ export default class extends React.Component {
             {this.renderMiddle()}
           </div>
           <div className='bottom-form'>
-            <img className='bottom-form-bg' src='/static/writtentestclock/exam-result-bottom.png' />
+            <img
+              className='bottom-form-bg'
+              src='/static/writtentestclock/exam-result-bottom.png' />
             <div className='bottom-form-content'>
-              <img className='qr-code' src='/static/writtentestclock/season2-qr-code.png' />
+              <img
+                className='qr-code'
+                src='/static/writtentestclock/season2-qr-code.png' />
               <div>马上扫描，分享报名</div>
-              <img className='season-2' src='/static/writtentestclock/season2-banner.png' />
+              <img
+                className='season-2'
+                src='/static/writtentestclock/season2-banner.png' />
               <div>小灶四大笔试打卡计划吧</div>
             </div>
           </div>

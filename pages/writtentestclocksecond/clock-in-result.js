@@ -1,10 +1,9 @@
-
 import WrittenTestClock from '../../containers/writtentestclocksecond/layout'
 import Footer from '../../containers/writtentestclocksecond/footer'
-import ShareWx from '../../containers/writtentestclocksecond/sharewx'
 import Action from '../../action/writtentestclocksecond'
 import React from 'react'
 import Theme from '../../config/theme'
+import ToolsUtil from '../../util/tools'
 
 export default class extends React.Component {
   constructor (props) {
@@ -14,8 +13,7 @@ export default class extends React.Component {
       todayInfo: null,
       clockInCount: 1,
       shareIsShow: false,
-      showPage: false,
-      exceeds: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 8, 8, 8, 9, 9, 9, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 39, 42, 44, 46, 48, 51, 54, 57, 60, 63, 65, 67, 69, 72, 75, 77, 80, 82, 84, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 96, 96, 96, 96, 97, 97, 97, 97, 97, 98, 98, 98, 98, 98, 99, 99, 99, 99, 99, 100]
+      showPage: false
     }
   }
 
@@ -36,12 +34,6 @@ export default class extends React.Component {
     }
   }
 
-  shareWx = () => {
-    this.setState({
-      shareIsShow: true
-    })
-  }
-
   renderGlobalCss () {
     return (
       <style global jsx>{`
@@ -59,10 +51,11 @@ export default class extends React.Component {
     return (
       <WrittenTestClock>
         <div className='square-form'>
-          <ShareWx isShow={this.state.shareIsShow} />
           <div className='square'>
             <div className='inner-square'>
-              <div className='score'>打卡成功！你累计坚持笔试打卡<span className='day'>{this.state.clockInCount}</span>天</div>
+              <div className='score'>打卡成功！你累计坚持笔试打卡
+                <span className='day'>{this.state.clockInCount}</span>
+                天</div>
               <div className='score'>今日笔试打卡成绩</div>
             </div>
           </div>
@@ -70,7 +63,7 @@ export default class extends React.Component {
             <div className='data1'><span>{accuracy}%</span>正确率</div>
           </div>
           <div className='bottom-form'>
-            <div>击败了超过{this.state.exceeds[accuracy]}%的参与者，继续努力吧！</div>
+            <div>击败了超过{ToolsUtil.exceeds[accuracy]}%的参与者，继续努力吧！</div>
             <div>分享成就卡</div>
             <div>每一份坚持</div>
             <div>都是在实现自己平凡生活里的英雄梦</div>
@@ -85,6 +78,7 @@ export default class extends React.Component {
             }
             .square-form {
               padding-bottom: 40px;
+              overflow-x: hidden;
             }
             .flex-item {
               flex: 1;
