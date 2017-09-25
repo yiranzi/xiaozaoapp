@@ -1,6 +1,7 @@
 import React from 'react'
 import classnames from 'classnames'
 import Action from '../../action/writtentestclocksecond'
+import Footer from '../../containers/writtentestclocksecond/footer'
 import WrittenTestClock from '../../containers/writtentestclocksecond/layout'
 
 export default class extends React.Component {
@@ -14,7 +15,7 @@ export default class extends React.Component {
           .prize-form {
             position: relative;
             width: 100%;
-            margin-bottom: 50px;
+            margin-bottom: 100px;
           }
           .prize-form img {
             width: 100%;
@@ -38,6 +39,7 @@ export default class extends React.Component {
           <img src='/static/writtentestclocksecond/8.png' />
           <img src='/static/writtentestclocksecond/9.png' />
           <img src='/static/writtentestclocksecond/10.png' />
+          <Footer />
           <style jsx>{`
         `}</style>
           {this.renderGlobalCss()}
