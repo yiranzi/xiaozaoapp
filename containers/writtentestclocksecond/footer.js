@@ -53,7 +53,10 @@ export default class extends React.Component {
           className='footer-item my-clock-in'
           href='/writtentestclocksecond/index-clock-in'
         />
-        <a className='footer-item my-prize' />
+        <a
+          className='footer-item my-prize'
+          href='/writtentestclocksecond/preview-prize'
+        />
         <a
           className='footer-item clock-in-intro'
           href='/writtentestclocksecond/more-test'
