@@ -19,21 +19,22 @@ export default class extends React.Component {
     try {
       const test = await Action.getTest()
       const info = await Action.getInfo()
-
-
-      let clockInCompleted = true;
-      let checkDays = 0;
+      const totalDays = info.completeDay.length
+      let clockInCompleted = true
+      let checkDays = 0
       info.completeDay.forEach((item, index) => {
         if (item) {
-          checkDays++;
+          checkDays++
         } else {
-          clockInCompleted = false;
+          clockInCompleted = false
         }
-      });
+      })
 
       this.setState({
         showPage: true,
         clockInCompleted,
+        checkDays,
+        totalDays,
         test
       })
     } catch (err) {
@@ -56,12 +57,13 @@ export default class extends React.Component {
   }
 
   renderBottomContent() {
-    const { clockInCompleted } = this.state
+    const { clockInCompleted, checkDays, totalDays } = this.state
+    const uncheckedDays = totalDays - checkDays
     if(clockInCompleted) {
       return (
         <div className='bottom-form-content'>
           <div>选择坚持总能看到进步！</div>
-          <div className='weight'>你总共坚持打卡X天！恭喜您！</div>
+          <div className='weight'>你总共坚持打卡{checkDays}天！恭喜您！</div>
           <div>成功完成本期笔试打卡任务！</div>
           <div>点击我的奖品马上领取属于自己的奖励吧！</div>
           <img src='/static/writtentestclocksecond/exam-qr-code.png' />
@@ -79,7 +81,7 @@ export default class extends React.Component {
     } else {
       return (
         <div className='bottom-form-content'>
-          <div className='weight'>您总共坚持打卡X天，缺席打卡X天</div>
+          <div className='weight'>您总共坚持打卡{checkDays}天，缺席打卡{uncheckedDays}天</div>
           <div>很遗憾</div>
           <div>未能完成本期笔试打卡任务</div>
           <div>马上领取属于自己的奖励吧！</div>
@@ -99,7 +101,7 @@ export default class extends React.Component {
   }
 
   render () {
-    const { showPage, test, tipMsg } = this.state
+    const { showPage, test, tipMsg, checkDays } = this.state
     if(!showPage) return <div></div>
     if (tipMsg) {
       return (
@@ -117,7 +119,7 @@ export default class extends React.Component {
           <div className='square'>
             <div className='inner-square'>
               <div className='score'>小伙伴</div>
-              <div className='score'>你成功坚持笔试修炼第X天，打卡成功</div>
+              <div className='score'>你成功坚持笔试修炼第{checkDays}天，打卡成功</div>
             </div>
           </div>
           <div className='correct-rate'>
@@ -187,7 +189,6 @@ export default class extends React.Component {
           }
           .rate-content {
             font-size: 0.8rem;
-            font-weight: 200;
           }
           .bottom-form {
             width: 70vw;
