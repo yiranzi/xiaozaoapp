@@ -38,9 +38,10 @@ export default class extends React.Component {
         test
       })
     } catch (err) {
+      console.log(err)
       this.setState({
         showPage: true,
-        tipMsg: err
+        tipMsg: err.message
       })
     }
   }
@@ -107,7 +108,6 @@ export default class extends React.Component {
       return (
         <WrittenTestClock>
           <Toptips type='warn' show> {tipMsg} </Toptips>
-          <Footer />
         </WrittenTestClock>
       )
     }
