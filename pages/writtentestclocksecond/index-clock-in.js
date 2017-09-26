@@ -28,7 +28,6 @@ export default class extends React.Component {
     const { evaluationResult } = user
     const dateLength = Math.ceil((endDay - startDay) / 3600 / 24 / 1000) + 2
     const currentDayIndex = completeDay.length
-    const isTestDay = currentDayIndex >= 6
     let renderList = []
     let totalUser = info.totalUserCount
     let hasPrize = true
@@ -62,7 +61,6 @@ export default class extends React.Component {
     this.setState({
       currentDayIndex,
       evaluationResult,
-      isTestDay,
       countdownDay,
       completeDay,
       dateLength,
@@ -219,14 +217,15 @@ export default class extends React.Component {
   }
 
   render () {
-    const { showPage, tipsMsg, renderList, totalUser, hasPrize, countdownDay, evaluationResult, randomAvatars, currentDayIndex, user, test, isTestDay } = this.state
+    const { showPage, tipsMsg, renderList, totalUser, hasPrize, countdownDay, evaluationResult, randomAvatars, currentDayIndex, user, test } = this.state
     const exceeds = ToolsUtil.exceeds
 
     let currPersent = 0
+    let todayBtn = 'clock-in-today.png'
     if (test) {
       currPersent = Math.round(test.totalScore / test.writtenTestTopicDTOList.length * 100)
+      todayBtn = 'exam-btn.png'
     }
-
     if (!showPage) {
       return (
         <WrittenTestClock>
@@ -266,9 +265,13 @@ export default class extends React.Component {
               </div>
             </div>
             {
-              isTestDay
-                ? <a href={`/writtentestclocksecond/task?category=finish`} className='btn today-push' />
-                : <a href={`/writtentestclocksecond/task?category=task&day=${currentDayIndex}`} className='btn today-push' />
+              test
+                ? <a href={`/writtentestclocksecond/task?category=finish`} 
+                  style={{ backgroundImage: `url(/static/writtentestclocksecond/exam-btn.png)` }}
+                  className='btn today-push' />
+                : <a href={`/writtentestclocksecond/task?category=task&day=${currentDayIndex}`}
+                  style={{ backgroundImage: `url(/static/writtentestclocksecond/clock-in-today.png)` }}
+                  className='btn today-push' />
             }
             <div className='hint'><span>点击查看解析</span></div>
             <div className='result-form'>
@@ -281,14 +284,14 @@ export default class extends React.Component {
               </div>
               <div className='row'>
                 {
-                  isTestDay
+                  test
                     ? <a href='/writtentestclocksecond/task?category=finish&&action=review'>
                       <img src='/static/writtentestclocksecond/clock-in-result.png' />
                     </a>
                     : <a><img src='/static/writtentestclocksecond/clock-in-result.png' /></a>
                 }
-                { isTestDay ? <div>正确率{currPersent}%</div> : ''}
-                { isTestDay ? <div>击败了{exceeds[currPersent || 0]}%的人</div> : ''}
+                { test ? <div>正确率{currPersent}%</div> : ''}
+                { test ? <div>击败了{exceeds[currPersent || 0]}%的人</div> : ''}
 
               </div>
             </div>
@@ -431,7 +434,6 @@ export default class extends React.Component {
             display: block;
           }
           .today-push {
-            background-image: url(/static/writtentestclocksecond/clock-in-today.png);
             margin-top: -40px;
             z-index: 1;
           }
