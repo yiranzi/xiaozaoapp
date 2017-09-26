@@ -15,13 +15,17 @@ function AxiosUtil (param) {
     axiosParam.data = data
   }
   if (method === 'post') {
-    axiosParam.headers = { 'Content-Type': 'application/json' }
+    axiosParam.headers = {'Content-Type': 'application/json'}
   }
   return new Promise((resolve, reject) => {
     axios(axiosParam).then((res) => {
       if (res.status === 200 && res.data.status === 200) {
         resolve(res.data.response)
       } else {
+        // 临时处理
+        if (res.status === 401 || res.data.status === 401) {
+          location.href = 'http://wx.xiaozao.org/auth/logout'
+        }
         const {data} = res
         // 接口返回错误
         const json = {
