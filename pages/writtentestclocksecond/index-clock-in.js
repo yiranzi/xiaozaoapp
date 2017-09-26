@@ -26,7 +26,7 @@ export default class extends React.Component {
   initState = (info, user, test) => {
     const { startDay, endDay, completeDay } = info
     const { evaluationResult } = user
-    const dateLength = Math.ceil((endDay - startDay) / 3600 / 24 / 1000) + 1
+    const dateLength = Math.ceil((endDay - startDay) / 3600 / 24 / 1000) + 2
     const currentDayIndex = completeDay.length
     const isTestDay = currentDayIndex >= 6
     let renderList = []

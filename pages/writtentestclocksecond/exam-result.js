@@ -19,9 +19,9 @@ export default class extends React.Component {
     try {
       const test = await Action.getTest()
       const info = await Action.getInfo()
-      const totalDays = info.completeDay.length
+      const totalDays = info.completeDay.length + 1
       let clockInCompleted = true
-      let checkDays = 0
+      let checkDays = 1
       info.completeDay.forEach((item, index) => {
         if (item) {
           checkDays++
