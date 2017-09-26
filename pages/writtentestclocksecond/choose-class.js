@@ -128,7 +128,7 @@ export default class extends React.Component {
             }
             .class-choose-title {
               color: #fff;
-              font-size: 23px;
+              font-size: 5vw;
               font-weight: bold;
               padding-top: 2vw;
             }
