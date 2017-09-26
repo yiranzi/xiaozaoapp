@@ -232,7 +232,7 @@ export default class extends React.Component {
       if (category === 'entrance') {
         location.href = '/writtentestclocksecond/test-result'
       } else if (category === 'finish') {
-        location.href = '/writtentestclocksecond/clock-in-result'
+        location.href = '/writtentestclocksecond/exam-result'
       } else {
         location.href = '/writtentestclocksecond/clock-in-result'
       }
