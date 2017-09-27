@@ -59,6 +59,7 @@ export default class extends React.Component {
       renderList.push(item)
     }
     this.setState({
+      endDay: info.endDay,
       currentDayIndex,
       evaluationResult,
       countdownDay,
@@ -110,10 +111,13 @@ export default class extends React.Component {
     const beat = accuracy ? ToolsUtil.exceeds[accuracy] : ''
     const dayIndex = index + 1
     if (dayIndex === 6) {
+      const { test, endDay } = this.state
+      const nowDay = new Date().getTime()
+      const isMissTest = (new Date().getTime() - endDay > 86400 * 1000)
       return (
         <div
           key={index}
-          className={classnames('table-row', { 'check': item.type === 2, 'cross': item.type === 1, 'next-todo': item.type === 0 })}
+          className={classnames('table-row', { 'check': test, 'cross': !test && isMissTest, 'next-todo': !test && !isMissTest })}
           onClick={() => this.rowClick(item.type, index)}
         >
           <div className='table-content'>
