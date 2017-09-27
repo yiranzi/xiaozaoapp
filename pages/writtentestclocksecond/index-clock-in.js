@@ -112,12 +112,23 @@ export default class extends React.Component {
     const dayIndex = index + 1
     if (dayIndex === 6) {
       const { test, endDay } = this.state
-      const nowDay = new Date().getTime()
+      const { answerDTOList } = test
       const isMissTest = (new Date().getTime() - endDay > 86400 * 1000)
+      let className = 'table-row '
+      if (test && answerDTOList.length) {
+        className += 'check'
+      } else {
+        if (test || !isMissTest) {
+          className += 'cross'
+        } else {
+          className += 'next-todo'
+        }
+      }
+
       return (
         <div
           key={index}
-          className={classnames('table-row', { 'check': test, 'cross': !test && isMissTest, 'next-todo': !test && !isMissTest })}
+          className={className}
           onClick={() => this.rowClick(item.type, index)}
         >
           <div className='table-content'>
