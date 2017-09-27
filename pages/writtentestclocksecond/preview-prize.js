@@ -104,7 +104,7 @@ export default class extends React.Component {
               <div>即可获得20元四大线上课程学习基金</div>
               <a
                 className={classnames({ 'disabled': checkedLevel !== 1 })}
-                onClick={() => this.chooseCoupon(1)}>{checkedLevel === 1 ? '立即领取' : '打卡结束后即可领取'}</a>
+                onClick={() => this.chooseCoupon(1)}>立即领取</a>
             </div>
             <div className='coupon'>
               <img src='/static/writtentestclocksecond/coupon30.png' />
@@ -112,7 +112,7 @@ export default class extends React.Component {
               <div>即可获得30元四大线上课程学习基金</div>
               <a
                 className={classnames({ 'disabled': checkedLevel !== 2 })}
-                onClick={() => this.chooseCoupon(2)}>{checkedLevel === 2 ? '立即领取' : '打卡结束后即可领取'}</a>
+                onClick={() => this.chooseCoupon(2)}>立即领取</a>
             </div>
             <div className='coupon'>
               <img src='/static/writtentestclocksecond/coupon50.png' />
@@ -120,7 +120,7 @@ export default class extends React.Component {
               <div>即可获得50元四大线上课程学习基金</div>
               <a
                 className={classnames({ 'disabled': checkedLevel !== 3 })}
-                onClick={() => this.chooseCoupon(3)}>{checkedLevel === 3 ? '立即领取' : '打卡结束后即可领取'}</a>
+                onClick={() => this.chooseCoupon(3)}>立即领取</a>
             </div>
           </div>
           <img src='/static/writtentestclocksecond/prize/1-.png' />
