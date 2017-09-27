@@ -38,7 +38,6 @@ export default class extends React.Component {
         test
       })
     } catch (err) {
-      console.log(err)
       this.setState({
         showPage: true,
         tipMsg: err.message
