@@ -35,7 +35,14 @@ export default class navigation extends React.Component {
         {companyName: '雀巢', time: '9月开启网申，12月结束', tag: ['消费品/零售/贸易'], image: '/static/school/quechao.png', href: '/school/quechao/schoolprocess'},
         {companyName: '卡夫亨氏', time: '9月11日开始网申，10月20日结束', tag: ['消费品/零售/贸易'], image: '/static/school/kafu.png', href: '/school/kafu/schoolprocess'},
         {companyName: '可口可乐', time: '9月4日开始网申，10月21日结束', tag: ['消费品/零售/贸易'], image: '/static/school/kekou.png', href: '/school/kekou/schoolprocess'},
-        {companyName: '百威英博', time: '9月已开启，10月结束', tag: ['消费品/零售/贸易'], image: '/static/school/baiwei.png', href: '/school/baiwei/schoolprocess'}
+        {companyName: '百威英博', time: '9月已开启，10月结束', tag: ['消费品/零售/贸易'], image: '/static/school/baiwei.png', href: '/school/baiwei/schoolprocess'},
+        {companyName: '蚂蚁金服', time: '', tag: ['互联网'], image: '/static/school/ant.png', href: '/school/ant/schoolprocess'},
+        {companyName: '奇虎360', time: '08月14日开启', tag: ['互联网'], image: '/static/school/qihu.png', href: '/school/qihu/schoolprocess'},
+        {companyName: '搜狐', time: '08月07日开启', tag: ['互联网'], image: '/static/school/sohu.png', href: '/school/sohu/schoolprocess'},
+        {companyName: '腾迅', time: '07月27日开启', tag: ['互联网'], image: '/static/school/tt.png', href: '/school/tt/schoolprocess'},
+        {companyName: '唯品会', time: '07月22日开启网申', tag: ['互联网'], image: '/static/school/vip.png', href: '/school/vip/schoolprocess'},
+        {companyName: '携程', time: '2017年08月22日开启网申', tag: ['互联网'], image: '/static/school/xiecheng.png', href: '/school/xiecheng/schoolprocess'},
+        {companyName: '小红书', time: '已于9月7日开始', tag: ['互联网'], image: '/static/school/redBook.png', href: '/school/redBook/schoolprocess'}
       ],
       trade: ['四大事务所', '快消', '咨询', '互联网', '银行/证券/基金/保险/投资公司', '医疗/健康/制药', '汽车/车联网/智能交通', '金融', '会计师事务所/咨询/法律/其他专业服务', '会计师事务所','消费品/零售/贸易']
     }
