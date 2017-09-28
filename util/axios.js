@@ -40,7 +40,7 @@ function AxiosUtil (param) {
         alert('登录过期了，请重新登录')
         location.href = 'http://wx.xiaozao.org/auth/logout'
       } else {
-        reject(error.response.status)
+        reject(error.message)
       }
     })
   })
