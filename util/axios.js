@@ -37,7 +37,7 @@ function AxiosUtil (param) {
       }
     }).catch((error) => {
       if (error.response.status === 401) {
-        alert('登录过期了，请重新登录')
+        alert('登录已过期，请重新登录')
         location.href = 'http://wx.xiaozao.org/auth/logout'
       } else {
         reject(error.message)
