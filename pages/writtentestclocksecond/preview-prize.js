@@ -1,6 +1,6 @@
 import React from 'react'
 import classnames from 'classnames'
-import { Toptips } from 'react-weui'
+import {Toptips} from 'react-weui'
 import Action from '../../action/writtentestclocksecond'
 import Footer from '../../containers/writtentestclocksecond/footer'
 import WrittenTestClock from '../../containers/writtentestclocksecond/layout'
@@ -10,7 +10,8 @@ export default class extends React.Component {
     color: '#fe5c4b',
     btnColor: '#fff08b'
   }
-  constructor(props) {
+
+  constructor (props) {
     super(props)
     this.state = {
       showPage: false,
@@ -18,11 +19,12 @@ export default class extends React.Component {
       tipsMsg: ''
     }
   }
+
   componentDidMount = async () => {
     try {
       const info = await Action.getInfo()
       const result = await Action.getTest()
-      const { completeDay } = info
+      const {completeDay} = info
       const checkedList = completeDay.filter(item => item)
       let length = checkedList.length
       if (result.answerDTOList.length) length++
@@ -50,7 +52,7 @@ export default class extends React.Component {
   }
 
   chooseCoupon = (v) => {
-    const { checkedLevel } = this.state
+    const {checkedLevel} = this.state
     if (checkedLevel === v) {
       switch (v) {
         case 1:
@@ -67,32 +69,33 @@ export default class extends React.Component {
     }
   }
 
-  renderGlobalCss() {
+  renderGlobalCss () {
     return (
       <style global jsx>{`
-          .written-test-clock {
-            background: #fff!important;
-          }
-          .prize-form {
-            position: relative;
-            background: #fff;
-            width: 100%;
-            margin-bottom: 100px;
-          }
-          .prize-form img {
-            width: 100%;
-            margin-bottom: -8px;
-          }
+        .written-test-clock {
+          background: #fff!important;
+        }
+        .prize-form {
+          position: relative;
+          background: #fff;
+          width: 100%;
+          margin-bottom: 100px;
+        }
+        .prize-form img {
+          width: 100%;
+          margin-bottom: -8px;
+        }
       `}</style>
     )
   }
 
-  render() {
-    const { showPage, tipsMsg, checkedLevel } = this.state
+  render () {
+    const {showPage, tipsMsg, checkedLevel} = this.state
     if (!showPage) return <div />
     if (tipsMsg) {
       return <Toptips type='warn' show> {tipsMsg} </Toptips>
-    };
+    }
+    ;
     return (
       <WrittenTestClock>
         <div className='prize-form'>
@@ -103,7 +106,7 @@ export default class extends React.Component {
               <div>连续3天打卡，</div>
               <div>即可获得20元四大线上课程学习基金</div>
               <a
-                className={classnames({ 'disabled': checkedLevel !== 1 })}
+                className={classnames({'disabled': checkedLevel !== 1})}
                 onClick={() => this.chooseCoupon(1)}>立即领取</a>
             </div>
             <div className='coupon'>
@@ -111,7 +114,7 @@ export default class extends React.Component {
               <div>连续5天打卡，</div>
               <div>即可获得30元四大线上课程学习基金</div>
               <a
-                className={classnames({ 'disabled': checkedLevel !== 2 })}
+                className={classnames({'disabled': checkedLevel !== 2})}
                 onClick={() => this.chooseCoupon(2)}>立即领取</a>
             </div>
             <div className='coupon'>
@@ -119,7 +122,7 @@ export default class extends React.Component {
               <div>连续7天打卡，</div>
               <div>即可获得50元四大线上课程学习基金</div>
               <a
-                className={classnames({ 'disabled': checkedLevel !== 3 })}
+                className={classnames({'disabled': checkedLevel !== 3})}
                 onClick={() => this.chooseCoupon(3)}>立即领取</a>
             </div>
           </div>
@@ -140,7 +143,7 @@ export default class extends React.Component {
             <a href='https://h5.youzan.com/v2/feature/14hq9cwg7' />
             <img src='/static/writtentestclocksecond/prize/5-.png' />
           </div>
-          
+
           <img src='/static/writtentestclocksecond/prize/6-.png' />
           <div className='class-block'>
             <a href='https://h5.youzan.com/v2/goods/2x7t40laxx40h' />

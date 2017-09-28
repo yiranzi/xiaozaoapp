@@ -281,7 +281,7 @@ export default class extends React.Component {
             </div>
             {
               test
-                ? <a href={`/writtentestclocksecond/task?category=finish`} 
+                ? <a href={`/writtentestclocksecond/task?category=finish`}
                   style={{ backgroundImage: `url(/static/writtentestclocksecond/exam-btn.png)` }}
                   className='btn today-push' />
                 : <a href={`/writtentestclocksecond/task?category=task&day=${currentDayIndex}`}

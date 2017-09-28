@@ -45,7 +45,6 @@ export default class extends React.Component {
     }
   }
 
-
   renderGlobalCss () {
     return (
       <style jsx global>{`
@@ -56,10 +55,10 @@ export default class extends React.Component {
     )
   }
 
-  renderBottomContent() {
+  renderBottomContent () {
     const { clockInCompleted, checkDays, totalDays } = this.state
     const uncheckedDays = totalDays - checkDays
-    if(clockInCompleted) {
+    if (clockInCompleted) {
       return (
         <div className='bottom-form-content'>
           <div>选择坚持总能看到进步！</div>
@@ -102,7 +101,7 @@ export default class extends React.Component {
 
   render () {
     const { showPage, test, tipMsg, checkDays } = this.state
-    if(!showPage) return <div></div>
+    if (!showPage) return <div />
     if (tipMsg) {
       return (
         <WrittenTestClock>
@@ -111,7 +110,7 @@ export default class extends React.Component {
       )
     }
 
-    const accuracy = Math.round(test.totalScore / test.writtenTestTopicDTOList.length  * 100)
+    const accuracy = Math.round(test.totalScore / test.writtenTestTopicDTOList.length * 100)
     return (
       <WrittenTestClock>
         <div className='exam-result-layout'>
