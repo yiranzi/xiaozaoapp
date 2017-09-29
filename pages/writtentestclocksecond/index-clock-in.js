@@ -148,7 +148,7 @@ export default class extends React.Component {
         >
           <div className='table-content'>
             <div>Day{dayIndex}</div>
-            <div className='test-and-analyze'>高频错题解析汇总</div>
+            <div className='test-and-analyze'><a href="https://shimo.im/doc/TF5LhCrzD80zAYcI?r=5RZZ37">高频错题解析汇总</a></div>
           </div>
           <div className='check-icon' />
         </div>
