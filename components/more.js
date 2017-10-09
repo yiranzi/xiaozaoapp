@@ -18,23 +18,22 @@ export default class extends React.Component {
     let clientHeight = this.refs.content.clientHeight
     let lineHeight = this.refs.content.style.lineHeight
     let lines = clientHeight / lineHeight.replace('px', '')
-    console.log(lines)
     if (lines > this.props.line) {
       this.setState({
         needShowBotton: true
       })
     }
   }
-  hide(){
+  hide() {
     this.setState({
       isShow: false,
-      style: {overflow: 'hidden', 'WebkitLineClamp': this.props.line}
+      style: {lineHeight: '24px', overflow: 'hidden', 'WebkitLineClamp': this.props.line}
     })
   }
   showAll () {
     this.setState({
       isShow: true,
-      style: {overflow: 'visible'}
+      style: {lineHeight: '24px', overflow: 'visible'}
     })
   }
 
