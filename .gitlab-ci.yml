@@ -3,23 +3,24 @@ cache:
   - node_modules/
 
 stages:
-  - build
+  - deploy
 
-dev_build:
-  stage: build
+dev_deploy:
+  stage: deploy
   only:
-   - dev
+   - test
   script:
-   - rm -rf /usr/local/build/wechat-app
+   - rm -rf /usr/local/wechat-app
    - yarn
    - npm run build
    - "rsync -a out/. /usr/local/wechat-app"
 
-master_build:
-  stage: build
+master_deploy:
+  stage: deploy
   only: 
    - master
   script:
+   - rm -rf /data/wechat-app
    - yarn
    - npm run build
    - "rsync -a out/. /data/wechat-app"
