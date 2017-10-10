@@ -10,7 +10,7 @@ export default class extends React.Component {
         <style jsx>{`
           .card {
             background-color: ${ThemeConfig.color.gray};
-            box-shadow: 0 1px 6px rgba(0,0,0,.2);
+            box-shadow: 0 1px 10px rgba(0,0,0,.2);
             padding: 1rem;
             margin: 1rem 0;
           }
