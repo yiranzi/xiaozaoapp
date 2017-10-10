@@ -12,7 +12,9 @@ export default class extends React.Component {
   }
   componentDidMount = async () => {
     const url = `/api/interview/getWXConfig?url=${location.href.split('#')[0]}`
+    console.log(url)
     let wxConfig = await AxiosUtil({method: 'get', url: url})
+    wxConfig.debug = true
     wxConfig.jsApiList = [
       'startRecord',
       'stopRecord',
@@ -25,10 +27,10 @@ export default class extends React.Component {
       'downloadVoice'
     ]
     wx.config(wxConfig)
-    wx.ready(function(){
+    wx.ready(function () {
       console.log('微信认证成功')
     })
-    wx.error(function(res){
+    wx.error(function (res) {
       console.log('微信认证失败')
       console.log(res)
     })
