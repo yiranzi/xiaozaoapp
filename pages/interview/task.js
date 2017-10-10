@@ -7,12 +7,14 @@ export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      localId: ''
+      isRecording: false, // 正在录音
+      isPlaying: false, // 正在播放录音
+      localId: '',
+      serverId: ''
     }
   }
   componentDidMount = async () => {
     const url = `/api/interview/getWXConfig?url=${location.href.split('#')[0]}`
-    console.log(url)
     let wxConfig = await AxiosUtil({method: 'get', url: url})
     wxConfig.debug = true
     wxConfig.jsApiList = [
@@ -37,21 +39,54 @@ export default class extends React.Component {
   }
 
   startRecord () {
-    wx.startRecord()
+    const { isRecording, isPlaying } = this.state
+    // 没有录音，且没有播放音频
+    if (!isRecording && !isPlaying) {
+      wx.startRecord()
+    }
   }
 
   stopRecord () {
+    const { isRecording, isPlaying } = this.state
     const _this = this
-    wx.stopRecord({
-      success: function (res) {
-        _this.setState({localId: res.localId})
-      }
-    })
+    if (isRecording && !isPlaying){
+      wx.stopRecord({
+        success: function (res) {
+          _this.setState({localId: res.localId})
+        }
+      })
+      wx.onVoiceRecordEnd({
+        // 录音时间超过一分钟没有停止的时候会执行 complete 回调
+        complete: function (res) {
+          _this.setState({localId: res.localId})
+        }
+      })
+    }
   }
 
   playRecord () {
-    wx.playVoice({
-      localId: this.state.localId
+    const { isRecording, isPlaying, localId } = this.state
+    if (!isRecording) {
+      if (isPlaying){
+        wx.pauseVoice({
+          localId: localId
+        });
+      }
+      wx.playVoice({
+        localId: localId
+      })
+    }
+  }
+
+  uploadVoice () {
+    const { localId } = this.state
+    const _this = this
+    wx.uploadVoice({
+      localId: localId,
+      isShowProgressTips: 1,
+      success: function (res) {
+        _this.setState({serverId: serverId})
+      }
     })
   }
 
