@@ -5,7 +5,7 @@ export default class extends React.Component {
   render () {
     const {text, url} = this.props
     return (
-      <div>
+      <div className='back'>
         <a href={url}>{text}</a>
         <style jsx>{`
           a {
