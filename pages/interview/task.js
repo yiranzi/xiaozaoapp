@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from 'react-weui'
+import {Button} from 'react-weui'
 import InterviewLayout from '../../containers/interview/layout'
 import AxiosUtil from '../../util/axios'
 
@@ -13,6 +13,7 @@ export default class extends React.Component {
       serverId: ''
     }
   }
+
   componentDidMount = async () => {
     const url = `/api/interview/getWXConfig?url=${location.href.split('#')[0]}`
     let wxConfig = await AxiosUtil({method: 'get', url: url})
@@ -39,7 +40,7 @@ export default class extends React.Component {
   }
 
   startRecord () {
-    const { isRecording, isPlaying } = this.state
+    const {isRecording, isPlaying} = this.state
     // 没有录音，且没有播放音频
     if (!isRecording && !isPlaying) {
       wx.startRecord()
@@ -47,27 +48,28 @@ export default class extends React.Component {
   }
 
   stopRecord () {
-    const { isRecording, isPlaying } = this.state
+    const {isRecording, isPlaying} = this.state
     const _this = this
-    if (isRecording && !isPlaying){
-      wx.stopRecord({
-        success: function (res) {
-          _this.setState({localId: res.localId})
-        }
-      })
-      wx.onVoiceRecordEnd({
-        // 录音时间超过一分钟没有停止的时候会执行 complete 回调
-        complete: function (res) {
-          _this.setState({localId: res.localId})
-        }
-      })
-    }
+    // if (isRecording && !isPlaying){
+    wx.stopRecord({
+      success: function (res) {
+        _this.setState({localId: res.localId})
+        _this.uploadVoice()
+      }
+    })
+    wx.onVoiceRecordEnd({
+      // 录音时间超过一分钟没有停止的时候会执行 complete 回调
+      complete: function (res) {
+        _this.setState({localId: res.localId})
+      }
+    })
+    // }
   }
 
   playRecord () {
-    const { isRecording, isPlaying, localId } = this.state
+    const {isRecording, isPlaying, localId} = this.state
     if (!isRecording) {
-      if (isPlaying){
+      if (isPlaying) {
         wx.pauseVoice({
           localId: localId
         });
@@ -79,13 +81,14 @@ export default class extends React.Component {
   }
 
   uploadVoice () {
-    const { localId } = this.state
+    const {localId} = this.state
     const _this = this
     wx.uploadVoice({
       localId: localId,
       isShowProgressTips: 1,
       success: function (res) {
-        _this.setState({serverId: serverId})
+        _this.setState({serverId: res.serverId})
+        console.log(res.serverId)
       }
     })
   }
@@ -94,9 +97,16 @@ export default class extends React.Component {
     return (
       <InterviewLayout>
         <div>
-          <Button type='primary' plain onClick={() => { this.startRecord() }}>开始录音</Button>
-          <Button type='primary' plain onClick={() => { this.stopRecord() }}>停止录音</Button>
-          <Button type='primary' plain onClick={() => { this.playRecord() }}>播放录音</Button>
+          <Button type='primary' plain onClick={() => {
+            this.startRecord()
+          }}>开始录音</Button>
+          <Button type='primary' plain onClick={() => {
+            this.stopRecord()
+          }}>停止录音</Button>
+          <Button type='primary' plain onClick={() => {
+            this.playRecord()
+          }}>播放录音</Button>
+          <div>{this.state.serverId}</div>
         </div>
         <script src='/static/js/jweixin.js'></script>
       </InterviewLayout>
