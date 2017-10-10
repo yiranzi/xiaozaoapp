@@ -16,6 +16,14 @@ export default class extends React.Component {
       return (
         <div className='interview'>
           {this.props.children}
+          <style jsx>{`
+          .interview {
+            min-height: 100vh;
+            padding: 1rem;
+            box-sizing: border-box;
+            background-color: ${ThemeConfig.color.gray};
+          }
+        `}</style>
         </div>
       )
     }
@@ -24,14 +32,6 @@ export default class extends React.Component {
     return (
       <Layout>
         {this.renderChildren()}
-        <style jsx>{`
-          .interview {
-            min-height: 100vh;
-            padding: 1rem;
-            box-sizing: border-box;
-            background-color: ${ThemeConfig.color.gray};
-          }
-        `}</style>
         <style global jsx>{`
           .interview .weui-btn_primary,
           .interview .weui-btn_primary:not(.weui-btn_disabled):active {
