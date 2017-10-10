@@ -1,14 +1,29 @@
 import React from 'react'
+import { Toptips } from 'react-weui'
 import Layout from '../../components/layout'
 import ThemeConfig from '../../config/theme'
+import Loading from '../../components/loading'
 
 export default class extends React.Component {
-  render () {
-    return (
-      <Layout>
+  renderChildren () {
+    const { isRender, error } = this.props
+    if (isRender) {
+      return <Loading />
+    } else if (error) {
+      const show = true
+      return <Toptips type='warn' show={show} >{error}</Toptips>
+    } else {
+      return (
         <div className='interview'>
           {this.props.children}
         </div>
+      )
+    }
+  }
+  render () {
+    return (
+      <Layout>
+        {this.renderChildren()}
         <style jsx>{`
           .interview {
             min-height: 100vh;
@@ -23,7 +38,6 @@ export default class extends React.Component {
             color: ${ThemeConfig.color.white};
             background-color: ${ThemeConfig.color.yellow};
           }
-
         `}</style>
       </Layout>
     )
