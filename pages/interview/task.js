@@ -24,6 +24,14 @@ export default class extends React.Component {
       'uploadVoice',
       'downloadVoice'
     ]
+    wx.config(wxConfig)
+    wx.ready(function(){
+      console.log('微信认证成功')
+    })
+    wx.error(function(res){
+      console.log('微信认证失败')
+      console.log(res)
+    })
   }
 
   startRecord () {
