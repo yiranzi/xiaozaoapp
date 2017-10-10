@@ -41,9 +41,10 @@ export default class extends React.Component {
   }
 
   stopRecord () {
+    const _this = this
     wx.stopRecord({
       success: function (res) {
-        this.setState({localId: res.localId})
+        _this.setState({localId: res.localId})
       }
     })
   }
@@ -59,7 +60,7 @@ export default class extends React.Component {
       <InterviewLayout>
         <div>
           <Button type='primary' plain onClick={() => { this.startRecord() }}>开始录音</Button>
-          <Button type='primary' plain onClick={() => { this.stopRecord() }}>开始录音</Button>
+          <Button type='primary' plain onClick={() => { this.stopRecord() }}>停止录音</Button>
           <Button type='primary' plain onClick={() => { this.playRecord() }}>播放录音</Button>
         </div>
         <script src='/static/js/jweixin.js'></script>
