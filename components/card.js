@@ -3,10 +3,11 @@ import ThemeConfig from '../config/theme'
 
 export default class extends React.Component {
   render () {
+    const { title, content } = this.props
     return (
       <div className='card'>
-        <div className='title'>{this.props.title}</div>
-        <div className='content'>{this.props.content}</div>
+        {title && <div className='title'>{title}</div>}
+        {content && <div className='content'>{content}</div>}
         <style jsx>{`
           .card {
             background-color: ${ThemeConfig.color.gray};
