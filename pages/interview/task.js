@@ -30,17 +30,21 @@ export default class extends React.Component {
         isRender: false
       })
     } catch (e) {
-      this.setState({
-        isRender: false,
-        error: e
-      })
+      if (e.status === 10004) {
+        location.href = '/interview/list'
+      } else {
+        this.setState({
+          isRender: false,
+          error: e.message
+        })
+      }
     }
   }
 
   renderTask () {
     const {day, questionList} = this.state
     if (standard.indexOf(day) >= 0) {
-      return <StandardTask questionList={questionList} />
+      return <StandardTask questionList={questionList}/>
     } else {
       // 非标准
       return <div>非标准</div>

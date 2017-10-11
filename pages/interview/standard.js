@@ -1,10 +1,9 @@
 import React from 'react'
 import {Button} from 'react-weui'
 import classNames from 'classnames'
+import AxiosUtil from '../../util/axios'
 import Radio from '../../components/radio'
-import Audio from '../../components/audio'
-import ToolsUtil from '../../util/tools'
-import ThemeConfig from '../../config/theme'
+import Loading from '../../components/loading'
 
 export default class extends React.Component {
   constructor (props) {
@@ -13,7 +12,8 @@ export default class extends React.Component {
       index: 0,
       noPrev: true,
       noNext: false,
-      answerList: {}
+      answerList: {},
+      isSubmit: false
     }
   }
 
@@ -21,9 +21,30 @@ export default class extends React.Component {
     return <div>{meterial}</div>
   }
 
-  renderDTOList (DTOList) {
+  renderAnswerOption (id, DTOList) {
     const {index} = this.state
     const currentIndex = index
+    const name = `answer_${currentIndex}`
+    const options = DTOList[index].optionDTOList
+
+    return options.map((item, i) => {
+      const {tag, content} = item
+      const radioItem = Object.assign({}, {
+        name: name,
+        value: tag,
+        label: `${tag}.${content}`
+      })
+      const key = `answer_${currentIndex}_${i}`
+      return (
+        <Radio key={key} params={radioItem} onChange={(value) => {
+          this.onChange(id, value)
+        }}/>
+      )
+    })
+  }
+
+  renderDTOList (DTOList) {
+    const {index} = this.state
     const {id, material, question} = DTOList[index]
     const questionLength = question.length
     return (
@@ -37,24 +58,7 @@ export default class extends React.Component {
           <div className='content'>
             <div className='question'>{DTOList[index].no}、{DTOList[index].question}</div>
             <div className='options'>
-              {DTOList[index].optionDTOList.map((item, index) => {
-                const params = {
-                  name: `answer-${currentIndex}`,
-                  value: item.tag,
-                  label: item.tag + '、' + item.content,
-                  defaultValue: ''
-                }
-                return (
-                  <div key={`${DTOList.title}-${index}`} className='option-item'>
-                    <Radio
-                      params={params}
-                      onChange={(value) => {
-                        this.onChange(id, value)
-                      }}
-                    />
-                  </div>
-                )
-              })}
+              {this.renderAnswerOption(id, DTOList)}
             </div>
           </div>
         </div>
@@ -67,7 +71,7 @@ export default class extends React.Component {
           <div className='next'>
             {this.state.noNext
               ? <Button onClick={() => {
-                this.next(questionLength)
+                this.answerComplete()
               }}>提交</Button>
               : <Button onClick={() => {
                 this.next(questionLength)
@@ -125,24 +129,58 @@ export default class extends React.Component {
     }
   }
 
+  formatAnswerList () {
+    const {questionList} = this.props
+    const {answerList} = this.state
+    return questionList.interviewTopicDTOList.map((item, index) => {
+      let id = item.id
+      let answer = answerList[id] ? answerList[id].tag : ''
+      return {answer: answer, id: id}
+    })
+  }
+
+
+  answerComplete = async () => {
+    const {topicKey} = this.props.questionList
+    const answerList = this.formatAnswerList()
+
+    try {
+      this.setState({isSubmit: true})
+      const data = JSON.stringify({
+        answerDTOList: answerList,
+        time: 30,
+        topicKey: topicKey
+      })
+      this.setState({isSubmit: true})
+      await AxiosUtil({
+        method: 'post',
+        url: '/api/interview/complete',
+        data: data
+      })
+      location.href = '/interview/result'
+    } catch (e) {
+      this.setState({isSubmit: false})
+      alert('提交失败，请重新提交')
+    }
+  }
+
   onChange (id, value) {
-    console.log(this.props.questionList)
     let {answerList} = this.state
     answerList[id] = answerList[id] || {}
     answerList[id].tag = value
     this.setState({
       answerList: answerList
-    }, () => {
-      console.log(this.state.answerList)
     })
   }
 
   render () {
+    const {isSubmit} = this.state
     const {questionList} = this.props
     const {interviewTopicDTOList} = questionList
 
     return (
       <div className='standard'>
+        {isSubmit && <Loading/>}
         {this.renderDTOList(interviewTopicDTOList)}
       </div>
     )

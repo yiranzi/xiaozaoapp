@@ -13,6 +13,7 @@ export default class Loading extends React.Component {
             background: rgba(0,0,0, 0.5);
             opacity: 0.5;
             position: fixed;
+            z-index: 999;
             left: 0;
             top: 0;
             display: flex;
