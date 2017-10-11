@@ -12,7 +12,8 @@ export default class extends React.Component {
     this.state = {
       index: 0,
       noPrev: true,
-      noNext: false
+      noNext: false,
+      answerList: {}
     }
   }
 
@@ -47,7 +48,7 @@ export default class extends React.Component {
                     <Radio
                       params={params}
                       onChange={(value) => {
-                        this.onChange(value)
+                        this.onChange(item.id, value)
                       }}
                     />
                   </div>
@@ -123,8 +124,15 @@ export default class extends React.Component {
     }
   }
 
-  onChange (value) {
-    console.log(value)
+  onChange (id, value) {
+    let {answerList} = this.state
+    answerList[id] = answerList[id] || {}
+    answerList[id].tag = value
+    this.setState({
+      answerList: answerList
+    }, () => {
+      console.log(this.state.answerList)
+    })
   }
 
   render () {
