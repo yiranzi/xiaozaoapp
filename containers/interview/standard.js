@@ -1,8 +1,10 @@
 import React from 'react'
 import {Button} from 'react-weui'
 import classNames from 'classnames'
+import ToolsUtil from '../../util/tools'
 import AxiosUtil from '../../util/axios'
 import Radio from '../../components/radio'
+import Audio from '../../components/audio'
 import Loading from '../../components/loading'
 
 export default class extends React.Component {
@@ -18,34 +20,57 @@ export default class extends React.Component {
   }
 
   renderMaterial (meterial) {
-    return <div>{meterial}</div>
+    let meterial_array = eval(meterial)
+    return meterial_array.map((item, index) => {
+      if (ToolsUtil.isImg(item)) {
+        return <div key={index} className='meterial-item'>
+          <img src={item}/>
+          <style jsx>{`
+            img {
+              width: 100%;
+            }
+          `}</style>
+        </div>
+      } else if (ToolsUtil.isMp3(item)) {
+        return <div key={index} className='meterial-item'>
+          <Audio src={item}/>
+        </div>
+      }
+    })
   }
 
   renderAnswerOption (id, DTOList) {
-    const {index} = this.state
+    const {index, answerList} = this.state
     const currentIndex = index
     const name = `answer_${currentIndex}`
     const options = DTOList[index].optionDTOList
 
+
     return options.map((item, i) => {
       const {tag, content} = item
-      const radioItem = Object.assign({}, {
+      const params = {
         name: name,
         value: tag,
-        label: `${tag}.${content}`
-      })
+        label: tag + '、' + content,
+        defaultValue: answerList[id]
+      }
       const key = `answer_${currentIndex}_${i}`
       return (
-        <Radio key={key} params={radioItem} onChange={(value) => {
+        <Radio key={key} params={params} onChange={(value) => {
           this.onChange(id, value)
         }}/>
       )
     })
   }
 
-  renderDTOList (DTOList) {
+  renderDTOList () {
+    const {questionList} = this.props
+    if (questionList.hasOwnProperty('topicKey')){
+      return <div></div>
+    }
+    const {interviewTopicDTOList} = questionList
     const {index} = this.state
-    const {id, material, question} = DTOList[index]
+    const {id, material, question} = interviewTopicDTOList[index]
     const questionLength = question.length
     return (
       <div className='dto-list'>
@@ -56,9 +81,9 @@ export default class extends React.Component {
         <div className='pratice'>
           <div className='title'>练习</div>
           <div className='content'>
-            <div className='question'>{DTOList[index].no}、{DTOList[index].question}</div>
+            <div className='question'>{interviewTopicDTOList[index].no}、{interviewTopicDTOList[index].question}</div>
             <div className='options'>
-              {this.renderAnswerOption(id, DTOList)}
+              {this.renderAnswerOption(id, interviewTopicDTOList)}
             </div>
           </div>
         </div>
@@ -134,11 +159,10 @@ export default class extends React.Component {
     const {answerList} = this.state
     return questionList.interviewTopicDTOList.map((item, index) => {
       let id = item.id
-      let answer = answerList[id] ? answerList[id].tag : ''
+      let answer = answerList[id] ? answerList[id] : ''
       return {answer: answer, id: id}
     })
   }
-
 
   answerComplete = async () => {
     const {topicKey} = this.props.questionList
@@ -167,7 +191,7 @@ export default class extends React.Component {
   onChange (id, value) {
     let {answerList} = this.state
     answerList[id] = answerList[id] || {}
-    answerList[id].tag = value
+    answerList[id] = value
     this.setState({
       answerList: answerList
     })
@@ -175,13 +199,11 @@ export default class extends React.Component {
 
   render () {
     const {isSubmit} = this.state
-    const {questionList} = this.props
-    const {interviewTopicDTOList} = questionList
 
     return (
       <div className='standard'>
         {isSubmit && <Loading/>}
-        {this.renderDTOList(interviewTopicDTOList)}
+        {this.renderDTOList()}
       </div>
     )
   }

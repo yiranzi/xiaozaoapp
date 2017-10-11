@@ -1,8 +1,7 @@
 import React from 'react'
 import AxiosUtil from '../../util/axios'
-import Audio from '../../components/audio'
 import InterviewLayout from '../../containers/interview/layout'
-import StandardTask from './standard'
+import StandardTask from '../../containers/interview/standard'
 
 const standard = [2, 3, 4, 6]
 
@@ -45,9 +44,6 @@ export default class extends React.Component {
     const {day, questionList} = this.state
     if (standard.indexOf(day) >= 0) {
       return <StandardTask questionList={questionList}/>
-    } else {
-      // 非标准
-      return <div>非标准</div>
     }
   }
 

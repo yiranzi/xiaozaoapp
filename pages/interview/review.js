@@ -2,7 +2,7 @@ import React from 'react'
 import AxiosUtil from '../../util/axios'
 import Audio from '../../components/audio'
 import InterviewLayout from '../../containers/interview/layout'
-import StandardReview from './standardreview'
+import StandardReview from '../../containers/interview/standardreview'
 
 const standard = [2, 3, 4, 6]
 
