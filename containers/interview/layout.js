@@ -38,6 +38,11 @@ export default class extends React.Component {
             color: ${ThemeConfig.color.white};
             background-color: ${ThemeConfig.color.yellow};
           }
+          .interview .disabled .weui-btn_primary,
+          .interview .disabled .weui-btn_primary:not(.weui-btn_disabled):active{
+            background: ${ThemeConfig.color.gray};
+            color: rgba(0,0,0,0.2);
+          }
         `}</style>
       </Layout>
     )
