@@ -63,4 +63,12 @@ ToolsUtil.exportPathMap = function () {
   return pathMap
 }
 
+ToolsUtil.isImg = function (str) {
+  return str.match(/.*png$/) || str.match(/.*jpg/) || str.match(/.*jpeg/)
+}
+
+ToolsUtil.isMp3 = function (str) {
+  return str.match(/.*mp3/)
+}
+
 module.exports = ToolsUtil

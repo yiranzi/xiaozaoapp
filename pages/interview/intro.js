@@ -55,7 +55,6 @@ export default class extends React.Component {
   }
 
   render () {
-    const url = `/interview/task?day=${this.state.day}`
     return (
       <InterviewLayout >
         <Back text='< 返回打卡主页' url='/interview/main' />
@@ -64,7 +63,7 @@ export default class extends React.Component {
             title='打卡说明'
             content={this.renderIntroContent()}
           />
-          <a href={url}><Button>开始打卡</Button></a>
+          <a href='/interview/task'><Button>开始打卡</Button></a>
         </div>
       </InterviewLayout>
     )

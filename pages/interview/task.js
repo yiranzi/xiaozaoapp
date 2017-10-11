@@ -1,13 +1,17 @@
 import React from 'react'
 import AxiosUtil from '../../util/axios'
-import ToolsUtil from '../../util/tools'
+import Audio from '../../components/audio'
 import InterviewLayout from '../../containers/interview/layout'
+import StandardTask from './standard'
+
+const standard = [2, 3, 4, 6]
 
 export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       isRender: true,
+      day: '',
       questionList: {},
       isSubmit: false,
       error: ''
@@ -15,19 +19,17 @@ export default class extends React.Component {
   }
 
   componentDidMount = async () => {
-    const day = ToolsUtil.getQueryString('day')
     try {
       let questionList = await AxiosUtil({
         method: 'get',
-        url: `/api/interview/getByDay/${day}`
+        url: '/api/interview/getToday'
       })
-      questionList = questionList.response
       this.setState({
+        day: questionList.day,
         questionList: questionList,
         isRender: false
       })
     } catch (e) {
-      console.log(e)
       this.setState({
         isRender: false,
         error: e
@@ -35,11 +37,21 @@ export default class extends React.Component {
     }
   }
 
+  renderTask () {
+    const {day, questionList} = this.state
+    if (standard.indexOf(day) >= 0) {
+      return <StandardTask questionList={questionList} />
+    } else {
+      // 非标准
+      return <div>非标准</div>
+    }
+  }
+
   render () {
     const {isRender, error} = this.state
     return (
       <InterviewLayout isRender={isRender} error={error}>
-        <div>asdfasdfasdf</div>
+        <div>{this.renderTask()}</div>
       </InterviewLayout>
     )
   }
