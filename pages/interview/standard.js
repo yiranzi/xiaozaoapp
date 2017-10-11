@@ -24,7 +24,7 @@ export default class extends React.Component {
   renderDTOList (DTOList) {
     const {index} = this.state
     const currentIndex = index
-    const {material, question} = DTOList[index]
+    const {id, material, question} = DTOList[index]
     const questionLength = question.length
     return (
       <div className='dto-list'>
@@ -41,14 +41,15 @@ export default class extends React.Component {
                 const params = {
                   name: `answer-${currentIndex}`,
                   value: item.tag,
-                  label: item.tag + '、' + item.content
+                  label: item.tag + '、' + item.content,
+                  defaultValue: ''
                 }
                 return (
                   <div key={`${DTOList.title}-${index}`} className='option-item'>
                     <Radio
                       params={params}
                       onChange={(value) => {
-                        this.onChange(item.id, value)
+                        this.onChange(id, value)
                       }}
                     />
                   </div>
@@ -107,9 +108,9 @@ export default class extends React.Component {
     const {index} = this.state
     const prevIndex = index - 1
 
-    if (prevIndex <= 0){
+    if (prevIndex <= 0) {
       this.setState({index: prevIndex, noNext: false, noPrev: true})
-    }else{
+    } else {
       this.setState({index: prevIndex, noNext: false})
     }
   }
@@ -125,6 +126,7 @@ export default class extends React.Component {
   }
 
   onChange (id, value) {
+    console.log(this.props.questionList)
     let {answerList} = this.state
     answerList[id] = answerList[id] || {}
     answerList[id].tag = value
