@@ -29,6 +29,7 @@ export default class Layout extends React.Component {
             type='radio'
             name={name}
             value={value}
+            checked={checked}
             onClick={() => onChange(value)}
           />
           <div className='text'>{label}</div>
