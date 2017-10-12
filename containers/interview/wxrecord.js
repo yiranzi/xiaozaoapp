@@ -53,7 +53,6 @@ export default class extends React.Component {
       wx.stopRecord({
         success: function (res) {
           _this.setState({localId: res.localId})
-          _this.uploadVoice()
         }
       })
       wx.onVoiceRecordEnd({
@@ -66,13 +65,13 @@ export default class extends React.Component {
     }
   }
 
-  playRecord (localId) {
+  playVoice (localId) {
     wx.playVoice({
       localId: localId
     })
   }
 
-  stopRecord (localId) {
+  stopVoice (localId) {
     wx.pauseVoice({
       localId: localId
     })
@@ -140,10 +139,10 @@ export default class extends React.Component {
       <div className='play'>
         {isPlaying
           ? <img src='/static/img/interview/pause.png' onClick={() => {
-            this.stopRecord()
+            this.playVoice()
           }}/>
           : <img src='/static/img/interview/play.png' onClick={() => {
-            this.stopRecord()
+            this.stopVoice()
           }}/>
         }
       </div>
