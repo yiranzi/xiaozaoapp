@@ -118,7 +118,7 @@ export default class extends React.Component {
       success: function (res) {
         _this.setState({localId: localId, serverId: res.serverId})
         console.log(res.serverId)
-        _this.props.onChange(res.serverId)
+        _this.onChange(res.serverId)
       }
     })
   }
