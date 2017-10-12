@@ -45,9 +45,10 @@ export default class extends React.Component {
     const {index, answerList} = this.state
     const isVoice = DTOList[index].voice
     if (isVoice) {
-      return <WxRecord ref='wxrecord' onChange={(value) => {
-        this.onChange(id, value)
-      }}/>
+      return <WxRecord
+        ref='wxrecord'
+        defaultValue={answerList[id]}
+        onChange={(value) => {this.onChange(id, value)}} />
     } else {
       const name = `answer_${index}`
       const options = DTOList[index].optionDTOList

@@ -7,7 +7,7 @@ export default class extends React.Component {
     this.state = {
       isRecording: false, // 正在录音
       isPlaying: false, // 正在播放录音
-      localId: '',
+      localId: this.props.defaultValue,
       serverId: ''
     }
   }
@@ -104,7 +104,7 @@ export default class extends React.Component {
       localId: localId,
       isShowProgressTips: 1,
       success: function (res) {
-        _this.setState({serverId: res.serverId})
+        _this.setState({localId: localId, serverId: res.serverId})
         console.log(res.serverId)
         _this.props.onChange(res.serverId)
       }
