@@ -335,6 +335,7 @@ export default class extends React.Component {
   }
 
   next (id, questionLength, DTOList) {
+    const _this = this
     const {index} = this.state
     const nextIndex = index + 1
     const isVoice = DTOList[index].voice
@@ -342,9 +343,9 @@ export default class extends React.Component {
     if (isVoice) {
       this.uploadVoice(id, function (res) {
         if (nextIndex <= questionLength - 1) {
-          this.setState({index: nextIndex, noNext: true, noPrev: false})
+          _this.setState({index: nextIndex, noNext: true, noPrev: false})
         } else {
-          this.setState({index: nextIndex, noPrev: false})
+          _this.setState({index: nextIndex, noPrev: false})
         }
       })
     }
