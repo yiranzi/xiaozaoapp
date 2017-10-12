@@ -66,23 +66,32 @@ export default class extends React.Component {
     }
   }
 
-  playRecord () {
-    const {isRecording, isPlaying, localId} = this.state
-    if (!isRecording) {
-      if (isPlaying) {
-        wx.pauseVoice({
-          localId: localId
-        });
-      }
-      wx.playVoice({
-        localId: localId
-      })
-    }
+  playRecord (localId) {
+    wx.playVoice({
+      localId: localId
+    })
+  }
+
+  stopRecord (localId) {
+    wx.pauseVoice({
+      localId: localId
+    })
   }
 
   uploadVoice () {
-    const {localId} = this.state
+    const {localId, isRecording, isPlaying} = this.state
     const _this = this
+    if (isRecording) {
+      alert('正在录音，请结束录音后提交')
+      return
+    }
+    if (!localId) {
+      alert('请先录音')
+      return
+    }
+    if (isPlaying) {
+      this.playRecord()
+    }
     wx.uploadVoice({
       localId: localId,
       isShowProgressTips: 1,
@@ -126,12 +135,28 @@ export default class extends React.Component {
     )
   }
 
+  renderPlay (isPlaying) {
+    return (
+      <div className='play'>
+        {isPlaying
+          ? <img src='/static/img/interview/pause.png' onClick={() => {
+            this.stopRecord()
+          }}/>
+          : <img src='/static/img/interview/play.png' onClick={() => {
+            this.stopRecord()
+          }}/>
+        }
+      </div>
+    )
+  }
+
   render () {
-    const {isRecording} = this.state
+    const {localId, isRecording, isPlaying} = this.state
     return (
       <div>
         <div className='record'>
           {isRecording ? this.renderRecording() : this.renderRecord()}
+          {localId && this.renderPlay(localId, isPlaying)}
         </div>
       </div>
     )
