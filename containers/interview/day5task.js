@@ -104,7 +104,8 @@ export default class extends React.Component {
   }
 
   uploadVoice (id, callback) {
-    callback = callback || function () {}
+    callback = callback || function () {
+    }
     const {localId, isRecording, isPlaying} = this.state
     const _this = this
     if (isRecording) {
@@ -340,12 +341,10 @@ export default class extends React.Component {
 
     if (isVoice) {
       this.uploadVoice(id, function (res) {
-        if (res) {
-          if (nextIndex <= questionLength - 1) {
-            this.setState({index: nextIndex, noNext: true, noPrev: false})
-          } else {
-            this.setState({index: nextIndex, noPrev: false})
-          }
+        if (nextIndex <= questionLength - 1) {
+          this.setState({index: nextIndex, noNext: true, noPrev: false})
+        } else {
+          this.setState({index: nextIndex, noPrev: false})
         }
       })
     }
