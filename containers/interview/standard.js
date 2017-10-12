@@ -6,6 +6,7 @@ import AxiosUtil from '../../util/axios'
 import Radio from '../../components/radio'
 import Audio from '../../components/audio'
 import Loading from '../../components/loading'
+import TimeDown from '../../components/timedown'
 
 export default class extends React.Component {
   constructor (props) {
@@ -20,8 +21,8 @@ export default class extends React.Component {
   }
 
   renderMaterial (meterial) {
-    let meterial_array = eval(meterial)
-    return meterial_array.map((item, index) => {
+    let meterialArray = eval(meterial)
+    return meterialArray.map((item, index) => {
       if (ToolsUtil.isImg(item)) {
         return <div key={index} className='meterial-item'>
           <img src={item}/>
@@ -45,7 +46,6 @@ export default class extends React.Component {
     const name = `answer_${currentIndex}`
     const options = DTOList[index].optionDTOList
 
-
     return options.map((item, i) => {
       const {tag, content} = item
       const params = {
@@ -65,9 +65,6 @@ export default class extends React.Component {
 
   renderDTOList () {
     const {questionList} = this.props
-    if (questionList.hasOwnProperty('topicKey')){
-      return <div></div>
-    }
     const {interviewTopicDTOList} = questionList
     const {index} = this.state
     const {id, material, question} = interviewTopicDTOList[index]
@@ -75,7 +72,7 @@ export default class extends React.Component {
     return (
       <div className='dto-list'>
         <div className='material'>
-          <div className='title'>材料</div>
+          <div className='title'>材料<TimeDown limitTime={questionList.limitTime} timeDown={() => {this.timeDown()}}/></div>
           <div className='content'>{this.renderMaterial(material)}</div>
         </div>
         <div className='pratice'>
@@ -121,6 +118,7 @@ export default class extends React.Component {
             bottom: 0;
             padding: 1rem 2rem;
             box-sizing: border-box;
+            background: #F9F9F9;
           }
           .prev, .next {
             flex: 1;
@@ -131,6 +129,10 @@ export default class extends React.Component {
         `}</style>
       </div>
     )
+  }
+
+  timeDown () {
+    this.answerComplete()
   }
 
   prev (questionLength) {
