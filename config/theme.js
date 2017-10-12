@@ -8,9 +8,8 @@ const config = {
     border_gray: '#d9d9d9'
   },
   size: {
-    small: '1rem',
-    normal: '1.25rem',
-    large: '1.5rem'
+    small: '0.75rem',
+    large: '1.25rem'
   }
 }
 
