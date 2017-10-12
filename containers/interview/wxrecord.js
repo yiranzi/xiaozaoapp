@@ -41,7 +41,7 @@ export default class extends React.Component {
     const {isRecording, isPlaying} = this.state
     // 没有录音，且没有播放音频
     if (!isRecording && !isPlaying) {
-      // wx.startRecord()
+      wx.startRecord()
       this.setState({isRecording: true})
     }
   }
