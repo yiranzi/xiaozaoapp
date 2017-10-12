@@ -106,7 +106,7 @@ export default class extends React.Component {
     const {localId} = this.state
     return (
       <div className='record'>
-        <img src='/static/img/interview/record.png' onClick={() => {
+        <img src='/static/img/interview/wx_record.png' onClick={() => {
           this.startRecord()
         }}/>
         {localId && <div>播放</div>}
@@ -122,7 +122,7 @@ export default class extends React.Component {
   renderRecording () {
     return (
       <div className='recording'>
-        <img src='/static/img/interview/recording.gif' onClick={() => {
+        <img src='/static/img/interview/wx_recording.gif' onClick={() => {
           this.stopRecord()
         }}/>
         <style jsx>{`
@@ -139,10 +139,10 @@ export default class extends React.Component {
       <div className='play'>
         {isPlaying
           ? <img src='/static/img/interview/pause.png' onClick={() => {
-            this.playVoice(localId)
+            this.stopVoice(localId)
           }}/>
           : <img src='/static/img/interview/play.png' onClick={() => {
-            this.stopVoice(localId)
+            this.playVoice(localId)
           }}/>
         }
       </div>
@@ -155,7 +155,7 @@ export default class extends React.Component {
       <div>
         <div className='record'>
           {isRecording ? this.renderRecording() : this.renderRecord()}
-          {localId && this.renderPlay(localId, isPlaying)}
+          {localId && !isRecording && this.renderPlay(localId, isPlaying)}
         </div>
       </div>
     )
