@@ -134,15 +134,15 @@ export default class extends React.Component {
     )
   }
 
-  renderPlay (isPlaying) {
+  renderPlay (localId, isPlaying) {
     return (
       <div className='play'>
         {isPlaying
           ? <img src='/static/img/interview/pause.png' onClick={() => {
-            this.playVoice()
+            this.playVoice(localId)
           }}/>
           : <img src='/static/img/interview/play.png' onClick={() => {
-            this.stopVoice()
+            this.stopVoice(localId)
           }}/>
         }
       </div>
