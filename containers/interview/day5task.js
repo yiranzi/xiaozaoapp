@@ -13,11 +13,11 @@ export default class extends React.Component {
     super(props)
     this.state = {
       index: 0,
-      nextTopic: false,
       noPrev: true,
       noNext: false,
       answerList: {},
       isSubmit: false,
+      canNext: false,
       isRecording: false, // 正在录音
       isPlaying: false, // 正在播放录音
       localId: this.props.defaultValue,
@@ -108,14 +108,18 @@ export default class extends React.Component {
     const _this = this
     if (isRecording) {
       alert('正在录音，请结束录音后提交')
+      this.setState({canNext: false})
       return
     }
     if (!localId) {
       alert('请先录音')
+      this.setState({canNext: false})
+      return
     }
     if (isPlaying) {
       this.stopVoice(localId)
     }
+    this.setState({canNext: true})
     wx.uploadVoice({
       localId: localId,
       isShowProgressTips: 1,
@@ -312,7 +316,7 @@ export default class extends React.Component {
     this.answerComplete()
   }
 
-  needRecord(value) {
+  needRecord (value) {
     this.setState({nextTopic: value})
   }
 
@@ -328,16 +332,15 @@ export default class extends React.Component {
   }
 
   next (questionLength, DTOList) {
-    const {index, answerList} = this.state
+    const {index} = this.state
     const nextIndex = index + 1
     const isVoice = DTOList[index].voice
-    console.log('nextTopic', nextTopic)
 
     if (isVoice) {
       this.uploadVoice()
     }
-    const {nextTopic} = this.state
-    if(nextTopic){
+    const {canNext} = this.state
+    if (canNext) {
       if (nextIndex <= questionLength - 1) {
         this.setState({index: nextIndex, noNext: true, noPrev: false})
       } else {
