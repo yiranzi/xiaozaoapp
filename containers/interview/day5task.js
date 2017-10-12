@@ -339,14 +339,15 @@ export default class extends React.Component {
   }
 
   next (questionLength, DTOList) {
-    const _this = this
-    const {index} = this.state
+    const {index, isVoice} = this.state
     const nextIndex = index + 1
-
+    if (isVoice) {
+      this.refs.wxrecord.uploadVoice()
+    }
     if (nextIndex <= questionLength - 1) {
-      _this.setState({index: nextIndex, noNext: true, noPrev: false})
+      this.setState({index: nextIndex, noNext: true, noPrev: false})
     } else {
-      _this.setState({index: nextIndex, noPrev: false})
+      this.setState({index: nextIndex, noPrev: false})
     }
   }
 
