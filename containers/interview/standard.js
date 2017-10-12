@@ -178,6 +178,7 @@ export default class extends React.Component {
 
     try {
       this.setState({isSubmit: true})
+      alert(answerList)
       const data = JSON.stringify({
         answerDTOList: answerList,
         time: 30,

@@ -66,8 +66,17 @@ export default class extends React.Component {
   }
 
   playVoice (localId) {
+    const _this = this
     wx.playVoice({
-      localId: localId
+      localId: localId,
+      success: function () {
+        _this.setState({isPlaying: true})
+      }
+    })
+    wx.onVoicePlayEnd({
+      success: function (res) {
+        _this.setState({isPlaying: true})
+      }
     })
   }
 
@@ -130,6 +139,9 @@ export default class extends React.Component {
         <style jsx>{`
           .recording {
             text-align: center;
+            display: flex;
+            margin-left: 50%;
+            transform: translateX(-50%);
           }
         `}</style>
       </div>
