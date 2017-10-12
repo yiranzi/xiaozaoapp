@@ -89,27 +89,26 @@ export default class extends React.Component {
       success: function (res) {
         _this.setState({serverId: res.serverId})
         console.log(res.serverId)
+        _this.props.onChange(res.serverId)
       }
     })
   }
 
   render () {
     return (
-      <InterviewLayout>
-        <div>
-          <Button type='primary' plain onClick={() => {
-            this.startRecord()
-          }}>开始录音</Button>
-          <Button type='primary' plain onClick={() => {
-            this.stopRecord()
-          }}>停止录音</Button>
-          <Button type='primary' plain onClick={() => {
-            this.playRecord()
-          }}>播放录音</Button>
-          <div>{this.state.serverId}</div>
-        </div>
+      <div>
+        <Button type='primary' plain onClick={() => {
+          this.startRecord()
+        }}>开始录音</Button>
+        <Button type='primary' plain onClick={() => {
+          this.stopRecord()
+        }}>停止录音</Button>
+        <Button type='primary' plain onClick={() => {
+          this.playRecord()
+        }}>播放录音</Button>
+        <div>{this.state.serverId}</div>
         <script src='/static/js/jweixin.js'></script>
-      </InterviewLayout>
+      </div>
     )
   }
 }

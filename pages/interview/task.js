@@ -2,6 +2,8 @@ import React from 'react'
 import AxiosUtil from '../../util/axios'
 import InterviewLayout from '../../containers/interview/layout'
 import StandardTask from '../../containers/interview/standard'
+import Day1Task from '../../containers/interview/day1task'
+import Day5Task from '../../containers/interview/day5task'
 
 const standard = [2, 3, 4, 6]
 
@@ -44,6 +46,10 @@ export default class extends React.Component {
     const {day, questionList} = this.state
     if (standard.indexOf(day) >= 0) {
       return <StandardTask questionList={questionList}/>
+    } else if (day === 1) {
+      return <Day1Task questionList={questionList}/>
+    } else if (day === 5) {
+      return <Day5Task questionList={questionList}/>
     }
   }
 
