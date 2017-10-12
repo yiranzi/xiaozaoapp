@@ -103,7 +103,8 @@ export default class extends React.Component {
     })
   }
 
-  uploadVoice () {
+  uploadVoice (id, callback) {
+    callback = callback || function () {}
     const {localId, isRecording, isPlaying} = this.state
     const _this = this
     if (isRecording) {
@@ -124,9 +125,10 @@ export default class extends React.Component {
       localId: localId,
       isShowProgressTips: 1,
       success: function (res) {
-        _this.setState({localId: localId, serverId: res.serverId})
-        console.log(res.serverId)
-        _this.onChange(res.serverId)
+        let serverId = res.serverId
+        _this.onChange(id, serverId)
+        _this.setState({serverId: res.serverId})
+        callback()
       }
     })
   }
@@ -277,7 +279,7 @@ export default class extends React.Component {
                 this.answerComplete()
               }}>提交</Button>
               : <Button onClick={() => {
-                this.next(questionLength, interviewTopicDTOList)
+                this.next(id, questionLength, interviewTopicDTOList)
               }}>下一题</Button>
             }
           </div>
@@ -331,23 +333,22 @@ export default class extends React.Component {
     }
   }
 
-  next (questionLength, DTOList) {
+  next (id, questionLength, DTOList) {
     const {index} = this.state
     const nextIndex = index + 1
     const isVoice = DTOList[index].voice
 
     if (isVoice) {
-      this.uploadVoice()
+      this.uploadVoice(id, function (res) {
+        if (res) {
+          if (nextIndex <= questionLength - 1) {
+            this.setState({index: nextIndex, noNext: true, noPrev: false})
+          } else {
+            this.setState({index: nextIndex, noPrev: false})
+          }
+        }
+      })
     }
-    const {canNext} = this.state
-    if (canNext) {
-      if (nextIndex <= questionLength - 1) {
-        this.setState({index: nextIndex, noNext: true, noPrev: false})
-      } else {
-        this.setState({index: nextIndex, noPrev: false})
-      }
-    }
-
   }
 
   formatAnswerList () {
