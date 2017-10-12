@@ -182,6 +182,7 @@ export default class extends React.Component {
     this.setState({
       answerList: answerList
     })
+    console.log(this.state.answerList)
   }
 
   render () {
