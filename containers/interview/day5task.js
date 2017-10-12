@@ -94,8 +94,12 @@ export default class extends React.Component {
   }
 
   stopVoice (localId) {
+    const _this = this
     wx.pauseVoice({
-      localId: localId
+      localId: localId,
+      success: function () {
+        _this.setState({isPlaying: true})
+      }
     })
   }
 
@@ -110,7 +114,7 @@ export default class extends React.Component {
       alert('请先录音')
     }
     if (isPlaying) {
-      this.playRecord()
+      this.stopVoice(localId)
     }
     wx.uploadVoice({
       localId: localId,
