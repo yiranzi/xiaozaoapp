@@ -59,22 +59,26 @@ export default class extends React.Component {
     }
   }
 
-  stopRecord () {
+  stopRecord (id) {
     const {isRecording, isPlaying} = this.state
     const _this = this
     if (isRecording && !isPlaying) {
       wx.stopRecord({
         success: function (res) {
-          _this.setState({localId: res.localId})
+          _this.setState({localId: res.localId}, function () {
+            _this.uploadVoice(id)
+            _this.setState({isRecording: false})
+          })
         }
       })
       wx.onVoiceRecordEnd({
         // 录音时间超过一分钟没有停止的时候会执行 complete 回调
         complete: function (res) {
           _this.setState({localId: res.localId})
+          _this.uploadVoice(id)
+          _this.setState({isRecording: false})
         }
       })
-      this.setState({isRecording: false})
     }
   }
 
@@ -153,11 +157,11 @@ export default class extends React.Component {
     )
   }
 
-  renderRecording () {
+  renderRecording (id) {
     return (
       <div className='recording'>
         <img src='/static/img/interview/wx_recording.gif' onClick={() => {
-          this.stopRecord()
+          this.stopRecord(id)
         }}/>
         <style jsx>{`
           .recording {
@@ -186,12 +190,12 @@ export default class extends React.Component {
     )
   }
 
-  wxRecord () {
+  wxRecord (id) {
     const {localId, isRecording, isPlaying} = this.state
     return (
       <div>
         <div className='record'>
-          {isRecording ? this.renderRecording() : this.renderRecord(localId, isRecording, isPlaying)}
+          {isRecording ? this.renderRecording(id) : this.renderRecord(localId, isRecording, isPlaying)}
         </div>
       </div>
     )
@@ -222,7 +226,7 @@ export default class extends React.Component {
     console.log(DTOList[index])
     const isVoice = DTOList[index].voice
     if (isVoice) {
-      return <div>{this.wxRecord()}</div>
+      return <div>{this.wxRecord(id)}</div>
     } else {
       const name = `answer_${index}`
       const options = DTOList[index].optionDTOList
@@ -277,7 +281,7 @@ export default class extends React.Component {
           <div className='next'>
             {this.state.noNext
               ? <Button onClick={() => {
-                this.answerComplete(id, questionLength, interviewTopicDTOList)
+                this.answerComplete()
               }}>提交</Button>
               : <Button onClick={() => {
                 this.next(id, questionLength, interviewTopicDTOList)
@@ -334,20 +338,15 @@ export default class extends React.Component {
     }
   }
 
-  next (id, questionLength, DTOList) {
+  next (questionLength, DTOList) {
     const _this = this
     const {index} = this.state
     const nextIndex = index + 1
-    const isVoice = DTOList[index].voice
 
-    if (isVoice) {
-      this.uploadVoice(id, function (res) {
-        if (nextIndex <= questionLength - 1) {
-          _this.setState({index: nextIndex, noNext: true, noPrev: false})
-        } else {
-          _this.setState({index: nextIndex, noPrev: false})
-        }
-      })
+    if (nextIndex <= questionLength - 1) {
+      _this.setState({index: nextIndex, noNext: true, noPrev: false})
+    } else {
+      _this.setState({index: nextIndex, noPrev: false})
     }
   }
 
@@ -361,13 +360,9 @@ export default class extends React.Component {
     })
   }
 
-  answerComplete = async (id, questionLength, interviewTopicDTOList) => {
-    this.next(id, questionLength, interviewTopicDTOList)
+  answerComplete = async () => {
     const {topicKey} = this.props.questionList
     const answerList = this.formatAnswerList()
-
-    console.log('answerList')
-    console.log(answerList)
 
     try {
       this.setState({isSubmit: true})
