@@ -102,38 +102,24 @@ export default class extends React.Component {
     wx.pauseVoice({
       localId: localId,
       success: function () {
-        _this.setState({isPlaying: true})
+        _this.setState({isPlaying: false})
       }
     })
   }
 
-  uploadVoice (id, callback) {
-    callback = callback || function () {
-    }
-    const {localId, isRecording, isPlaying} = this.state
+  uploadVoice (id) {
     const _this = this
-    if (isRecording) {
-      alert('正在录音，请结束录音后提交')
-      this.setState({canNext: false})
-      return
-    }
-    if (!localId) {
-      alert('请先录音')
-      this.setState({canNext: false})
-      return
-    }
-    if (isPlaying) {
-      this.stopVoice(localId)
-    }
+    const {localId} = this.state
     this.setState({canNext: true})
     wx.uploadVoice({
       localId: localId,
       isShowProgressTips: 1,
       success: function (res) {
         let serverId = res.serverId
-        _this.onChange(id, serverId)
-        _this.setState({serverId: res.serverId})
-        callback()
+        AxiosUtil({method: 'get', url: '/api/interview/uploadWechatAudio?serverId=' + serverId})
+        _this.setState({serverId: res.serverId}, function () {
+          _this.onChange(id, serverId)
+        })
       }
     })
   }
@@ -284,7 +270,7 @@ export default class extends React.Component {
                 this.answerComplete()
               }}>提交</Button>
               : <Button onClick={() => {
-                this.next(id, questionLength, interviewTopicDTOList)
+                this.next(questionLength, interviewTopicDTOList)
               }}>下一题</Button>
             }
           </div>
@@ -339,16 +325,40 @@ export default class extends React.Component {
   }
 
   next (questionLength, DTOList) {
-    const {index, isVoice} = this.state
+    const {index} = this.state
     const nextIndex = index + 1
+    console.log(DTOList[index])
+    const isVoice = DTOList[index].voice
+
+    console.log('voice ', isVoice)
     if (isVoice) {
-      this.refs.wxrecord.uploadVoice()
-    }
-    if (nextIndex <= questionLength - 1) {
-      this.setState({index: nextIndex, noNext: true, noPrev: false})
+      const {localId, isRecording, isPlaying} = this.state
+      if (isRecording) {
+        alert('正在录音，请结束录音后提交')
+        this.setState({canNext: false})
+        return
+      }
+      if (!localId) {
+        alert('请先录音')
+        this.setState({canNext: false})
+        return
+      }
+      if (isPlaying) {
+        this.stopVoice(localId)
+      }
+      if (nextIndex <= questionLength - 1) {
+        this.setState({index: nextIndex, noNext: true, noPrev: false})
+      } else {
+        this.setState({index: nextIndex, noPrev: false})
+      }
     } else {
-      this.setState({index: nextIndex, noPrev: false})
+      if (nextIndex <= questionLength - 1) {
+        this.setState({index: nextIndex, noNext: true, noPrev: false})
+      } else {
+        this.setState({index: nextIndex, noPrev: false})
+      }
     }
+
   }
 
   formatAnswerList () {
