@@ -277,7 +277,7 @@ export default class extends React.Component {
           <div className='next'>
             {this.state.noNext
               ? <Button onClick={() => {
-                this.answerComplete()
+                this.answerComplete(id, questionLength, interviewTopicDTOList)
               }}>提交</Button>
               : <Button onClick={() => {
                 this.next(id, questionLength, interviewTopicDTOList)
@@ -361,9 +361,13 @@ export default class extends React.Component {
     })
   }
 
-  answerComplete = async () => {
+  answerComplete = async (id, questionLength, interviewTopicDTOList) => {
+    this.next(id, questionLength, interviewTopicDTOList)
     const {topicKey} = this.props.questionList
     const answerList = this.formatAnswerList()
+
+    console.log('answerList')
+    console.log(answerList)
 
     try {
       this.setState({isSubmit: true})
@@ -378,7 +382,7 @@ export default class extends React.Component {
         url: '/api/interview/complete',
         data: data
       })
-      location.href = '/interview/result'
+      // location.href = '/interview/result'
     } catch (e) {
       this.setState({isSubmit: false})
       alert('提交失败，请重新提交')
