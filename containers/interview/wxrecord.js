@@ -102,17 +102,19 @@ export default class extends React.Component {
     })
   }
 
-  renderRecord () {
-    const {localId} = this.state
+  renderRecord (localId, isRecording, isPlaying) {
     return (
-      <div className='record'>
+      <div className='icon'>
         <img src='/static/img/interview/wx_record.png' onClick={() => {
           this.startRecord()
         }}/>
-        {localId && <div>播放</div>}
+        {localId && !isRecording && this.renderPlay(localId, isPlaying)}
         <style jsx>{`
-          .record {
+          .icon {
             text-align: center;
+            display: flex;
+            margin-left: 50%;
+            transform: translateX(-50%);
           }
         `}</style>
       </div>
@@ -154,8 +156,7 @@ export default class extends React.Component {
     return (
       <div>
         <div className='record'>
-          {isRecording ? this.renderRecording() : this.renderRecord()}
-          {localId && !isRecording && this.renderPlay(localId, isPlaying)}
+          {isRecording ? this.renderRecording() : this.renderRecord(localId, isRecording, isPlaying)}
         </div>
       </div>
     )
