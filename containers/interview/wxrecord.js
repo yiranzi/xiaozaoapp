@@ -1,5 +1,4 @@
 import React from 'react'
-import {Button} from 'react-weui'
 import AxiosUtil from '../../util/axios'
 
 export default class extends React.Component {
@@ -42,27 +41,29 @@ export default class extends React.Component {
     const {isRecording, isPlaying} = this.state
     // 没有录音，且没有播放音频
     if (!isRecording && !isPlaying) {
-      wx.startRecord()
+      // wx.startRecord()
+      this.setState({isRecording: true})
     }
   }
 
   stopRecord () {
     const {isRecording, isPlaying} = this.state
     const _this = this
-    // if (isRecording && !isPlaying){
-    wx.stopRecord({
-      success: function (res) {
-        _this.setState({localId: res.localId})
-        _this.uploadVoice()
-      }
-    })
-    wx.onVoiceRecordEnd({
-      // 录音时间超过一分钟没有停止的时候会执行 complete 回调
-      complete: function (res) {
-        _this.setState({localId: res.localId})
-      }
-    })
-    // }
+    if (isRecording && !isPlaying) {
+      wx.stopRecord({
+        success: function (res) {
+          _this.setState({localId: res.localId})
+          _this.uploadVoice()
+        }
+      })
+      wx.onVoiceRecordEnd({
+        // 录音时间超过一分钟没有停止的时候会执行 complete 回调
+        complete: function (res) {
+          _this.setState({localId: res.localId})
+        }
+      })
+      this.setState({isRecording: false})
+    }
   }
 
   playRecord () {
@@ -93,19 +94,45 @@ export default class extends React.Component {
     })
   }
 
+  renderRecord () {
+    const {localId} = this.state
+    return (
+      <div className='record'>
+        <img src='/static/img/interview/record.png' onClick={() => {
+          this.startRecord()
+        }}/>
+        {localId && <div>播放</div>}
+        <style jsx>{`
+          .record {
+            text-align: center;
+          }
+        `}</style>
+      </div>
+    )
+  }
+
+  renderRecording () {
+    return (
+      <div className='recording'>
+        <img src='/static/img/interview/recording.gif' onClick={() => {
+          this.stopRecord()
+        }}/>
+        <style jsx>{`
+          .recording {
+            text-align: center;
+          }
+        `}</style>
+      </div>
+    )
+  }
+
   render () {
+    const {isRecording} = this.state
     return (
       <div>
-        <Button type='primary' plain onClick={() => {
-          this.startRecord()
-        }}>开始录音</Button>
-        <Button type='primary' plain onClick={() => {
-          this.stopRecord()
-        }}>停止录音</Button>
-        <Button type='primary' plain onClick={() => {
-          this.playRecord()
-        }}>播放录音</Button>
-        <div>{this.state.serverId}</div>
+        <div className='record'>
+          {isRecording ? this.renderRecording() : this.renderRecord()}
+        </div>
       </div>
     )
   }

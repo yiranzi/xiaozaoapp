@@ -42,9 +42,32 @@ export default class extends React.Component {
   }
 
   renderAnswerOption (id, DTOList) {
-    return <WxRecord ref='wxrecord' onChange={(value) => {
-      this.onChange(id, value)
-    }}/>
+    const {index, answerList} = this.state
+    const isVoice = DTOList[index].voice
+    if (isVoice) {
+      return <WxRecord ref='wxrecord' onChange={(value) => {
+        this.onChange(id, value)
+      }}/>
+    } else {
+      const name = `answer_${index}`
+      const options = DTOList[index].optionDTOList
+
+      return options.map((item, i) => {
+        const {tag, content} = item
+        const params = {
+          name: name,
+          value: tag,
+          label: tag + '、' + content,
+          defaultValue: answerList[id]
+        }
+        const key = `answer_${index}_${i}`
+        return (
+          <Radio key={key} params={params} onChange={(value) => {
+            this.onChange(id, value)
+          }}/>
+        )
+      })
+    }
   }
 
   renderDTOList () {
@@ -56,7 +79,9 @@ export default class extends React.Component {
     return (
       <div className='dto-list'>
         <div className='material'>
-          <div className='title'>材料<TimeDown limitTime={questionList.limitTime} timeDown={() => {this.timeDown()}}/></div>
+          <div className='title'>材料<TimeDown limitTime={questionList.limitTime} timeDown={() => {
+            this.timeDown()
+          }}/></div>
           <div className='content'>{this.renderMaterial(material)}</div>
         </div>
         <div className='pratice'>
@@ -131,9 +156,11 @@ export default class extends React.Component {
   }
 
   next (questionLength) {
-    const {index} = this.state
+    const {index, isVoice} = this.state
     const nextIndex = index + 1
-    this.refs.wxrecord.uploadVoice();
+    if (isVoice) {
+      this.refs.wxrecord.uploadVoice()
+    }
     if (nextIndex <= questionLength - 1) {
       this.setState({index: nextIndex, noNext: true, noPrev: false})
     } else {
@@ -182,7 +209,6 @@ export default class extends React.Component {
     this.setState({
       answerList: answerList
     })
-    console.log(this.state.answerList)
   }
 
   render () {

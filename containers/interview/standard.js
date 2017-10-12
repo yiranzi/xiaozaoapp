@@ -78,7 +78,9 @@ export default class extends React.Component {
         <div className='pratice'>
           <div className='title'>练习</div>
           <div className='content'>
-            <div className='question'>{interviewTopicDTOList[index].no}、{interviewTopicDTOList[index].question}</div>
+            <div className='question'>
+              {interviewTopicDTOList[index].no}、{interviewTopicDTOList[index].question}
+            </div>
             <div className='options'>
               {this.renderAnswerOption(id, interviewTopicDTOList)}
             </div>
