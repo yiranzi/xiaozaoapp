@@ -58,6 +58,7 @@ export default class extends React.Component {
     return (
       <InterviewLayout isRender={isRender} error={error}>
         <div>{this.renderTask()}</div>
+        <script src='/static/js/jweixin.js'/>
       </InterviewLayout>
     )
   }

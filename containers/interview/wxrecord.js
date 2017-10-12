@@ -1,6 +1,5 @@
 import React from 'react'
 import {Button} from 'react-weui'
-import InterviewLayout from '../../containers/interview/layout'
 import AxiosUtil from '../../util/axios'
 
 export default class extends React.Component {
@@ -107,7 +106,6 @@ export default class extends React.Component {
           this.playRecord()
         }}>播放录音</Button>
         <div>{this.state.serverId}</div>
-        <script src='/static/js/jweixin.js'></script>
       </div>
     )
   }
