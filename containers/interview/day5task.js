@@ -124,13 +124,13 @@ export default class extends React.Component {
     })
   }
 
-  renderRecord (localId, isRecording, isPlaying) {
+  renderRecord (localId, isRecording, isPlaying, defaultValue) {
     return (
       <div className='icon'>
         <img src='/static/img/interview/wx_record.png' onClick={() => {
           this.startRecord()
         }}/>
-        {localId && !isRecording && this.renderPlay(localId, isPlaying)}
+        {defaultValue && !isRecording && this.renderPlay(defaultValue, isPlaying)}
         <style jsx>{`
           .icon {
             text-align: center;
@@ -176,12 +176,12 @@ export default class extends React.Component {
     )
   }
 
-  wxRecord (id) {
+  wxRecord (id, defaultValue) {
     const {localId, isRecording, isPlaying} = this.state
     return (
       <div>
         <div className='record'>
-          {isRecording ? this.renderRecording(id) : this.renderRecord(localId, isRecording, isPlaying)}
+          {isRecording ? this.renderRecording(id) : this.renderRecord(localId, isRecording, isPlaying, defaultValue)}
         </div>
       </div>
     )
@@ -212,7 +212,7 @@ export default class extends React.Component {
     console.log(DTOList[index])
     const isVoice = DTOList[index].voice
     if (isVoice) {
-      return <div>{this.wxRecord(id)}</div>
+      return <div>{this.wxRecord(id, answerList[id])}</div>
     } else {
       const name = `answer_${index}`
       const options = DTOList[index].optionDTOList
