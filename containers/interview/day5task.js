@@ -92,7 +92,7 @@ export default class extends React.Component {
     })
     wx.onVoicePlayEnd({
       success: function (res) {
-        _this.setState({isPlaying: true})
+        _this.setState({isPlaying: false})
       }
     })
   }
