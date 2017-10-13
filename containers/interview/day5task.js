@@ -27,7 +27,6 @@ export default class extends React.Component {
   componentDidMount = async () => {
     const url = `/api/interview/getWXConfig?url=${location.href.split('#')[0]}`
     let wxConfig = await AxiosUtil({method: 'get', url: url})
-    wxConfig.debug = true
     wxConfig.jsApiList = [
       'startRecord',
       'stopRecord',
