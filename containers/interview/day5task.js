@@ -289,6 +289,9 @@ export default class extends React.Component {
           .option-item {
             margin-top: 0.5rem;
           }
+          .pratice {
+            margin-bottom: 5rem;
+          }
           .action {
             display: flex;
             justify-content: center;
@@ -339,12 +342,12 @@ export default class extends React.Component {
       const {answerList, isRecording, isPlaying} = this.state
       let localId = answerList[id] ? answerList[id].localId : ''
       if (isRecording) {
-        alert('正在录音，请结束录音后提交')
+        alert('正在录音，请结束录音后进入下一题')
         this.setState({canNext: false})
         return
       }
       if (!localId) {
-        alert('请先录音')
+        alert('请先录音，再进入下一题')
         this.setState({canNext: false})
         return
       }
@@ -377,6 +380,15 @@ export default class extends React.Component {
   }
 
   answerComplete = async () => {
+    const {isRecording, isPlaying} = this.state
+    if (isRecording) {
+      alert('正在录音，请结束录音后提交')
+      return
+    }
+    if (isPlaying) {
+      alert('正在播放录音，请结束音频后提交')
+      return
+    }
     const {answerList} = this.state
     const {interviewTopicDTOList} = this.props.questionList
 

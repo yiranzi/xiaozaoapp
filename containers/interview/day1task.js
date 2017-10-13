@@ -16,8 +16,182 @@ export default class extends React.Component {
       noPrev: true,
       noNext: false,
       answerList: {},
-      isSubmit: false
+      isSubmit: false,
+      canNext: false,
+      isRecording: false, // 正在录音
+      isPlaying: false, // 正在播放录音
+      serverId: ''
     }
+  }
+
+  componentDidMount = async () => {
+    const url = `/api/interview/getWXConfig?url=${location.href.split('#')[0]}`
+    let wxConfig = await AxiosUtil({method: 'get', url: url})
+    wxConfig.debug = true
+    wxConfig.jsApiList = [
+      'startRecord',
+      'stopRecord',
+      'onVoiceRecordEnd',
+      'playVoice',
+      'pauseVoice',
+      'stopVoice',
+      'onVoicePlayEnd',
+      'uploadVoice',
+      'downloadVoice'
+    ]
+    wx.config(wxConfig)
+    wx.ready(function () {
+      console.log('微信认证成功')
+    })
+    wx.error(function (res) {
+      console.log('微信认证失败')
+      console.log(res)
+    })
+  }
+
+  startRecord () {
+    const {isRecording, isPlaying} = this.state
+    // 没有录音，且没有播放音频
+    if (!isRecording && !isPlaying) {
+      wx.startRecord()
+      this.setState({isRecording: true})
+    }
+  }
+
+  stopRecord (id) {
+    const {isRecording, isPlaying} = this.state
+    const _this = this
+    if (isRecording && !isPlaying) {
+      wx.stopRecord({
+        success: function (res) {
+          let localId = res.localId
+          _this.setState({isRecording: false}, function () {
+            _this.uploadVoice(id, localId)
+          })
+        }
+      })
+      wx.onVoiceRecordEnd({
+        // 录音时间超过一分钟没有停止的时候会执行 complete 回调
+        complete: function (res) {
+          let localId = res.localId
+          _this.setState({isRecording: false}, function () {
+            _this.uploadVoice(id, localId)
+          })
+        }
+      })
+    }
+  }
+
+  playVoice (localId) {
+    const _this = this
+    wx.playVoice({
+      localId: localId,
+      success: function () {
+        _this.setState({isPlaying: true})
+      }
+    })
+    wx.onVoicePlayEnd({
+      success: function (res) {
+        _this.setState({isPlaying: false})
+      }
+    })
+  }
+
+  stopVoice (localId) {
+    const _this = this
+    wx.pauseVoice({
+      localId: localId,
+      success: function () {
+        _this.setState({isPlaying: false})
+      }
+    })
+  }
+
+  uploadVoice (id, localId) {
+    const _this = this
+    this.setState({canNext: true})
+
+    wx.uploadVoice({
+      localId: localId,
+      isShowProgressTips: 1,
+      success: function (res) {
+        let serverId = res.serverId
+        AxiosUtil({method: 'get', url: '/api/interview/uploadWechatAudio?serverId=' + serverId})
+        _this.setState({serverId: serverId}, function () {
+          _this.onChange(id, localId, serverId)
+        })
+      }
+    })
+  }
+
+  renderRecord (id, isRecording, isPlaying) {
+    const {answerList} = this.state
+
+    let localId
+    if (answerList[id]) {
+      localId = answerList[id].localId
+    }
+
+    return (
+      <div className='icon'>
+        <img src='/static/img/interview/wx_record.png' onClick={() => {
+          this.startRecord()
+        }}/>
+        {localId && !isRecording && this.renderPlay(localId, isPlaying)}
+        <style jsx>{`
+          .icon {
+            text-align: center;
+            display: flex;
+            margin-left: 50%;
+            transform: translateX(-50%);
+          }
+        `}</style>
+      </div>
+    )
+  }
+
+  renderRecording (id) {
+    return (
+      <div className='recording'>
+        <img src='/static/img/interview/wx_recording.gif' onClick={() => {
+          this.stopRecord(id)
+        }}/>
+        <style jsx>{`
+          .recording {
+            text-align: center;
+            display: flex;
+            margin-left: 50%;
+            transform: translateX(-50%);
+          }
+        `}</style>
+      </div>
+    )
+  }
+
+  renderPlay (localId, isPlaying) {
+    return (
+      <div className='play'>
+        {isPlaying
+          ? <img src='/static/img/interview/pause.png' onClick={() => {
+            this.stopVoice(localId)
+          }}/>
+          : <img src='/static/img/interview/play.png' onClick={() => {
+            this.playVoice(localId)
+          }}/>
+        }
+      </div>
+    )
+  }
+
+  wxRecord (id) {
+    const {isRecording, isPlaying} = this.state
+    return (
+      <div>
+        <div className='record'>
+          {isRecording ? this.renderRecording(id) : this.renderRecord(id, isRecording, isPlaying)}
+        </div>
+      </div>
+    )
   }
 
   renderMaterial (meterial) {
@@ -42,31 +216,35 @@ export default class extends React.Component {
 
   renderAnswerOption (id, DTOList) {
     const {index, answerList} = this.state
-    const currentIndex = index
-    const name = `answer_${currentIndex}`
-    const options = DTOList[index].optionDTOList
+    const isVoice = DTOList[index].voice
+    if (isVoice) {
+      return <div>{this.wxRecord(id)}</div>
+    } else {
+      const name = `answer_${index}`
+      const options = DTOList[index].optionDTOList
 
-    return options.map((item, i) => {
-      const {tag, content} = item
-      const params = {
-        name: name,
-        value: tag,
-        label: tag + '、' + content,
-        defaultValue: answerList[id]
-      }
-      const key = `answer_${currentIndex}_${i}`
-      return (
-        <Radio key={key} params={params} onChange={(value) => {
-          this.onChange(id, value)
-        }}/>
-      )
-    })
+      return options.map((item, i) => {
+        const {tag, content} = item
+        const params = {
+          name: name,
+          value: tag,
+          label: tag + '、' + content,
+          defaultValue: answerList[id]
+        }
+        const key = `answer_${index}_${i}`
+        return (
+          <Radio key={key} params={params} onChange={(value) => {
+            this.onChange(id, '', value)
+          }}/>
+        )
+      })
+    }
   }
 
   renderDTOList () {
     const {questionList} = this.props
     const {interviewTopicDTOList} = questionList
-    const {index, noPrev} = this.state
+    const {index} = this.state
     const {id, material, question} = interviewTopicDTOList[index]
     const questionLength = question.length
     return (
@@ -87,10 +265,10 @@ export default class extends React.Component {
           </div>
         </div>
         <div className='action'>
-          <div className={classNames({prev: true, disabled: noPrev})}>
-            {noPrev ? <Button>上一题</Button> : <Button onClick={() => {
+          <div className={classNames({prev: true, disabled: this.state.noPrev})}>
+            <Button onClick={() => {
               this.prev(questionLength)
-            }}>上一题</Button>}
+            }}>上一题</Button>
           </div>
           <div className='next'>
             {this.state.noNext
@@ -98,7 +276,7 @@ export default class extends React.Component {
                 this.answerComplete()
               }}>提交</Button>
               : <Button onClick={() => {
-                this.next(questionLength)
+                this.next(id, questionLength, interviewTopicDTOList)
               }}>下一题</Button>
             }
           </div>
@@ -107,10 +285,6 @@ export default class extends React.Component {
           .title {
             font-weight: bold;
             margin: 1rem 0;
-          }
-          .material .title {
-            display: flex;
-            justify-content: space-between;
           }
           .option-item {
             margin-top: 0.5rem;
@@ -144,6 +318,10 @@ export default class extends React.Component {
     this.answerComplete()
   }
 
+  needRecord (value) {
+    this.setState({nextTopic: value})
+  }
+
   prev (questionLength) {
     const {index} = this.state
     const prevIndex = index - 1
@@ -155,14 +333,40 @@ export default class extends React.Component {
     }
   }
 
-  next (questionLength) {
+  next (id, questionLength, DTOList) {
     const {index} = this.state
     const nextIndex = index + 1
-    if (nextIndex <= questionLength - 1) {
-      this.setState({index: nextIndex, noNext: true, noPrev: false})
+    const isVoice = DTOList[index].voice
+
+    if (isVoice) {
+      const {answerList, isRecording, isPlaying} = this.state
+      let localId = answerList[id] ? answerList[id].localId : ''
+      if (isRecording) {
+        alert('正在录音，请结束录音后进入下一题')
+        this.setState({canNext: false})
+        return
+      }
+      if (!localId) {
+        alert('请先录音，再进入下一题')
+        this.setState({canNext: false})
+        return
+      }
+      if (isPlaying) {
+        this.stopVoice(localId)
+      }
+      if (nextIndex <= questionLength - 1) {
+        this.setState({index: nextIndex, noNext: true, noPrev: false})
+      } else {
+        this.setState({index: nextIndex, noPrev: false})
+      }
     } else {
-      this.setState({index: nextIndex, noPrev: false})
+      if (nextIndex <= questionLength - 1) {
+        this.setState({index: nextIndex, noNext: true, noPrev: false})
+      } else {
+        this.setState({index: nextIndex, noPrev: false})
+      }
     }
+
   }
 
   formatAnswerList () {
@@ -170,19 +374,36 @@ export default class extends React.Component {
     const {answerList} = this.state
     return questionList.interviewTopicDTOList.map((item, index) => {
       let id = item.id
-      let answer = answerList[id] ? answerList[id] : ''
+      let answer = answerList[id].serverId ? answerList[id].serverId : ''
       return {answer: answer, id: id}
     })
   }
 
   answerComplete = async () => {
+    const {isRecording, isPlaying} = this.state
+    if (isRecording) {
+      alert('正在录音，请结束录音后提交')
+      return
+    }
+    if (isPlaying) {
+      alert('正在播放录音，请结束音频后提交')
+      return
+    }
+    const {answerList} = this.state
+    const {interviewTopicDTOList} = this.props.questionList
+
+    if (Object.keys(answerList).length < interviewTopicDTOList.length) {
+      alert('当前题目未录音')
+      return
+    }
+
     const {topicKey} = this.props.questionList
-    const answerList = this.formatAnswerList()
+    let answerListArray = this.formatAnswerList()
 
     try {
       this.setState({isSubmit: true})
       const data = JSON.stringify({
-        answerDTOList: answerList,
+        answerDTOList: answerListArray,
         time: 30,
         topicKey: topicKey
       })
@@ -199,10 +420,11 @@ export default class extends React.Component {
     }
   }
 
-  onChange (id, value) {
+  onChange (id, localId, serverId) {
     let {answerList} = this.state
     answerList[id] = answerList[id] || {}
-    answerList[id] = value
+    answerList[id].localId = localId
+    answerList[id].serverId = serverId
     this.setState({
       answerList: answerList
     })
