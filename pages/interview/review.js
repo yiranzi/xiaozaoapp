@@ -1,8 +1,10 @@
 import React from 'react'
 import AxiosUtil from '../../util/axios'
-import Audio from '../../components/audio'
+import ToolsUtil from '../../util/tools'
 import InterviewLayout from '../../containers/interview/layout'
 import StandardReview from '../../containers/interview/standardreview'
+import Day1Review from '../../containers/interview/day1Review'
+import Day5Review from '../../containers/interview/day5Review'
 
 const standard = [2, 3, 4, 6]
 
@@ -12,6 +14,7 @@ export default class extends React.Component {
     this.state = {
       isRender: true,
       day: '',
+      topicKey: '',
       questionList: {},
       isSubmit: false,
       error: ''
@@ -19,13 +22,38 @@ export default class extends React.Component {
   }
 
   componentDidMount = async () => {
+    let topicKey = ToolsUtil.getQueryString('topicKey')
+    let today = ToolsUtil.getQueryString('today')
+    let questionList
+
     try {
-      let questionList = await AxiosUtil({
-        method: 'get',
-        url: '/api/interview/getToday'
-      })
+      if (today) {
+        questionList = await AxiosUtil({
+          method: 'get',
+          url: `/api/interview/getTodayByTopicKey/${topicKey}`
+        })
+      } else {
+        questionList = await AxiosUtil({
+          method: 'get',
+          url: `/api/interview/getHistoryByTopicKey/${topicKey}`
+        })
+      }
+
+      if (topicKey) {
+        questionList = await AxiosUtil({
+          method: 'get',
+          url: `/api/interview/getTodayByTopicKey/${topicKey}`
+        })
+      } else {
+        questionList = await AxiosUtil({
+          method: 'get',
+          url: '/api/interview/getToday'
+        })
+      }
+
       this.setState({
         day: questionList.day,
+        topicKey: topicKey,
         questionList: questionList,
         isRender: false
       })
@@ -40,10 +68,11 @@ export default class extends React.Component {
   renderTask () {
     const {day, questionList} = this.state
     if (standard.indexOf(day) >= 0) {
-      return <StandardReview questionList={questionList} />
-    } else {
-      // 非标准
-      return <div>非标准</div>
+      return <StandardReview questionList={questionList}/>
+    } else if (day === 1) {
+      return <Day1Review questionList={questionList}/>
+    } else if (day === 5) {
+      return <Day5Review questionList={questionList}/>
     }
   }
 

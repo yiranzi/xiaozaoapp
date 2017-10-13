@@ -66,13 +66,15 @@ export default class extends React.Component {
   renderDTOList () {
     const {questionList} = this.props
     const {interviewTopicDTOList} = questionList
-    const {index} = this.state
+    const {index, noPrev} = this.state
     const {id, material, question} = interviewTopicDTOList[index]
     const questionLength = question.length
     return (
       <div className='dto-list'>
         <div className='material'>
-          <div className='title'>材料<TimeDown limitTime={questionList.limitTime} timeDown={() => {this.timeDown()}}/></div>
+          <div className='title'>材料<TimeDown limitTime={questionList.limitTime} timeDown={() => {
+            this.timeDown()
+          }}/></div>
           <div className='content'>{this.renderMaterial(material)}</div>
         </div>
         <div className='pratice'>
@@ -85,10 +87,10 @@ export default class extends React.Component {
           </div>
         </div>
         <div className='action'>
-          <div className={classNames({prev: true, disabled: this.state.noPrev})}>
-            <Button onClick={() => {
+          <div className={classNames({prev: true, disabled: noPrev})}>
+            {noPrev ? <Button>上一题</Button> : <Button onClick={() => {
               this.prev(questionLength)
-            }}>上一题</Button>
+            }}>上一题</Button>}
           </div>
           <div className='next'>
             {this.state.noNext
@@ -106,8 +108,15 @@ export default class extends React.Component {
             font-weight: bold;
             margin: 1rem 0;
           }
+          .material .title {
+            display: flex;
+            justify-content: space-between;
+          }
           .option-item {
             margin-top: 0.5rem;
+          }
+          .pratice {
+            margin-bottom: 5rem;
           }
           .action {
             display: flex;
@@ -183,7 +192,7 @@ export default class extends React.Component {
         url: '/api/interview/complete',
         data: data
       })
-      location.href = '/interview/result'
+      location.href = `/interview/result?topicKey=${topicKey}`
     } catch (e) {
       this.setState({isSubmit: false})
       alert('提交失败，请重新提交')

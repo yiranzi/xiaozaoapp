@@ -190,7 +190,7 @@ export default class extends React.Component {
         url: '/api/interview/complete',
         data: data
       })
-      location.href = '/interview/result'
+      location.href = `/interview/result?topicKey=${topicKey}`
     } catch (e) {
       this.setState({isSubmit: false})
       alert('提交失败，请重新提交')

@@ -45,6 +45,7 @@ export default class extends React.Component {
         <div>
           <div className='no'>第{day}天 {title}</div>
           <div className='time'>打卡时间：10月{currentDay}09:00 ~ 23:59:59</div>
+          <div className='join'>已有{mainintro.totalUserCount}人报名</div>
         </div>
       )
     }
@@ -53,9 +54,7 @@ export default class extends React.Component {
 
   renderPrevContent (mainintro) {
     if (mainintro) {
-      const {clock, day, interviewListDetailDTOList} = mainintro
-      let json = {}
-      console.log(mainintro)
+      const {clock, day} = mainintro
       let array = [1, 2, 3, 4, 5, 6, 7]
       return array.map((item, index) => {
         let today = item === day
@@ -67,9 +66,11 @@ export default class extends React.Component {
             className={
               classNames(
                 'circle',
-                {'today': today,
+                {
+                  'today': today,
                   'complete': complete,
-                  'nocomplete': noComplete})}>
+                  'nocomplete': noComplete
+                })}>
             {item}
             <style jsx>{`
             .circle {
@@ -97,6 +98,20 @@ export default class extends React.Component {
 
   }
 
+  renderCompleteUser (mainintro) {
+    if (mainintro) {
+      const {day, interviewListDetailDTOList} = mainintro
+      let array = [1, 2, 3, 4, 5, 6, 7]
+      return array.map((item, index) => {
+        let today = item === day
+        if (today) {
+          return interviewListDetailDTOList[index].completeUser
+        }
+      })
+    }
+
+  }
+
   render () {
     const {isRender, mainintro, error} = this.state
     return (
@@ -114,10 +129,10 @@ export default class extends React.Component {
                 line='4'
               />
             </div>
-            <a href='/interview/task'>
+            <a href={`/interview/intro?day=${mainintro.day}`}>
               <Button>今日打卡</Button>
             </a>
-            <div className='complete'>已有{mainintro.totalUserCount}人完成</div>
+            <div className='complete'>已有{this.renderCompleteUser(mainintro)}人完成</div>
             <div className='prev'>
               <div className='title'>往日打卡回顾</div>
               <div className='content'>{this.renderPrevContent(mainintro)}</div>

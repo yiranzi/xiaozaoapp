@@ -1,5 +1,6 @@
 import React from 'react'
 import AxiosUtil from '../../util/axios'
+import ToolsUtil from '../../util/tools'
 import InterviewLayout from '../../containers/interview/layout'
 import StandardTask from '../../containers/interview/standard'
 import Day1Task from '../../containers/interview/day1task'
@@ -13,6 +14,7 @@ export default class extends React.Component {
     this.state = {
       isRender: true,
       day: '',
+      topicKey: '',
       questionList: {},
       isSubmit: false,
       error: ''
@@ -20,13 +22,25 @@ export default class extends React.Component {
   }
 
   componentDidMount = async () => {
+    let topicKey = ToolsUtil.getQueryString('topicKey')
+    let questionList
+
     try {
-      let questionList = await AxiosUtil({
-        method: 'get',
-        url: '/api/interview/getToday'
-      })
+      if (topicKey) {
+        questionList = await AxiosUtil({
+          method: 'get',
+          url: `/api/interview/getTodayByTopicKey/${topicKey}`
+        })
+      } else {
+        questionList = await AxiosUtil({
+          method: 'get',
+          url: '/api/interview/getToday'
+        })
+      }
+
       this.setState({
         day: questionList.day,
+        topicKey: topicKey,
         questionList: questionList,
         isRender: false
       })

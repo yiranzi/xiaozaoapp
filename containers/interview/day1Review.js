@@ -18,7 +18,23 @@ export default class extends React.Component {
   }
 
   renderMaterial (meterial) {
-    return <div>{meterial}</div>
+    let meterialArray = eval(meterial)
+    return meterialArray.map((item, index) => {
+      if (ToolsUtil.isImg(item)) {
+        return <div key={index} className='meterial-item'>
+          <img src={item}/>
+          <style jsx>{`
+            img {
+              width: 100%;
+            }
+          `}</style>
+        </div>
+      } else if (ToolsUtil.isMp3(item)) {
+        return <div key={index} className='meterial-item'>
+          <Audio src={item}/>
+        </div>
+      }
+    })
   }
 
   renderDTOList (DTOList) {
