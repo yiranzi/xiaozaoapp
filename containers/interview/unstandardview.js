@@ -37,11 +37,21 @@ export default class extends React.Component {
     })
   }
 
-  renderDTOList (DTOList) {
+  renderAnswer (answerDTOList) {
+    let json = {}
+    answerDTOList.map((item, index) => {
+      const {id, answer} = item
+      json[id] = answer
+    })
+    return json
+  }
+
+  renderDTOList (answerDTOList, DTOList) {
     const {index} = this.state
     const currentIndex = index
-    const {material, question} = DTOList[index]
+    const {material, question, voice} = DTOList[index]
     const questionLength = question.length
+    let answerList = this.renderAnswer(answerDTOList)
     return (
       <div className='dto-list'>
         <div className='material'>
@@ -54,6 +64,7 @@ export default class extends React.Component {
             <div className='question'>{DTOList[index].no}、{DTOList[index].question}</div>
             <div className='options'>
               {DTOList[index].optionDTOList.map((item, index) => {
+                console.log(item)
                 const params = {
                   name: `answer-${currentIndex}`,
                   value: item.tag,
@@ -164,11 +175,11 @@ export default class extends React.Component {
 
   render () {
     const {questionList} = this.props
-    const {interviewTopicDTOList} = questionList
+    const {answerDTOList, interviewTopicDTOList} = questionList
 
     return (
       <div className='standard'>
-        {this.renderDTOList(interviewTopicDTOList)}
+        {this.renderDTOList(answerDTOList, interviewTopicDTOList)}
       </div>
     )
   }

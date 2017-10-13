@@ -3,8 +3,7 @@ import AxiosUtil from '../../util/axios'
 import ToolsUtil from '../../util/tools'
 import InterviewLayout from '../../containers/interview/layout'
 import StandardReview from '../../containers/interview/standardreview'
-import Day1Review from '../../containers/interview/day1Review'
-import Day5Review from '../../containers/interview/day5Review'
+import UnStandardReview from '../../containers/interview/unstandardview'
 
 const standard = [2, 3, 4, 6]
 
@@ -69,10 +68,8 @@ export default class extends React.Component {
     const {day, questionList} = this.state
     if (standard.indexOf(day) >= 0) {
       return <StandardReview questionList={questionList}/>
-    } else if (day === 1) {
-      return <Day1Review questionList={questionList}/>
-    } else if (day === 5) {
-      return <Day5Review questionList={questionList}/>
+    } else {
+      return <UnStandardReview questionList={questionList}/>
     }
   }
 
