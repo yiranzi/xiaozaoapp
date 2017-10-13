@@ -1,4 +1,5 @@
 import React from 'react'
+import {FormCell, CellBody, CellFooter, Radio} from 'react-weui'
 
 export default class Layout extends React.Component {
   render () {
@@ -8,84 +9,66 @@ export default class Layout extends React.Component {
     let checked = defaultValue === value
 
     return (
-      <div>
-        {disabled &&
-          <div className='radio-wrapper'>
-            <div className='input'>
-              <input
-                type='radio'
-                name={name}
-                value={value}
-                checked={checked}
-                disabled
-              />
-            </div>
-            <div className='text'>{label}</div>
-          </div>
-        }
-        {!disabled &&
-          <div className='radio-wrapper'>
-            <div className='input'>
-              <input
-                type='radio'
-                name={name}
-                value={value}
-                onClick={() => onChange(value)}
-                defaultChecked={checked}
-              />
-            </div>
-            <div className='text'>{label}</div>
-          </div>
-        }
-        <style jsx>{`
-          .radio-wrapper {
-            display: flex;
-            justify-content: flex-start;
+      <FormCell radio>
+        <CellFooter>
+          {disabled &&
+          <Radio
+            name={name}
+            value={value}
+            defaultChecked={checked}
+            disabled
+          />
           }
-          .text {
-            word-wrap: break-word;
-            width: calc(100vw - 5rem);
+          {!disabled &&
+          <Radio
+            name={name}
+            value={value}
+            defaultChecked={checked}
+            onClick={() => {
+              onChange(value)
+            }}
+          />
           }
-          input[type="radio"] {
-            width: 1rem;
-            height: 1rem;
-            position: relative;
-            margin-right: 1rem;
+        </CellFooter>
+        <CellBody>{label}</CellBody>
+        <style global jsx>{`
+          /*背景*/
+          .weui-cells,
+          .weui-check__label:active {
+            background: transparent !important;
           }
-          input[type="radio"]::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            left: 0;
-            top: 0;
-            background-color: #F9F9F9;
-            border: 1px solid #2b3a64;
-            border-radius: 2rem;
-            box-sizing: border-box;
+          .weui-cell:before,
+          .weui-cells:before,
+          .weui-cells:after {
+            border-top: none !important;
+            border-bottom: none !important;
           }
-          input[type="radio"]:checked::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            left: 0;
-            top: 0;
-            background-color: #F9F9F9;
-            border-radius: 2rem;
-          }
-          input[type="radio"]:checked::after {
-            content: '';
-            position: absolute;
-            width: 1.5rem;
+          span.weui-icon-checked {
+            width: 1.25rem;
             height: 1.25rem;
-            left: -0.15rem;
-            top: -0.25rem;
+            background: transparent;
+            border-radius: 1rem;
+            margin-right: 1rem;
+            position: relative;
+            border: 1px solid #2b3a64;
+          }
+          .weui-cells_radio .weui-check:checked+.weui-icon-checked:before {
+            content: '' !important;
+            color: transparent;
             background: url(/static/img/interview/check.png) no-repeat;
             background-size: 100%;
+            width: 2rem;
+            height: 2rem;
+            position: absolute;
+            left: -0.5rem;
+            top: -0.1rem;
           }
-        `}</style>
-      </div>
+          .weui-cell {
+            padding: 0.5rem 0;
+          }
+        `}
+        </style>
+      </FormCell>
     )
   }
 }

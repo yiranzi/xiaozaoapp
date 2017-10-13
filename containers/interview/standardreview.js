@@ -1,10 +1,8 @@
 import React from 'react'
-import {Button} from 'react-weui'
+import {Button, Form} from 'react-weui'
 import classNames from 'classnames'
 import Radio from '../../components/radio'
-import Audio from '../../components/audio'
-import ToolsUtil from '../../util/tools'
-import ThemeConfig from '../../config/theme'
+import Form from 'react-weui/src/components/form/form';
 
 export default class extends React.Component {
   constructor (props) {
@@ -37,25 +35,27 @@ export default class extends React.Component {
           <div className='content'>
             <div className='question'>{DTOList[index].no}、{DTOList[index].question}</div>
             <div className='options'>
-              {DTOList[index].optionDTOList.map((item, index) => {
-                const params = {
-                  name: `answer-${currentIndex}`,
-                  value: item.tag,
-                  label: item.tag + '、' + item.content,
-                  defaultValue: 'A',
-                  disabled: true
-                }
-                return (
-                  <div key={`${DTOList.title}-${index}`} className='option-item'>
-                    <Radio
-                      params={params}
-                      onChange={(value) => {
-                        this.onChange(item.id, value)
-                      }}
-                    />
-                  </div>
-                )
-              })}
+              <Form radio>
+                {DTOList[index].optionDTOList.map((item, index) => {
+                  const params = {
+                    name: `answer-${currentIndex}`,
+                    value: item.tag,
+                    label: item.tag + '、' + item.content,
+                    defaultValue: 'A',
+                    disabled: true
+                  }
+                  return (
+                    <div key={`${DTOList.title}-${index}`} className='option-item'>
+                      <Radio
+                        params={params}
+                        onChange={(value) => {
+                          this.onChange(item.id, value)
+                        }}
+                      />
+                    </div>
+                  )
+                })}</Form>
+
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button} from 'react-weui'
+import {Button, Form} from 'react-weui'
 import classNames from 'classnames'
 import ToolsUtil from '../../util/tools'
 import AxiosUtil from '../../util/axios'
@@ -41,11 +41,11 @@ export default class extends React.Component {
     })
   }
 
-  renderAnswerOption (id, DTOList) {
-    const {index, answerList} = this.state
-    const currentIndex = index
-    const name = `answer_${currentIndex}`
+  renderRadioGroup (id, index, answerList, DTOList) {
+    const name = `answer_${index}`
     const options = DTOList[index].optionDTOList
+
+    console.log('answerList:', answerList)
 
     return options.map((item, i) => {
       const {tag, content} = item
@@ -53,15 +53,20 @@ export default class extends React.Component {
         name: name,
         value: tag,
         label: tag + '、' + content,
-        defaultValue: answerList[id]
+        defaultValue: answerList[id] ? answerList[id].serverId : ''
       }
-      const key = `answer_${currentIndex}_${i}`
+      const key = `answer_${index}_${i}`
       return (
         <Radio key={key} params={params} onChange={(value) => {
-          this.onChange(id, value)
+          this.onChange(id, '', value)
         }}/>
       )
     })
+  }
+
+  renderAnswerOption (id, DTOList) {
+    const {index, answerList} = this.state
+    return <Form radio>{this.renderRadioGroup(id, index, answerList, DTOList)}</Form>
   }
 
   renderDTOList () {

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button} from 'react-weui'
+import {Button, Form} from 'react-weui'
 import classNames from 'classnames'
 import ToolsUtil from '../../util/tools'
 import AxiosUtil from '../../util/axios'
@@ -214,30 +214,36 @@ export default class extends React.Component {
     })
   }
 
+  renderRadioGroup (id, index, answerList, DTOList) {
+    const name = `answer_${index}`
+    const options = DTOList[index].optionDTOList
+
+    console.log('answerList:', answerList)
+
+    return options.map((item, i) => {
+      const {tag, content} = item
+      const params = {
+        name: name,
+        value: tag,
+        label: tag + '、' + content,
+        defaultValue: answerList[id] ? answerList[id].serverId : ''
+      }
+      const key = `answer_${index}_${i}`
+      return (
+        <Radio key={key} params={params} onChange={(value) => {
+          this.onChange(id, '', value)
+        }}/>
+      )
+    })
+  }
+
   renderAnswerOption (id, DTOList) {
     const {index, answerList} = this.state
     const isVoice = DTOList[index].voice
     if (isVoice) {
       return <div>{this.wxRecord(id)}</div>
     } else {
-      const name = `answer_${index}`
-      const options = DTOList[index].optionDTOList
-
-      return options.map((item, i) => {
-        const {tag, content} = item
-        const params = {
-          name: name,
-          value: tag,
-          label: tag + '、' + content,
-          defaultValue: answerList[id]
-        }
-        const key = `answer_${index}_${i}`
-        return (
-          <Radio key={key} params={params} onChange={(value) => {
-            this.onChange(id, '', value)
-          }}/>
-        )
-      })
+      return <Form radio>{this.renderRadioGroup(id, index, answerList, DTOList)}</Form>
     }
   }
 
