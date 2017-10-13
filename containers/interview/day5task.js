@@ -371,7 +371,7 @@ export default class extends React.Component {
     const {answerList} = this.state
     return questionList.interviewTopicDTOList.map((item, index) => {
       let id = item.id
-      let answer = answerList[id] ? answerList[id] : ''
+      let answer = answerList[id].serverId ? answerList[id].serverId : ''
       return {answer: answer, id: id}
     })
   }
@@ -386,12 +386,12 @@ export default class extends React.Component {
     }
 
     const {topicKey} = this.props.questionList
-    let answerList_array = this.formatAnswerList()
+    let answerListArray = this.formatAnswerList()
 
     try {
       this.setState({isSubmit: true})
       const data = JSON.stringify({
-        answerDTOList: answerList_array,
+        answerDTOList: answerListArray,
         time: 30,
         topicKey: topicKey
       })
