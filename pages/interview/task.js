@@ -72,6 +72,16 @@ export default class extends React.Component {
     return (
       <InterviewLayout isRender={isRender} error={error}>
         <div>{this.renderTask()}</div>
+        <style global jsx>{`
+          .timedown {
+            color: #fdc23e;
+            font-weight: normal;
+            background-color: white;
+            border: 1px solid #d9d9d9;
+            border-radius: 1rem;
+            padding: 0 1rem;
+          }
+        `}</style>
       </InterviewLayout>
     )
   }
