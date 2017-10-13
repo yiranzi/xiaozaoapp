@@ -16,7 +16,6 @@ export default class extends React.Component {
             margin: 1rem 0;
             border-radius: 18px;
             line-height: 32px;
-            font-weight: bold;
           }
           .card .title {
             text-align: center;
