@@ -4,27 +4,9 @@ import Card from '../../components/card'
 import ToolsUtil from '../../util/tools'
 import Back from '../../containers/interview/back'
 import InterviewLayout from '../../containers/interview/layout'
+import IntroContent from './introcontent'
 
-const intro = {
-  'day1': [
-    '打卡第一天'
-  ],
-  'day2': [
-    '打卡第二天'
-  ],
-  'day3': [
-    '打卡第三天'
-  ],
-  'day4': [
-    '打卡第四天'
-  ],
-  'day5': [
-    '打卡第五天'
-  ],
-  'day6': [
-    '打卡第六天'
-  ]
-}
+const intro = IntroContent;
 
 export default class extends React.Component {
   constructor (props) {
@@ -44,7 +26,7 @@ export default class extends React.Component {
       const content = intro[`day${day}`]
       if (content) {
         return content.map((item, index) => {
-          return <p key={index}>{item}</p>
+          return <div key={index} dangerouslySetInnerHTML={{__html: item}} />
         })
       } else {
         return <div />
