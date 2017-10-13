@@ -1,60 +1,186 @@
 import React from 'react'
-import { Button } from 'react-weui'
+import AxiosUtil from '../../util/axios'
 import ThemeConfig from '../../config/theme'
 import Back from '../../containers/interview/back'
 import InterviewLayout from '../../containers/interview/layout'
 
-const intro = [
-  {'img': '/static/img/interview/day1.png'},
-  {'img': '/static/img/interview/day2.png'},
-  {'img': '/static/img/interview/day3.png'},
-  {'img': '/static/img/interview/day4.png'},
-  {'img': '/static/img/interview/day5.png'},
-  {'img': '/static/img/interview/day6.png'}
-]
+const intro = {
+  'day1': '/static/img/interview/day1.png',
+  'day2': '/static/img/interview/day2.png',
+  'day3': '/static/img/interview/day3.png',
+  'day4': '/static/img/interview/day4.png',
+  'day5': '/static/img/interview/day5.png',
+  'day6': '/static/img/interview/day6.png'
+}
 
 export default class extends React.Component {
-  renderLastDay () {
+  constructor (props) {
+    super(props)
+    this.state = {
+      list: '',
+      isRender: true,
+      error: ''
+    }
+  }
+
+  componentDidMount = async () => {
+    try {
+      let list = await AxiosUtil({method: 'get', url: '/api/interview/getList'})
+      this.setState({
+        list: list,
+        isRender: false
+      })
+    } catch (e) {
+      this.setState({
+        isRender: false,
+        error: e.message
+      })
+    }
+  }
+
+  renderLastDay (list) {
+    let {day} = list
+    if (day === 7) {
+      return (
+        <a href=''>
+          <div className='interview-item'>
+            <div className='icon'><img src='/static/img/interview/train.png'/></div>
+            <div className='content'>
+              <div className='top'>
+                <div className='left'>
+                  <div className='title'>解锁管卡 群面综合训练</div>
+                </div>
+              </div>
+            </div>
+            <div className='enter-icon'>
+              <img src='/static/img/interview/lock.png'/>
+            </div>
+            <style jsx>{`
+              .result {
+                border-top: ${ThemeConfig.color.border_gray};
+              }
+              .sub span {
+                background: ${ThemeConfig.color.border_gray};
+                color: #fff;
+                padding: 0.25rem 0.5rem;
+                border-radius: 1rem;
+              }
+              .enter-icon img {
+                width: 1.5rem;
+              }
+            `}</style>
+          </div>
+        </a>
+      )
+    } else {
+      return (
+        <div className='interview-item'>
+          <div className='icon'><img src='/static/img/interview/train.png'/></div>
+          <div className='content'>
+            <div className='top'>
+              <div className='left'>
+                <div className='title'>解锁管卡 群面综合训练</div>
+              </div>
+            </div>
+          </div>
+          <div className='enter-icon'>
+            <img src='/static/img/interview/lock.png'/>
+          </div>
+          <style jsx>{`
+            .result {
+              border-top: ${ThemeConfig.color.border_gray};
+            }
+            .sub span {
+              background: ${ThemeConfig.color.border_gray};
+              color: #fff;
+              padding: 0.25rem 0.5rem;
+              border-radius: 1rem;
+            }
+            .enter-icon img {
+              width: 1.5rem;
+            }
+          `}</style>
+        </div>
+      )
+    }
+
+  }
+
+  renderComplete (complete) {
     return (
-      <div className='interview-item'>
-        <div className='icon'><img src='/static/img/interview/train.png' /></div>
-        <div className='intro'>
-          <div className='title'>解锁关卡 群面综合训练</div>
-        </div>
-        <div className='result'>
-          <img src='/static/img/interview/lock.png'/>
-        </div>
-        <div className='enter-icon'> > </div>
+      <div>
+        {complete
+          ? <div><img src='/static/img/interview/finish.png'/>已完成</div>
+          : <div><img src='/static/img/interview/unfinish.png'/>未完成</div>
+        }
       </div>
     )
   }
-  renderList () {
-    return intro.map((item, index) => {
-      return (
-        <div key={index} className='interview-item'>
-          <div className='icon'><img src={item.img} /></div>
-          <div className='intro'>
-            <div className='title'>第一天 英语阅读理解</div>
-            <div className='sub'>打卡成绩：50%正确率</div>
+
+  toLink (past, topicKey) {
+    if (past) {
+      location.href = '/interview/review?topicKey=' + topicKey
+    }
+  }
+
+  renderList (list) {
+    let {clock, interviewListDetailDTOList} = list
+    if (interviewListDetailDTOList) {
+      return interviewListDetailDTOList.map((item, index) => {
+        const {day, title, subTitle, topicKey} = item
+        let past = item.day < day
+        let complete = clock.indexOf(day) >= 0
+        return (
+          <div key={index} className='interview-item' onClick={() => {this.toLink(past, topicKey)}}>
+            <div className='icon'><img src={intro[`day${day}`]}/></div>
+            <div className='content'>
+              <div className='top'>
+                <div className='left'>
+                  <div className='title'>第{day}天 {title}</div>
+                  <div className='sub-title'>{subTitle}</div>
+                </div>
+                {past && <div className='right'>
+                  {this.renderComplete(complete)}
+                </div>}
+              </div>
+              {past && <div className='bottom'>
+                <div className='left'>
+                  <div className='sub'>打卡成绩：<span>{item.result}</span></div>
+                </div>
+                <div className='right'>
+                  <div className='sub'><span>{item.completeUser}</span>人完成</div>
+                </div>
+              </div>}
+
+            </div>
+            <div className='enter-icon'> ></div>
+            <style jsx>{`
+              .result {
+                border-top: ${ThemeConfig.color.border_gray};
+              }
+              .sub span {
+                background: ${ThemeConfig.color.border_gray};
+                color: #fff;
+                padding: 0.25rem 0.5rem;
+                border-radius: 1rem;
+              }
+            `}</style>
           </div>
-          <div className='result'>
-            <div className='finish'>
-              <img src='/static/img/interview/finish.png' />已完成</div>
-            <div className='sub'>1000人完成</div>
-          </div>
-          <div className='enter-icon'> > </div>
-        </div>
-      )
-    })
+        )
+      })
+    } else {
+      return <div/>
+    }
   }
 
   render () {
+    const {list, isRender, error} = this.state
     return (
-      <InterviewLayout>
-        <Back text='< 返回打卡主页' url='/interview/main' />
+      <InterviewLayout isRender={isRender} error={error}>
+        <Back text='< 返回打卡主页' url='/interview/main'/>
         <div className='interview-list'>
-          {this.renderList()}
-          {this.renderLastDay()}
+          {this.renderList(list)}
+          {this.renderLastDay(list)}
         </div>
         <style global jsx>{`
           .interview {
@@ -63,50 +189,58 @@ export default class extends React.Component {
           .back {
             padding: 0 1rem;
           }
-
+          .interview-list {
+            margin-top: 2rem;
+          }
           /* 列表样式 */
           .interview-item {
-              border-bottom: 1px solid ${ThemeConfig.color.border_gray};
-              padding: 1rem;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            }
-            .interview-item .icon img {
-              width: 100%;
-            }
-            .interview-item .sub {
-              color: ${ThemeConfig.color.font_gray};
-              font-size: 0.9rem;
-              margin-top: 0.25rem;
-            }
-            .interview-item .icon {
-              flex: 1;
-            }
-            .interview-item .intro {
-              padding: 0 0.5rem;
-              flex: 2;
-            }
-            .interview-item .intro .title {
-              font-size: 1rem;
-            }
-            .interview-item .result {
-              flex: 1;
-              text-align: center;
-            }
-            .interview-item .result .finish {
-              display: flex;
-              align-items: center;
-            }
-            .interview-item .result .finish img{
-              width: 1.25rem;
-              height: 1.25rem;
-              margin-right: 0.5rem;
-            }
-            .interview-item .enter-icon {
-              color: ${ThemeConfig.color.font_gray};
-              margin-left: 1rem;
-            }
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .interview-item:nth-child(odd) {
+            background: #fff;
+          }
+          .interview-item .icon {
+            flex: 1;
+          }
+          .interview-item .icon img {
+            width: 100%;
+          }
+          .interview-item .content {
+            flex: 4;
+            padding: 0 1rem;
+          }
+          .interview-item .content .top,
+          .interview-item .content .bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+          .interview-item .content .bottom {
+            border-top: 1px solid ${ThemeConfig.color.border_gray};
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+          }
+          .interview-item .content .left {
+            flex: 2;
+          }
+          .interview-item .content .right {
+            flex: 1;
+            text-align: right;
+          }
+          .interview-item .content .title {
+            font-weight: bold;
+          }
+          .interview-item .content .sub-title {
+            color: ${ThemeConfig.color.font_gray};
+          }
+          .interview-item .content .right img {
+            width: 1rem;
+            height: 1rem;
+            margin-right: 0.5rem;
+          }
         `}</style>
       </InterviewLayout>
     )
