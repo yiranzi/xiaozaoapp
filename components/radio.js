@@ -64,7 +64,7 @@ export default class Layout extends React.Component {
             top: -0.1rem;
           }
           .weui-cell {
-            padding: 0.5rem 0;
+            padding: 0 !important;
           }
         `}
         </style>
