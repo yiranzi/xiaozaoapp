@@ -399,13 +399,15 @@ export default class extends React.Component {
       alert('正在播放录音，请结束音频后提交')
       return
     }
-    const {answerList} = this.state
-    const {interviewTopicDTOList} = this.props.questionList
 
-    if (Object.keys(answerList).length < interviewTopicDTOList.length) {
-      alert('当前题目未录音')
-      return
-    }
+    // TODO: 既有录音也有选择题条件
+    // const {answerList} = this.state
+    // const {interviewTopicDTOList} = this.props.questionList
+
+    // if (Object.keys(answerList).length < interviewTopicDTOList.length) {
+    //   alert('当前题目未录音')
+    //   return
+    // }
 
     const {topicKey} = this.props.questionList
     let answerListArray = this.formatAnswerList()
