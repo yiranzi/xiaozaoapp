@@ -115,6 +115,9 @@ export default class extends React.Component {
           .option-item {
             margin-top: 0.5rem;
           }
+          .pratice {
+            margin-bottom: 5rem;
+          }
           .action {
             display: flex;
             justify-content: center;
