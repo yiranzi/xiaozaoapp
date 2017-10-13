@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import ThemeConfig from '../../config/theme'
 import {Button} from 'react-weui'
 import InterviewLayout from '../../containers/interview/layout'
-import More from '../../components/more'
+import Card from '../../components/card'
 import AxiosUtil from '../../util/axios'
 
 export default class extends React.Component {
@@ -133,6 +133,39 @@ export default class extends React.Component {
 
   }
 
+  renderContent (){
+    return (
+      <div>
+        <div className='before'>
+          <strong>前六天</strong>：每天一项群面核心技能入门训练，将案例要点快速剖析、强化逻辑思维、商业知识认知、团队分工协作、英文表述突破、英文听力训练六大群面核心技能进行模块化拆分训练，带领大家快速学习，完成群面入门认知！
+        </div>
+        <div className='last'>
+          <strong>第七天</strong>：<span className='important'>重要！</span>连续六天打卡且<span className='important'>正确率达到 70% 以上且答题时间最短的前500名同学</span>，<span>才能</span>最终解锁第7天线上模拟群面参与权限。
+        </div>
+        <div className='faq'><a href='https://shimo.im/doc/DnOFD1WodlgABtwm?r=NZOD95'><span>更多Q&A</span></a></div>
+        <style jsx>{`
+          .last {
+            margin-top: 1rem;
+          }
+          .important {
+            color: red;
+          }
+          .faq {
+            text-align: right;
+          }
+          .faq a {
+            color: ${ThemeConfig.color.font_gray};
+          }
+          .faq span {
+            border: 1px solid ${ThemeConfig.color.border_gray};
+            padding: 0.5rem;
+            border-radius: 1rem;
+          }
+        `}</style>
+      </div>
+    )
+  }
+
   render () {
     const {isRender, mainintro, error} = this.state
     return (
@@ -144,11 +177,9 @@ export default class extends React.Component {
           <div className='intro'>
             {this.renderTop(mainintro)}
             <div className='sub'>
-              <More
-                title='模拟打卡介绍'
-                content='模拟打卡内容，模拟打卡内模拟打卡内容，模拟打卡内容，模拟打卡内容，模拟打卡内容，模拟打卡内容，模拟打卡内容，模拟打卡内容，模拟打卡内容，模拟打卡内容，模拟打卡内容，模拟打卡内容，模拟打卡内容，模拟打卡内容，模拟打卡内容，模拟打卡内容，模拟打卡内容，模拟打卡内容，模拟打卡内容，模拟打卡内容，模拟打卡内容，模拟打卡内容，模拟打卡内容，模拟打卡内容，'
-                line='4'
-              />
+              <Card
+                title='小灶群面7天闪电计划(初级)'
+                content={this.renderContent()}/>
             </div>
             <a href={`/interview/intro?day=${mainintro.day}`}>
               <Button>今日打卡</Button>
