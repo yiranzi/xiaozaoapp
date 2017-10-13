@@ -2,7 +2,6 @@ import React from 'react'
 import {Button, Form} from 'react-weui'
 import classNames from 'classnames'
 import Radio from '../../components/radio'
-import Form from 'react-weui/src/components/form/form';
 
 export default class extends React.Component {
   constructor (props) {
