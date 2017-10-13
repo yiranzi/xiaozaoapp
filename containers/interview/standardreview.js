@@ -1,6 +1,7 @@
 import React from 'react'
 import {Button, Form} from 'react-weui'
 import classNames from 'classnames'
+import Back from '../../containers/interview/back'
 import Radio from '../../components/radio'
 
 export default class extends React.Component {
@@ -18,13 +19,14 @@ export default class extends React.Component {
     return <div>{meterial}</div>
   }
 
-  renderDTOList (DTOList) {
+  renderDTOList (topicKey, DTOList) {
     const {index} = this.state
     const currentIndex = index
     const {material, question} = DTOList[index]
     const questionLength = question.length
     return (
       <div className='dto-list'>
+        <Back text='< 返回结果页' url={`/interview/result?topicKey=${topicKey}`} />
         <div className='material'>
           <div className='title'>材料</div>
           <div className='content'>{this.renderMaterial(material)}</div>
@@ -147,11 +149,11 @@ export default class extends React.Component {
 
   render () {
     const {questionList} = this.props
-    const {interviewTopicDTOList} = questionList
+    const {topicKey, interviewTopicDTOList} = questionList
 
     return (
       <div className='standard'>
-        {this.renderDTOList(interviewTopicDTOList)}
+        {this.renderDTOList(topicKey, interviewTopicDTOList)}
       </div>
     )
   }

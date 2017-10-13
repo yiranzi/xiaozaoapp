@@ -3,6 +3,7 @@ import {Button, Form} from 'react-weui'
 import classNames from 'classnames'
 import Radio from '../../components/radio'
 import Audio from '../../components/audio'
+import Back from '../../containers/interview/back'
 import ToolsUtil from '../../util/tools'
 
 export default class extends React.Component {
@@ -45,7 +46,7 @@ export default class extends React.Component {
     return json
   }
 
-  renderDTOList (answerDTOList, DTOList) {
+  renderDTOList (topicKey ,answerDTOList, DTOList) {
     const {index} = this.state
     const currentIndex = index
     const {material, question, voice} = DTOList[index]
@@ -53,6 +54,7 @@ export default class extends React.Component {
     let answerList = this.renderAnswer(answerDTOList)
     return (
       <div className='dto-list'>
+        <Back text='< 返回结果页' url={`/interview/result?topicKey=${topicKey}`} />
         <div className='material'>
           <div className='title'>材料</div>
           <div className='content'>{this.renderMaterial(material)}</div>
@@ -64,7 +66,6 @@ export default class extends React.Component {
             <div className='options'>
               <Form radio>
                 {DTOList[index].optionDTOList.map((item, index) => {
-                  console.log(item)
                   const params = {
                     name: `answer-${currentIndex}`,
                     value: item.tag,
@@ -176,11 +177,11 @@ export default class extends React.Component {
 
   render () {
     const {questionList} = this.props
-    const {answerDTOList, interviewTopicDTOList} = questionList
+    const {topicKey, answerDTOList, interviewTopicDTOList} = questionList
 
     return (
       <div className='standard'>
-        {this.renderDTOList(answerDTOList, interviewTopicDTOList)}
+        {this.renderDTOList(topicKey, answerDTOList, interviewTopicDTOList)}
       </div>
     )
   }
