@@ -55,13 +55,7 @@ export default class extends React.Component {
         <div className='interview-list'>
           {this.renderList()}
           {this.renderLastDay()}
-          <div className='today-interview'><Button>今日打卡</Button></div>
         </div>
-        <style jsx>{`
-          .today-interview {
-            padding: 2rem 1rem;
-          }
-        `}</style>
         <style global jsx>{`
           .interview {
             padding: 1rem 0 !important;

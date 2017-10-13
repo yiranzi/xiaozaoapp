@@ -7,7 +7,7 @@ export default class extends React.Component {
     this.state = {
       needShowBotton: true,
       style: {
-        lineHeight: '24px',
+        lineHeight: '20px',
         overflow: 'hidden',
         WebkitLineClamp: this.props.line
       },
@@ -27,13 +27,13 @@ export default class extends React.Component {
   hide() {
     this.setState({
       isShow: false,
-      style: {lineHeight: '24px', overflow: 'hidden', 'WebkitLineClamp': this.props.line}
+      style: {lineHeight: '20px', overflow: 'hidden', 'WebkitLineClamp': this.props.line}
     })
   }
   showAll () {
     this.setState({
       isShow: true,
-      style: {lineHeight: '24px', overflow: 'visible'}
+      style: {lineHeight: '20px', overflow: 'visible'}
     })
   }
 
@@ -72,14 +72,13 @@ export default class extends React.Component {
             margin: 1rem 0;
           }
           .more .title {
-            text-align: center;
             font-size: ${ThemeConfig.size.normal};
             font-weight: bold;
           }
           .more .content {
             margin: 1rem 0;
             color: ${ThemeConfig.color.font_gray};
-            font-size: ${ThemeConfig.size.small};
+            font-size: 0.9rem;
             text-overflow: ellipsis;
             display: -webkit-box;
             -webkit-box-orient: vertical;

@@ -44,12 +44,30 @@ export default class extends React.Component {
       return (
         <div>
           <div className='no'>第{day}天 {title}</div>
-          <div className='time'>打卡时间：10月{currentDay}09:00 ~ 23:59:59</div>
+          <div className='time'>打卡时间：10月{currentDay}日 09:00 ~ 23:59:59</div>
           <div className='join'>已有{mainintro.totalUserCount}人报名</div>
+          <style jsx>{`
+            .no {
+              font-size: 1.5rem;
+            }
+            .time {
+              color: ${ThemeConfig.color.font_gray}
+            }
+            .join {
+              text-align: right;
+              font-size: 0.9rem;
+            }
+          `}</style>
         </div>
       )
     }
 
+  }
+
+  goToList (complete) {
+    if (complete) {
+      location.href = '/interview/list'
+    }
   }
 
   renderPrevContent (mainintro) {
@@ -63,6 +81,9 @@ export default class extends React.Component {
         return (
           <div
             key={item}
+            onClick={() => {
+              this.goToList(complete || noComplete)
+            }}
             className={
               classNames(
                 'circle',
@@ -132,7 +153,11 @@ export default class extends React.Component {
             <a href={`/interview/intro?day=${mainintro.day}`}>
               <Button>今日打卡</Button>
             </a>
-            <div className='complete'>已有{this.renderCompleteUser(mainintro)}人完成</div>
+            <div className='complete'>
+              <div className='blank'/>
+              <div className='text'>已有{this.renderCompleteUser(mainintro)}人完成</div>
+              <div className='blank'/>
+            </div>
             <div className='prev'>
               <div className='title'>往日打卡回顾</div>
               <div className='content'>{this.renderPrevContent(mainintro)}</div>
@@ -147,7 +172,7 @@ export default class extends React.Component {
             padding: 1rem;
           }
           .prev {
-            margin-top: 2rem;
+            margin: 2rem 0;
           }
           .title {
             font-weight: bold;
@@ -156,6 +181,26 @@ export default class extends React.Component {
             display: flex;
             justify-content: space-between;
             margin-top: 1rem;
+          }
+          .sub {
+            margin-top: 2rem;
+            padding: 0.5rem 0;
+            border-top: 1px solid ${ThemeConfig.color.border_gray};
+          }
+          .complete {
+            display: flex;
+            justify-content: center;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+          }
+          .complete .blank,
+          .complete .text {
+            flex: 1;
+            text-align: center;
+          }
+          .complete .blank {
+            border-top: 1px solid ${ThemeConfig.color.border_gray};
+            margin-top: 0.6rem;
           }
         `}</style>
         <style global jsx>{`
