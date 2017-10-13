@@ -16,7 +16,8 @@ export default class extends React.Component {
       noPrev: true,
       noNext: false,
       answerList: {},
-      isSubmit: false
+      isSubmit: false,
+      initTime: new Date()
     }
   }
 
@@ -178,13 +179,14 @@ export default class extends React.Component {
   answerComplete = async () => {
     const {topicKey} = this.props.questionList
     const answerList = this.formatAnswerList()
+    const {initTime} = this.state
 
     try {
       this.setState({isSubmit: true})
       alert(answerList)
       const data = JSON.stringify({
         answerDTOList: answerList,
-        time: 30,
+        time: new Date() - initTime,
         topicKey: topicKey
       })
       this.setState({isSubmit: true})

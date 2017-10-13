@@ -286,6 +286,10 @@ export default class extends React.Component {
             font-weight: bold;
             margin: 1rem 0;
           }
+          .material .title {
+            display: flex;
+            justify-content: space-between;
+          }
           .option-item {
             margin-top: 0.5rem;
           }

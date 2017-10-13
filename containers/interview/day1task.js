@@ -6,7 +6,7 @@ import AxiosUtil from '../../util/axios'
 import Radio from '../../components/radio'
 import Audio from '../../components/audio'
 import Loading from '../../components/loading'
-import TimeDown from '../../components/timedown'
+import TimeUp from '../../components/timeup'
 
 export default class extends React.Component {
   constructor (props) {
@@ -20,7 +20,9 @@ export default class extends React.Component {
       canNext: false,
       isRecording: false, // 正在录音
       isPlaying: false, // 正在播放录音
-      serverId: ''
+      serverId: '',
+      initTime: new Date(),
+      stop: false
     }
   }
 
@@ -250,9 +252,7 @@ export default class extends React.Component {
     return (
       <div className='dto-list'>
         <div className='material'>
-          <div className='title'>材料<TimeDown limitTime={questionList.limitTime} timeDown={() => {
-            this.timeDown()
-          }}/></div>
+          <div className='title'>材料<TimeUp/></div>
           <div className='content'>{this.renderMaterial(material)}</div>
         </div>
         <div className='pratice'>
@@ -285,6 +285,10 @@ export default class extends React.Component {
           .title {
             font-weight: bold;
             margin: 1rem 0;
+          }
+          .material .title {
+            display: flex;
+            justify-content: space-between;
           }
           .option-item {
             margin-top: 0.5rem;
@@ -380,7 +384,7 @@ export default class extends React.Component {
   }
 
   answerComplete = async () => {
-    const {isRecording, isPlaying} = this.state
+    const {isRecording, isPlaying, initTime} = this.state
     if (isRecording) {
       alert('正在录音，请结束录音后提交')
       return
@@ -401,10 +405,10 @@ export default class extends React.Component {
     let answerListArray = this.formatAnswerList()
 
     try {
-      this.setState({isSubmit: true})
+      this.setState({isSubmit: true, stop: true})
       const data = JSON.stringify({
         answerDTOList: answerListArray,
-        time: 30,
+        time: new Date() - initTime,
         topicKey: topicKey
       })
       this.setState({isSubmit: true})

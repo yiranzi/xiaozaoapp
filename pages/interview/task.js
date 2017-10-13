@@ -73,7 +73,8 @@ export default class extends React.Component {
       <InterviewLayout isRender={isRender} error={error}>
         <div>{this.renderTask()}</div>
         <style global jsx>{`
-          .timedown {
+          .timedown,
+          .timeup {
             color: #fdc23e;
             font-weight: normal;
             background-color: white;
