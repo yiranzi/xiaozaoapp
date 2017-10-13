@@ -20,7 +20,6 @@ export default class extends React.Component {
       canNext: false,
       isRecording: false, // 正在录音
       isPlaying: false, // 正在播放录音
-      localId: this.props.defaultValue,
       serverId: ''
     }
   }
@@ -65,24 +64,32 @@ export default class extends React.Component {
     if (isRecording && !isPlaying) {
       wx.stopRecord({
         success: function (res) {
-          _this.setState({localId: res.localId}, function () {
-            _this.uploadVoice(id)
-            _this.setState({isRecording: false})
+          let localId = res.localId
+          _this.setState({isRecording: false}, function () {
+            _this.uploadVoice(id, localId)
           })
         }
       })
       wx.onVoiceRecordEnd({
         // 录音时间超过一分钟没有停止的时候会执行 complete 回调
         complete: function (res) {
-          _this.setState({localId: res.localId})
-          _this.uploadVoice(id)
-          _this.setState({isRecording: false})
+          let localId = res.localId
+          _this.setState({isRecording: false}, function () {
+            _this.uploadVoice(id, localId)
+          })
         }
       })
     }
   }
 
-  playVoice (localId) {
+  playVoice (id) {
+    const {answerList} = this.state
+    alert('renderPlay', JSON.stringify(answerList))
+    let localId = answerList[id]
+    let serverId = answerList[id]
+    alert('localId:', localId, ' serverId:', serverId)
+
+
     const _this = this
     wx.playVoice({
       localId: localId,
@@ -107,30 +114,30 @@ export default class extends React.Component {
     })
   }
 
-  uploadVoice (id) {
+  uploadVoice (id, localId) {
     const _this = this
-    const {localId} = this.state
     this.setState({canNext: true})
+
     wx.uploadVoice({
       localId: localId,
       isShowProgressTips: 1,
       success: function (res) {
         let serverId = res.serverId
         AxiosUtil({method: 'get', url: '/api/interview/uploadWechatAudio?serverId=' + serverId})
-        _this.setState({serverId: res.serverId}, function () {
-          _this.onChange(id, serverId)
+        _this.setState({serverId: serverId}, function () {
+          _this.onChange(id, localId, serverId)
         })
       }
     })
   }
 
-  renderRecord (localId, isRecording, isPlaying, defaultValue) {
+  renderRecord (id, isRecording, isPlaying) {
     return (
       <div className='icon'>
         <img src='/static/img/interview/wx_record.png' onClick={() => {
           this.startRecord()
         }}/>
-        {defaultValue && !isRecording && this.renderPlay(defaultValue, isPlaying)}
+        {id && !isRecording && this.renderPlay(id, isPlaying)}
         <style jsx>{`
           .icon {
             text-align: center;
@@ -161,27 +168,27 @@ export default class extends React.Component {
     )
   }
 
-  renderPlay (localId, isPlaying) {
+  renderPlay (id, isPlaying) {
     return (
       <div className='play'>
         {isPlaying
           ? <img src='/static/img/interview/pause.png' onClick={() => {
-            this.stopVoice(localId)
+            this.stopVoice(id)
           }}/>
           : <img src='/static/img/interview/play.png' onClick={() => {
-            this.playVoice(localId)
+            this.playVoice(id)
           }}/>
         }
       </div>
     )
   }
 
-  wxRecord (id, defaultValue) {
-    const {localId, isRecording, isPlaying} = this.state
+  wxRecord (id) {
+    const {isRecording, isPlaying} = this.state
     return (
       <div>
         <div className='record'>
-          {isRecording ? this.renderRecording(id) : this.renderRecord(localId, isRecording, isPlaying, defaultValue)}
+          {isRecording ? this.renderRecording(id) : this.renderRecord(id, isRecording, isPlaying)}
         </div>
       </div>
     )
@@ -209,7 +216,7 @@ export default class extends React.Component {
 
   renderAnswerOption (id, DTOList) {
     const {index, answerList} = this.state
-    console.log(DTOList[index])
+    alert('answerlist:', answerList)
     const isVoice = DTOList[index].voice
     if (isVoice) {
       return <div>{this.wxRecord(id, answerList[id])}</div>
@@ -228,7 +235,7 @@ export default class extends React.Component {
         const key = `answer_${index}_${i}`
         return (
           <Radio key={key} params={params} onChange={(value) => {
-            this.onChange(id, value)
+            this.onChange(id, '', value)
           }}/>
         )
       })
@@ -395,12 +402,16 @@ export default class extends React.Component {
     }
   }
 
-  onChange (id, value) {
+  onChange (id, localId, serverId) {
     let {answerList} = this.state
     answerList[id] = answerList[id] || {}
-    answerList[id] = value
+    answerList[id].localId = localId
+    answerList[id].serverId = serverId
     this.setState({
       answerList: answerList
+    }, function () {
+      alert('onChange')
+      alert(answerList)
     })
   }
 
