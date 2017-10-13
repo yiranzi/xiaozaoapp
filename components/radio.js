@@ -10,48 +10,48 @@ export default class Layout extends React.Component {
     return (
       <div>
         {disabled &&
-        <label>
-          <input
-            className='radio'
-            type='radio'
-            name={name}
-            value={value}
-            checked={checked}
-            disabled
-          />
-          {label}
-        </label>
+          <div className='radio-wrapper'>
+            <div className='input'>
+              <input
+                type='radio'
+                name={name}
+                value={value}
+                checked={checked}
+                disabled
+              />
+            </div>
+            <div className='text'>{label}</div>
+          </div>
         }
         {!disabled &&
-        <label>
-          <input
-            className='radio'
-            type='radio'
-            name={name}
-            value={value}
-            checked={checked}
-            onClick={() => onChange(value)}
-          />
-          <div className='text'>{label}</div>
-        </label>
+          <div className='radio-wrapper' onClick={() => onChange(value)}>
+            <div className='input'>
+              <input
+                type='radio'
+                name={name}
+                value={value}
+                defaultChecked={checked}
+              />
+            </div>
+            <div className='text'>{label}</div>
+          </div>
         }
         <style jsx>{`
-          label {
-            height: 1.25rem;
+          .radio-wrapper {
+            display: flex;
+            justify-content: flex-start;
           }
           .text {
-            display: inline-block;
-            vertical-align: middle;
+            word-wrap: break-word;
+            width: calc(100vw - 5rem);
           }
-          .radio {
+          input[type="radio"] {
             width: 1rem;
             height: 1rem;
-            display: inline-block;
             position: relative;
             margin-right: 1rem;
-            vertical-align: middle;
           }
-          .radio::before {
+          input[type="radio"]::before {
             content: '';
             position: absolute;
             width: 100%;
