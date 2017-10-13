@@ -4,7 +4,7 @@ import Card from '../../components/card'
 import ToolsUtil from '../../util/tools'
 import Back from '../../containers/interview/back'
 import InterviewLayout from '../../containers/interview/layout'
-import IntroContent from './introcontent'
+import IntroContent from '../../containers/interview/introcontent'
 
 const intro = IntroContent;
 

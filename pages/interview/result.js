@@ -6,7 +6,7 @@ import ToolsUtil from '../../util/tools'
 import AxiosUtil from '../../util/axios'
 import Back from '../../containers/interview/back'
 import InterviewLayout from '../../containers/interview/layout'
-import ResultContent from './resultcontent'
+import ResultContent from '../../containers/interview/resultcontent'
 
 const result = ResultContent
 
