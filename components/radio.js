@@ -24,12 +24,13 @@ export default class Layout extends React.Component {
           </div>
         }
         {!disabled &&
-          <div className='radio-wrapper' onClick={() => onChange(value)}>
+          <div className='radio-wrapper'>
             <div className='input'>
               <input
                 type='radio'
                 name={name}
                 value={value}
+                onClick={() => onChange(value)}
                 defaultChecked={checked}
               />
             </div>
