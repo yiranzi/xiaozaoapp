@@ -377,13 +377,21 @@ export default class extends React.Component {
   }
 
   answerComplete = async () => {
+    const {answerList} = this.state
+    const {interviewTopicDTOList} = this.props.questionList
+
+    if (Object.keys(answerList).length < interviewTopicDTOList.length) {
+      alert('当前题目未录音')
+      return
+    }
+
     const {topicKey} = this.props.questionList
-    const answerList = this.formatAnswerList()
+    let answerList_array = this.formatAnswerList()
 
     try {
       this.setState({isSubmit: true})
       const data = JSON.stringify({
-        answerDTOList: answerList,
+        answerDTOList: answerList_array,
         time: 30,
         topicKey: topicKey
       })
