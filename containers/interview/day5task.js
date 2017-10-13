@@ -82,14 +82,7 @@ export default class extends React.Component {
     }
   }
 
-  playVoice (id) {
-    const {answerList} = this.state
-    alert('renderPlay', JSON.stringify(answerList))
-    let localId = answerList[id]
-    let serverId = answerList[id]
-    alert('localId:', localId, ' serverId:', serverId)
-
-
+  playVoice (localId) {
     const _this = this
     wx.playVoice({
       localId: localId,
@@ -132,12 +125,19 @@ export default class extends React.Component {
   }
 
   renderRecord (id, isRecording, isPlaying) {
+    const {answerList} = this.state
+
+    let localId
+    if (answerList[id]) {
+      localId = answerList[id].localId
+    }
+
     return (
       <div className='icon'>
         <img src='/static/img/interview/wx_record.png' onClick={() => {
           this.startRecord()
         }}/>
-        {id && !isRecording && this.renderPlay(id, isPlaying)}
+        {localId && !isRecording && this.renderPlay(localId, isPlaying)}
         <style jsx>{`
           .icon {
             text-align: center;
@@ -168,15 +168,15 @@ export default class extends React.Component {
     )
   }
 
-  renderPlay (id, isPlaying) {
+  renderPlay (localId, isPlaying) {
     return (
       <div className='play'>
         {isPlaying
           ? <img src='/static/img/interview/pause.png' onClick={() => {
-            this.stopVoice(id)
+            this.stopVoice(localId)
           }}/>
           : <img src='/static/img/interview/play.png' onClick={() => {
-            this.playVoice(id)
+            this.playVoice(localId)
           }}/>
         }
       </div>
@@ -216,10 +216,9 @@ export default class extends React.Component {
 
   renderAnswerOption (id, DTOList) {
     const {index, answerList} = this.state
-    alert('answerlist:', answerList)
     const isVoice = DTOList[index].voice
     if (isVoice) {
-      return <div>{this.wxRecord(id, answerList[id])}</div>
+      return <div>{this.wxRecord(id)}</div>
     } else {
       const name = `answer_${index}`
       const options = DTOList[index].optionDTOList
@@ -277,7 +276,7 @@ export default class extends React.Component {
                 this.answerComplete()
               }}>提交</Button>
               : <Button onClick={() => {
-                this.next(questionLength, interviewTopicDTOList)
+                this.next(id, questionLength, interviewTopicDTOList)
               }}>下一题</Button>
             }
           </div>
@@ -331,15 +330,14 @@ export default class extends React.Component {
     }
   }
 
-  next (questionLength, DTOList) {
+  next (id, questionLength, DTOList) {
     const {index} = this.state
     const nextIndex = index + 1
-    console.log(DTOList[index])
     const isVoice = DTOList[index].voice
 
-    console.log('voice ', isVoice)
     if (isVoice) {
-      const {localId, isRecording, isPlaying} = this.state
+      const {answerList, isRecording, isPlaying} = this.state
+      let localId = answerList[id] ? answerList[id].localId : ''
       if (isRecording) {
         alert('正在录音，请结束录音后提交')
         this.setState({canNext: false})
@@ -409,9 +407,6 @@ export default class extends React.Component {
     answerList[id].serverId = serverId
     this.setState({
       answerList: answerList
-    }, function () {
-      alert('onChange')
-      alert(answerList)
     })
   }
 
