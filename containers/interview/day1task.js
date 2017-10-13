@@ -1,6 +1,7 @@
 import React from 'react'
 import {Button, Form} from 'react-weui'
 import classNames from 'classnames'
+import DateUtil from '../../util/data'
 import ToolsUtil from '../../util/tools'
 import AxiosUtil from '../../util/axios'
 import Radio from '../../components/radio'
@@ -380,11 +381,16 @@ export default class extends React.Component {
   }
 
   formatAnswerList () {
+    let answer
     const {questionList} = this.props
     const {answerList} = this.state
     return questionList.interviewTopicDTOList.map((item, index) => {
       let id = item.id
-      let answer = answerList[id].serverId ? answerList[id].serverId : ''
+      if (DateUtil.isEmpty(answerList)) {
+        answer = ''
+      } else {
+        answer = answerList[id].serverId ? answerList[id].serverId : ''
+      }
       return {answer: answer, id: id}
     })
   }
