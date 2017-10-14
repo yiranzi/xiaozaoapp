@@ -10,7 +10,8 @@ export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      lastDay: null
+      lastDay: null,
+      isLoaded: false
     }
   }
 
@@ -24,13 +25,16 @@ export default class extends React.Component {
         method: 'get',
         url: '/api/interview/getLatest'
       })
+      console.log(lastDay)
       this.setState({
-        lastDay: lastDay
+        lastDay: lastDay,
+        isLoaded: true
       })
     } catch (e) {
       console.log(e)
       this.setState({
-        lastDay: e
+        lastDay: e,
+        isLoaded: true
       })
     }
   }
@@ -48,25 +52,28 @@ export default class extends React.Component {
           <br/>
           <p className='text-left'><a href='https://shimo.im/doc/irJ89r3BN2cbpTXn?r=9GPEG9' target='_blank'>点击查看群面模拟规则</a></p>
           <br/>
-          {this.state.lastDay &&
-            <div>
-              {(this.state.lastDay.status == '10001' || this.state.lastDay.status == '10002') &&
-                <p className='center'>{this.state.lastDay.message}</p>
-              }
-              {(this.state.lastDay.status == '200' && this.state.lastDay.response.classUrl) &&
-                <div className='center'>
-                  <h4>专属二维码</h4>
-                  <p><img src={this.state.lastDay.response.classUrl}/></p>
-                  <p>完成率{this.state.lastDay.response.accuracy}</p>
-                </div>
-              }
-              {(this.state.lastDay.status == '200' && !this.state.lastDay.response.classUrl) &&
-                <div>
-                  <p>完成率{this.state.lastDay.response.accuracy}</p>
-                </div>
-              }
-            </div>
-          }
+          <div>
+            {(this.state.isLoaded && this.state.lastDay == null) &&
+              <p className='center'>{this.state.lastDay.message}</p>
+            }
+            {(this.state.isLoaded && this.state.lastDay != null) &&
+              <div>
+                {this.state.lastDay.classUrl &&
+                  <div className='center'>
+                    <h4>专属二维码</h4>
+                    <p><b>您的总正确率为{this.state.lastDay.accuracy}%，总答题时间进入前500名，恭喜您获得第七天打卡资格，下面是您的专属二维码</b></p>
+                    <br/>
+                    <p><img className='qr-code' src={this.state.lastDay.classUrl}/></p>
+                  </div>
+                }
+                {!this.state.lastDay.classUrl &&
+                  <div>
+                    <p><b>您的总正确率为{this.state.lastDay.accuracy}%，总答题时间未进入前500名，很遗憾未获得第七天打卡资格</b></p>
+                  </div>
+                }
+              </div>
+            }
+          </div>
         </div>
         <style jsx>{`
           .center {
@@ -74,6 +81,9 @@ export default class extends React.Component {
           }
           .text-left {
             text-left: left;
+          }
+          .qr-code {
+            width: 150px;
           }
         `}</style>
       </InterviewLayout>
