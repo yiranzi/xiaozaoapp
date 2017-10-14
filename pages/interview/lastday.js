@@ -1,5 +1,4 @@
 import React from 'react'
-import {Button} from 'react-weui'
 import AxiosUtil from '../../util/axios'
 import Back from '../../containers/interview/back'
 import InterviewLayout from '../../containers/interview/layout'
@@ -42,15 +41,16 @@ export default class extends React.Component {
         <Back text='< 返回打卡主页' url='/interview/main' />
         <div className='intro-content'>
           <h4 className='center'>群面说明</h4>
-          <br/>{this.state.lastDay}
-          <p>[{this.state.lastDay == null}]</p>
+          <br/>
+          <p>说明内容说明内容说明内容说明内容说明内容说明内容说明内容说明内容说明内容说明内容说明内容说明内容说明内容说明内容说明内容</p>
+          <br/>
           {this.state.lastDay &&
             <div>
               {(this.state.lastDay.status == '10001' || this.state.lastDay.status == '10002') &&
-                <p>{this.state.lastDay.message}</p>
+                <p className='center'>{this.state.lastDay.message}</p>
               }
               {(this.state.lastDay.status == '200' && this.state.lastDay.response.classUrl) &&
-                <div>
+                <div className='center'>
                   <h4>专属二维码</h4>
                   <p><img src={this.state.lastDay.response.classUrl}/></p>
                   <p>完成率{this.state.lastDay.response.accuracy}</p>
@@ -63,7 +63,6 @@ export default class extends React.Component {
               }
             </div>
           }
-          <a href='/interview/task'><Button>开始打卡</Button></a>
         </div>
         <style jsx>{`
           .center {

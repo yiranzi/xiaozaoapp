@@ -131,7 +131,7 @@ export default class extends React.Component {
       return <div>
         <br/>
         {(topicKey == '1-1') &&
-        <div>
+        <div className='pratice'>
           <h4>群面时case阅读建议</h4>
           <br/>
           <Audio src=''/>
@@ -150,7 +150,7 @@ export default class extends React.Component {
         </div>
         }
         {(topicKey == '1-2') &&
-        <div>
+        <div className='pratice'>
           <h4>群面时case阅读建议</h4>
           <br/>
           <img className='day1result' src='/static/img/interview/day1/day1_2_result%20(1).jpg'/>
@@ -161,7 +161,7 @@ export default class extends React.Component {
         </div>
         }
         {(topicKey == '2') &&
-        <div>
+        <div className='pratice'>
           <h4>提升自己的结构化思维，我们有以下的建议</h4>
           <br/>
           <h4>推荐课程</h4>
@@ -184,7 +184,7 @@ export default class extends React.Component {
         </div>
         }
         {(topicKey == '3') &&
-        <div>
+        <div className='pratice'>
           <h4>提升自己的对商业分析框架的运用，我们有以下的建议</h4>
           <br/>
           <h4>阅读推荐</h4>
@@ -197,7 +197,7 @@ export default class extends React.Component {
         </div>
         }
         {(topicKey == '4') &&
-        <div>
+        <div className='pratice'>
           <h4>阅读推荐</h4>
           <br/>
           <img className='day1result' src='/static/img/interview/day4/day4_result%20(1).jpg'/>
@@ -209,7 +209,7 @@ export default class extends React.Component {
         </div>
         }
         {(topicKey == '5-1') &&
-        <div>
+        <div className='pratice'>
           <h4>群面时准备 presentation 的建议</h4>
           <br/>
           <Audio src=''/>
@@ -229,7 +229,7 @@ export default class extends React.Component {
         </div>
         }
         {(topicKey == '5-2') &&
-        <div>
+        <div className='pratice'>
           <h4>推荐阅读</h4>
           <p><a href='http://mp.weixin.qq.com/s/6_FVLCicKjS0Y8_goXH07A' target='_blank'>http://mp.weixin.qq.com/s/6_FVLCicKjS0Y8_goXH07A</a></p>
           <br/>
@@ -238,7 +238,7 @@ export default class extends React.Component {
         </div>
         }
         {(topicKey == '6') &&
-        <div>
+        <div className='pratice'>
           <h4>群面时获取信息（听力）的建议</h4>
           <br/>
           <img className='day1result' src='/static/img/interview/day6/day6_result%20(1).jpg'/>
@@ -254,11 +254,24 @@ export default class extends React.Component {
           <p><a href='https://pan.baidu.com/s/1hr4vtXU'>https://pan.baidu.com/s/1hr4vtXU</a></p>
         </div>
         }
-        <br/>
-        <Footer><a href={'http://localhost:3000/interview/intro?day=' + day}><Button>再来一次</Button></a></Footer>
+        <div className='action'><a href={'/interview/intro?day=' + day}><Button>再来一次</Button></a></div>
         <style jsx>{`
           .day1result {
             width: 100%;
+          }
+          .pratice {
+            margin-bottom: 5rem;
+          }
+          .action {
+            display: flex;
+            justify-content: center;
+            position: fixed;
+            width: 100%;
+            left: 0;
+            bottom: 0;
+            padding: 1rem 2rem;
+            box-sizing: border-box;
+            background: #F9F9F9;
           }
         `}</style>
       </div>
