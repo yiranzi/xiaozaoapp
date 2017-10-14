@@ -42,23 +42,20 @@ export default class extends React.Component {
   }
 
   renderAnaysis (anaysis) {
-    if (anaysis.indexOf('png') >= 0 && anaysis.indexOf('jpg') >= 0) {
-      let anaysisArray = eval(anaysis)
-
-      return anaysisArray.map((item, index) => {
-        return <div key={index} className='meterial-item'>
-          <img src={item}/>
+    if (anaysis.indexOf('png') >= 0 || anaysis.indexOf('jpg') >= 0) {
+      return (
+        <div className='analysis-item'>
+          <img src={anaysis}/>
           <style jsx>{`
             img {
               width: 100%;
             }
           `}</style>
         </div>
-      })
+      )
     } else {
       return <div className='meterial-item'>{anaysis}</div>
     }
-
   }
 
   getAnswerList (answerDTOList) {
