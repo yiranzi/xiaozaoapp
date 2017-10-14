@@ -336,7 +336,7 @@ export default class extends React.Component {
         </div>
         <div className='interview-main'>
           <div className='intro'>
-            {this.renderTop(mainintro)}x`
+            {this.renderTop(mainintro)}
             <div className='sub'>
               <Card
                 title='小灶群面7天闪电计划(初级)'
