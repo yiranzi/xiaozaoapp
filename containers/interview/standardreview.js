@@ -117,7 +117,7 @@ export default class extends React.Component {
               }}>上一题</Button>
             </div>
           )}
-          {noNext && (<div className='prev disabled'><Button>下一题</Button></div>)}
+          {noNext && (<div className='next disabled'><Button>下一题</Button></div>)}
           {!noNext && (
             <div className={classNames({next: true, disabled: this.state.noNext})}>
               <Button onClick={() => {

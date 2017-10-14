@@ -38,55 +38,27 @@ export default class extends React.Component {
     }
   }
 
+  toLastDay () {
+    location.href = '/interview/lastday'
+  }
+
   renderLastDay (list) {
-    let {day} = list
-    if (day === 7) {
-      return (
-        <a href=''>
-          <div className='interview-item'>
-            <div className='icon'><img src='/static/img/interview/train.png'/></div>
-            <div className='content'>
-              <div className='top'>
-                <div className='left'>
-                  <div className='title'>解锁管卡 群面综合训练</div>
-                </div>
-              </div>
-            </div>
-            <div className='enter-icon'>
-              <img src='/static/img/interview/lock.png'/>
-            </div>
-            <style jsx>{`
-              .result {
-                border-top: ${ThemeConfig.color.border_gray};
-              }
-              .sub span {
-                background: ${ThemeConfig.color.border_gray};
-                color: #fff;
-                padding: 0.25rem 0.5rem;
-                border-radius: 1rem;
-              }
-              .enter-icon img {
-                width: 1.5rem;
-              }
-            `}</style>
-          </div>
-        </a>
-      )
-    } else {
-      return (
-        <div className='interview-item'>
-          <div className='icon'><img src='/static/img/interview/train.png'/></div>
-          <div className='content'>
-            <div className='top'>
-              <div className='left'>
-                <div className='title'>解锁管卡 群面综合训练</div>
-              </div>
+    return (
+      <div className='interview-item' onClick={() => {
+        this.toLastDay()
+      }}>
+        <div className='icon'><img src='/static/img/interview/train.png'/></div>
+        <div className='content'>
+          <div className='top'>
+            <div className='left'>
+              <div className='title'>解锁管卡 群面综合训练</div>
             </div>
           </div>
-          <div className='enter-icon'>
-            <img src='/static/img/interview/lock.png'/>
-          </div>
-          <style jsx>{`
+        </div>
+        <div className='enter-icon'>
+          <img src='/static/img/interview/lock.png'/>
+        </div>
+        <style jsx>{`
             .result {
               border-top: ${ThemeConfig.color.border_gray};
             }
@@ -100,10 +72,8 @@ export default class extends React.Component {
               width: 1.5rem;
             }
           `}</style>
-        </div>
-      )
-    }
-
+      </div>
+    )
   }
 
   renderComplete (complete) {
@@ -118,9 +88,7 @@ export default class extends React.Component {
   }
 
   toLink (showResult, topicKey) {
-    if (showResult) {
-      location.href = '/interview/review?topicKey=' + topicKey
-    }
+    location.href = '/interview/review?topicKey=' + topicKey
   }
 
   renderList (list) {

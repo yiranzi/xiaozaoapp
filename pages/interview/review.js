@@ -59,7 +59,7 @@ export default class extends React.Component {
     } catch (e) {
       this.setState({
         isRender: false,
-        error: e
+        error: e.message
       })
     }
   }
