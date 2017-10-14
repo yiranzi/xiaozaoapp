@@ -133,7 +133,7 @@ export default class extends React.Component {
 
   renderResultMore () {
     const {topicKey} = this.state
-    const day = (topicKey == '1-1' ? '1-2' : topicKey == '5-1' ? '5-2' : null)
+    const day = (topicKey == '1-1' ? '1-2' : topicKey == '5-1' ? '5-2' : topicKey == '6-1' ? '6-2' : null)
     return <div>
       <br/>
       {(topicKey == '1-1') &&
@@ -261,8 +261,8 @@ export default class extends React.Component {
         <p><a href='https://pan.baidu.com/s/1hr4vtXU'>https://pan.baidu.com/s/1hr4vtXU</a></p>
       </div>
       }
-      {(topicKey == '1-1' || topicKey == '5-1') &&
-        <div className='action'><a href={'/interview/intro?day=' + day}><Button>再来一次</Button></a></div>
+      {(topicKey == '1-1' || topicKey == '5-1' || topicKey == '6-1') &&
+        <div className='action'><a href={'/interview/task?topicKey=' + day}><Button>再来一次</Button></a></div>
       }
       <style jsx>{`
         .day1result {
@@ -302,7 +302,7 @@ export default class extends React.Component {
     const {isRender, error} = this.state
     return (
       <InterviewLayout isRender={isRender} error={error}>
-        <Back text='< 返回' url='/interview/main'/>
+        <Back text='< 返回' url='/interview/list'/>
         <div className='interview-result'>
           <Card content={this.renderContent()}/>
           <Footer>{this.renderAnalysis()}</Footer>

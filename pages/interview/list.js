@@ -52,7 +52,7 @@ export default class extends React.Component {
         <div className='content'>
           <div className='top'>
             <div className='left'>
-              <div className='title'>解锁管卡 群面综合训练</div>
+              <div className='title'>解锁关卡 群面综合训练</div>
             </div>
           </div>
         </div>
