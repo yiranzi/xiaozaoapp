@@ -26,6 +26,7 @@ export default class extends React.Component {
   componentDidMount = async () => {
     try {
       let list = await AxiosUtil({method: 'get', url: '/api/interview/getList'})
+
       this.setState({
         list: list,
         isRender: false
@@ -92,11 +93,16 @@ export default class extends React.Component {
   }
 
   renderList (list) {
-    let {clock, interviewListDetailDTOList} = list
+    let {clock, day, interviewListDetailDTOList} = list
+    let currentDay = day
     if (interviewListDetailDTOList) {
       return interviewListDetailDTOList.map((item, index) => {
         const {day, title, subTitle, topicKey} = item
-        let past = item.day < day
+        console.log('day:', day, ' item.day:', item.day)
+        let past = item.day < currentDay
+        if (past){
+          console.log(item.day, '过去')
+        }
         let complete = clock.indexOf(day) >= 0
         let showResult = past || complete
         return (
@@ -115,9 +121,11 @@ export default class extends React.Component {
                 </div>}
               </div>
               {showResult && <div className='bottom'>
-                <div className='left'>
-                  <div className='sub'>打卡成绩：<span>{item.result}</span></div>
-                </div>
+                {complete && (
+                  <div className='left'>
+                    <div className='sub'>打卡成绩：<span>{item.result}</span></div>
+                  </div>
+                )}
                 <div className='right'>
                   <div className='sub'><span>{item.completeUser}</span>人完成</div>
                 </div>
