@@ -303,6 +303,7 @@ export default class extends React.Component {
             text-align: right;
           }
           .faq a {
+            display: inline-block;
             color: ${ThemeConfig.color.font_gray};
           }
           .faq span {

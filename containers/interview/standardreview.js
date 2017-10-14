@@ -40,6 +40,24 @@ export default class extends React.Component {
     })
   }
 
+  renderAnaysis (meterial) {
+    let meterialArray = eval(meterial)
+    return meterialArray.map((item, index) => {
+      if (ToolsUtil.isImg(item)) {
+        return <div key={index} className='meterial-item'>
+          <img src={item}/>
+          <style jsx>{`
+            img {
+              width: 100%;
+            }
+          `}</style>
+        </div>
+      } else {
+        return <div className='meterial-item'>{item}</div>
+      }
+    })
+  }
+
   getAnswerList (answerDTOList) {
     let json = {}
     answerDTOList.map((item, index) => {
@@ -64,7 +82,7 @@ export default class extends React.Component {
       }
       const key = `answer_${index}_${i}`
       return (
-        <Radio key={key} params={params} />
+        <Radio key={key} params={params}/>
       )
     })
   }
@@ -101,10 +119,9 @@ export default class extends React.Component {
           <div className='content'>
             <div className='result'>
               <div>参考答案: {interviewTopicDTOList[index].answer}</div>
-              <div>正确率:</div>
             </div>
             <div className='analysis'>
-              参考解析：{interviewTopicDTOList[index].analysis}
+              参考解析：{this.renderAnaysis(interviewTopicDTOList[index].analysis)}
             </div>
           </div>
         </div>
@@ -178,7 +195,7 @@ export default class extends React.Component {
     const {index} = this.state
     const nextIndex = index + 1
 
-    if (nextIndex >= questionLength-1) {
+    if (nextIndex >= questionLength - 1) {
       this.setState({index: nextIndex, noNext: true, noPrev: false})
     } else {
       this.setState({index: nextIndex, noPrev: false})
