@@ -16,7 +16,7 @@ export default class extends React.Component {
     this.state = {
       index: 0,
       noPrev: true,
-      noNext: false,
+      noNext: this.props.questionList.interviewTopicDTOList.length <= 1,
       canNext: false
     }
   }
@@ -39,23 +39,6 @@ export default class extends React.Component {
         </div>
       }
     })
-  }
-
-  renderAnaysis (anaysis) {
-    if (anaysis.indexOf('png') >= 0 || anaysis.indexOf('jpg') >= 0) {
-      return (
-        <div className='analysis-item'>
-          <img src={anaysis}/>
-          <style jsx>{`
-            img {
-              width: 100%;
-            }
-          `}</style>
-        </div>
-      )
-    } else {
-      return <div className='meterial-item'>{anaysis}</div>
-    }
   }
 
   getAnswerList (answerDTOList) {
@@ -92,12 +75,21 @@ export default class extends React.Component {
     return <Form radio>{this.renderRadioGroup(id, index, answerDTOList, DTOList)}</Form>
   }
 
+  formatAnswerList (answerDTOList) {
+    let json = {}
+    answerDTOList.map((item, index) => {
+      json[item.id] = item.answer
+    })
+    return json
+  }
+
   renderDTOList () {
     const {questionList} = this.props
     const {topicKey, day, answerDTOList, interviewTopicDTOList} = questionList
     const {index, noPrev, noNext} = this.state
     const {id, material} = interviewTopicDTOList[index]
     const questionLength = interviewTopicDTOList.length
+    let answerList = this.formatAnswerList(answerDTOList)
 
     return (
       <div className='dto-list'>
@@ -115,9 +107,9 @@ export default class extends React.Component {
           </div>
         </div>
         <div className='answer'>
-          <div className='title'>您的回答</div>
+          <div className='title'>您的答案：</div>
           <div className='content'>
-            <Audio src={`http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/interview/audio/${interviewTopicDTOList[index].answer}.mp3`}/>
+            {answerList && <Audio src={`http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/interview/audio/${answerList[id]}.mp3`}/>}
           </div>
         </div>
         <div className='action'>
