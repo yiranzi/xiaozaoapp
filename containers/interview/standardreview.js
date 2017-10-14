@@ -40,10 +40,11 @@ export default class extends React.Component {
     })
   }
 
-  renderAnaysis (meterial) {
-    let meterialArray = eval(meterial)
-    return meterialArray.map((item, index) => {
-      if (ToolsUtil.isImg(item)) {
+  renderAnaysis (anaysis) {
+    if (anaysis.indexOf('png') >= 0 && anaysis.indexOf('jpg') >= 0) {
+      let anaysisArray = eval(anaysis)
+
+      return anaysisArray.map((item, index) => {
         return <div key={index} className='meterial-item'>
           <img src={item}/>
           <style jsx>{`
@@ -52,10 +53,11 @@ export default class extends React.Component {
             }
           `}</style>
         </div>
-      } else {
-        return <div className='meterial-item'>{item}</div>
-      }
-    })
+      })
+    } else {
+      return <div className='meterial-item'>{anaysis}</div>
+    }
+
   }
 
   getAnswerList (answerDTOList) {
@@ -99,6 +101,8 @@ export default class extends React.Component {
     const {id, material} = interviewTopicDTOList[index]
     const questionLength = interviewTopicDTOList.length
 
+    console.log(1)
+
     return (
       <div className='dto-list'>
         <div className='material'>
@@ -125,24 +129,24 @@ export default class extends React.Component {
             </div>
           </div>
         </div>
-        <div className='action'>
-          {noPrev && (<div className='prev disabled'><Button>上一题</Button></div>)}
-          {!noPrev && (
-            <div className={classNames({prev: true, disabled: this.state.noPrev})}>
-              <Button onClick={() => {
-                this.prev(questionLength)
-              }}>上一题</Button>
-            </div>
-          )}
-          {noNext && (<div className='next disabled'><Button>下一题</Button></div>)}
-          {!noNext && (
-            <div className={classNames({next: true, disabled: this.state.noNext})}>
-              <Button onClick={() => {
-                this.next(questionLength)
-              }}>下一题</Button>
-            </div>
-          )}
-        </div>
+        {/*<div className='action'>*/}
+        {/*{noPrev && (<div className='prev disabled'><Button>上一题</Button></div>)}*/}
+        {/*{!noPrev && (*/}
+        {/*<div className={classNames({prev: true, disabled: this.state.noPrev})}>*/}
+        {/*<Button onClick={() => {*/}
+        {/*this.prev(questionLength)*/}
+        {/*}}>上一题</Button>*/}
+        {/*</div>*/}
+        {/*)}*/}
+        {/*{noNext && (<div className='next disabled'><Button>下一题</Button></div>)}*/}
+        {/*{!noNext && (*/}
+        {/*<div className={classNames({next: true, disabled: this.state.noNext})}>*/}
+        {/*<Button onClick={() => {*/}
+        {/*this.next(questionLength)*/}
+        {/*}}>下一题</Button>*/}
+        {/*</div>*/}
+        {/*)}*/}
+        {/*</div>*/}
         <style jsx>{`
           .title {
             font-weight: bold;
