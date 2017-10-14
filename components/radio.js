@@ -38,6 +38,7 @@ export default class Layout extends React.Component {
             background: transparent !important;
             margin-top: 0 !important;
             line-height: 100% !important;
+            font-size: 14px !important;
           }
           .weui-cell:before,
           .weui-cells:before,

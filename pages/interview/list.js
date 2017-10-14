@@ -81,8 +81,8 @@ export default class extends React.Component {
     return (
       <div>
         {complete
-          ? <div><img src='/static/img/interview/finish.png'/>已完成</div>
-          : <div><img src='/static/img/interview/unfinish.png'/>未完成</div>
+          ? <div className='icon'><img src='/static/img/interview/finish.png'/>已完成</div>
+          : <div className='icon'><img src='/static/img/interview/unfinish.png'/>未完成</div>
         }
       </div>
     )
@@ -130,7 +130,7 @@ export default class extends React.Component {
               </div>}
 
             </div>
-            <div className='enter-icon'> ></div>
+            <div className='enter-icon'><img src='/static/img/interview/icon.png'/></div>
             <style jsx>{`
               .result {
                 border-top: ${ThemeConfig.color.border_gray};
@@ -214,9 +214,9 @@ export default class extends React.Component {
             color: ${ThemeConfig.color.font_gray};
           }
           .interview-item .content .right img {
-            width: 1rem;
-            height: 1rem;
-            margin-right: 0.5rem;
+            width: 14px;
+            height: 14px;
+            margin-right: 0.25rem;
           }
         `}</style>
       </InterviewLayout>
