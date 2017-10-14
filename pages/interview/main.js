@@ -202,7 +202,6 @@ export default class extends React.Component {
         </div>
       )
     }
-
   }
 
   goToList () {
@@ -255,7 +254,6 @@ export default class extends React.Component {
         )
       })
     }
-
   }
 
   renderCompleteUser (mainintro) {
@@ -307,6 +305,20 @@ export default class extends React.Component {
     )
   }
 
+  toLink (mainintro) {
+    const {day, clock} = mainintro
+    if (clock.indexOf(day) >= 0) {
+      location.href = '/interview/list'
+    } else {
+      if (day === 1) {
+        location.href = '/interview/intro?day=' + day
+      } else {
+        location.href = '/interview/intro?day=' + day
+      }
+
+    }
+  }
+
   render () {
     const {isRender, mainintro, error} = this.state
     return (
@@ -322,9 +334,9 @@ export default class extends React.Component {
                 title='小灶群面7天闪电计划(初级)'
                 content={this.renderContent()}/>
             </div>
-            <a href={`/interview/intro?day=${mainintro.day}`}>
-              <Button>今日打卡</Button>
-            </a>
+            <Button onClick={() => {
+              this.toLink(mainintro)
+            }}>今日打卡</Button>
             <div className='complete'>
               <div className='blank'/>
               <div className='text'>已有{this.renderCompleteUser(mainintro)}人完成</div>
