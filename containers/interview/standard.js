@@ -150,6 +150,7 @@ export default class extends React.Component {
   }
 
   timeDown () {
+    alert('做题时间到，强制交卷')
     this.answerComplete()
   }
 
@@ -191,7 +192,6 @@ export default class extends React.Component {
 
     try {
       this.setState({isSubmit: true})
-      alert('做题时间到，强制交卷')
       const data = JSON.stringify({
         answerDTOList: answerList,
         time: new Date() - initTime,
