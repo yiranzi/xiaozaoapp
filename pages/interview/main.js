@@ -267,7 +267,7 @@ export default class extends React.Component {
   renderCompleteUser (mainintro) {
     if (mainintro) {
       const {day, interviewListDetailDTOList} = mainintro
-      let array = [1, 2, 3, 4, 5, 6, 7]
+      let array = [1, 2, 3, 4, 5, 6]
       return array.map((item, index) => {
         let today = item === day
         if (today) {
@@ -275,7 +275,7 @@ export default class extends React.Component {
         }
       })
     }
-
+    return 0
   }
 
   renderContent () {
@@ -320,6 +320,8 @@ export default class extends React.Component {
     } else {
       if (day === 1) {
         location.href = '/interview/intro?day=' + day
+      } else if (day === 7 || day === 8) {
+        location.href = '/interview/lastDay'
       } else {
         location.href = '/interview/intro?day=' + day
       }
@@ -329,6 +331,7 @@ export default class extends React.Component {
 
   render () {
     const {isRender, mainintro, error} = this.state
+    const day = mainintro.day
     return (
       <InterviewLayout isRender={isRender} error={error}>
         <div className='header'>
@@ -342,14 +345,20 @@ export default class extends React.Component {
                 title='小灶群面7天闪电计划(初级)'
                 content={this.renderContent()}/>
             </div>
-            <Button onClick={() => {
-              this.toLink(mainintro)
-            }}>今日打卡</Button>
-            <div className='complete'>
-              <div className='blank'/>
-              <div className='text'>已有{this.renderCompleteUser(mainintro)}人完成</div>
-              <div className='blank'/>
-            </div>
+            {day < 1 && <Button className='disabled'>未开始</Button>}
+            {(day >= 1 && day <= 8) &&
+              <Button onClick={() => {
+                this.toLink(mainintro)
+              }}>今日打卡</Button>
+            }
+            {day > 8 && <Button className='disabled'>已结束</Button>}
+            {(day >= 1 && day <= 6) &&
+              <div className='complete'>
+                <div className='blank'/>
+                <div className='text'>已有{this.renderCompleteUser(mainintro)}人完成</div>
+                <div className='blank'/>
+              </div>
+            }
             <div className='prev'>
               <div className='title'>往日打卡回顾</div>
               <div className='content'>{this.renderPrevContent(mainintro)}</div>
@@ -396,6 +405,9 @@ export default class extends React.Component {
           }
         `}</style>
         <style global jsx>{`
+          .disabled {
+            background-color: ${ThemeConfig.color.border_gray} !important;
+          }
           .interview {
             padding: 0 !important;
           }
