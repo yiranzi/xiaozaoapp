@@ -177,7 +177,7 @@ export default class extends React.Component {
         <br/>
         <h4>日常练习</h4>
         <p>1. 累积别人的结构框架：无论是影视、书籍、文章，看到别人用的结构，记录下来，成为自己的素材。比如麦肯锡的 2016 China Consumer Report 中，你会发现麦肯锡就是按照“购买意愿、购买地点、购买方式，以及购买分配”对消费者进行分析的。</p>
-        <p>下载阅读材料（超链接：<a href='http://pan.baidu.com/s/1qYzBB8w' target='_blank'>http://pan.baidu.com/s/1qYzBB8w</a>）</p>
+        <p><a href='http://pan.baidu.com/s/1qYzBB8w' target='_blank'>下载阅读材料</a></p>
         <br/>
         <p>2. 主动思考：每天给出一个小题目，花 10 分钟时间，建立结构，尽量符合我们提到的 MECE 原则、八二原则、神奇数字“3”来进行分析。你可以把结构写下来，也可以说给同伴听，让 ta 进行评价。比如今天你可以问自己：摩拜单车如何削减成本？你可以尝试列出这样的框架：</p>
         <ul className='list'>
@@ -196,8 +196,8 @@ export default class extends React.Component {
         <br/>
         <h4>练习</h4>
         <p>真正深入理解一个商业分析框架，需要阅读相应的著作，可以试着从 3C 模型和五力模型作为例子开始：</p>
-        <p>阅读材料1（超链接：<a href='http://pan.baidu.com/s/1o85LqX0'>http://pan.baidu.com/s/1o85LqX0</a>）</p>
-        <p>阅读材料2（超链接：<a href='http://pan.baidu.com/s/1cCVu9K'>http://pan.baidu.com/s/1cCVu9K</a>）</p>
+        <p><a href='http://pan.baidu.com/s/1o85LqX0' target='_blank'>阅读材料1</a></p>
+        <p><a href='http://pan.baidu.com/s/1cCVu9K' target='_blank'>阅读材料2</a></p>
       </div>
       }
       {(topicKey == '4') &&
