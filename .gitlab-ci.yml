@@ -10,9 +10,9 @@ dev_deploy:
   only:
    - test
   script:
-   - rm -rf /usr/local/wechat-app
    - yarn
    - npm run build
+   - rm -rf /usr/local/wechat-app
    - "rsync -a out/. /usr/local/wechat-app"
 
 master_deploy:
@@ -20,7 +20,7 @@ master_deploy:
   only: 
    - master
   script:
-   - rm -rf /data/wechat-app
    - yarn
    - npm run build
+   - rm -rf /data/wechat-app
    - "rsync -a out/. /data/wechat-app"
