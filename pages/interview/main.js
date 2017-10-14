@@ -149,10 +149,10 @@ export default class extends React.Component {
 
   renderTop (mainintro) {
     if (mainintro) {
-      let title
+      let title = null
       const {day, interviewListDetailDTOList} = mainintro
       interviewListDetailDTOList.map((item, index) => {
-        if (item.day === day) {
+        if (item.day === day && title == null) {
           title = item.title
         }
       })
@@ -164,10 +164,13 @@ export default class extends React.Component {
               {day < 1 &&
                 <div className='no'>群面7天打卡计划（未开始）</div>
               }
-              {(day >= 1 && day <= 7) &&
+              {(day >= 1 && day <= 6) &&
                 <div className='no'>第{day}天 {title}</div>
               }
-              {day > 7 &&
+              {(day >= 7 && day <= 8) &&
+                <div className='no'>线上群面模拟</div>
+              }
+              {day > 8 &&
                 <div className='no'>群面7天打卡计划（已结束）</div>
               }
               <div className='time'>打卡时间：09:00 ~ 23:59:59</div>
@@ -321,7 +324,7 @@ export default class extends React.Component {
       if (day === 1) {
         location.href = '/interview/intro?day=' + day
       } else if (day === 7 || day === 8) {
-        location.href = '/interview/lastDay'
+        location.href = '/interview/lastday'
       } else {
         location.href = '/interview/intro?day=' + day
       }
