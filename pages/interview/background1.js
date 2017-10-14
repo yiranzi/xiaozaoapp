@@ -17,7 +17,10 @@ export default class extends React.Component {
     return (
       <InterviewLayout >
         <Back text='< 返回打卡主页' url='/interview/main' />
-        <Card content={this.renderContent()}/>
+        <div>
+          <Card content={this.renderContent()}/>
+          <a href='/interview/task'><Button>下一页</Button></a>
+        </div>
       </InterviewLayout>
     )
   }

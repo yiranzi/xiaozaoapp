@@ -39,7 +39,8 @@ export default class extends React.Component {
   }
 
   render () {
-    const {isRender} = this.state
+    const {isRender, day} = this.state
+    console.log(day);
     return (
       <InterviewLayout isRender={isRender} >
         <Back text='< 返回打卡主页' url='/interview/main' />
@@ -48,7 +49,15 @@ export default class extends React.Component {
             title='打卡说明'
             content={this.renderIntroContent()}
           />
-          <a href='/interview/task'><Button>开始打卡</Button></a>
+          {day == 1 &&
+            <a href='/interview/background1'><Button>开始打卡</Button></a>
+          }
+          {day == 6 &&
+            <a href='/interview/background6'><Button>开始打卡</Button></a>
+          }
+          {(day != 1 && day != 6) &&
+            <a href='/interview/task'><Button>开始打卡</Button></a>
+          }
         </div>
       </InterviewLayout>
     )
