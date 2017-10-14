@@ -12,12 +12,14 @@ export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      day: ''
+      day: '',
+      isRender: true
     }
   }
 
   componentDidMount () {
     this.setState({day: ToolsUtil.getQueryString('day')})
+    this.setState({isRender: false})
   }
 
   renderIntroContent () {
@@ -37,8 +39,9 @@ export default class extends React.Component {
   }
 
   render () {
+    const {isRender} = this.state
     return (
-      <InterviewLayout >
+      <InterviewLayout isRender={isRender} >
         <Back text='< 返回打卡主页' url='/interview/main' />
         <div className='intro-content'>
           <Card

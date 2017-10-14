@@ -52,7 +52,7 @@ export default class extends React.Component {
       })
     }
 
-    if (topicKey == '1-2') {
+    if (topicKey === '1-2') {
       const prevAnswerTime = this.queryPrevAnswerTime('1-1')
       this.setState({
         prevAnswerTime: prevAnswerTime
@@ -77,13 +77,14 @@ export default class extends React.Component {
   }
 
   renderContent () {
-    const {topicKey} = this.state
+    const {topicKey, answerTime} = this.state
+    let answerTimeSecond = parseInt(answerTime / 1000)
     if (topicKey) {
       let content = result[`day${topicKey}`]
       if (content) {
-        let minute = parseInt(this.state.answerTime / 60)
+        let minute = parseInt(answerTimeSecond / 60)
         minute = (minute == 0 ? 1 : minute)
-        let second = Math.floor(this.state.answerTime / 60 % 1 * 100) / 100
+        let second = Math.floor(answerTimeSecond / 60 % 1 * 100) / 100
         if (topicKey === '1-1') {
           content[0] = content[0].replace('accuracyValue', this.state.score + '/' + this.state.selectedCount)
           content[0] = content[0].replace('speedValue', parseInt(686 / minute))
@@ -103,6 +104,11 @@ export default class extends React.Component {
         return <div>
           <img src='/static/img/interview/result-icon.png'/>
           {text}
+          <style jsx>{`
+            img {
+              width: 30%;
+            }
+          `}</style>
         </div>
       } else {
         return <div/>
@@ -117,10 +123,26 @@ export default class extends React.Component {
     if (topicKey == '1-1' || topicKey == '5-1') {
       const day = (topicKey == '1-1' ? '1-2' : topicKey == '5-1' ? '5-2' : null)
       return <div>
-        <div>
+        <div className='content'>
           alwkefjlkwejflwke
         </div>
-        <Footer><a href={`/interview/task?topicKey=${day}`}><Button>再来一次</Button></a></Footer>
+        <div className='more'>
+          <a href={`/interview/task?topicKey=${day}`}><Button>再来一次</Button></a>
+        </div>
+        <style jsx>{`
+          .content {
+            margin-bottom: 5rem;
+          }
+          .more {
+            position: fixed;
+            width: 100%;
+            left: 0;
+            bottom: 0;
+            background-color: #F9F9F9;
+            padding: 1rem;
+            box-sizing: border-box;
+          }
+        `}</style>
       </div>
     } else if (topicKey == '1-2') {
       return <div>
@@ -157,6 +179,15 @@ export default class extends React.Component {
         <style jsx>{`
           .interview-result {
             text-align: center;
+          }
+        `}</style>
+        <style global jsx>{`
+          .interview-result .card {
+            background: #fff;
+          }
+          .interview-result button.weui-btn,
+          .more button.weui-btn {
+            width: 50%;
           }
         `}</style>
       </InterviewLayout>
