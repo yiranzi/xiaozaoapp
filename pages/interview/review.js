@@ -65,12 +65,8 @@ export default class extends React.Component {
   }
 
   renderTask () {
-    const {day, questionList} = this.state
-    if (standard.indexOf(day) >= 0) {
-      return <StandardReview questionList={questionList}/>
-    } else {
-      return <UnStandardReview questionList={questionList}/>
-    }
+    const {questionList} = this.state
+    return <StandardReview questionList={questionList}/>
   }
 
   render () {
