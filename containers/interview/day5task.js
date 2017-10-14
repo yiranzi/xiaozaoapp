@@ -346,23 +346,23 @@ export default class extends React.Component {
     }
 
     let localId
+    if (DataUtil.isEmpty(answerList)) {
+      localId = ''
+    } else {
+      localId = answerList[id] ? answerList[id].localId : ''
+    }
+
+    if (!localId) {
+      alert('请先录音，再进入下一题')
+      this.setState({canNext: false})
+      return
+    }
 
     if (isPlaying) {
       this.stopVoice(localId, function () {
         if (nextIndex >= questionLength - 1) {
           this.setState({index: nextIndex, noNext: true, noPrev: false})
         } else {
-          if (DataUtil.isEmpty(answerList)) {
-            localId = ''
-          } else {
-            localId = answerList[id] ? answerList[id].localId : ''
-          }
-
-          if (!localId) {
-            alert('请先录音，再进入下一题')
-            this.setState({canNext: false})
-            return
-          }
           this.setState({index: nextIndex, noPrev: false})
         }
       })
@@ -370,17 +370,6 @@ export default class extends React.Component {
       if (nextIndex >= questionLength - 1) {
         this.setState({index: nextIndex, noNext: true, noPrev: false})
       } else {
-        if (DataUtil.isEmpty(answerList)) {
-          localId = ''
-        } else {
-          localId = answerList[id] ? answerList[id].localId : ''
-        }
-
-        if (!localId) {
-          alert('请先录音，再进入下一题')
-          this.setState({canNext: false})
-          return
-        }
         this.setState({index: nextIndex, noPrev: false})
       }
     }
