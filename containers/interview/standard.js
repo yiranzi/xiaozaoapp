@@ -72,7 +72,7 @@ export default class extends React.Component {
     const {interviewTopicDTOList} = questionList
     const {index, noPrev} = this.state
     const {id, material, question} = interviewTopicDTOList[index]
-    const questionLength = question.length
+    const questionLength = interviewTopicDTOList.length
     return (
       <div className='dto-list'>
         <div className='material'>
@@ -168,7 +168,7 @@ export default class extends React.Component {
   next (questionLength) {
     const {index} = this.state
     const nextIndex = index + 1
-    if (nextIndex <= questionLength - 1) {
+    if (nextIndex >= questionLength-1) {
       this.setState({index: nextIndex, noNext: true, noPrev: false})
     } else {
       this.setState({index: nextIndex, noPrev: false})

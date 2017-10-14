@@ -111,7 +111,7 @@ export default class extends React.Component {
                 this.answerComplete()
               }}>提交</Button>
               : <Button onClick={() => {
-                this.next(id, questionLength, interviewTopicDTOList)
+                this.next(questionLength)
               }}>下一题</Button>
             }
           </div>
@@ -173,17 +173,12 @@ export default class extends React.Component {
     }
   }
 
-  next (id, questionLength, DTOList) {
+  next (questionLength) {
     const {index} = this.state
     const nextIndex = index + 1
-
-    console.log('questionLength:', questionLength, ' nextIndex:', nextIndex)
-
     if (nextIndex >= questionLength-1) {
-      console.log("没有了")
       this.setState({index: nextIndex, noNext: true, noPrev: false})
     } else {
-      console.log('还有')
       this.setState({index: nextIndex, noPrev: false})
     }
   }
