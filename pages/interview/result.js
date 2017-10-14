@@ -161,8 +161,7 @@ export default class extends React.Component {
       }
       {(topicKey == '2') &&
       <div className='pratice'>
-        <h4>提升自己的结构化思维，我们有以下的建议</h4>
-        <br/>
+        <h4>提升自己的结构化思维，我们有以下的建议：</h4>
         <h4>推荐课程</h4>
         <p>三三原则</p>
         <br/>
@@ -175,7 +174,7 @@ export default class extends React.Component {
         <p>下载阅读材料（超链接：<a href='http://pan.baidu.com/s/1qYzBB8w' target='_blank'>http://pan.baidu.com/s/1qYzBB8w</a>）</p>
         <br/>
         <p>2. 主动思考：每天给出一个小题目，花 10 分钟时间，建立结构，尽量符合我们提到的 MECE 原则、八二原则、神奇数字“3”来进行分析。你可以把结构写下来，也可以说给同伴听，让 ta 进行评价。比如今天你可以问自己：摩拜单车如何削减成本？你可以尝试列出这样的框架：</p>
-        <ul>
+        <ul className='list'>
           <li>生产成本</li>
           <li>运营调度成本</li>
           <li>市场推广成本</li>
@@ -184,7 +183,7 @@ export default class extends React.Component {
       }
       {(topicKey == '3') &&
       <div className='pratice'>
-        <h4>提升自己的对商业分析框架的运用，我们有以下的建议</h4>
+        <h4>提升自己的对商业分析框架的运用，我们有以下的建议：</h4>
         <br/>
         <h4>阅读推荐</h4>
         <p>学了很多框架，却还是不会分析 <a href='http://mp.weixin.qq.com/s/CJjKG6FjUlNGTzVJWDkZ-w' target='_blank'>http://mp.weixin.qq.com/s/CJjKG6FjUlNGTzVJWDkZ-w</a></p>
@@ -197,7 +196,7 @@ export default class extends React.Component {
       }
       {(topicKey == '4') &&
       <div className='pratice'>
-        <h4>阅读推荐</h4>
+        <h4>阅读推荐：</h4>
         <br/>
         <img className='day1result' src='/static/img/interview/day4/day4_result%20(1).jpg'/>
         <img className='day1result' src='/static/img/interview/day4/day4_result%20(2).jpg'/>
@@ -209,7 +208,7 @@ export default class extends React.Component {
       }
       {(topicKey == '5-1') &&
       <div className='pratice'>
-        <h4>群面时准备 presentation 的建议</h4>
+        <h4>群面时准备 presentation 的建议：</h4>
         <br/>
         <Audio src=''/>
         <br/>
@@ -229,7 +228,7 @@ export default class extends React.Component {
       }
       {(topicKey == '5-2') &&
       <div className='pratice'>
-        <h4>推荐阅读</h4>
+        <h4>推荐阅读：</h4>
         <p><a href='http://mp.weixin.qq.com/s/6_FVLCicKjS0Y8_goXH07A' target='_blank'>http://mp.weixin.qq.com/s/6_FVLCicKjS0Y8_goXH07A</a></p>
         <br/>
         <h4>更多练习</h4>
@@ -238,7 +237,7 @@ export default class extends React.Component {
       }
       {(topicKey == '6') &&
       <div className='pratice'>
-        <h4>群面时获取信息（听力）的建议</h4>
+        <h4>群面时获取信息（听力）的建议：</h4>
         <br/>
         <img className='day1result' src='/static/img/interview/day6/day6_result%20(1).jpg'/>
         <img className='day1result' src='/static/img/interview/day6/day6_result%20(2).jpg'/>
@@ -259,6 +258,9 @@ export default class extends React.Component {
       <style jsx>{`
         .day1result {
           width: 100%;
+        }
+        .list {
+          margin-left: 20px;
         }
         .pratice {
           margin-bottom: 5rem;
