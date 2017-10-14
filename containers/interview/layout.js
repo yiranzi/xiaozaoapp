@@ -34,7 +34,7 @@ export default class extends React.Component {
         {this.renderChildren()}
         <style global jsx>{`
           body {
-            font-size: 14px;
+            font-size: 12px;
           }
           .interview .weui-btn_primary,
           .interview .weui-btn_primary:not(.weui-btn_disabled):active {
