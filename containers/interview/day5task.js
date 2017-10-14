@@ -3,6 +3,7 @@ import {Button, Form} from 'react-weui'
 import classNames from 'classnames'
 import ToolsUtil from '../../util/tools'
 import AxiosUtil from '../../util/axios'
+import DataUtil from '../../util/data'
 import Radio from '../../components/radio'
 import Audio from '../../components/audio'
 import Loading from '../../components/loading'
@@ -60,6 +61,12 @@ export default class extends React.Component {
   stopRecord (id) {
     const {isRecording, isPlaying} = this.state
     const _this = this
+
+    let localId = 'locaId'
+    _this.setState({isRecording: false}, function () {
+      _this.uploadVoice(id, localId)
+    })
+
     if (isRecording && !isPlaying) {
       wx.stopRecord({
         success: function (res) {
@@ -345,37 +352,27 @@ export default class extends React.Component {
   next (id, questionLength, DTOList) {
     const {index} = this.state
     const nextIndex = index + 1
-    const isVoice = DTOList[index].voice
 
-    if (isVoice) {
-      const {answerList, isRecording, isPlaying} = this.state
-      let localId = answerList[id] ? answerList[id].localId : ''
-      if (isRecording) {
-        alert('正在录音，请结束录音后进入下一题')
-        this.setState({canNext: false})
-        return
-      }
-      if (!localId) {
-        alert('请先录音，再进入下一题')
-        this.setState({canNext: false})
-        return
-      }
-      if (isPlaying) {
-        this.stopVoice(localId)
-      }
-      if (nextIndex <= questionLength - 1) {
-        this.setState({index: nextIndex, noNext: true, noPrev: false})
-      } else {
-        this.setState({index: nextIndex, noPrev: false})
-      }
-    } else {
-      if (nextIndex <= questionLength - 1) {
-        this.setState({index: nextIndex, noNext: true, noPrev: false})
-      } else {
-        this.setState({index: nextIndex, noPrev: false})
-      }
+    const {isRecording, isPlaying} = this.state
+
+    if (isRecording) {
+      alert('正在录音，请结束录音后进入下一题')
+      this.setState({canNext: false})
+      return
     }
-
+    if (!localId) {
+      alert('请先录音，再进入下一题')
+      this.setState({canNext: false})
+      return
+    }
+    if (isPlaying) {
+      this.stopVoice(localId)
+    }
+    if (nextIndex >= questionLength - 1) {
+      this.setState({index: nextIndex, noNext: true, noPrev: false})
+    } else {
+      this.setState({index: nextIndex, noPrev: false})
+    }
   }
 
   formatAnswerList () {
