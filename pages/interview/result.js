@@ -59,10 +59,7 @@ export default class extends React.Component {
     }
 
     if (topicKey == '1-2') {
-      const prevAnswerTime = this.queryPrevAnswerTime('1-1')
-      this.setState({
-        prevAnswerTime: prevAnswerTime
-      })
+      this.queryPrevAnswerTime('1-1')
     }
   }
 
@@ -75,10 +72,13 @@ export default class extends React.Component {
         method: 'get',
         url: '/api/interview/getCompleteByTopicKey/' + topicKey
       })
-      return interviewResult.answerTime
+      if(interviewResult) {
+        this.setState({
+          prevAnswerTime: interviewResult.answerTime
+        })
+      }
     } catch (e) {
       console.log('err')
-      return 0
     }
   }
 
