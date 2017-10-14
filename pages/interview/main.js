@@ -161,8 +161,16 @@ export default class extends React.Component {
         <div>
           <div className='wrapper'>
             <div className='left'>
-              <div className='no'>第{day}天 {title}</div>
-              <div className='time'>打卡时间：10月{currentDay}日 09:00 ~ 23:59:59</div>
+              {day < 1 &&
+                <div className='no'>群面7天打卡计划（未开始）</div>
+              }
+              {(day >= 1 && day <= 7) &&
+                <div className='no'>第{day}天 {title}</div>
+              }
+              {day > 7 &&
+                <div className='no'>群面7天打卡计划（已结束）</div>
+              }
+              <div className='time'>打卡时间：09:00 ~ 23:59:59</div>
             </div>
             <div className='right'>
               <img src='/static/img/interview/clock.png'/>
@@ -328,7 +336,7 @@ export default class extends React.Component {
         </div>
         <div className='interview-main'>
           <div className='intro'>
-            {this.renderTop(mainintro)}
+            {this.renderTop(mainintro)}x`
             <div className='sub'>
               <Card
                 title='小灶群面7天闪电计划(初级)'
