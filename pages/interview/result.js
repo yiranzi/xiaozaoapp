@@ -101,6 +101,13 @@ export default class extends React.Component {
           content[0] = content[0].replace('speedValue', parseInt(944 / minute))
           content[0] = content[0].replace('accuracyValue', this.state.score + '/' + this.state.selectedCount)
           content[0] = content[0].replace('readNumUp', (readNumUp < 0 ? 0 : readNumUp))
+        } else if (topicKey == '2' || topicKey == '3') {
+          content[0] = content[0].replace('answerTime', minute + '分' + second + '秒')
+          content[0] = content[0].replace('selectedCount', this.state.selectedCount)
+          content[0] = content[0].replace('scoreValue', this.state.score)
+          content[0] = content[0].replace('accuracyValue', this.state.score + '/' + this.state.selectedCount)
+        } else if (topicKey === '6-1' || topicKey === '6-2') {
+          content[0] = content[0].replace('accuracyValue', this.state.score + '/' + this.state.selectedCount)
         }
 
         const text = content.map((item, index) => {
@@ -228,14 +235,16 @@ export default class extends React.Component {
       }
       {(topicKey == '5-2') &&
       <div className='pratice'>
-        <h4>推荐阅读：</h4>
+        <h4>更多练习材料：</h4>
+        <br/>
+        <h4>推荐阅读</h4>
         <p><a href='http://mp.weixin.qq.com/s/6_FVLCicKjS0Y8_goXH07A' target='_blank'>http://mp.weixin.qq.com/s/6_FVLCicKjS0Y8_goXH07A</a></p>
         <br/>
         <h4>更多练习</h4>
         <p>链接: <a href='https://pan.baidu.com/s/1nvigGJJ'>https://pan.baidu.com/s/1nvigGJJ</a> 密码: mnwy</p>
       </div>
       }
-      {(topicKey == '6') &&
+      {(topicKey == '6-1') &&
       <div className='pratice'>
         <h4>群面时获取信息（听力）的建议：</h4>
         <br/>

@@ -10,10 +10,12 @@ module.exports = {
     '<p>与上次相比，您的阅读速度提升了readNumUp</p>'
   ],
   'day2': [
-    '打卡第二天'
+    '<p>你在answerTime内完成了selectedCount道题目</p>' +
+    '<p>其中scoreValue道题目回答正确，正确率为accuracyValue</p>'
   ],
   'day3': [
-    '打卡第三天'
+    '<p>你在answerTime内完成了selectedCount道题目</p>' +
+    '<p>其中scoreValue道题目回答正确，正确率为accuracyValue</p>'
   ],
   'day4': [
     '<p>恭喜你第四天打卡成功！</p>' +
@@ -29,7 +31,15 @@ module.exports = {
     '<p>你已掌握使用PREP结构的能力，业精于勤荒于嬉，记得勤加练习啊！</p>' +
     '<p>想了解更多结构，请关注第2天打卡内容——金字塔原理。</p>'
   ],
-  'day6': [
-    '<p></p>'
+  'day6-1': [
+    '<p>恭喜你完成听力自测，你的正确率为accuracyValue</p>' +
+    '<p>请查看下面的讲解内容，</p>' +
+    '<p>学习如何高效获取信息的技巧</p>'
+  ],
+  'day6-2': [
+    '<p>恭喜你第6天打卡成功！</p>' +
+    '<p>你的正确率为accuracyValue</p>' +
+    '<p>你的正确率正在提升（如果没提升，就不显示这句话）</p>' +
+    '<br/><p>小提示：群面中，想办法获取到关键信息才是最重要的！</p>'
   ]
 }
