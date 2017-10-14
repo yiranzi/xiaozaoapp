@@ -1,6 +1,7 @@
 module.exports = {
   'day1-1': [
-    '<p>您的正确率为accuracyValue，本文共686个英文词</p>' +
+    '<p>您在answerTime的时间内阅读了1025个单词</p>' +
+    '<p>您的正确率为accuracyValue</p>' +
     '<p>您的阅读速度为每分钟speedValue词</p>'
   ],
   'day1-2': [

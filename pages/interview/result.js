@@ -88,17 +88,15 @@ export default class extends React.Component {
       let content = result[`day${topicKey}`]
       if (content) {
         let minute = parseInt(this.state.answerTime / 1000 / 60)
-        minute = (minute == 0 ? 1 : minute)
-        let second = this.state.answerTime / 1000 % 60
+        let second = parseInt(this.state.answerTime / 1000 % 60)
         if (topicKey === '1-1') {
-          content[0] = content[0].replace('accuracyValue', this.state.score + '/' + this.state.selectedCount)
-          content[0] = content[0].replace('speedValue', parseInt(686 / minute))
-        } else if (topicKey === '1-2') {
-          let prevMinute = parseInt(this.state.prevAnswerTime / 1000 / 60)
-          prevMinute = (prevMinute == 0 ? 1 : prevMinute)
-          const readNumUp = parseInt(944 / minute) - parseInt(686 / prevMinute)
           content[0] = content[0].replace('answerTime', minute + '分' + second + '秒')
-          content[0] = content[0].replace('speedValue', parseInt(944 / minute))
+          content[0] = content[0].replace('accuracyValue', this.state.score + '/' + this.state.selectedCount)
+          content[0] = content[0].replace('speedValue', parseInt(1025 / parseInt(this.state.answerTime / 1000) * 60))
+        } else if (topicKey === '1-2') {
+          const readNumUp = parseInt(944 / parseInt(this.state.answerTime / 1000) * 60) - parseInt(1025 /  parseInt(this.state.prevAnswerTime / 1000) * 60)
+          content[0] = content[0].replace('answerTime', minute + '分' + second + '秒')
+          content[0] = content[0].replace('speedValue', parseInt(944 / parseInt(this.state.answerTime / 1000) * 60))
           content[0] = content[0].replace('accuracyValue', this.state.score + '/' + this.state.selectedCount)
           content[0] = content[0].replace('readNumUp', (readNumUp < 0 ? 0 : readNumUp))
         } else if (topicKey == '2' || topicKey == '3') {
