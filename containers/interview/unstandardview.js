@@ -1,10 +1,14 @@
 import React from 'react'
 import {Button, Form} from 'react-weui'
 import classNames from 'classnames'
+import DateUtil from '../../util/data'
+import ToolsUtil from '../../util/tools'
+import AxiosUtil from '../../util/axios'
 import Radio from '../../components/radio'
 import Audio from '../../components/audio'
+import Loading from '../../components/loading'
+import TimeUp from '../../components/timeup'
 import Back from '../../containers/interview/back'
-import ToolsUtil from '../../util/tools'
 
 export default class extends React.Component {
   constructor (props) {
@@ -13,7 +17,7 @@ export default class extends React.Component {
       index: 0,
       noPrev: true,
       noNext: false,
-      answerList: {}
+      canNext: false
     }
   }
 
@@ -37,88 +41,118 @@ export default class extends React.Component {
     })
   }
 
-  renderAnswer (answerDTOList) {
+  renderAnaysis (anaysis) {
+    if (anaysis.indexOf('png') >= 0 && anaysis.indexOf('jpg') >= 0) {
+      let anaysisArray = eval(anaysis)
+
+      return anaysisArray.map((item, index) => {
+        return <div key={index} className='meterial-item'>
+          <img src={item}/>
+          <style jsx>{`
+            img {
+              width: 100%;
+            }
+          `}</style>
+        </div>
+      })
+    } else {
+      return <div className='meterial-item'>{anaysis}</div>
+    }
+
+  }
+
+  getAnswerList (answerDTOList) {
     let json = {}
     answerDTOList.map((item, index) => {
-      const {id, answer} = item
-      json[id] = answer
+      json[item.id] = item.answer
     })
     return json
   }
 
-  renderDTOList (topicKey ,answerDTOList, DTOList) {
+  renderRadioGroup (id, index, answerList, DTOList) {
+    const name = `answer_${index}`
+    const options = DTOList[index].optionDTOList
+    answerList = this.getAnswerList(answerList)
+
+    return options.map((item, i) => {
+      const {tag, content} = item
+      const params = {
+        name: name,
+        value: tag,
+        label: tag + '、' + content,
+        defaultValue: answerList ? answerList[id] : '',
+        disabled: true
+      }
+      const key = `answer_${index}_${i}`
+      return (
+        <Radio key={key} params={params}/>
+      )
+    })
+  }
+
+  renderAnswerOption (id, answerDTOList, DTOList) {
     const {index} = this.state
-    const currentIndex = index
-    const {material, question, voice} = DTOList[index]
-    const questionLength = question.length
-    let answerList = this.renderAnswer(answerDTOList)
+    return <Form radio>{this.renderRadioGroup(id, index, answerDTOList, DTOList)}</Form>
+  }
+
+  renderDTOList () {
+    const {questionList} = this.props
+    const {topicKey, day, answerDTOList, interviewTopicDTOList} = questionList
+    const {index, noPrev, noNext} = this.state
+    const {id, material} = interviewTopicDTOList[index]
+    const questionLength = interviewTopicDTOList.length
+
     return (
       <div className='dto-list'>
-        <Back text='< 返回结果页' url={`/interview/result?topicKey=${topicKey}`} />
         <div className='material'>
-          <div className='title'>材料</div>
+          <div className='title'>材料<Back text='< 返回结果页' url={`/interview/result?topicKey=${topicKey}`}/></div>
           <div className='content'>{this.renderMaterial(material)}</div>
         </div>
         <div className='pratice'>
           <div className='title'>练习</div>
           <div className='content'>
-            <div className='question'>{DTOList[index].no}、{DTOList[index].question}</div>
+            <div className='question'>{interviewTopicDTOList[index].no}、{interviewTopicDTOList[index].question}</div>
             <div className='options'>
-              <Form radio>
-                {DTOList[index].optionDTOList.map((item, index) => {
-                  const params = {
-                    name: `answer-${currentIndex}`,
-                    value: item.tag,
-                    label: item.tag + '、' + item.content,
-                    defaultValue: 'A',
-                    disabled: true
-                  }
-                  return (
-                    <div key={`${DTOList.title}-${index}`} className='option-item'>
-                      <Radio
-                        params={params}
-                        onChange={(value) => {
-                          this.onChange(item.id, value)
-                        }}
-                      />
-                    </div>
-                  )
-                })}
-              </Form>
+              {this.renderAnswerOption(id, answerDTOList, interviewTopicDTOList)}
             </div>
           </div>
         </div>
         <div className='answer'>
-          <div className='title'>答案及解析</div>
+          <div className='title'>您的回答</div>
           <div className='content'>
-            <div className='result'>
-              <div>参考答案: {DTOList[index].answer}</div>
-              <div>正确率:</div>
-            </div>
-            <div className='analysis'>
-              参考解析：{DTOList[index].analysis}
-            </div>
+            <Audio src={`http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/interview/audio/${interviewTopicDTOList[index].answer}.mp3`}/>
           </div>
         </div>
         <div className='action'>
-          <div className={classNames({prev: true, disabled: this.state.noPrev})}>
-            <Button onClick={() => {
-              this.prev(questionLength)
-            }}>上一题</Button>
-          </div>
-          <div className={classNames({next: true, disabled: this.state.noNext})}>
-            <Button onClick={() => {
-              this.next(questionLength)
-            }}>下一题</Button>
-          </div>
+          {noPrev && (<div className='prev disabled'><Button>上一题</Button></div>)}
+          {!noPrev && (
+            <div className={classNames({prev: true, disabled: this.state.noPrev})}>
+              <Button onClick={() => {
+                this.prev(questionLength)
+              }}>上一题</Button>
+            </div>
+          )}
+          {noNext && (<div className='next disabled'><Button>下一题</Button></div>)}
+          {!noNext && (
+            <div className={classNames({next: true, disabled: this.state.noNext})}>
+              <Button onClick={() => {
+                this.next(questionLength)
+              }}>下一题</Button>
+            </div>
+          )}
         </div>
         <style jsx>{`
           .title {
             font-weight: bold;
             margin: 1rem 0;
+            display: flex;
+            justify-content: space-between;
           }
           .option-item {
             margin-top: 0.5rem;
+          }
+          .answer {
+            margin-bottom: 5rem;
           }
           .action {
             display: flex;
@@ -131,17 +165,11 @@ export default class extends React.Component {
             box-sizing: border-box;
             background: #F9F9F9;
           }
-          .answer {
-            margin-bottom: 5rem;
-          }
           .prev, .next {
             flex: 1;
           }
           .next {
             margin-left: 1rem;
-          }
-          .result {
-            display: flex;
           }
         `}</style>
       </div>
@@ -149,11 +177,8 @@ export default class extends React.Component {
   }
 
   prev (questionLength) {
-    const {index, noPrev} = this.state
+    const {index} = this.state
     const prevIndex = index - 1
-    if (noPrev) {
-      return
-    }
 
     if (prevIndex <= 0) {
       this.setState({index: prevIndex, noNext: false, noPrev: true})
@@ -163,12 +188,10 @@ export default class extends React.Component {
   }
 
   next (questionLength) {
-    const {index, noNext} = this.state
+    const {index} = this.state
     const nextIndex = index + 1
-    if (noNext) {
-      return
-    }
-    if (nextIndex <= questionLength - 1) {
+
+    if (nextIndex >= questionLength - 1) {
       this.setState({index: nextIndex, noNext: true, noPrev: false})
     } else {
       this.setState({index: nextIndex, noPrev: false})
@@ -176,12 +199,17 @@ export default class extends React.Component {
   }
 
   render () {
-    const {questionList} = this.props
-    const {topicKey, answerDTOList, interviewTopicDTOList} = questionList
+    const {isSubmit} = this.state
 
     return (
       <div className='standard'>
-        {this.renderDTOList(topicKey, answerDTOList, interviewTopicDTOList)}
+        {isSubmit && <Loading/>}
+        {this.renderDTOList()}
+        <style global jsx>{`
+          .back {
+            font-weight: normal;
+          }
+        `}</style>
       </div>
     )
   }
