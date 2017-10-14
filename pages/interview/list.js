@@ -117,8 +117,8 @@ export default class extends React.Component {
     )
   }
 
-  toLink (past, topicKey) {
-    if (past) {
+  toLink (showResult, topicKey) {
+    if (showResult) {
       location.href = '/interview/review?topicKey=' + topicKey
     }
   }
@@ -130,8 +130,11 @@ export default class extends React.Component {
         const {day, title, subTitle, topicKey} = item
         let past = item.day < day
         let complete = clock.indexOf(day) >= 0
+        let showResult = past || complete
         return (
-          <div key={index} className='interview-item' onClick={() => {this.toLink(past, topicKey)}}>
+          <div key={index} className='interview-item' onClick={() => {
+            this.toLink(showResult, topicKey)
+          }}>
             <div className='icon'><img src={intro[`day${day}`]}/></div>
             <div className='content'>
               <div className='top'>
@@ -139,11 +142,11 @@ export default class extends React.Component {
                   <div className='title'>第{day}天 {title}</div>
                   <div className='sub-title'>{subTitle}</div>
                 </div>
-                {past && <div className='right'>
+                {showResult && <div className='right'>
                   {this.renderComplete(complete)}
                 </div>}
               </div>
-              {past && <div className='bottom'>
+              {showResult && <div className='bottom'>
                 <div className='left'>
                   <div className='sub'>打卡成绩：<span>{item.result}</span></div>
                 </div>
