@@ -33,6 +33,9 @@ export default class extends React.Component {
       <Layout>
         {this.renderChildren()}
         <style global jsx>{`
+          body {
+            font-size: 14px;
+          }
           .interview .weui-btn_primary,
           .interview .weui-btn_primary:not(.weui-btn_disabled):active {
             color: ${ThemeConfig.color.white};
