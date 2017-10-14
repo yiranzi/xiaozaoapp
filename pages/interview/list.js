@@ -89,7 +89,7 @@ export default class extends React.Component {
   }
 
   toLink (showResult, topicKey) {
-    location.href = '/interview/result?topicKey=' + topicKey
+    location.href = '/interview/review?topicKey=' + topicKey
   }
 
   renderList (list) {
