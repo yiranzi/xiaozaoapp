@@ -285,6 +285,9 @@ export default class extends React.Component {
           box-sizing: border-box;
           background: #F9F9F9;
         }
+        .action a {
+          width: 100%;
+        }
       `}</style>
     </div>
   }
@@ -305,7 +308,7 @@ export default class extends React.Component {
         <Back text='< 返回' url='/interview/list'/>
         <div className='interview-result'>
           <Card content={this.renderContent()}/>
-          <Footer>{this.renderAnalysis()}</Footer>
+          <div className='analysis'>{this.renderAnalysis()}</div>
         </div>
         <div className='interview-result-more'>
           {this.renderResultMore()}
@@ -313,6 +316,11 @@ export default class extends React.Component {
         <style jsx>{`
           .interview-result {
             text-align: center;
+          }
+        `}</style>
+        <style global jsx>{`
+          button.weui-btn {
+            width: 50% !important;
           }
         `}</style>
       </InterviewLayout>
