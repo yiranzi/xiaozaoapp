@@ -126,164 +126,156 @@ export default class extends React.Component {
 
   renderResultMore () {
     const {topicKey} = this.state
-    if (topicKey == '1-1' || topicKey == '5-1') {
-      const day = (topicKey == '1-1' ? '1-2' : topicKey == '5-1' ? '5-2' : null)
-      return <div>
+    const day = (topicKey == '1-1' ? '1-2' : topicKey == '5-1' ? '5-2' : null)
+    return <div>
+      <br/>
+      {(topicKey == '1-1') &&
+      <div className='pratice'>
+        <h4>群面时case阅读建议</h4>
         <br/>
-        {(topicKey == '1-1') &&
-        <div className='pratice'>
-          <h4>群面时case阅读建议</h4>
-          <br/>
-          <Audio src=''/>
-          <br/>
-          <img className='day1result' src='/static/img/interview/day1/day1_result%20(1).jpg'/>
-          <img className='day1result' src='/static/img/interview/day1/day1_result%20(2).jpg'/>
-          <img className='day1result' src='/static/img/interview/day1/day1_result%20(3).jpg'/>
-          <img className='day1result' src='/static/img/interview/day1/day1_result%20(4).jpg'/>
-          <img className='day1result' src='/static/img/interview/day1/day1_result%20(5).jpg'/>
-          <img className='day1result' src='/static/img/interview/day1/day1_result%20(6).jpg'/>
-          <img className='day1result' src='/static/img/interview/day1/day1_result%20(7).jpg'/>
-          <img className='day1result' src='/static/img/interview/day1/day1_result%20(8).jpg'/>
-          <img className='day1result' src='/static/img/interview/day1/day1_result%20(9).jpg'/>
-          <img className='day1result' src='/static/img/interview/day1/day1_result%20(10).jpg'/>
-          <img className='day1result' src='/static/img/interview/day1/day1_result%20(11).jpg'/>
-        </div>
-        }
-        {(topicKey == '1-2') &&
-        <div className='pratice'>
-          <h4>群面时case阅读建议</h4>
-          <br/>
-          <img className='day1result' src='/static/img/interview/day1/day1_2_result%20(1).jpg'/>
-          <img className='day1result' src='/static/img/interview/day1/day1_2_result%20(2).jpg'/>
-          <br/>
-          <h4>推荐阅读</h4>
-          <img className='day1result' src='/static/img/interview/day1/day1_2_result%20(3).jpg'/>
-        </div>
-        }
-        {(topicKey == '2') &&
-        <div className='pratice'>
-          <h4>提升自己的结构化思维，我们有以下的建议</h4>
-          <br/>
-          <h4>推荐课程</h4>
-          <p>三三原则</p>
-          <br/>
-          <h4>阅读推荐</h4>
-          <p>老聃的金字塔原理：<a href='http://www.fengtang.com/blog/?p=113' target='_blank'>http://www.fengtang.com/blog/?p=113</a></p>
-          <p>《金字塔原理》电子书下载</p>
-          <br/>
-          <h4>日常练习</h4>
-          <p>1. 累积别人的结构框架：无论是影视、书籍、文章，看到别人用的结构，记录下来，成为自己的素材。比如麦肯锡的 2016 China Consumer Report 中，你会发现麦肯锡就是按照“购买意愿、购买地点、购买方式，以及购买分配”对消费者进行分析的。</p>
-          <p>下载阅读材料（超链接：<a href='http://pan.baidu.com/s/1qYzBB8w' target='_blank'>http://pan.baidu.com/s/1qYzBB8w</a>）</p>
-          <br/>
-          <p>2. 主动思考：每天给出一个小题目，花 10 分钟时间，建立结构，尽量符合我们提到的 MECE 原则、八二原则、神奇数字“3”来进行分析。你可以把结构写下来，也可以说给同伴听，让 ta 进行评价。比如今天你可以问自己：摩拜单车如何削减成本？你可以尝试列出这样的框架：</p>
-          <ul>
-            <li>生产成本</li>
-            <li>运营调度成本</li>
-            <li>市场推广成本</li>
-          </ul>
-        </div>
-        }
-        {(topicKey == '3') &&
-        <div className='pratice'>
-          <h4>提升自己的对商业分析框架的运用，我们有以下的建议</h4>
-          <br/>
-          <h4>阅读推荐</h4>
-          <p>学了很多框架，却还是不会分析 <a href='http://mp.weixin.qq.com/s/CJjKG6FjUlNGTzVJWDkZ-w' target='_blank'>http://mp.weixin.qq.com/s/CJjKG6FjUlNGTzVJWDkZ-w</a></p>
-          <br/>
-          <h4>练习</h4>
-          <p>真正深入理解一个商业分析框架，需要阅读相应的著作，可以试着从 3C 模型和五力模型作为例子开始：</p>
-          <p>阅读材料1（超链接：<a href='http://pan.baidu.com/s/1o85LqX0'>http://pan.baidu.com/s/1o85LqX0</a>）</p>
-          <p>阅读材料2（超链接：<a href='http://pan.baidu.com/s/1cCVu9K'>http://pan.baidu.com/s/1cCVu9K</a>）</p>
-        </div>
-        }
-        {(topicKey == '4') &&
-        <div className='pratice'>
-          <h4>阅读推荐</h4>
-          <br/>
-          <img className='day1result' src='/static/img/interview/day4/day4_result%20(1).jpg'/>
-          <img className='day1result' src='/static/img/interview/day4/day4_result%20(2).jpg'/>
-          <img className='day1result' src='/static/img/interview/day4/day4_result%20(3).jpg'/>
-          <img className='day1result' src='/static/img/interview/day4/day4_result%20(4).jpg'/>
-          <img className='day1result' src='/static/img/interview/day4/day4_result%20(5).jpg'/>
-          <img className='day1result' src='/static/img/interview/day4/day4_result%20(6).jpg'/>
-        </div>
-        }
-        {(topicKey == '5-1') &&
-        <div className='pratice'>
-          <h4>群面时准备 presentation 的建议</h4>
-          <br/>
-          <Audio src=''/>
-          <br/>
-          <img className='day1result' src='/static/img/interview/day5/day5_result%20(1).jpg'/>
-          <img className='day1result' src='/static/img/interview/day5/day5_result%20(2).jpg'/>
-          <img className='day1result' src='/static/img/interview/day5/day5_result%20(3).jpg'/>
-          <img className='day1result' src='/static/img/interview/day5/day5_result%20(4).jpg'/>
-          <img className='day1result' src='/static/img/interview/day5/day5_result%20(5).jpg'/>
-          <img className='day1result' src='/static/img/interview/day5/day5_result%20(6).jpg'/>
-          <img className='day1result' src='/static/img/interview/day5/day5_result%20(7).jpg'/>
-          <img className='day1result' src='/static/img/interview/day5/day5_result%20(8).jpg'/>
-          <img className='day1result' src='/static/img/interview/day5/day5_result%20(9).jpg'/>
-          <img className='day1result' src='/static/img/interview/day5/day5_result%20(10).jpg'/>
-          <img className='day1result' src='/static/img/interview/day5/day5_result%20(11).jpg'/>
-          <img className='day1result' src='/static/img/interview/day5/day5_result%20(12).jpg'/>
-        </div>
-        }
-        {(topicKey == '5-2') &&
-        <div className='pratice'>
-          <h4>推荐阅读</h4>
-          <p><a href='http://mp.weixin.qq.com/s/6_FVLCicKjS0Y8_goXH07A' target='_blank'>http://mp.weixin.qq.com/s/6_FVLCicKjS0Y8_goXH07A</a></p>
-          <br/>
-          <h4>更多练习</h4>
-          <p>链接: <a href='https://pan.baidu.com/s/1nvigGJJ'>https://pan.baidu.com/s/1nvigGJJ</a> 密码: mnwy</p>
-        </div>
-        }
-        {(topicKey == '6') &&
-        <div className='pratice'>
-          <h4>群面时获取信息（听力）的建议</h4>
-          <br/>
-          <img className='day1result' src='/static/img/interview/day6/day6_result%20(1).jpg'/>
-          <img className='day1result' src='/static/img/interview/day6/day6_result%20(2).jpg'/>
-          <img className='day1result' src='/static/img/interview/day6/day6_result%20(3).jpg'/>
-          <img className='day1result' src='/static/img/interview/day6/day6_result%20(4).jpg'/>
-          <img className='day1result' src='/static/img/interview/day6/day6_result%20(5).jpg'/>
-          <img className='day1result' src='/static/img/interview/day6/day6_result%20(6).jpg'/>
-          <img className='day1result' src='/static/img/interview/day6/day6_result%20(7).jpg'/>
-          <br/>
-          <h4>推荐练习</h4>
-          <p>需要练习英文听力的同学，可以点击下载听力练习题。</p>
-          <p><a href='https://pan.baidu.com/s/1hr4vtXU'>https://pan.baidu.com/s/1hr4vtXU</a></p>
-        </div>
-        }
-        <div className='action'><a href={'/interview/intro?day=' + day}><Button>再来一次</Button></a></div>
-        <style jsx>{`
-          .day1result {
-            width: 100%;
-          }
-          .pratice {
-            margin-bottom: 5rem;
-          }
-          .action {
-            display: flex;
-            justify-content: center;
-            position: fixed;
-            width: 100%;
-            left: 0;
-            bottom: 0;
-            padding: 1rem 2rem;
-            box-sizing: border-box;
-            background: #F9F9F9;
-          }
-        `}</style>
-      </div>
-    } else if (topicKey == '1-2') {
-      return <div>
-        <h4>推荐阅读</h4>
-        <p>小灶官网英语练练练</p>
         <Audio src=''/>
+        <br/>
+        <img className='day1result' src='/static/img/interview/day1/day1_result%20(1).jpg'/>
+        <img className='day1result' src='/static/img/interview/day1/day1_result%20(2).jpg'/>
+        <img className='day1result' src='/static/img/interview/day1/day1_result%20(3).jpg'/>
+        <img className='day1result' src='/static/img/interview/day1/day1_result%20(4).jpg'/>
+        <img className='day1result' src='/static/img/interview/day1/day1_result%20(5).jpg'/>
+        <img className='day1result' src='/static/img/interview/day1/day1_result%20(6).jpg'/>
+        <img className='day1result' src='/static/img/interview/day1/day1_result%20(7).jpg'/>
+        <img className='day1result' src='/static/img/interview/day1/day1_result%20(8).jpg'/>
+        <img className='day1result' src='/static/img/interview/day1/day1_result%20(9).jpg'/>
+        <img className='day1result' src='/static/img/interview/day1/day1_result%20(10).jpg'/>
+        <img className='day1result' src='/static/img/interview/day1/day1_result%20(11).jpg'/>
       </div>
-    } else {
-      return <div/>
-    }
+      }
+      {(topicKey == '1-2') &&
+      <div className='pratice'>
+        <h4>群面时case阅读建议</h4>
+        <br/>
+        <img className='day1result' src='/static/img/interview/day1/day1_2_result%20(1).jpg'/>
+        <img className='day1result' src='/static/img/interview/day1/day1_2_result%20(2).jpg'/>
+        <br/>
+        <h4>推荐阅读</h4>
+        <img className='day1result' src='/static/img/interview/day1/day1_2_result%20(3).jpg'/>
+      </div>
+      }
+      {(topicKey == '2') &&
+      <div className='pratice'>
+        <h4>提升自己的结构化思维，我们有以下的建议</h4>
+        <br/>
+        <h4>推荐课程</h4>
+        <p>三三原则</p>
+        <br/>
+        <h4>阅读推荐</h4>
+        <p>老聃的金字塔原理：<a href='http://www.fengtang.com/blog/?p=113' target='_blank'>http://www.fengtang.com/blog/?p=113</a></p>
+        <p>《金字塔原理》电子书下载</p>
+        <br/>
+        <h4>日常练习</h4>
+        <p>1. 累积别人的结构框架：无论是影视、书籍、文章，看到别人用的结构，记录下来，成为自己的素材。比如麦肯锡的 2016 China Consumer Report 中，你会发现麦肯锡就是按照“购买意愿、购买地点、购买方式，以及购买分配”对消费者进行分析的。</p>
+        <p>下载阅读材料（超链接：<a href='http://pan.baidu.com/s/1qYzBB8w' target='_blank'>http://pan.baidu.com/s/1qYzBB8w</a>）</p>
+        <br/>
+        <p>2. 主动思考：每天给出一个小题目，花 10 分钟时间，建立结构，尽量符合我们提到的 MECE 原则、八二原则、神奇数字“3”来进行分析。你可以把结构写下来，也可以说给同伴听，让 ta 进行评价。比如今天你可以问自己：摩拜单车如何削减成本？你可以尝试列出这样的框架：</p>
+        <ul>
+          <li>生产成本</li>
+          <li>运营调度成本</li>
+          <li>市场推广成本</li>
+        </ul>
+      </div>
+      }
+      {(topicKey == '3') &&
+      <div className='pratice'>
+        <h4>提升自己的对商业分析框架的运用，我们有以下的建议</h4>
+        <br/>
+        <h4>阅读推荐</h4>
+        <p>学了很多框架，却还是不会分析 <a href='http://mp.weixin.qq.com/s/CJjKG6FjUlNGTzVJWDkZ-w' target='_blank'>http://mp.weixin.qq.com/s/CJjKG6FjUlNGTzVJWDkZ-w</a></p>
+        <br/>
+        <h4>练习</h4>
+        <p>真正深入理解一个商业分析框架，需要阅读相应的著作，可以试着从 3C 模型和五力模型作为例子开始：</p>
+        <p>阅读材料1（超链接：<a href='http://pan.baidu.com/s/1o85LqX0'>http://pan.baidu.com/s/1o85LqX0</a>）</p>
+        <p>阅读材料2（超链接：<a href='http://pan.baidu.com/s/1cCVu9K'>http://pan.baidu.com/s/1cCVu9K</a>）</p>
+      </div>
+      }
+      {(topicKey == '4') &&
+      <div className='pratice'>
+        <h4>阅读推荐</h4>
+        <br/>
+        <img className='day1result' src='/static/img/interview/day4/day4_result%20(1).jpg'/>
+        <img className='day1result' src='/static/img/interview/day4/day4_result%20(2).jpg'/>
+        <img className='day1result' src='/static/img/interview/day4/day4_result%20(3).jpg'/>
+        <img className='day1result' src='/static/img/interview/day4/day4_result%20(4).jpg'/>
+        <img className='day1result' src='/static/img/interview/day4/day4_result%20(5).jpg'/>
+        <img className='day1result' src='/static/img/interview/day4/day4_result%20(6).jpg'/>
+      </div>
+      }
+      {(topicKey == '5-1') &&
+      <div className='pratice'>
+        <h4>群面时准备 presentation 的建议</h4>
+        <br/>
+        <Audio src=''/>
+        <br/>
+        <img className='day1result' src='/static/img/interview/day5/day5_result%20(1).jpg'/>
+        <img className='day1result' src='/static/img/interview/day5/day5_result%20(2).jpg'/>
+        <img className='day1result' src='/static/img/interview/day5/day5_result%20(3).jpg'/>
+        <img className='day1result' src='/static/img/interview/day5/day5_result%20(4).jpg'/>
+        <img className='day1result' src='/static/img/interview/day5/day5_result%20(5).jpg'/>
+        <img className='day1result' src='/static/img/interview/day5/day5_result%20(6).jpg'/>
+        <img className='day1result' src='/static/img/interview/day5/day5_result%20(7).jpg'/>
+        <img className='day1result' src='/static/img/interview/day5/day5_result%20(8).jpg'/>
+        <img className='day1result' src='/static/img/interview/day5/day5_result%20(9).jpg'/>
+        <img className='day1result' src='/static/img/interview/day5/day5_result%20(10).jpg'/>
+        <img className='day1result' src='/static/img/interview/day5/day5_result%20(11).jpg'/>
+        <img className='day1result' src='/static/img/interview/day5/day5_result%20(12).jpg'/>
+      </div>
+      }
+      {(topicKey == '5-2') &&
+      <div className='pratice'>
+        <h4>推荐阅读</h4>
+        <p><a href='http://mp.weixin.qq.com/s/6_FVLCicKjS0Y8_goXH07A' target='_blank'>http://mp.weixin.qq.com/s/6_FVLCicKjS0Y8_goXH07A</a></p>
+        <br/>
+        <h4>更多练习</h4>
+        <p>链接: <a href='https://pan.baidu.com/s/1nvigGJJ'>https://pan.baidu.com/s/1nvigGJJ</a> 密码: mnwy</p>
+      </div>
+      }
+      {(topicKey == '6') &&
+      <div className='pratice'>
+        <h4>群面时获取信息（听力）的建议</h4>
+        <br/>
+        <img className='day1result' src='/static/img/interview/day6/day6_result%20(1).jpg'/>
+        <img className='day1result' src='/static/img/interview/day6/day6_result%20(2).jpg'/>
+        <img className='day1result' src='/static/img/interview/day6/day6_result%20(3).jpg'/>
+        <img className='day1result' src='/static/img/interview/day6/day6_result%20(4).jpg'/>
+        <img className='day1result' src='/static/img/interview/day6/day6_result%20(5).jpg'/>
+        <img className='day1result' src='/static/img/interview/day6/day6_result%20(6).jpg'/>
+        <img className='day1result' src='/static/img/interview/day6/day6_result%20(7).jpg'/>
+        <br/>
+        <h4>推荐练习</h4>
+        <p>需要练习英文听力的同学，可以点击下载听力练习题。</p>
+        <p><a href='https://pan.baidu.com/s/1hr4vtXU'>https://pan.baidu.com/s/1hr4vtXU</a></p>
+      </div>
+      }
+      {(topicKey == '1-1' || topicKey == '5-1') &&
+        <div className='action'><a href={'/interview/intro?day=' + day}><Button>再来一次</Button></a></div>
+      }
+      <style jsx>{`
+        .day1result {
+          width: 100%;
+        }
+        .pratice {
+          margin-bottom: 5rem;
+        }
+        .action {
+          display: flex;
+          justify-content: center;
+          position: fixed;
+          width: 100%;
+          left: 0;
+          bottom: 0;
+          padding: 1rem 2rem;
+          box-sizing: border-box;
+          background: #F9F9F9;
+        }
+      `}</style>
+    </div>
   }
 
   renderAnalysis () {
