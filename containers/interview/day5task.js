@@ -1,10 +1,9 @@
 import React from 'react'
-import {Button, Form} from 'react-weui'
+import {Button} from 'react-weui'
 import classNames from 'classnames'
 import ToolsUtil from '../../util/tools'
 import AxiosUtil from '../../util/axios'
 import DataUtil from '../../util/data'
-import Radio from '../../components/radio'
 import Audio from '../../components/audio'
 import Loading from '../../components/loading'
 import TimeDown from '../../components/timedown'
@@ -20,8 +19,7 @@ export default class extends React.Component {
       isSubmit: false,
       canNext: false,
       isRecording: false, // 正在录音
-      isPlaying: false, // 正在播放录音
-      serverId: ''
+      isPlaying: false // 正在播放录音
     }
   }
 
@@ -61,11 +59,6 @@ export default class extends React.Component {
   stopRecord (id) {
     const {isRecording, isPlaying} = this.state
     const _this = this
-
-    let localId = 'locaId'
-    _this.setState({isRecording: false}, function () {
-      _this.uploadVoice(id, localId)
-    })
 
     if (isRecording && !isPlaying) {
       wx.stopRecord({
@@ -123,9 +116,7 @@ export default class extends React.Component {
       success: function (res) {
         let serverId = res.serverId
         AxiosUtil({method: 'get', url: '/api/interview/uploadWechatAudio?serverId=' + serverId})
-        _this.setState({serverId: serverId}, function () {
-          _this.onChange(id, localId, serverId)
-        })
+        _this.onChange(id, localId, serverId)
       }
     })
   }
@@ -220,45 +211,16 @@ export default class extends React.Component {
     })
   }
 
-  renderRadioGroup (id, index, answerList, DTOList) {
-    const name = `answer_${index}`
-    const options = DTOList[index].optionDTOList
-
-    console.log('answerList:', answerList)
-
-    return options.map((item, i) => {
-      const {tag, content} = item
-      const params = {
-        name: name,
-        value: tag,
-        label: tag + '、' + content,
-        defaultValue: answerList[id] ? answerList[id].serverId : ''
-      }
-      const key = `answer_${index}_${i}`
-      return (
-        <Radio key={key} params={params} onChange={(value) => {
-          this.onChange(id, '', value)
-        }}/>
-      )
-    })
-  }
-
-  renderAnswerOption (id, DTOList) {
-    const {index, answerList} = this.state
-    const isVoice = DTOList[index].voice
-    if (isVoice) {
-      return <div>{this.wxRecord(id)}</div>
-    } else {
-      return <Form radio>{this.renderRadioGroup(id, index, answerList, DTOList)}</Form>
-    }
+  renderAnswerOption (id) {
+    return <div>{this.wxRecord(id)}</div>
   }
 
   renderDTOList () {
     const {questionList} = this.props
     const {interviewTopicDTOList} = questionList
-    const {index} = this.state
+    const {index, noPrev} = this.state
     const {id, material, question} = interviewTopicDTOList[index]
-    const questionLength = question.length
+    const questionLength = interviewTopicDTOList.length
     return (
       <div className='dto-list'>
         <div className='material'>
@@ -272,16 +234,19 @@ export default class extends React.Component {
           <div className='content'>
             <div className='question'>{interviewTopicDTOList[index].no}、{interviewTopicDTOList[index].question}</div>
             <div className='options'>
-              {this.renderAnswerOption(id, interviewTopicDTOList)}
+              {this.renderAnswerOption(id)}
             </div>
           </div>
         </div>
         <div className='action'>
-          <div className={classNames({prev: true, disabled: this.state.noPrev})}>
-            <Button onClick={() => {
-              this.prev(questionLength)
-            }}>上一题</Button>
-          </div>
+          {noPrev && (<div className='prev disabled'><Button>上一题</Button></div>)}
+          {!noPrev && (
+            <div className={classNames({prev: true, disabled: this.state.noPrev})}>
+              <Button onClick={() => {
+                this.prev(id, questionLength)
+              }}>上一题</Button>
+            </div>
+          )}
           <div className='next'>
             {this.state.noNext
               ? <Button onClick={() => {
@@ -338,9 +303,20 @@ export default class extends React.Component {
     this.setState({nextTopic: value})
   }
 
-  prev (questionLength) {
-    const {index} = this.state
+  prev (id, questionLength) {
+    const {index, answerList, isRecording, isPlaying} = this.state
     const prevIndex = index - 1
+
+    if (isRecording) {
+      alert('正在录音，请结束录音后回到上一题')
+      this.setState({canNext: false})
+      return
+    }
+
+    if (isPlaying) {
+      let localId = answerList[id] ? answerList[id].localId : ''
+      this.stopVoice(localId)
+    }
 
     if (prevIndex <= 0) {
       this.setState({index: prevIndex, noNext: false, noPrev: true})
@@ -350,7 +326,7 @@ export default class extends React.Component {
   }
 
   next (id, questionLength, DTOList) {
-    const {index} = this.state
+    const {index, answerList} = this.state
     const nextIndex = index + 1
 
     const {isRecording, isPlaying} = this.state
@@ -360,6 +336,17 @@ export default class extends React.Component {
       this.setState({canNext: false})
       return
     }
+
+    console.log('answerList:', answerList)
+
+    let localId
+
+    if (DataUtil.isEmpty(answerList)) {
+      localId = ''
+    } else {
+      localId = answerList[id] ? answerList[id].localId : ''
+    }
+
     if (!localId) {
       alert('请先录音，再进入下一题')
       this.setState({canNext: false})
