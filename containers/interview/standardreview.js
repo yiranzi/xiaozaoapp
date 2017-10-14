@@ -8,6 +8,7 @@ import Radio from '../../components/radio'
 import Audio from '../../components/audio'
 import Loading from '../../components/loading'
 import TimeUp from '../../components/timeup'
+import Back from '../../containers/interview/back'
 
 export default class extends React.Component {
   constructor (props) {
@@ -96,17 +97,15 @@ export default class extends React.Component {
 
   renderDTOList () {
     const {questionList} = this.props
-    const {answerDTOList, interviewTopicDTOList} = questionList
+    const {topicKey, day, answerDTOList, interviewTopicDTOList} = questionList
     const {index, noPrev, noNext} = this.state
     const {id, material} = interviewTopicDTOList[index]
     const questionLength = interviewTopicDTOList.length
 
-    console.log(1)
-
     return (
       <div className='dto-list'>
         <div className='material'>
-          <div className='title'>材料</div>
+          <div className='title'>材料<Back text='< 返回列表' url='/interview/list'/></div>
           <div className='content'>{this.renderMaterial(material)}</div>
         </div>
         <div className='pratice'>
@@ -129,30 +128,28 @@ export default class extends React.Component {
             </div>
           </div>
         </div>
-        {/*<div className='action'>*/}
-        {/*{noPrev && (<div className='prev disabled'><Button>上一题</Button></div>)}*/}
-        {/*{!noPrev && (*/}
-        {/*<div className={classNames({prev: true, disabled: this.state.noPrev})}>*/}
-        {/*<Button onClick={() => {*/}
-        {/*this.prev(questionLength)*/}
-        {/*}}>上一题</Button>*/}
-        {/*</div>*/}
-        {/*)}*/}
-        {/*{noNext && (<div className='next disabled'><Button>下一题</Button></div>)}*/}
-        {/*{!noNext && (*/}
-        {/*<div className={classNames({next: true, disabled: this.state.noNext})}>*/}
-        {/*<Button onClick={() => {*/}
-        {/*this.next(questionLength)*/}
-        {/*}}>下一题</Button>*/}
-        {/*</div>*/}
-        {/*)}*/}
-        {/*</div>*/}
+        <div className='action'>
+          {noPrev && (<div className='prev disabled'><Button>上一题</Button></div>)}
+          {!noPrev && (
+            <div className={classNames({prev: true, disabled: this.state.noPrev})}>
+              <Button onClick={() => {
+                this.prev(questionLength)
+              }}>上一题</Button>
+            </div>
+          )}
+          {noNext && (<div className='next disabled'><Button>下一题</Button></div>)}
+          {!noNext && (
+            <div className={classNames({next: true, disabled: this.state.noNext})}>
+              <Button onClick={() => {
+                this.next(questionLength)
+              }}>下一题</Button>
+            </div>
+          )}
+        </div>
         <style jsx>{`
           .title {
             font-weight: bold;
             margin: 1rem 0;
-          }
-          .material .title {
             display: flex;
             justify-content: space-between;
           }
@@ -213,6 +210,11 @@ export default class extends React.Component {
       <div className='standard'>
         {isSubmit && <Loading/>}
         {this.renderDTOList()}
+        <style global jsx>{`
+          .back {
+            font-weight: normal;
+          }
+        `}</style>
       </div>
     )
   }

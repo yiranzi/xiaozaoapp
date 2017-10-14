@@ -1,6 +1,7 @@
 import React from 'react'
 import AxiosUtil from '../../util/axios'
 import ToolsUtil from '../../util/tools'
+import DataUtil from '../../util/data'
 import InterviewLayout from '../../containers/interview/layout'
 import StandardReview from '../../containers/interview/standardreview'
 import UnStandardReview from '../../containers/interview/unstandardview'
@@ -27,6 +28,7 @@ export default class extends React.Component {
 
     try {
       if (today) {
+        console.log('这里')
         questionList = await AxiosUtil({
           method: 'get',
           url: `/api/interview/getTodayByTopicKey/${topicKey}`
@@ -37,6 +39,8 @@ export default class extends React.Component {
           url: `/api/interview/getHistoryByTopicKey/${topicKey}`
         })
       }
+
+      console.log(questionList)
 
       this.setState({
         day: questionList.day,
@@ -53,8 +57,16 @@ export default class extends React.Component {
   }
 
   renderTask () {
-    const {questionList} = this.state
-    return <StandardReview questionList={questionList}/>
+    const {day, questionList} = this.state
+
+    if (!DataUtil.isEmpty(questionList)) {
+      if (standard.indexOf(day) === 5) {
+        return <UnStandardReview questionList={questionList}/>
+      } else {
+        console.log('其他天')
+        return <StandardReview questionList={questionList}/>
+      }
+    }
   }
 
   render () {

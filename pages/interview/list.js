@@ -89,7 +89,7 @@ export default class extends React.Component {
   }
 
   toLink (showResult, topicKey) {
-    location.href = '/interview/review?topicKey=' + topicKey
+    location.href = '/interview/result?topicKey=' + topicKey
   }
 
   renderList (list) {
@@ -98,10 +98,8 @@ export default class extends React.Component {
     if (interviewListDetailDTOList) {
       return interviewListDetailDTOList.map((item, index) => {
         const {day, title, subTitle, topicKey} = item
-        console.log('day:', day, ' item.day:', item.day)
         let past = item.day < currentDay
         if (past){
-          console.log(item.day, '过去')
         }
         let complete = clock.indexOf(day) >= 0
         let showResult = past || complete
