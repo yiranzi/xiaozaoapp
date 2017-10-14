@@ -45,20 +45,18 @@ export default class extends React.Component {
     const name = `answer_${index}`
     const options = DTOList[index].optionDTOList
 
-    console.log('answerList:', answerList)
-
     return options.map((item, i) => {
       const {tag, content} = item
       const params = {
         name: name,
         value: tag,
         label: tag + '、' + content,
-        defaultValue: answerList[id] ? answerList[id].serverId : ''
+        defaultValue: answerList ? answerList[id] : ''
       }
       const key = `answer_${index}_${i}`
       return (
         <Radio key={key} params={params} onChange={(value) => {
-          this.onChange(id, '', value)
+          this.onChange(id, value)
         }}/>
       )
     })
@@ -72,13 +70,15 @@ export default class extends React.Component {
   renderDTOList () {
     const {questionList} = this.props
     const {interviewTopicDTOList} = questionList
-    const {index} = this.state
+    const {index, noPrev} = this.state
     const {id, material, question} = interviewTopicDTOList[index]
     const questionLength = question.length
     return (
       <div className='dto-list'>
         <div className='material'>
-          <div className='title'>材料<TimeDown limitTime={questionList.limitTime} timeDown={() => {this.timeDown()}}/></div>
+          <div className='title'>材料<TimeDown limitTime={questionList.limitTime} timeDown={() => {
+            this.timeDown()
+          }}/></div>
           <div className='content'>{this.renderMaterial(material)}</div>
         </div>
         <div className='pratice'>
@@ -93,11 +93,14 @@ export default class extends React.Component {
           </div>
         </div>
         <div className='action'>
-          <div className={classNames({prev: true, disabled: this.state.noPrev})}>
-            <Button onClick={() => {
-              this.prev(questionLength)
-            }}>上一题</Button>
-          </div>
+          {noPrev && (<div className='prev disabled'><Button>上一题</Button></div>)}
+          {!noPrev && (
+            <div className={classNames({prev: true, disabled: this.state.noPrev})}>
+              <Button onClick={() => {
+                this.prev(questionLength)
+              }}>上一题</Button>
+            </div>
+          )}
           <div className='next'>
             {this.state.noNext
               ? <Button onClick={() => {
@@ -188,7 +191,7 @@ export default class extends React.Component {
 
     try {
       this.setState({isSubmit: true})
-      alert(answerList)
+      alert('做题时间到，强制交卷')
       const data = JSON.stringify({
         answerDTOList: answerList,
         time: new Date() - initTime,
@@ -223,6 +226,11 @@ export default class extends React.Component {
       <div className='standard'>
         {isSubmit && <Loading/>}
         {this.renderDTOList()}
+        <style global jsx>{`
+          .meterial-item {
+            margin-top: 2rem;
+          }
+        `}</style>
       </div>
     )
   }
