@@ -216,8 +216,6 @@ export default class extends React.Component {
       <div className='pratice'>
         <h4>群面时准备 presentation 的建议：</h4>
         <br/>
-        <Audio src=''/>
-        <br/>
         <img className='day1result' src='/static/img/interview/day5/day5_result%20(1).jpg'/>
         <img className='day1result' src='/static/img/interview/day5/day5_result%20(2).jpg'/>
         <img className='day1result' src='/static/img/interview/day5/day5_result%20(3).jpg'/>
