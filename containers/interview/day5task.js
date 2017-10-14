@@ -96,12 +96,15 @@ export default class extends React.Component {
     })
   }
 
-  stopVoice (localId) {
+  stopVoice (localId, callback) {
+    callback = callback || function () {
+    }
     const _this = this
     wx.pauseVoice({
       localId: localId,
       success: function () {
         _this.setState({isPlaying: false})
+        callback()
       }
     })
   }
@@ -221,8 +224,6 @@ export default class extends React.Component {
     const {index, noPrev, noNext} = this.state
     const {id, material, question} = interviewTopicDTOList[index]
     const questionLength = interviewTopicDTOList.length
-    console.log('questionLength:', questionLength)
-    console.log('noNext:', noNext)
 
     return (
       <div className='dto-list'>
@@ -251,8 +252,12 @@ export default class extends React.Component {
             </div>
           )}
           <div className='next'>
-            {noNext && <Button onClick={() => {this.answerComplete()}}>提交</Button>}
-            {!noNext && <Button onClick={() => {this.next(id, questionLength, interviewTopicDTOList)}}>下一题</Button>}
+            {noNext && <Button onClick={() => {
+              this.answerComplete()
+            }}>提交</Button>}
+            {!noNext && <Button onClick={() => {
+              this.next(id, questionLength, interviewTopicDTOList)
+            }}>下一题</Button>}
           </div>
         </div>
         <style jsx>{`
@@ -312,13 +317,19 @@ export default class extends React.Component {
 
     if (isPlaying) {
       let localId = answerList[id] ? answerList[id].localId : ''
-      this.stopVoice(localId)
-    }
-
-    if (prevIndex <= 0) {
-      this.setState({index: prevIndex, noNext: false, noPrev: true})
+      this.stopVoice(localId, function () {
+        if (prevIndex <= 0) {
+          this.setState({index: prevIndex, noNext: false, noPrev: true})
+        } else {
+          this.setState({index: prevIndex, noNext: false})
+        }
+      })
     } else {
-      this.setState({index: prevIndex, noNext: false})
+      if (prevIndex <= 0) {
+        this.setState({index: prevIndex, noNext: false, noPrev: true})
+      } else {
+        this.setState({index: prevIndex, noNext: false})
+      }
     }
   }
 
@@ -334,34 +345,46 @@ export default class extends React.Component {
       return
     }
 
-    console.log('answerList:', answerList)
-
     let localId
 
     if (isPlaying) {
-      this.stopVoice(localId)
-    }
-    if (nextIndex >= questionLength - 1) {
-      this.setState({index: nextIndex, noNext: true, noPrev: false})
+      this.stopVoice(localId, function () {
+        if (nextIndex >= questionLength - 1) {
+          this.setState({index: nextIndex, noNext: true, noPrev: false})
+        } else {
+          if (DataUtil.isEmpty(answerList)) {
+            localId = ''
+          } else {
+            localId = answerList[id] ? answerList[id].localId : ''
+          }
+
+          if (!localId) {
+            alert('请先录音，再进入下一题')
+            this.setState({canNext: false})
+            return
+          }
+          this.setState({index: nextIndex, noPrev: false})
+        }
+      })
     } else {
-      if (DataUtil.isEmpty(answerList)) {
-        localId = ''
+      if (nextIndex >= questionLength - 1) {
+        this.setState({index: nextIndex, noNext: true, noPrev: false})
       } else {
-        console.log('这里')
-        console.log(answerList)
-        console.log(answerList[id])
-        localId = answerList[id] ? answerList[id].localId : ''
-      }
+        if (DataUtil.isEmpty(answerList)) {
+          localId = ''
+        } else {
+          localId = answerList[id] ? answerList[id].localId : ''
+        }
 
-      console.log(id)
-
-      if (!localId) {
-        alert('请先录音，再进入下一题')
-        this.setState({canNext: false})
-        return
+        if (!localId) {
+          alert('请先录音，再进入下一题')
+          this.setState({canNext: false})
+          return
+        }
+        this.setState({index: nextIndex, noPrev: false})
       }
-      this.setState({index: nextIndex, noPrev: false})
     }
+
   }
 
   formatAnswerList () {
