@@ -14,7 +14,7 @@ export default class extends React.Component {
     this.state = {
       index: 0,
       noPrev: true,
-      noNext: false,
+      noNext: this.props.questionList.interviewTopicDTOList.length <= 1,
       answerList: {},
       isSubmit: false,
       canNext: false,
@@ -218,9 +218,12 @@ export default class extends React.Component {
   renderDTOList () {
     const {questionList} = this.props
     const {interviewTopicDTOList} = questionList
-    const {index, noPrev} = this.state
+    const {index, noPrev, noNext} = this.state
     const {id, material, question} = interviewTopicDTOList[index]
     const questionLength = interviewTopicDTOList.length
+    console.log('questionLength:', questionLength)
+    console.log('noNext:', noNext)
+
     return (
       <div className='dto-list'>
         <div className='material'>
@@ -248,14 +251,8 @@ export default class extends React.Component {
             </div>
           )}
           <div className='next'>
-            {this.state.noNext
-              ? <Button onClick={() => {
-                this.answerComplete()
-              }}>提交</Button>
-              : <Button onClick={() => {
-                this.next(id, questionLength, interviewTopicDTOList)
-              }}>下一题</Button>
-            }
+            {noNext && <Button onClick={() => {this.answerComplete()}}>提交</Button>}
+            {!noNext && <Button onClick={() => {this.next(id, questionLength, interviewTopicDTOList)}}>下一题</Button>}
           </div>
         </div>
         <style jsx>{`
@@ -341,23 +338,28 @@ export default class extends React.Component {
 
     let localId
 
-    if (DataUtil.isEmpty(answerList)) {
-      localId = ''
-    } else {
-      localId = answerList[id] ? answerList[id].localId : ''
-    }
-
-    if (!localId) {
-      alert('请先录音，再进入下一题')
-      this.setState({canNext: false})
-      return
-    }
     if (isPlaying) {
       this.stopVoice(localId)
     }
     if (nextIndex >= questionLength - 1) {
       this.setState({index: nextIndex, noNext: true, noPrev: false})
     } else {
+      if (DataUtil.isEmpty(answerList)) {
+        localId = ''
+      } else {
+        console.log('这里')
+        console.log(answerList)
+        console.log(answerList[id])
+        localId = answerList[id] ? answerList[id].localId : ''
+      }
+
+      console.log(id)
+
+      if (!localId) {
+        alert('请先录音，再进入下一题')
+        this.setState({canNext: false})
+        return
+      }
       this.setState({index: nextIndex, noPrev: false})
     }
   }
