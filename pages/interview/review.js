@@ -38,18 +38,6 @@ export default class extends React.Component {
         })
       }
 
-      if (topicKey) {
-        questionList = await AxiosUtil({
-          method: 'get',
-          url: `/api/interview/getTodayByTopicKey/${topicKey}`
-        })
-      } else {
-        questionList = await AxiosUtil({
-          method: 'get',
-          url: '/api/interview/getToday'
-        })
-      }
-
       this.setState({
         day: questionList.day,
         topicKey: topicKey,
