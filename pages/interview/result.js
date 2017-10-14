@@ -133,7 +133,7 @@ export default class extends React.Component {
       <div className='pratice'>
         <h4>群面时case阅读建议</h4>
         <br/>
-        <Audio src=''/>
+        <Audio src='http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/interview/mp3/S1-1-1-fangfa.mp3'/>
         <br/>
         <img className='day1result' src='/static/img/interview/day1/day1_result%20(1).jpg'/>
         <img className='day1result' src='/static/img/interview/day1/day1_result%20(2).jpg'/>

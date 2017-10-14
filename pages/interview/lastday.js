@@ -42,7 +42,11 @@ export default class extends React.Component {
         <div className='intro-content'>
           <h4 className='center'>群面说明</h4>
           <br/>
-          <p>说明内容说明内容说明内容说明内容说明内容说明内容说明内容说明内容说明内容说明内容说明内容说明内容说明内容说明内容说明内容</p>
+          <p>重要!本次小灶群面7天闪电计划，前六天是以群面技能为主的自主学习训练，我们期望同学们可以通过技能训练，对群面能够有更直观的入门认知；</p>
+          <br/>
+          <p>第七天，我们会筛选安排一次在线的群面模拟，为保证群面模拟质量，只有能够连续完成前6天打卡且正确率达到 70% 以上前的500名同学，才能最终解锁第7天线上模拟群面参与权限。（前500名同学，以做题正确率及做题所用时间作为排名标准，在正确率相同的情况下，以同学们的答题时间为标准，答题时间越短，则排名越靠前）同学们的排名获得参与权限后，获得精选案例材料，在小灶的组织下和同学们进行线上模拟。</p>
+          <br/>
+          <p className='text-left'><a href='https://shimo.im/doc/irJ89r3BN2cbpTXn?r=9GPEG9' target='_blank'>点击查看群面模拟规则</a></p>
           <br/>
           {this.state.lastDay &&
             <div>
@@ -67,6 +71,9 @@ export default class extends React.Component {
         <style jsx>{`
           .center {
             text-align: center;
+          }
+          .text-left {
+            text-left: left;
           }
         `}</style>
       </InterviewLayout>
