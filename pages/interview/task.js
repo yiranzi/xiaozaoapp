@@ -59,8 +59,6 @@ export default class extends React.Component {
   renderTask () {
     const {day, questionList} = this.state
     if (standard.indexOf(day) >= 0) {
-      return <StandardTask questionList={questionList}/>
-    } else if (day === 1) {
       return <Day1Task questionList={questionList}/>
     } else if (day === 5) {
       return <Day5Task questionList={questionList}/>
