@@ -36,6 +36,8 @@ export default class Layout extends React.Component {
           .weui-cells,
           .weui-check__label:active {
             background: transparent !important;
+            margin-top: 0 !important;
+            line-height: 100% !important;
           }
           .weui-cell:before,
           .weui-cells:before,
@@ -57,14 +59,17 @@ export default class Layout extends React.Component {
             color: transparent;
             background: url(/static/img/interview/check.png) no-repeat;
             background-size: 100%;
-            width: 2rem;
-            height: 2rem;
+            width: 1.75rem;
+            height: 1.75rem;
             position: absolute;
-            left: -0.5rem;
-            top: -0.1rem;
+            left: -0.3rem;
+            top: -0.2rem;
           }
           .weui-cell {
-            padding: 0 !important;
+            padding: 0.25rem 0 !important;
+          }
+          .weui-cells_radio .weui-cell__ft {
+            padding-left: 0 !important;
           }
         `}
         </style>
