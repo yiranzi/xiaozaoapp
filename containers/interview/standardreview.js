@@ -209,7 +209,7 @@ export default class extends React.Component {
         {this.renderDTOList()}
         <style global jsx>{`
           .back {
-            font-weight: normal;
+            font-size: 16px;
           }
         `}</style>
       </div>
