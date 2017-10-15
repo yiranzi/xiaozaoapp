@@ -24,11 +24,6 @@ export default class Layout extends React.Component {
           max-width: 640px;
           margin: auto;
         }
-        .my-text-rowsingle {
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-        }
       `}</style>
     )
   }
@@ -40,6 +35,7 @@ export default class Layout extends React.Component {
         <style dangerouslySetInnerHTML={{__html: weui}} />
         {this.renderChild()}
         {this.renderGlobalCss()}
+        <script src='/static/js/jweixin.js'/>
       </div>
     )
   }
