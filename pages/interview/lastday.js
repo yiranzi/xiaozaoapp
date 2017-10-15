@@ -86,6 +86,7 @@ export default class extends React.Component {
           .message {
             text-align: center;
             font-weight: bold;
+            color: red;
           }
         `}</style>
       </InterviewLayout>
