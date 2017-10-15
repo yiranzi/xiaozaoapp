@@ -57,10 +57,10 @@ export default class extends React.Component {
   }
 
   renderTask () {
-    const {day, questionList} = this.state
+    const {topicKey, questionList} = this.state
 
     if (!DataUtil.isEmpty(questionList)) {
-      if (day === 5) {
+      if (topicKey.indexOf(5) >= 0) {
         return <UnStandardReview questionList={questionList}/>
       } else {
         return <StandardReview questionList={questionList}/>
