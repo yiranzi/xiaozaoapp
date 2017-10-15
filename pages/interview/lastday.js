@@ -38,7 +38,7 @@ export default class extends React.Component {
   render () {
     const {isRender, error} = this.state
     return (
-      <InterviewLayout isRender={isRender} error={error}>
+      <InterviewLayout isRender={isRender}>
         <Back text='< 返回打卡主页' url='/interview/main'/>
         <div className='intro-content'>
           <h4 className='center'>群面说明</h4>
@@ -50,25 +50,28 @@ export default class extends React.Component {
           <br/>
           <p className='text-left'><a href='https://shimo.im/doc/irJ89r3BN2cbpTXn?r=9GPEG9'>点击查看群面模拟规则</a></p>
           <br/>
-          <div>
-            {(this.state.lastDay != null) &&
+          {error && <div className='message'>{error}</div>}
+          {!error && (
             <div>
-              {this.state.lastDay.classUrl &&
-              <div className='center'>
-                <h4>专属二维码</h4>
-                <p><b>您的总正确率为{this.state.lastDay.accuracy}%，总答题时间进入前500名，恭喜您获得第七天打卡资格，下面是您的专属二维码</b></p>
-                <br/>
-                <p><img className='qr-code' src={this.state.lastDay.classUrl}/></p>
-              </div>
-              }
-              {!this.state.lastDay.classUrl &&
+              {(this.state.lastDay != null) &&
               <div>
-                <p><b>您的总正确率为{this.state.lastDay.accuracy}%，总答题时间未进入前500名，很遗憾未获得第七天打卡资格</b></p>
+                {this.state.lastDay.classUrl &&
+                <div className='center'>
+                  <h4>专属二维码</h4>
+                  <p><b>您的总正确率为{this.state.lastDay.accuracy}%，总答题时间进入前500名，恭喜您获得第七天打卡资格，下面是您的专属二维码</b></p>
+                  <br/>
+                  <p><img className='qr-code' src={this.state.lastDay.classUrl}/></p>
+                </div>
+                }
+                {!this.state.lastDay.classUrl &&
+                <div>
+                  <p><b>您的总正确率为{this.state.lastDay.accuracy}%，总答题时间未进入前500名，很遗憾未获得第七天打卡资格</b></p>
+                </div>
+                }
               </div>
               }
             </div>
-            }
-          </div>
+          )}
         </div>
         <style jsx>{`
           .center {
@@ -79,6 +82,10 @@ export default class extends React.Component {
           }
           .qr-code {
             width: 150px;
+          }
+          .message {
+            text-align: center;
+            font-weight: bold;
           }
         `}</style>
       </InterviewLayout>
