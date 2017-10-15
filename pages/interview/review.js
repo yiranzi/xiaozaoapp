@@ -60,12 +60,10 @@ export default class extends React.Component {
     const {day, questionList} = this.state
 
     if (!DataUtil.isEmpty(questionList)) {
-      if (standard.indexOf(day) >= 1) {
-        return <StandardReview questionList={questionList}/>
-        r
-      } else {
-        console.log('其他天')
+      if (day === 5) {
         return <UnStandardReview questionList={questionList}/>
+      } else {
+        return <StandardReview questionList={questionList}/>
       }
     }
   }
