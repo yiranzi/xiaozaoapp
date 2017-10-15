@@ -5,6 +5,7 @@ import Footer from '../../components/footer'
 import Audio from '../../components/audio'
 import ToolsUtil from '../../util/tools'
 import AxiosUtil from '../../util/axios'
+import DataUtil from '../../util/data'
 import Back from '../../containers/interview/back'
 import InterviewLayout from '../../containers/interview/layout'
 import ResultContent from '../../containers/interview/resultcontent'
@@ -37,8 +38,9 @@ export default class extends React.Component {
         method: 'get',
         url: '/api/interview/getCompleteByTopicKey/' + topicKey
       })
-      console.log(interviewResult)
-      if (interviewResult) {
+      if (DataUtil.isEmpty(interviewResult)) {
+        this.setState({isRender: false, error: '未完成打卡'})
+      } else {
         const selected = eval(interviewResult.selected);
         this.setState({
           topicKey: topicKey,
@@ -49,8 +51,6 @@ export default class extends React.Component {
         })
       }
     } catch (e) {
-      console.log(e)
-      console.log(2)
       this.setState({
         topicKey: topicKey,
         isRender: false,
@@ -72,7 +72,7 @@ export default class extends React.Component {
         method: 'get',
         url: '/api/interview/getCompleteByTopicKey/' + topicKey
       })
-      if(interviewResult) {
+      if (interviewResult) {
         this.setState({
           prevAnswerTime: interviewResult.answerTime
         })
@@ -94,7 +94,7 @@ export default class extends React.Component {
           content[0] = content[0].replace('accuracyValue', this.state.score + '/' + this.state.selectedCount)
           content[0] = content[0].replace('speedValue', parseInt(1025 / parseInt(this.state.answerTime / 1000) * 60))
         } else if (topicKey === '1-2' && this.state.prevAnswerTime != 0) {
-          let readNumUp = parseInt(944 / parseInt(this.state.answerTime / 1000) * 60) - parseInt(1025 /  parseInt(this.state.prevAnswerTime / 1000) * 60)
+          let readNumUp = parseInt(944 / parseInt(this.state.answerTime / 1000) * 60) - parseInt(1025 / parseInt(this.state.prevAnswerTime / 1000) * 60)
           readNumUp = readNumUp < 0 ? 0 : readNumUp
           content[0] = content[0].replace('answerTime', minute + '分' + second + '秒')
           content[0] = content[0].replace('speedValue', parseInt(944 / parseInt(this.state.answerTime / 1000) * 60))
@@ -123,10 +123,10 @@ export default class extends React.Component {
         `}</style>
         </div>
       } else {
-        return <div />
+        return <div/>
       }
     } else {
-      return <div />
+      return <div/>
     }
   }
 
@@ -172,14 +172,17 @@ export default class extends React.Component {
         <p>三三原则</p>
         <br/>
         <h4>阅读推荐</h4>
-        <p>老聃的金字塔原理：<a href='http://www.fengtang.com/blog/?p=113' target='_blank'>http://www.fengtang.com/blog/?p=113</a></p>
+        <p>老聃的金字塔原理：<a href='http://www.fengtang.com/blog/?p=113'
+                       target='_blank'>http://www.fengtang.com/blog/?p=113</a></p>
         <p>《金字塔原理》电子书下载</p>
         <br/>
         <h4>日常练习</h4>
-        <p>1. 累积别人的结构框架：无论是影视、书籍、文章，看到别人用的结构，记录下来，成为自己的素材。比如麦肯锡的 2016 China Consumer Report 中，你会发现麦肯锡就是按照“购买意愿、购买地点、购买方式，以及购买分配”对消费者进行分析的。</p>
+        <p>1. 累积别人的结构框架：无论是影视、书籍、文章，看到别人用的结构，记录下来，成为自己的素材。比如麦肯锡的 2016 China Consumer Report
+          中，你会发现麦肯锡就是按照“购买意愿、购买地点、购买方式，以及购买分配”对消费者进行分析的。</p>
         <p><a href='http://pan.baidu.com/s/1qYzBB8w' target='_blank'>下载阅读材料</a></p>
         <br/>
-        <p>2. 主动思考：每天给出一个小题目，花 10 分钟时间，建立结构，尽量符合我们提到的 MECE 原则、八二原则、神奇数字“3”来进行分析。你可以把结构写下来，也可以说给同伴听，让 ta 进行评价。比如今天你可以问自己：摩拜单车如何削减成本？你可以尝试列出这样的框架：</p>
+        <p>2. 主动思考：每天给出一个小题目，花 10 分钟时间，建立结构，尽量符合我们提到的 MECE 原则、八二原则、神奇数字“3”来进行分析。你可以把结构写下来，也可以说给同伴听，让 ta
+          进行评价。比如今天你可以问自己：摩拜单车如何削减成本？你可以尝试列出这样的框架：</p>
         <ul className='list'>
           <li>生产成本</li>
           <li>运营调度成本</li>
@@ -192,7 +195,8 @@ export default class extends React.Component {
         <h4>提升自己的对商业分析框架的运用，我们有以下的建议：</h4>
         <br/>
         <h4>阅读推荐</h4>
-        <p>学了很多框架，却还是不会分析 <a href='http://mp.weixin.qq.com/s/CJjKG6FjUlNGTzVJWDkZ-w' target='_blank'>http://mp.weixin.qq.com/s/CJjKG6FjUlNGTzVJWDkZ-w</a></p>
+        <p>学了很多框架，却还是不会分析 <a href='http://mp.weixin.qq.com/s/CJjKG6FjUlNGTzVJWDkZ-w' target='_blank'>http://mp.weixin.qq.com/s/CJjKG6FjUlNGTzVJWDkZ-w</a>
+        </p>
         <br/>
         <h4>练习</h4>
         <p>真正深入理解一个商业分析框架，需要阅读相应的著作，可以试着从 3C 模型和五力模型作为例子开始：</p>
@@ -235,7 +239,8 @@ export default class extends React.Component {
         <h4>更多练习材料：</h4>
         <br/>
         <h4>推荐阅读</h4>
-        <p><a href='http://mp.weixin.qq.com/s/6_FVLCicKjS0Y8_goXH07A' target='_blank'>http://mp.weixin.qq.com/s/6_FVLCicKjS0Y8_goXH07A</a></p>
+        <p><a href='http://mp.weixin.qq.com/s/6_FVLCicKjS0Y8_goXH07A' target='_blank'>http://mp.weixin.qq.com/s/6_FVLCicKjS0Y8_goXH07A</a>
+        </p>
         <br/>
         <h4>更多练习</h4>
         <p>链接: <a href='https://pan.baidu.com/s/1nvigGJJ'>https://pan.baidu.com/s/1nvigGJJ</a> 密码: mnwy</p>
@@ -259,7 +264,7 @@ export default class extends React.Component {
       </div>
       }
       {(topicKey == '1-1' || topicKey == '5-1' || topicKey == '6-1') &&
-        <div className='action'><a href={'/interview/task?topicKey=' + day}><Button>再来一次</Button></a></div>
+      <div className='action'><a href={'/interview/task?topicKey=' + day}><Button>再来一次</Button></a></div>
       }
       <style jsx>{`
         .day1result {
