@@ -94,7 +94,7 @@ export default class extends React.Component {
     return (
       <div className='dto-list'>
         <div className='material'>
-          <div className='title'>材料<Back text='< 返回结果页' url={`/interview/result?topicKey=${topicKey}`}/></div>
+          <div className='title'>材料<Back text='< 返回结果页' url={`/interview/result?topicKey=${topicKey}&review=review`}/></div>
           <div className='content'>{this.renderMaterial(material)}</div>
         </div>
         <div className='pratice'>

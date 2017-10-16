@@ -17,6 +17,7 @@ export default class extends React.Component {
     super(props)
     this.state = {
       topicKey: null,
+      review: '',
       answerTime: '',
       score: 0,
       selectedCount: 0,
@@ -28,7 +29,8 @@ export default class extends React.Component {
 
   componentDidMount = async () => {
     const topicKey = ToolsUtil.getQueryString('topicKey')
-    this.setState({day: topicKey})
+    const review = ToolsUtil.getQueryString('review')
+    this.setState({day: topicKey, review: review})
     this.queryResultData(topicKey)
   }
 
@@ -131,7 +133,7 @@ export default class extends React.Component {
   }
 
   renderResultMore () {
-    const {topicKey} = this.state
+    const {topicKey, review} = this.state
     const day = (topicKey == '1-1' ? '1-2' : topicKey == '5-1' ? '5-2' : topicKey == '6-1' ? '6-2' : null)
     return <div>
       <br/>
@@ -263,8 +265,9 @@ export default class extends React.Component {
         <p><a href='https://pan.baidu.com/s/1hr4vtXU'>https://pan.baidu.com/s/1hr4vtXU</a></p>
       </div>
       }
-      {(topicKey == '1-1' || topicKey == '5-1' || topicKey == '6-1') &&
-      <div className='action'><a href={'/interview/task?topicKey=' + day}><Button>继续做题</Button></a></div>
+      {
+        !review && (topicKey == '1-1' || topicKey == '5-1' || topicKey == '6-1') &&
+        <div className='action'><a href={'/interview/task?topicKey=' + day}><Button>继续做题</Button></a></div>
       }
       <style jsx>{`
         .day1result {
