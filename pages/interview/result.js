@@ -324,6 +324,9 @@ export default class extends React.Component {
           button.weui-btn {
             width: 50% !important;
           }
+          .red {
+            color: red;
+          }
         `}</style>
       </InterviewLayout>
     )
