@@ -264,7 +264,7 @@ export default class extends React.Component {
       </div>
       }
       {(topicKey == '1-1' || topicKey == '5-1' || topicKey == '6-1') &&
-      <div className='action'><a href={'/interview/task?topicKey=' + day}><Button>再来一次</Button></a></div>
+      <div className='action'><a href={'/interview/task?topicKey=' + day}><Button>继续做题</Button></a></div>
       }
       <style jsx>{`
         .day1result {
