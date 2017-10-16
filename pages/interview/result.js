@@ -314,6 +314,7 @@ export default class extends React.Component {
         <div className='interview-result'>
           <Card content={this.renderContent()}/>
           <div className='analysis'>{this.renderAnalysis()}</div>
+          <br/>
           <div><img className='interview-adv' src='/static/img/interview/interview_adv.jpg'/> </div>
         </div>
         <div className='interview-result-more'>
