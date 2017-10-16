@@ -314,6 +314,7 @@ export default class extends React.Component {
         <div className='interview-result'>
           <Card content={this.renderContent()}/>
           <div className='analysis'>{this.renderAnalysis()}</div>
+          <div><img className='interview-adv' src='/static/img/interview/interview_adv.jpg'/> </div>
         </div>
         <div className='interview-result-more'>
           {this.renderResultMore()}
@@ -321,6 +322,9 @@ export default class extends React.Component {
         <style jsx>{`
           .interview-result {
             text-align: center;
+          }
+          .interview-adv {
+            width: 100%;
           }
         `}</style>
         <style global jsx>{`
