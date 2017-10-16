@@ -36,6 +36,7 @@ export default class Layout extends React.Component {
         {this.renderChild()}
         {this.renderGlobalCss()}
         <script src='/static/js/jweixin.js'/>
+        <script src='/static/js/baidutongji.js'/>
       </div>
     )
   }
