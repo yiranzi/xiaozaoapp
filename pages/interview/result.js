@@ -17,6 +17,7 @@ export default class extends React.Component {
     super(props)
     this.state = {
       topicKey: null,
+      review: '',
       answerTime: '',
       score: 0,
       selectedCount: 0,
@@ -28,7 +29,8 @@ export default class extends React.Component {
 
   componentDidMount = async () => {
     const topicKey = ToolsUtil.getQueryString('topicKey')
-    this.setState({day: topicKey})
+    const review = ToolsUtil.getQueryString('review')
+    this.setState({day: topicKey, review: review})
     this.queryResultData(topicKey)
   }
 
@@ -131,7 +133,7 @@ export default class extends React.Component {
   }
 
   renderResultMore () {
-    const {topicKey} = this.state
+    const {topicKey, review} = this.state
     const day = (topicKey == '1-1' ? '1-2' : topicKey == '5-1' ? '5-2' : topicKey == '6-1' ? '6-2' : null)
     return <div>
       <br/>
@@ -263,8 +265,9 @@ export default class extends React.Component {
         <p><a href='https://pan.baidu.com/s/1hr4vtXU'>https://pan.baidu.com/s/1hr4vtXU</a></p>
       </div>
       }
-      {(topicKey == '1-1' || topicKey == '5-1' || topicKey == '6-1') &&
-      <div className='action'><a href={'/interview/task?topicKey=' + day}><Button>继续做题</Button></a></div>
+      {
+        !review && (topicKey == '1-1' || topicKey == '5-1' || topicKey == '6-1') &&
+        <div className='action'><a href={'/interview/task?topicKey=' + day}><Button>继续做题</Button></a></div>
       }
       <style jsx>{`
         .day1result {
@@ -311,6 +314,8 @@ export default class extends React.Component {
         <div className='interview-result'>
           <Card content={this.renderContent()}/>
           <div className='analysis'>{this.renderAnalysis()}</div>
+          <br/>
+          <div><img className='interview-adv' src='/static/img/interview/interview_adv.jpg'/> </div>
         </div>
         <div className='interview-result-more'>
           {this.renderResultMore()}
@@ -318,6 +323,9 @@ export default class extends React.Component {
         <style jsx>{`
           .interview-result {
             text-align: center;
+          }
+          .interview-adv {
+            width: 100%;
           }
         `}</style>
         <style global jsx>{`

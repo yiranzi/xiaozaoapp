@@ -12,7 +12,7 @@ export default class extends React.Component {
           .card {
             background-color: ${ThemeConfig.color.gray};
             box-shadow: 0 1px 10px rgba(0,0,0,.2);
-            padding: 1.5rem 1rem;
+            padding: 1rem;
             margin: 1rem 0;
             border-radius: 18px;
             line-height: 32px;
