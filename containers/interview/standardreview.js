@@ -102,9 +102,8 @@ export default class extends React.Component {
     return (
       <div className='dto-list'>
         <div className='material'>
-          <div className='title'>材料<Back text='< 返回结果页' url={`/interview/result?topicKey=${topicKey}&review=review`}/></div>
           <div className="topFixed">
-            <div className='topTitle'><Back text='< 返回结果页' url={`/interview/result?topicKey=${topicKey}`}/></div>
+            <div className='topTitle'><Back text='< 查看打卡成绩' url={`/interview/result?topicKey=${topicKey}&review=review`}/></div>
           </div>
           <div className="topAbsolute">
             <span>材料</span>
