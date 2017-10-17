@@ -157,6 +157,7 @@ export default class extends React.Component {
             left: 0;
             padding-top:1rem;
             height: 50px;
+            z-index: 10;
           }
           .topTitle {
             font-weight: bold;
