@@ -270,11 +270,9 @@ export default class extends React.Component {
   renderCompleteUser (mainintro) {
     if (mainintro) {
       const {day, interviewListDetailDTOList} = mainintro
-      let array = [1, 2, 3, 4, 5, 6]
-      return array.map((item, index) => {
-        let today = item === day
-        if (today) {
-          return interviewListDetailDTOList[index].completeUser
+      return interviewListDetailDTOList.map((item, index) => {
+        if (item.day === day) {
+          return item.completeUser
         }
       })
     }
