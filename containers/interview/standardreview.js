@@ -102,7 +102,12 @@ export default class extends React.Component {
     return (
       <div className='dto-list'>
         <div className='material'>
-          <div className='title'>材料<Back text='< 返回结果页' url={`/interview/result?topicKey=${topicKey}`}/></div>
+          <div className="topFixed">
+            <div className='topTitle'><Back text='< 返回结果页' url={`/interview/result?topicKey=${topicKey}`}/></div>
+          </div>
+          <div className="topAbsolute">
+            <span>材料</span>
+          </div>
           <div className='content'>{this.renderMaterial(material)}</div>
         </div>
         <div className='pratice'>
@@ -144,6 +149,35 @@ export default class extends React.Component {
           )}
         </div>
         <style jsx>{`
+          .topFixed{
+            position: fixed;
+            background-color: #F9F9F9;
+            width: 100%;
+            top: 0rem;
+            left: 0;
+            padding-top:1rem;
+            height: 50px;
+          }
+          .topTitle {
+            font-weight: bold;
+            margin: 0rem 1rem 0rem 1rem;
+            display: flex;
+            justify-content: flex-end;
+            line-height: 50px;
+          }
+          .topAbsolute{
+            top: 0;
+            position: absolute;
+            font-weight: bold;
+            margin: 1rem 1rem 0rem 1rem;
+            display: flex;
+            justify-content: flex-end;
+            line-height: 50px;
+          }
+
+          .content{
+            margin-top: 50px;
+          }
           .title {
             font-weight: bold;
             margin: 1rem 0;
