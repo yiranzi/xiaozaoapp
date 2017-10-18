@@ -208,6 +208,7 @@ export default class extends React.Component {
       }
       {(topicKey == '4') &&
       <div className='pratice'>
+        <img className='day1result' src='/static/img/interview/day4/list.jpg'/>
         <h4>阅读推荐：</h4>
         <br/>
         <img className='day1result' src='/static/img/interview/day4/day4_result%20(1).jpg'/>
