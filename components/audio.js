@@ -377,6 +377,7 @@ export default class extends React.Component {
     })(window, document)
 
     const {idTag, audioUrl} = this.props
+    
     var wxAudio = new Wxaudio({
       ele: '#' + idTag,
       src: audioUrl,
@@ -384,7 +385,6 @@ export default class extends React.Component {
     });
   }
   render () {
-    console.log(this.props)
     const {idTag} = this.props
     return (
       <div>
