@@ -221,8 +221,6 @@ export default class extends React.Component {
       }
       {(topicKey == '5-1') &&
       <div className='pratice'>
-        <h4>群面时准备 presentation 的建议：</h4>
-        <br/>
         <img className='day1result' src='/static/img/interview/day5/day5_result%20(1).jpg'/>
         <img className='day1result' src='/static/img/interview/day5/day5_result%20(2).jpg'/>
         <img className='day1result' src='/static/img/interview/day5/day5_result%20(3).jpg'/>
@@ -232,21 +230,23 @@ export default class extends React.Component {
         <img className='day1result' src='/static/img/interview/day5/day5_result%20(7).jpg'/>
         <img className='day1result' src='/static/img/interview/day5/day5_result%20(8).jpg'/>
         <img className='day1result' src='/static/img/interview/day5/day5_result%20(9).jpg'/>
-        <img className='day1result' src='/static/img/interview/day5/day5_result%20(10).jpg'/>
-        <img className='day1result' src='/static/img/interview/day5/day5_result%20(11).jpg'/>
-        <img className='day1result' src='/static/img/interview/day5/day5_result%20(12).jpg'/>
       </div>
       }
       {(topicKey == '5-2') &&
       <div className='pratice'>
-        <h4>更多练习材料：</h4>
+        <h4>点击此处可以获取更多练习材料。</h4>
         <br/>
         <h4>推荐阅读</h4>
         <p><a href='http://mp.weixin.qq.com/s/6_FVLCicKjS0Y8_goXH07A' target='_blank'>http://mp.weixin.qq.com/s/6_FVLCicKjS0Y8_goXH07A</a>
         </p>
         <br/>
         <h4>更多练习</h4>
-        <p>链接: <a href='https://pan.baidu.com/s/1nvigGJJ'>https://pan.baidu.com/s/1nvigGJJ</a> 密码: mnwy</p>
+        <div className="out">
+          <p className="hole-line">长按扫码，进入「小灶计划」</p>
+          <p className="hole-line">后台回复关键词“<span className="red">case</span>”</p>
+          <p className="hole-line">获取小灶精选 Casebook 大礼包</p>
+          <img src='/static/img/interview/day5/qrCode-51.jpg'/>
+        </div>
       </div>
       }
       {(topicKey == '6-1') &&
@@ -293,6 +293,22 @@ export default class extends React.Component {
         }
         .action a {
           width: 100%;
+        }
+        .out{
+          display: flex;
+          flex-direction: row-reverse;
+          justify-content: center;
+          align-items: center;
+          flex-wrap: wrap;
+          text-align: center;
+          margin-top: 20px;
+        }
+        .red {
+          color: red;
+        }
+        .hole-line {
+          width: 100%;
+          margin-bottom: 10px;
         }
       `}</style>
     </div>
