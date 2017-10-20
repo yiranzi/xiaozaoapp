@@ -52,10 +52,7 @@ export default class extends React.Component {
           {day == 1 &&
             <a href='/interview/background1'><Button>开始打卡</Button></a>
           }
-          {day == 6 &&
-            <a href='/interview/background6'><Button>开始打卡</Button></a>
-          }
-          {(day != 1 && day != 6) &&
+          {(day != 1) &&
             <a href='/interview/task'><Button>开始打卡</Button></a>
           }
         </div>
