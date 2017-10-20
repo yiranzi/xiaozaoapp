@@ -34,3 +34,7 @@ params = {name, value, defaultValue, label, disabled}
 ### uploader 长传图片
 
 参数： title, maxCount 最多上传多少张 默认最多10张
+
+### textarea 文本输入框
+
+参数： placeholder，maxLength，onChange回调
