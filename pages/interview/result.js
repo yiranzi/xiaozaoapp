@@ -251,19 +251,30 @@ export default class extends React.Component {
       }
       {(topicKey == '6-1') &&
       <div className='pratice'>
-        <h4>群面时获取信息（听力）的建议：</h4>
-        <br/>
-        <img className='day1result' src='/static/img/interview/day6/day6_result%20(1).jpg'/>
-        <img className='day1result' src='/static/img/interview/day6/day6_result%20(2).jpg'/>
-        <img className='day1result' src='/static/img/interview/day6/day6_result%20(3).jpg'/>
-        <img className='day1result' src='/static/img/interview/day6/day6_result%20(4).jpg'/>
-        <img className='day1result' src='/static/img/interview/day6/day6_result%20(5).jpg'/>
-        <img className='day1result' src='/static/img/interview/day6/day6_result%20(6).jpg'/>
-        <img className='day1result' src='/static/img/interview/day6/day6_result%20(7).jpg'/>
-        <br/>
-        <h4>推荐练习</h4>
-        <p>需要练习英文听力的同学，可以点击下载听力练习题。</p>
-        <p><a href='https://pan.baidu.com/s/1hr4vtXU'>https://pan.baidu.com/s/1hr4vtXU</a></p>
+        <img className='day1result' src='/static/img/interview/day6/day6_result_20_1.jpg' />
+        <img className='day1result' src='/static/img/interview/day6/day6_result_20_2.jpg' />
+        <img className='day1result' src='/static/img/interview/day6/day6_result_20_3.jpg' />
+        <img className='day1result' src='/static/img/interview/day6/day6_result_20_4.jpg' />
+        <img className='day1result' src='/static/img/interview/day6/day6_result_20_5.jpg' />
+        <img className='day1result' src='/static/img/interview/day6/day6_result_20_6.jpg' />
+        <img className='day1result' src='/static/img/interview/day6/day6_result_20_7.jpg' />
+        <img className='day1result' src='/static/img/interview/day6/day6_result_20_8.jpg' />
+        <img className='day1result' src='/static/img/interview/day6/day6_result_20_9.jpg' />
+        <img className='day1result' src='/static/img/interview/day6/day6_result_20_10.jpg' />
+        <img className='day1result' src='/static/img/interview/day6/day6_result_20_11.jpg' />
+        <img className='day1result' src='/static/img/interview/day6/day6_result_20_12.jpg' />
+        <img className='day1result' src='/static/img/interview/day6/day6_result_20_13.jpg' />
+        <img className='day1result' src='/static/img/interview/day6/day6_result_20_14.jpg' />
+        <img className='day1result' src='/static/img/interview/day6/day6_result_20_15.jpg' />
+        <img className='day1result' src='/static/img/interview/day6/day6_result_20_16.jpg' />
+        <img className='day1result' src='/static/img/interview/day6/day6_result_20_17.jpg' />
+        <img className='day1result' src='/static/img/interview/day6/day6_result_20_18.jpg' />
+        <img className='day1result' src='/static/img/interview/day6/day6_result_20_19.jpg' />
+        <img className='day1result' src='/static/img/interview/day6/day6_result_20_20.jpg' />
+        <img className='day1result' src='/static/img/interview/day6/day6_result_20_21.jpg' />
+        <img className='day1result' src='/static/img/interview/day6/day6_result_20_22.jpg' />
+        <img className='day1result' src='/static/img/interview/day6/day6_result_20_23.jpg' />
+        <img className='day1result' src='/static/img/interview/day6/day6_result_20_24.jpg' />
       </div>
       }
       {
