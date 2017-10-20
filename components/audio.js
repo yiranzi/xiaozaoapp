@@ -52,8 +52,6 @@ export default class extends React.Component {
           this.wxAudio = document.createElement('audio')
           this.wxAudio.className = 'wx-audio-content'
           this.wxAudio.src = this.opt.src
-          // this.wxAudio.setAttribute("preload","auto")
-          // this.wxAudio.preload = 'auto'
           this.wxAudioC.appendChild(this.wxAudio)
 
           // left
@@ -64,7 +62,7 @@ export default class extends React.Component {
           // left image
           this.wxAudioStateImg = document.createElement('img')
           this.wxAudioStateImg.className = 'wx-audio-state'
-          this.wxAudioStateImg.src = 'http://www.daiwei.org/components/wx-audio/images/pause.png'
+          this.wxAudioStateImg.src = '/static/img/audio/pause.png'
           this.wxAudioL.appendChild(this.wxAudioStateImg)
 
           // right
@@ -190,12 +188,12 @@ export default class extends React.Component {
             var date = new Date()
             _this.isPlaying = true
             _this.reduceTBefore = Date.parse(date) - Math.floor(_this.wxAudio.currentTime * 1000)
-            _this.wxAudioStateImg.src = 'http://www.daiwei.org/components/wx-audio/images/playing.gif'
+            _this.wxAudioStateImg.src = '/static/img/audio/playing.gif'
           },
           _this.wxAudio.onpause = function () {
             _this.isPlaying = false
             _this.showLoading(false)
-            _this.wxAudioStateImg.src = 'http://www.daiwei.org/components/wx-audio/images/pause.png'
+            _this.wxAudioStateImg.src = '/static/img/audio/pause.png'
           },
           _this.wxAudio.onloadedmetadata = function () {
             _this.durationT = _this.wxAudio.duration
@@ -229,7 +227,6 @@ export default class extends React.Component {
 
             // ===========================
             var date = new Date()
-            // console.log(_this.reduceTAfter + '-------------------------' + _this.reduceTBefore)
             if (!_this.wxAudio.paused) {
               _this.reduceTAfter = Date.parse(date) - Math.floor(_this.currentT * 1000)
               if (_this.reduceTAfter - _this.reduceTBefore > 1000) {
@@ -266,25 +263,16 @@ export default class extends React.Component {
             var e = event || window.event
             var x = e.clientX
             var l = event.target.offsetLeft
-            // console.log(x)
-            // console.log(l)
-            // console.log(_this.maxProgressWidth)
             _this.maxProgressWidth = _this.wxAudioDetail.offsetWidth
             _this.wxAudioC.onmousemove = function (event) {
               if (_this.isDrag) {
                 var e = event || window.event
                 var thisX = e.clientX
                 _this.dragProgressTo = Math.min(_this.maxProgressWidth, Math.max(0, l + (thisX - x)))
-                // _this.wxAudioOrigin.style.left = to + 'px'
-                console.log(e.clientX + '--------')
-                console.log(_this.maxProgressWidth + '--------')
-                console.log(l + (thisX - x) + '--------')
-                // update Time
                 _this.updatePorgress()
               }
             }
             _this.wxAudioC.onmouseup = function () {
-              console.log(_this.dragProgressTo + ' ------- ' + _this.maxProgressWidth + ' ---------- ' + _this.durationT)
               if (_this.isDrag) {
                 _this.isDrag = false
                 _this.wxAudio.currentTime = Math.floor(_this.dragProgressTo / _this.maxProgressWidth * _this.durationT)
@@ -320,7 +308,6 @@ export default class extends React.Component {
               }
             },
             _this.wxAudioC.ontouchend = function () {
-              // console.log(_this.dragProgressTo +' ------- '+ _this.maxProgressWidth + ' ---------- ' + _this.durationT)
               if (_this.isDrag) {
                 _this.isDrag = false
                 _this.wxAudio.currentTime = Math.floor(_this.dragProgressTo / _this.maxProgressWidth * _this.durationT)
@@ -334,22 +321,15 @@ export default class extends React.Component {
             var e = event || window.event
             var l = e.layerX
             var w = _this.wxAudioDetail.offsetWidth
-            // console.log(l + '------------' + w)
             _this.wxAudio.currentTime = Math.floor(l / w * _this.durationT)
           }
-
-          // _this.wxAudioOrigin.ontachstart = function () {
-
-          // }
         },
 
         updatePorgress: function () {
           this.wxAudioOrigin.style.left = this.dragProgressTo + 'px'
           this.wxVoiceP.style.width = this.dragProgressTo + 'px'
           var currentTime = Math.floor(this.dragProgressTo / this.maxProgressWidth * this.durationT)
-          // this.wxAudio.currentTime = currentTime
           this.wxAudioCurrent.innerText = this.formartTime(currentTime)
-          // this.wxAudio.currentTime = Math.floor(this.dragProgressTo / this.maxProgressWidth * this.durationT)
         },
 
         formartTime: function (seconds) {
@@ -372,7 +352,6 @@ export default class extends React.Component {
         }
       }
 
-      // 暴露方法  
       window.Wxaudio = Wxaudio
     })(window, document)
 
@@ -390,7 +369,6 @@ export default class extends React.Component {
       <div>
         <div id={idTag} />
         <style global jsx>{`
-          /* line 1, ../sass/wx-audio/_audio.scss */
           .wx-audio-content {
             -moz-user-select: -moz-none;
             -ms-user-select: none;
@@ -407,11 +385,9 @@ export default class extends React.Component {
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
           }
-          /* line 11, ../sass/wx-audio/_audio.scss */
           .wx-audio-content .wx-audio-info {
             display: none;
           }
-          /* line 14, ../sass/wx-audio/_audio.scss */
           .wx-audio-content .wx-audio-left {
             display: inline-block;
             vertical-align: middle;
@@ -421,12 +397,10 @@ export default class extends React.Component {
             width: 42px;
             height: 100%;
           }
-          /* line 18, ../sass/wx-audio/_audio.scss */
           .wx-audio-content .wx-audio-left .wx-audio-state {
             width: 100%;
             height: 100%;
           }
-          /* line 23, ../sass/wx-audio/_audio.scss */
           .wx-audio-content .wx-audio-right {
             display: inline-block;
             vertical-align: middle;
@@ -451,7 +425,6 @@ export default class extends React.Component {
             -o-text-overflow: ellipsis;
             text-overflow: ellipsis;
           }
-          /* line 36, ../sass/wx-audio/_audio.scss */
           .wx-audio-content .wx-audio-right .wx-audio-disc {
             width: 100%;
             white-space: nowrap;
@@ -463,13 +436,11 @@ export default class extends React.Component {
             font-size: 12px;
             color: #8c8c8c;
           }
-          /* line 43, ../sass/wx-audio/_audio.scss */
           .wx-audio-content .wx-audio-right .wx-audio-progrees {
             height: 2px;
             width: calc(100% - 4px);
             position: relative;
           }
-          /* line 47, ../sass/wx-audio/_audio.scss */
           .wx-audio-content .wx-audio-right .wx-audio-progrees .wx-progrees-detail {
             height: 100%;
             width: 100%;
@@ -482,7 +453,6 @@ export default class extends React.Component {
             -webkit-user-select: none;
             user-select: none;
           }
-          /* line 55, ../sass/wx-audio/_audio.scss */
           .wx-audio-content .wx-audio-right .wx-audio-progrees .wx-progrees-detail .wx-voice-p {
             width: 0%;
             position: absolute;
@@ -494,7 +464,6 @@ export default class extends React.Component {
             background: #09bb07;
             z-index: 2;
           }
-          /* line 66, ../sass/wx-audio/_audio.scss */
           .wx-audio-content .wx-audio-right .wx-audio-progrees .wx-progrees-detail .wx-buffer-p {
             width: 0%;
             position: absolute;
@@ -506,7 +475,6 @@ export default class extends React.Component {
             background: #d9d9d9;
             z-index: 1;
           }
-          /* line 77, ../sass/wx-audio/_audio.scss */
           .wx-audio-content .wx-audio-right .wx-audio-progrees .wx-progrees-detail .wx-loading {
             display: none;
             position: absolute;
@@ -516,7 +484,6 @@ export default class extends React.Component {
             right: 0;
             overflow: hidden;
           }
-          /* line 85, ../sass/wx-audio/_audio.scss */
           .wx-audio-content .wx-audio-right .wx-audio-progrees .wx-progrees-detail .wx-loading .wx-loading-wrapper {
             position: absolute;
             top: 0;
@@ -553,7 +520,6 @@ export default class extends React.Component {
               transform: translateX(0);
             }
           }
-          /* line 108, ../sass/wx-audio/_audio.scss */
           .wx-audio-content .wx-audio-right .wx-audio-progrees .wx-audio-origin {
             width: 6px;
             height: 6px;
@@ -568,7 +534,6 @@ export default class extends React.Component {
             top: 50%;
             z-index: 2;
           }
-          /* line 121, ../sass/wx-audio/_audio.scss */
           .wx-audio-content .wx-audio-right .wx-audio-progrees .wx-audio-origin:before {
             content: " ";
             display: block;
@@ -589,7 +554,6 @@ export default class extends React.Component {
             outline: 0;
             -webkit-tap-highlight-color: transparent;
           }
-          /* line 142, ../sass/wx-audio/_audio.scss */
           .wx-audio-content .wx-audio-right .wx-audio-time {
             width: 100%;
             padding-top: 6px;
@@ -600,7 +564,6 @@ export default class extends React.Component {
             justify-content: space-between;
             overflow: hidden;
           }
-          /* line 149, ../sass/wx-audio/_audio.scss */
           .wx-audio-content .wx-audio-right .wx-audio-time span {
             font-size: 12px;
             color: #8c8c8c;
