@@ -24,7 +24,7 @@ export default class extends React.Component {
       })
     }
   }
-  hide() {
+  hide () {
     this.setState({
       isShow: false,
       style: {lineHeight: '20px', overflow: 'hidden', 'WebkitLineClamp': this.props.line}

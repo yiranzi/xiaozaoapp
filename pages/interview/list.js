@@ -48,7 +48,7 @@ export default class extends React.Component {
       <div className='interview-item' onClick={() => {
         this.toLastDay()
       }}>
-        <div className='icon'><img src='/static/img/interview/train.png'/></div>
+        <div className='icon'><img src='/static/img/interview/train.png' /></div>
         <div className='content'>
           <div className='top'>
             <div className='left'>
@@ -57,7 +57,7 @@ export default class extends React.Component {
           </div>
         </div>
         <div className='enter-icon'>
-          <img src='/static/img/interview/lock.png'/>
+          <img src='/static/img/interview/lock.png' />
         </div>
         <style jsx>{`
             .result {
@@ -81,8 +81,8 @@ export default class extends React.Component {
     return (
       <div>
         {complete
-          ? <div className='icon'><img src='/static/img/interview/finish.png'/>已完成</div>
-          : <div className='icon'><img src='/static/img/interview/unfinish.png'/>未完成</div>
+          ? <div className='icon'><img src='/static/img/interview/finish.png' />已完成</div>
+          : <div className='icon'><img src='/static/img/interview/unfinish.png' />未完成</div>
         }
       </div>
     )
@@ -99,7 +99,7 @@ export default class extends React.Component {
       return interviewListDetailDTOList.map((item, index) => {
         const {day, title, subTitle, topicKey} = item
         let past = item.day < currentDay
-        if (past){
+        if (past) {
         }
         let complete = clock.indexOf(day) >= 0
         let showResult = past || complete
@@ -107,7 +107,7 @@ export default class extends React.Component {
           <div key={index} className='interview-item' onClick={() => {
             this.toLink(showResult, topicKey)
           }}>
-            <div className='icon'><img src={intro[`day${day}`]}/></div>
+            <div className='icon'><img src={intro[`day${day}`]} /></div>
             <div className='content'>
               <div className='top'>
                 <div className='left'>
@@ -130,7 +130,7 @@ export default class extends React.Component {
               </div>}
 
             </div>
-            <div className='enter-icon'><img src='/static/img/interview/icon.png'/></div>
+            <div className='enter-icon'><img src='/static/img/interview/icon.png' /></div>
             <style jsx>{`
               .result {
                 border-top: ${ThemeConfig.color.border_gray};
@@ -146,7 +146,7 @@ export default class extends React.Component {
         )
       })
     } else {
-      return <div/>
+      return <div />
     }
   }
 
@@ -154,7 +154,7 @@ export default class extends React.Component {
     const {list, isRender, error} = this.state
     return (
       <InterviewLayout isRender={isRender} error={error}>
-        <Back text='< 返回打卡主页' url='/interview/main'/>
+        <Back text='< 返回打卡主页' url='/interview/main' />
         <div className='interview-list'>
           {this.renderList(list)}
           {this.renderLastDay(list)}

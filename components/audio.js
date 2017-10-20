@@ -20,7 +20,7 @@ export default class extends React.Component {
         // 判断传进来的是DOM还是字符串
         if ((typeof options.ele) === 'string') {
           this.opt.ele = document.querySelector(options.ele)
-        } else {  
+        } else {
           this.opt.ele = options.ele
         }
 
@@ -36,7 +36,7 @@ export default class extends React.Component {
         // 通过时间戳与当前时间的差值来判断是否需要加载
         this.reduceTBefore = 0 // 时间戳与当前时间的差值 (初始化)
         this.reduceTAfter = 0 // 时间戳与当前时间的差值 (执行中)
-        this.initDom();
+        this.initDom()
       }
 
       Wxaudio.prototype = {
@@ -105,60 +105,60 @@ export default class extends React.Component {
           this.wxBufferP = document.createElement('span')
           this.wxBufferP.className = 'wx-buffer-p'
           this.wxAudioDetail.appendChild(this.wxBufferP)
-    
+
           // loading p
           this.wxLoading = document.createElement('span')
           this.wxLoading.className = 'wx-loading'
           this.wxAudioDetail.appendChild(this.wxLoading)
-    
+
           // laoding wrapper
           this.wxLoadingWrapper = document.createElement('span')
           this.wxLoadingWrapper.className = 'wx-loading-wrapper'
           this.wxLoading.appendChild(this.wxLoadingWrapper)
-    
+
           // origin 
           this.wxAudioOrigin = document.createElement('div')
           this.wxAudioOrigin.className = 'wx-audio-origin'
           this.wxAudioP.appendChild(this.wxAudioOrigin)
-    
+
           // 音乐时间信息
           this.wxAudioTime = document.createElement('div')
           this.wxAudioTime.className = 'wx-audio-time'
           this.wxAudioR.appendChild(this.wxAudioTime)
-    
+
           // currentT
           this.wxAudioCurrent = document.createElement('span')
           this.wxAudioCurrent.className = 'current-t'
           this.wxAudioCurrent.innerText = '00:00'
           this.wxAudioTime.appendChild(this.wxAudioCurrent)
-    
+
           // durationT
           this.wxAudioDuration = document.createElement('span')
           this.wxAudioDuration.className = 'duration-t'
           this.wxAudioDuration.innerText = '00:00'
           this.wxAudioTime.appendChild(this.wxAudioDuration)
-    
-          this.initAudioEvent();
+
+          this.initAudioEvent()
         },
-    
+
         audioPlay: function () {
-          this.wxAudio.play();
+          this.wxAudio.play()
           this.isPlaying = true
         },
-    
+
         audioPause: function () {
-          this.wxAudio.pause();
+          this.wxAudio.pause()
           this.isPlaying = false
         },
-    
+
         audioPlayPause: function () {
           if (this.isPlaying) {
-            this.audioPause();
+            this.audioPause()
           } else {
-            this.audioPlay();
+            this.audioPlay()
           }
         },
-    
+
         audioCut: function (src, title, disc) {
           this.wxAudio.src = src
           this.wxAudioT.innerText = title
@@ -173,7 +173,7 @@ export default class extends React.Component {
           this.wxVoiceP.style.width = '0px'
           this.audioPlay()
         },
-    
+
         showLoading: function (bool) {
           this.loading = bool || false
           if (this.loading) {
@@ -182,12 +182,12 @@ export default class extends React.Component {
             this.wxLoading.style.display = 'none'
           }
         },
-    
+
         initAudioEvent: function () {
           var _this = this
           // 音频事件
           _this.wxAudio.onplaying = function () {
-            var date = new Date ()
+            var date = new Date()
             _this.isPlaying = true
             _this.reduceTBefore = Date.parse(date) - Math.floor(_this.wxAudio.currentTime * 1000)
             _this.wxAudioStateImg.src = 'http://www.daiwei.org/components/wx-audio/images/playing.gif'
@@ -203,7 +203,7 @@ export default class extends React.Component {
             _this.wxAudioDuration.innerText = _this.formartTime(_this.wxAudio.duration)
           },
           _this.wxAudio.onwaiting = function () {
-            if(!_this.wxAudio.paused) {
+            if (!_this.wxAudio.paused) {
               _this.showLoading(true)
             }
           },
@@ -213,11 +213,11 @@ export default class extends React.Component {
             _this.wxAudioDuration.innerText = _this.formartTime(_this.durationT)
           },
           _this.wxAudio.onprogress = function () {
-            if(_this.wxAudio.buffered.length > 0) {
+            if (_this.wxAudio.buffered.length > 0) {
               var bufferedT = 0
               for (var i = 0; i < _this.wxAudio.buffered.length; i++) {
                 bufferedT += _this.wxAudio.buffered.end(i) - _this.wxAudio.buffered.start(i)
-                if(bufferedT > _this.durationT) {
+                if (bufferedT > _this.durationT) {
                   bufferedT = _this.durationT
                   _this.showLoading(false)
                   console.log('缓冲完成')
@@ -226,24 +226,24 @@ export default class extends React.Component {
               var bufferedP = Math.floor((bufferedT / _this.durationT) * 100)
               _this.wxBufferP.style.width = bufferedP + '%'
             }
-    
+
             // ===========================
-            var date = new Date ()
+            var date = new Date()
             // console.log(_this.reduceTAfter + '-------------------------' + _this.reduceTBefore)
-            if(!_this.wxAudio.paused) {
+            if (!_this.wxAudio.paused) {
               _this.reduceTAfter = Date.parse(date) - Math.floor(_this.currentT * 1000)
-              if(_this.reduceTAfter - _this.reduceTBefore > 1000) {
+              if (_this.reduceTAfter - _this.reduceTBefore > 1000) {
                 _this.showLoading(true)
               } else {
                 _this.showLoading(false)
               }
             } else {
-              return
+
             }
           },
           // 绑定进度条
           _this.wxAudio.ontimeupdate = function () {
-            var date = new Date ()
+            var date = new Date()
             if (!_this.isDrag) {
               _this.currentT = _this.wxAudio.currentTime
               _this.currentP = Number((_this.wxAudio.currentTime / _this.durationT) * 100)
@@ -260,7 +260,7 @@ export default class extends React.Component {
           _this.wxAudioStateImg.onclick = function () {
             _this.audioPlayPause()
           }
-    
+
           _this.wxAudioOrigin.onmousedown = function (event) {
             _this.isDrag = true
             var e = event || window.event
@@ -284,33 +284,33 @@ export default class extends React.Component {
               }
             }
             _this.wxAudioC.onmouseup = function () {
-              console.log(_this.dragProgressTo +' ------- '+ _this.maxProgressWidth + ' ---------- ' + _this.durationT)
+              console.log(_this.dragProgressTo + ' ------- ' + _this.maxProgressWidth + ' ---------- ' + _this.durationT)
               if (_this.isDrag) {
                 _this.isDrag = false
                 _this.wxAudio.currentTime = Math.floor(_this.dragProgressTo / _this.maxProgressWidth * _this.durationT)
               } else {
-                return
+
               }
             }
-    
+
             _this.wxAudioC.onmouseleave = function () {
               if (_this.isDrag) {
                 _this.isDrag = false
                 _this.wxAudio.currentTime = Math.floor(_this.dragProgressTo / _this.maxProgressWidth * _this.durationT)
               } else {
-                return
+
               }
             }
           }
-    
+
           _this.wxAudioOrigin.ontouchstart = function (event) {
             _this.isDrag = true
             var e = event || window.event
             var x = e.touches[0].clientX
             var l = e.target.offsetLeft
-    
+
             _this.maxProgressWidth = _this.wxAudioDetail.offsetWidth
-    
+
             _this.wxAudioC.ontouchmove = function (event) {
               if (_this.isDrag) {
                 var e = event || window.event
@@ -325,11 +325,11 @@ export default class extends React.Component {
                 _this.isDrag = false
                 _this.wxAudio.currentTime = Math.floor(_this.dragProgressTo / _this.maxProgressWidth * _this.durationT)
               } else {
-                return
+
               }
             }
           }
-    
+
           _this.wxAudioDetail.onclick = function (event) {
             var e = event || window.event
             var l = e.layerX
@@ -337,12 +337,12 @@ export default class extends React.Component {
             // console.log(l + '------------' + w)
             _this.wxAudio.currentTime = Math.floor(l / w * _this.durationT)
           }
-    
+
           // _this.wxAudioOrigin.ontachstart = function () {
-    
+
           // }
         },
-    
+
         updatePorgress: function () {
           this.wxAudioOrigin.style.left = this.dragProgressTo + 'px'
           this.wxVoiceP.style.width = this.dragProgressTo + 'px'
@@ -351,38 +351,38 @@ export default class extends React.Component {
           this.wxAudioCurrent.innerText = this.formartTime(currentTime)
           // this.wxAudio.currentTime = Math.floor(this.dragProgressTo / this.maxProgressWidth * this.durationT)
         },
-    
+
         formartTime: function (seconds) {
           var formatNumber = function (n) {
-                  n = n.toString()
-                  return n[1] ? n : '0' + n
-              }
-              var m = Math.floor(seconds / 60);
-              var s = Math.floor(seconds % 60);
-              return formatNumber(m) + ":" + formatNumber(s);
+            n = n.toString()
+            return n[1] ? n : '0' + n
+          }
+          var m = Math.floor(seconds / 60)
+          var s = Math.floor(seconds % 60)
+          return formatNumber(m) + ':' + formatNumber(s)
         },
-    
-        extend: function(o,n,override) {
-            for(var key in n){
-                if (n.hasOwnProperty(key) && (!o.hasOwnProperty(key) || override)) {
-                    o[key] = n[key]
-                }
+
+        extend: function (o, n, override) {
+          for (var key in n) {
+            if (n.hasOwnProperty(key) && (!o.hasOwnProperty(key) || override)) {
+              o[key] = n[key]
             }
-            return o
+          }
+          return o
         }
       }
-    
+
       // 暴露方法  
-        window.Wxaudio = Wxaudio;
+      window.Wxaudio = Wxaudio
     })(window, document)
 
     const {idTag, audioUrl} = this.props
-    
+
     var wxAudio = new Wxaudio({
       ele: '#' + idTag,
       src: audioUrl,
       width: '320px'
-    });
+    })
   }
   render () {
     const {idTag} = this.props
@@ -608,7 +608,7 @@ export default class extends React.Component {
           
         `}</style>
       </div>
-      
+
     )
   }
 }

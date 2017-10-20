@@ -26,7 +26,7 @@ export default class extends React.Component {
     return meterialArray.map((item, index) => {
       if (ToolsUtil.isImg(item)) {
         return <div key={index} className='meterial-item'>
-          <img src={item}/>
+          <img src={item} />
           <style jsx>{`
             img {
               width: 100%;
@@ -35,7 +35,7 @@ export default class extends React.Component {
         </div>
       } else if (ToolsUtil.isMp3(item)) {
         return <div key={index} className='meterial-item'>
-          <Audio src={item}/>
+          <Audio src={item} />
         </div>
       }
     })
@@ -57,7 +57,7 @@ export default class extends React.Component {
       return (
         <Radio key={key} params={params} onChange={(value) => {
           this.onChange(id, value)
-        }}/>
+        }} />
       )
     })
   }
@@ -78,7 +78,7 @@ export default class extends React.Component {
         <div className='material'>
           <div className='title'>材料<TimeDown limitTime={questionList.limitTime} timeDown={() => {
             this.timeDown()
-          }}/></div>
+          }} /></div>
           <div className='content'>{this.renderMaterial(material)}</div>
         </div>
         <div className='pratice'>
@@ -168,7 +168,7 @@ export default class extends React.Component {
   next (questionLength) {
     const {index} = this.state
     const nextIndex = index + 1
-    if (nextIndex >= questionLength-1) {
+    if (nextIndex >= questionLength - 1) {
       this.setState({index: nextIndex, noNext: true, noPrev: false})
     } else {
       this.setState({index: nextIndex, noPrev: false})
@@ -224,7 +224,7 @@ export default class extends React.Component {
 
     return (
       <div className='standard'>
-        {isSubmit && <Loading/>}
+        {isSubmit && <Loading />}
         {this.renderDTOList()}
         <style global jsx>{`
           .meterial-item {

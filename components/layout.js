@@ -35,8 +35,8 @@ export default class Layout extends React.Component {
         <style dangerouslySetInnerHTML={{__html: weui}} />
         {this.renderChild()}
         {this.renderGlobalCss()}
-        <script src='/static/js/jweixin.js'/>
-        <script src='/static/js/baidutongji.js'/>
+        <script src='/static/js/jweixin.js' />
+        <script src='/static/js/baidutongji.js' />
       </div>
     )
   }

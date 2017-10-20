@@ -26,7 +26,7 @@ export default class extends React.Component {
     return meterialArray.map((item, index) => {
       if (ToolsUtil.isImg(item)) {
         return <div key={index} className='meterial-item'>
-          <img src={item}/>
+          <img src={item} />
           <style jsx>{`
             img {
               width: 100%;
@@ -35,7 +35,7 @@ export default class extends React.Component {
         </div>
       } else if (ToolsUtil.isMp3(item)) {
         return <div key={index} className='meterial-item'>
-          <Audio src={item}/>
+          <Audio src={item} />
         </div>
       }
     })
@@ -65,7 +65,7 @@ export default class extends React.Component {
       }
       const key = `answer_${index}_${i}`
       return (
-        <Radio key={key} params={params}/>
+        <Radio key={key} params={params} />
       )
     })
   }
@@ -94,10 +94,10 @@ export default class extends React.Component {
     return (
       <div className='dto-list'>
         <div className='material'>
-          <div className="topFixed">
-            <div className='topTitle'><Back text='< 查看打卡成绩' url={`/interview/result?topicKey=${topicKey}&review=review`}/></div>
+          <div className='topFixed'>
+            <div className='topTitle'><Back text='< 查看打卡成绩' url={`/interview/result?topicKey=${topicKey}&review=review`} /></div>
           </div>
-          <div className="topAbsolute">
+          <div className='topAbsolute'>
             <span>材料</span>
           </div>
           <div className='content'>{this.renderMaterial(material)}</div>
@@ -114,7 +114,7 @@ export default class extends React.Component {
         <div className='answer'>
           <div className='title'>您的答案：</div>
           <div className='content'>
-            {answerList && <Audio src={`http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/interview/audio/${answerList[id]}.mp3`}/>}
+            {answerList && <Audio src={`http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/interview/audio/${answerList[id]}.mp3`} />}
           </div>
         </div>
         <div className='action'>
@@ -227,7 +227,7 @@ export default class extends React.Component {
 
     return (
       <div className='standard'>
-        {isSubmit && <Loading/>}
+        {isSubmit && <Loading />}
         {this.renderDTOList()}
         <style global jsx>{`
           .back {
