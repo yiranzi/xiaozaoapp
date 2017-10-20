@@ -1,8 +1,8 @@
 import React from 'react'
 import AxiosUtil from '../../util/axios'
 import ThemeConfig from '../../config/theme'
-import Back from '../../containers/interview/back'
-import InterviewLayout from '../../containers/interview/layout'
+import Back from '../../containers/interviewvip/back'
+import InterviewLayout from '../../containers/interviewvip/layout'
 
 const intro = {
   'day1': '/static/img/interview/day1.png',
@@ -154,7 +154,7 @@ export default class extends React.Component {
     const {list, isRender, error} = this.state
     return (
       <InterviewLayout isRender={isRender} error={error}>
-        <Back text='< 返回打卡主页' url='/interviewvip/main' />
+        <Back text='< 返回打卡主页' url='/interview/main' />
         <div className='interview-list'>
           {this.renderList(list)}
           {this.renderLastDay(list)}
