@@ -3,15 +3,7 @@ import AxiosUtil from '../../util/axios'
 import ThemeConfig from '../../config/theme'
 import Back from '../../containers/interviewvip/back'
 import InterviewLayout from '../../containers/interviewvip/layout'
-
-const intro = {
-  'day1': '/static/img/interview/day1.png',
-  'day2': '/static/img/interview/day2.png',
-  'day3': '/static/img/interview/day3.png',
-  'day4': '/static/img/interview/day4.png',
-  'day5': '/static/img/interview/day5.png',
-  'day6': '/static/img/interview/day6.png'
-}
+import CourseInfo from '../../util/getCourseInfo'
 
 export default class extends React.Component {
   constructor (props) {
@@ -25,18 +17,49 @@ export default class extends React.Component {
 
   componentDidMount = async () => {
     try {
-      let list = await AxiosUtil({method: 'get', url: '/api/interview/getList'})
+      let list = await CourseInfo.getList();
 
       this.setState({
         list: list,
-        isRender: false
       })
     } catch (e) {
       this.setState({
-        isRender: false,
         error: e.message
       })
     }
+    // 获取报名信息
+    let payStatus = CourseInfo.getPayStatus();
+    switch (payStatus) {
+      case 'pay':
+        break;
+      case 'UnPay':
+        console.log('unPay and rooter');
+        break;
+      case 'UnKnow':
+        break;
+      default:
+    }
+
+    if (payStatus === 'UnPay') {
+      console.log('unPay and rooter');
+    } else {
+      this.setState({
+        isRender: false,
+      })
+    }
+    console.log('2')
+    // 付费
+    // 正常
+
+    // 未付费
+    // 跳转
+
+    // 报错
+
+    // 判定是否购买
+
+    //
+
   }
 
   toLastDay () {

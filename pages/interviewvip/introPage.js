@@ -4,6 +4,8 @@ import Card from '../../components/card'
 import InterviewLayout from '../../containers/interviewvip/layout'
 import GetPayInfo from '../../util/getPayInfo'
 
+// 介绍页
+
 export default class extends React.Component {
   constructor (props) {
     super(props)
@@ -120,7 +122,7 @@ export default class extends React.Component {
   }
 
   renderSignUp () {
-    return (this.renderButton('火速报名', 'paymenyt'))
+    return (this.renderButton('火速报名', 'payment'))
   }
 
   renderHaveClosed () {
@@ -143,6 +145,7 @@ export default class extends React.Component {
 
   goPath (goPath) {
     console.log(goPath)
+    location.href = `/interviewvip/${goPath}`
   }
 
   renderAvatar () {
