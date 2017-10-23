@@ -98,6 +98,7 @@ export default class WxRecord extends React.Component {
   uploadVoice (localId, callback) {
     callback = callback || function () {}
     const _this = this
+    console.log('component uploadVoice')
 
     wx.uploadVoice({
       localId: localId,

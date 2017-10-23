@@ -215,7 +215,7 @@ export default class extends React.Component {
 
       if (ToolsUtil.isRecord(type)) {
         console.log('上传音频')
-        this.ref.wxRecord.uploadVoice(answerList[id], (serverId) => {
+        this.refs.wxRecord.uploadVoice(answerList[id], (serverId) => {
           _this.onChange(id, serverId)
         })
       }
