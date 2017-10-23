@@ -135,7 +135,7 @@ export default class extends React.Component {
           {!noPrev && (
             <div className={classNames({prev: true, disabled: this.state.noPrev})}>
               <Button onClick={() => {
-                this.prev(id, questionLength)
+                this.prev(id, questionLength, dtoItem)
               }}>上一题</Button>
             </div>
           )}
@@ -185,14 +185,28 @@ export default class extends React.Component {
     )
   }
 
-  prev (id, questionLength) {
-    const {currentIndex} = this.state
-    const prevIndex = currentIndex - 1
+  prev (id, questionLength, dtoItem) {
+    let {type} = dtoItem
+    let canPrev = true
+    if (ToolsUtil.isRecord(type)) {
+      this.refs.wxRecord.leave((res) => {
+        if (res) {
+          canPrev = true
+        } else {
+          canPrev = false
+        }
+      })
+    }
 
-    if (prevIndex <= 0) {
-      this.setState({currentIndex: prevIndex, noNext: false, noPrev: true})
-    } else {
-      this.setState({currentIndex: prevIndex, noNext: false})
+    if (canPrev) {
+      const {currentIndex} = this.state
+      const prevIndex = currentIndex - 1
+
+      if (prevIndex <= 0) {
+        this.setState({currentIndex: prevIndex, noNext: false, noPrev: true})
+      } else {
+        this.setState({currentIndex: prevIndex, noNext: false})
+      }
     }
   }
 
