@@ -73,20 +73,21 @@ courseInfo.setTopicStatus = (currentElement, isDoingTag) => {
   是否显示下一题按钮 按钮内容设置
  */
 courseInfo.isLast = function (topicKey) {
-  // let group = groupArrayInfo.group
-  let lastGroup = false
-  let lastElement = false
-  let targetElementIndex
+  let group // 章节内部保存小节的数组
+  let lastGroup = false // 是否是最后一章节
+  let lastElement = false // 是否是该章节最后最后一门课
+  let targetElementIndex // 搜索目标index
   // 在外部遍历
   groupArrayInfo.forEach((currentGroup, targetGroupIndex) => {
+    group = currentGroup.group
     lastGroup = targetGroupIndex === groupArrayInfo.length - 1
     // 在内部根据topicKey遍历查找
-    targetElementIndex = currentGroup.findIndex((currentElement, index) => {
+    targetElementIndex = group.findIndex((currentElement, index) => {
       return currentElement.topicKey === topicKey
     })
     if (targetElementIndex !== -1) {
       // 是否是最后一个子元素?
-      lastElement = targetElementIndex === currentGroup.length - 1
+      lastElement = targetElementIndex === group.length - 1
       if (lastElement) {
         // 是否是最后一章节?
         if (lastGroup) {
@@ -98,19 +99,19 @@ courseInfo.isLast = function (topicKey) {
           })
         } else {
           console.log('下一章')
-          courseInfo.getNext(++targetGroupIndex, 0)
+          courseInfo.getNext(++targetGroupIndex, 0, '下一章')
         }
       } else {
         console.log('下一节')
-        courseInfo.getNext(targetGroupIndex, ++targetElementIndex)
+        courseInfo.getNext(targetGroupIndex, ++targetElementIndex, '下一节')
       }
     }
   })
   console.log('not found')
   return ({
-    url:'',
+    taskUrl:'123',
     word: '按钮',
-    show: 'show',
+    show: true,
   })
 }
 
@@ -119,21 +120,21 @@ courseInfo.isLast = function (topicKey) {
  是否显示下一题按钮 按钮内容设置
  */
 
-courseInfo.getNext = (groupIndex, elementIndex) => {
-  console.log(groupArray)
+courseInfo.getNext = (groupIndex, elementIndex, buttonWord) => {
+  console.log(groupArrayInfo)
   console.log(groupIndex)
   console.log(elementIndex)
-  let result = groupArrayInfo.groups[groupIndex][elementIndex]
-  if (true) {
+  let nextElement = groupArrayInfo[groupIndex].group[elementIndex]
+  if (!nextElement.over) {
     return ({
-      url:'',
-      word: '按钮',
-      show: 'show',
+      url: nextElement.topicKey,
+      word: buttonWord,
+      show: true,
     })
   } else {
     return ({
       url:'',
-      word: '按钮',
+      word: '',
       show: false,
     })
   }

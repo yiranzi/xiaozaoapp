@@ -3,11 +3,9 @@ import ThemeConfig from '../../config/theme'
 
 export default class extends React.Component {
   render () {
-    const { title, content } = this.props
     return (
       <div className='card'>
-        {title && <div className='title'>{title}</div>}
-        {content && <div className='content'>{content}</div>}
+        {this.props.children}
         <style jsx>{`
           .card {
             background-color: ${ThemeConfig.color.gray};
@@ -16,6 +14,7 @@ export default class extends React.Component {
             margin: 1rem 0;
             border-radius: 18px;
             line-height: 32px;
+            width: 100%
           }
           .card .title {
             text-align: center;
