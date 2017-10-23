@@ -13,7 +13,28 @@ dataUtil.isEmpty = function (data) {
   return data.length === 0
 }
 
-dataUtil.imgFormat = function (base64, type) {
+dataUtil.uuid = function (len, radix) {
+  let chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('')
+  let uuid = []
+  let i
+  radix = radix || chars.length
+  if (len) {
+    for (i = 0; i < len; i++) uuid[i] = chars[0 | Math.random() * radix]
+  } else {
+    let r
+    uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-'
+    uuid[14] = '4'
+    for (i = 0; i < 36; i++) {
+      if (!uuid[i]) {
+        r = 0 | Math.random() * 16
+        uuid[i] = chars[(i === 19) ? (r & 0x3) | 0x8 : r]
+      }
+    }
+  }
+  return uuid.join('')
+}
+
+dataUtil.imgFormat = function (base64, name, type) {
   let text = window.atob(base64.split(',')[1])
   let buffer = new Uint8Array(text.length)
   for (let i = 0; i < text.length; i++) {
@@ -21,7 +42,7 @@ dataUtil.imgFormat = function (base64, type) {
   }
   let blob = getBlob([buffer], type)
   let formdata = new FormData()
-  formdata.append('file', blob, `blob.${type.split('/')[1]}`)
+  formdata.append('file', blob, `blob.${name}`)
   return formdata
 
   function getBlob (buffer, format) {
