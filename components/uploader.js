@@ -5,10 +5,10 @@ import { Gallery, GalleryDelete, Uploader, Form, Cell, CellBody } from 'react-we
 export default class extends React.Component {
   constructor (props) {
     super(props)
-
+    let imgFiles = this.props.defaultValue || []
     this.state = {
       gallery: false,
-      imgFiles: []
+      imgFiles: imgFiles
     }
   }
 
@@ -40,6 +40,7 @@ export default class extends React.Component {
   }
 
   render () {
+    const _this = this
     const {imgFiles} = this.state
     let {title, maxCount} = this.props
     maxCount = maxCount || 10 // 最多上传10张
@@ -60,6 +61,8 @@ export default class extends React.Component {
                   let newFiles = [...this.state.imgFiles, {url: file.data}]
                   this.setState({
                     imgFiles: newFiles
+                  }, () => {
+                    _this.props.onChange(newFiles)
                   })
                 }}
                 onFileClick={
