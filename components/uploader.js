@@ -5,10 +5,9 @@ import { Gallery, GalleryDelete, Uploader, Form, Cell, CellBody } from 'react-we
 export default class extends React.Component {
   constructor (props) {
     super(props)
-    let imgFiles = this.props.defaultValue || []
     this.state = {
       gallery: false,
-      imgFiles: imgFiles
+      imgFiles: this.props.defaultValue
     }
   }
 

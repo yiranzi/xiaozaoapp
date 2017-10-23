@@ -42,7 +42,7 @@ dataUtil.imgFormat = function (base64, name, type) {
   }
   let blob = getBlob([buffer], type)
   let formdata = new FormData()
-  formdata.append('file', blob, `blob.${name}`)
+  formdata.append('file', blob, `${name}.${type}`)
   return formdata
 
   function getBlob (buffer, format) {

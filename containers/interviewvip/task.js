@@ -102,9 +102,10 @@ export default class extends React.Component {
       let options = this.formatOptions(optionDTOList)
       return <CheckBox key={name} name={name} defaultValue={defaultValue} options={options} onChange={(value) => this.onChange(id, value)} />
     } else if (ToolsUtil.isUploader(type)) {
-      return <Uploader title='请上传您的答案' defaultValue={defaultValue} maxCount={1} onChange={(value) => this.uploadChange(id, value)} />
+      defaultValue = defaultValue ? [{url: defaultValue}] : []
+      return <Uploader title='图片上传' defaultValue={defaultValue} maxCount={1} onChange={(value) => this.uploadChange(id, value)} />
     } else if (ToolsUtil.isTextarea(type)) {
-      return <TextArea placeholder='请输入您的答案' defaultValue={defaultValue} maxLength={1000} onChange={(value) => { this.onChange(id, value) }} />
+      return <TextArea placeholder='请输入您的答案' defaultValue={defaultValue} maxLength={200} onChange={(value) => { this.onChange(id, value) }} />
     } else if (ToolsUtil.isRecord(type)) {
       return <WxRecord ref='wxRecord' defaultValue={defaultValue} onChange={(value) => { this.onChange(id, value) }} />
     }
@@ -218,24 +219,30 @@ export default class extends React.Component {
     let {type} = dtoItem
 
     try {
-      // 如果是图片或者是录音题目，点击下一题时提交
-      if (ToolsUtil.isUploader(type)) {
-        let uuid = DataUtil.uuid(6)
-        let formdata = DataUtil.imgFormat(answerList[id], uuid, 'jpg')
-        console.log('上传图片')
-        await AxiosUtil.post('/api/interview/uploadImage', formdata)
-        this.onChange(id, `http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/interview/audio/${uuid}`)
-        canNext = true
-      }
-      if (ToolsUtil.isRecord(type)) {
-        console.log('上传音频')
-        this.refs.wxRecord.uploadVoice(answerList[id], (serverId) => {
-          if (serverId) {
-            _this.onChange(id, serverId)
-          } else {
-            canNext = false
+      // 如果这道题有做，就提交，没有就进入下一题
+      if (answerList[id]) {
+        // 如果是图片或者是录音题目，点击下一题时提交
+        if (ToolsUtil.isUploader(type)) {
+          // 图片还没有上传
+          if (answerList[id].indexOf('xiaozaoresource') < 0) {
+            let uuid = DataUtil.uuid(11)
+            let formdata = DataUtil.imgFormat(answerList[id], uuid, 'jpg')
+            console.log('上传图片')
+            await AxiosUtil.post('/api/interview/uploadImage', formdata)
+            this.onChange(id, `http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/interview/image/${uuid}.jpg`)
+            canNext = true
           }
-        })
+        }
+        if (ToolsUtil.isRecord(type)) {
+          console.log('上传音频')
+          this.refs.wxRecord.uploadVoice(answerList[id], (serverId) => {
+            if (serverId) {
+              _this.onChange(id, serverId)
+            } else {
+              canNext = false
+            }
+          })
+        }
       }
 
       if (canNext) {
@@ -256,26 +263,17 @@ export default class extends React.Component {
     const {answerList} = this.state
     return questionList.interviewTopicDTOList.map((item, index) => {
       let id = item.id
-      let answer = answerList[id].serverId ? answerList[id].serverId : ''
+      let answer = answerList ? answerList[id] : ''
       return {answer: answer, id: id}
     })
   }
 
   answerComplete = async () => {
-    const {isRecording, isPlaying} = this.state
-    if (isRecording) {
-      alert('正在录音，请结束录音后提交')
-      return
-    }
-    if (isPlaying) {
-      alert('正在播放录音，请结束音频后提交')
-      return
-    }
     const {answerList} = this.state
     const {interviewTopicDTOList} = this.props.questionList
 
     if (Object.keys(answerList).length < interviewTopicDTOList.length) {
-      alert('当前题目未录音')
+      alert('有部分题目未完成，请检查后重新')
       return
     }
 
@@ -284,18 +282,17 @@ export default class extends React.Component {
 
     try {
       this.setState({isSubmit: true})
+      console.log(1)
       const data = JSON.stringify({
         answerDTOList: answerListArray,
         time: 30,
         topicKey: topicKey
       })
+      console.log(3)
       this.setState({isSubmit: true})
-      await AxiosUtil({
-        method: 'post',
-        url: '/api/interview/complete',
-        data: data
-      })
-      location.href = `/interview/result?topicKey=${topicKey}`
+
+      await AxiosUtil.post('/api/interview/complete', data)
+      // location.href = `/interview/result?topicKey=${topicKey}`
     } catch (e) {
       this.setState({isSubmit: false})
       alert('提交失败，请重新提交')
