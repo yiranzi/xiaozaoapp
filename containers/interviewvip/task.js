@@ -21,8 +21,7 @@ export default class extends React.Component {
       noPrev: true,
       noNext: this.props.questionList.interviewTopicDTOList.length <= 1,
       answerList: {},
-      isSubmit: false,
-      canNext: false
+      isSubmit: false
     }
   }
   renderMaterialItem (item) {
@@ -198,6 +197,7 @@ export default class extends React.Component {
   }
 
   next = async (id, questionLength, dtoItem) => {
+    let canNext = true
     const {currentIndex, answerList} = this.state
     const _this = this
 
@@ -211,24 +211,29 @@ export default class extends React.Component {
         console.log('上传图片')
         await AxiosUtil.post('/api/interview/uploadImage', formdata)
         this.onChange(id, `http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/interview/audio/${uuid}`)
+        canNext = true
       }
-
       if (ToolsUtil.isRecord(type)) {
         console.log('上传音频')
         this.refs.wxRecord.uploadVoice(answerList[id], (serverId) => {
-          _this.onChange(id, serverId)
+          if (serverId) {
+            _this.onChange(id, serverId)
+          } else {
+            canNext = false
+          }
         })
       }
 
-      const nextIndex = currentIndex + 1
+      if (canNext) {
+        const nextIndex = currentIndex + 1
 
-      if (nextIndex >= questionLength - 1) {
-        this.setState({currentIndex: nextIndex, noNext: true, noPrev: false})
-      } else {
-        this.setState({currentIndex: nextIndex, noPrev: false})
+        if (nextIndex >= questionLength - 1) {
+          this.setState({currentIndex: nextIndex, noNext: true, noPrev: false})
+        } else {
+          this.setState({currentIndex: nextIndex, noPrev: false})
+        }
       }
     } catch (e) {
-
     }
   }
 

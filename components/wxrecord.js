@@ -103,12 +103,12 @@ export default class WxRecord extends React.Component {
 
     if (isRecording) {
       alert('正在录音，请结束录音后进入下一题')
-      return
+      callback()
     }
 
     if (isPlaying) {
       alert('正在播放录音，请停止录音后进入下一题')
-      return
+      callback()
     }
 
     wx.uploadVoice({
