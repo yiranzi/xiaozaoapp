@@ -32,6 +32,23 @@ export default class Layout extends React.Component {
         </CellFooter>
         <CellBody>{label}</CellBody>
         <style global jsx>{`
+          .weui-cells_radio .weui-check:checked+.weui-icon-checked:before {
+            content: '\\EA06' !important;
+            color: #108ee9 !important;
+            font-size: 23px !important;
+          }
+          .weui-cells_radio .weui-icon-checked:before {
+            content: '\\EA01';
+            color: #C9C9C9;
+            font-size: 23px;
+            display: block;
+          }
+          [class^="weui-icon-"]:before, [class*=" weui-icon-"]:before {
+            display: inline-block;
+            margin-left: .2em;
+            margin-right: .2em;
+          }
+
           /*背景*/
           .weui-cells,
           .weui-check__label:active {
@@ -44,26 +61,6 @@ export default class Layout extends React.Component {
           .weui-cells:after {
             border-top: none !important;
             border-bottom: none !important;
-          }
-          span.weui-icon-checked {
-            width: 1.25rem;
-            height: 1.25rem;
-            background: transparent;
-            border-radius: 1rem;
-            margin-right: 1rem;
-            position: relative;
-            border: 1px solid #2b3a64;
-          }
-          .weui-cells_radio .weui-check:checked+.weui-icon-checked:before {
-            content: '' !important;
-            color: transparent;
-            background: url(/static/img/interview/check.png) no-repeat;
-            background-size: 100%;
-            width: 1.75rem;
-            height: 1.75rem;
-            position: absolute;
-            left: -0.3rem;
-            top: -0.2rem;
           }
           .weui-cell {
             padding: 10px 0 !important;

@@ -67,6 +67,9 @@ export default class MyCheckbox extends React.Component {
           .weui-check__label:active {
             background-color: transparent !important;
           }
+          .weui-cells_checkbox .weui-check:checked+.weui-icon-checked:before {
+            color: #108ee9 !important;
+          }
         `}</style>
       </Form>
     )
