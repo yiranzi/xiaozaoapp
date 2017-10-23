@@ -1,8 +1,8 @@
-import React from 'react'
-import {Button} from 'react-weui'
-import Card from '../../components/card'
-import InterviewLayout from '../../containers/interviewvip/layout'
-import GetPayInfo from '../../util/getPayInfo'
+import React from 'react'// 库
+import {Button} from 'react-weui'// 组件库
+import Card from '../../components/card'// 自定义组件
+import InterviewLayout from '../../containers/interviewvip/layout'// container
+import GetPayInfo from '../../util/getPayInfo'// 工具类
 
 // 介绍页
 

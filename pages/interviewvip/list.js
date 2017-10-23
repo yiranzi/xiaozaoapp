@@ -1,4 +1,5 @@
 import React from 'react'
+import TaskCard from '../../containers/interviewvip/taskCard'// 自定义组件
 import ThemeConfig from '../../config/theme'
 import InterviewLayout from '../../containers/interviewvip/layout'
 import CourseInfo from '../../util/getCourseInfo'
@@ -90,12 +91,30 @@ export default class extends React.Component {
   }
 
   renderGroupContain (topic) {
-    return( <div>{topic.subTitle}</div>)
+    let title = topic.subTitle
+    let peopleCunt = topic.completeUser + '人已做完'
+    return (<div onClick={this.goRouter.bind(this, topic)}>
+      <TaskCard
+        title={title}
+        content={peopleCunt} />
+    </div>)
+  }
+
+  goRouter (topic) {
+    let content = topic.finishStatus
+    let topicKey = topic.topicKey
+    console.log(topic.finishStatus)
+    switch (topic.finishStatus) {
+      case 'not-do':
+        break
+      default:
+        location.href = `/interviewvip/intro?topicKey=${topicKey}`
+    }
   }
 
   renderProcess (topic) {
-    let content = topic.finishIcon
-    switch (topic.finishIcon) {
+    let content = topic.finishStatus
+    switch (topic.finishStatus) {
       case 'done':
         break
       case 'doing':
@@ -103,9 +122,9 @@ export default class extends React.Component {
       case 'not-do':
         break
       default:
-        console.log(topic.finishIcon)
+        console.log('error' + topic.finishStatus)
     }
-    return( <div>{content}</div>)
+    return (<div>{content}</div>)
   }
 
   renderList () {
@@ -183,8 +202,9 @@ export default class extends React.Component {
           <div className='header'>
             <img src='/static/img/interview/interview.png' />
           </div>
+          <div className="time">11月1日~11月6日</div>
           <div className='title'>
-            <h1>群面模拟第二期</h1>
+            <h1>群面模拟计划</h1>
           </div>
           <div className='interview-list'>
             {this.renderList(list)}

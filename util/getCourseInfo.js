@@ -54,15 +54,15 @@ courseInfo.makeGroupArray = function (list, type) {
 courseInfo.setTopicStatus = (currentElement, isDoingTag) => {
   console.log(isDoingTag)
   if (currentElement.over) {
-    currentElement.finishIcon = 'done'
+    currentElement.finishStatus = 'done'
     return false
   } else {
     if (isDoingTag) {
-      currentElement.finishIcon = 'not-do'
+      currentElement.finishStatus = 'not-do'
       return false
     } else {
       console.log('!!!!!!!1')
-      currentElement.finishIcon = 'doing'
+      currentElement.finishStatus = 'doing'
       return true
     }
   }
