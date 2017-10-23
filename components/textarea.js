@@ -3,12 +3,12 @@ import {Form, FormCell, CellBody, TextArea} from 'react-weui'
 
 export default class Layout extends React.Component {
   render () {
-    const {placeholder, maxLength, onChange} = this.props
+    const {placeholder, defaultValue, maxLength, onChange} = this.props
     return (
       <Form className='textarea'>
         <FormCell>
           <CellBody>
-            <TextArea placeholder={placeholder} maxLength={maxLength} onChange={(e) => onChange(e.target.value)} />
+            <TextArea placeholder={placeholder} defaultValue={defaultValue} maxLength={maxLength} onChange={(e) => onChange(e.target.value)} />
           </CellBody>
         </FormCell>
       </Form>
