@@ -52,7 +52,7 @@ export default class WxRecord extends React.Component {
       wx.stopRecord({
         success: function (res) {
           let localId = res.localId
-          _this.setState({isRecording: false}, function () {
+          _this.setState({isRecording: false, defaultValue: localId}, function () {
             // 这里需要返回录音的状态------------把localId给上一级----------------------------------------
             _this.props.onChange(localId)
           })
@@ -62,7 +62,7 @@ export default class WxRecord extends React.Component {
         // 录音时间超过一分钟没有停止的时候会执行 complete 回调
         complete: function (res) {
           let localId = res.localId
-          _this.setState({isRecording: false}, function () {
+          _this.setState({isRecording: false, defaultValue: localId}, function () {
             _this.props.onChange(localId)
             // 这里需要返回录音的状态------------把localId给上一级----------------------------------------
           })
@@ -129,15 +129,16 @@ export default class WxRecord extends React.Component {
     )
   }
 
-  renderPlay (localId, isPlaying) {
+  renderPlay () {
+    const {defaultValue, isPlaying} = this.state
     return (
       <div className='play'>
         {isPlaying
           ? <img src='/static/img/interview/pause.png' onClick={() => {
-            this.stopVoice(localId)
+            this.stopVoice(defaultValue)
           }} />
           : <img src='/static/img/interview/play.png' onClick={() => {
-            this.playVoice(localId)
+            this.playVoice(defaultValue)
           }} />
         }
       </div>
