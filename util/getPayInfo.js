@@ -8,7 +8,7 @@ let payInfo = {}
 
 payInfo.getPayInfo = async () => {
   return new Promise((resolve, reject) => {
-    AxiosUtil({method: 'get', url: '/api/interview/buyInfo'}).then((res) => {
+    AxiosUtil.get('/api/interview/buyInfo').then((res) => {
       payStatus = res.buyed
       canBuy = res.canBuy
       resolve(res)

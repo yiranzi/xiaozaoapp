@@ -1,7 +1,5 @@
 import React from 'react'
-import AxiosUtil from '../../util/axios'
 import ThemeConfig from '../../config/theme'
-import Back from '../../containers/interviewvip/back'
 import InterviewLayout from '../../containers/interviewvip/layout'
 import CourseInfo from '../../util/getCourseInfo'
 
@@ -17,49 +15,21 @@ export default class extends React.Component {
 
   componentDidMount = async () => {
     try {
-      let list = await CourseInfo.getList();
-
+      let list = await CourseInfo.getList('list')
       this.setState({
-        list: list,
+        list: list
       })
     } catch (e) {
+      // 未付费 渲染报错信息.不渲染列表
       this.setState({
         error: e.message
       })
     }
-    // 获取报名信息
-    let payStatus = CourseInfo.getPayStatus();
-    switch (payStatus) {
-      case 'pay':
-        break;
-      case 'UnPay':
-        console.log('unPay and rooter');
-        break;
-      case 'UnKnow':
-        break;
-      default:
-    }
-
-    if (payStatus === 'UnPay') {
-      console.log('unPay and rooter');
-    } else {
-      this.setState({
-        isRender: false,
-      })
-    }
-    console.log('2')
-    // 付费
-    // 正常
-
-    // 未付费
-    // 跳转
-
-    // 报错
-
-    // 判定是否购买
-
-    //
-
+    this.setState({
+      isRender: false
+    })
+    // result page
+    // let result = CourseInfo.isLast('1-1')
   }
 
   toLastDay () {
@@ -115,11 +85,46 @@ export default class extends React.Component {
     location.href = '/interview/review?topicKey=' + topicKey
   }
 
-  renderList (list) {
-    let {clock, day, interviewListDetailDTOList} = list
-    let currentDay = day
-    if (interviewListDetailDTOList) {
-      return interviewListDetailDTOList.map((item, index) => {
+  renderGroupTitle (groupName) {
+    return (<div>{groupName}</div>)
+  }
+
+  renderGroupContain (topic) {
+    return( <div>{topic.subTitle}</div>)
+  }
+
+  renderProcess (topic) {
+    let content = topic.finishIcon
+    switch (topic.finishIcon) {
+      case 'done':
+        break
+      case 'doing':
+        break
+      case 'not-do':
+        break
+      default:
+        console.log(topic.finishIcon)
+    }
+    return( <div>{content}</div>)
+  }
+
+  renderList () {
+    let list = this.state.list
+    let arr = []
+    console.log(list)
+    list.forEach((groups, index) => {
+      // 1 将组填入
+      let {group, groupName} = groups
+      arr.push(this.renderGroupTitle(groupName))
+      // 2 遍历 将内容填入
+      group.forEach((topic, index)=>{
+        arr.push(this.renderGroupContain(topic))
+        arr.push(this.renderProcess(topic))
+      })
+    })
+    return arr
+
+      return list.map((item, index) => {
         const {day, title, subTitle, topicKey} = item
         let past = item.day < currentDay
         if (past) {
@@ -168,20 +173,24 @@ export default class extends React.Component {
           </div>
         )
       })
-    } else {
-      return <div />
     }
-  }
 
   render () {
     const {list, isRender, error} = this.state
     return (
       <InterviewLayout isRender={isRender} error={error}>
-        <Back text='< 返回打卡主页' url='/interview/main' />
-        <div className='interview-list'>
-          {this.renderList(list)}
-          {this.renderLastDay(list)}
-        </div>
+        {!error && !isRender && <div className="page">
+          <div className='header'>
+            <img src='/static/img/interview/interview.png' />
+          </div>
+          <div className='title'>
+            <h1>群面模拟第二期</h1>
+          </div>
+          <div className='interview-list'>
+            {this.renderList(list)}
+            {/*{this.renderLastDay(list)}*/}
+          </div>
+        </div>}
         <style global jsx>{`
           .interview {
             padding: 1rem 0 !important;
