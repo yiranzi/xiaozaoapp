@@ -53,7 +53,7 @@ export default class Layout extends React.Component {
           .weui-cells,
           .weui-check__label:active {
             background: transparent !important;
-            line-height: 100% !important;
+            line-height: 1.6 !important;
             font-size: 14px !important;
           }
           .weui-cell:before,
@@ -64,6 +64,7 @@ export default class Layout extends React.Component {
           }
           .weui-cell {
             padding: 10px 0 !important;
+            align-items: flex-start !important;
           }
           .weui-cells_radio .weui-cell__ft {
             padding-left: 0 !important;
