@@ -6,13 +6,15 @@ export default class WxRecord extends React.Component {
     super(props)
     this.state = {
       isRecording: false, // 正在录音
-      isPlaying: false // 正在播放录音
+      isPlaying: false, // 正在播放录音
+      defaultValue: this.props.defaultValue
     }
   }
 
   componentDidMount = async () => {
     const url = `/api/interview/getWXConfig?url=${location.href.split('#')[0]}`
     let wxConfig = await AxiosUtil.get(url)
+    wxConfig.debug = true
     wxConfig.jsApiList = [
       'startRecord',
       'stopRecord',
@@ -39,6 +41,7 @@ export default class WxRecord extends React.Component {
     if (!isRecording && !isPlaying) {
       wx.startRecord()
       // 这里需要返回录音的状态----------------------------------------------------
+      this.setState({isRecording: true})
     }
   }
   stopRecord () {
@@ -51,13 +54,16 @@ export default class WxRecord extends React.Component {
           let localId = res.localId
           _this.setState({isRecording: false}, function () {
             // 这里需要返回录音的状态------------把localId给上一级----------------------------------------
+            _this.props.onChange(localId)
           })
         }
       })
       wx.onVoiceRecordEnd({
         // 录音时间超过一分钟没有停止的时候会执行 complete 回调
         complete: function (res) {
+          let localId = res.localId
           _this.setState({isRecording: false}, function () {
+            _this.props.onChange(localId)
             // 这里需要返回录音的状态------------把localId给上一级----------------------------------------
           })
         }
@@ -79,8 +85,7 @@ export default class WxRecord extends React.Component {
     })
   }
   stopVoice (localId, callback) {
-    callback = callback || function () {
-    }
+    callback = callback || function () {}
     const _this = this
     wx.pauseVoice({
       localId: localId,
@@ -90,9 +95,9 @@ export default class WxRecord extends React.Component {
       }
     })
   }
-  uploadVoice (id, localId) {
+  uploadVoice (localId, callback) {
+    callback = callback || function () {}
     const _this = this
-    this.setState({canNext: true})
 
     wx.uploadVoice({
       localId: localId,
@@ -100,23 +105,18 @@ export default class WxRecord extends React.Component {
       success: function (res) {
         let serverId = res.serverId
         AxiosUtil({method: 'get', url: '/api/interview/uploadWechatAudio?serverId=' + serverId})
-        _this.onChange(id, localId, serverId)
+        callback(serverId)
       }
     })
   }
   renderRecord (id, isRecording, isPlaying) {
-    const {answerList} = this.state
-
-    let localId
-    if (answerList[id]) {
-      localId = answerList[id].localId
-    }
+    const {defaultValue} = this.state
     return (
       <div className='icon'>
         <img src='/static/img/interview/wx_record.png' onClick={() => {
           this.startRecord()
         }} />
-        {localId && !isRecording && this.renderPlay(localId, isPlaying)}
+        {defaultValue && this.renderPlay()}
         <style jsx>{`
           .icon {
             text-align: center;
@@ -166,7 +166,7 @@ export default class WxRecord extends React.Component {
     return (
       <div>
         <div className='record'>
-          {isRecording ? this.renderRecording(id) : this.renderRecord(id, isRecording, isPlaying)}
+          {isRecording ? this.renderRecording() : this.renderRecord()}
         </div>
       </div>
     )

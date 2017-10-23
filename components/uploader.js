@@ -32,7 +32,7 @@ export default class extends React.Component {
         <GalleryDelete onClick={(e, id) => {
           this.setState({
             imgFiles: this.state.imgFiles.filter((e, i) => i !== id),
-            gallery: this.state.imgFiles.length <= 1 ? true : false
+            gallery: this.state.imgFiles.length <= 1
           })
         }} />
       </Gallery>

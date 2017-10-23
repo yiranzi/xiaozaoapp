@@ -3,6 +3,7 @@ import {Button, Form} from 'react-weui'
 import classNames from 'classnames'
 import ToolsUtil from '../../util/tools'
 import AxiosUtil from '../../util/axios'
+import DataUtil from '../../util/data'
 import Radio from '../../components/radio'
 import CheckBox from '../../components/checkbox'
 import Uploader from '../../components/uploader'
@@ -102,11 +103,11 @@ export default class extends React.Component {
       let options = this.formatOptions(optionDTOList)
       return <CheckBox key={name} name={name} defaultValue={defaultValue} options={options} onChange={(value) => this.onChange(id, value)} />
     } else if (ToolsUtil.isUploader(type)) {
-      return <Uploader title='请上传您的答案' defaultValue={defaultValue} maxCount={1} />
+      return <Uploader title='请上传您的答案' defaultValue={defaultValue} maxCount={1} onChange={(value) => this.uploadChange(id, value)} />
     } else if (ToolsUtil.isTextarea(type)) {
-      return <TextArea placeholder='请输入您的答案' maxLength={1000} onChange={(value) => { this.onChange(id, value) }} />
+      return <TextArea placeholder='请输入您的答案' defaultValue={defaultValue} maxLength={1000} onChange={(value) => { this.onChange(id, value) }} />
     } else if (ToolsUtil.isRecord(type)) {
-      return <WxRecord />
+      return <WxRecord ref='wxRecord' defaultValue={defaultValue} onChange={(value) => { this.onChange(id, value) }} />
     }
   }
 
@@ -144,7 +145,7 @@ export default class extends React.Component {
               this.answerComplete()
             }}>提交</Button>}
             {!noNext && <Button onClick={() => {
-              this.next(id, questionLength, dtoList)
+              this.next(id, questionLength, dtoItem)
             }}>下一题</Button>}
           </div>
         </div>
@@ -186,59 +187,48 @@ export default class extends React.Component {
   }
 
   prev (id, questionLength) {
-    const {currentIndex, answerList, isRecording, isPlaying} = this.state
+    const {currentIndex} = this.state
     const prevIndex = currentIndex - 1
 
-    if (isRecording) {
-      alert('正在录音，请结束录音后回到上一题')
-      this.setState({canNext: false})
-      return
-    }
-
-    if (isPlaying) {
-      let localId = answerList[id] ? answerList[id].localId : ''
-      this.stopVoice(localId, function () {
-        if (prevIndex <= 0) {
-          this.setState({currentIndex: prevIndex, noNext: false, noPrev: true})
-        } else {
-          this.setState({currentIndex: prevIndex, noNext: false})
-        }
-      })
+    if (prevIndex <= 0) {
+      this.setState({currentIndex: prevIndex, noNext: false, noPrev: true})
     } else {
-      if (prevIndex <= 0) {
-        this.setState({currentIndex: prevIndex, noNext: false, noPrev: true})
-      } else {
-        this.setState({currentIndex: prevIndex, noNext: false})
-      }
+      this.setState({currentIndex: prevIndex, noNext: false})
     }
   }
 
-  next (id, questionLength, DTOList) {
+  next = async (id, questionLength, dtoItem) => {
     const {currentIndex, answerList} = this.state
-    const nextIndex = currentIndex + 1
+    const _this = this
 
-    const {isRecording, isPlaying} = this.state
+    let {type} = dtoItem
 
-    if (isRecording) {
-      alert('正在录音，请结束录音后进入下一题')
-      this.setState({canNext: false})
-      return
-    }
+    try {
+      // 如果是图片或者是录音题目，点击下一题时提交
+      if (ToolsUtil.isUploader(type)) {
+        let uuid = DataUtil.uuid(6)
+        let formdata = DataUtil.imgFormat(answerList[id], uuid, 'jpg')
+        console.log('上传图片')
+        await AxiosUtil.post('/api/interview/uploadImage', formdata)
+        this.onChange(id, `http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/interview/audio/${uuid}`)
+      }
 
-    if (isPlaying) {
-      this.stopVoice(localId, function () {
-        if (nextIndex >= questionLength - 1) {
-          this.setState({currentIndex: nextIndex, noNext: true, noPrev: false})
-        } else {
-          this.setState({currentIndex: nextIndex, noPrev: false})
-        }
-      })
-    } else {
+      if (ToolsUtil.isRecord(type)) {
+        console.log('上传音频')
+        this.ref.wxRecord.uploadVoice(answerList[id], (serverId) => {
+          _this.onChange(id, serverId)
+        })
+      }
+
+      const nextIndex = currentIndex + 1
+
       if (nextIndex >= questionLength - 1) {
         this.setState({currentIndex: nextIndex, noNext: true, noPrev: false})
       } else {
         this.setState({currentIndex: nextIndex, noPrev: false})
       }
+    } catch (e) {
+
     }
   }
 
@@ -293,7 +283,12 @@ export default class extends React.Component {
     }
   }
 
-  onChange (id, value) {
+  uploadChange (id, value) {
+    let dataBase = value[0].url
+    this.onChange(id, dataBase)
+  }
+
+  onChange = async (id, value) => {
     let {answerList} = this.state
     answerList[id] = answerList[id] || {}
     answerList[id] = value
