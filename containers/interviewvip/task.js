@@ -219,30 +219,27 @@ export default class extends React.Component {
     let {type} = dtoItem
 
     try {
-      // 如果这道题有做，就提交，没有就进入下一题
-      if (answerList[id]) {
-        // 如果是图片或者是录音题目，点击下一题时提交
-        if (ToolsUtil.isUploader(type)) {
-          // 图片还没有上传
-          if (answerList[id].indexOf('xiaozaoresource') < 0) {
-            let uuid = DataUtil.uuid(11)
-            let formdata = DataUtil.imgFormat(answerList[id], uuid, 'jpg')
-            console.log('上传图片')
-            await AxiosUtil.post('/api/interview/uploadImage', formdata)
-            this.onChange(id, `http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/interview/image/${uuid}.jpg`)
-            canNext = true
+      // 如果是图片或者是录音题目，点击下一题时提交
+      if (ToolsUtil.isUploader(type)) {
+        // 图片还没有上传
+        if (answerList[id] && answerList[id].indexOf('xiaozaoresource') < 0) {
+          let uuid = DataUtil.uuid(11)
+          let formdata = DataUtil.imgFormat(answerList[id], uuid, 'jpg')
+          console.log('上传图片')
+          await AxiosUtil.post('/api/interview/uploadImage', formdata)
+          this.onChange(id, `http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/interview/image/${uuid}.jpg`)
+          canNext = true
+        }
+      }
+      if (ToolsUtil.isRecord(type)) {
+        console.log('上传音频')
+        this.refs.wxRecord.uploadVoice(answerList[id], (serverId) => {
+          if (serverId) {
+            _this.onChange(id, serverId)
+          } else {
+            canNext = false
           }
-        }
-        if (ToolsUtil.isRecord(type)) {
-          console.log('上传音频')
-          this.refs.wxRecord.uploadVoice(answerList[id], (serverId) => {
-            if (serverId) {
-              _this.onChange(id, serverId)
-            } else {
-              canNext = false
-            }
-          })
-        }
+        })
       }
 
       if (canNext) {
