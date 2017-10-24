@@ -1,6 +1,6 @@
 import React from 'react'// 库
 import {Button} from 'react-weui'// 组件库
-import Card from '../../components/card'// 自定义组件
+import taskCard from '../../containers/interviewvip/taskCard'// 自定义组件
 import InterviewLayout from '../../containers/interviewvip/layout'// container
 import GetPayInfo from '../../util/getPayInfo'// 工具类
 
@@ -13,7 +13,7 @@ export default class extends React.Component {
       payInfo: null,
       canBuy: null,
       payStatus: null,
-      startTime: null,
+      canEnter: null,
       isRender: true,
       error: '',
       totalUserCount: null,
@@ -32,13 +32,14 @@ export default class extends React.Component {
       // 获取常规数据
       let {totalUserCount, headimgList, price} = payInfo
       let payStatus = GetPayInfo.getPayStatus()
+      let canEnter = GetPayInfo.getCanEnter()
       // 如果已经付费
 
       //TODO 补充接口
-      let startTime = false
+      canEnter = false
       if (payStatus) {
         //  && 开课时间到达 跳转
-        if (startTime) {
+        if (canEnter) {
           this.goPath('list')
         } else {
           // 没开课
@@ -47,10 +48,9 @@ export default class extends React.Component {
         // 未购买
       }
       this.setState({
-        isRender: false,
         payStatus: payStatus,
         canBuy: GetPayInfo.getCanBuy(),
-        startTime: startTime
+        canEnter: canEnter
       })
 
       this.setState({
@@ -60,10 +60,12 @@ export default class extends React.Component {
       })
     } catch (e) {
       this.setState({
-        isRender: false,
         error: e.message
       })
     }
+    this.setState({
+      isRender: false,
+    })
   }
 
   render () {
@@ -82,13 +84,16 @@ export default class extends React.Component {
             <div className='avatar'>{this.renderAvatar()}</div>
           </div>
           <div className='static-data'>
-            <Card
-              title='计划介绍'
-              content={'11'} />
-            <Card
+            <taskCard>
+              <div>
+                <h1></h1>
+                <p>这是介绍</p>
+              </div>
+            </taskCard>
+            <taskCard
               title='参与方式'
               content={'12'} />
-            <Card
+            <taskCard
               title='学习计划'
               content={'13'} />
           </div>
@@ -172,8 +177,10 @@ export default class extends React.Component {
 
   renderAvatar () {
     let headArray = this.state.headimgList
-    return headArray.map((item, index) => {
-      return <img key={index} src={item} />
-    })
+    if (headArray && headArray.length > 0) {
+      return headArray.map((item, index) => {
+        return <img key={index} src={item} />
+      })
+    }
   }
 }

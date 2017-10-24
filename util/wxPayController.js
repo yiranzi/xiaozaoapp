@@ -4,10 +4,10 @@ let payData = null
 
 let wxPayController = {}
 
-wxPayController.payInit = () => {
+wxPayController.payInit = async () => {
   console.log('init')
   // 1 获取订单数据
-  wxPayController.getPayInfo()
+  await wxPayController.getPayInfo()
   // 2 调用微信
   wxPayController.pay()
 }
@@ -17,10 +17,10 @@ wxPayController.pay = () => {
   if (typeof WeixinJSBridge === "undefined") {
     console.log('1')
     if (document.addEventListener) {
-      document.addEventListener('WeixinJSBridgeReady', wxPayController.payInit, false);
+      document.addEventListener('WeixinJSBridgeReady', wxPayController.pay, false);
     } else if (document.attachEvent) {
-      document.attachEvent('WeixinJSBridgeReady', wxPayController.payInit);
-      document.attachEvent('onWeixinJSBridgeReady', wxPayController.payInit);
+      document.attachEvent('WeixinJSBridgeReady', wxPayController.pay);
+      document.attachEvent('onWeixinJSBridgeReady', wxPayController.pay);
     }
   } else {
     console.log('2')
