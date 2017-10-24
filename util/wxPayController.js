@@ -31,13 +31,13 @@ wxPayController.pay = () => {
 wxPayController.onBridgeReady = () => {
 // 2 设置订单
   console.log('onBridgeReady')
-  let {appId, nonceStr, paySign, timeStamp} = payData
+  let {appId,  , paySign, timeStamp, prepayId} = payData
   WeixinJSBridge.invoke(
     'getBrandWCPayRequest', {
       "appId": appId,     //公众号名称，由商户传入
       "timeStamp": timeStamp,         //时间戳，自1970年以来的秒数
       "nonceStr": nonceStr, //随机串
-      "package":"prepay_id=u802345jgfjsdfgsdg888",
+      "package":`prepay_id=${prepayId}`,
       "signType":"MD5",         //微信签名方式：
       "paySign": paySign //微信签名
     },
