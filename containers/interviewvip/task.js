@@ -374,15 +374,54 @@ export default class extends React.Component {
     })
   }
 
+  checkIfIsLast = async (id, value) => {
+    const _this = this
+    if (value.indexOf('data:image') >= 0) {
+      let uuid = DataUtil.uuid(11)
+      let formdata = DataUtil.imgFormat(value, uuid, 'jpg')
+      await AxiosUtil.post('/api/interview/uploadImage', formdata)
+
+      let {answerList} = this.state
+      answerList[id] = answerList[id] || {}
+      answerList[id] = `http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/interview/image/${uuid}.jpg`
+      this.setState({
+        answerList: answerList
+      }, () => {
+        console.log(JSON.stringify(answerList))
+      })
+    }
+    if (value.indexOf('wxLocalResource') >= 0) {
+      let {localId, serverId} = await this.refs.wxRecord.uploadVoice(value)
+      if (serverId) {
+        _this.updateLocalId(id, localId) // 这个是为了保存音频的localId
+
+        let {answerList} = this.state
+        answerList[id] = answerList[id] || {}
+        answerList[id] = serverId
+        this.setState({
+          answerList: answerList
+        }, () => {
+          console.log(JSON.stringify(answerList))
+        })
+      }
+    }
+  }
+
+  // 如果最后一题是录音或者是上传图片，直接上传
   onChange (id, value) {
-    let {answerList} = this.state
-    answerList[id] = answerList[id] || {}
-    answerList[id] = value
-    this.setState({
-      answerList: answerList
-    }, () => {
-      console.log(JSON.stringify(answerList))
-    })
+    const {noNext} = this.state
+    if (noNext) {
+      this.checkIfIsLast(id, value)
+    } else {
+      let {answerList} = this.state
+      answerList[id] = answerList[id] || {}
+      answerList[id] = value
+      this.setState({
+        answerList: answerList
+      }, () => {
+        console.log(JSON.stringify(answerList))
+      })
+    }
   }
 
   render () {
