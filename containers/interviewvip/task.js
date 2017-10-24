@@ -149,9 +149,6 @@ export default class extends React.Component {
       )
     }
   }
-  updateRecording (state) {
-    this.setState({isRecording: state})
-  }
 
   updatePlaying (state) {
     this.setState({isPlaying: state})
@@ -374,6 +371,10 @@ export default class extends React.Component {
     })
   }
 
+  updateRecording (state) {
+    this.setState({isRecording: state})
+  }
+
   checkIfIsLast = async (id, value) => {
     const _this = this
     if (value.indexOf('data:image') >= 0) {
@@ -391,19 +392,22 @@ export default class extends React.Component {
       })
     }
     if (value.indexOf('wxLocalResource') >= 0) {
-      let {localId, serverId} = await this.refs.wxRecord.uploadVoice(value)
-      if (serverId) {
-        _this.updateLocalId(id, localId) // 这个是为了保存音频的localId
+      this.setState({isRecording: false}, async () => {
+        this.refs.wxRecord.uploadVoice(value, (localId, serverId) => {
+          if (serverId) {
+            _this.updateLocalId(id, localId) // 这个是为了保存音频的localId
 
-        let {answerList} = this.state
-        answerList[id] = answerList[id] || {}
-        answerList[id] = serverId
-        this.setState({
-          answerList: answerList
-        }, () => {
-          console.log(JSON.stringify(answerList))
+            let {answerList} = this.state
+            answerList[id] = answerList[id] || {}
+            answerList[id] = serverId
+            this.setState({
+              answerList: answerList
+            }, () => {
+              console.log(JSON.stringify(answerList))
+            })
+          }
         })
-      }
+      })
     }
   }
 
