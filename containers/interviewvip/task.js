@@ -121,8 +121,10 @@ export default class extends React.Component {
           onChange={(value) => this.uploadChange(id, value)} />
       )
     } else if (ToolsUtil.isTextarea(type)) {
+      const name = `answer_${currentIndex}`
       return (
         <TextArea
+          key={name}
           placeholder='请输入您的答案'
           defaultValue={defaultValue}
           maxLength={200}
@@ -336,6 +338,7 @@ export default class extends React.Component {
     try {
       this.setState({isSubmit: true})
       console.log(1)
+      alert(JSON.stringify(answerListArray))
       const data = JSON.stringify({
         answerDTOList: answerListArray,
         time: 30,
@@ -345,6 +348,7 @@ export default class extends React.Component {
       this.setState({isSubmit: true})
 
       await AxiosUtil.post('/api/interview/complete', data)
+      alert('提交成功')
       // location.href = `/interview/result?topicKey=${topicKey}`
     } catch (e) {
       this.setState({isSubmit: false})
