@@ -38,13 +38,13 @@ export default class extends React.Component {
 
   renderGroupContain (topic) {
     let title = topic.subTitle
-    let peopleCunt = topic.completeUser + '人已做完'
+    let peopleCount = topic.completeUser + '人已做完'
     return (<div onClick={this.goRouter.bind(this, topic)}>
       <TaskCard>
         <div className='topic-bar'>
           <div>
             <p>{title}</p>
-            <p>{peopleCunt}</p>
+            <p>{peopleCount}</p>
           </div>
           {this.renderProcess(topic)}
         </div>

@@ -13,8 +13,12 @@ export default class extends React.Component {
       payInfo: null,
       canBuy: null,
       payStatus: null,
+      startTime: null,
       isRender: true,
-      error: ''
+      error: '',
+      totalUserCount: null,
+      headimgList: null,
+      price: null,
     }
   }
 
@@ -25,17 +29,35 @@ export default class extends React.Component {
       this.setState({
         payInfo: payInfo,
       })
+      // 获取常规数据
+      let {totalUserCount, headimgList, price} = payInfo
       let payStatus = GetPayInfo.getPayStatus()
-      if (payStatus === true) {
-        // 如果已经付费 跳转
-        this.goPath('list')
+      // 如果已经付费
+
+      //TODO 补充接口
+      let startTime = false
+      if (payStatus) {
+        //  && 开课时间到达 跳转
+        if (startTime) {
+          this.goPath('list')
+        } else {
+          // 没开课
+        }
       } else {
-        this.setState({
-          isRender: false,
-          payStatus: payStatus,
-          canBuy: GetPayInfo.getCanBuy(),
-        })
+        // 未购买
       }
+      this.setState({
+        isRender: false,
+        payStatus: payStatus,
+        canBuy: GetPayInfo.getCanBuy(),
+        startTime: startTime
+      })
+
+      this.setState({
+        totalUserCount: totalUserCount,
+        headimgList: headimgList,
+        price: price,
+      })
     } catch (e) {
       this.setState({
         isRender: false,
@@ -101,7 +123,7 @@ export default class extends React.Component {
 
   renderNumber () {
     return (
-      <p>{this.state.payInfo.totalUserCount}人已经报名,名额有限...</p>
+      <p>{this.state.totalUserCount}人已经报名,名额有限...</p>
     )
   }
 
@@ -122,7 +144,7 @@ export default class extends React.Component {
   }
 
   renderSignUp () {
-    return (this.renderButton('火速报名', 'payment'))
+    return (this.renderButton(`立即报名¥${this.state.price}`, 'payment'))
   }
 
   renderHaveClosed () {
@@ -149,8 +171,8 @@ export default class extends React.Component {
   }
 
   renderAvatar () {
-    let headArray = this.state.payInfo.headimgList
-    return headArray.map((item,index) => {
+    let headArray = this.state.headimgList
+    return headArray.map((item, index) => {
       return <img key={index} src={item} />
     })
   }

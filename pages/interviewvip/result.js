@@ -53,7 +53,7 @@ export default class extends React.Component {
    根据下一课的状态 显示按钮
    下一课 没做 就有按钮.
    */
-  renderByState () {
+  renderButtonState () {
     if (this.state.isShowNextButton) {
       return (<div onClick={this.goRouter.bind(this, this.state.nextTaskUrl)}>
         <Button>{this.state.buttonWord} + {this.state.nextTaskUrl}</Button>
@@ -74,8 +74,7 @@ export default class extends React.Component {
       // 如果异常.在这里处理
       <InterviewLayout isRender={isRender} error={error}>
         <Back text='< 返回' url='/interviewvip/list' />
-        <div>123123</div>
-        {this.renderByState()}
+        {this.renderButtonState()}
       </InterviewLayout>
     )
   }
