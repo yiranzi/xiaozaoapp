@@ -18,53 +18,73 @@ export default class extends React.Component {
       error: '',
       totalUserCount: null,
       headimgList: null,
-      price: null
+      price: null,
     }
   }
 
   componentDidMount = async () => {
     try {
-      // 获取付费价格
-      let payInfo = await GetPayInfo.getPayInfo()
-      this.setState({
-        payInfo: payInfo
-      })
       // 获取常规数据
-      let {totalUserCount, headimgList, price} = payInfo
-      let payStatus = GetPayInfo.getPayStatus()
-      let canEnter = GetPayInfo.getCanEnter()
-      // 如果已经付费
-
-      // TODO 补充接口
-      canEnter = false
-      if (payStatus) {
-        //  && 开课时间到达 跳转
-        if (canEnter) {
-          this.goPath('list')
-        } else {
-          // 没开课
-        }
-      } else {
-        // 未购买
-      }
-      this.setState({
-        payStatus: payStatus,
-        canBuy: GetPayInfo.getCanBuy(),
-        canEnter: canEnter
-      })
-
-      this.setState({
-        totalUserCount: totalUserCount,
-        headimgList: headimgList,
-        price: price
-      })
+      let payInfo = await GetPayInfo.getPayInfo()
+      // 设置
+      this.setPageInfo(payInfo)
+      this.setPayStatus()
+      this.setPrice()
     } catch (e) {
       this.setState({
         error: e.message
       })
     }
     this.setState({
-      isRender: false
+      isRender: false,
+    })
+  }
+
+  /*
+   设置页面的总人数/头像
+   */
+  setPageInfo (payInfo) {
+    let {totalUserCount, headimgList} = payInfo
+    this.setState({
+      totalUserCount: totalUserCount,
+      headimgList: headimgList,
+    })
+  }
+
+  /*
+   设置报名状态信息
+   */
+  setPayStatus () {
+    // 获取报名信息
+    let payStatus = GetPayInfo.getPayStatus()
+    let canEnter = GetPayInfo.getCanEnter()
+    //TODO 测试 屏蔽掉跳转
+    canEnter = false
+    if (payStatus) {
+      //  && 开课时间到达 跳转
+      if (canEnter) {
+        this.goPath('list')
+      } else {
+        // 没开课
+      }
+    } else {
+      // 未购买
+    }
+    this.setState({
+      payStatus: payStatus,
+      canBuy: GetPayInfo.getCanBuy(),
+      canEnter: canEnter
+    })
+  }
+
+  /*
+   设置价格
+   */
+  setPrice () {
+    // 设置价格
+    let {price} = GetPayInfo.getPriceInfo()
+    this.setState({
+      price: price,
     })
   }
 
@@ -72,7 +92,7 @@ export default class extends React.Component {
     const {isRender, error} = this.state
     return (
       <InterviewLayout isRender={isRender} error={error}>
-        {!isRender && <div className='page'>
+        {!isRender && <div className="page">
           <div className='header'>
             <img src='/static/img/interview/interview.png' />
           </div>
@@ -86,7 +106,7 @@ export default class extends React.Component {
           <div className='static-data'>
             <taskCard>
               <div>
-                <h1 />
+                <h1></h1>
                 <p>这是介绍</p>
               </div>
             </taskCard>
@@ -135,22 +155,29 @@ export default class extends React.Component {
   renderButtonBar () {
     let arr = []
     arr.push(this.renderFreeTry())
-
-    if (this.state.canBuy) {
-      arr.push(this.renderSignUp())
+    // 1是否购买
+    if (this.state.payStatus) {
+      // 2是否开课
+      if (!this.state.canEnter) {
+        // TODO 也报名但未开课的逻辑
+      }
     } else {
-      arr.push(this.renderHaveClosed())
+      if (this.state.canBuy) {
+        arr.push(this.renderSignUp())
+      } else {
+        arr.push(this.renderHaveClosed())
+      }
     }
 
     return arr
   }
 
   renderFreeTry () {
-    return (this.renderButton('体验一下', 'free'))
+    return (this.renderButton('体验一下', '/interviewvip/free'))
   }
 
   renderSignUp () {
-    return (this.renderButton(`立即报名¥${this.state.price}`, 'payment'))
+    return (this.renderButton(`立即报名¥${this.state.price}`, '/payment'))
   }
 
   renderHaveClosed () {
@@ -173,7 +200,7 @@ export default class extends React.Component {
 
   goPath (goPath) {
     console.log(goPath)
-    location.href = `/interviewvip/${goPath}`
+    location.href = goPath
   }
 
   renderAvatar () {
