@@ -391,8 +391,8 @@ export default class extends React.Component {
         console.log(JSON.stringify(answerList))
       })
     }
-    if (value.indexOf('wxLocalResource') >= 0) {
-      this.setState({isRecording: false}, async () => {
+    if (value.indexOf('wxLocalResource') >= 0 || value.indexOf('weixin://resourceid') >= 0) {
+      this.setState({isRecording: false}, () => {
         this.refs.wxRecord.uploadVoice(value, (localId, serverId) => {
           if (serverId) {
             _this.updateLocalId(id, localId) // 这个是为了保存音频的localId
