@@ -106,15 +106,11 @@ export default class WxRecord extends React.Component {
   }
   // 开始录音
   renderRecord (isRecording, isPlaying) {
-    if (isPlaying) {
-      alert('正在播放音频，请结束后开始录音')
-      return
-    } // 正在播放录好的音频时
     const {defaultValue} = this.props // 录好的声音localId或者是serverId
     return (
       <div className='icon'>
         <img src='/static/img/interview/wx_record.png' onClick={() => {
-          this.startRecord(isRecording)
+          this.startRecord(isRecording, isPlaying)
         }} />
         {defaultValue && this.renderPlay(defaultValue, isPlaying)}
         <style jsx>{`
@@ -129,10 +125,11 @@ export default class WxRecord extends React.Component {
     )
   }
   // 开始录音调用方法
-  startRecord (isRecording) {
+  startRecord (isRecording, isPlaying) {
     // 没有录音，且没有播放音频，防止重复录音
-    if (!isRecording) {
+    if (!isRecording && !isPlaying) {
       const _this = this
+
       wx.startRecord({
         success: function () {
           // 这里需要返回录音的状态----------------------------------------------------
@@ -159,6 +156,7 @@ export default class WxRecord extends React.Component {
   // 播放录好的声音
   playVoice (localId) {
     const _this = this
+
     wx.playVoice({
       localId: localId,
       success: function () {
