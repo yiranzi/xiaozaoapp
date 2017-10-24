@@ -1,9 +1,8 @@
 import React from 'react'
 import {Button} from 'react-weui'// 组件库
-import InterviewLayout from '../../containers/interviewvip/layout'
-import GetPayInfo from '../../util/getPayInfo'
-import AxiosUtil from '../../util/axios'// 工具类
-import wxPayController from '../../util/wxPayController'// 工具类
+import InterviewLayout from '../containers/interviewvip/layout'
+import GetPayInfo from '../util/getPayInfo'
+import wxPayController from '../util/wxPayController'// 工具类
 
 // 报名付费页
 
@@ -54,7 +53,7 @@ export default class extends React.Component {
       this.setState({
         price: price,
         discountPrice: discountPrice,
-        disCountArray: interviewInviteesDTOList
+        disCountArray: interviewInviteesDTOList,
       })
     } catch (e) {
       this.setState({
@@ -70,7 +69,7 @@ export default class extends React.Component {
     const {isRender, error} = this.state
     return (
       <InterviewLayout isRender={isRender} error={error}>
-        {/* <Back text='< 返回介绍页' url='/interviewvip/introPage' /> */}
+        {/*<Back text='< 返回介绍页' url='/interviewvip/introPage' />*/}
         {!isRender && <div className='page'>
           {this.renderPriceDiv()}
           {this.renderDiscountList()}
