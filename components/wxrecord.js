@@ -81,7 +81,7 @@ export default class WxRecord extends React.Component {
       success: function (res) {
         let serverId = res.serverId
         AxiosUtil.get('/api/interview/uploadWechatAudio?serverId=' + serverId)
-        callback(serverId)
+        callback(localId, serverId)
       }
     })
   }

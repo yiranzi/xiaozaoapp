@@ -21,6 +21,7 @@ export default class extends React.Component {
       noPrev: true,
       noNext: this.props.questionList.interviewTopicDTOList.length <= 1,
       answerList: {},
+      localIdList: {},
       isSubmit: false,
       isRecording: false,
       isPlaying: false
@@ -77,7 +78,7 @@ export default class extends React.Component {
   }
 
   renderAnswerOption (id, dtoItem) {
-    const {currentIndex, answerList} = this.state
+    const {currentIndex, answerList, localIdList} = this.state
     const {type, optionDTOList} = dtoItem
     let defaultValue = answerList ? answerList[id] : ''
 
@@ -130,6 +131,7 @@ export default class extends React.Component {
       )
     } else if (ToolsUtil.isRecord(type)) {
       const {isRecording, isPlaying} = this.state
+      defaultValue = localIdList ? localIdList[id] : ''
       console.log('defaultValue:', defaultValue)
       return (
         <WxRecord
@@ -282,8 +284,9 @@ export default class extends React.Component {
         // 如果有录音，而且是localId, 上传
         if (answerList[id] && answerList[id].indexOf('wxLocalResource') >= 0) {
           console.log('开始上传')
-          this.refs.wxRecord.uploadVoice(answerList[id], (serverId) => {
+          this.refs.wxRecord.uploadVoice(answerList[id], (localId, serverId) => {
             if (serverId) {
+              _this.updateLocalId(id, localId) // 这个是为了保存音频的localId
               _this.onChange(id, serverId)
               this.goToNextTopic(currentIndex, questionLength)
             }
@@ -354,7 +357,18 @@ export default class extends React.Component {
     this.onChange(id, dataBase)
   }
 
-  onChange = async (id, value) => {
+  updateLocalId (id, localId) {
+    let {localIdList} = this.state
+    localIdList[id] = localIdList[id] || {}
+    localIdList[id] = localId
+    this.setState({
+      localIdList: localIdList
+    }, () => {
+      console.log(JSON.stringify(localIdList))
+    })
+  }
+
+  onChange (id, value) {
     let {answerList} = this.state
     answerList[id] = answerList[id] || {}
     answerList[id] = value
