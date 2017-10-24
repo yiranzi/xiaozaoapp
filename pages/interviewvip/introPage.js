@@ -141,6 +141,7 @@ export default class extends React.Component {
     } else {
       arr.push(this.renderHaveClosed())
     }
+
     return arr
   }
 
