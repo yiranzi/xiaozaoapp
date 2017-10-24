@@ -186,6 +186,11 @@ export default class WxRecord extends React.Component {
         <div className='record'>
           {isRecording ? this.renderRecording(isRecording, isPlaying) : this.renderRecord(isRecording, isPlaying)}
         </div>
+        <style jsx>{`
+          .record {
+            padding: 2rem 0;
+          }
+        `}</style>
       </div>
     )
   }
