@@ -4,8 +4,16 @@ import {Form, FormCell, CellBody, CellHeader, Checkbox} from 'react-weui'
 export default class MyCheckbox extends React.Component {
   constructor (props) {
     super(props)
+    let checkboxValue = []
+    const {defaultValue} = this.props
+    if (defaultValue) {
+      for (let i = 0; i < defaultValue.length; i++) {
+        checkboxValue.push(defaultValue[i])
+      }
+    }
+
     this.state = {
-      checkboxValue: []
+      checkboxValue: checkboxValue
     }
   }
   handleChange (event) {
