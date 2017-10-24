@@ -21,7 +21,9 @@ export default class extends React.Component {
       noPrev: true,
       noNext: this.props.questionList.interviewTopicDTOList.length <= 1,
       answerList: {},
-      isSubmit: false
+      isSubmit: false,
+      isRecording: false,
+      isPlaying: false
     }
   }
   renderMaterialItem (item) {
@@ -100,15 +102,53 @@ export default class extends React.Component {
     } else if (ToolsUtil.isCheckBox(type)) {
       const name = `answer_${currentIndex}`
       let options = this.formatOptions(optionDTOList)
-      return <CheckBox key={name} name={name} defaultValue={defaultValue} options={options} onChange={(value) => this.onChange(id, value)} />
+      return (
+        <CheckBox
+          key={name}
+          name={name}
+          defaultValue={defaultValue}
+          options={options}
+          onChange={(value) => this.onChange(id, value)} />
+      )
     } else if (ToolsUtil.isUploader(type)) {
       defaultValue = defaultValue ? [{url: defaultValue}] : []
-      return <Uploader title='图片上传' defaultValue={defaultValue} maxCount={1} onChange={(value) => this.uploadChange(id, value)} />
+      return (
+        <Uploader
+          title='图片上传'
+          defaultValue={defaultValue}
+          maxCount={1}
+          onChange={(value) => this.uploadChange(id, value)} />
+      )
     } else if (ToolsUtil.isTextarea(type)) {
-      return <TextArea placeholder='请输入您的答案' defaultValue={defaultValue} maxLength={200} onChange={(value) => { this.onChange(id, value) }} />
+      return (
+        <TextArea
+          placeholder='请输入您的答案'
+          defaultValue={defaultValue}
+          maxLength={200}
+          onChange={(value) => { this.onChange(id, value) }}
+        />
+      )
     } else if (ToolsUtil.isRecord(type)) {
-      return <WxRecord ref='wxRecord' defaultValue={defaultValue} onChange={(value) => { this.onChange(id, value) }} />
+      const {isRecording, isPlaying} = this.state
+      console.log('defaultValue:', defaultValue)
+      return (
+        <WxRecord
+          ref='wxRecord'
+          defaultValue={defaultValue}
+          isRecording={isRecording}
+          isPlaying={isPlaying}
+          updateRecording={(state) => this.updateRecording(state)}
+          updatePlaying={(state) => this.updatePlaying(state)}
+          onChange={(value) => { this.onChange(id, value) }} />
+      )
     }
+  }
+  updateRecording (state) {
+    this.setState({isRecording: state})
+  }
+
+  updatePlaying (state) {
+    this.setState({isPlaying: state})
   }
 
   renderDTOList (dtoList, questionLength) {
@@ -190,13 +230,7 @@ export default class extends React.Component {
     let {type} = dtoItem
     let canPrev = true
     if (ToolsUtil.isRecord(type)) {
-      this.refs.wxRecord.leave((res) => {
-        if (res) {
-          canPrev = true
-        } else {
-          canPrev = false
-        }
-      })
+      this.refs.wxRecord.checkState()
     }
 
     if (canPrev) {
@@ -213,10 +247,20 @@ export default class extends React.Component {
 
   next = async (id, questionLength, dtoItem) => {
     let canNext = true
-    const {currentIndex, answerList} = this.state
+    const {currentIndex, answerList, isRecording, isPlaying} = this.state
     const _this = this
 
     let {type} = dtoItem
+
+    if (isRecording) {
+      alert('正在录音，停止录音后进入下一题')
+      return
+    }
+
+    if (isPlaying) {
+      alert('正在播放音频，停止后进入下一题')
+      return
+    }
 
     try {
       // 如果是图片或者是录音题目，点击下一题时提交
@@ -233,13 +277,16 @@ export default class extends React.Component {
       }
       if (ToolsUtil.isRecord(type)) {
         console.log('上传音频')
-        this.refs.wxRecord.uploadVoice(answerList[id], (serverId) => {
-          if (serverId) {
-            _this.onChange(id, serverId)
-          } else {
-            canNext = false
-          }
-        })
+        // 如果有录音，而且是localId, 上传
+        if (answerList[id] && answerList[id].indexOf('wxLocalResource') < 0) {
+          this.refs.wxRecord.uploadVoice(answerList[id], (serverId) => {
+            if (serverId) {
+              _this.onChange(id, serverId)
+            } else {
+              canNext = false
+            }
+          })
+        }
       }
 
       if (canNext) {
