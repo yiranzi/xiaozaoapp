@@ -52,7 +52,6 @@ courseInfo.makeGroupArray = function (list, type) {
   会在第一个未完成上 使用doing
  */
 courseInfo.setTopicStatus = (currentElement, isDoingTag) => {
-  console.log(isDoingTag)
   if (currentElement.over) {
     currentElement.finishStatus = 'done'
     return false
@@ -61,7 +60,6 @@ courseInfo.setTopicStatus = (currentElement, isDoingTag) => {
       currentElement.finishStatus = 'not-do'
       return false
     } else {
-      console.log('!!!!!!!1')
       currentElement.finishStatus = 'doing'
       return true
     }
@@ -77,8 +75,9 @@ courseInfo.isLast = function (topicKey) {
   let lastGroup = false // 是否是最后一章节
   let lastElement = false // 是否是该章节最后最后一门课
   let targetElementIndex // 搜索目标index
+  let findResult // 最终查找到的
   // 在外部遍历
-  groupArrayInfo.forEach((currentGroup, targetGroupIndex) => {
+  groupArrayInfo.find((currentGroup, targetGroupIndex) => {
     group = currentGroup.group
     lastGroup = targetGroupIndex === groupArrayInfo.length - 1
     // 在内部根据topicKey遍历查找
@@ -92,27 +91,37 @@ courseInfo.isLast = function (topicKey) {
         // 是否是最后一章节?
         if (lastGroup) {
           console.log('结束')
-          return ({
+          findResult = {
             url:'',
             word: '按钮',
             show: false,
-          })
+          }
         } else {
           console.log('下一章')
-          courseInfo.getNext(++targetGroupIndex, 0, '下一章')
+          findResult = courseInfo.getNext(++targetGroupIndex, 0, '下一章')
+
         }
       } else {
         console.log('下一节')
-        courseInfo.getNext(targetGroupIndex, ++targetElementIndex, '下一节')
+        findResult = courseInfo.getNext(targetGroupIndex, ++targetElementIndex, '下一节')
       }
+      // 查找到则退出.
+      return true
     }
   })
-  console.log('not found')
-  return ({
-    taskUrl:'123',
-    word: '按钮',
-    show: true,
-  })
+
+  if (findResult) {
+    console.log(findResult)
+    return findResult
+  } else {
+    // 未找到
+    console.log('not found')
+    return ({
+      taskUrl: '123',
+      word: '按钮',
+      show: true,
+    })
+  }
 }
 
 /*
@@ -121,19 +130,17 @@ courseInfo.isLast = function (topicKey) {
  */
 
 courseInfo.getNext = (groupIndex, elementIndex, buttonWord) => {
-  console.log(groupArrayInfo)
-  console.log(groupIndex)
-  console.log(elementIndex)
   let nextElement = groupArrayInfo[groupIndex].group[elementIndex]
+  // 如果没有完成
   if (!nextElement.over) {
     return ({
-      url: nextElement.topicKey,
+      taskUrl: nextElement.topicKey,
       word: buttonWord,
       show: true,
     })
   } else {
     return ({
-      url:'',
+      taskUrl:'',
       word: '',
       show: false,
     })

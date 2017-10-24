@@ -41,8 +41,6 @@ export default class extends React.Component {
 
     let result = CourseInfo.isLast(topicKey)
     let {taskUrl, show, word} = result
-    console.log('是!!!!!')
-    console.log(show)
     this.setState({
       topicKey: topicKey,
       isShowNextButton: show,
@@ -51,62 +49,9 @@ export default class extends React.Component {
     })
   }
 
-  // componentDidMount () {
-  //   const topicKey = ToolsUtil.getQueryString('topicKey');
-  //   this.setState({
-  //     topicKey: topicKey,
-  //   });
-  //   this.queryResultData(topicKey);
-  //   this.getIsFinishToday(topicKey);
-  // }
-
-  // 是否正在查看 今天没完成的题目的 结果.
-  getIsFinishToday = async (topicKey) => {
-    try {
-      let interviewResult = await AxiosUtil(
-        {
-          method: 'get',
-          url: '/api/interview/getHistoryByTopicKey/' + topicKey
-        }
-      );
-    } catch (e) {
-      if (e.status === 10003) {
-        this.setState({
-          todayDoing: true
-        })
-      } else {
-        this.setState({
-          todayDoing: false
-        })
-      }
-    }
-  }
-
-  queryResultData = async (topicKey) => {
-    try {
-      let interviewResult = await AxiosUtil({
-        method: 'get',
-        url: '/api/interview/getCompleteByTopicKey/' + topicKey
-      });
-      if (DataUtil.isEmpty(interviewResult)) {
-        this.setState({isRender: false,error: '未完成打卡'})
-      } else {
-        this.setState({
-          interviewResult: interviewResult,
-          isRender: false,
-        });
-      }
-    } catch (e) {
-      this.setState({
-        isRender: false,
-        error: e
-      })
-    }
-  }
-
-
   /*
-   根据来源 区分后续
+   根据下一课的状态 显示按钮
+   下一课 没做 就有按钮.
    */
   renderByState () {
     if (this.state.isShowNextButton) {
@@ -119,7 +64,7 @@ export default class extends React.Component {
   }
 
   goRouter (topicKey) {
-    console.log(topicKey)
+    // 进入下一节的介绍页
     location.href = `/interviewvip/intro?topicKey=${topicKey}`
   }
 
@@ -128,7 +73,7 @@ export default class extends React.Component {
     return (
       // 如果异常.在这里处理
       <InterviewLayout isRender={isRender} error={error}>
-        <Back text='< 返回' url='/interview/list' />
+        <Back text='< 返回' url='/interviewvip/list' />
         <div>123123</div>
         {this.renderByState()}
       </InterviewLayout>
