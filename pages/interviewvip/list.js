@@ -101,7 +101,7 @@ export default class extends React.Component {
       let {group, groupName} = groups
       arr.push(this.renderGroupTitle(groupName))
       // 2 遍历 将内容填入
-      group.forEach((topic, index)=>{
+      group.forEach((topic, index) => {
         arr.push(this.renderGroupContain(topic))
       })
     })
@@ -112,7 +112,7 @@ export default class extends React.Component {
     const {list, isRender, error} = this.state
     return (
       <InterviewLayout isRender={isRender} error={error}>
-        {!error && !isRender && <div className="page">
+        {!error && !isRender && <div className='page'>
           <div className='header'>
             <img src='/static/img/interview/interview.png' />
           </div>
@@ -122,7 +122,7 @@ export default class extends React.Component {
           </div>
           <div className='interview-list'>
             {this.renderList(list)}
-            {/*{this.renderLastDay(list)}*/}
+            {/* {this.renderLastDay(list)} */}
           </div>
         </div>}
         <style global jsx>{`

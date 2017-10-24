@@ -83,6 +83,4 @@ ToolsUtil.isRecord = function (type) {
   return type === 5
 }
 
-
-
 module.exports = ToolsUtil

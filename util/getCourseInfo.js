@@ -92,14 +92,13 @@ courseInfo.isLast = function (topicKey) {
         if (lastGroup) {
           console.log('结束')
           findResult = {
-            url:'',
+            url: '',
             word: '按钮',
-            show: false,
+            show: false
           }
         } else {
           console.log('下一章')
           findResult = courseInfo.getNext(++targetGroupIndex, 0, '下一章')
-
         }
       } else {
         console.log('下一节')
@@ -119,7 +118,7 @@ courseInfo.isLast = function (topicKey) {
     return ({
       taskUrl: '123',
       word: '按钮',
-      show: true,
+      show: true
     })
   }
 }
@@ -136,13 +135,13 @@ courseInfo.getNext = (groupIndex, elementIndex, buttonWord) => {
     return ({
       taskUrl: nextElement.topicKey,
       word: buttonWord,
-      show: true,
+      show: true
     })
   } else {
     return ({
-      taskUrl:'',
+      taskUrl: '',
       word: '',
-      show: false,
+      show: false
     })
   }
 }

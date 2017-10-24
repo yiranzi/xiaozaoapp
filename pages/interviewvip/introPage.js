@@ -18,7 +18,7 @@ export default class extends React.Component {
       error: '',
       totalUserCount: null,
       headimgList: null,
-      price: null,
+      price: null
     }
   }
 
@@ -27,7 +27,7 @@ export default class extends React.Component {
       // 获取付费价格
       let payInfo = await GetPayInfo.getPayInfo()
       this.setState({
-        payInfo: payInfo,
+        payInfo: payInfo
       })
       // 获取常规数据
       let {totalUserCount, headimgList, price} = payInfo
@@ -35,7 +35,7 @@ export default class extends React.Component {
       let canEnter = GetPayInfo.getCanEnter()
       // 如果已经付费
 
-      //TODO 补充接口
+      // TODO 补充接口
       canEnter = false
       if (payStatus) {
         //  && 开课时间到达 跳转
@@ -56,7 +56,7 @@ export default class extends React.Component {
       this.setState({
         totalUserCount: totalUserCount,
         headimgList: headimgList,
-        price: price,
+        price: price
       })
     } catch (e) {
       this.setState({
@@ -64,7 +64,7 @@ export default class extends React.Component {
       })
     }
     this.setState({
-      isRender: false,
+      isRender: false
     })
   }
 
@@ -72,7 +72,7 @@ export default class extends React.Component {
     const {isRender, error} = this.state
     return (
       <InterviewLayout isRender={isRender} error={error}>
-        {!isRender && <div className="page">
+        {!isRender && <div className='page'>
           <div className='header'>
             <img src='/static/img/interview/interview.png' />
           </div>
@@ -86,7 +86,7 @@ export default class extends React.Component {
           <div className='static-data'>
             <taskCard>
               <div>
-                <h1></h1>
+                <h1 />
                 <p>这是介绍</p>
               </div>
             </taskCard>

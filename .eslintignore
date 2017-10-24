@@ -3,3 +3,5 @@ node_modules/*
 out/*
 static/js/*
 components/audio.js
+pages/interview/*
+containers/interview/*

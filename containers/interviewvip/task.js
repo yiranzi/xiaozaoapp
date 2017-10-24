@@ -49,6 +49,7 @@ export default class extends React.Component {
     const _this = this
 
     // meterial 返回结果有两种，一种是文字材料(字符串)，另一种是“['mp3', 'img', 'mp4']”
+    // eslint-disable-next-line
     let meterialArray = eval(material)
 
     if (meterialArray) {
@@ -242,7 +243,7 @@ export default class extends React.Component {
   }
   goToPrevTopic (currentIndex, questionLength) {
     const prevIndex = currentIndex - 1
-    
+
     if (prevIndex <= 0) {
       this.setState({currentIndex: prevIndex, noNext: false, noPrev: true})
     } else {
@@ -304,7 +305,7 @@ export default class extends React.Component {
 
   goToNextTopic (currentIndex, questionLength) {
     const nextIndex = currentIndex + 1
-    
+
     if (nextIndex >= questionLength - 1) {
       this.setState({currentIndex: nextIndex, noNext: true, noPrev: false})
     } else {
@@ -391,6 +392,7 @@ export default class extends React.Component {
         console.log(JSON.stringify(answerList))
       })
     }
+    // eslint-disable-next-line
     if (value.indexOf('wxLocalResource') >= 0 || value.indexOf('weixin://resourceid') >= 0) {
       this.setState({isRecording: false}, () => {
         this.refs.wxRecord.uploadVoice(value, (localId, serverId) => {

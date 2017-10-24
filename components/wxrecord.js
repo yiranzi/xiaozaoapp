@@ -17,10 +17,13 @@ export default class WxRecord extends React.Component {
       'uploadVoice',
       'downloadVoice'
     ]
+    // eslint-disable-next-line
     wx.config(wxConfig)
+    // eslint-disable-next-line
     wx.ready(function () {
       console.log('微信认证成功')
     })
+    // eslint-disable-next-line
     wx.error(function (res) {
       console.log('微信认证失败')
       console.log(res)
@@ -30,6 +33,7 @@ export default class WxRecord extends React.Component {
     const _this = this
 
     if (isRecording && !isPlaying) {
+      // eslint-disable-next-line
       wx.stopRecord({
         success: function (res) {
           let localId = res.localId
@@ -40,6 +44,7 @@ export default class WxRecord extends React.Component {
           })
         }
       })
+      // eslint-disable-next-line
       wx.onVoiceRecordEnd({
         // 录音时间超过一分钟没有停止的时候会执行 complete 回调
         complete: function (res) {
@@ -74,7 +79,7 @@ export default class WxRecord extends React.Component {
     if (this.checkState()) {
       callback()
     }
-
+    // eslint-disable-next-line
     wx.uploadVoice({
       localId: localId,
       isShowProgressTips: 1,
@@ -85,7 +90,7 @@ export default class WxRecord extends React.Component {
       }
     })
   }
-  
+
   // 正在录音
   renderRecording (isRecording, isPlaying) {
     return (
@@ -129,7 +134,7 @@ export default class WxRecord extends React.Component {
     // 没有录音，且没有播放音频，防止重复录音
     if (!isRecording && !isPlaying) {
       const _this = this
-
+      // eslint-disable-next-line
       wx.startRecord({
         success: function () {
           // 这里需要返回录音的状态----------------------------------------------------
@@ -156,13 +161,14 @@ export default class WxRecord extends React.Component {
   // 播放录好的声音
   playVoice (localId) {
     const _this = this
-
+    // eslint-disable-next-line
     wx.playVoice({
       localId: localId,
       success: function () {
         _this.props.updatePlaying(true)
       }
     })
+    // eslint-disable-next-line
     wx.onVoicePlayEnd({
       success: function (res) {
         _this.props.updatePlaying(false)
@@ -172,6 +178,7 @@ export default class WxRecord extends React.Component {
   // 暂停录好的声音
   stopVoice (localId) {
     const _this = this
+    // eslint-disable-next-line
     wx.pauseVoice({
       localId: localId,
       success: function () {
@@ -184,7 +191,8 @@ export default class WxRecord extends React.Component {
     return (
       <div>
         <div className='record'>
-          {isRecording ? this.renderRecording(isRecording, isPlaying) : this.renderRecord(isRecording, isPlaying)}
+          {isRecording && this.renderRecording(isRecording, isPlaying)}
+          {!isRecording && this.renderRecord(isRecording, isPlaying)}
         </div>
         <style jsx>{`
           .record {

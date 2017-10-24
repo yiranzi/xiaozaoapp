@@ -5,7 +5,6 @@ import GetPayInfo from '../../util/getPayInfo'
 import AxiosUtil from '../../util/axios'// 工具类
 import wxPayController from '../../util/wxPayController'// 工具类
 
-
 // 报名付费页
 
 export default class extends React.Component {
@@ -25,7 +24,7 @@ export default class extends React.Component {
       // 获取付费价格
       let payInfo = await GetPayInfo.getPayInfo()
       this.setState({
-        payInfo: payInfo,
+        payInfo: payInfo
       })
       // 获取常规数据
       let {interviewInviteesDTOList} = payInfo
@@ -34,7 +33,7 @@ export default class extends React.Component {
       let payStatus = GetPayInfo.getPayStatus()
       // 如果已经付费
 
-      //TODO 补充接口
+      // TODO 补充接口
       let startTime = false
       // 是否购买
       if (payStatus) {
@@ -55,7 +54,7 @@ export default class extends React.Component {
       this.setState({
         price: price,
         discountPrice: discountPrice,
-        disCountArray: interviewInviteesDTOList,
+        disCountArray: interviewInviteesDTOList
       })
     } catch (e) {
       this.setState({
@@ -71,7 +70,7 @@ export default class extends React.Component {
     const {isRender, error} = this.state
     return (
       <InterviewLayout isRender={isRender} error={error}>
-        {/*<Back text='< 返回介绍页' url='/interviewvip/introPage' />*/}
+        {/* <Back text='< 返回介绍页' url='/interviewvip/introPage' /> */}
         {!isRender && <div className='page'>
           {this.renderPriceDiv()}
           {this.renderDiscountList()}

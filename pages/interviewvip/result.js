@@ -45,7 +45,7 @@ export default class extends React.Component {
       topicKey: topicKey,
       isShowNextButton: show,
       buttonWord: word,
-      nextTaskUrl: taskUrl,
+      nextTaskUrl: taskUrl
     })
   }
 
@@ -79,5 +79,3 @@ export default class extends React.Component {
     )
   }
 }
-
-

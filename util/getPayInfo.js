@@ -10,7 +10,6 @@ let priceInfo = {}
 
 let payInfo = {}
 
-
 payInfo.getPayInfo = async () => {
   return new Promise((resolve, reject) => {
     AxiosUtil.get('/api/interview/buyInfo').then((res) => {
@@ -22,7 +21,7 @@ payInfo.getPayInfo = async () => {
 
       priceInfo.price = price / 100
       priceInfo.offerPrice = offerPrice / 100
-      priceInfo.discountPrice = (price - offerPrice) / 100;
+      priceInfo.discountPrice = (price - offerPrice) / 100
 
       resolve(res)
     }).catch((e) => {
@@ -52,5 +51,4 @@ payInfo.getCanBuy = function () {
   return canBuy
 }
 
-
-module.exports = payInfo;
+module.exports = payInfo

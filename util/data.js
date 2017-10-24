@@ -49,6 +49,7 @@ dataUtil.imgFormat = function (base64, name, type) {
     try {
       return new Blob(buffer, {type: format})
     } catch (e) {
+      // eslint-disable-next-line
       let bb = new (window.BlobBuilder || window.WebKitBlobBuilder || window.MSBlobBuilder)()
       buffer.forEach(function (buf) {
         bb.append(buf)
