@@ -228,25 +228,26 @@ export default class extends React.Component {
 
   prev (id, questionLength, dtoItem) {
     let {type} = dtoItem
-    let canPrev = true
+    const {currentIndex} = this.state
     if (ToolsUtil.isRecord(type)) {
-      this.refs.wxRecord.checkState()
-    }
-
-    if (canPrev) {
-      const {currentIndex} = this.state
-      const prevIndex = currentIndex - 1
-
-      if (prevIndex <= 0) {
-        this.setState({currentIndex: prevIndex, noNext: false, noPrev: true})
-      } else {
-        this.setState({currentIndex: prevIndex, noNext: false})
+      if (this.refs.wxRecord.checkState()) {
+        this.goToPrevTopic(currentIndex, questionLength)
       }
+    } else {
+      this.goToPrevTopic(currentIndex, questionLength)
+    }
+  }
+  goToPrevTopic (currentIndex, questionLength) {
+    const prevIndex = currentIndex - 1
+    
+    if (prevIndex <= 0) {
+      this.setState({currentIndex: prevIndex, noNext: false, noPrev: true})
+    } else {
+      this.setState({currentIndex: prevIndex, noNext: false})
     }
   }
 
   next = async (id, questionLength, dtoItem) => {
-    let canNext = true
     const {currentIndex, answerList, isRecording, isPlaying} = this.state
     const _this = this
 
@@ -272,33 +273,37 @@ export default class extends React.Component {
           console.log('上传图片')
           await AxiosUtil.post('/api/interview/uploadImage', formdata)
           this.onChange(id, `http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/interview/image/${uuid}.jpg`)
-          canNext = true
+          this.goToNextTopic(currentIndex, questionLength)
+        } else {
+          this.goToNextTopic(currentIndex, questionLength)
         }
       }
       if (ToolsUtil.isRecord(type)) {
         console.log('上传音频')
         // 如果有录音，而且是localId, 上传
-        if (answerList[id] && answerList[id].indexOf('wxLocalResource') < 0) {
+        if (answerList[id] && answerList[id].indexOf('wxLocalResource') >= 0) {
+          console.log('开始上传')
           this.refs.wxRecord.uploadVoice(answerList[id], (serverId) => {
             if (serverId) {
               _this.onChange(id, serverId)
-            } else {
-              canNext = false
+              this.goToNextTopic(currentIndex, questionLength)
             }
           })
-        }
-      }
-
-      if (canNext) {
-        const nextIndex = currentIndex + 1
-
-        if (nextIndex >= questionLength - 1) {
-          this.setState({currentIndex: nextIndex, noNext: true, noPrev: false})
         } else {
-          this.setState({currentIndex: nextIndex, noPrev: false})
+          this.goToNextTopic(currentIndex, questionLength)
         }
       }
     } catch (e) {
+    }
+  }
+
+  goToNextTopic (currentIndex, questionLength) {
+    const nextIndex = currentIndex + 1
+    
+    if (nextIndex >= questionLength - 1) {
+      this.setState({currentIndex: nextIndex, noNext: true, noPrev: false})
+    } else {
+      this.setState({currentIndex: nextIndex, noPrev: false})
     }
   }
 

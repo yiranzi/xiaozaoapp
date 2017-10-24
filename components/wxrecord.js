@@ -54,7 +54,7 @@ export default class WxRecord extends React.Component {
     }
   }
   checkState () {
-    const {isPlaying, isRecording} = this.state
+    const {isPlaying, isRecording} = this.props
     if (isRecording) {
       alert('正在录音，请结束录音后进入下一题')
       return false
@@ -132,9 +132,13 @@ export default class WxRecord extends React.Component {
   startRecord (isRecording) {
     // 没有录音，且没有播放音频，防止重复录音
     if (!isRecording) {
-      wx.startRecord()
-      // 这里需要返回录音的状态----------------------------------------------------
-      this.props.updateRecording(true)
+      const _this = this
+      wx.startRecord({
+        success: function () {
+          // 这里需要返回录音的状态----------------------------------------------------
+          _this.props.updateRecording(true)
+        }
+      })
     }
   }
   // 播放录好的声音
