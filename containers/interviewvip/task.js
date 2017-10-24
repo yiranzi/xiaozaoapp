@@ -277,8 +277,7 @@ export default class extends React.Component {
         } else {
           this.goToNextTopic(currentIndex, questionLength)
         }
-      }
-      if (ToolsUtil.isRecord(type)) {
+      } else if (ToolsUtil.isRecord(type)) {
         console.log('上传音频')
         // 如果有录音，而且是localId, 上传
         if (answerList[id] && answerList[id].indexOf('wxLocalResource') >= 0) {
@@ -292,6 +291,8 @@ export default class extends React.Component {
         } else {
           this.goToNextTopic(currentIndex, questionLength)
         }
+      } else {
+        this.goToNextTopic(currentIndex, questionLength)
       }
     } catch (e) {
     }
