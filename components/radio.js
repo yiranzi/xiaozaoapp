@@ -43,12 +43,6 @@ export default class Layout extends React.Component {
             font-size: 23px;
             display: block;
           }
-          [class^="weui-icon-"]:before, [class*=" weui-icon-"]:before {
-            display: inline-block;
-            margin-left: .2em;
-            margin-right: .2em;
-          }
-
           /*背景*/
           .weui-cells,
           .weui-check__label:active {
@@ -68,6 +62,7 @@ export default class Layout extends React.Component {
           }
           .weui-cells_radio .weui-cell__ft {
             padding-left: 0 !important;
+            padding-right: 0.35rem;
           }
         `}
         </style>

@@ -11,6 +11,11 @@ export default class Layout extends React.Component {
             <TextArea placeholder={placeholder} defaultValue={defaultValue} maxLength={maxLength} onChange={(e) => onChange(e.target.value)} />
           </CellBody>
         </FormCell>
+        <style global jsx>{`
+          .weui-cells {
+            font-size: 14px !important;
+          }
+        `}</style>
       </Form>
     )
   }
