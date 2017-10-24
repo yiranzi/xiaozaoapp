@@ -135,9 +135,11 @@ export default class extends React.Component {
       const {isRecording, isPlaying} = this.state
       defaultValue = localIdList ? localIdList[id] : ''
       console.log('defaultValue:', defaultValue)
+      const name = `answer_${currentIndex}`
       return (
         <WxRecord
           ref='wxRecord'
+          key={name}
           defaultValue={defaultValue}
           isRecording={isRecording}
           isPlaying={isPlaying}
