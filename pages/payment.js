@@ -10,7 +10,6 @@ export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      payInfo: null,
       canBuy: null,
       payStatus: null,
       isRender: true,
@@ -20,41 +19,12 @@ export default class extends React.Component {
 
   componentDidMount = async () => {
     try {
-      // 获取付费价格
-      let payInfo = await GetPayInfo.getPayInfo()
-      this.setState({
-        payInfo: payInfo
-      })
       // 获取常规数据
-      let {interviewInviteesDTOList} = payInfo
-      // 获取价格
-      let {price, discountPrice} = GetPayInfo.getPriceInfo()
-      let payStatus = GetPayInfo.getPayStatus()
-      // 如果已经付费
-
-      // TODO 补充接口
-      let startTime = false
-      // 是否购买
-      if (payStatus) {
-        // this.goPath('list')
-        if (startTime) {
-          // 开课时间到达
-        } else {
-          // 没开课
-        }
-      } else {
-        // 未购买
-      }
-      this.setState({
-        payStatus: payStatus,
-        canBuy: GetPayInfo.getCanBuy(),
-        startTime: startTime
-      })
-      this.setState({
-        price: price,
-        discountPrice: discountPrice,
-        disCountArray: interviewInviteesDTOList,
-      })
+      let payInfo = await GetPayInfo.getPayInfo()
+      // 设置
+      this.setPageInfo(payInfo)
+      this.setPayStatus()
+      this.setPrice()
     } catch (e) {
       this.setState({
         error: e.message
@@ -62,6 +32,54 @@ export default class extends React.Component {
     }
     this.setState({
       isRender: false
+    })
+  }
+
+  /*
+   设置页面的总人数/头像
+   */
+  setPageInfo (payInfo) {
+    let {interviewInviteesDTOList} = payInfo
+    this.setState({
+      disCountArray: interviewInviteesDTOList
+    })
+  }
+
+  /*
+   设置报名状态信息
+   */
+  setPayStatus () {
+    // 获取报名信息
+    let payStatus = GetPayInfo.getPayStatus()
+    let canEnter = GetPayInfo.getCanEnter()
+    // TODO 测试 屏蔽掉跳转
+    canEnter = false
+    if (payStatus) {
+      //  && 开课时间到达 跳转
+      if (canEnter) {
+        this.goPath('list')
+      } else {
+        // 没开课
+      }
+    } else {
+      // 未购买
+    }
+    this.setState({
+      payStatus: payStatus,
+      canBuy: GetPayInfo.getCanBuy(),
+      canEnter: canEnter
+    })
+  }
+
+  /*
+   设置价格
+   */
+  setPrice () {
+    // 设置价格
+    let {price, discountPrice} = GetPayInfo.getPriceInfo()
+    this.setState({
+      price: price,
+      discountPrice: discountPrice
     })
   }
 
