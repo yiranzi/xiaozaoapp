@@ -310,7 +310,7 @@ export default class extends React.Component {
             font-size: 26px;
           }
           .content {
-            padding: 1rem 1rem 5rem 0rem;
+            padding: 1rem 1rem 4rem 1rem;
             color: ${ThemeConfig.color.content};
           }
           .content .join {
