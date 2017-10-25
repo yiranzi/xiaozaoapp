@@ -420,7 +420,7 @@ export default class extends React.Component {
   }
 
   renderStartTime () {
-    // if (this.state.payStatus && !this.state.canEnter) {
+    if (this.state.payStatus && !this.state.canEnter) {
       return (
         <div className='bg'>
           <p>正式打卡将于2017年11月1日开始</p>
@@ -438,7 +438,7 @@ export default class extends React.Component {
           `}</style>
         </div>
       )
-    // }
+    }
   }
 
   // 根据条件渲染按钮
