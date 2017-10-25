@@ -1,6 +1,7 @@
 import React from 'react'// 库
 import Card from '../../components/card'
 import More from '../../components/more'
+import Motal from '../../components/motal'
 import SignUpButton from '../../containers/interviewvip/signUpButton'// 自定义组件
 import InterviewLayout from '../../containers/interviewvip/layout'// container
 import GetPayInfo from '../../util/getPayInfo'// 工具类
@@ -20,7 +21,8 @@ export default class extends React.Component {
       error: '',
       totalUserCount: null,
       headimgList: null,
-      price: null
+      price: null,
+      isHelpShow: false // 二维码弹框
     }
   }
 
@@ -258,6 +260,7 @@ export default class extends React.Component {
             </div>
             {this.renderStartTime()}
             {this.renderButton()}
+            {this.renderMotal()}
           </div>
         </div>
         <style jsx>{`
@@ -336,17 +339,46 @@ export default class extends React.Component {
         canEnter={this.state.canEnter}
         buttonContent={'体验一下↑'}
         price={this.state.price}
-        onClickButton={this.onShowTryTask}
+        onClickButton={this.onShowTryTask.bind(this)}
       />
     )
   }
 
   onShowTryTask () {
     console.log('onShowTryTask')
+    this.setState({isHelpShow: true})
   }
 
   goPath (goPath) {
     console.log(goPath)
     location.href = goPath
+  }
+
+  renderMotal () {
+    let style = {
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+      alignItems: 'center',
+      fontSize: '20px',
+      width: '100%',
+      height: '100%',
+      backgroundColor: 'rgba(35,24,21,0.5)',
+    }
+    let styleImg = {
+      width: '256px',
+      height: '297px'
+    }
+    return (
+      <Motal
+        onClickBg={() => { this.setState({isHelpShow: false}) }}
+        isShow={this.state.isHelpShow}>
+        <div style={style}>
+          <div>
+            <img style={styleImg} src='/static/img/qrCode.jpg' />
+          </div>
+        </div>
+      </Motal>
+    )
   }
 }

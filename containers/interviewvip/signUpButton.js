@@ -92,7 +92,7 @@ export default class extends React.Component {
     return (
       <Button
         className='experience'
-        onClick={() => { this.onClickButton.bind(this) }}
+        onClick={this.onClickButton.bind(this)}
       >{this.props.buttonContent}</Button>
     )
   }
@@ -109,6 +109,7 @@ export default class extends React.Component {
 
   // 组件回调父组件
   onClickButton () {
+    console.log('click')
     this.props.onClickButton()
   }
 
