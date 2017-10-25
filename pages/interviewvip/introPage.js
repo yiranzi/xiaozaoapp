@@ -74,9 +74,9 @@ export default class extends React.Component {
    */
   setPrice () {
     // 设置价格
-    let {price} = GetPayInfo.getPriceInfo()
+    let {discountPrice} = GetPayInfo.getPriceInfo()
     this.setState({
-      price: price
+      price: discountPrice
     })
   }
 

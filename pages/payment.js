@@ -125,9 +125,9 @@ export default class extends React.Component {
 
   renderPriceTitle () {
     return (<div className='my-flex1'>
-      <span className='bold left'>商品名</span>
+      <span className='bold left'>课程名</span>
       <span className='bold mid'>原价</span>
-      <span className='bold right'>实际价格</span>
+      <span className='bold right'>优惠价</span>
       <style>{`
         .left {
           width: 110px;
@@ -153,13 +153,30 @@ export default class extends React.Component {
     </div>)
   }
 
+  renderDiscountImg () {
+    return (<div className='discount-img'>
+      <img src='/static/img/interviewvip/qrcode.jpg' />
+      <p>还没有人帮你砍价哦~</p>
+      <p>马上扫码,获取你的专属邀请卡,让朋友们帮你砍价吧!</p>
+      <style jsx>
+        {`
+          .discount-img{
+             text-align: center
+          }
+          .
+        `}
+      </style>
+    </div>
+    )
+  }
+
   renderPrice () {
     let style = {
       backgroundColor: 'red'
     }
     return (<Card style={style} content={
       <div className='my-flex2'>
-        <span className='name'>第二期群面模拟</span>
+        <span className='name'>小马哥教你过群面</span>
         <span className='price'>{this.state.price}</span>
         <span className='offerPrice'>{this.state.discountPrice}</span>
         <style>{`
@@ -173,7 +190,7 @@ export default class extends React.Component {
         .name {
           width: 110px;
           text-align: left;
-          font-size: 15px;
+          font-size: 10px;
         }
         .price {
           font-weight: 900;
@@ -211,6 +228,22 @@ export default class extends React.Component {
         </p>
 
         {result}
+        <style jsx>
+          {`
+          .tip {
+            margin-bottom: 10px;
+          }
+          .list{
+            margin: 10px auto 40px auto;
+          }`}
+        </style>
+      </div>)
+    } else {
+      return (<div className='list'>
+        <p className='tip'>
+          本次活动最多获得{this.state.limitUser}次优惠~
+        </p>
+        {this.renderDiscountImg()}
         <style jsx>
           {`
           .tip {
