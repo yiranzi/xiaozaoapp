@@ -233,7 +233,7 @@ export default class extends React.Component {
       <InterviewLayout isRender={isRender} error={error}>
         <div className='page'>
           <div className='header'>
-            <img src='/static/img/interview/interview.png' />
+            <img src='/static/img/interviewvip/main.jpg' />
           </div>
           <div className='title'>小马哥教你过群面</div>
           <div className='content'>
