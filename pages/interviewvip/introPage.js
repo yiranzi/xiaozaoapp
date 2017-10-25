@@ -1,6 +1,6 @@
 import React from 'react'// 库
-import {Button} from 'react-weui'// 组件库
 import taskCard from '../../containers/interviewvip/taskCard'// 自定义组件
+import SignUpButton from '../../containers/interviewvip/signUpButton'// 自定义组件
 import InterviewLayout from '../../containers/interviewvip/layout'// container
 import GetPayInfo from '../../util/getPayInfo'// 工具类
 
@@ -116,8 +116,9 @@ export default class extends React.Component {
               title='学习计划'
               content={'13'} />
           </div>
-          <div className='action'>
-            {this.renderButtonBar()}
+          {this.renderStartTime()}
+          <div>
+            {this.renderButton()}
           </div>
         </div>}
 
@@ -128,17 +129,6 @@ export default class extends React.Component {
         }
         .header img{
           width: 100%;
-        }
-        .action {
-          display: flex;
-          justify-content: space-between;
-          position: fixed;
-          width: 100%;
-          left: 0;
-          bottom: 0;
-          padding: 1rem 2rem;
-          box-sizing: border-box;
-          background: #F9F9F9;
         }
       `}</style>
       </InterviewLayout>
@@ -151,63 +141,45 @@ export default class extends React.Component {
     )
   }
 
-  renderButtonBar () {
-    let arr = []
-    arr.push(this.renderFreeTry())
-    // 1是否购买
-    if (this.state.payStatus) {
-      // 2是否开课
-      if (!this.state.canEnter) {
-        // TODO 也报名但未开课的逻辑
-      }
-    } else {
-      if (this.state.canBuy) {
-        arr.push(this.renderSignUp())
-      } else {
-        arr.push(this.renderHaveClosed())
-      }
+  renderAvatar () {
+    let style = {
+      width: '30px',
+      height: '30px'
     }
-
-    return arr
+    let headArray = this.state.headimgList
+    if (headArray && headArray.length > 0) {
+      return headArray.map((item, index) => {
+        return <img style = {style} key={index} src={item} />
+      })
+    }
   }
 
-  renderFreeTry () {
-    return (this.renderButton('体验一下', '/interviewvip/free'))
+  renderStartTime () {
+    if (this.state.payStatus) {
+      return (<div>
+        <p>正式打卡将于2017年11月1日开始</p>
+      </div>)
+    }
   }
 
-  renderSignUp () {
-    return (this.renderButton(`立即报名¥${this.state.price}`, '/payment'))
+  // 根据条件渲染按钮
+  renderButton () {
+    return (<SignUpButton
+      canBuy={this.state.canBuy}
+      payStatus={this.state.payStatus}
+      canEnter={this.state.canEnter}
+      buttonContent={'体验一下↑'}
+      price={this.state.price}
+      onClickButton={this.onShowTryTask}
+    />)
   }
 
-  renderHaveClosed () {
-    return (this.renderButton('报名已截止', 'close'))
-  }
-
-  renderButton (content, goPath) {
-    return (<div key={goPath} onClick={this.goPath.bind(this, goPath)}>
-      <p className='red'>{content}</p>
-      <style jsx>{`
-        .red{
-          border: 1px solid black
-          color: red
-          margin: 10px
-        }
-
-      `}</style>
-    </div>)
+  onShowTryTask () {
+    console.log('onShowTryTask')
   }
 
   goPath (goPath) {
     console.log(goPath)
     location.href = goPath
-  }
-
-  renderAvatar () {
-    let headArray = this.state.headimgList
-    if (headArray && headArray.length > 0) {
-      return headArray.map((item, index) => {
-        return <img key={index} src={item} />
-      })
-    }
   }
 }
