@@ -195,14 +195,25 @@ export default class extends React.Component {
     let {disCountArray} = this.state
     if (disCountArray.length > 0) {
       let result = disCountArray.map((ele, index) => {
-        console.log(ele)
         let {nickname, offerPrice} = ele
-        return (<div key={index}>{this.renderLine(nickname, offerPrice)}</div>)
+        if (index > 7) {
+          return (<div key={index}>{this.renderLine(nickname, offerPrice, false)}</div>)
+        } else {
+          return (<div key={index}>{this.renderLine(nickname, offerPrice, true)}</div>)
+        }
+
       })
       return (<div className='list'>
+        <p className='tip'>
+          本次活动最多获得8次优惠~
+        </p>
+
         {result}
         <style jsx>
           {`
+          .tip {
+            margin-bottom: 10px;
+          }
           .list{
             margin: 10px auto 40px auto;
           }`}
@@ -211,10 +222,24 @@ export default class extends React.Component {
     }
   }
 
-  renderLine (name, discountPrice) {
+  renderLine (name, discountPrice, isShow) {
+    let insert
+    let style = {
+      backgroundColor: '#F9F9F9',
+      position: 'relative',
+      zIndex: '10',
+      padding: '0 5px 0 5px',
+      textAlign: 'center',
+      display: 'inline'
+    }
+    if (isShow) {
+      insert = <span style={style}>{` ${name} 帮你砍了一刀,恭喜你获得了 ${discountPrice} 元优惠哦`}</span>
+    } else {
+      insert = <span style={style}>{` ${name} 帮你砍了一刀,但你已经获得最大的折扣优惠啦！`}</span>
+    }
     return (<div className='line'>
       <p>
-        <span className='txt'>{` ${name} 帮你砍了一刀,恭喜你获得了 ${discountPrice} 元优惠哦`}</span>
+        {insert}
       </p>
       <div className='space' />
       <style jsx>
