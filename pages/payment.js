@@ -127,7 +127,7 @@ export default class extends React.Component {
     return (<div className='my-flex1'>
       <span className='bold left'>课程名</span>
       <span className='bold mid'>原价</span>
-      <span className='bold right'>优惠价</span>
+      <span className='bold right'>砍价后</span>
       <style>{`
         .left {
           width: 110px;
