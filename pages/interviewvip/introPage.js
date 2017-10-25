@@ -381,6 +381,7 @@ export default class extends React.Component {
               {`
                 .title{
                   font-size: 20px !important;
+                  font-weight: bold;
                 }
                 .card {
                   margin: 30px 0 30px 0 !important;
@@ -546,7 +547,7 @@ export default class extends React.Component {
         isShow={this.state.isHelpShow}>
         <div style={style}>
           <div style={{backgroundColor: '#fff', color: '#242223', padding: '1rem', margin: '1rem'}}>
-            <p style={styleP}>二维码见上图，文案：扫描二维码生成自己的砍价邀请卡~邀请好友扫码砍价哦~ </p>
+            <p style={styleP}>扫描二维码生成自己的砍价邀请卡~邀请好友扫码砍价哦~ </p>
             <img style={styleImg} src='/static/img/interviewvip/qrcode.jpg' />
           </div>
         </div>
