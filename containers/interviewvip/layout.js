@@ -14,10 +14,10 @@ export default class extends React.Component {
       return <Toptips type='warn' show={show} >{error}</Toptips>
     } else {
       return (
-        <div className='interview'>
+        <div className='interviewvip'>
           {this.props.children}
           <style jsx>{`
-          .interview {
+          .interviewvip {
             min-height: 100vh;
             padding: 1rem;
             box-sizing: border-box;
