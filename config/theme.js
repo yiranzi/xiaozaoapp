@@ -4,6 +4,7 @@ const config = {
     content: '#646464',
     yellow: '#fdc23e',
     blue: '#117ee9',
+    red: 'red',
     gray: '#F9F9F9'
   },
   size: {

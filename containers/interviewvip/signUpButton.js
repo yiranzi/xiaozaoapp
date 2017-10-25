@@ -60,7 +60,7 @@ export default class extends React.Component {
             width: 50%;
           }
           .weui-btn_primary.invite {
-            background-color: ${ThemeConfig.color.yellow} !important;
+            background-color: ${ThemeConfig.color.red} !important;
           }
         `}</style>
       </div>

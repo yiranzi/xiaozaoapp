@@ -85,8 +85,8 @@ export default class extends React.Component {
       <div>
         <p>
           本次小马哥群面课程有大优惠哦！原价 ¥399，支持好友帮砍价！最多邀请8人砍价哦！
-          合计最多<span className='boldTxt'>优惠100元！</span>
-          点击下方的<span className='red'>砍价</span>按钮，邀请小伙伴一起帮忙砍价啦！（砍价仅限 10.26-10.30 期间，之后逐步恢复原价哦！）
+          合计最多<span className='boldTxt'>优惠104元！</span>
+          点击下方的<span className='red'>邀请砍价</span>按钮，邀请小伙伴一起帮忙砍价啦！（砍价仅限 10.26-10.30 期间，之后逐步恢复原价哦！）
         </p>
 
         <style jsx>
@@ -164,11 +164,12 @@ export default class extends React.Component {
           <p>本次课程<b>不限学校，不限专业，不限求职方向，</b>这里教的方法和核心群面技能
             <b>各行业通用，</b>不论你是<b>正在备战秋招、春招还是实习还是想提高思维和合作等核心能力，</b>
             这都是一次极其难得的学习和实战机会。</p>
+          <br />
           <ul className='dot'>
             <li>小马哥亲自透彻<b>分析群面打分表，</b>带你快速学习7 大模块核心群面成功技能</li>
             <li>小马哥教你<b>使用案例分析框架，</b>让你面对案例不再毫无头绪</li>
             <li>本次群面课程应用金融、四大、互联网、咨询行业中出现的<b>代表类型群面案例进行教授，</b>一次课程的学习，
-              学会你所关注行业的案例解题和群面思路<span className='red'>不承诺包含所有公司案例）</span>（</li>
+              学会你所关注行业的案例解题和群面思路<span className='red'>（不承诺包含所有公司案例）</span></li>
             <li>小马哥携行业导师进行<b>群面案例解析讲座 ，</b>涵盖四大、快消、金融行业真实案例解读</li>
             <li>线上群面实战<b>（6 人一组）</b>，结识志同道合的战友，一起实战演练真实群面流程</li>
             <li>通过学习、参与式练习和实战，了解群面环节中各角色需要具备的能力，掌握群面中团队合作和<span>凸显自己</span>的诀窍</li>
@@ -213,7 +214,7 @@ export default class extends React.Component {
               <li>群面方式：线上微信群，6 人一组</li>
               <li>分组方式：6 人一组，根据学员模块训练的成绩进行分组，保证最真实的群面模拟环境</li>
               <li>参加线上模拟需要先完成所有模块的学习，学完后模拟更有效哦</li>
-              <li>群面时间：<span className='red'>多时段选一</span>每个时间段开放 300 个名额，为保证群面效果，完成课程学习才可报名群面啦！请务必确认参加哦）</li>
+              <li>群面时间：<span className='red'>多时段选一</span>(每个时间段开放 300 个名额，为保证群面效果，完成课程学习才可报名群面啦！请务必确认参加哦）</li>
             </ul>
           </section>
           <section>
@@ -303,6 +304,27 @@ export default class extends React.Component {
       </div>
     )
   }
+
+  renderHelpInfo () {
+    return (
+      <div>
+        <p className='title'>常见问题</p>
+        <p>请点击左下角的【在线咨询】，可以查看常见问题哦！若有更多问题，请添加小灶求职顾问-Ted（微信：xiaozao025)，进行咨询。</p>
+        <style>
+          {`
+          .title{
+            color: ${ThemeConfig.color.dark_black};
+            font-size: 26px;
+          }
+          .card {
+            margin: 30px 0 30px 0 !important;
+          }
+          `}
+        </style>
+      </div>
+    )
+  }
+
   render () {
     const {isRender, error} = this.state
     return (
@@ -368,6 +390,7 @@ export default class extends React.Component {
             {this.renderStartTime()}
             {this.renderButton()}
             {this.renderMotal()}
+            {this.renderHelpInfo()}
             {this.renderBg()}
           </div>
         </div>
@@ -440,6 +463,7 @@ export default class extends React.Component {
       )
     }
   }
+
 
   // 根据条件渲染按钮
   renderButton () {
