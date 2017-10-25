@@ -80,14 +80,38 @@ export default class extends React.Component {
     })
   }
 
+  saleInfo () {
+    return (
+      <div>
+        <p>
+          本次小马哥群面课程有大优惠哦！原价 ¥399，支持好友帮砍价！最多邀请8人砍价哦！
+          合计最多<span className='boldTxt'>优惠100元！</span>
+          点击下方的<span className='red'>砍价</span>按钮，邀请小伙伴一起帮忙砍价啦！（砍价仅限 10.26-10.30 期间，之后逐步恢复原价哦！）
+        </p>
+
+        <style jsx>
+          {`
+          .boldTxt{
+            font-weight: bold
+          }
+          .red{
+            color: red
+          }
+          `}
+        </style>
+      </div>
+    )
+  }
+
   courseIntro () {
     return (
       <div>
         <p><span className='boldTxt'>小马哥教你过群面</span>系列由小灶教育联合创始人、国内顶尖求职指导专家，小马哥研发，
-          从面试官的角度出发，透彻分析打分表，精心制作本次群面快速提升计划，帮助学员通关群面，首期已有 5000 人内测。</p>
-        <p style={{marginTop: '10px'}}>在内测版本基础上，本次群面课程新增 5 个案例，并优化练习环境，以“7 项核心群面技能
-          快速提升+ 6 人组队群面实战 + 4 场线上群面答疑讲座”的形式，贯彻了模块化、体系化、轻松学、效果好的学习模式，服务于各
-          行业群面的同学，帮助同学通过群面！</p>
+          从面试官的角度出发，透彻分析群面打分表，精心制作本次群面快速提升计划，帮助学员通关群面，
+          <span className='boldTxt'>首期已有 5000 人内测，87% 的学员评分 7~10 分。</span></p>
+        <p style={{marginTop: '10px'}}>在内测版本基础上，本次群面课程新增 5 个案例实例讲解，
+          并优化练习环境，以<span className='boldTxt'>“7 项核心群面技能快速提升+ 6 人组队群面实战+ 4 场线上群面答疑讲座”</span>的形式，
+          贯彻了模块化、体系化、轻松学、重实战、讲效果的学习模式，服务于各行业群面的同学，<span className='boldTxt'>帮助同学通过群面！</span></p>
         <style jsx>{`.boldTxt{font-weight: bold}`}</style>
       </div>
     )
@@ -95,18 +119,28 @@ export default class extends React.Component {
 
   teacherIntro () {
     return (
-      <div>
-        <div className='name'>小马哥</div>
+      <div className='teacherIntro'>
         <div className='photo'><img src='/static/img/interviewvip/marc.jpg' /></div>
+        <div className='name'>小马哥</div>
         <div className='exper'>
-          <p>小灶教育联合创始人，国内顶尖求职指导专家，杜克大学 MBA，拒掉某 MBB 的 offer，决心创业。</p>
-          <p>小马哥在本科及 MBA 期间获得的 offer 有：某 MBB，苹果、花旗银行、腾讯、京东、太古、毕马威、甫瀚等。</p>
-          <p>创业以来，参与过四大、咨询、快消、金融、互联网领域的所有小灶线上课程研发，并参与超过 20 场线下训练营的辅导，研发的第1期群面课，<span className='boldTxt'>已有 5000+ 名大学生报名学习。</span></p>
-          <p>MBA 期间获得 Adobe Analytics 商业分析大赛全美 20 强，中欧商学院全球 MBA 创业大赛 INNOVATEChina 全球 6 强。</p>
-          <p>辅导过的学生拿到的 offer 包括：埃森哲、联合利华、欧莱雅、怡安翰威特、科尔尼、BCG、德勤、IBM GBS、IMSHealth、光辉合益、麦肯锡、美世、久谦、奥纬、安永帕特农、普华永道、腾讯、招商银行。</p>
+          <p><b>小灶教育联合创始人，国内顶尖求职指导专家，</b>资深咨询顾问，杜克大学 MBA，拒掉某 MBB 的 offer，决心创业。</p>
+          <ul className='dot'>
+            <li>小马哥在本科及 MBA 期间获得的 offer 有：<b>某 MBB，苹果、花旗银行、腾讯、京东、太古、毕马威、甫瀚等。</b></li>
+            <li>创业以来，参与过四大、咨询、快消、金融、互联网领域的所有小灶线上课程研发，并参与超过 20 场线下训练营的辅导，<b>研发的第一期群面课，5000+学员参加，87%反馈评分7-10分。</b></li>
+            <li>MBA 期间获得 Adobe Analytics 商业分析大赛全美 20 强，中欧商学院全球 MBA 创业大赛 INNOVATEChina 全球 6 强。</li>
+            <li>JA 连续 4 年志愿者，知乎 2013 年互联网领域优秀回答者。</li>
+            <li>5 年外资咨询公司工作经验，领域包括财务、风险管理、战略实施、运营咨询、 人力资本，对各个领域的管理咨询公司有深刻理解。</li>
+            <li>辅导过的学生拿到的 offer 包括：<b>埃森哲、联合利华、欧莱雅、怡安翰威特、科尔尼、BCG、德勤、IBM GBS、IMSHealth、光辉合益、麦肯锡、美世、久谦、奥纬、安永帕特农、普华永道、腾讯、招商银行。</b></li>
+        </ul>
         </div>
         <style jsx>{`
+          .teacherIntro{
+          }
+          .dot li{
+            list-style: inside !important;
+          }
           .name {
+            text-align: center
             font-weight: bold;
           }
           .photo img {
@@ -122,14 +156,48 @@ export default class extends React.Component {
       </div>
     )
   }
+
+  courseLearn () {
+    {
+      return (
+        <div>
+          <p>本次课程<b>不限学校，不限专业，不限求职方向，</b>这里教的方法和核心群面技能
+            <b>各行业通用，</b>不论你是<b>正在备战秋招、春招还是实习还是想提高思维和合作等核心能力，</b>
+            这都是一次极其难得的学习和实战机会。</p>
+          <ul className='dot'>
+            <li>小马哥亲自透彻<b>分析群面打分表，</b>带你快速学习7 大模块核心群面成功技能</li>
+            <li>小马哥教你<b>使用案例分析框架，</b>让你面对案例不再毫无头绪</li>
+            <li>本次群面课程应用金融、四大、互联网、咨询行业中出现的<b>代表类型群面案例进行教授，</b>一次课程的学习，
+              学会你所关注行业的案例解题和群面思路<span className='red'>不承诺包含所有公司案例）</span>（</li>
+            <li>小马哥携行业导师进行<b>群面案例解析讲座 ，</b>涵盖四大、快消、金融行业真实案例解读</li>
+            <li>线上群面实战<b>（6 人一组）</b>，结识志同道合的战友，一起实战演练真实群面流程</li>
+            <li>通过学习、参与式练习和实战，了解群面环节中各角色需要具备的能力，掌握群面中团队合作和<span>凸显自己</span>的诀窍</li>
+            <li>更有<span>福利赠送，</span>小马哥精选的 casebook 合集和各行业面经</li>
+          </ul>
+          <style>
+            {`
+            .dot li{
+              list-style: inside !important;
+            }
+            .red {
+              color: red;
+            }
+            `}
+          </style>
+        </div>
+      )
+    }
+  }
+
   courseDetail () {
     return (
       <div>
-        <div className='sub'>本次课程，关注群面的六大核心能力：案例阅读技巧、问题分析能力、结构化思维、商业思维、沟通与表达能力、时间管理能力，组织以下三部分课程内容：</div>
+        <div className='sub'>本次课程，关注群面的六大核心能力：案例阅读技巧、问题分析能力、结构化思维、商业思维、沟通与表达能力、时间管理能力，组织以下<b>三部分课程内容：</b></div>
         <div className='content'>
           <section>
             <div className='subTitle'>第一部分：7 大模块核心群面技能</div>
-            <ul className='dot'>
+            <p>本部分将于<b>11月1日全部</b>上线，关注“小灶求职顾问”等待通知哦</p>
+            <ul>
               <li>模块 1：如何快速读懂长案例？</li>
               <li>模块 2：怎样运用结构化思维找到案例的突破口？</li>
               <li>模块 3：怎样利用常见的商业分析框架提升分析效率？</li>
@@ -141,18 +209,19 @@ export default class extends React.Component {
           </section>
           <section>
             <div className='subTitle'>第二部分：6 人线上群面实战</div>
-            <ul className='dot'>
+            <ul>
               <li>群面方式：线上微信群，6 人一组</li>
-              <li>群面时间：<span className='red'>多时段可选</span>（每个时间段开放 300 个名额，请务必确保能参加其中的任意一次）</li>
-              <li>参与规则：参加线上模拟需要先完成所有模块的学习，学完后模拟更有效哦</li>
+              <li>分组方式：6 人一组，根据学员模块训练的成绩进行分组，保证最真实的群面模拟环境</li>
+              <li>参加线上模拟需要先完成所有模块的学习，学完后模拟更有效哦</li>
+              <li>群面时间：<span className='red'>多时段选一</span>每个时间段开放 300 个名额，为保证群面效果，完成课程学习才可报名群面啦！请务必确认参加哦）</li>
             </ul>
           </section>
           <section>
             <div className='subTitle'>第三部分：4 场群面答疑讲座</div>
             <ul>
-              <li>场群面线上模拟案例解析+答疑</li>
+              <li>1 场群面线上模拟案例解析+答疑</li>
               <li>
-                <div className='sub-title'>场行业（四大、快消、金融）群面讲解，包括：</div>
+                <div className='sub-title'>3 场行业（四大、快消、金融）群面讲解，包括：</div>
                 <ul className='dot'>
                   <li>行业群面案例的形式</li>
                   <li>行业群面考察点</li>
@@ -248,6 +317,12 @@ export default class extends React.Component {
               <div className='avatar'>{this.renderAvatar()}</div>
               <div className='count'>{this.state.totalUserCount}人已经报名,名额有限...</div>
             </div>
+            <div className='teacher-intro'>
+              <Card
+                title='特别提醒！限时砍价进行中'
+                content={this.saleInfo()}
+              />
+            </div>
             <div className='intro'>
               <More
                 title='课程介绍'
@@ -269,17 +344,19 @@ export default class extends React.Component {
             </div>
             <div className='fit'>
               <Card
-                title='适合哪些同学报名'
-                content={this.fit()}
+                title='你将收获什么'
+                content={this.courseLearn()}
               />
             </div>
-            <div className='how-join'>
-              <Card
-                title='参与方式'
-                content={this.howJoin()}
-              />
-              <style>
-                {`
+            {/*<div className='how-join'>*/}
+              {/*<Card*/}
+                {/*title='参与方式'*/}
+                {/*content={this.howJoin()}*/}
+              {/*/>*/}
+
+            {/*</div>*/}
+            <style>
+              {`
                 .title{
                   font-size: 20px !important;
                 }
@@ -287,8 +364,7 @@ export default class extends React.Component {
                   margin: 30px 0 30px 0 !important;
                 }
                 `}
-              </style>
-            </div>
+            </style>
             {this.renderStartTime()}
             {this.renderButton()}
             {this.renderMotal()}
@@ -344,7 +420,7 @@ export default class extends React.Component {
   }
 
   renderStartTime () {
-    if (this.state.payStatus && !this.state.canEnter) {
+    // if (this.state.payStatus && !this.state.canEnter) {
       return (
         <div className='bg'>
           <p>正式打卡将于2017年11月1日开始</p>
@@ -354,11 +430,15 @@ export default class extends React.Component {
               color: #fff;
               text-align: center;
               padding: 0.25rem 0;
+              position: fixed;
+              bottom: 4.8rem;
+              width: 100%;
+              left: 0;
             }
           `}</style>
         </div>
       )
-    }
+    // }
   }
 
   // 根据条件渲染按钮

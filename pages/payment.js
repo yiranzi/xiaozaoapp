@@ -214,7 +214,7 @@ export default class extends React.Component {
   renderLine (name, discountPrice) {
     return (<div className='line'>
       <p>
-        <span className='txt'>{` ${name} 帮你扫码,你获得了 ${discountPrice} 元优惠`}</span>
+        <span className='txt'>{` ${name} 帮你砍了一刀,恭喜你获得了 ${discountPrice} 元优惠哦`}</span>
       </p>
       <div className='space' />
       <style jsx>
