@@ -1,6 +1,7 @@
 import React from 'react'
 import {Button} from 'react-weui'// 组件库
 import ThemeConfig from '../../config/theme'
+import classNames from 'classnames'
 
 /*
 props
@@ -64,7 +65,7 @@ export default class extends React.Component {
           .weui-btn_primary.invite {
             background-color: ${ThemeConfig.color.red} !important;
           }
-          .weui-btn_primary.experience {
+          .weui-btn_primary.pay {
             width: 50%;
           }
         `}</style>
@@ -78,7 +79,7 @@ export default class extends React.Component {
     if (this.props.payStatus) {
       // 2是否开课, 根据不同的状态判断
       console.log('canEnter:', this.props.canEnter)
-      arr.push(this.renderFreeTry())
+      arr.push(this.renderFreeTry(true))
       arr.push(this.renderEnter(this.props.canEnter))
     } else {
       arr.push(this.renderFreeTry())
@@ -103,10 +104,10 @@ export default class extends React.Component {
     }
   }
 
-  renderFreeTry () {
+  renderFreeTry (state) {
     return (
       <Button
-        className='experience'
+        className={classNames('experience', {'pay': state})}
         onClick={() => { this.goPath('https://shimo.im/doc/hMWImuwPj4Q1ZEYj?r=NZOD95') }}
       >{this.props.buttonContent}</Button>
     )
