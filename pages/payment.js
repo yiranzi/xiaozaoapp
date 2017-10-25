@@ -1,5 +1,6 @@
 import React from 'react'
 import {Button} from 'react-weui'// 组件库
+import Card from '../components/card'// 组件库
 import InterviewLayout from '../containers/interviewvip/layout'
 import GetPayInfo from '../util/getPayInfo'
 import wxPayController from '../util/wxPayController'// 工具类
@@ -36,7 +37,7 @@ export default class extends React.Component {
   }
 
   /*
-   设置页面的总人数/头像
+   设置好友列表
    */
   setPageInfo (payInfo) {
     let {interviewInviteesDTOList} = payInfo
@@ -60,6 +61,7 @@ export default class extends React.Component {
         this.goPath('list')
       } else {
         // 没开课
+        // this.goPath('introPage')
       }
     } else {
       // 未购买
@@ -106,13 +108,11 @@ export default class extends React.Component {
 
   renderPriceDiv () {
     return (<div className='price'>
-
       {this.renderPriceTitle()}
       {this.renderPrice()}
       <style jsx>
         {`
         .price {
-          color: red;
           width: 100%;
         }
 
@@ -122,47 +122,73 @@ export default class extends React.Component {
   }
 
   renderPriceTitle () {
-    return (<div className='my-flex'>
-      <span className='bold'>商品名</span>
-      <span className='bold'>原价</span>
-      <span className='bold'>实际价格</span>
+    return (<div className='my-flex1'>
+      <span className='bold left'>商品名</span>
+      <span className='bold mid'>原价</span>
+      <span className='bold right'>实际价格</span>
       <style>{`
-        .bold {
-          font-weight: 900;
-          font-size: 10px;
+        .left {
+          width: 110px;
+          text-align: left;
+        }
+        .mid {
+          width: 80px;
+        }
+        .right {
+          width: 80px;
           text-align: right;
         }
-        .my-flex {
+        .bold {
+          font-weight: 900;
+          font-size: 20px;
+        }
+        .my-flex1 {
           display: flex;
           justify-content: space-between;
+          margin: 10px
         }
       `}</style>
     </div>)
   }
 
   renderPrice () {
-    return (<div className='my-flex'>
-      <span className='name'>第二期群面模拟</span>
-      <span className='price'>{this.state.price}</span>
-      <span className='offerPrice'>{this.state.discountPrice}</span>
-      <style>{`
+    let style = {
+      backgroundColor: 'red'
+    }
+    return (<Card style={style} content={
+      <div className='my-flex2'>
+        <span className='name'>第二期群面模拟</span>
+        <span className='price'>{this.state.price}</span>
+        <span className='offerPrice'>{this.state.discountPrice}</span>
+        <style>{`
+        .card {
+          padding: 10px !important
+        }
+        .my-flex2 {
+          display: flex;
+          justify-content: space-between;
+        }
         .name {
-          width: 100px;
-          text-align: left
+          width: 110px;
+          text-align: left;
+          font-size: 15px;
         }
         .price {
           font-weight: 900;
           width: 80px;
-          text-align: left
+          text-align: left;
+          font-size: 20px;
         }
         .offerPrice {
           font-weight: 900;
-          color: blue;
-          width: 70px;
-          text-align: right
+          color: #117ee9;
+          width: 80px;
+          text-align: center;
+          font-size: 20px;
         }
       `}</style>
-    </div>)
+      </div>
+    } />)
   }
 
   renderDiscountList () {
@@ -170,20 +196,63 @@ export default class extends React.Component {
     if (disCountArray.length > 0) {
       let result = disCountArray.map((ele, index) => {
         console.log(ele)
-        let {nickname: name, offerPrice: discountPrice} = ele
-        return (<div key={index}>{name}帮你扫码,你获得了{discountPrice}元优惠</div>)
+        let {nickname, offerPrice} = ele
+        return (<div key={index}>{this.renderLine(nickname, offerPrice)}</div>)
       })
-      return result
+      return (<div className='list'>
+        {result}
+        <style jsx>
+          {`
+          .list{
+            margin: 10px auto 40px auto;
+          }`}
+        </style>
+      </div>)
     }
   }
 
-  renderPayButton () {
-    return (<div onClick={this.payController}>
-      <Button>立即支付</Button>
+  renderLine (name, discountPrice) {
+    return (<div className='line'>
+      <p>
+        <span className='txt'>{` ${name} 帮你扫码,你获得了 ${discountPrice} 元优惠`}</span>
+      </p>
+      <div className='space' />
+      <style jsx>
+        {`
+        .line {
+        text-align: center
+          position: relative;
+        }
+        .txt {
+          background-color: #F9F9F9;
+          position: relative;
+          z-index: 10;
+          padding: 0 5px 0 5px;
+          text-align: center;
+          display: inline;
+        }
+        .space {
+          top: -10px;
+          left: 0;
+          position: relative;
+          border-bottom: 1px solid #e5e5e5;
+          z-index: 5
+        }
+      `}
+      </style>
     </div>)
   }
 
-  payController = async () => {
+  renderPayButton () {
+    let style = {
+      backgroundColor: '#117ee9'
+    }
+    return (<div onClick={this.payController}>
+      <Button style={style}>立即支付</Button>
+    </div>)
+  }
+
+  payController = () => {
     wxPayController.payInit()
   }
 }
