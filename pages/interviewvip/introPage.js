@@ -289,7 +289,6 @@ export default class extends React.Component {
                 `}
               </style>
             </div>
-
             {this.renderStartTime()}
             {this.renderButton()}
             {this.renderMotal()}
@@ -443,8 +442,8 @@ export default class extends React.Component {
         isShow={this.state.isHelpShow}>
         <div style={style}>
           <div>
-            <p style={styleP}>扫描二维码加小助手咨询 微信号：xiaozao025 </p>
-            <img style={styleImg} src='/static/img/interviewvip/qrHelpCode.jpeg' />
+            <p style={styleP}>二维码见上图，文案：扫描二维码生成自己的砍价邀请卡~邀请好友扫码砍价哦~ </p>
+            <img style={styleImg} src='/static/img/interviewvip/qrcode.jpg' />
           </div>
         </div>
       </Motal>

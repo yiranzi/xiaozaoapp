@@ -34,6 +34,11 @@ export default class extends React.Component {
           }
         `}</style>
         <style global jsx>{`
+          .weui-btn {
+            font-size: 14px !important;
+            padding: 0 !important;
+            margin: 0 !important;
+          }
           .weui-btn+.weui-btn {
             margin-top: 0px !important;
             margin-left: 1rem !important;
@@ -69,6 +74,7 @@ export default class extends React.Component {
     } else {
       arr.push(this.renderFreeTry())
       if (this.props.canBuy) {
+        arr.push(this.renderCut())
         arr.push(this.renderSignUp())
       } else {
         arr.push(this.renderHaveClosed())
@@ -92,14 +98,18 @@ export default class extends React.Component {
     return (
       <Button
         className='experience'
-        onClick={this.onClickButton.bind(this)}
+        onClick={() => { this.goPath('https://shimo.im/doc/hMWImuwPj4Q1ZEYj?r=NZOD95') }}
       >{this.props.buttonContent}</Button>
     )
   }
-
+  renderCut () {
+    return (
+      <Button onClick={() => {this.onClickButton()}}>邀请砍价</Button>
+    )
+  }
   renderSignUp () {
     return (
-      <Button className='join-right-now' onClick={this.goPath.bind(this, '/payment')}>{`立即报名¥${this.props.price}`}</Button>
+      <Button className='join-right-now' onClick={this.goPath.bind(this, '/payment')}>{`报名¥${this.props.price}`}</Button>
     )
   }
 
