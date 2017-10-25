@@ -83,11 +83,12 @@ export default class extends React.Component {
   courseIntro () {
     return (
       <div>
-        <p>小马哥教你过群面系列由小灶教育联合创始人、国内顶尖求职指导专家，小马哥研发，
+        <p><span className='boldTxt'>小马哥教你过群面</span>系列由小灶教育联合创始人、国内顶尖求职指导专家，小马哥研发，
           从面试官的角度出发，透彻分析打分表，精心制作本次群面快速提升计划，帮助学员通关群面，首期已有 5000 人内测。</p>
         <p style={{marginTop: '10px'}}>在内测版本基础上，本次群面课程新增 5 个案例，并优化练习环境，以“7 项核心群面技能
           快速提升+ 6 人组队群面实战 + 4 场线上群面答疑讲座”的形式，贯彻了模块化、体系化、轻松学、效果好的学习模式，服务于各
           行业群面的同学，帮助同学通过群面！</p>
+        <style jsx>{`.boldTxt{font-weight: bold}`}</style>
       </div>
     )
   }
@@ -100,7 +101,7 @@ export default class extends React.Component {
         <div className='exper'>
           <p>小灶教育联合创始人，国内顶尖求职指导专家，杜克大学 MBA，拒掉某 MBB 的 offer，决心创业。</p>
           <p>小马哥在本科及 MBA 期间获得的 offer 有：某 MBB，苹果、花旗银行、腾讯、京东、太古、毕马威、甫瀚等。</p>
-          <p>创业以来，参与过四大、咨询、快消、金融、互联网领域的所有小灶线上课程研发，并参与超过 20 场线下训练营的辅导，研发的第1期群面课，已有 5000+ 名大学生报名学习。</p>
+          <p>创业以来，参与过四大、咨询、快消、金融、互联网领域的所有小灶线上课程研发，并参与超过 20 场线下训练营的辅导，研发的第1期群面课，<span className='boldTxt'>已有 5000+ 名大学生报名学习。</span></p>
           <p>MBA 期间获得 Adobe Analytics 商业分析大赛全美 20 强，中欧商学院全球 MBA 创业大赛 INNOVATEChina 全球 6 强。</p>
           <p>辅导过的学生拿到的 offer 包括：埃森哲、联合利华、欧莱雅、怡安翰威特、科尔尼、BCG、德勤、IBM GBS、IMSHealth、光辉合益、麦肯锡、美世、久谦、奥纬、安永帕特农、普华永道、腾讯、招商银行。</p>
         </div>
@@ -110,6 +111,9 @@ export default class extends React.Component {
           }
           .exper p {
             margin-top: 0.25rem;
+          }
+          .boldTxt {
+            font-weight: bold;
           }
         `}</style>
       </div>
@@ -136,7 +140,7 @@ export default class extends React.Component {
             <div className='title'>第二部分：6 人线上群面实战</div>
             <ul>
               <li>群面方式：线上微信群，6 人一组</li>
-              <li>群面时间：多时段可选（每个时间段开放 300 个名额，请务必确保能参加其中的任意一次）</li>
+              <li>群面时间：<span className='red'>多时段可选</span>（每个时间段开放 300 个名额，请务必确保能参加其中的任意一次）</li>
               <li>参与规则：参加线上模拟需要先完成所有模块的学习，学完后模拟更有效哦</li>
             </ul>
           </section>
@@ -166,6 +170,12 @@ export default class extends React.Component {
           }
           ul li {
             list-style: none;
+          }
+          .red {
+            color: red;
+          }
+          .boldTxt {
+            font-weight: bold;
           }
         `}</style>
       </div>
@@ -337,7 +347,7 @@ export default class extends React.Component {
         canBuy={this.state.canBuy}
         payStatus={this.state.payStatus}
         canEnter={this.state.canEnter}
-        buttonContent={'体验一下↑'}
+        buttonContent={'在线咨询'}
         price={this.state.price}
         onClickButton={this.onShowTryTask.bind(this)}
       />
@@ -364,6 +374,8 @@ export default class extends React.Component {
       width: '100%',
       height: '100%',
       backgroundColor: 'rgba(35,24,21,0.5)',
+      textAlign: 'center',
+      color: 'white'
     }
     let styleImg = {
       width: '256px',
@@ -375,7 +387,8 @@ export default class extends React.Component {
         isShow={this.state.isHelpShow}>
         <div style={style}>
           <div>
-            <img style={styleImg} src='/static/img/qrCode.jpg' />
+            <p>扫描二维码加小助手咨询 微信号：xiaozao025 </p>
+            <img style={styleImg} src='/static/img/interviewvip/qrHelpCode.jpeg' />
           </div>
         </div>
       </Motal>
