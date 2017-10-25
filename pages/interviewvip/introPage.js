@@ -293,6 +293,7 @@ export default class extends React.Component {
             {this.renderStartTime()}
             {this.renderButton()}
             {this.renderMotal()}
+            {this.renderBg()}
           </div>
         </div>
         <style jsx>{`
@@ -309,7 +310,7 @@ export default class extends React.Component {
             font-size: 26px;
           }
           .content {
-            padding: 1rem 1rem 5rem 1rem;
+            padding: 1rem 1rem 5rem 0rem;
             color: ${ThemeConfig.color.content};
           }
           .content .join {
@@ -381,6 +382,30 @@ export default class extends React.Component {
 
   goPath (goPath) {
     location.href = goPath
+  }
+
+  renderBg () {
+    let arr = [1, 3, 4, 6, 7, 8, 9]
+    let style = {
+      width: '100%',
+      fontSize: 0
+    }
+    let result = arr.map((ele, index) => {
+      return (
+        <img style={style} src={`/static/img/interviewvip/introPage/intro_0${ele}.jpg`} />
+      )
+    })
+    return (<div className='page'>
+      {result}
+      <style jsx>
+        {`
+        .page {
+          margin: -1rem;
+          font-size: 0;
+        }
+        `}
+      </style>
+    </div>)
   }
 
   renderMotal () {
