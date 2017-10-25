@@ -4,36 +4,43 @@ import ThemeConfig from '../config/theme'
 export default class extends React.Component {
   constructor (props) {
     super(props)
+    const {height} = this.props
     this.state = {
-      needShowBotton: true,
+      needShowBotton: false,
       style: {
-        lineHeight: '24px',
-        overflow: 'hidden',
-        WebkitLineClamp: this.props.line
+        maxHeight: height,
+        height: height,
+        overflowY: 'hidden'
       },
       isShow: false
     }
   }
   componentDidMount () {
-    let clientHeight = this.refs.content.clientHeight
-    let lineHeight = this.refs.content.style.lineHeight
-    let lines = clientHeight / lineHeight.replace('px', '')
-    if (lines > this.props.line) {
-      this.setState({
-        needShowBotton: true
-      })
+    let content = this.refs.content
+    let clientHeight = content.clientHeight // 期望展示高度
+    let contentHeight = content.children[0].clientHeight // 实际内容高度
+
+    if (contentHeight > clientHeight) {
+      this.setState({needShowBotton: true})
     }
   }
   hide () {
+    const {height} = this.props
     this.setState({
       isShow: false,
-      style: {lineHeight: '24px', overflow: 'hidden', 'WebkitLineClamp': this.props.line}
+      style: {
+        maxHeight: height,
+        height: height,
+        overflowY: 'hidden'
+      }
     })
   }
   showAll () {
     this.setState({
       isShow: true,
-      style: {lineHeight: '24px', overflow: 'visible'}
+      style: {
+        height: 'auto'
+      }
     })
   }
 
@@ -81,10 +88,10 @@ export default class extends React.Component {
           .more .content {
             margin: 1rem 0;
             color: #646464;
-            font-size: 0.9rem;
             text-overflow: ellipsis;
             display: -webkit-box;
             -webkit-box-orient: vertical;
+            word-break:break-all;
           }
         `}</style>
       </div>
