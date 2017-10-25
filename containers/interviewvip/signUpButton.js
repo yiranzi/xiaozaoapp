@@ -74,6 +74,7 @@ export default class extends React.Component {
     if (this.props.payStatus) {
       // 2是否开课, 根据不同的状态判断
       console.log('canEnter:', this.props.canEnter)
+      arr.push(this.renderFreeTry())
       arr.push(this.renderEnter(this.props.canEnter))
     } else {
       arr.push(this.renderFreeTry())
