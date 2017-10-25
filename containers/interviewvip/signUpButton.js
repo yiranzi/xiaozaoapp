@@ -59,6 +59,9 @@ export default class extends React.Component {
             background-color: ${ThemeConfig.color.yellow} !important;
             width: 50%;
           }
+          .weui-btn_primary.invite {
+            background-color: ${ThemeConfig.color.yellow} !important;
+          }
         `}</style>
       </div>
     )
@@ -104,7 +107,7 @@ export default class extends React.Component {
   }
   renderCut () {
     return (
-      <Button onClick={() => {this.onClickButton()}}>邀请砍价</Button>
+      <Button className='invite' onClick={() => {this.onClickButton()}}>邀请砍价</Button>
     )
   }
   renderSignUp () {
