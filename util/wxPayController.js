@@ -50,6 +50,7 @@ wxPayController.getPayInfo = async () => {
     let payInfo = await AxiosUtil.get('/api/interview/buy')
     payData = payInfo
   } catch (e) {
+    alert(e.message)
   }
 }
 
