@@ -5,8 +5,8 @@ import ThemeConfig from '../../config/theme'
 import ToolsUtil from '../../util/tools'
 import Navbar from '../../containers/job/navbar'
 import DateUtil from '../../util/date'
-import { MediaBox, MediaBoxHeader, MediaBoxTitle,
-  MediaBoxBody, MediaBoxDescription} from 'react-weui'
+import { Panel, PanelHeader, PanelBody, MediaBox, MediaBoxHeader, MediaBoxTitle,
+  MediaBoxBody, MediaBoxDescription, Button} from 'react-weui'
 
 export default class extends React.Component {
   constructor (props) {
@@ -42,25 +42,23 @@ export default class extends React.Component {
     }
   }
 
-  handleSearchBarChange (e) {
-    console.log(e)
-    location.href = '/job/search'
-    e.stopPropagation()
-    return false
+  handleCollectionClick () {
+
   }
 
-  handleCollectionChange (e, id) {
-    console.log(e)
-    console.log(id)
-    e.stopPropagation()
-    return false
+  handleMailingClick () {
+    const {job} = this.state
+    if (job) {
+      location.href = '/job/mailinginfo?jobId=' + job.jobId
+    }
   }
 
   renderJobTitle () {
     const {job} = this.state
     if (job) {
-      return <div className='block'>
+      return <Panel className='block'>
         <MediaBox type='text'>
+          <span className='wx-pull-right salary'>{job.salary}</span>
           <MediaBoxTitle className='job-title'>{job.title}</MediaBoxTitle>
           <MediaBoxDescription>{job.address}
             <span className='wx-pull-right'>
@@ -68,17 +66,20 @@ export default class extends React.Component {
           </MediaBoxDescription>
         </MediaBox>
         <style global jsx>{`
+          .salary {
+            color: #f7abab;
+            margin-top: 3px;
+          }
+        `}</style>
+        <style global jsx>{`
           .block {
-            border-bottom: 1px dashed #efefef;
+
           }
           .job-title {
             font-size: 16px !important;
-            overflow: hidden !important;
-            text-overflow: ellipsis !important;
-            white-space: nowrap !important;
           }
         `}</style>
-      </div>
+      </Panel>
     }
   }
 
@@ -88,26 +89,26 @@ export default class extends React.Component {
       return job.tagList.map((item, index) => {
         return <span key={index} className='tagName'>{item}</span>
       })
-    } else {
-      return <div />
     }
   }
 
-  renderJobDetail () {
+  renderCompanyDetail () {
     const {job} = this.state
     if (job) {
-      return <div>
-        <MediaBox type='appmsg'>
+      return <Panel>
+        <MediaBox type='appmsg' className='company-info'>
           <MediaBoxHeader>
             <img className='company-logo' src={job.companyLogo} /></MediaBoxHeader>
           <MediaBoxBody>
-            <MediaBoxTitle className='info'>{job.companyName}</MediaBoxTitle>
+            <MediaBoxTitle className='company-name'>{job.companyName}</MediaBoxTitle>
             <MediaBoxTitle className='info'>
               {this.renderCompanyTags()}
             </MediaBoxTitle>
           </MediaBoxBody>
         </MediaBox>
-        <div className='comment'>小灶点评：{job.companyComment}</div>
+        <div className='comment'>
+          <label className='comment-label'>小灶点评：</label>{job.companyComment}
+        </div>
         <style jsx>{`
           .company-logo {
             width: 50px;
@@ -115,17 +116,27 @@ export default class extends React.Component {
             border-radius: 8px;
             border: 1px solid #ddd;
           }
-          .comment,
-          .tags {
+          .comment {
             padding: 0 15px;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
+            color: #555;
           }
           .comment-icon {
             width: 20px;
             margin: 0 0 -3px 0;
           }
+          .comment-label {
+            color: #2196f3;
+          }
         `}</style>
         <style global jsx>{`
+          .company-info {
+            align-items: normal !important;
+          }
+          .company-name {
+            font-size: 16px !important;
+            margin-bottom: 5px;
+          }
           .info {
             font-size: 14px !important;
           }
@@ -136,8 +147,65 @@ export default class extends React.Component {
             padding: 2px 4px;
           }
         `}</style>
-      </div>
+      </Panel>
     }
+  }
+
+  renderJobDetail () {
+    const {job} = this.state
+    if (job) {
+      return <Panel>
+        <PanelHeader>
+          <span className='job-detail-label'>职位描述</span>
+        </PanelHeader>
+        <PanelBody>
+          <MediaBox type='text'>
+            <div className='job-des' dangerouslySetInnerHTML={{__html: job.des}} />
+          </MediaBox>
+        </PanelBody>
+        <style jsx>{`
+          .job-des {
+            color: #555;
+          }
+          .job-detail-label {
+            padding-left: 8px;
+            border-left: solid #2196f3 5px;
+            font-weight: bold;
+          }
+        `}</style>
+        <style global jsx>{`
+
+        `}</style>
+      </Panel>
+    }
+  }
+
+  renderMailingTabbar () {
+    return <div className='wx-bottom-fixed'>
+      <Button className='wx-pull-left collection-btn' type='primary' plain
+        onClick={e => this.handleCollectionClick()}>★☆</Button>
+      <Button className='wx-pull-right mailing-btn'
+        onClick={e => this.handleMailingClick()}>立即投递</Button>
+      <style global jsx>{`
+        .wx-bottom-fixed {
+          border-top: 1px solid #ddd;
+          height: 45px;
+        }
+      `}</style>
+      <style global jsx>{`
+        .collection-btn {
+          width: 30% !important;
+          border-width: 0 !important;
+        }
+        .mailing-btn {
+          width: 70% !important;
+          margin-top: 0 !important;
+          border-width:0 0 0 1px !important;
+          border-color: #ddd !important;
+          border-radius: 0 !important;
+        }
+      `}</style>
+    </div>
   }
 
   render () {
@@ -150,12 +218,16 @@ export default class extends React.Component {
       name: '主页'
     }
     return (
-      <JobLayout tabbar>
-        <Navbar leftbar={leftbar} rightbar={rightbar} navtitle='职位详情' />
+      <JobLayout>
+        <Navbar fixed leftbar={leftbar} rightbar={rightbar} navtitle='职位详情' />
+        <br /><br />
         <div className='job-detail'>
           {this.renderJobTitle()}
+          {this.renderCompanyDetail()}
           {this.renderJobDetail()}
         </div>
+        <br /><br />
+        {this.renderMailingTabbar()}
         <style global jsx>{`
           .job-detail {
 

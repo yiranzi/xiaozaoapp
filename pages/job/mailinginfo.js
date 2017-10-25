@@ -2,6 +2,7 @@ import React from 'react'
 import AxiosUtil from '../../util/axios'
 import JobLayout from '../../containers/job/layout'
 import ThemeConfig from '../../config/theme'
+import ToolsUtil from '../../util/tools'
 import { Button, Panel, PanelHeader, PanelBody, MediaBox, MediaBoxTitle,
   MediaBoxDescription, MediaBoxInfo, MediaBoxInfoMeta, LoadMore } from 'react-weui'
 
@@ -18,12 +19,17 @@ export default class extends React.Component {
 
   componentDidMount = async () => {
     this.setState({dataState: 'loading'})
+    const jobId = ToolsUtil.getQueryString('jobId')
     try {
-      const groupId = 1
-      let list = await AxiosUtil({method: 'get', url: `/api/forum/getList/${groupId}`})
+      let job = await AxiosUtil({
+        method: 'get',
+        url: `/api/private/job/${jobId}`
+      })
+
+      console.log(job)
 
       this.setState({
-        list: list,
+        job: job,
         isRender: false
       })
     } catch (e) {

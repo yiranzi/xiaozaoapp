@@ -3,7 +3,8 @@ import ThemeConfig from '../../config/theme'
 
 export default class extends React.Component {
   render () {
-    return <div className='navbar wx-clearfix'>
+    return <div className={'navbar wx-clearfix ' + (
+      this.props.fixed ? 'wx-top-fixed' : '')}>
       {this.props.leftbar &&
         <a className='wx-pull-left left' href={this.props.leftbar.href || 'javascript:;'}
           onClick={this.props.leftbar.onclick}>
