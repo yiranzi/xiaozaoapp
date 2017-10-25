@@ -35,8 +35,13 @@ export default class Layout extends React.Component {
         <style dangerouslySetInnerHTML={{__html: weui}} />
         {this.renderChild()}
         {this.renderGlobalCss()}
-        <script src='/static/js/jweixin.js'/>
-        <script src='/static/js/baidutongji.js'/>
+        <script src='/static/js/jweixin.js' />
+        <script src='/static/js/baidutongji.js' />
+        <style global jsx>{`
+          body {
+            font-family: PingFang SC,Helvetica Neue,Helvetica,Arial,Hiragino Sans GB,Microsoft Yahei,sans-serif !important;
+          }
+        `}</style>
       </div>
     )
   }

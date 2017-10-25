@@ -116,7 +116,7 @@ export default class extends React.Component {
       <div className='icon'>
         <img src='/static/img/interview/wx_record.png' onClick={() => {
           this.startRecord()
-        }}/>
+        }} />
         {localId && !isRecording && this.renderPlay(localId, isPlaying)}
         <style jsx>{`
           .icon {
@@ -135,7 +135,7 @@ export default class extends React.Component {
       <div className='recording'>
         <img src='/static/img/interview/wx_recording.gif' onClick={() => {
           this.stopRecord()
-        }}/>
+        }} />
         <style jsx>{`
           .recording {
             text-align: center;
@@ -154,10 +154,10 @@ export default class extends React.Component {
         {isPlaying
           ? <img src='/static/img/interview/pause.png' onClick={() => {
             this.stopVoice(localId)
-          }}/>
+          }} />
           : <img src='/static/img/interview/play.png' onClick={() => {
             this.playVoice(localId)
-          }}/>
+          }} />
         }
       </div>
     )

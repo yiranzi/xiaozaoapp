@@ -5,7 +5,7 @@ import Back from '../../containers/interview/back'
 import InterviewLayout from '../../containers/interview/layout'
 
 export default class extends React.Component {
-  renderContent(){
+  renderContent () {
     return (
       <div>
         <div className='title'>故事背景</div>
@@ -28,7 +28,7 @@ export default class extends React.Component {
       <InterviewLayout >
         <Back text='< 返回打卡主页' url='/interview/main' />
         <div>
-          <Card content={this.renderContent()}/>
+          <Card content={this.renderContent()} />
           <a href='/interview/task'><Button>下一页</Button></a>
         </div>
       </InterviewLayout>

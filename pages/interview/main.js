@@ -143,7 +143,7 @@ export default class extends React.Component {
   renderAvatar () {
     const {randomAvatars} = this.state
     return randomAvatars.map((item, index) => {
-      return <img key={item} src={avatars[item]}/>
+      return <img key={item} src={avatars[item]} />
     })
   }
 
@@ -176,7 +176,7 @@ export default class extends React.Component {
               <div className='time'>打卡时间：09:00 ~ 23:59:59</div>
             </div>
             <div className='right'>
-              <img src='/static/img/interview/clock.png'/>
+              <img src='/static/img/interview/clock.png' />
             </div>
           </div>
           <div className='join'>
@@ -329,7 +329,6 @@ export default class extends React.Component {
       } else {
         location.href = '/interview/intro?day=' + day
       }
-
     }
   }
 
@@ -339,7 +338,7 @@ export default class extends React.Component {
     return (
       <InterviewLayout isRender={isRender} error={error}>
         <div className='header'>
-          <img src='/static/img/interview/interview.png'/>
+          <img src='/static/img/interview/interview.png' />
         </div>
         <div className='interview-main'>
           <div className='intro'>
@@ -347,7 +346,7 @@ export default class extends React.Component {
             <div className='sub'>
               <Card
                 title='小灶群面7天闪电计划(初级)'
-                content={this.renderContent()}/>
+                content={this.renderContent()} />
             </div>
             {day < 1 && <Button className='disabled'>未开始</Button>}
             {(day >= 1 && day <= 8) &&
@@ -358,9 +357,9 @@ export default class extends React.Component {
             {day > 8 && <Button className='disabled'>已结束</Button>}
             {(day >= 1 && day <= 6) &&
               <div className='complete'>
-                <div className='blank'/>
+                <div className='blank' />
                 <div className='text'>已有{this.renderCompleteUser(mainintro)}人完成</div>
-                <div className='blank'/>
+                <div className='blank' />
               </div>
             }
             <div className='prev'>

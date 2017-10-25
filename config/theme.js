@@ -1,11 +1,11 @@
 const config = {
   color: {
-    white: '#fff',
-    black: '#333',
+    dark_black: '#242223',
+    content: '#646464',
     yellow: '#fdc23e',
-    gray: '#F9F9F9',
-    font_gray: '#666',
-    border_gray: '#d9d9d9'
+    blue: '#117ee9',
+    red: 'red',
+    gray: '#F9F9F9'
   },
   size: {
     small: '0.75rem',

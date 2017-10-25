@@ -32,12 +32,22 @@ export default class Layout extends React.Component {
         </CellFooter>
         <CellBody>{label}</CellBody>
         <style global jsx>{`
+          .weui-cells_radio .weui-check:checked+.weui-icon-checked:before {
+            content: '\\EA06' !important;
+            color: #108ee9 !important;
+            font-size: 23px !important;
+          }
+          .weui-cells_radio .weui-icon-checked:before {
+            content: '\\EA01';
+            color: #C9C9C9;
+            font-size: 23px;
+            display: block;
+          }
           /*背景*/
           .weui-cells,
           .weui-check__label:active {
             background: transparent !important;
-            margin-top: 0 !important;
-            line-height: 100% !important;
+            line-height: 1.6 !important;
             font-size: 14px !important;
           }
           .weui-cell:before,
@@ -46,31 +56,13 @@ export default class Layout extends React.Component {
             border-top: none !important;
             border-bottom: none !important;
           }
-          span.weui-icon-checked {
-            width: 1.25rem;
-            height: 1.25rem;
-            background: transparent;
-            border-radius: 1rem;
-            margin-right: 1rem;
-            position: relative;
-            border: 1px solid #2b3a64;
-          }
-          .weui-cells_radio .weui-check:checked+.weui-icon-checked:before {
-            content: '' !important;
-            color: transparent;
-            background: url(/static/img/interview/check.png) no-repeat;
-            background-size: 100%;
-            width: 1.75rem;
-            height: 1.75rem;
-            position: absolute;
-            left: -0.3rem;
-            top: -0.2rem;
-          }
           .weui-cell {
-            padding: 0.25rem 0 !important;
+            padding: 10px 0 !important;
+            align-items: flex-start !important;
           }
           .weui-cells_radio .weui-cell__ft {
             padding-left: 0 !important;
+            padding-right: 0.35rem;
           }
         `}
         </style>

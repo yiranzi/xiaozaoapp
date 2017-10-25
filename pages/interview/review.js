@@ -61,9 +61,9 @@ export default class extends React.Component {
 
     if (!DataUtil.isEmpty(questionList)) {
       if (topicKey.indexOf(5) >= 0) {
-        return <UnStandardReview questionList={questionList}/>
+        return <UnStandardReview questionList={questionList} />
       } else {
-        return <StandardReview questionList={questionList}/>
+        return <StandardReview questionList={questionList} />
       }
     }
   }

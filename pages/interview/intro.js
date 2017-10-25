@@ -6,7 +6,7 @@ import Back from '../../containers/interview/back'
 import InterviewLayout from '../../containers/interview/layout'
 import IntroContent from '../../containers/interview/introcontent'
 
-const intro = IntroContent;
+const intro = IntroContent
 
 export default class extends React.Component {
   constructor (props) {
@@ -40,7 +40,7 @@ export default class extends React.Component {
 
   render () {
     const {isRender, day} = this.state
-    console.log(day);
+    console.log(day)
     return (
       <InterviewLayout isRender={isRender} >
         <Back text='< 返回打卡主页' url='/interview/main' />

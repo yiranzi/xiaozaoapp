@@ -1,7 +1,7 @@
 node_modules/*
 .next/*
 out/*
-containers/school/*
-pages/school/*
-// 临时过滤
-components/school/TabList.js
+static/js/*
+components/audio.js
+pages/interview/*
+containers/interview/*
