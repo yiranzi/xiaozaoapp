@@ -55,6 +55,7 @@ export default class extends React.Component {
             color: #fff !important;
             width: 50% !important;
             margin: auto !important;
+            margin-left: 1rem !important;
           }
           .weui-btn_primary.enter {
             background-color: ${ThemeConfig.color.yellow} !important;
@@ -62,6 +63,9 @@ export default class extends React.Component {
           }
           .weui-btn_primary.invite {
             background-color: ${ThemeConfig.color.red} !important;
+          }
+          .weui-btn_primary.experience {
+            width: 50%;
           }
         `}</style>
       </div>
