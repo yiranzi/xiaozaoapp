@@ -396,12 +396,20 @@ export default class extends React.Component {
       )
     })
     return (<div className='page'>
+      <h1 className='title'>第一期群面打卡回顾</h1>
       {result}
       <style jsx>
         {`
         .page {
           margin: -1rem;
           font-size: 0;
+          text-align: center;
+        }
+        .title {
+          font-weight: bold;
+          color: ${ThemeConfig.color.dark_black};
+          font-size: 20px;
+          margin: 40px 0 20px 0;
         }
         `}
       </style>
