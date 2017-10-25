@@ -215,7 +215,10 @@ export default class extends React.Component {
               <li>分组方式：6 人一组，根据学员模块训练的成绩进行分组，保证最真实的群面模拟环境</li>
               <li>参加线上模拟需要先完成所有模块的学习，学完后模拟更有效哦</li>
               <li>群面时间：<span className='red'>多时段选一</span>(每个时间段开放 300 个名额，为保证群面效果，完成课程学习才可报名群面啦！请务必确认参加哦）</li>
-            </ul>
+              <div className='introImg'>
+                <img src='/static/img/interviewvip/introPage/timeChoose.png'/>
+              </div>
+              </ul>
           </section>
           <section>
             <div className='subTitle'>第三部分：4 场群面答疑讲座</div>
@@ -234,6 +237,12 @@ export default class extends React.Component {
           </section>
         </div>
         <style jsx>{`
+          .introImg {
+            text-align: center;
+          }
+          .introImg img {
+            width: 300px;
+          }
           .dot li{
             list-style: inside !important;
           }
@@ -337,7 +346,7 @@ export default class extends React.Component {
           <div className='content'>
             <div className='join'>
               <div className='avatar'>{this.renderAvatar()}</div>
-              <div className='count'>{this.state.totalUserCount}人已经报名,名额有限...</div>
+              <div className='count'>{this.state.totalUserCount}人已经报名,限时优惠...</div>
             </div>
             <div className='teacher-intro'>
               <Card
