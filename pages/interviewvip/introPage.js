@@ -366,12 +366,10 @@ export default class extends React.Component {
   }
 
   onShowTryTask () {
-    console.log('onShowTryTask')
     this.setState({isHelpShow: true})
   }
 
   goPath (goPath) {
-    console.log(goPath)
     location.href = goPath
   }
 

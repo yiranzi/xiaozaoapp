@@ -5,7 +5,6 @@ let payData = null
 let wxPayController = {}
 
 wxPayController.payInit = async () => {
-  console.log('init')
   // 1 获取订单数据
   await wxPayController.getPayInfo()
   // 2 调用微信
@@ -13,9 +12,7 @@ wxPayController.payInit = async () => {
 }
 
 wxPayController.pay = () => {
-  console.log('pay')
   if (typeof WeixinJSBridge === 'undefined') {
-    console.log('1')
     if (document.addEventListener) {
       document.addEventListener('WeixinJSBridgeReady', wxPayController.pay, false)
     } else if (document.attachEvent) {
@@ -23,14 +20,12 @@ wxPayController.pay = () => {
       document.attachEvent('onWeixinJSBridgeReady', wxPayController.pay)
     }
   } else {
-    console.log('2')
     wxPayController.onBridgeReady()
   }
 }
 
 wxPayController.onBridgeReady = () => {
 // 2 设置订单
-  console.log('onBridgeReady')
   let {appId, nonceStr, paySign, timeStamp, prepayId} = payData
   // eslint-disable-next-line
   WeixinJSBridge.invoke(
@@ -44,7 +39,6 @@ wxPayController.onBridgeReady = () => {
     },
     function (res) {
       if (res.err_msg === 'get_brand_wcpay_request:ok') {
-        console.log('get ')
       }
       location.href = `/interviewvip/introPage`
     }
@@ -52,13 +46,10 @@ wxPayController.onBridgeReady = () => {
 }
 
 wxPayController.getPayInfo = async () => {
-  console.log('getPayInfo')
   try {
     let payInfo = await AxiosUtil.get('/api/interview/buy')
     payData = payInfo
-    console.log(payData)
   } catch (e) {
-    console.log(e)
   }
 }
 
