@@ -46,7 +46,7 @@ export default class extends React.Component {
 
   /*
    设置页面的总人数/头像
-  */
+   */
   setPageInfo (payInfo) {
     let {totalUserCount, headimgList} = payInfo
     this.setState({
@@ -106,11 +106,14 @@ export default class extends React.Component {
           <p>辅导过的学生拿到的 offer 包括：埃森哲、联合利华、欧莱雅、怡安翰威特、科尔尼、BCG、德勤、IBM GBS、IMSHealth、光辉合益、麦肯锡、美世、久谦、奥纬、安永帕特农、普华永道、腾讯、招商银行。</p>
         </div>
         <style jsx>{`
+          .name {
+            font-weight: bold;
+          }
           .photo img {
             width: 100%;
           }
           .exper p {
-            margin-top: 0.25rem;
+            margin-top: 0.5rem;
           }
           .boldTxt {
             font-weight: bold;
@@ -125,7 +128,7 @@ export default class extends React.Component {
         <div className='sub'>本次课程，关注群面的六大核心能力：案例阅读技巧、问题分析能力、结构化思维、商业思维、沟通与表达能力、时间管理能力，组织以下三部分课程内容：</div>
         <div className='content'>
           <section>
-            <div className='title'>第一部分：7 大模块核心群面技能</div>
+            <div className='subTitle'>第一部分：7 大模块核心群面技能</div>
             <ul className='dot'>
               <li>模块 1：如何快速读懂长案例？</li>
               <li>模块 2：怎样运用结构化思维找到案例的突破口？</li>
@@ -137,7 +140,7 @@ export default class extends React.Component {
             </ul>
           </section>
           <section>
-            <div className='title'>第二部分：6 人线上群面实战</div>
+            <div className='subTitle'>第二部分：6 人线上群面实战</div>
             <ul className='dot'>
               <li>群面方式：线上微信群，6 人一组</li>
               <li>群面时间：<span className='red'>多时段可选</span>（每个时间段开放 300 个名额，请务必确保能参加其中的任意一次）</li>
@@ -145,7 +148,7 @@ export default class extends React.Component {
             </ul>
           </section>
           <section>
-            <div className='title'>第三部分：4 场群面答疑讲座</div>
+            <div className='subTitle'>第三部分：4 场群面答疑讲座</div>
             <ul>
               <li>场群面线上模拟案例解析+答疑</li>
               <li>
@@ -166,7 +169,11 @@ export default class extends React.Component {
           }
           section {
             margin-top: 1rem;
-          } 
+          }
+          .subTitle {
+            font-weight: bold;
+            color: ${ThemeConfig.color.dark_black};
+          }
           .title {
             font-weight: bold;
             color: ${ThemeConfig.color.dark_black};
@@ -273,9 +280,13 @@ export default class extends React.Component {
               />
               <style>
                 {`
-.title{
-  font-size: 100 !important
-}`}
+                .title{
+                  font-size: 20px !important;
+                }
+                .card {
+                  margin: 30px 0 30px 0 !important;
+                }
+                `}
               </style>
             </div>
 
@@ -318,7 +329,6 @@ export default class extends React.Component {
       </InterviewLayout>
     )
   }
-
   renderAvatar () {
     let style = {
       width: '30px',
@@ -390,13 +400,17 @@ export default class extends React.Component {
       width: '256px',
       height: '297px'
     }
+
+    let styleP = {
+      margin: '0 30px 0 30px'
+    }
     return (
       <Motal
         onClickBg={() => { this.setState({isHelpShow: false}) }}
         isShow={this.state.isHelpShow}>
         <div style={style}>
           <div>
-            <p>扫描二维码加小助手咨询 微信号：xiaozao025 </p>
+            <p style={styleP}>扫描二维码加小助手咨询 微信号：xiaozao025 </p>
             <img style={styleImg} src='/static/img/interviewvip/qrHelpCode.jpeg' />
           </div>
         </div>
