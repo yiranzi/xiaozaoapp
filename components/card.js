@@ -18,9 +18,13 @@ export default class extends React.Component {
             line-height: 32px;
           }
           .card .title {
-            text-align: center;
             font-size: ${ThemeConfig.size.normal};
             font-weight: bold;
+            color: #242223;
+          }
+          .card .content {
+            color: #646464;
+            line-height: 24px;
           }
         `}</style>
       </div>
