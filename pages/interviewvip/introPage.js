@@ -156,8 +156,15 @@ export default class extends React.Component {
 
   renderStartTime () {
     if (this.state.payStatus) {
-      return (<div>
+      return (<div className='bg'>
         <p>正式打卡将于2017年11月1日开始</p>
+        <style>
+          {`
+            .bg {
+            background-color: yellow
+            }
+          `}
+        </style>
       </div>)
     }
   }
