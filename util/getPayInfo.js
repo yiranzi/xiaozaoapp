@@ -34,8 +34,6 @@ payInfo.getPayInfo = async () => {
   获得基本付费信息
  */
 payInfo.getPriceInfo = () => {
-  console.log(priceInfo)
-  console.log(123)
   return priceInfo
 }
 

@@ -149,7 +149,7 @@ export default class extends React.Component {
     let headArray = this.state.headimgList
     if (headArray && headArray.length > 0) {
       return headArray.map((item, index) => {
-        return <img style = {style} key={index} src={item} />
+        return <img style={style} key={index} src={item} />
       })
     }
   }
