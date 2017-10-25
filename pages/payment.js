@@ -14,7 +14,8 @@ export default class extends React.Component {
       canBuy: null,
       payStatus: null,
       isRender: true,
-      error: ''
+      error: '',
+      limitUser: null
     }
   }
 
@@ -40,9 +41,10 @@ export default class extends React.Component {
    设置好友列表
    */
   setPageInfo (payInfo) {
-    let {interviewInviteesDTOList} = payInfo
+    let {limitUser, interviewInviteesDTOList} = payInfo
     this.setState({
-      disCountArray: interviewInviteesDTOList
+      disCountArray: interviewInviteesDTOList,
+      limitUser: limitUser
     })
   }
 
@@ -196,7 +198,7 @@ export default class extends React.Component {
     if (disCountArray.length > 0) {
       let result = disCountArray.map((ele, index) => {
         let {nickname, offerPrice} = ele
-        if (index > 7) {
+        if (index > this.state.limitUser - 1) {
           return (<div key={index}>{this.renderLine(nickname, offerPrice, false)}</div>)
         } else {
           return (<div key={index}>{this.renderLine(nickname, offerPrice, true)}</div>)
@@ -205,7 +207,7 @@ export default class extends React.Component {
       })
       return (<div className='list'>
         <p className='tip'>
-          本次活动最多获得8次优惠~
+          本次活动最多获得{this.state.limitUser}次优惠~
         </p>
 
         {result}
