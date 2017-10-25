@@ -241,7 +241,7 @@ export default class extends React.Component {
               <More
                 title='课程介绍'
                 content={this.courseIntro()}
-                line={4}
+                height={120}
               />
             </div>
             <div className='teacher-intro'>
