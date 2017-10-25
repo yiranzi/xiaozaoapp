@@ -441,7 +441,7 @@ export default class extends React.Component {
         onClickBg={() => { this.setState({isHelpShow: false}) }}
         isShow={this.state.isHelpShow}>
         <div style={style}>
-          <div>
+          <div style={{backgroundColor: '#fff', color: '#242223', padding: '1rem', margin: '1rem'}}>
             <p style={styleP}>二维码见上图，文案：扫描二维码生成自己的砍价邀请卡~邀请好友扫码砍价哦~ </p>
             <img style={styleImg} src='/static/img/interviewvip/qrcode.jpg' />
           </div>
