@@ -126,7 +126,7 @@ export default class extends React.Component {
         <div className='content'>
           <section>
             <div className='title'>第一部分：7 大模块核心群面技能</div>
-            <ul>
+            <ul className='dot'>
               <li>模块 1：如何快速读懂长案例？</li>
               <li>模块 2：怎样运用结构化思维找到案例的突破口？</li>
               <li>模块 3：怎样利用常见的商业分析框架提升分析效率？</li>
@@ -138,7 +138,7 @@ export default class extends React.Component {
           </section>
           <section>
             <div className='title'>第二部分：6 人线上群面实战</div>
-            <ul>
+            <ul className='dot'>
               <li>群面方式：线上微信群，6 人一组</li>
               <li>群面时间：<span className='red'>多时段可选</span>（每个时间段开放 300 个名额，请务必确保能参加其中的任意一次）</li>
               <li>参与规则：参加线上模拟需要先完成所有模块的学习，学完后模拟更有效哦</li>
@@ -150,7 +150,7 @@ export default class extends React.Component {
               <li>场群面线上模拟案例解析+答疑</li>
               <li>
                 <div className='sub-title'>场行业（四大、快消、金融）群面讲解，包括：</div>
-                <ul>
+                <ul className='dot'>
                   <li>行业群面案例的形式</li>
                   <li>行业群面考察点</li>
                   <li>行业群面应对策略</li>
@@ -161,6 +161,9 @@ export default class extends React.Component {
           </section>
         </div>
         <style jsx>{`
+          .dot li{
+            list-style: inside !important;
+          }
           section {
             margin-top: 1rem;
           } 
@@ -171,6 +174,7 @@ export default class extends React.Component {
           ul li {
             list-style: none;
           }
+
           .red {
             color: red;
           }
@@ -217,7 +221,7 @@ export default class extends React.Component {
         </ul>
         <style jsx>{`
           ul li {
-            list-style: none;
+            list-style: inside;
           }
         `}</style>
       </div>
@@ -267,7 +271,14 @@ export default class extends React.Component {
                 title='参与方式'
                 content={this.howJoin()}
               />
+              <style>
+                {`
+.title{
+  font-size: 100 !important
+}`}
+              </style>
             </div>
+
             {this.renderStartTime()}
             {this.renderButton()}
             {this.renderMotal()}
