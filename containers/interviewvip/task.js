@@ -381,6 +381,7 @@ export default class extends React.Component {
 
       await AxiosUtil.post('/api/interview/complete', data)
       alert('提交成功')
+      location.href = `/interview/review?topicKey=${topicKey}`
       // location.href = `/interview/result?topicKey=${topicKey}`
     } catch (e) {
       this.setState({isSubmit: false})
