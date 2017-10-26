@@ -7,11 +7,13 @@ import DataUtil from '../../util/data'
 import Radio from '../../components/radio'
 import CheckBox from '../../components/checkbox'
 import Uploader from '../../components/uploader'
+import FixFooter from '../../components/fixfooter'
 import TextArea from '../../components/textarea'
 import Audio from '../../components/audio'
 import Video from '../../components/video'
 import WxRecord from '../../components/wxrecord'
 import Loading from '../../components/loading'
+import ThemeConfig from '../../config/theme'
 
 export default class extends React.Component {
   constructor (props) {
@@ -24,7 +26,8 @@ export default class extends React.Component {
       localIdList: {},
       isSubmit: false,
       isRecording: false,
-      isPlaying: false
+      isPlaying: false,
+      isShowMaterial: true
     }
   }
   renderMaterialItem (item) {
@@ -70,7 +73,34 @@ export default class extends React.Component {
       )
     }
   }
-
+  renderMaterialGroup (material) {
+    const content = (
+      <Button className='enter' onClick={() => { this.toTask() }}>答题</Button>
+    )
+    return (
+      <div className='material'>
+        <div className='title'>阅读材料</div>
+        <div className='content'>{this.renderMaterial(material)}</div>
+        <FixFooter content={content} />
+        <style jsx>{`
+          .title {
+            font-weight: bold;
+            margin-top: 1rem;
+          }
+          .content {
+            border-top: 1px solid #F9F9F9;
+            margin-bottom: 5rem;
+          }
+        `}</style>
+      </div>
+    )
+  }
+  toTask () {
+    this.setState({isShowMaterial: false})
+  }
+  toMaterial () {
+    this.setState({isShowMaterial: true})
+  }
   formatOptions (optionDTOList) {
     return optionDTOList.map((item, index) => {
       const {tag, content} = item
@@ -162,12 +192,8 @@ export default class extends React.Component {
 
     return (
       <div className='dto-list'>
-        <div className='material'>
-          <div className='title'>材料</div>
-          {/* <div className='content'>{this.renderMaterial(material)}</div> */}
-        </div>
         <div className='pratice'>
-          <div className='title'>练习</div>
+          <div className='title'><span onClick={() => {this.toMaterial()}}>查看材料</span></div>
           <div className='content'>
             <div className='question'>{dtoItem.no}、{dtoItem.question}</div>
             <div className='options'>
@@ -195,8 +221,13 @@ export default class extends React.Component {
         </div>
         <style jsx>{`
           .title {
-            font-weight: bold;
+            color: ${ThemeConfig.color.blue};
             margin: 1rem 0;
+          }
+          .title span {
+            border: 1px solid ${ThemeConfig.color.blue};
+            padding: 0.25rem 0.5rem;
+            border-radius: 1rem;
           }
           .material .title {
             display: flex;
@@ -431,19 +462,26 @@ export default class extends React.Component {
   }
 
   render () {
-    const {isSubmit} = this.state
-    const {questionList} = this.props // 题目详情
+    const {currentIndex, isSubmit, isShowMaterial} = this.state
+    const {questionList} = this.props // 所有题目信息
     const {interviewTopicDTOList} = questionList // interviewTopicDTOList 题目内容数组
-    let questionLength = interviewTopicDTOList.length
+    const dtoItem = interviewTopicDTOList[currentIndex] // 当前题目内容
+    const {material} = dtoItem // 材料题目
+    let questionLength = interviewTopicDTOList.length // 总共有多少题目
 
     return (
       <div className='task'>
         {isSubmit && <Loading />}
-        {this.renderDTOList(interviewTopicDTOList, questionLength)}
+        {isShowMaterial && this.renderMaterialGroup(material)}
+        {!isShowMaterial && this.renderDTOList(interviewTopicDTOList, questionLength)}
         <style global jsx>{`
           /* 图片材料样式 */
           .meterial-item img {
             width: 100%;
+          }
+          .weui-btn_primary.enter,
+          .weui-btn_primary.enter:not(.weui-btn_disabled):active {
+            background-color: ${ThemeConfig.color.blue};
           }
         `}</style>
       </div>
