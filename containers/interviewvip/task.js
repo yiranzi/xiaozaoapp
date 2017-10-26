@@ -166,7 +166,6 @@ export default class extends React.Component {
     } else if (ToolsUtil.isRecord(type)) {
       const {isRecording, isPlaying} = this.state
       defaultValue = localIdList ? localIdList[id] : ''
-      console.log('defaultValue:', defaultValue)
       const name = `answer_${currentIndex}`
       return (
         <WxRecord
@@ -304,24 +303,25 @@ export default class extends React.Component {
       if (ToolsUtil.isUploader(type)) {
         // 图片还没有上传
         if (answerList[id] && answerList[id].indexOf('xiaozaoresource') < 0) {
+          this.setState({isSubmit: true})
           let uuid = DataUtil.uuid(11)
           let formdata = DataUtil.imgFormat(answerList[id], uuid, 'jpg')
-          console.log('上传图片')
           await AxiosUtil.post('/api/interview/uploadImage', formdata)
           this.onChange(id, `http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/interview/image/${uuid}.jpg`)
+          this.setState({isSubmit: false})
           this.goToNextTopic(currentIndex, questionLength)
         } else {
           this.goToNextTopic(currentIndex, questionLength)
         }
       } else if (ToolsUtil.isRecord(type)) {
-        console.log('上传音频')
         // 如果有录音，而且是localId, 上传
         if (answerList[id] && answerList[id].indexOf('wxLocalResource') >= 0) {
-          console.log('开始上传')
+          this.setState({isSubmit: true})
           this.refs.wxRecord.uploadVoice(answerList[id], (localId, serverId) => {
             if (serverId) {
               _this.updateLocalId(id, localId) // 这个是为了保存音频的localId
               _this.onChange(id, serverId)
+              _this.setState({isSubmit: false})
               this.goToNextTopic(currentIndex, questionLength)
             }
           })
@@ -369,14 +369,12 @@ export default class extends React.Component {
 
     try {
       this.setState({isSubmit: true})
-      console.log(1)
       alert(JSON.stringify(answerListArray))
       const data = JSON.stringify({
         answerDTOList: answerListArray,
         time: 30,
         topicKey: topicKey
       })
-      console.log(3)
       this.setState({isSubmit: true})
 
       await AxiosUtil.post('/api/interview/complete', data)
