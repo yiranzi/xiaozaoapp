@@ -302,8 +302,7 @@ export default class extends React.Component {
       // 如果是图片或者是录音题目，点击下一题时提交
       if (ToolsUtil.isUploader(type)) {
         // 图片还没有上传
-        // 专门处理－－－－－安卓和ios不同情况
-        if (answerList[id] && (answerList[id].indexOf('wxLocalResource') >= 0 || answerList[id].indexOf('weixin://resourceid') >= 0)) {
+        if (answerList[id] && answerList[id].indexOf('xiaozaoresource') < 0) {
           this.setState({isSubmit: true})
           let uuid = DataUtil.uuid(11)
           let formdata = DataUtil.imgFormat(answerList[id], uuid, 'jpg')
@@ -316,7 +315,8 @@ export default class extends React.Component {
         }
       } else if (ToolsUtil.isRecord(type)) {
         // 如果有录音，而且是localId, 上传
-        if (answerList[id] && answerList[id].indexOf('wxLocalResource') >= 0) {
+        // 专门处理－－－－－安卓和ios不同情况
+        if (answerList[id] && (answerList[id].indexOf('wxLocalResource') >= 0 || answerList[id].indexOf('weixin://resourceid') >= 0)) {
           this.setState({isSubmit: true})
           this.refs.wxRecord.uploadVoice(answerList[id], (localId, serverId) => {
             if (serverId) {
