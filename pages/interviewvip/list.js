@@ -61,7 +61,7 @@ export default class extends React.Component {
       )
     } else if (canDo) {
       return (
-        <a href={`/interviewvip/task?topicKey=${topicKey}`}>
+        <a href={`/interviewvip/intro?topicKey=${topicKey}`}>
           <img src='/static/img/interviewvip/list/doing.png' />
         </a>
       )
