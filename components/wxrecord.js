@@ -5,7 +5,7 @@ export default class WxRecord extends React.Component {
   componentDidMount = async () => {
     const url = `/api/interview/getWXConfig?url=${location.href.split('#')[0]}`
     let wxConfig = await AxiosUtil.get(url)
-    wxConfig.debug = true
+    // wxConfig.debug = true
     wxConfig.jsApiList = [
       'startRecord',
       'stopRecord',
