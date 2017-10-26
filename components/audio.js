@@ -360,7 +360,7 @@ export default class extends React.Component {
     var wxAudio = new Wxaudio({
       ele: '#' + idTag,
       src: audioUrl,
-      width: '320px'
+      width: '100%'
     })
   }
   render () {
@@ -378,7 +378,7 @@ export default class extends React.Component {
             height: auto;
             padding: 8px 10px;
             border: 1px solid rgba(33, 44, 55, 0.3);
-            margin: 0 auto;
+            margin: 1rem auto;
             font-size: 0;
             -moz-box-sizing: border-box;
             -webkit-box-sizing: border-box;
