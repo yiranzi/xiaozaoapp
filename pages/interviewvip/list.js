@@ -184,7 +184,7 @@ export default class extends React.Component {
           }
           .list .content {
             padding: 1rem;
-            margin-bottom: 5rem;
+            padding-bottom: 5rem;
           }
           .list .content .start-time {
             border-bottom: 1px solid ${ThemeConfig.color.border};
