@@ -75,7 +75,7 @@ export default class extends React.Component {
   }
   renderMaterialGroup (material) {
     const content = (
-      <Button className='enter' onClick={() => { this.toTask() }}>答题</Button>
+      <Button className='enter' onClick={() => { this.toTask() }}>答 题</Button>
     )
     return (
       <div className='material'>
@@ -86,9 +86,10 @@ export default class extends React.Component {
           .title {
             font-weight: bold;
             margin-top: 1rem;
+            border-bottom: 1px solid #e5e5e5;
+            padding-bottom: 0.5rem;
           }
           .content {
-            border-top: 1px solid #F9F9F9;
             margin-bottom: 5rem;
           }
         `}</style>
@@ -481,6 +482,7 @@ export default class extends React.Component {
           }
           .weui-btn_primary.enter,
           .weui-btn_primary.enter:not(.weui-btn_disabled):active {
+            width: 50%;
             background-color: ${ThemeConfig.color.blue};
           }
         `}</style>
