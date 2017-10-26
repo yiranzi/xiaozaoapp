@@ -453,6 +453,10 @@ export default class extends React.Component {
       let {answerList} = this.state
       answerList[id] = answerList[id] || {}
       answerList[id] = value
+      // 如果是音频更新localId
+      if (value.indexOf('wxLocalResource') >= 0 || value.indexOf('weixin://resourceid') >= 0) {
+        this.updateLocalId(id, value)
+      }
       this.setState({
         answerList: answerList
       }, () => {
