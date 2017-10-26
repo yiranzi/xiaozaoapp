@@ -5,7 +5,8 @@ const config = {
     yellow: '#fdc23e',
     blue: '#117ee9',
     red: 'red',
-    gray: '#F9F9F9'
+    gray: '#F9F9F9',
+    border: '#e5e5e5'
   },
   size: {
     small: '0.75rem',
