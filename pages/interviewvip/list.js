@@ -3,6 +3,8 @@ import TaskCard from '../../containers/interviewvip/taskCard'// 自定义组件
 import InterviewLayout from '../../containers/interviewvip/layout'
 import CourseInfo from '../../util/getCourseInfo'
 
+import ListButton from '../../containers/interviewvip/listButton'// 组件库
+
 export default class extends React.Component {
   constructor (props) {
     super(props)
@@ -78,13 +80,13 @@ export default class extends React.Component {
     let content = topic.finishStatus
     switch (topic.finishStatus) {
       case 'done':
-        resultDiv = <div className='icon'><img src='/static/img/interview/finish.png' />已完成</div>
+        resultDiv = <div className='icon'><img src='/static/img/interviewvip/list/finish.png' />已完成</div>
         break
       case 'doing':
-        resultDiv = <div className='icon'><img src='/static/img/interview/unfinish.png' />正在做</div>
+        resultDiv = <div className='icon'><img src='/static/img/interviewvip/list/doing.png' />正在做</div>
         break
       case 'not-do':
-        resultDiv = <div className='icon'><img src='/static/img/interview/unfinish.png' />未完成</div>
+        resultDiv = <div className='icon'><img src='/static/img/interviewvip/list/lock.png' />未完成</div>
         break
       default:
         console.log('error' + topic.finishStatus)
@@ -122,8 +124,8 @@ export default class extends React.Component {
           </div>
           <div className='interview-list'>
             {this.renderList(list)}
-            {/* {this.renderLastDay(list)} */}
           </div>
+          {this.renderListButton()}
         </div>}
         <style global jsx>{`
           .page{
@@ -147,5 +149,9 @@ export default class extends React.Component {
         `}</style>
       </InterviewLayout>
     )
+  }
+
+  renderListButton () {
+    return (<ListButton></ListButton>)
   }
 }
