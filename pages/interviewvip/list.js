@@ -85,6 +85,9 @@ export default class extends React.Component {
             justify-content: space-between;
             align-items: center;
           }
+          .item .sub-content {
+            color: ${ThemeConfig.color.yellow};
+          }
         `}</style>
       </div>
     )
@@ -150,10 +153,10 @@ export default class extends React.Component {
               <div className='title'>第二部分：6 人线上群面实战</div>
               <div className='sub-content'>
                 <ul>
-                  <li>群面方式：线上微信群</li>
-                  <li>分组方式：6 人一组，根据学员模块训练的成绩进行分组，保证最真实的群面模拟环境</li>
-                  <li>参与规则：参加线上模拟需要先完成所有模块的学习，学完后模拟更有效哦</li>
-                  <li>群面时间：群面时间：多时段选一（每个时间段开放 300 个名额，为保证群面效果，完成课程学习才可报名群面啦！请务必确认参加哦）</li>
+                  <li><span>群面方式</span>：线上微信群</li>
+                  <li><span>分组方式</span>：6 人一组，根据学员模块训练的成绩进行分组，保证最真实的群面模拟环境</li>
+                  <li><span>参与规则</span>：参加线上模拟需要先完成所有模块的学习，学完后模拟更有效哦</li>
+                  <li><span>群面时间</span>：群面时间：多时段选一（每个时间段开放 300 个名额，为保证群面效果，完成课程学习才可报名群面啦！请务必确认参加哦）</li>
                 </ul>
               </div>
             </section>
@@ -196,6 +199,9 @@ export default class extends React.Component {
           }
           section.part .sub-content {
             margin-top: 1rem;
+          }
+          section.part .sub-content span {
+            font-weight: bold;
           }
           li {
             list-style: none;
