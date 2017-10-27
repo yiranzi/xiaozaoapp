@@ -332,8 +332,18 @@ export default class extends React.Component {
 
   // 介绍文本
   addRuleContent () {
-    return (<div>
+    return (<div className='text'>
       <p>群面方式：线上微信群，6 人一组</p>
+      <p>群面时间：多时段可选，任选一期</p>
+      <p>参与规则：参加线上模拟需要先完成所有模块的学习，学完后模拟更有效哦</p>
+      <p>人数限制：每个时间段开放 300 个名额，若报满 300 人，则该期无法再选择；若报名人数不到6人，则该期取消，可选择其他期数</p>
+      <style jsx>{
+        `
+        .text {
+          margin-left: 20px;
+        }
+        `
+      }</style>
     </div>)
   }
 
