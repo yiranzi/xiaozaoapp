@@ -380,8 +380,7 @@ export default class extends React.Component {
 
       await AxiosUtil.post('/api/interview/complete', data)
       alert('提交成功')
-      location.href = `/interviewvip/review?topicKey=${topicKey}`
-      // location.href = `/interview/result?topicKey=${topicKey}`
+      location.href = `/interviewvip/result?topicKey=${topicKey}`
     } catch (e) {
       this.setState({isSubmit: false})
       alert('提交失败，请重新提交')
