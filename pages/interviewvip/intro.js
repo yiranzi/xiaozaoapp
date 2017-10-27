@@ -46,7 +46,7 @@ export default class extends React.Component {
     return (
       <InterviewLayout isRender={isRender}>
         <div className='intro'>
-          <div className='header'><span>返回主页</span></div>
+          <div className='header'><a href='/interviewvip/list'><span>返回主页</span></a></div>
           <div className='title'>群面说明</div>
           <div className='content'>
             <Card content={this.renderContent(topicKey)} />
