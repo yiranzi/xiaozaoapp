@@ -1,10 +1,8 @@
 import React from 'react'
 import AxiosUtil from '../../util/axios'
 import JobLayout from '../../containers/job/layout'
-import ThemeConfig from '../../config/theme'
-import Banner from '../../components/banner'
 import DateUtil from '../../util/date'
-import { Button, PanelBody, MediaBox, MediaBoxHeader, MediaBoxTitle,
+import { Button, Panel, PanelBody, MediaBox, MediaBoxHeader, MediaBoxTitle,
   MediaBoxBody, LoadMore,
   SearchBar, Tab, NavBar, NavBarItem, TabBody} from 'react-weui'
 
@@ -14,7 +12,7 @@ export default class extends React.Component {
     this.state = {
       list: null,
       params: {
-        cityIdList: [53],
+        cityIdList: [54],
         sectionIdList: [],
         pn: 0
       },
@@ -28,12 +26,7 @@ export default class extends React.Component {
   componentDidMount = async () => {
     this.setState({dataState: 'loading'})
     try {
-      let list = await AxiosUtil({
-        method: 'post',
-        url: '/api/private/job/internship',
-        data: this.state.params
-      })
-
+      let list = await AxiosUtil.post('/api/private/job/internship', this.state.params)
       console.log(list)
 
       this.setState({
@@ -87,7 +80,9 @@ export default class extends React.Component {
           onClick={e => this.setState({tab: 0})}>名企实习</NavBarItem>
       </NavBar>
       <TabBody>
-        {this.renderList()}
+        <Panel>
+          {this.renderList()}
+        </Panel>
       </TabBody>
     </Tab>
   }
@@ -112,13 +107,15 @@ export default class extends React.Component {
                   {DateUtil.format(item.createTime, 'MM月dd日')}</span></MediaBoxTitle>
             </MediaBoxBody>
           </MediaBox>
-          <div className='comment'>
-            <img className='comment-icon'
-              src='/static/img/common/recommend.png' /> {item.comment}
-          </div>
+          {item.comment &&
+            <div className='comment'>
+              <img className='comment-icon'
+                src='/static/img/common/recommend.png' /> {item.comment}
+            </div>
+          }
           <div className='tags'>
-            <span className='tagName'>{item.trade}</span>
-            <span className='tagName'>{item.tagName}</span>
+            {item.trade && <span className='tagName'>{item.trade}</span>}
+            {item.tagName && <span className='tagName'>{item.tagName}</span>}
           </div>
           <style jsx>{`
             .company-logo {

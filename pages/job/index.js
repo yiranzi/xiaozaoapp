@@ -6,7 +6,7 @@ import ToolsUtil from '../../util/tools'
 import Navbar from '../../containers/job/navbar'
 import DateUtil from '../../util/date'
 import { Panel, PanelHeader, PanelBody, MediaBox, MediaBoxHeader, MediaBoxTitle,
-  MediaBoxBody, MediaBoxDescription, Button} from 'react-weui'
+  MediaBoxBody, MediaBoxDescription, Button, LoadMore} from 'react-weui'
 
 export default class extends React.Component {
   constructor (props) {
@@ -23,11 +23,7 @@ export default class extends React.Component {
     this.setState({dataState: 'loading'})
     const jobId = ToolsUtil.getQueryString('jobId')
     try {
-      let job = await AxiosUtil({
-        method: 'get',
-        url: `/api/private/job/${jobId}`
-      })
-
+      let job = await AxiosUtil.get(`/api/private/job/${jobId}`)
       console.log(job)
 
       this.setState({
@@ -176,6 +172,13 @@ export default class extends React.Component {
         <style global jsx>{`
 
         `}</style>
+      </Panel>
+    } else {
+      return <Panel>
+        <PanelBody className='wx-text-center'>
+          {this.state.dataState === 'loading' && <LoadMore loading>Loading</LoadMore>}
+          {this.state.dataState === 'null' && <LoadMore showLine>No Data</LoadMore>}
+        </PanelBody>
       </Panel>
     }
   }
