@@ -218,6 +218,7 @@ export default class extends React.Component {
           }
           .interviewvip .list section .topic-key {
             font-weight: bold;
+            margin-top: 1rem;
           }
           .interviewvip .list section .icon img {
             width: 2.5rem;
