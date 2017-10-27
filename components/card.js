@@ -1,5 +1,4 @@
 import React from 'react'
-import ThemeConfig from '../config/theme'
 
 export default class extends React.Component {
   render () {
@@ -10,15 +9,15 @@ export default class extends React.Component {
         {content && <div className='content'>{content}</div>}
         <style jsx>{`
           .card {
-            background-color: ${ThemeConfig.color.gray};
-            box-shadow: 0 1px 10px rgba(0,0,0,.2);
+            background-color: #fff;
+            box-shadow: 0 5px 5px rgba(229,229,229, 1);
             padding: 1rem;
             margin: 1rem 0;
             border-radius: 6px;
             line-height: 32px;
           }
           .card .title {
-            font-size: ${ThemeConfig.size.normal};
+            font-size: 14px;
             font-weight: bold;
             color: #242223;
           }
