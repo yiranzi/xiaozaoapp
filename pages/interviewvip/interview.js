@@ -170,7 +170,7 @@ export default class extends React.Component {
       borderRadius: '10px',
       backgroundColor: `${ThemeConfig.color.yellow}`,
       borderColor: `${ThemeConfig.color.yellow}`,
-      color: 'white !important'
+      color: 'white'
     }
 
     // 获取stage
@@ -296,7 +296,7 @@ export default class extends React.Component {
       borderRadius: '10px',
       backgroundColor: `${ThemeConfig.color.yellow}`,
       borderColor: `${ThemeConfig.color.yellow}`,
-      color: 'white !important'
+      color: 'white'
     }
     let disabledStyle = {
       borderRadius: '10px',
