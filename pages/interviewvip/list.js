@@ -49,6 +49,10 @@ export default class extends React.Component {
       }
       json[groupName].push(item)
     })
+    // 如果没有做过任何题，默认第一可做第一套
+    if (!currentOver) {
+      json['1'][0].canDo = true
+    }
     return json
   }
 
