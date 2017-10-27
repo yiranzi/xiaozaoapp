@@ -5,6 +5,7 @@ import Button from '../../components/button'
 import Card from '../../components/card'
 import FixFooter from '../../components/fixfooter'
 import ToolsUtil from '../../util/tools'
+import IntroContent from '../../containers/interviewvip/introcontent'
 
 export default class extends React.Component {
   constructor (props) {
@@ -23,25 +24,14 @@ export default class extends React.Component {
     })
   }
 
-  render12 () {
-    return (
-      <div className='wrapper'>
-        <div className='sub-title'>今日打卡内容</div>
-        <div className='sub-content'>今日打卡内容今日打卡内容今日打卡内容今日打卡内容今日打卡内容今日打卡内容今日打卡内容今日打卡内容</div>
-        <div className='sub-title'>训练形式</div>
-        <div className='sub-content'>今日打卡内容今日打卡内容今日打卡内容今日打卡内容今日打卡内容今日打卡内容今日打卡内容今日打卡内容</div>
-        <div className='sub-title'>学习目标</div>
-        <div className='sub-content'>今日打卡内容今日打卡内容今日打卡内容今日打卡内容今日打卡内容今日打卡内容今日打卡内容今日打卡内容</div>
-        <div className='sub-title'>今日打卡内容</div>
-      </div>
-    )
-  }
-
   renderContent (topicKey) {
+    let key = 'topic' + topicKey
+    let intro = IntroContent[key]
     return (
-      <div className='detail'>
-        {topicKey === '1-2' && this.render12()}
-      </div>
+      <div
+        className='detail'
+        dangerouslySetInnerHTML={{__html: intro}}
+      />
     )
   }
 
@@ -66,7 +56,7 @@ export default class extends React.Component {
         <style jsx>{`
           .header span {
             border: 1px solid ${ThemeConfig.color.blue};
-            padding: 0.25rem 0.5rem;
+            padding: 0.1rem 0.5rem;
             border-radius: 1rem;
             color: ${ThemeConfig.color.blue};
           }
@@ -83,7 +73,10 @@ export default class extends React.Component {
           .intro .content .detail .sub-title {
             font-weight: bold;
             margin-top: 1rem;
-          } 
+          }
+          .intro .content .detail img {
+            width: 100%;
+          }
         `}</style>
       </InterviewLayout>
     )
