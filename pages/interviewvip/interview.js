@@ -1,9 +1,12 @@
 import React from 'react'// 库
 import {Button} from 'react-weui'// 组件库
+import Card from '../../components/card'
 import Back from '../../containers/interviewvip/back'
 import Tabbar from '../../components/tabbar'
 import InterviewLayout from '../../containers/interviewvip/layout'// container
 import AxiosUtil from '../../util/axios'
+
+import ThemeConfig from '../../config/theme'
 
 
 export default class extends React.Component {
@@ -20,24 +23,31 @@ export default class extends React.Component {
       doubleCheck: null, // 确认状态?
       canSignUp: null, // 能否报名
       stage: null,
-      currentSelectStage: null// 当前tabbar选中的
+      classUrl: null, // 面试二维码
+      currentSelect: null// 当前tabbar选中的
     }
+  }
+
+  postInterviewTime = async () => {
+    // 发送请求1
+    let stageId = this.state.interviewInfoList[this.state.currentSelect].id
+    try {
+      await AxiosUtil.get(`/api/interview/signUp/${stageId}`)
+    } catch (e) {
+      alert(e.message)
+    }
+    // 回到主界面
+    this.setState({
+      doubleCheck: false
+    })
+    // 如果正常 重新请求
+    await this.updataStatus()
   }
 
   componentDidMount = async () => {
     try {
-      let result = await AxiosUtil.get('/api/interview/stageList')
-      let {canSignUp, stage, interviewStageListDTOList} = result
-      // 提取并包装数据
-      console.log(result)
-      this.makeStaicDate(interviewStageListDTOList)
-      this.setState({
-        canSignUp: canSignUp,
-        dateList: interviewStageListDTOList,
-        stage: stage
-      })
+      await this.updataStatus()
     } catch (e) {
-      // 未付费 渲染报错信息.不渲染列表
       this.setState({
         error: e.message
       })
@@ -47,20 +57,37 @@ export default class extends React.Component {
     })
   }
 
+  // 获取面试信息 并且更新静态数据
+  updataStatus = async () => {
+    let result = await AxiosUtil.get('/api/interview/stageList')
+    let {canSignUp, stage, interviewStageListDTOList, classUrl} = result
+    // 提取并包装数据
+    this.setState({
+      canSignUp: canSignUp,
+      interviewInfoList: interviewStageListDTOList,
+      stage: stage,
+      currentSelect: null,
+      classUrl: classUrl
+    }, () => {
+      this.makeStaicDate()
+    })
+  }
+
   // 制作静态的日期数组
-  makeStaicDate (dateList) {
+  makeStaicDate () {
+    let {interviewInfoList} = this.state
     let content
     this.staticIndex = {}
     this.contentArr = []
     this.buttonStatusArr = []
     this.buttonDivArr = []
-    dateList.forEach((data, index) => {
-      content = `${data.year}月${data.day}日`
+    interviewInfoList.forEach((data, index) => {
+      content = `${data.month}月${data.day}日`
       // 1保存日期
       this.staticIndex[data.id] = content
 
       // 2保存button内容
-      this.contentArr.push(`${content}群面模拟(${data.limitUser})`)
+      this.contentArr.push(`${content}群面模拟(${data.limitUser - data.signUpUser})`)
 
       // 3保存选中状态
       if (!this.state.canSignUp) {
@@ -71,22 +98,29 @@ export default class extends React.Component {
         this.buttonStatusArr.push(data.canSignUp)
       }
     })
-    // 4制作按钮列表
+    // 4制作按钮列表tt
     this.makeDivByContent()
-    // console.log(this.staticIndex)
-    // console.log(this.contentArr)
-    // console.log(this.buttonStatusArr)
-    // console.log(this.buttonDivArr)
   }
 
   makeDivByContent () {
-    let style = {
-      backgroundColor: 'red'
-    }
     // 1 渲染button样式
     this.buttonDivArr = this.contentArr.map((content, index) => {
-      return (<div style={style}>{content}</div>)
+      return (this.renderButton(content))
     })
+  }
+
+  renderButton (content) {
+    // 覆盖掉button样式
+    let style = {
+      color: 'inherit',
+      backgroundColor: 'inherit',
+      borderColor: 'inherit',
+      borderStyle: 'solid',
+      borderWidth: '1px',
+      margin: '0',
+      padding: '0'
+    }
+    return (<Button style={style}>{content}</Button>)
   }
 
   // 根据index返回日期
@@ -99,14 +133,12 @@ export default class extends React.Component {
     return (
       // 如果异常.在这里处理
       <InterviewLayout isRender={isRender} error={error}>
-        <Back text='< 返回' url='/interviewvip/list' />
-        {this.renderContent()}
+        {!isRender && this.renderContent()}
       </InterviewLayout>
     )
   }
 
   renderContent () {
-    console.log('renderContent')
     let view
     // 判定界面类型
     if (this.state.doubleCheck) {
@@ -126,72 +158,180 @@ export default class extends React.Component {
    已经选中
    */
   renderHaveChoose () {
-    console.log('renderHaveChoose')
+    let backButton = {
+      borderRadius: '10px',
+      width: '40%',
+      borderColor: `${ThemeConfig.color.blue}`,
+      backgroundColor: `${ThemeConfig.color.blue}`,
+      color: 'white',
+    }
+
+    let chooseStyle = {
+      borderRadius: '10px',
+      backgroundColor: `${ThemeConfig.color.yellow}`,
+      borderColor: `${ThemeConfig.color.yellow}`,
+      color: 'white !important'
+    }
+
+    // 获取stage
+    // 用stage 换取
+    let date = this.indexToDate(this.state.stage)
+    let dateDiv = <div style={chooseStyle}>{this.renderButton(`${date}群面模拟`)}</div>
+
+    return (
+      <div className='main'>
+        <div className='title'>
+          {this.addTitleFactory(`您选择的模拟面试时间是`)}
+        </div>
+        <Card content={dateDiv} />
+        <div className='intro'>
+          <p>我们会在您选择群面模拟日期的</p>
+          <p><span className='red'>上午 9:00 </span>上线案例模拟群二维码</p>
+          <p>请到时查看并加群哦！</p>
+        </div>
+        <div className='bottom'>
+          <div className='button-bar' key={1} style={backButton} onClick={this.buttonClick.bind(this, 'back')}>
+            {this.renderButton('确定')}
+          </div>
+        </div>
+        <img src={this.state.classUrl} />
+        {/*this.state.classUrl = '/static/img/qrCode.png'*/}
+
+        <style jsx>
+          {
+            `
+            .red {
+              color: red;
+            }
+            .intro{
+              margin: 10px auto 10px auto;
+            }
+            .main{
+              text-align: center;
+            }
+            .title {
+              margin: 40px auto 40px auto;
+            }
+            .bottom{
+              position: fixed;
+              left: 0;
+              bottom: 10px;
+              width: 100%;
+              display: flex;
+              justify-content: center;
+            }
+            .button-bar{
+            }
+            `
+          }
+        </style>
+      </div>
+    )
   }
 
   /*
    未选中
    */
   renderNotChoose () {
-    console.log('renderNotChoose')
     return (<div>
-      {this.addTitle()}
+      <div className='title'>{this.addTitle()}</div>
+
       {this.addTabbar()}
       {this.addRuleContent()}
-      {this.addBottom()}
+      <div className='button'>{this.addBottom()}</div>
+      <style jsx>
+        {`
+        .button{
+          position: fixed;
+          left: 0;
+          bottom: 10px;
+          width: 100%
+          }
+        .title {
+          margin: 40px auto 40px auto;
+        }`}
+      </style>
     </div>)
   }
 
   // 添加标题
   addTitle () {
-    console.log('addTitle')
-    if (this.state.canSignUp) {
-      return (
-        <div>
-          <p>恭喜您已完成所有模块任务，</p>
-          <p>赶快选择线上群面模拟时间吧~</p>
-        </div>
-      )
-    } else {
-      return (<div>
-        <p>您尚未完成所有模块任务，</p>
-        <p>无法选择线上群面模拟时间哦~</p>
-      </div>)
+    let divStyle = {
+      textAlign: 'center',
+      color: `${ThemeConfig.color.dark_black}`,
+      fontWeight: 'bold',
+      fontSize: `${ThemeConfig.size.large}`
     }
+    if (this.state.canSignUp) {
+      return (this.addTitleFactory('恭喜您已完成所有模块任务，', '赶快选择线上群面模拟时间吧~'))
+    } else {
+      return (this.addTitleFactory('您尚未完成所有模块任务，', '无法选择线上群面模拟时间哦~'))
+    }
+  }
+
+  // 添加标题
+  addTitleFactory (line1, line2) {
+    let divStyle = {
+      textAlign: 'center',
+      color: `${ThemeConfig.color.dark_black}`,
+      fontWeight: 'bold',
+      fontSize: `${ThemeConfig.size.large}`
+    }
+    return (
+      <div style={divStyle}>
+        <p>{line1}</p>
+        <p>{line2}</p>
+      </div>
+    )
   }
 
   // 添加tabbar
   addTabbar () {
-    console.log('addTabbar')
     let normalStyle = {
-
+      borderRadius: '10px',
+      borderColor: `${ThemeConfig.color.yellow}`,
+      backgroundColor: `white`
     }
     let chooseStyle = {
-
+      borderRadius: '10px',
+      backgroundColor: `${ThemeConfig.color.yellow}`,
+      borderColor: `${ThemeConfig.color.yellow}`,
+      color: 'white !important'
     }
     let disabledStyle = {
-
+      borderRadius: '10px',
+      borderColor: `${ThemeConfig.color.dark_black}`,
+      backgroundColor: `white`,
+      color: `${ThemeConfig.color.content}`
     }
-    return (
-      <Tabbar
-        currentSelect={this.state.currentSelect}
-        buttonStatus={this.buttonStatusArr}
-        divArr={this.buttonDivArr}
-        normalStyle={normalStyle}
-        chooseStyle={chooseStyle}
-        disabledStyle={disabledStyle}
-        onClickTabbar={this.onClickTabbar}
-      />
-    )
+    return (<Card
+      content={
+        <Tabbar
+          currentSelect={this.state.currentSelect}
+          buttonStatus={this.buttonStatusArr}
+          divArr={this.buttonDivArr}
+          normalStyle={normalStyle}
+          chooseStyle={chooseStyle}
+          disabledStyle={disabledStyle}
+          onClickTabbar={this.onClickTabbar.bind(this)}
+        />
+      }
+    />)
   }
 
+  // tabbar回调
   onClickTabbar (index) {
-    console.log(index)
+    if (this.state.canSignUp) {
+      if (this.state.interviewInfoList[index].canSignUp) {
+        this.setState({
+          currentSelect: index
+        })
+      }
+    }
   }
 
   // 介绍文本
   addRuleContent () {
-    console.log('addRuleContent')
     return (<div>
       <p>群面方式：线上微信群，6 人一组</p>
     </div>)
@@ -199,17 +339,86 @@ export default class extends React.Component {
 
   // 返回按钮
   addBottom () {
+    let backButton1 = {
+      borderRadius: '10px',
+      width: '30%',
+      backgroundColor: `${ThemeConfig.color.yellow}`,
+      color: `${ThemeConfig.color.dark_black}`,
+      borderColor: `${ThemeConfig.color.yellow}`
+    }
+
+    let backButton2 = {
+      borderRadius: '10px',
+      width: '30%',
+      borderColor: `${ThemeConfig.color.content}`,
+      backgroundColor: `${ThemeConfig.color.gray}`,
+      color: `${ThemeConfig.color.content}`
+    }
+
+    let sureButon = {
+      borderRadius: '10px',
+      width: '30%',
+      borderColor: `${ThemeConfig.color.blue}`,
+      backgroundColor: `${ThemeConfig.color.blue}`,
+      color: 'white'
+    }
+
+    let arr = []
+
     if (this.state.canSignUp) {
-      return (<div>
-        <p>返回</p>
-        <p>确定</p>
-      </div>)
+      arr.push(
+        <div key={1} style={backButton2} onClick={this.buttonClick.bind(this, 'back')}>
+          {this.renderButton('返回')}
+        </div>)
+      arr.push(
+        <div key={2} style={sureButon} onClick={this.buttonClick.bind(this, 'sure')}>
+          {this.renderButton('确定')}
+        </div>)
     } else {
-      return (
-        <div>
-          <p>返回</p>
-        </div>
-      )
+      arr.push(
+        <div key={3} style={backButton1} onClick={this.buttonClick.bind(this, 'back')}>
+          {this.renderButton('返回')}
+        </div>)
+    }
+
+    return (
+      <div className='button-bar'>
+        {arr}
+        <style>
+          {`
+          .button-bar{
+            display: flex;
+            justify-content: space-around;
+          }
+          `}
+        </style>
+      </div>)
+  }
+
+  buttonClick (type) {
+    switch (type) {
+      case 'double-cancel':
+        this.setState({
+          doubleCheck: false
+        })
+        break
+      case 'double-sure':
+        this.postInterviewTime()
+        break
+      case 'sure':
+        if (this.state.currentSelect === null) {
+          alert('选择一个面试时间')
+          break
+        }
+        this.setState({
+          doubleCheck: true
+        })
+        break
+      case 'back':
+        location.href = '/interviewvip/list'
+        break
+      default:
+        console.log(type)
     }
   }
 
@@ -217,10 +426,63 @@ export default class extends React.Component {
    确认选择页
    */
   renderDoubleCheck () {
+    let stageId = this.state.interviewInfoList[this.state.currentSelect].id
     return (
       <div>
-        <p>您选择的登录时间傻逼</p>
+        <div className='title'>
+          {this.addTitleFactory(`您当前选择的是${this.indexToDate(stageId)}群面模拟`, '请再次确认,一旦确认无法更改时间哦!')}
+        </div>
+        {this.renderDoubleSureButton()}
+        <style jsx>
+          {
+            `
+            .title {
+              margin: 40px auto 40px auto;
+            }
+            `
+          }
+        </style>
       </div>
     )
+  }
+
+  renderDoubleSureButton () {
+    let backButton = {
+      borderRadius: '10px',
+      width: '40%',
+      borderColor: `${ThemeConfig.color.content}`,
+      backgroundColor: `${ThemeConfig.color.gray}`,
+      color: `${ThemeConfig.color.content}`
+    }
+
+    let sureButon = {
+      borderRadius: '10px',
+      width: '40%',
+      borderColor: `${ThemeConfig.color.blue}`,
+      backgroundColor: `${ThemeConfig.color.blue}`,
+      color: 'white'
+    }
+
+    let arr = []
+    arr.push(
+      <div key={1} style={backButton} onClick={this.buttonClick.bind(this, 'double-cancel')}>
+        {this.renderButton('再看看')}
+      </div>)
+    arr.push(
+      <div key={2} style={sureButon} onClick={this.buttonClick.bind(this, 'double-sure')}>
+        {this.renderButton('确定了, 不改了')}
+      </div>)
+    return (
+      <div className='button-bar'>
+        {arr}
+        <style>
+          {`
+          .button-bar{
+            display: flex;
+            justify-content: space-around;
+          }
+          `}
+        </style>
+      </div>)
   }
 }

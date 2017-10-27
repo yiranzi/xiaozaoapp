@@ -14,8 +14,15 @@ import ThemeConfig from '../config/theme'
 export default class extends React.Component {
   render () {
     return (
-      <div className='button'>
+      <div className='tabbar'>
         {this.renderMe()}
+        {/*tabbar样式*/}
+        <style jsx>{`
+          .tabbar {
+            width: 250px;
+            margin: auto;
+          }
+        `}</style>
       </div>
     )
   }
@@ -28,8 +35,14 @@ export default class extends React.Component {
     let style
     let clickBoxArr = this.props.divArr.map((ele, index)=>{
       style = this.calcStyle(index)
-      return <div key={index} style={style} onClick={this.onClickTabbar.bind(this, index)}>
+      return <div className='contain' key={index} style={style} onClick={this.onClickTabbar.bind(this, index)}>
         {this.props.divArr[index]}
+        {/*内部元素*/}
+        <style jsx>{`
+          .contain {
+            margin: 10px auto 10px auto;
+          }
+        `}</style>
       </div>
     })
     return clickBoxArr
