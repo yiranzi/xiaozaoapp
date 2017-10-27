@@ -199,7 +199,10 @@ export default class extends React.Component {
     return (
       <div className='dto-list'>
         <div className='pratice'>
-          <div className='title'><span onClick={() => {this.toMaterial()}}>查看材料</span></div>
+          <div className='title'>
+            <span onClick={() => { this.toMaterial() }}>查看材料</span>
+            <a href={`/interviewvip/result?topicKey=${this.props.questionList.topicKey}`}><span>查看成绩</span></a>
+          </div>
           <div className='content'>
             <div className='question'>{dtoItem.no}、{dtoItem.question}</div>
             <div className='options'>
@@ -230,11 +233,18 @@ export default class extends React.Component {
           .title {
             color: ${ThemeConfig.color.blue};
             margin: 1rem 0;
+            display: flex;
+            justify-content: space-between;
           }
           .title span {
             border: 1px solid ${ThemeConfig.color.blue};
-            padding: 0.25rem 0.5rem;
+            padding: 0.1rem 0.5rem;
             border-radius: 1rem;
+            display: inline-block;
+          }
+          .title a {
+            color: ${ThemeConfig.color.blue};
+            display: inline-block;
           }
           .material .title {
             display: flex;
