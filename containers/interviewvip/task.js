@@ -385,7 +385,6 @@ export default class extends React.Component {
       this.setState({isSubmit: true})
 
       await AxiosUtil.post('/api/interview/complete', data)
-      alert('提交成功')
       location.href = `/interviewvip/result?topicKey=${topicKey}`
     } catch (e) {
       this.setState({isSubmit: false})

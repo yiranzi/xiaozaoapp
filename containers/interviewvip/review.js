@@ -19,7 +19,7 @@ export default class extends React.Component {
       noPrev: true,
       noNext: this.props.questionList.interviewTopicDTOList.length <= 1,
       answerList: {},
-      isShowMaterial: true
+      isShowResource: true
     }
   }
   renderMaterialItem (item) {
@@ -71,14 +71,14 @@ export default class extends React.Component {
     }
     
   }
-  renderMaterialGroup (material) {
+  renderResourceGroup (resource) {
     const content = (
       <Button className='enter' onClick={() => { this.toTask() }}>查看题目</Button>
     )
     return (
-      <div className='material'>
+      <div className='resource'>
         <div className='title'>阅读材料</div>
-        <div className='content'>{this.renderMaterial(material)}</div>
+        <div className='content'>{this.renderMaterial(resource)}</div>
         <FixFooter content={content} />
         <style jsx>{`
           .title {
@@ -95,10 +95,10 @@ export default class extends React.Component {
     )
   }
   toTask () {
-    this.setState({isShowMaterial: false})
+    this.setState({isShowResource: false})
   }
   toMaterial () {
-    this.setState({isShowMaterial: true})
+    this.setState({isShowResource: true})
   }
   formatOptions (optionDTOList) {
     return optionDTOList.map((item, index) => {
@@ -313,18 +313,16 @@ export default class extends React.Component {
     }
   }
   render () {
-    const {currentIndex, isSubmit, isShowMaterial} = this.state
+    const {isSubmit, isShowResource} = this.state
     const {questionList} = this.props // 所有题目信息
-    const {interviewTopicDTOList, answerDTOList} = questionList // interviewTopicDTOList 题目内容数组
-    const dtoItem = interviewTopicDTOList[currentIndex] // 当前题目内容
-    const {material} = dtoItem // 材料题目
+    const {resource, interviewTopicDTOList, answerDTOList} = questionList // interviewTopicDTOList 题目内容数组
     let questionLength = interviewTopicDTOList.length // 总共有多少题目
 
     return (
       <div className='task'>
         {isSubmit && <Loading />}
-        {isShowMaterial && this.renderMaterialGroup(material)}
-        {!isShowMaterial && this.renderDTOList(interviewTopicDTOList, answerDTOList, questionLength)}
+        {isShowResource && this.renderResourceGroup(resource)}
+        {!isShowResource && this.renderDTOList(interviewTopicDTOList, answerDTOList, questionLength)}
         <style global jsx>{`
           /* 图片材料样式 */
           .meterial-item img {
