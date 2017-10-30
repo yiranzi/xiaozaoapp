@@ -180,11 +180,11 @@ export default class extends React.Component {
     const {answer, analysis, accuracy} = dtoItem
     return (
       <div className='detail'>
-        {answer && <span className='answer'>参考答案：{answer}</span>}
-        {answer && <span className='rate'>正确率：{accuracy}%（400+位内测用户总正确率）</span>}
+        {answer && <span className='answer'><strong>参考答案：</strong>{answer}</span>}
+        {answer && <span className='rate'><strong>正确率：</strong>{accuracy}%（400+位内测用户总正确率）</span>}
         {analysis && (
           <div className='analysis'>
-            <div>参考解析：</div>
+            <div><strong>参考解析：</strong></div>
             <div>{this.renderMaterial(analysis)}</div>
           </div>
         )}
