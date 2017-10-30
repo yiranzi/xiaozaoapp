@@ -100,11 +100,9 @@ courseInfo.isLast = function (topicKey) {
             show: false
           }
         } else {
-          console.log('下一章')
-          findResult = courseInfo.getNext(++targetGroupIndex, 0, '下一章')
+          findResult = courseInfo.getNext(++targetGroupIndex, 0, '下一模块')
         }
       } else {
-        console.log('下一节')
         findResult = courseInfo.getNext(targetGroupIndex, ++targetElementIndex, '下一节')
       }
       // 查找到则退出.
@@ -113,11 +111,9 @@ courseInfo.isLast = function (topicKey) {
   })
 
   if (findResult) {
-    console.log(findResult)
     return findResult
   } else {
     // 未找到
-    console.log('not found')
     return ({
       taskUrl: '',
       word: '',
@@ -178,7 +174,6 @@ courseInfo.getUserInfoAndList = async () => {
       payStatus = true
       // 2 new array by group
       courseInfo.makeGroupArray(res.interviewListDetailDTOList)
-      console.log(res)
       userInfo.nickName = res.nickname
       // 3 return group array
       resolve(groupArrayInfo)

@@ -87,7 +87,7 @@ export default class extends React.Component {
       this.staticIndex[data.id] = content
 
       // 2保存button内容
-      this.contentArr.push(`${content}群面模拟(${data.limitUser - data.signUpUser})`)
+      this.contentArr.push(`${content} (剩余名额: ${data.limitUser - data.signUpUser})`)
 
       // 3保存选中状态
       if (!this.state.canSignUp) {
