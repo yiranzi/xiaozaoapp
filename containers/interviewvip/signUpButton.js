@@ -87,7 +87,6 @@ export default class extends React.Component {
     // 1是否购买
     if (this.props.payStatus) {
       // 2是否开课, 根据不同的状态判断
-      console.log('canEnter:', this.props.canEnter)
       arr.push(this.renderFreeTry(true))
       arr.push(this.renderEnter(this.props.canEnter))
     } else {
@@ -144,12 +143,10 @@ export default class extends React.Component {
 
   // 组件回调父组件
   onClickButton () {
-    console.log('click')
     this.props.onClickButton()
   }
 
   goPath (goPath) {
-    console.log(goPath)
     location.href = goPath
   }
 }

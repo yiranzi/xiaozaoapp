@@ -20,7 +20,6 @@ export default class ReadMore extends React.Component{
 
   renderByKey (key) {
     let arr = []
-    console.log(key + 'get')
     switch (key) {
       case '1':
         arr = this.renderModal1()

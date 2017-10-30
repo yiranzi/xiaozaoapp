@@ -91,12 +91,10 @@ export default class extends React.Component {
 
   // 组件回调父组件
   onClickButton () {
-    console.log('click')
     this.props.onClickButton()
   }
 
   goPath (goPath) {
-    console.log(goPath)
     location.href = `/interviewvip/${goPath}`
   }
 }
