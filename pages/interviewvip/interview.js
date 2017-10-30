@@ -293,21 +293,18 @@ export default class extends React.Component {
     let normalStyle = {
       borderRadius: '10px',
       borderColor: `${ThemeConfig.color.yellow}`,
-      backgroundColor: `white`,
-      margin: 'auto'
+      backgroundColor: `white`
     }
     let chooseStyle = {
       borderRadius: '10px',
       backgroundColor: `${ThemeConfig.color.yellow}`,
       borderColor: `${ThemeConfig.color.yellow}`,
-      margin: 'auto',
       color: 'white'
     }
     let disabledStyle = {
       borderRadius: '10px',
       borderColor: `${ThemeConfig.color.border}`,
       backgroundColor: `white`,
-      margin: 'auto',
       color: `${ThemeConfig.color.content}`
     }
     return (<Card
