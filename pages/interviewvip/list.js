@@ -78,7 +78,7 @@ export default class extends React.Component {
 
   renderListItem (item) {
     let content = (
-      <div className='item' onClick={this.goNext.bind(this, item.over, item.topicKey)}>
+      <div className='item'>
         <div className='text'>
           <div className='sub-title'>{item.title}</div>
           <div className='sub-content'>{item.completeUser}人已做完</div>
@@ -96,16 +96,16 @@ export default class extends React.Component {
         `}</style>
       </div>
     )
-    return <Card content={content} />
+    return (<div onClick={this.goNext.bind(this, item.over, item.topicKey)}>
+      <Card content={content} />
+      </div>)
   }
 
   goNext (over, topicKey) {
-    console.log(over)
-    console.log(topicKey)
     if (over) {
-      location.href(`/interviewvip/review?topicKey=${topicKey}`)
+      location.href = `/interviewvip/review?topicKey=${topicKey}`
     } else {
-      location.href(`/interviewvip/intro?topicKey=${topicKey}`)
+      location.href = `/interviewvip/intro?topicKey=${topicKey}`
     }
   }
 
@@ -114,7 +114,7 @@ export default class extends React.Component {
     for (let groupName in list) {
       content.push(<div key={groupName} className='topic-key'>{groupName}</div>)
       list[groupName].map((item, index) => {
-        content.push(this.renderListItem.bind(this, item))
+        content.push(this.renderListItem(item))
       })
     }
     return content
