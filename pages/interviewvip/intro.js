@@ -70,6 +70,9 @@ export default class extends React.Component {
           }
         `}</style>
         <style global jsx>{`
+          .interviewvip {
+            padding-top: 2rem !important;
+          }
           .intro .content .detail .sub-title {
             font-weight: bold;
             margin-top: 1rem;
