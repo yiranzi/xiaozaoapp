@@ -68,7 +68,7 @@ export default class extends React.Component {
       }
     } catch (e) {
       return (
-        <div className='meterial-item'>{material}</div>
+        <div className='meterial-item'>{this.renderMaterialItem(material)}</div>
       )
     }
     
