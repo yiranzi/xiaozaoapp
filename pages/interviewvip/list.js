@@ -61,7 +61,7 @@ export default class extends React.Component {
   renderEnterState (topicKey, canDo, over) {
     if (over) {
       return (
-        <a href={`/interviewvip/review?topicKey=${topicKey}`}>
+        <a href={`/interviewvip/intro?topicKey=${topicKey}`}>
           <img src='/static/img/interviewvip/list/finish.png' />
         </a>
       )
