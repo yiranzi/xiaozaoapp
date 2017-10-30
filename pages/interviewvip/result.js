@@ -158,7 +158,8 @@ export default class extends React.Component {
             left: 0;
             font-size: 10px;
             width: 100%;
-            color: white;
+            color: ThemeConfig.color.content;
+            font-size: 0.75rem;
           }
           .inner p {
             width: 100%;
