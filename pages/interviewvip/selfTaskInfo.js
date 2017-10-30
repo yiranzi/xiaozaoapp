@@ -21,27 +21,27 @@ export default class extends React.Component {
       let allFinish
       let finishArray
       console.log(list)
-      // for (let groups of list) {
-      //   allFinish = true
-      //   finishArray = []
-      //   console.log(groups)
-      //   for (let topic of groups.group) {
-      //     if (topic.over) {
-      //       finishArray.push(topic.topicKey)
-      //     } else {
-      //       allFinish = false
-      //       break
-      //     }
-      //     // 如果一组都完成.一次发送请求获得结果.
-      //     if (allFinish) {
-      //       groups.score = await this.getAnswerBtTopicKey(finishArray)
-      //       groups.allFinish = allFinish
-      //     } else {
-      //       groups.allFinish = allFinish
-      //       break
-      //     }
-      //   }
-      // }
+      for (let groups of list) {
+        allFinish = true
+        finishArray = []
+        console.log(groups)
+        for (let topic of groups.group) {
+          if (topic.over) {
+            finishArray.push(topic.topicKey)
+          } else {
+            allFinish = false
+            break
+          }
+          // 如果一组都完成.一次发送请求获得结果.
+          if (allFinish) {
+            groups.score = await this.getAnswerBtTopicKey(finishArray)
+            groups.allFinish = allFinish
+          } else {
+            groups.allFinish = allFinish
+            break
+          }
+        }
+      }
       console.log(list)
       this.setState({
         list: list,
@@ -69,10 +69,10 @@ export default class extends React.Component {
   }
 
   renderGroupTitle (groupName) {
-    return (<div>{groupName}</div>)
+    return (<div key={groupName}>{groupName}</div>)
   }
 
-  renderGroupContain (content) {
+  renderGroupContain (content, index) {
     let style = {
       backgroundColor: '#fff',
       padding: '0.5rem',
@@ -81,7 +81,7 @@ export default class extends React.Component {
       color: `${ThemeConfig.color.yellow}`
     }
     return (
-      <div>
+      <div key={index}>
         <div style={style} >{content}</div>
         <style jsx>{`
       .topic-bar {
@@ -103,9 +103,9 @@ export default class extends React.Component {
       arr.push(this.renderGroupTitle(groupName))
       // 2 遍历 将分数填入
       if (allFinish) {
-        arr.push(this.renderGroupContain(`正确率${score}`))
+        arr.push(this.renderGroupContain(`正确率${score}`, index))
       } else {
-        arr.push(this.renderGroupContain(`还未完成`))
+        arr.push(this.renderGroupContain(`还未完成`, index))
       }
     })
     return arr
