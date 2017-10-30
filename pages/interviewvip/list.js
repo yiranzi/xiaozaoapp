@@ -60,30 +60,31 @@ export default class extends React.Component {
 
   renderEnterState (topicKey, canDo, over) {
     if (over) {
-      return (
-        <a href={`/interviewvip/intro?topicKey=${topicKey}`}>
-          <img src='/static/img/interviewvip/list/finish.png' />
-        </a>
-      )
+      return {
+        img: '/static/img/interviewvip/list/finish.png',
+        href: `/interviewvip/intro?topicKey=${topicKey}`
+      }
     } else if (canDo) {
-      return (
-        <a href={`/interviewvip/intro?topicKey=${topicKey}`}>
-          <img src='/static/img/interviewvip/list/doing.png' />
-        </a>
-      )
+      return {
+        img: '/static/img/interviewvip/list/doing.png',
+        href: `/interviewvip/intro?topicKey=${topicKey}`
+      }
     } else {
-      return <img src='/static/img/interviewvip/list/lock.png' />
+      return {
+        img: '/static/img/interviewvip/list/lock.png'
+      }
     }
   }
 
   renderListItem (item) {
+    let {href, img} = this.renderEnterState(item.topicKey, item.canDo, item.over)
     let content = (
       <div className='item'>
         <div className='text'>
           <div className='sub-title'>{item.title}</div>
           <div className='sub-content'>{item.completeUser}人已做完</div>
         </div>
-        <div className='icon'>{this.renderEnterState(item.topicKey, item.canDo, item.over)}</div>
+        <div className='icon'><img src={img} /></div>
         <style jsx>{`
           .item {
             display: flex;
@@ -96,20 +97,10 @@ export default class extends React.Component {
         `}</style>
       </div>
     )
-    return (<div onClick={this.goNext.bind(this, item.canDo, item.over, item.topicKey)}>
-      <Card content={content} />
-      </div>)
-  }
-
-  goNext (canDo, over, topicKey) {
-    if (over) {
-      location.href = `/interviewvip/review?topicKey=${topicKey}`
+    if (href) {
+      return <a href={href}><Card content={content} /></a>
     } else {
-      if (canDo) {
-        location.href = `/interviewvip/intro?topicKey=${topicKey}`
-      } else {
-        // alert('需要先完成之前的')
-      }
+      return <Card content={content} />
     }
   }
 
