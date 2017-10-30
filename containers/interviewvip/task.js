@@ -31,6 +31,7 @@ export default class extends React.Component {
     }
   }
   renderMaterialItem (item) {
+    if (!item) { return item }
     // 图片材料
     if (ToolsUtil.isImg(item)) {
       return <img src={item} />
