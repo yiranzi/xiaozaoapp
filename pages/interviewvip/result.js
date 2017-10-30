@@ -29,7 +29,6 @@ export default class extends React.Component {
     let topicKey = ToolsUtil.getQueryString('topicKey')
     try {
       let list = await CourseInfo.getList('list')
-      console.log(list)
       let groupIndex = list.findIndex((groups, index) => {
         let a = groups.group.findIndex((eleTopic, index) => {
           return (eleTopic.topicKey === topicKey)

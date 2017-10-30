@@ -20,7 +20,6 @@ export default class extends React.Component {
       let userInfo = getCourseInfo.getUserInfo()
       let allFinish
       let finishArray
-      console.log(list)
       for (let groups of list) {
         allFinish = true
         finishArray = []
@@ -100,7 +99,6 @@ export default class extends React.Component {
   renderList () {
     let list = this.state.list
     let arr = []
-    console.log(list)
     list.forEach((groups, index) => {
       // 1 将组填入
       let {group, groupName, allFinish, score} = groups
