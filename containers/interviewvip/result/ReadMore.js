@@ -73,8 +73,10 @@ export default class ReadMore extends React.Component{
   renderModal1 () {
     return (<div>
       <h4 className='readmore-h4'>推荐阅读：如何阅读图表</h4>
-      <p>下载链接：http://pan.baidu.com/s/1cNfxAQ </p>
-      <p>密码：wzc6</p>
+      <div className='readmore-div'>
+        <p>下载链接：http://pan.baidu.com/s/1cNfxAQ </p>
+        <p>密码：wzc6</p>
+      </div>
       <h4 className='readmore-h4'>推荐练习：</h4>
       <div className='outer'>
         {this.addImageContent(1, 1, 'resultBg')}
