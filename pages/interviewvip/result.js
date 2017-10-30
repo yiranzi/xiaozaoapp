@@ -70,7 +70,7 @@ export default class extends React.Component {
   renderButtonState () {
     if (this.state.isShowNextButton) {
       return (<div onClick={this.goRouter.bind(this, this.state.nextTaskUrl)}>
-        <Button>{this.state.buttonWord} + {this.state.nextTaskUrl}</Button>
+        <Button>{this.state.buttonWord}</Button>
       </div>)
     } else {
       return null
@@ -86,10 +86,21 @@ export default class extends React.Component {
     const {isRender, error} = this.state
     return (
       <InterviewLayout isRender={isRender} error={error}>
-        <Back text='< 返回' url='/interviewvip/list' />
+        <span className='back-button' onClick={() => { location.href = '/interviewvip/list' }}>返回主页</span>
         {this.renderResultContent()}
         <ReadMore topicKey={this.state.topicKey} />
         {this.renderButtonState()}
+        <style jsx>
+          {
+            `.back-button{
+              color: #117ee9;
+              border: 1px solid #117ee9;
+              border-radius: 100px;
+              padding: 5px 10px 5px 10px;
+            }
+            `
+          }
+        </style>
       </InterviewLayout>
     )
   }
@@ -108,7 +119,7 @@ export default class extends React.Component {
             dangerouslySetInnerHTML={{__html: content}} />
         </div>
         <div style={style}>
-          <Button onClick={() => { location.href = '/interviewvip/list' }}
+          <Button onClick={() => { location.href = `/interviewvip/review?topicKey=${this.state.topicKey}` }}
             bg={ThemeConfig.color.yellow}
             color={'white'}
             text={'查看答案及解析'} />

@@ -119,9 +119,9 @@ courseInfo.isLast = function (topicKey) {
     // 未找到
     console.log('not found')
     return ({
-      taskUrl: '123',
-      word: '按钮',
-      show: true
+      taskUrl: '',
+      word: '',
+      show: false
     })
   }
 }
