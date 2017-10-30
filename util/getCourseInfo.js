@@ -1,7 +1,9 @@
 import AxiosUtil from '../util/axios'
 
+// 付费状态
 let payStatus = null
 
+// 整理后的list
 let groupArrayInfo = [
 ]
 
@@ -25,7 +27,8 @@ courseInfo.makeGroupArray = function (list, type) {
       // 通用的构造流程
       // 新建组
       let group = {}
-      group.groupName = currentElement.groupName + currentElement.title
+      // group.groupName = currentElement.groupName + currentElement.title
+      group.groupName = currentElement.title
       group.group = []
       group.group.push(currentElement)
       groupArrayInfo.push(group)

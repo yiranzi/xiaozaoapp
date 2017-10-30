@@ -114,7 +114,7 @@ export default class extends React.Component {
       <div className='button-group'>
         <Button>打卡规则</Button>
         <Button className='mid' onClick={() => { location.href = '/interviewvip/interview' }}>选择模拟面试</Button>
-        <Button>打卡成绩</Button>
+        <Button onClick={() => { location.href = '/interviewvip/selfTaskInfo' }}>打卡成绩</Button>
         <style jsx>{`
           .button-group {
             display: flex;

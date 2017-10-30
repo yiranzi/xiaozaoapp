@@ -1,8 +1,11 @@
 import React from 'react'// 库
-import {Button} from 'react-weui'// 组件库
+import Button from '../../components/button'// 组件库
 import Back from '../../containers/interviewvip/back'
+import resultContent from '../../containers/interviewvip/resultContent'
+import ReadMore from '../../containers/interviewvip/result/ReadMore'
 import InterviewLayout from '../../containers/interviewvip/layout'// container
 import ToolsUtil from '../../util/tools'
+import ThemeConfig from '../../config/theme'
 
 import CourseInfo from '../../util/getCourseInfo'
 
@@ -17,7 +20,8 @@ export default class extends React.Component {
       todayDoing: false,
       isShowNextButton: false,
       nextTaskUrl: '',
-      buttonWord: ''
+      buttonWord: '',
+      groupIndex: -1 // 当前组号
     }
   }
 
@@ -25,7 +29,17 @@ export default class extends React.Component {
     let topicKey = ToolsUtil.getQueryString('topicKey')
     try {
       let list = await CourseInfo.getList('list')
+      console.log(list)
+      let groupIndex = list.findIndex((groups, index) => {
+        let a = groups.group.findIndex((eleTopic, index) => {
+          return (eleTopic.topicKey === topicKey)
+        })
+        if (a !== -1) {
+          return true
+        }
+      })
       this.setState({
+        groupIndex: groupIndex,
         list: list
       })
     } catch (e) {
@@ -71,11 +85,70 @@ export default class extends React.Component {
   render () {
     const {isRender, error} = this.state
     return (
-      // 如果异常.在这里处理
       <InterviewLayout isRender={isRender} error={error}>
         <Back text='< 返回' url='/interviewvip/list' />
+        {this.renderResultContent()}
+        <ReadMore topicKey={this.state.topicKey} />
         {this.renderButtonState()}
       </InterviewLayout>
+    )
+  }
+
+  renderResultContent () {
+    let style = {
+      width: '70%',
+      margin: '0 auto 20px auto'
+    }
+    let content = resultContent[this.state.groupIndex + 1]
+    return (
+      <div className='main'>
+        <div className='out'>
+          <img className='bg'src='/static/img/interviewvip/resultBg.png' />
+          <div className='inner'
+            dangerouslySetInnerHTML={{__html: content}} />
+        </div>
+        <div style={style}>
+          <Button onClick={() => { location.href = '/interviewvip/list' }}
+            bg={ThemeConfig.color.yellow}
+            color={'white'}
+            text={'查看答案及解析'} />
+        </div>
+        <style jsx>
+          {`
+          .out {
+            position: relative;
+          }
+          .main {
+            margin: 10px auto 20px auto;
+            border-top: 1px solid #e5e5e5;
+            border-bottom: 1px solid #e5e5e5;
+            font-size: 0;
+            text-align: center;
+          }
+          .bg {
+            position: relative;
+            margin: 15px auto 20px auto;
+            width: 100%;
+          }
+          .inner {
+            margin-top: 20px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-size: 10px;
+            width: 100%;
+            color: white;
+          }
+          .inner p {
+            width: 100%;
+          }
+          `}
+        </style>
+      </div>
     )
   }
 }
