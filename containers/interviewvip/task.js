@@ -27,7 +27,7 @@ export default class extends React.Component {
       isSubmit: false,
       isRecording: false,
       isPlaying: false,
-      isShowMaterial: true
+      isShowResource: true
     }
   }
   renderMaterialItem (item) {
@@ -50,22 +50,28 @@ export default class extends React.Component {
   // render不同类型的材料
   renderMaterial (material) {
     const _this = this
-
-    // meterial 返回结果有两种，一种是文字材料(字符串)，另一种是“['mp3', 'img', 'mp4']”
-    // eslint-disable-next-line
-    let meterialArray = eval(material)
-
-    if (meterialArray) {
-      // 是一个数组
-      return meterialArray.map((item, index) => {
+    try {
+      // meterial 返回结果有两种，一种是文字材料(字符串)，另一种是“['mp3', 'img', 'mp4']”
+      // eslint-disable-next-line
+      let meterialArray = eval(material)
+      if (meterialArray) {
+        // 是一个数组
+        return meterialArray.map((item, index) => {
+          return (
+            <div key={index} className='meterial-item'>
+              {_this.renderMaterialItem(item)}
+            </div>
+          )
+        })
+      } else {
+        // 字符串
         return (
-          <div key={index} className='meterial-item'>
-            {_this.renderMaterialItem(item)}
+          <div className='meterial-item'>
+            {_this.renderMaterialItem(material)}
           </div>
         )
-      })
-    } else {
-      // 字符串
+      }
+    } catch (e) {
       return (
         <div className='meterial-item'>
           {_this.renderMaterialItem(material)}
@@ -73,14 +79,14 @@ export default class extends React.Component {
       )
     }
   }
-  renderMaterialGroup (material) {
+  renderResourceGroup (resource) {
     const content = (
       <Button className='enter' onClick={() => { this.toTask() }}>答 题</Button>
     )
     return (
-      <div className='material'>
+      <div className='resource'>
         <div className='title'>阅读材料</div>
-        <div className='content'>{this.renderMaterial(material)}</div>
+        <div className='content'>{this.renderMaterial(resource)}</div>
         <FixFooter content={content} />
         <style jsx>{`
           .title {
@@ -97,10 +103,10 @@ export default class extends React.Component {
     )
   }
   toTask () {
-    this.setState({isShowMaterial: false})
+    this.setState({isShowResource: false})
   }
   toMaterial () {
-    this.setState({isShowMaterial: true})
+    this.setState({isShowResource: true})
   }
   formatOptions (optionDTOList) {
     return optionDTOList.map((item, index) => {
@@ -195,6 +201,7 @@ export default class extends React.Component {
         <div className='pratice'>
           <div className='title'><span onClick={() => {this.toMaterial()}}>查看材料</span></div>
           <div className='content'>
+            {this.renderMaterial(material)}
             <div className='question'>{dtoItem.no}、{dtoItem.question}</div>
             <div className='options'>
               {this.renderAnswerOption(id, dtoItem)}
@@ -370,7 +377,6 @@ export default class extends React.Component {
 
     try {
       this.setState({isSubmit: true})
-      alert(JSON.stringify(answerListArray))
       const data = JSON.stringify({
         answerDTOList: answerListArray,
         time: 30,
@@ -422,9 +428,7 @@ export default class extends React.Component {
       }, () => {
         console.log(JSON.stringify(answerList))
       })
-    }
-    // eslint-disable-next-line
-    if (value.indexOf('wxLocalResource') >= 0 || value.indexOf('weixin://resourceid') >= 0) {
+    }else if (value.indexOf('wxLocalResource') >= 0 || value.indexOf('weixin://resourceid') >= 0) {
       this.setState({isRecording: false}, () => {
         this.refs.wxRecord.uploadVoice(value, (localId, serverId) => {
           if (serverId) {
@@ -440,6 +444,15 @@ export default class extends React.Component {
             })
           }
         })
+      })
+    } else {
+      let {answerList} = this.state
+      answerList[id] = answerList[id] || {}
+      answerList[id] = value
+      this.setState({
+        answerList: answerList
+      }, () => {
+        console.log(JSON.stringify(answerList))
       })
     }
   }
@@ -466,18 +479,16 @@ export default class extends React.Component {
   }
 
   render () {
-    const {currentIndex, isSubmit, isShowMaterial} = this.state
+    const {isSubmit, isShowResource} = this.state
     const {questionList} = this.props // 所有题目信息
-    const {interviewTopicDTOList} = questionList // interviewTopicDTOList 题目内容数组
-    const dtoItem = interviewTopicDTOList[currentIndex] // 当前题目内容
-    const {material} = dtoItem // 材料题目
+    const {interviewTopicDTOList, resource} = questionList // interviewTopicDTOList 题目内容数组
     let questionLength = interviewTopicDTOList.length // 总共有多少题目
 
     return (
       <div className='task'>
         {isSubmit && <Loading />}
-        {isShowMaterial && this.renderMaterialGroup(material)}
-        {!isShowMaterial && this.renderDTOList(interviewTopicDTOList, questionLength)}
+        {isShowResource && this.renderResourceGroup(resource)}
+        {!isShowResource && this.renderDTOList(interviewTopicDTOList, questionLength)}
         <style global jsx>{`
           /* 图片材料样式 */
           .meterial-item img {
