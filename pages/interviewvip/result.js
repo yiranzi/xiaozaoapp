@@ -132,7 +132,7 @@ export default class extends React.Component {
             position: relative;
           }
           .title {
-            font-size: 20px;
+            font-size: 1.1rem;
             margin: 20px 0 10px 0;
           }
           .main {
@@ -159,8 +159,8 @@ export default class extends React.Component {
             left: 15px;
             width: 90%;
             color: white;
-            font-size: 14px;
-            text-shadow: 1px 1px 1px #604508;
+            font-size: 0.9rem;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
           }
           .inner p {
             width: 100%;
