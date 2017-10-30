@@ -1,6 +1,6 @@
 import React from 'react'// 库
 import Button from '../../components/button'// 组件库
-import Back from '../../containers/interviewvip/back'
+import Back from '../../components/back'
 import resultContent from '../../containers/interviewvip/result/resultContent'
 import ReadMore from '../../containers/interviewvip/result/ReadMore'
 import InterviewLayout from '../../containers/interviewvip/layout'// container
@@ -92,21 +92,15 @@ export default class extends React.Component {
     const {isRender, error} = this.state
     return (
       <InterviewLayout isRender={isRender} error={error}>
-        <span className='back-button' onClick={() => { location.href = '/interviewvip/list' }}>返回主页</span>
+        <a href='/interviewvip/list'><Back direct='left' text='返回主页' /></a>
         {this.renderResultContent()}
         <ReadMore topicKey={this.state.topicKey} />
         {this.renderButtonState()}
-        <style jsx>
-          {
-            `.back-button{
-              color: #117ee9;
-              border: 1px solid #117ee9;
-              border-radius: 100px;
-              padding: 5px 10px 5px 10px;
-            }
-            `
+        <style jsx>{`
+          a {
+            color: ${ThemeConfig.color.blue};
           }
-        </style>
+        `}</style>
       </InterviewLayout>
     )
   }

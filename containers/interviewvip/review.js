@@ -9,6 +9,7 @@ import TextArea from '../../components/textarea'
 import Audio from '../../components/audio'
 import Video from '../../components/video'
 import Loading from '../../components/loading'
+import Back from '../../components/back'
 import ThemeConfig from '../../config/theme'
 
 export default class extends React.Component {
@@ -201,8 +202,8 @@ export default class extends React.Component {
       <div className='dto-list'>
         <div className='pratice'>
           <div className='title'>
-            <span onClick={() => { this.toMaterial() }}>查看材料</span>
-            <a href={`/interviewvip/result?topicKey=${this.props.questionList.topicKey}`}><span>查看成绩</span></a>
+            <div onClick={() => { this.toMaterial() }}><Back direct='left' text='查看材料' /></div>
+            <a href={`/interviewvip/result?topicKey=${this.props.questionList.topicKey}`}><Back direct='right' text='查看成绩' /></a>
           </div>
           <div className='content'>
             <div className='question'>{dtoItem.no}、{dtoItem.question}</div>

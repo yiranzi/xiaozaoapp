@@ -5,6 +5,7 @@ import Button from '../../components/button'
 import Card from '../../components/card'
 import FixFooter from '../../components/fixfooter'
 import ToolsUtil from '../../util/tools'
+import Back from '../../components/back'
 import IntroContent from '../../containers/interviewvip/introcontent'
 
 export default class extends React.Component {
@@ -46,7 +47,11 @@ export default class extends React.Component {
     return (
       <InterviewLayout isRender={isRender}>
         <div className='intro'>
-          <div className='header'><a href='/interviewvip/list'><span>返回主页</span></a></div>
+          <div className='header'>
+            <a href='/interviewvip/list'>
+              <Back direct='left' text='返回主页' />
+            </a>
+          </div>
           <div className='title'>群面说明</div>
           <div className='content'>
             <Card content={this.renderContent(topicKey)} />
@@ -54,10 +59,7 @@ export default class extends React.Component {
           <FixFooter content={content} />
         </div>
         <style jsx>{`
-          .header span {
-            border: 1px solid ${ThemeConfig.color.blue};
-            padding: 0.1rem 0.5rem;
-            border-radius: 1rem;
+          .header a {
             color: ${ThemeConfig.color.blue};
           }
           .intro .title {
