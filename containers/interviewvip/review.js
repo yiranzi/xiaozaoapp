@@ -20,7 +20,8 @@ export default class extends React.Component {
       noPrev: true,
       noNext: this.props.questionList.interviewTopicDTOList.length <= 1,
       answerList: {},
-      isShowResource: true
+      isShowResource: true,
+      scrollTop: 0
     }
   }
   renderMaterialItem (item) {
@@ -97,10 +98,13 @@ export default class extends React.Component {
     )
   }
   toTask () {
-    this.setState({isShowResource: false})
+    this.setState({isShowResource: false, scrollTop: window.scrollY})
   }
   toMaterial () {
-    this.setState({isShowResource: true})
+    const { scrollTop } = this.state
+    this.setState({isShowResource: true}, () => {
+      window.scrollTo(0, scrollTop)
+    })
   }
   formatOptions (optionDTOList) {
     return optionDTOList.map((item, index) => {
