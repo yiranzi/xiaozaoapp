@@ -16,7 +16,8 @@ export default class extends React.Component {
 
   componentDidMount = async () => {
     try {
-      let list = await getCourseInfo.getList()
+      let list = await getCourseInfo.getUserInfoAndList()
+      let userInfo = getCourseInfo.getUserInfo()
       let allFinish
       let finishArray
       console.log(list)
@@ -41,6 +42,7 @@ export default class extends React.Component {
         }
       }
       this.setState({
+        userInfo: userInfo,
         list: list,
         isRender: false
       })
@@ -64,8 +66,14 @@ export default class extends React.Component {
     return (averageScore)
   }
 
-  renderGroupTitle (groupName) {
-    return (<div key={groupName}>{groupName}</div>)
+  renderGroupTitle (groupName, name) {
+    let style = {
+      marginRight: '20px'
+    }
+    return (<div key={groupName}>
+      <span style={style}>{groupName}</span>
+      <span>{name}</span>
+    </div>)
   }
 
   renderGroupContain (content, index) {
@@ -96,7 +104,7 @@ export default class extends React.Component {
     list.forEach((groups, index) => {
       // 1 将组填入
       let {group, groupName, allFinish, score} = groups
-      arr.push(this.renderGroupTitle(groupName))
+      arr.push(this.renderGroupTitle(groupName, group[0].title))
       // 2 遍历 将分数填入
       if (allFinish) {
         arr.push(this.renderGroupContain(`正确率 - ${score}%`, index))
@@ -127,6 +135,12 @@ export default class extends React.Component {
     return (
       <InterviewLayout isRender={isRender} error={error}>
         {!error && !isRender && <div className='page'>
+          <div className='header'>
+            <img src='/static/img/interviewvip/selfInfoBg.png' />
+          </div>
+          <div className='nick-name'>
+            <span>{this.state.userInfo.nickName}</span>
+          </div>
           <div className='interview-list'>
             {this.renderList(list)}
           </div>
@@ -136,19 +150,16 @@ export default class extends React.Component {
           padding-bottom: 50px;
           width: 100%;
           }
+          .header {
+            margin: -1rem -1rem 1rem -1rem;
+          }
           .header img{
             width: 100%;
           }
-          .action {
-            display: flex;
-            justify-content: space-between;
-            position: fixed;
-            width: 100%;
-            left: 0;
-            bottom: 0;
-            padding: 1rem 2rem;
-            box-sizing: border-box;
-            background: #F9F9F9;
+          .nick-name {
+            text-align: center;
+            color: ${ThemeConfig.color.yellow};
+            margin-bottom: 1rem;
           }
         `}</style>
       </InterviewLayout>

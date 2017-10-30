@@ -7,11 +7,13 @@ let payStatus = null
 let groupArrayInfo = [
 ]
 
+let userInfo = {}
+
 let courseInfo = {
 
 }
 
-courseInfo.makeGroupArray = function (list, type) {
+courseInfo.makeGroupArray = function (list) {
   let currentGroupName = ''
   let currentElementName = ''
   let groupLength = -1
@@ -28,7 +30,7 @@ courseInfo.makeGroupArray = function (list, type) {
       // 新建组
       let group = {}
       // group.groupName = currentElement.groupName + currentElement.title
-      group.groupName = currentElement.title
+      group.groupName = currentElement.groupName
       group.group = []
       group.group.push(currentElement)
       groupArrayInfo.push(group)
@@ -37,10 +39,8 @@ courseInfo.makeGroupArray = function (list, type) {
       groupArrayInfo[groupLength].group.push(currentElement)
     }
     // 特殊构建
-    if (type === 'list') {
-      let ifChange = courseInfo.setTopicStatus(currentElement, isDoingTag)
-      isDoingTag = ifChange ? true : isDoingTag
-    }
+    let ifChange = courseInfo.setTopicStatus(currentElement, isDoingTag)
+    isDoingTag = ifChange ? true : isDoingTag
   })
 }
 
@@ -153,13 +153,13 @@ courseInfo.getNext = (groupIndex, elementIndex, buttonWord) => {
 
  */
 
-courseInfo.getList = async (pageType) => {
+courseInfo.getList = async () => {
   return new Promise((resolve, reject) => {
     AxiosUtil.get('/api/interview/getList').then((res) => {
       // 1 set pay status
       payStatus = true
       // 2 new array by group
-      courseInfo.makeGroupArray(res, pageType)
+      courseInfo.makeGroupArray(res)
       // 3 return group array
       resolve(groupArrayInfo)
     }).catch((e) => {
@@ -171,7 +171,25 @@ courseInfo.getList = async (pageType) => {
   })
 }
 
+courseInfo.getUserInfoAndList = async () => {
+  return new Promise((resolve, reject) => {
+    AxiosUtil.get('/api/interview/userInfo').then((res) => {
+      // 1 set pay status
+      payStatus = true
+      // 2 new array by group
+      courseInfo.makeGroupArray(res.interviewListDetailDTOList)
+      console.log(res)
+      userInfo.nickName = res.nickname
+      // 3 return group array
+      resolve(groupArrayInfo)
+    })
+  })
+}
+
 // get
+courseInfo.getUserInfo = function () {
+  return userInfo
+}
 
 courseInfo.getPayStatus = function () {
   return payStatus
