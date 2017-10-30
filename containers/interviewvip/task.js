@@ -13,6 +13,7 @@ import Audio from '../../components/audio'
 import Video from '../../components/video'
 import WxRecord from '../../components/wxrecord'
 import Loading from '../../components/loading'
+import Back from '../../components/back'
 import ThemeConfig from '../../config/theme'
 
 export default class extends React.Component {
@@ -201,7 +202,9 @@ export default class extends React.Component {
     return (
       <div className='dto-list'>
         <div className='pratice'>
-          <div className='title'><span onClick={() => {this.toMaterial()}}>查看材料</span></div>
+          <div className='title'>
+            <div onClick={() => { this.toMaterial() }}><Back direct='left' text='查看材料' /></div>
+          </div>
           <div className='content'>
             {this.renderMaterial(material)}
             <div className='question'>{dtoItem.no}、{dtoItem.question}</div>
