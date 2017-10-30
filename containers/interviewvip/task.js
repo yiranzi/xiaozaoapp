@@ -19,6 +19,7 @@ export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+      limitTime: new Date(),
       currentIndex: 0, // 当前是第几题
       noPrev: true,
       noNext: this.props.questionList.interviewTopicDTOList.length <= 1,
@@ -365,7 +366,7 @@ export default class extends React.Component {
   }
 
   answerComplete = async () => {
-    const {answerList} = this.state
+    const {answerList, limitTime} = this.state
     const {interviewTopicDTOList} = this.props.questionList
 
     if (Object.keys(answerList).length < interviewTopicDTOList.length) {
@@ -380,7 +381,7 @@ export default class extends React.Component {
       this.setState({isSubmit: true})
       const data = JSON.stringify({
         answerDTOList: answerListArray,
-        time: 30,
+        time: new Date() - limitTime,
         topicKey: topicKey
       })
       this.setState({isSubmit: true})
