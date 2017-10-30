@@ -118,7 +118,7 @@ export default class extends React.Component {
       borderStyle: 'solid',
       borderWidth: '1px',
       textAlign: 'center',
-      lineHeight: '2rem'
+      lineHeight: '2rem',
     }
     return (<div style={style2}>{content}</div>)
   }
@@ -164,13 +164,15 @@ export default class extends React.Component {
       borderColor: `${ThemeConfig.color.blue}`,
       backgroundColor: `${ThemeConfig.color.blue}`,
       color: 'white',
+      margin: 'auto'
     }
 
     let chooseStyle = {
       borderRadius: '10px',
       backgroundColor: `${ThemeConfig.color.yellow}`,
       borderColor: `${ThemeConfig.color.yellow}`,
-      color: 'white'
+      color: 'white',
+      margin: 'auto'
     }
 
     // 获取stage
@@ -210,7 +212,7 @@ export default class extends React.Component {
               text-align: center;
             }
             .title {
-              margin: 40px auto 40px auto;
+              margin: 20px auto 20px auto;
             }
             .bottom{
               {/*position: fixed;*/}
@@ -249,7 +251,7 @@ export default class extends React.Component {
           width: 100%
           }
         .title {
-          margin: 40px auto 40px auto;
+          margin: 20px auto 20px auto;
         }`}
       </style>
     </div>)
@@ -291,18 +293,21 @@ export default class extends React.Component {
     let normalStyle = {
       borderRadius: '10px',
       borderColor: `${ThemeConfig.color.yellow}`,
-      backgroundColor: `white`
+      backgroundColor: `white`,
+      margin: 'auto'
     }
     let chooseStyle = {
       borderRadius: '10px',
       backgroundColor: `${ThemeConfig.color.yellow}`,
       borderColor: `${ThemeConfig.color.yellow}`,
+      margin: 'auto',
       color: 'white'
     }
     let disabledStyle = {
       borderRadius: '10px',
       borderColor: `${ThemeConfig.color.border}`,
       backgroundColor: `white`,
+      margin: 'auto',
       color: `${ThemeConfig.color.content}`
     }
     return (<Card
@@ -357,6 +362,7 @@ export default class extends React.Component {
       width: '45%',
       backgroundColor: `${ThemeConfig.color.yellow}`,
       color: `${ThemeConfig.color.dark_black}`,
+      margin: 'auto',
       borderColor: `${ThemeConfig.color.yellow}`
     }
 
@@ -365,6 +371,7 @@ export default class extends React.Component {
       width: '45%',
       borderColor: `${ThemeConfig.color.content}`,
       backgroundColor: `${ThemeConfig.color.gray}`,
+      margin: 'auto',
       color: `${ThemeConfig.color.content}`
     }
 
@@ -373,6 +380,7 @@ export default class extends React.Component {
       width: '45%',
       borderColor: `${ThemeConfig.color.blue}`,
       backgroundColor: `${ThemeConfig.color.blue}`,
+      margin: 'auto',
       color: 'white'
     }
 
@@ -450,7 +458,7 @@ export default class extends React.Component {
           {
             `
             .title {
-              margin: 40px auto 40px auto;
+              margin: 20px auto 20px auto;
             }
             `
           }
@@ -465,6 +473,7 @@ export default class extends React.Component {
       width: '45%',
       borderColor: `${ThemeConfig.color.content}`,
       backgroundColor: `${ThemeConfig.color.gray}`,
+      margin: 'auto',
       color: `${ThemeConfig.color.content}`
     }
 
@@ -473,6 +482,7 @@ export default class extends React.Component {
       width: '45%',
       borderColor: `${ThemeConfig.color.blue}`,
       backgroundColor: `${ThemeConfig.color.blue}`,
+      margin: 'auto',
       color: 'white'
     }
 

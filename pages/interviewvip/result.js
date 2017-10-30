@@ -160,7 +160,7 @@ export default class extends React.Component {
             width: 90%;
             color: white;
             font-size: 14px;
-            text-shadow: 1px 1px 5px #604508;
+            text-shadow: 1px 1px 1px #604508;
           }
           .inner p {
             width: 100%;
