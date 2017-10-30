@@ -354,7 +354,7 @@ export default class extends React.Component {
   addBottom () {
     let backButton1 = {
       borderRadius: '10px',
-      width: '30%',
+      width: '45%',
       backgroundColor: `${ThemeConfig.color.yellow}`,
       color: `${ThemeConfig.color.dark_black}`,
       borderColor: `${ThemeConfig.color.yellow}`
@@ -362,7 +362,7 @@ export default class extends React.Component {
 
     let backButton2 = {
       borderRadius: '10px',
-      width: '30%',
+      width: '45%',
       borderColor: `${ThemeConfig.color.content}`,
       backgroundColor: `${ThemeConfig.color.gray}`,
       color: `${ThemeConfig.color.content}`
@@ -370,7 +370,7 @@ export default class extends React.Component {
 
     let sureButon = {
       borderRadius: '10px',
-      width: '30%',
+      width: '45%',
       borderColor: `${ThemeConfig.color.blue}`,
       backgroundColor: `${ThemeConfig.color.blue}`,
       color: 'white'
@@ -401,7 +401,7 @@ export default class extends React.Component {
           {`
           .button-bar{
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
           }
           `}
         </style>
@@ -462,7 +462,7 @@ export default class extends React.Component {
   renderDoubleSureButton () {
     let backButton = {
       borderRadius: '10px',
-      width: '40%',
+      width: '45%',
       borderColor: `${ThemeConfig.color.content}`,
       backgroundColor: `${ThemeConfig.color.gray}`,
       color: `${ThemeConfig.color.content}`
@@ -470,7 +470,7 @@ export default class extends React.Component {
 
     let sureButon = {
       borderRadius: '10px',
-      width: '40%',
+      width: '45%',
       borderColor: `${ThemeConfig.color.blue}`,
       backgroundColor: `${ThemeConfig.color.blue}`,
       color: 'white'
@@ -483,7 +483,7 @@ export default class extends React.Component {
       </div>)
     arr.push(
       <div key={2} style={sureButon} onClick={this.buttonClick.bind(this, 'double-sure')}>
-        {this.renderButton('确定了, 不改了')}
+        {this.renderButton('确定了')}
       </div>)
     return (
       <div className='button-bar'>
@@ -492,7 +492,7 @@ export default class extends React.Component {
           {`
           .button-bar{
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
           }
           `}
         </style>
