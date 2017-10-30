@@ -84,7 +84,7 @@ export default class ReadMore extends React.Component{
       <style jsx>
         {`
         .outer {
-          margin: 1rem -1rem 1rem -1rem;
+          margin: 1rem 0 1rem 0;
         }
         `}
       </style>

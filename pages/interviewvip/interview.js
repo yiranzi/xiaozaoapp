@@ -213,9 +213,9 @@ export default class extends React.Component {
               margin: 40px auto 40px auto;
             }
             .bottom{
-              position: fixed;
-              left: 0;
-              bottom: 10px;
+              {/*position: fixed;*/}
+              {/*left: 0;*/}
+              {/*bottom: 10px;*/}
               width: 100%;
               display: flex;
               justify-content: center;
@@ -242,9 +242,10 @@ export default class extends React.Component {
       <style jsx>
         {`
         .button{
-          position: fixed;
-          left: 0;
-          bottom: 10px;
+          margin-top: 10px;
+          {/*position: fixed;*/}
+          {/*left: 0;*/}
+          {/*bottom: 10px;*/}
           width: 100%
           }
         .title {
@@ -300,7 +301,7 @@ export default class extends React.Component {
     }
     let disabledStyle = {
       borderRadius: '10px',
-      borderColor: `${ThemeConfig.color.dark_black}`,
+      borderColor: `${ThemeConfig.color.border}`,
       backgroundColor: `white`,
       color: `${ThemeConfig.color.content}`
     }
@@ -340,7 +341,9 @@ export default class extends React.Component {
       <style jsx>{
         `
         .text {
-          margin-left: 20px;
+          line-height: 1.5rem;
+          margin-left: 15px;
+          color: ${ThemeConfig.color.content};
         }
         `
       }</style>

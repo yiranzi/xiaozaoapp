@@ -40,7 +40,7 @@ export default class extends React.Component {
         {/*内部元素*/}
         <style jsx>{`
           .contain {
-            margin: 10px auto 10px auto;
+            margin: 20px auto 20px auto;
           }
         `}</style>
       </div>

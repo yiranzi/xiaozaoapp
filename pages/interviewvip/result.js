@@ -1,7 +1,7 @@
 import React from 'react'// 库
 import Button from '../../components/button'// 组件库
 import Back from '../../containers/interviewvip/back'
-import resultContent from '../../containers/interviewvip/resultContent'
+import resultContent from '../../containers/interviewvip/result/resultContent'
 import ReadMore from '../../containers/interviewvip/result/ReadMore'
 import InterviewLayout from '../../containers/interviewvip/layout'// container
 import ToolsUtil from '../../util/tools'
@@ -69,8 +69,14 @@ export default class extends React.Component {
    */
   renderButtonState () {
     if (this.state.isShowNextButton) {
-      return (<div onClick={this.goRouter.bind(this, this.state.nextTaskUrl)}>
-        <Button>{this.state.buttonWord}</Button>
+      return (<div className='next' onClick={this.goRouter.bind(this, this.state.nextTaskUrl)}>
+        <Button half={true} text={this.state.buttonWord}></Button>
+        <style jsx>
+          {`.next{
+            margin-top: 30px;
+            width: 100%
+          }`}
+        </style>
       </div>)
     } else {
       return null
