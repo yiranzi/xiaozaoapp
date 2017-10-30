@@ -123,7 +123,7 @@ export default class extends React.Component {
   renderButton () {
     return (
       <div className='button-group'>
-        <Button>打卡规则</Button>
+        <Button onClick={() => { location.href = 'https://shimo.im/doc/57jVz4BKu2E3dQfn?r=NZOD95' }}>打卡规则</Button>
         <Button className='mid' onClick={() => { location.href = '/interviewvip/interview' }}>选择模拟面试</Button>
         <Button onClick={() => { location.href = '/interviewvip/selfTaskInfo' }}>打卡成绩</Button>
         <style jsx>{`
