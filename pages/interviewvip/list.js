@@ -36,8 +36,10 @@ export default class extends React.Component {
   formatList (list) {
     let json = {}
     let currentOver
+    let groupNames = []
     list.map((item, index) => {
       let {groupName} = item
+      groupNames.push(groupName)
       json[groupName] = json[groupName] || []
       // 记录当前做到第几题
       if (item.over) {
@@ -51,7 +53,7 @@ export default class extends React.Component {
     })
     // 如果没有做过任何题，默认第一可做第一套
     if (!currentOver) {
-      json['1'][0].canDo = true
+      json[groupNames[0]][0].canDo = true
     }
     return json
   }
@@ -75,11 +77,10 @@ export default class extends React.Component {
   }
 
   renderListItem (item) {
-    console.log(item)
     let content = (
       <div className='item'>
         <div className='text'>
-          <div className='sub-title'>{item.subTitle}</div>
+          <div className='sub-title'>{item.title}</div>
           <div className='sub-content'>{item.completeUser}人已做完</div>
         </div>
         <div className='icon'>{this.renderEnterState(item.topicKey, item.canDo, item.over)}</div>
@@ -101,7 +102,7 @@ export default class extends React.Component {
   renderListContent (list) {
     let content = []
     for (let groupName in list) {
-      content.push(<div key={groupName} className='topic-key'>Topic {groupName}</div>)
+      content.push(<div key={groupName} className='topic-key'>{groupName}</div>)
       list[groupName].map((item, index) => {
         content.push(this.renderListItem(item))
       })
