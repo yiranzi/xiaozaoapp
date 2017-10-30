@@ -191,17 +191,18 @@ export default class extends React.Component {
           <p><span className='red'>上午 9:00 </span>上线案例模拟群二维码</p>
           <p>请到时查看并加群哦！</p>
         </div>
+        <img className='qr-code' src={this.state.classUrl} />
         <div className='bottom'>
           <div className='button-bar' key={1} style={backButton} onClick={this.buttonClick.bind(this, 'back')}>
             {this.renderButton('确定')}
           </div>
         </div>
-        <img src={this.state.classUrl} />
-        {/*this.state.classUrl = '/static/img/qrCode.png'*/}
-
         <style jsx>
           {
             `
+            .qr-code {
+              width: 80%;
+            }
             .red {
               color: red;
             }

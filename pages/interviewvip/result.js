@@ -72,6 +72,9 @@ export default class extends React.Component {
         <Button half={true} text={this.state.buttonWord}></Button>
         <style jsx>
           {`.next{
+            position: fixed;
+            bottom 10px;
+            left: 0;
             margin-top: 30px;
             width: 100%
           }`}
@@ -91,13 +94,18 @@ export default class extends React.Component {
     const {isRender, error} = this.state
     return (
       <InterviewLayout isRender={isRender} error={error}>
-        <a href='/interviewvip/list'><Back direct='left' text='返回主页' /></a>
-        {this.renderResultContent()}
-        <ReadMore topicKey={this.state.topicKey} />
-        {this.renderButtonState()}
+        <div className='result-page'>
+          <a href='/interviewvip/list'><Back direct='left' text='返回主页' /></a>
+          {this.renderResultContent()}
+          <ReadMore topicKey={this.state.topicKey} />
+          {this.renderButtonState()}
+        </div>
         <style jsx>{`
           a {
             color: ${ThemeConfig.color.blue};
+          }
+          .result-page {
+            padding-bottom: 40px;
           }
         `}</style>
       </InterviewLayout>
