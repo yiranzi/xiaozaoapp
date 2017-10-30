@@ -212,7 +212,7 @@ export default class extends React.Component {
               text-align: center;
             }
             .title {
-              margin: 20px auto 20px auto;
+              margin: 10px auto 20px auto;
             }
             .bottom{
               {/*position: fixed;*/}
@@ -251,7 +251,7 @@ export default class extends React.Component {
           width: 100%
           }
         .title {
-          margin: 20px auto 20px auto;
+          margin: 10px auto 20px auto;
         }`}
       </style>
     </div>)
@@ -455,7 +455,7 @@ export default class extends React.Component {
           {
             `
             .title {
-              margin: 20px auto 20px auto;
+              margin: 10px auto 20px auto;
             }
             `
           }
