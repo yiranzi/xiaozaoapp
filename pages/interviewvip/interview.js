@@ -110,17 +110,17 @@ export default class extends React.Component {
   }
 
   renderButton (content) {
-    // 覆盖掉button样式
-    let style = {
+    let style2 = {
       color: 'inherit',
       backgroundColor: 'inherit',
+      borderRadius: '5px',
       borderColor: 'inherit',
       borderStyle: 'solid',
       borderWidth: '1px',
-      margin: '0',
-      padding: '0'
+      textAlign: 'center',
+      lineHeight: '2rem'
     }
-    return (<Button style={style}>{content}</Button>)
+    return (<div style={style2}>{content}</div>)
   }
 
   // 根据index返回日期

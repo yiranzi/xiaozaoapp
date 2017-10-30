@@ -115,8 +115,10 @@ export default class extends React.Component {
       <div className='main'>
         <div className='out'>
           <img className='bg'src='/static/img/interviewvip/result/resultBg-bg.png' />
-          <div className='inner'
-            dangerouslySetInnerHTML={{__html: content}} />
+          <div className='inner'>
+            <h1 className='title'>恭喜你完成本章学习</h1>
+            <div dangerouslySetInnerHTML={{__html: content}} />
+          </div>
         </div>
         <div style={style}>
           <Button onClick={() => { location.href = `/interviewvip/review?topicKey=${this.state.topicKey}` }}
@@ -128,6 +130,10 @@ export default class extends React.Component {
           {`
           .out {
             position: relative;
+          }
+          .title {
+            font-size: 20px;
+            margin: 20px 0 10px 0;
           }
           .main {
             margin: 10px auto 20px auto;
@@ -143,18 +149,18 @@ export default class extends React.Component {
             height: 175px;
           }
           .inner {
-            margin-top: 30px;
+            {/*margin: 10px auto 0 auto;*/}
             text-align: center;
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             position: absolute;
             top: 0;
-            left: 0;
-            font-size: 10px;
-            width: 100%;
-            color: ThemeConfig.color.content;
-            font-size: 1rem;
+            left: 15px;
+            width: 90%;
+            color: white;
+            font-size: 14px;
+            text-shadow: 1px 1px 5px #604508;
           }
           .inner p {
             width: 100%;

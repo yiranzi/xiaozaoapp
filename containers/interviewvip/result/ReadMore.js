@@ -74,7 +74,7 @@ export default class ReadMore extends React.Component{
     return (<div>
       <h4 className='readmore-h4'>推荐阅读：如何阅读图表</h4>
       <div className='readmore-div'>
-        <p>下载链接：http://pan.baidu.com/s/1cNfxAQ </p>
+        下载链接：{this.addA('http://pan.baidu.com/s/1cNfxAQ')}
         <p>密码：wzc6</p>
       </div>
       <h4 className='readmore-h4'>推荐练习：</h4>
@@ -131,9 +131,9 @@ export default class ReadMore extends React.Component{
       <h4 className='readmore-h4'>日常练习</h4>
       <div className='readmore-div'>
         <p>真正深入理解一个商业分析框架，需要阅读相应的著作，可以试着从 3C 模型和五力模型作为例子开始：</p>
-        <p>下载链接：{this.addA('http://pan.baidu.com/s/1hrOESHQ')}</p>
+        下载链接：{this.addA('http://pan.baidu.com/s/1hrOESHQ')}
         <p>密码: msad</p>
-        <p>下载链接：{this.addA('http://pan.baidu.com/s/1qYWgrj2')}</p>
+        下载链接：{this.addA('http://pan.baidu.com/s/1qYWgrj2')}
         <p>密码: xj74</p>
       </div>
       <div className='readmore-div'>
@@ -150,7 +150,7 @@ export default class ReadMore extends React.Component{
   renderModal4 () {
     return (<div>
       <h4 className='readmore-h4'>附件下载：群面关键步骤 Check List</h4>
-      <p>下载链接：{this.addA('http://pan.baidu.com/s/1bpLb2yF')}</p>
+      下载链接：{this.addA('http://pan.baidu.com/s/1bpLb2yF')}
       <p>密码: rawe</p>
     </div>)
   }
@@ -158,7 +158,7 @@ export default class ReadMore extends React.Component{
   renderModal5 () {
     return (<div>
       <h4 className='readmore-h4'>附件下载：群面沟通与表达常用句型</h4>
-      <p>下载链接：{this.addA('http://pan.baidu.com/s/1o8KFgTG')}</p>
+      下载链接：{this.addA('http://pan.baidu.com/s/1o8KFgTG')}
       <p>密码: p24g</p>
     </div>)
   }
@@ -167,7 +167,7 @@ export default class ReadMore extends React.Component{
     return (<div>
       <h4 className='readmore-h4'>附件下载</h4>
       <div className='readmore-div'>
-        <p>下载链接：{this.addA('http://pan.baidu.com/s/1hrFR2sO')}</p>
+        下载链接：{this.addA('http://pan.baidu.com/s/1hrFR2sO')}
         <p>密码: kx5q</p>
       </div>
       <h4 className='readmore-h4'>推荐阅读</h4>
@@ -201,7 +201,7 @@ export default class ReadMore extends React.Component{
     return (<div>
       <h4 className='readmore-h4'>附件下载</h4>
       <div className='readmore-div'>
-        <p>下载链接：{this.addA('http://pan.baidu.com/s/1cEXWvG')}</p>
+        下载链接：{this.addA('http://pan.baidu.com/s/1cEXWvG')}
         <p>密码: iou8</p>
       </div>
       <h4 className='readmore-h4'>内容总结</h4>
