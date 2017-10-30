@@ -6,6 +6,7 @@ module.exports = {
     '<img src=\'/static/img/interviewvip/intro/topic1-2.png\' />' +
     '<p>60秒的时间里，你能读到第几行？' + 
     '<p>When we’re working, we have distractions coming from every direction. In front of us | 150 词</p>' +
+    '<br/>' +
     '<p>如果在60秒的时间里，你读完了上面的这行，那么你的阅读速度是 150 词每分钟。恭喜你，你达到了基本的要求。 正常来说，一个将英语阅读纳入群面考核的公司，阅读材料的速度在每分钟 150-250 字的范围。如果你超过 250，那你比一般读者更快。 当然，如果你低于150， 那你没有达到基本的阅读速度要求。 无论你是平均水平， 还是高于或低于平均水平， 接下来的内容都能够帮助到你。</p>' +
     '<br/>' +
     '<p>通过学习本部分内容，你将会：</p>' +
