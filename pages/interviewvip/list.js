@@ -96,16 +96,20 @@ export default class extends React.Component {
         `}</style>
       </div>
     )
-    return (<div onClick={this.goNext.bind(this, item.over, item.topicKey)}>
+    return (<div onClick={this.goNext.bind(this, item.canDo, item.over, item.topicKey)}>
       <Card content={content} />
       </div>)
   }
 
-  goNext (over, topicKey) {
+  goNext (canDo, over, topicKey) {
     if (over) {
       location.href = `/interviewvip/review?topicKey=${topicKey}`
     } else {
-      location.href = `/interviewvip/intro?topicKey=${topicKey}`
+      if (canDo) {
+        location.href = `/interviewvip/intro?topicKey=${topicKey}`
+      } else {
+        // alert('需要先完成之前的')
+      }
     }
   }
 
