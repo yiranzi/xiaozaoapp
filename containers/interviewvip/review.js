@@ -181,7 +181,7 @@ export default class extends React.Component {
     return (
       <div className='detail'>
         {answer && <span className='answer'>参考答案：{answer}</span>}
-        {answer && <span className='rate'>正确率：{accuracy}%</span>}
+        {answer && <span className='rate'>正确率：{accuracy}%（400+位内测用户总正确率）</span>}
         {analysis && (
           <div className='analysis'>
             <div>参考解析：</div>
