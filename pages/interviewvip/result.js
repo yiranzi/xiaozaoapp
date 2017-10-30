@@ -114,7 +114,7 @@ export default class extends React.Component {
     return (
       <div className='main'>
         <div className='out'>
-          <img className='bg'src='/static/img/interviewvip/resultBg.png' />
+          <img className='bg'src='/static/img/interviewvip/result/resultBg-bg.png' />
           <div className='inner'
             dangerouslySetInnerHTML={{__html: content}} />
         </div>
@@ -140,9 +140,10 @@ export default class extends React.Component {
             position: relative;
             margin: 15px auto 20px auto;
             width: 100%;
+            height: 175px;
           }
           .inner {
-            margin-top: 20px;
+            margin-top: 30px;
             text-align: center;
             display: flex;
             justify-content: center;
@@ -153,7 +154,7 @@ export default class extends React.Component {
             font-size: 10px;
             width: 100%;
             color: ThemeConfig.color.content;
-            font-size: 0.75rem;
+            font-size: 1rem;
           }
           .inner p {
             width: 100%;
