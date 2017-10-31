@@ -73,8 +73,8 @@ export default class ReadMore extends React.Component{
     return (<div>
       <h4 className='readmore-h4'>推荐阅读：如何阅读图表</h4>
       <div className='readmore-div'>
-        下载链接：{this.addA('http://pan.baidu.com/s/1cNfxAQ')}
-        <p>密码：wzc6</p>
+        下载链接：{this.addA('http://pan.baidu.com/s/1boAChyR')}
+        <p>密码：fx9t</p>
       </div>
       <h4 className='readmore-h4'>推荐练习：</h4>
       <div className='outer'>
@@ -149,16 +149,16 @@ export default class ReadMore extends React.Component{
   renderModal4 () {
     return (<div>
       <h4 className='readmore-h4'>附件下载：群面关键步骤 Check List</h4>
-      下载链接：{this.addA('http://pan.baidu.com/s/1bpLb2yF')}
-      <p>密码: rawe</p>
+      下载链接：{this.addA('http://pan.baidu.com/s/1jI7WpmA')}
+      <p>密码: cevb</p>
     </div>)
   }
 
   renderModal5 () {
     return (<div>
       <h4 className='readmore-h4'>附件下载：群面沟通与表达常用句型</h4>
-      下载链接：{this.addA('http://pan.baidu.com/s/1o8KFgTG')}
-      <p>密码: p24g</p>
+      下载链接：{this.addA('http://pan.baidu.com/s/1hseUh84')}
+      <p>密码: kj5x</p>
     </div>)
   }
 
