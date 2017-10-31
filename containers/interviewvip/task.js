@@ -362,9 +362,8 @@ export default class extends React.Component {
     }
   }
 
-  formatAnswerList () {
+  formatAnswerList (answerList) {
     const {questionList} = this.props
-    const {answerList} = this.state
     return questionList.interviewTopicDTOList.map((item, index) => {
       let id = item.id
       let answer = answerList ? answerList[id] : ''
@@ -373,16 +372,12 @@ export default class extends React.Component {
   }
 
   answerComplete = async () => {
+    let comfirmMessage = confirm('确认提交？')
+    if (comfirmMessage === false) { return false }
     const {answerList, limitTime} = this.state
-    const {interviewTopicDTOList} = this.props.questionList
-
-    if (Object.keys(answerList).length < interviewTopicDTOList.length) {
-      alert('有部分题目未完成，请检查后重新')
-      return
-    }
 
     const {topicKey} = this.props.questionList
-    let answerListArray = this.formatAnswerList()
+    let answerListArray = this.formatAnswerList(answerList)
 
     try {
       this.setState({isSubmit: true})
