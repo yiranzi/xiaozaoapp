@@ -1,6 +1,7 @@
 import React from 'react'// 库
 import Button from '../../components/button'// 组件库
 import Back from '../../components/back'
+import Fixfooter from '../../components/fixfooter'
 import resultContent from '../../containers/interviewvip/result/resultContent'
 import ReadMore from '../../containers/interviewvip/result/ReadMore'
 import InterviewLayout from '../../containers/interviewvip/layout'// container
@@ -67,19 +68,9 @@ export default class extends React.Component {
    下一课 没做 就有按钮.
    */
   renderButtonState () {
+    let ele = <Button key={1}half text={this.state.buttonWord}></Button>
     if (this.state.isShowNextButton) {
-      return (<div className='next' onClick={this.goRouter.bind(this, this.state.nextTaskUrl)}>
-        <Button half={true} text={this.state.buttonWord}></Button>
-        <style jsx>
-          {`.next{
-            position: fixed;
-            bottom 10px;
-            left: 0;
-            margin-top: 30px;
-            width: 100%
-          }`}
-        </style>
-      </div>)
+      return (<Fixfooter className='next' onClick={this.goRouter.bind(this, this.state.nextTaskUrl)} content={ele} />)
     } else {
       return null
     }

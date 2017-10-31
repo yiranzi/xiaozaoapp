@@ -124,7 +124,7 @@ export default class ReadMore extends React.Component{
       <h4 className='readmore-h4'>推荐阅读</h4>
       <div className='readmore-div'>
         <ul className='readmore-ul'>
-          <li>{this.addA('http://mp.weixin.qq.com/s/CJjKG6FjUlNGTzVJWDkZ-w', '学了很多框架，却还是不会分析 ')}</li>
+          <li>{this.addA('http://mp.weixin.qq.com/s/ySmE1WqxUauPnantr6CZfw', '学了很多框架，却还是不会分析 ')}</li>
         </ul>
       </div>
       <h4 className='readmore-h4'>日常练习</h4>
