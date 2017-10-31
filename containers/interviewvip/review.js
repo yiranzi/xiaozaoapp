@@ -207,7 +207,7 @@ export default class extends React.Component {
         <div className='pratice'>
           <div className='title'>
             <div onClick={() => { this.toMaterial() }}><Back direct='left' text='查看材料' /></div>
-            <a href={`/interviewvip/result?topicKey=${this.props.questionList.topicKey}`}><Back direct='right' text='查看成绩' /></a>
+            <a href={`/interviewvip/result?topicKey=${this.props.questionList.topicKey}`}><Back direct='right' text='推荐阅读' /></a>
           </div>
           <div className='content'>
             <div className='question'>{dtoItem.no}、{dtoItem.question}</div>
