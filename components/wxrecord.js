@@ -121,6 +121,9 @@ export default class WxRecord extends React.Component {
         <style jsx>{`
           .icon {
             text-align: center;
+            display: flex;
+            margin-left: 50%;
+            transform: translateX(-50%);
           }
         `}</style>
       </div>
