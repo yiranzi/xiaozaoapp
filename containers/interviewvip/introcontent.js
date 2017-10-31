@@ -3,7 +3,7 @@ module.exports = {
     '<p>群面，也就是无领导小组讨论，往往是基于某个具体的案例或者主题，进行的以小组为单位的讨论。在群面的起始阶段，主考官会宣读讨论的注意事项和讨论题目，面试者通常会有 5-10 分钟的时间进行独立的案例阅读与思考时间。因此，快速看懂案例，了解问题，是群面的第一步。</p>' +
     '<img style=\'margin: 1rem 0\' src=\'/static/img/interviewvip/intro/topic1-1.png\' />' +
     '<p>包括咨询公司、会计师事务所、快消公司甚至是外资银行近些年的群面中，均采用了小组案例面试的形式，因此，掌握案例阅读的技巧是攻克这些群面必不可少的一个环节。在学习方法之前，我们先来做个小练习。请用60秒时间阅读以下材料：</p>' + 
-    '<img src=\'/static/img/interviewvip/intro/topic1-2.png\' />' +
+    '<img src=\'/static/img/interviewvip/intro/topic1-2.jpg\' />' +
     '<p>60秒的时间里，你能读到第几行？' + 
     '<p>When we’re working, we have distractions coming from every direction. In front of us | 150 词</p>' +
     '<br/>' +
