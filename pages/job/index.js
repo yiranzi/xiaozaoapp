@@ -102,9 +102,11 @@ export default class extends React.Component {
             </MediaBoxTitle>
           </MediaBoxBody>
         </MediaBox>
-        <div className='comment'>
-          <label className='comment-label'>小灶点评：</label>{job.companyComment}
-        </div>
+        {job.companyComment &&
+          <div className='comment'>
+            <label className='comment-label'>小灶点评：</label>{job.companyComment}
+          </div>
+        }
         <style jsx>{`
           .company-logo {
             width: 50px;

@@ -1,15 +1,24 @@
 import React from 'react'
 import AxiosUtil from '../../util/axios'
 import JobLayout from '../../containers/job/layout'
-import ThemeConfig from '../../config/theme'
-import { Button, Panel, PanelHeader, PanelBody, MediaBox, MediaBoxTitle,
-  MediaBoxDescription, MediaBoxInfo, MediaBoxInfoMeta, LoadMore } from 'react-weui'
+import DateUtil from '../../util/date'
+import Banner from '../../components/banner'
+import { Button, Panel, PanelBody, MediaBox, MediaBoxHeader, MediaBoxTitle,
+  MediaBoxBody, LoadMore,
+  SearchBar, Tab, NavBar, NavBarItem, TabBody} from 'react-weui'
 
 export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       list: null,
+      params: {
+        cityIdList: [54],
+        sectionIdList: [],
+        pn: 0
+      },
+      tab: 0,
+      bannerList: null,
       isRender: true,
       dataState: 'none', /* none 未加载，loading 正在加载，null 没有数据，more 继续加载 */
       error: ''
@@ -19,8 +28,8 @@ export default class extends React.Component {
   componentDidMount = async () => {
     this.setState({dataState: 'loading'})
     try {
-      const groupId = 1
-      let list = await AxiosUtil({method: 'get', url: `/api/forum/getList/${groupId}`})
+      let list = await AxiosUtil.post('/api/private/job/internship', this.state.params)
+      console.log(list)
 
       this.setState({
         list: list,
@@ -34,61 +43,125 @@ export default class extends React.Component {
     }
   }
 
-  toLink = (id) => {
-    location.href = '/forum/topic/detail?topicId=' + id
+  handleSearchBarChange (e) {
+    console.log(e)
+    location.href = '/job/search'
+    e.stopPropagation()
+    return false
+  }
+
+  handleCollectionChange (e, id) {
+    console.log(e)
+    console.log(id)
+    e.stopPropagation()
+    return false
+  }
+
+  toJob = (id) => {
+    location.href = '/job?jobId=' + id
   }
 
   renderSearchBar () {
-    return <PanelHeader className='group-title'>
-      7天群面闪电计划讨论区
-      <style jsx>{`
-        .group-title {
-
-        }
-      `}</style>
-    </PanelHeader>
+    return <div onClick={e => this.handleSearchBarChange(e)}>
+      <SearchBar
+        placeholder='搜索职位或公司'
+        lang={{
+          cancel: '取消'
+        }} />
+    </div>
   }
 
   renderBanner () {
-    return <PanelHeader className='group-title'>
-      7天群面闪电计划讨论区
-      <style jsx>{`
-        .group-title {
+    if (!this.state.bannerList) {
+      return <Banner />
+    }
+  }
 
-        }
-      `}</style>
-    </PanelHeader>
+  renderTabbar () {
+    return <Tab>
+      <NavBar>
+        <NavBarItem active={this.state.tab === 0}
+                    onClick={e => this.setState({tab: 0})}>名企实习</NavBarItem>
+      </NavBar>
+      <TabBody>
+        <Panel>
+          {this.renderList()}
+        </Panel>
+      </TabBody>
+    </Tab>
   }
 
   renderList () {
     const {list} = this.state
     if (list) {
       const listElement = list.data.map((item, index) => {
-        return <MediaBox type='text' key={index} className='topic-item' onClick={e => this.toLink(item.id)}>
-          <MediaBoxInfo>
-            <MediaBoxInfoMeta><img className='headimg' src={item.headimgurl} /></MediaBoxInfoMeta>
-            <MediaBoxInfoMeta>{item.nickname}</MediaBoxInfoMeta>
-            <MediaBoxInfoMeta extra>{item.createTime}</MediaBoxInfoMeta>
-          </MediaBoxInfo>
-          <MediaBoxTitle>{item.title}</MediaBoxTitle>
-          <MediaBoxDescription>
-            {item.simpleContent}
-          </MediaBoxDescription>
+        return <div key={index} className='job-item'
+                    onClick={e => this.toJob(item.id)}>
+          <MediaBox type='appmsg'>
+            <MediaBoxHeader><img className='company-logo'
+                                 src={item.companyLogo} /></MediaBoxHeader>
+            <MediaBoxBody>
+              <a href='javascript:;'
+                 onClick={e => this.handleCollectionChange(e, item.id)}
+                 className='wx-pull-right'>★☆收藏</a>
+              <MediaBoxTitle className='title'>{item.title}</MediaBoxTitle>
+              <MediaBoxTitle className='info'>{item.companyName}</MediaBoxTitle>
+              <MediaBoxTitle className='info'>{item.address}
+                <span className='wx-pull-right'>
+                  {DateUtil.format(item.createTime, 'MM月dd日')}</span></MediaBoxTitle>
+            </MediaBoxBody>
+          </MediaBox>
+          {item.comment &&
+          <div className='comment'>
+            <img className='comment-icon'
+                 src='/static/img/common/recommend.png' /> {item.comment}
+          </div>
+          }
+          <div className='tags'>
+            {item.trade && <span className='tagName'>{item.trade}</span>}
+            {item.tagName && <span className='tagName'>{item.tagName}</span>}
+          </div>
           <style jsx>{`
-            .headimg {
+            .company-logo {
+              width: 50px;
+              height: 50px;
+              border-radius: 8px;
+              border: 1px solid #ddd;
+            }
+            .job-item {
+              padding-bottom: 15px;
+              border-bottom: 1px dotted #ddd;
+              color: #6f6f6f;
+            }
+            .comment,
+            .tags {
+              padding: 0 15px;
+              margin-bottom: 5px;
+            }
+            .comment-icon {
               width: 20px;
-              height: 20px;
-              border-radius: 10px;
-              border: 1px solid ${ThemeConfig.color.gray}
+              margin: 0 0 -3px 0;
             }
-            .nickname {
-
-            }
-            .create-time {
-
+            .tagName {
+              background-color: #efefef;
+              color: #666;
+              margin-right: 5px;
+              padding: 2px 4px;
             }
           `}</style>
-        </MediaBox>
+          <style global jsx>{`
+            .title {
+              font-size: 16px !important;
+              width: 70% !important;
+              overflow: hidden !important;
+              text-overflow: ellipsis !important;
+              white-space: nowrap !important;
+            }
+            .info {
+              font-size: 14px !important;
+            }
+          `}</style>
+        </div>
       })
       return <PanelBody>
         {listElement}
@@ -103,38 +176,12 @@ export default class extends React.Component {
     }
   }
 
-  renderPublishBtn () {
-    return <div>
-      <a className='publish-btn' href='/forum/topic/publish'>+</a>
-      <style jsx>{`
-      .publish-btn {
-        position: absolute;
-        width: 35px;
-        height: 35px;
-        border-radius: 20px;
-        border: 1px solid ${ThemeConfig.color.gray};
-        bottom: 70px;
-        right: 20px;
-        background-color: red;
-        color: #fff;
-        line-height: 30px;
-        text-align: center;
-        font-size: 30px;
-      }
-    `}</style>
-    </div>
-  }
-
   render () {
     return (
       <JobLayout tabbar>
+        {this.renderSearchBar()}
         <div className='job-list'>
-          <Panel>
-            {this.renderSearchBar()}
-            {this.renderBanner()}
-            {this.renderList()}
-          </Panel>
-          {this.renderPublishBtn()}
+          {this.renderTabbar()}
         </div>
         <style global jsx>{`
           .job-list {

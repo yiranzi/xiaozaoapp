@@ -2,21 +2,26 @@ import React from 'react'
 import AxiosUtil from '../../util/axios'
 import JobLayout from '../../containers/job/layout'
 import DateUtil from '../../util/date'
+import Banner from '../../components/banner'
 import { Button, Panel, PanelBody, MediaBox, MediaBoxHeader, MediaBoxTitle,
-  MediaBoxBody, LoadMore,
+  MediaBoxBody, LoadMore, InfiniteLoader,
   SearchBar, Tab, NavBar, NavBarItem, TabBody} from 'react-weui'
 
 export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      list: null,
+      list: {
+        data: [],
+        totalSize: 0
+      },
       params: {
         cityIdList: [54],
         sectionIdList: [],
         pn: 0
       },
       tab: 0,
+      bannerList: null,
       isRender: true,
       dataState: 'none', /* none 未加载，loading 正在加载，null 没有数据，more 继续加载 */
       error: ''
@@ -24,15 +29,48 @@ export default class extends React.Component {
   }
 
   componentDidMount = async () => {
+    this.loadBannerList()
+    this.loadJobList()
+  }
+
+  loadBannerList = async () => {
+    const type = 1
+    try {
+      let bannerList = await AxiosUtil.get(`/api/adv/getAdvByTypeAndObjId/${type}/1`)
+      bannerList = [
+        {img: '/static/img/job/1.jpg', url: '/job/internship'},
+        {img: '/static/img/job/2.jpg', url: '/job/123'},
+        {img: '/static/img/job/3.jpg', url: '/job/2342'},
+        {img: '/static/img/job/4.jpg', url: '/job/2523'},
+        {img: '/static/img/job/5.jpg', url: '/job/899'}
+      ]
+      this.setState({
+        bannerList: bannerList
+      })
+    } catch (e) {
+      this.setState({
+        isRender: false,
+        error: e.message
+      })
+    }
+  }
+
+  loadJobList = async () => {
     this.setState({dataState: 'loading'})
     try {
-      let list = await AxiosUtil.post('/api/private/job/internship', this.state.params)
-      console.log(list)
+      let pageList = await AxiosUtil.post('/api/private/job/internship',
+        this.state.params)
+      this.state.params.pn = this.state.params.pn + 1
+      if (pageList) {
+        let {list} = this.state
+        list.totalSize = pageList.totalSize
+        list.data = list.data.concat(pageList.data)
 
-      this.setState({
-        list: list,
-        isRender: false
-      })
+        this.setState({
+          list: list,
+          isRender: false
+        })
+      }
     } catch (e) {
       this.setState({
         isRender: false,
@@ -59,6 +97,18 @@ export default class extends React.Component {
     location.href = '/job?jobId=' + id
   }
 
+  onLoadMore (resolve, finish) {
+    setTimeout(() => {
+      if (this.state.list.data.length >= this.state.list.totalSize) {
+        finish()
+      } else {
+        this.loadJobList()
+        this.setState({
+        }, () => resolve())
+      }
+    }, 1000)
+  }
+
   renderSearchBar () {
     return <div onClick={e => this.handleSearchBarChange(e)}>
       <SearchBar
@@ -70,7 +120,7 @@ export default class extends React.Component {
   }
 
   renderBanner () {
-    // return <Banner />
+    return <Banner bannerList={this.state.bannerList} />
   }
 
   renderTabbar () {
@@ -160,7 +210,11 @@ export default class extends React.Component {
         </div>
       })
       return <PanelBody>
-        {listElement}
+        <InfiniteLoader
+          onLoadMore={(resolve, finish) => this.onLoadMore(resolve, finish)}
+        >
+          {listElement}
+        </InfiniteLoader>
         {this.state.dataState === 'none' && <LoadMore showLine showDot />}
         {this.state.dataState === 'more' && <Button type='default'>More</Button>}
       </PanelBody>
@@ -183,6 +237,9 @@ export default class extends React.Component {
         <style global jsx>{`
           .job-list {
 
+          }
+          .react-weui-infiniteloader {
+            overflow: scroll;
           }
         `}</style>
       </JobLayout>
