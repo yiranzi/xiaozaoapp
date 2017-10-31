@@ -29,7 +29,7 @@ export default class extends React.Component {
             width: 100%;
             left: 0;
             bottom: 0;
-            padding: 1rem;
+            padding: 5px;
             box-sizing: border-box;
             background: #F9F9F9;
           }
@@ -42,10 +42,10 @@ export default class extends React.Component {
           }
           .weui-btn+.weui-btn {
             margin-top: 0px !important;
-            margin-left: 1rem !important;
+            margin-left: 5px !important;
           }
           .experience.weui-btn_primary {
-            background-color: ${ThemeConfig.color.yellow} !important;
+            background-color: ${ThemeConfig.color.blue} !important;
           }
           .join-right-now.weui-btn_primary {
             background-color: ${ThemeConfig.color.blue} !important;
@@ -68,6 +68,15 @@ export default class extends React.Component {
           .weui-btn_primary.pay {
             width: 50%;
           }
+          .price-button1 {
+            background-color: ${ThemeConfig.color.blue} !important;
+          }
+          .price-button2 {
+            background-color: #ff5d5d !important;
+          }
+          .price-button3 {
+            background-color: #fe0000 !important;
+          }
         `}</style>
       </div>
     )
@@ -84,8 +93,9 @@ export default class extends React.Component {
     } else {
       arr.push(this.renderFreeTry())
       if (this.props.canBuy) {
-        arr.push(this.renderCut())
-        arr.push(this.renderSignUp())
+        arr.push(this.renderCut1())
+        arr.push(this.renderCut2())
+        arr.push(this.renderCut3())
       } else {
         arr.push(this.renderHaveClosed())
       }
@@ -112,14 +122,19 @@ export default class extends React.Component {
       >{this.props.buttonContent}</Button>
     )
   }
-  renderCut () {
+  renderCut1 () {
     return (
-      <Button className='invite' onClick={() => {this.onClickButton()}}>邀请砍价</Button>
+      <Button className='price-button1' onClick={() => { this.goPath('https://h5.youzan.com/v2/goods/2frl13591n7m9') }}>299拼团</Button>
     )
   }
-  renderSignUp () {
+  renderCut2 () {
     return (
-      <Button className='join-right-now' onClick={this.goPath.bind(this, '/payment')}>{`报名¥${this.props.price}`}</Button>
+      <Button className='price-button2' onClick={() => { this.goPath('https://h5.youzan.com/v2/goods/361kw3i92xaup') }}>349拼团</Button>
+    )
+  }
+  renderCut3 () {
+    return (
+      <Button className='price-button3' onClick={() => { this.goPath('https://h5.youzan.com/v2/goods/2g07fyj39ndwx') }}>399原价</Button>
     )
   }
 
