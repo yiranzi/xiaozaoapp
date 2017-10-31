@@ -265,6 +265,7 @@ export default class extends React.Component {
             padding: 1rem 2rem;
             box-sizing: border-box;
             background: #F9F9F9;
+            z-index: 99;
           }
           .prev, .next {
             flex: 1;
