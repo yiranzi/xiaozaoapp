@@ -69,13 +69,13 @@ export default class extends React.Component {
             width: 50%;
           }
           .price-button1 {
-            background-color: ${ThemeConfig.color.blue} !important;
+            background-color: #fe0000 !important;
           }
           .price-button2 {
             background-color: #ff5d5d !important;
           }
           .price-button3 {
-            background-color: #fe0000 !important;
+            background-color: ${ThemeConfig.color.blue} !important;
           }
         `}</style>
       </div>
@@ -92,9 +92,9 @@ export default class extends React.Component {
     } else {
       arr.push(this.renderFreeTry())
       if (this.props.canBuy) {
-        arr.push(this.renderCut1())
-        arr.push(this.renderCut2())
         arr.push(this.renderCut3())
+        arr.push(this.renderCut2())
+        arr.push(this.renderCut1())
       } else {
         arr.push(this.renderHaveClosed())
       }
