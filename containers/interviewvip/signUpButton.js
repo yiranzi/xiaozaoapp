@@ -123,7 +123,7 @@ export default class extends React.Component {
   }
   renderCut1 () {
     return (
-      <Button className='price-button1' onClick={() => { this.goPath('https://h5.youzan.com/v2/goods/2frl13591n7m9') }}>299拼团</Button>
+      <Button className='price-button1' onClick={() => { this.goPath('https://h5.youzan.com/v2/goods/2frl13591n7m9') }}>299拼团<img src='https://pic.sopili.net/pub/emoji/twitter/2/72x72/1f525.png' style={{width: '20px', height: '20px'}} /></Button>
     )
   }
   renderCut2 () {
