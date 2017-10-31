@@ -22,7 +22,7 @@ export default class extends React.Component {
       error: '',
       doubleCheck: null, // 确认状态?
       canSignUp: null, // 能否报名
-      stage: null,
+      day: null,
       classUrl: null, // 面试二维码
       currentSelect: null// 当前tabbar选中的
     }
@@ -59,13 +59,13 @@ export default class extends React.Component {
 
   // 获取面试信息 并且更新静态数据
   updataStatus = async () => {
-    let result = await AxiosUtil.get('/api/interview/stageList')
-    let {canSignUp, stage, interviewStageListDTOList, classUrl} = result
+    let result = await AxiosUtil.get('/api/interview/dayList')
+    let {canSignUp, day, interviewDayListDTOList, classUrl} = result
     // 提取并包装数据
     this.setState({
       canSignUp: canSignUp,
-      interviewInfoList: interviewStageListDTOList,
-      stage: stage,
+      interviewInfoList: interviewDayListDTOList,
+      day: day,
       currentSelect: null,
       classUrl: classUrl
     }, () => {
@@ -145,7 +145,7 @@ export default class extends React.Component {
       view = this.renderDoubleCheck()
     } else {
       // 是否已近选中
-      if (this.state.stage) {
+      if (this.state.day) {
         view = this.renderHaveChoose()
       } else {
         view = this.renderNotChoose()
@@ -177,7 +177,7 @@ export default class extends React.Component {
 
     // 获取stage
     // 用stage 换取
-    let date = this.indexToDate(this.state.stage)
+    let date = this.indexToDate(this.state.day)
     let dateDiv = <div style={chooseStyle}>{this.renderButton(`${date}群面模拟`)}</div>
 
     return (
