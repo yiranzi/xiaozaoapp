@@ -181,18 +181,18 @@ export default class extends React.Component {
     return (
       <div className='detail'>
         {answer && <span className='answer'><strong>参考答案：</strong>{answer}</span>}
-        {answer && <span className='rate'><strong>正确率：</strong>{accuracy}%（400+位内测用户总正确率）</span>}
+        <div>
+          {answer && (
+            <span className='rate'>
+              <strong>本题难度：</strong>内测获得400+回答，正确率为{accuracy}%</span>)
+          }
+        </div>
         {analysis && (
           <div className='analysis'>
             <div><strong>参考解析：</strong></div>
             <div>{this.renderMaterial(analysis)}</div>
           </div>
         )}
-        <style jsx>{`
-          .rate {
-            margin-left: 2rem;
-          }
-        `}</style>
       </div>
     )
   }
