@@ -36,19 +36,30 @@ export default class MyCheckbox extends React.Component {
     })
   }
   render () {
-    const {name, defaultValue, options} = this.props
+    const {name, defaultValue, options, disabled} = this.props
+    console.log('disabled:', disabled)
     return (
       <Form checkbox >
         {options.map((item, index) => {
           return (
             <FormCell checkbox key={index}>
               <CellHeader>
-                <Checkbox
-                  name={name}
-                  value={item.value}
-                  onClick={(e) => { this.handleChange(e) }}
-                  defaultChecked={defaultValue && defaultValue.indexOf(item.value) >= 0}
-                />
+                {disabled && (
+                  <Checkbox
+                    name={name}
+                    value={item.value}
+                    defaultChecked={defaultValue && defaultValue.indexOf(item.value) >= 0}
+                    disabled
+                  />
+                )}
+                {!disabled && (
+                  <Checkbox
+                    name={name}
+                    value={item.value}
+                    onClick={(e) => { this.handleChange(e) }}
+                    defaultChecked={defaultValue && defaultValue.indexOf(item.value) >= 0}
+                  />
+                )}
               </CellHeader>
               <CellBody>{item.label}</CellBody>
             </FormCell>

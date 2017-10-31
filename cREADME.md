@@ -4,19 +4,29 @@
 ### audio
 参数： idTag, audioUrl
 
+### button
+参数： text, bg, color, half, onClick
+
 ### card
 参数： title, content
 
-### loading
-撑满整个页面的遮罩
+### checkbox
+参数： name, defaultValue, options, disabled
+options结构：[{value: value, label: label}]
+defaultValue: 答案字符串ABC，没考虑答案是多个字符
+
+### fixFooter
+参数： content
 
 ### loading
 撑满整个页面的遮罩
 
 ### more
 超过line行折叠
-
 参数： line, title, content
+
+### motal
+######　待补全
 
 ### radio
 单选按钮
@@ -24,6 +34,9 @@
 参数： params, onChange
 
 params = {name, value, defaultValue, label, disabled}
+
+### textarea
+参数： placeholder, defaultValue, maxLength, onChange, disabled
 
 ### timedown 倒计时
 

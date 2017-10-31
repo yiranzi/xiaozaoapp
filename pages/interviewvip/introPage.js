@@ -348,12 +348,12 @@ export default class extends React.Component {
               <div className='avatar'>{this.renderAvatar()}</div>
               <div className='count'>{this.state.totalUserCount}人已经报名,限时优惠...</div>
             </div>
-            <div className='teacher-intro'>
-              <Card
-                title='特别提醒！限时砍价进行中'
-                content={this.saleInfo()}
-              />
-            </div>
+            {/*<div className='teacher-intro'>*/}
+              {/*<Card*/}
+                {/*title='特别提醒！限时砍价进行中'*/}
+                {/*content={this.saleInfo()}*/}
+              {/*/>*/}
+            {/*</div>*/}
             <div className='intro'>
               <More
                 title='课程介绍'

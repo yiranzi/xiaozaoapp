@@ -51,8 +51,6 @@ export default class extends React.Component {
     const name = `answer_${index}`
     const options = DTOList[index].optionDTOList
 
-    console.log('answerList:', answerList)
-
     return options.map((item, i) => {
       const {tag, content} = item
       const params = {

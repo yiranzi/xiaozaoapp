@@ -7,16 +7,20 @@ import DataUtil from '../../util/data'
 import Radio from '../../components/radio'
 import CheckBox from '../../components/checkbox'
 import Uploader from '../../components/uploader'
+import FixFooter from '../../components/fixfooter'
 import TextArea from '../../components/textarea'
 import Audio from '../../components/audio'
 import Video from '../../components/video'
 import WxRecord from '../../components/wxrecord'
 import Loading from '../../components/loading'
+import Back from '../../components/back'
+import ThemeConfig from '../../config/theme'
 
 export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+      limitTime: new Date(),
       currentIndex: 0, // 当前是第几题
       noPrev: true,
       noNext: this.props.questionList.interviewTopicDTOList.length <= 1,
@@ -24,10 +28,13 @@ export default class extends React.Component {
       localIdList: {},
       isSubmit: false,
       isRecording: false,
-      isPlaying: false
+      isPlaying: false,
+      isShowResource: true,
+      scrollTop: 0
     }
   }
   renderMaterialItem (item) {
+    if (!item) { return item }
     // 图片材料
     if (ToolsUtil.isImg(item)) {
       return <img src={item} />
@@ -47,22 +54,28 @@ export default class extends React.Component {
   // render不同类型的材料
   renderMaterial (material) {
     const _this = this
-
-    // meterial 返回结果有两种，一种是文字材料(字符串)，另一种是“['mp3', 'img', 'mp4']”
-    // eslint-disable-next-line
-    let meterialArray = eval(material)
-
-    if (meterialArray) {
-      // 是一个数组
-      return meterialArray.map((item, index) => {
+    try {
+      // meterial 返回结果有两种，一种是文字材料(字符串)，另一种是“['mp3', 'img', 'mp4']”
+      // eslint-disable-next-line
+      let meterialArray = eval(material)
+      if (meterialArray) {
+        // 是一个数组
+        return meterialArray.map((item, index) => {
+          return (
+            <div key={index} className='meterial-item'>
+              {_this.renderMaterialItem(item)}
+            </div>
+          )
+        })
+      } else {
+        // 字符串
         return (
-          <div key={index} className='meterial-item'>
-            {_this.renderMaterialItem(item)}
+          <div className='meterial-item'>
+            {_this.renderMaterialItem(material)}
           </div>
         )
-      })
-    } else {
-      // 字符串
+      }
+    } catch (e) {
       return (
         <div className='meterial-item'>
           {_this.renderMaterialItem(material)}
@@ -70,7 +83,38 @@ export default class extends React.Component {
       )
     }
   }
-
+  renderResourceGroup (resource) {
+    const content = (
+      <Button className='enter' onClick={() => { this.toTask() }}>答 题</Button>
+    )
+    return (
+      <div className='resource'>
+        <div className='title'>阅读材料</div>
+        <div className='content'>{this.renderMaterial(resource)}</div>
+        <FixFooter content={content} />
+        <style jsx>{`
+          .title {
+            font-weight: bold;
+            margin-top: 1rem;
+            border-bottom: 1px solid #e5e5e5;
+            padding-bottom: 0.5rem;
+          }
+          .content {
+            margin-bottom: 5rem;
+          }
+        `}</style>
+      </div>
+    )
+  }
+  toTask () {
+    this.setState({isShowResource: false, scrollTop: window.scrollY})
+  }
+  toMaterial () {
+    const { scrollTop } = this.state
+    this.setState({isShowResource: true}, () => {
+      window.scrollTo(0, scrollTop)
+    })
+  }
   formatOptions (optionDTOList) {
     return optionDTOList.map((item, index) => {
       const {tag, content} = item
@@ -135,7 +179,6 @@ export default class extends React.Component {
     } else if (ToolsUtil.isRecord(type)) {
       const {isRecording, isPlaying} = this.state
       defaultValue = localIdList ? localIdList[id] : ''
-      console.log('defaultValue:', defaultValue)
       const name = `answer_${currentIndex}`
       return (
         <WxRecord
@@ -162,13 +205,12 @@ export default class extends React.Component {
 
     return (
       <div className='dto-list'>
-        <div className='material'>
-          <div className='title'>材料</div>
-          {/* <div className='content'>{this.renderMaterial(material)}</div> */}
-        </div>
         <div className='pratice'>
-          <div className='title'>练习</div>
+          <div className='title'>
+            <div onClick={() => { this.toMaterial() }}><Back direct='left' text='查看材料' /></div>
+          </div>
           <div className='content'>
+            {this.renderMaterial(material)}
             <div className='question'>{dtoItem.no}、{dtoItem.question}</div>
             <div className='options'>
               {this.renderAnswerOption(id, dtoItem)}
@@ -195,8 +237,13 @@ export default class extends React.Component {
         </div>
         <style jsx>{`
           .title {
-            font-weight: bold;
+            color: ${ThemeConfig.color.blue};
             margin: 1rem 0;
+          }
+          .title span {
+            border: 1px solid ${ThemeConfig.color.blue};
+            padding: 0.25rem 0.5rem;
+            border-radius: 1rem;
           }
           .material .title {
             display: flex;
@@ -218,6 +265,7 @@ export default class extends React.Component {
             padding: 1rem 2rem;
             box-sizing: border-box;
             background: #F9F9F9;
+            z-index: 99;
           }
           .prev, .next {
             flex: 1;
@@ -272,24 +320,26 @@ export default class extends React.Component {
       if (ToolsUtil.isUploader(type)) {
         // 图片还没有上传
         if (answerList[id] && answerList[id].indexOf('xiaozaoresource') < 0) {
+          this.setState({isSubmit: true})
           let uuid = DataUtil.uuid(11)
           let formdata = DataUtil.imgFormat(answerList[id], uuid, 'jpg')
-          console.log('上传图片')
           await AxiosUtil.post('/api/interview/uploadImage', formdata)
           this.onChange(id, `http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/interview/image/${uuid}.jpg`)
+          this.setState({isSubmit: false})
           this.goToNextTopic(currentIndex, questionLength)
         } else {
           this.goToNextTopic(currentIndex, questionLength)
         }
       } else if (ToolsUtil.isRecord(type)) {
-        console.log('上传音频')
         // 如果有录音，而且是localId, 上传
-        if (answerList[id] && answerList[id].indexOf('wxLocalResource') >= 0) {
-          console.log('开始上传')
+        // 专门处理－－－－－安卓和ios不同情况
+        if (answerList[id] && (answerList[id].indexOf('wxLocalResource') >= 0 || answerList[id].indexOf('weixin://resourceid') >= 0)) {
+          this.setState({isSubmit: true})
           this.refs.wxRecord.uploadVoice(answerList[id], (localId, serverId) => {
             if (serverId) {
               _this.updateLocalId(id, localId) // 这个是为了保存音频的localId
               _this.onChange(id, serverId)
+              _this.setState({isSubmit: false})
               this.goToNextTopic(currentIndex, questionLength)
             }
           })
@@ -313,9 +363,8 @@ export default class extends React.Component {
     }
   }
 
-  formatAnswerList () {
+  formatAnswerList (answerList) {
     const {questionList} = this.props
-    const {answerList} = this.state
     return questionList.interviewTopicDTOList.map((item, index) => {
       let id = item.id
       let answer = answerList ? answerList[id] : ''
@@ -324,32 +373,24 @@ export default class extends React.Component {
   }
 
   answerComplete = async () => {
-    const {answerList} = this.state
-    const {interviewTopicDTOList} = this.props.questionList
-
-    if (Object.keys(answerList).length < interviewTopicDTOList.length) {
-      alert('有部分题目未完成，请检查后重新')
-      return
-    }
+    let comfirmMessage = confirm('确认提交？')
+    if (comfirmMessage === false) { return false }
+    const {answerList, limitTime} = this.state
 
     const {topicKey} = this.props.questionList
-    let answerListArray = this.formatAnswerList()
+    let answerListArray = this.formatAnswerList(answerList)
 
     try {
       this.setState({isSubmit: true})
-      console.log(1)
-      alert(JSON.stringify(answerListArray))
       const data = JSON.stringify({
         answerDTOList: answerListArray,
-        time: 30,
+        time: new Date() - limitTime,
         topicKey: topicKey
       })
-      console.log(3)
       this.setState({isSubmit: true})
 
       await AxiosUtil.post('/api/interview/complete', data)
-      alert('提交成功')
-      // location.href = `/interview/result?topicKey=${topicKey}`
+      location.href = `/interviewvip/result?topicKey=${topicKey}`
     } catch (e) {
       this.setState({isSubmit: false})
       alert('提交失败，请重新提交')
@@ -391,9 +432,7 @@ export default class extends React.Component {
       }, () => {
         console.log(JSON.stringify(answerList))
       })
-    }
-    // eslint-disable-next-line
-    if (value.indexOf('wxLocalResource') >= 0 || value.indexOf('weixin://resourceid') >= 0) {
+    }else if (value.indexOf('wxLocalResource') >= 0 || value.indexOf('weixin://resourceid') >= 0) {
       this.setState({isRecording: false}, () => {
         this.refs.wxRecord.uploadVoice(value, (localId, serverId) => {
           if (serverId) {
@@ -410,14 +449,6 @@ export default class extends React.Component {
           }
         })
       })
-    }
-  }
-
-  // 如果最后一题是录音或者是上传图片，直接上传
-  onChange (id, value) {
-    const {noNext} = this.state
-    if (noNext) {
-      this.checkIfIsLast(id, value)
     } else {
       let {answerList} = this.state
       answerList[id] = answerList[id] || {}
@@ -430,20 +461,51 @@ export default class extends React.Component {
     }
   }
 
+  // 如果最后一题是录音或者是上传图片，直接上传
+  onChange (id, value) {
+    const {noNext} = this.state
+    if (noNext) {
+      this.checkIfIsLast(id, value)
+    } else {
+      let {answerList} = this.state
+      answerList[id] = answerList[id] || {}
+      answerList[id] = value
+      // 如果是音频更新localId
+      if (value.indexOf('wxLocalResource') >= 0 || value.indexOf('weixin://resourceid') >= 0) {
+        this.updateLocalId(id, value)
+      }
+      this.setState({
+        answerList: answerList
+      }, () => {
+        console.log(JSON.stringify(answerList))
+      })
+    }
+  }
+
   render () {
-    const {isSubmit} = this.state
-    const {questionList} = this.props // 题目详情
-    const {interviewTopicDTOList} = questionList // interviewTopicDTOList 题目内容数组
-    let questionLength = interviewTopicDTOList.length
+    const {isSubmit, isShowResource} = this.state
+    const {questionList} = this.props // 所有题目信息
+    const {interviewTopicDTOList, resource} = questionList // interviewTopicDTOList 题目内容数组
+    let questionLength = interviewTopicDTOList.length // 总共有多少题目
 
     return (
       <div className='task'>
         {isSubmit && <Loading />}
-        {this.renderDTOList(interviewTopicDTOList, questionLength)}
+        {isShowResource && this.renderResourceGroup(resource)}
+        {!isShowResource && this.renderDTOList(interviewTopicDTOList, questionLength)}
         <style global jsx>{`
+          .meterial-item {
+            margin-bottom: 1rem;
+            font-weight: bold;
+          }
           /* 图片材料样式 */
           .meterial-item img {
             width: 100%;
+          }
+          .weui-btn_primary.enter,
+          .weui-btn_primary.enter:not(.weui-btn_disabled):active {
+            width: 50%;
+            background-color: ${ThemeConfig.color.blue};
           }
         `}</style>
       </div>

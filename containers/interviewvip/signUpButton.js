@@ -69,13 +69,13 @@ export default class extends React.Component {
             width: 50%;
           }
           .price-button1 {
-            background-color: ${ThemeConfig.color.blue} !important;
+            background-color: #fe0000 !important;
           }
           .price-button2 {
             background-color: #ff5d5d !important;
           }
           .price-button3 {
-            background-color: #fe0000 !important;
+            background-color: ${ThemeConfig.color.blue} !important;
           }
         `}</style>
       </div>
@@ -87,15 +87,14 @@ export default class extends React.Component {
     // 1是否购买
     if (this.props.payStatus) {
       // 2是否开课, 根据不同的状态判断
-      console.log('canEnter:', this.props.canEnter)
       arr.push(this.renderFreeTry(true))
       arr.push(this.renderEnter(this.props.canEnter))
     } else {
       arr.push(this.renderFreeTry())
       if (this.props.canBuy) {
-        arr.push(this.renderCut1())
-        arr.push(this.renderCut2())
         arr.push(this.renderCut3())
+        arr.push(this.renderCut2())
+        arr.push(this.renderCut1())
       } else {
         arr.push(this.renderHaveClosed())
       }
@@ -124,7 +123,7 @@ export default class extends React.Component {
   }
   renderCut1 () {
     return (
-      <Button className='price-button1' onClick={() => { this.goPath('https://h5.youzan.com/v2/goods/2frl13591n7m9') }}>299拼团</Button>
+      <Button className='price-button1' onClick={() => { this.goPath('https://h5.youzan.com/v2/goods/2frl13591n7m9') }}>299拼团<img src='https://pic.sopili.net/pub/emoji/twitter/2/72x72/1f525.png' style={{width: '20px', height: '20px'}} /></Button>
     )
   }
   renderCut2 () {
@@ -144,12 +143,10 @@ export default class extends React.Component {
 
   // 组件回调父组件
   onClickButton () {
-    console.log('click')
     this.props.onClickButton()
   }
 
   goPath (goPath) {
-    console.log(goPath)
     location.href = goPath
   }
 }

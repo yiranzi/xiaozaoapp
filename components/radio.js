@@ -37,6 +37,9 @@ export default class Layout extends React.Component {
             color: #108ee9 !important;
             font-size: 23px !important;
           }
+          [class^="weui-icon-"]:before, [class*=" weui-icon-"]:before {
+            margin-left: 0 !important;
+          }
           .weui-cells_radio .weui-icon-checked:before {
             content: '\\EA01';
             color: #C9C9C9;
@@ -57,7 +60,7 @@ export default class Layout extends React.Component {
             border-bottom: none !important;
           }
           .weui-cell {
-            padding: 10px 0 !important;
+            padding: 5px 0 !important;
             align-items: flex-start !important;
           }
           .weui-cells_radio .weui-cell__ft {

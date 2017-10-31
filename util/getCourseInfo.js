@@ -1,15 +1,19 @@
 import AxiosUtil from '../util/axios'
 
+// 付费状态
 let payStatus = null
 
+// 整理后的list
 let groupArrayInfo = [
 ]
+
+let userInfo = {}
 
 let courseInfo = {
 
 }
 
-courseInfo.makeGroupArray = function (list, type) {
+courseInfo.makeGroupArray = function (list) {
   let currentGroupName = ''
   let currentElementName = ''
   let groupLength = -1
@@ -25,7 +29,8 @@ courseInfo.makeGroupArray = function (list, type) {
       // 通用的构造流程
       // 新建组
       let group = {}
-      group.groupName = currentElement.groupName + currentElement.title
+      // group.groupName = currentElement.groupName + currentElement.title
+      group.groupName = currentElement.groupName
       group.group = []
       group.group.push(currentElement)
       groupArrayInfo.push(group)
@@ -34,10 +39,8 @@ courseInfo.makeGroupArray = function (list, type) {
       groupArrayInfo[groupLength].group.push(currentElement)
     }
     // 特殊构建
-    if (type === 'list') {
-      let ifChange = courseInfo.setTopicStatus(currentElement, isDoingTag)
-      isDoingTag = ifChange ? true : isDoingTag
-    }
+    let ifChange = courseInfo.setTopicStatus(currentElement, isDoingTag)
+    isDoingTag = ifChange ? true : isDoingTag
   })
 }
 
@@ -97,11 +100,9 @@ courseInfo.isLast = function (topicKey) {
             show: false
           }
         } else {
-          console.log('下一章')
-          findResult = courseInfo.getNext(++targetGroupIndex, 0, '下一章')
+          findResult = courseInfo.getNext(++targetGroupIndex, 0, '下一模块')
         }
       } else {
-        console.log('下一节')
         findResult = courseInfo.getNext(targetGroupIndex, ++targetElementIndex, '下一节')
       }
       // 查找到则退出.
@@ -110,15 +111,13 @@ courseInfo.isLast = function (topicKey) {
   })
 
   if (findResult) {
-    console.log(findResult)
     return findResult
   } else {
     // 未找到
-    console.log('not found')
     return ({
-      taskUrl: '123',
-      word: '按钮',
-      show: true
+      taskUrl: '',
+      word: '',
+      show: false
     })
   }
 }
@@ -150,13 +149,13 @@ courseInfo.getNext = (groupIndex, elementIndex, buttonWord) => {
 
  */
 
-courseInfo.getList = async (pageType) => {
+courseInfo.getList = async () => {
   return new Promise((resolve, reject) => {
     AxiosUtil.get('/api/interview/getList').then((res) => {
       // 1 set pay status
       payStatus = true
       // 2 new array by group
-      courseInfo.makeGroupArray(res, pageType)
+      courseInfo.makeGroupArray(res)
       // 3 return group array
       resolve(groupArrayInfo)
     }).catch((e) => {
@@ -168,7 +167,24 @@ courseInfo.getList = async (pageType) => {
   })
 }
 
+courseInfo.getUserInfoAndList = async () => {
+  return new Promise((resolve, reject) => {
+    AxiosUtil.get('/api/interview/userInfo').then((res) => {
+      // 1 set pay status
+      payStatus = true
+      // 2 new array by group
+      courseInfo.makeGroupArray(res.interviewListDetailDTOList)
+      userInfo.nickName = res.nickname
+      // 3 return group array
+      resolve(groupArrayInfo)
+    })
+  })
+}
+
 // get
+courseInfo.getUserInfo = function () {
+  return userInfo
+}
 
 courseInfo.getPayStatus = function () {
   return payStatus

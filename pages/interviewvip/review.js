@@ -2,7 +2,6 @@ import React from 'react'
 import AxiosUtil from '../../util/axios'
 import ToolsUtil from '../../util/tools'
 import InterviewLayout from '../../containers/interview/layout'
-import Task from '../../containers/interviewvip/task'
 import Review from '../../containers/interviewvip/review'
 
 export default class extends React.Component {
@@ -22,6 +21,7 @@ export default class extends React.Component {
     try {
       questionList = await AxiosUtil.get(`/api/interview/getByTopicKey/${topicKey}`)
 
+
       this.setState({
         questionList: questionList,
         isRender: false
@@ -35,13 +35,16 @@ export default class extends React.Component {
     }
   }
 
+  renderTask () {
+    const {questionList} = this.state
+    return <Review questionList={questionList} />
+  }
+
   render () {
-    const {isRender, questionList, error} = this.state
-    const {answerDTOList} = questionList
+    const {isRender, error} = this.state
     return (
       <InterviewLayout isRender={isRender} error={error}>
-        {answerDTOList && answerDTOList.length > 0 && <Review questionList={questionList} />}
-        {answerDTOList && answerDTOList.length === 0 && <Task questionList={questionList} />}
+        <div>{this.renderTask()}</div>
       </InterviewLayout>
     )
   }
