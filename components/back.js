@@ -14,6 +14,8 @@ export default class MyBack extends React.Component {
             border-radius: 1rem;
             display: inline-block;
             position: relative;
+            font-size: 14px;
+            color: #117ee9;
           }
           span.left::before {
             content: '◂';
