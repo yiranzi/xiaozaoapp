@@ -1,41 +1,32 @@
 import React from 'react'
+import {render, unmountComponentAtNode} from 'react-dom'
 
-export default class extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      isShow: true
-    }
-  }
+class ConfirmDom extends React.Component {
   ok () {
     const {ok} = this.props
     if (ok) {
       ok()
-    } else {
-      this.setState({isShow: false})
     }
+    close()
   }
   cancel () {
     const {cancel} = this.props
     if (cancel) {
       cancel()
-    } else {
-      this.setState({isShow: false})
     }
+    close()
   }
   render () {
-    let {isShow} = this.state
     let { content, okText, cancelText } = this.props
     okText = okText || '确认'
     cancelText = cancelText || '取消'
-    if (!isShow) return <div />
     return (
       <div className='confirm'>
         <div className='dialog'>
           {content && <div className='content'>{content}</div>}
           <div className='action'>
             <div className='cancel' onClick={() => { this.cancel() }}>{cancelText}</div>
-            <div className='ok' onClick={() => { this.cancel() }}>{okText}</div>
+            <div className='ok' onClick={() => { this.ok() }}>{okText}</div>
           </div>
         </div>
         <style jsx>{`
@@ -79,4 +70,18 @@ export default class extends React.Component {
       </div>
     )
   }
+}
+
+function close () {
+  const target = document.getElementById('xz-confirm')
+  unmountComponentAtNode(target)
+  target.parentNode.removeChild(target)
+}
+
+export function Confirm (properties) {
+  document.body.children[0].classList.add('xz-confirm-blur')
+  let divTarget = document.createElement('div')
+  divTarget.id = 'xz-confirm'
+  document.body.appendChild(divTarget)
+  render(<ConfirmDom {...properties} />, divTarget)
 }
