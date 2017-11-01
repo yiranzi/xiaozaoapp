@@ -34,7 +34,7 @@ export default class Layout extends React.Component {
         <style global jsx>{`
           .weui-cells_radio .weui-check:checked+.weui-icon-checked:before {
             content: '\\EA06' !important;
-            color: #108ee9 !important;
+            color: #117ee9 !important;
             font-size: 23px !important;
           }
           [class^="weui-icon-"]:before, [class*=" weui-icon-"]:before {
