@@ -83,14 +83,45 @@ export default class MyCheckbox extends React.Component {
           .weui-cell:before {
             border-top: none !important;
           }
+          .weui-cells_checkbox .weui-icon-checked {
+            position: relative;
+          }
+          /*复选框方框样式*/
+          .weui-cells_checkbox .weui-icon-checked {
+            width: 20px;
+            height: 20px;
+          }
+          /*复选框方框未选中样式*/
           .weui-cells_checkbox .weui-icon-checked:before {
-            content: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo4ODAzNGIxZi04YTUwLTgxNDAtODhkMy0zMmFhYzBmZDEzOGMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6REE0OEJEN0RCRTE4MTFFNzgyOTJBNTI3NzZGMkVFOTUiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6REE0OEJEN0NCRTE4MTFFNzgyOTJBNTI3NzZGMkVFOTUiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NDRmYWRjYjUtMGQ4Ny03YzQyLThhYjUtYThiNmI4Mjc3YWYwIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjg4MDM0YjFmLThhNTAtODE0MC04OGQzLTMyYWFjMGZkMTM4YyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PnfHPRwAAAAySURBVHjaYjx79ux/BioDFijNSEUz/zMx0ACMGjpq6Kiho4aOGjqIDYVVJ1StpwACDADvhQWT1xhDAwAAAABJRU5ErkJggg==') !important;
+            content: '' !important;
+            height: 100%;
+            width: 100%;
+            border: 1px solid #e5e5e5;
+            position: absolute;
+            top: 0;
+            left: 0;
           }
           .weui-check__label:active {
             background-color: transparent !important;
           }
+          /*复选框方框选中样式*/
           .weui-cells_checkbox .weui-check:checked+.weui-icon-checked:before {
-            content: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAIAAAAmdTLBAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo4ODAzNGIxZi04YTUwLTgxNDAtODhkMy0zMmFhYzBmZDEzOGMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6Q0ZGNzdBOERCREU0MTFFNzlGMjFFM0UzQTA2MEMzQkQiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6Q0ZGNzdBOENCREU0MTFFNzlGMjFFM0UzQTA2MEMzQkQiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6ODgwMzRiMWYtOGE1MC04MTQwLTg4ZDMtMzJhYWMwZmQxMzhjIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjg4MDM0YjFmLThhNTAtODE0MC04OGQzLTMyYWFjMGZkMTM4YyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PnHkGJ8AAACoSURBVHjaYhSse8lAAWBioAyM6qen/nIH7h4fXmQRFpI060mxxK34SI5+oGYXVTa/BR/+/mMgWT9Qc6g+h8ec999//yfg/3JH7nmh/KLcTMiak804wxZ/ePP1H+Hw69z/9eabP0eyhfy12SGa82y4Ipd9vPfuL1anYXE/0AggOT+MH0gCfQsMsLNPfpMWf0AjOg+ATKne8Xn7zZ94goZxNP8OqH6AAAMAPgs69BBGjF4AAAAASUVORK5CYII=') !important;
+            content: '\\EA08' !important;
+            height: 100%;
+            width: 100%;
+            background-color: #117ee9;
+            color: #fff !important;
+            font-size: 16px;
+            border: 1px solid #117ee9;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            top: 0;
+            left: 0;
+          }
+          .weui-cell__bd {
+            margin-left: 1rem;
           }
         `}</style>
       </Form>
