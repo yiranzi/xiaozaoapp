@@ -97,6 +97,7 @@ export default class MyCheckbox extends React.Component {
             height: 100%;
             width: 100%;
             border: 1px solid #e5e5e5;
+            box-sizing: border-box;
             position: absolute;
             top: 0;
             left: 0;
@@ -113,6 +114,7 @@ export default class MyCheckbox extends React.Component {
             color: #fff !important;
             font-size: 16px;
             border: 1px solid #117ee9;
+            box-sizing: border-box;
             position: absolute;
             display: flex;
             justify-content: center;
