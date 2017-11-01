@@ -6,13 +6,23 @@ import ToolsUtil from '../../util/tools'
 import Navbar from '../../containers/job/navbar'
 import DateUtil from '../../util/date'
 import { Panel, PanelHeader, PanelBody, MediaBox, MediaBoxHeader, MediaBoxTitle,
-  MediaBoxBody, MediaBoxDescription, Button, LoadMore} from 'react-weui'
+  MediaBoxBody, MediaBoxDescription, Button, LoadMore, Toast} from 'react-weui'
 
 export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       job: null,
+      toptips: {
+        type: null,
+        show: false,
+        msg: null,
+        callback: function () {
+          _this.state.toptips.show = false
+        }
+      },
+      showToast: false,
+      toastTimer: null,
       isRender: true,
       dataState: 'none', /* none 未加载，loading 正在加载，null 没有数据，more 继续加载 */
       error: ''
@@ -20,12 +30,18 @@ export default class extends React.Component {
   }
 
   componentDidMount = async () => {
+    this.loadJobData()
+  }
+
+  componentWillUnmount () {
+    this.state.toastTimer && clearTimeout(this.state.toastTimer)
+  }
+
+  loadJobData = async () => {
     this.setState({dataState: 'loading'})
     const jobId = ToolsUtil.getQueryString('jobId')
     try {
       let job = await AxiosUtil.get(`/api/private/job/${jobId}`)
-      console.log(job)
-
       this.setState({
         job: job,
         isRender: false
@@ -38,8 +54,27 @@ export default class extends React.Component {
     }
   }
 
-  handleCollectionClick () {
-
+  handleCollectionClick = async (e, jobId, collection) => {
+    try {
+      let ret = await AxiosUtil.get(`/api/collection/${jobId}`)
+      this.state.job.collection = !collection
+      this.setState({
+        showToast: true,
+        job: this.state.job
+      })
+      const _this = this
+      this.state.toastTimer = setTimeout(() => {
+        _this.setState({showToast: false})
+      }, 2000)
+    } catch (e) {
+      let toptips = this.state.toptips
+      toptips.type = 'warn'
+      toptips.show = true
+      toptips.msg = e.message
+      this.setState({
+        toptips: toptips
+      })
+    }
   }
 
   handleMailingClick () {
@@ -159,6 +194,11 @@ export default class extends React.Component {
         <PanelBody>
           <MediaBox type='text'>
             <div className='job-des' dangerouslySetInnerHTML={{__html: job.des}} />
+            <br />
+            {job.endTime &&
+              <p className='job-endtime'>
+                截止时间：{DateUtil.format(job.endTime, 'yyyy-MM-dd')}</p>
+            }
           </MediaBox>
         </PanelBody>
         <style jsx>{`
@@ -169,6 +209,10 @@ export default class extends React.Component {
             padding-left: 8px;
             border-left: solid #2196f3 5px;
             font-weight: bold;
+          }
+          .job-endtime {
+            padding-top: 5px;
+            border-top: 1px solid #ddd;
           }
         `}</style>
         <style global jsx>{`
@@ -186,31 +230,49 @@ export default class extends React.Component {
   }
 
   renderMailingTabbar () {
-    return <div className='wx-bottom-fixed'>
-      <Button className='wx-pull-left collection-btn' type='primary' plain
-        onClick={e => this.handleCollectionClick()}>★☆</Button>
-      <Button className='wx-pull-right mailing-btn'
-        onClick={e => this.handleMailingClick()}>立即投递</Button>
-      <style global jsx>{`
-        .wx-bottom-fixed {
-          border-top: 1px solid #ddd;
-          height: 45px;
+    const {job} = this.state
+    if (job) {
+      const isOnlineApply = !ToolsUtil.strIsEmpty(job.mailingUrl)
+      return <div className='wx-bottom-fixed'>
+        <Button className='wx-pull-left collection-btn' type='primary' plain
+          onClick={e => this.handleCollectionClick(e, job.jobId, job.collection)}>
+          {job.collection ? '★' : '☆' }</Button>
+        {isOnlineApply &&
+        <a href={job.mailingUrl}>
+          <Button className='wx-pull-right mailing-btn'
+            onClick={e => this.handleMailingClick()}>网申地址</Button></a>
         }
-      `}</style>
-      <style global jsx>{`
-        .collection-btn {
-          width: 30% !important;
-          border-width: 0 !important;
+        {!isOnlineApply && job.status === 1 &&
+          <Button className='wx-pull-right mailing-btn'
+            onClick={e => this.handleMailingClick()}>立即投递</Button>
         }
-        .mailing-btn {
-          width: 70% !important;
-          margin-top: 0 !important;
-          border-width:0 0 0 1px !important;
-          border-color: #ddd !important;
-          border-radius: 0 !important;
+        {!isOnlineApply && job.status === 2 &&
+          <Button className='wx-pull-right mailing-btn' disabled>已投递</Button>
         }
-      `}</style>
-    </div>
+        {!isOnlineApply && job.status > 2 &&
+          <Button className='wx-pull-right mailing-btn' disabled>立即投递</Button>
+        }
+        <style global jsx>{`
+          .wx-bottom-fixed {
+            border-top: 1px solid #ddd;
+            height: 45px;
+          }
+        `}</style>
+        <style global jsx>{`
+          .collection-btn {
+            width: 30% !important;
+            border-width: 0 !important;
+          }
+          .mailing-btn {
+            width: 70% !important;
+            margin-top: 0 !important;
+            border-width:0 0 0 1px !important;
+            border-color: #ddd !important;
+            border-radius: 0 !important;
+          }
+        `}</style>
+      </div>
+    }
   }
 
   render () {
@@ -222,23 +284,33 @@ export default class extends React.Component {
       href: '/job/internship',
       name: '主页'
     }
-    return (
-      <JobLayout>
-        <Navbar fixed leftbar={leftbar} rightbar={rightbar} navtitle='职位详情' />
-        <br /><br />
-        <div className='job-detail'>
-          {this.renderJobTitle()}
-          {this.renderCompanyDetail()}
-          {this.renderJobDetail()}
-        </div>
-        <br /><br />
-        {this.renderMailingTabbar()}
-        <style global jsx>{`
+    const {job} = this.state
+    const isDown = (job && (job.status === 3 || job.status === 4 ||
+      job.status === 5 || job.status === 6))
+    return <JobLayout toptips={this.state.toptips}>
+      <Navbar fixed leftbar={leftbar} rightbar={rightbar} navtitle='职位详情' />
+      <br /><br />
+      {isDown &&
+      <div className='job-expire wx-text-center' id='jobisDown'>提示：该职位信息已下线</div>
+      }
+      <div className='job-detail'>
+        {this.renderJobTitle()}
+        {this.renderCompanyDetail()}
+        {this.renderJobDetail()}
+      </div>
+      <br /><br />
+      {this.renderMailingTabbar()}
+      <Toast icon='success-no-circle' show={this.state.showToast}>
+        {(this.state.job && this.state.job.collection) ? '收藏成功' : '取消收藏成功'}</Toast>
+      <style global jsx>{`
+          .job-expire {
+            background-color: #F26A6A;
+            color: #fff;
+          }
           .job-detail {
 
           }
         `}</style>
-      </JobLayout>
-    )
+    </JobLayout>
   }
 }

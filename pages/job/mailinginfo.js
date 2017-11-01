@@ -5,15 +5,32 @@ import ThemeConfig from '../../config/theme'
 import ToolsUtil from '../../util/tools'
 import { Button, Panel, PanelHeader, PanelBody, CellHeader, Checkbox,
   Form, CellsTitle, FormCell, CellBody, CellFooter, CellsTips,
-  TextArea, Input } from 'react-weui'
+  TextArea, Input, Toast } from 'react-weui'
 
 export default class extends React.Component {
   constructor (props) {
     super(props)
+    const _this = this
     this.state = {
       user: null,
       job: null,
       resumeList: null,
+      mailingObj: {
+        jobId: null,
+        mailBody: null,
+        resumeTypeDTOList: [],
+        title: null
+      },
+      toptips: {
+        type: null,
+        show: false,
+        msg: null,
+        callback: function () {
+          _this.state.toptips.show = false
+        }
+      },
+      showToast: false,
+      toastTimer: null,
       isRender: true,
       dataState: 'none', /* none 未加载，loading 正在加载，null 没有数据，more 继续加载 */
       error: ''
@@ -21,16 +38,19 @@ export default class extends React.Component {
   }
 
   componentDidMount = async () => {
+    this.state.mailingObj.jobId = ToolsUtil.getQueryString('jobId')
     this.loadUserData()
     this.loadJobData()
     this.loadResumeListData()
   }
 
+  componentWillUnmount () {
+    this.state.toastTimer && clearTimeout(this.state.toastTimer)
+  }
+
   loadUserData = async () => {
     try {
       let user = await AxiosUtil.get('/api/user')
-      console.log(user)
-
       this.setState({
         user: user
       })
@@ -45,8 +65,6 @@ export default class extends React.Component {
     const jobId = ToolsUtil.getQueryString('jobId')
     try {
       let job = await AxiosUtil.get(`/api/private/job/${jobId}`)
-      console.log(job)
-
       this.setState({
         job: job,
         isRender: false
@@ -62,8 +80,6 @@ export default class extends React.Component {
   loadResumeListData = async () => {
     try {
       let resumeList = await AxiosUtil.get('/api/resume')
-      console.log(resumeList)
-
       this.setState({
         resumeList: resumeList
       })
@@ -72,6 +88,61 @@ export default class extends React.Component {
         error: e.message
       })
     }
+  }
+
+  /*
+  * 提交投递信息
+  * */
+  mailing = async () => {
+    let toptips = this.state.toptips
+    try {
+      if (ToolsUtil.strIsEmpty(this.state.mailingObj.title)) {
+        toptips.type = 'warn'
+        toptips.show = true
+        toptips.msg = '请输入邮件标题（长度不超过100个字）'
+      } else if (this.state.mailingObj.resumeTypeDTOList.length <= 0) {
+        toptips.type = 'warn'
+        toptips.show = true
+        toptips.msg = '请选择简历'
+      } else {
+        const ret = await AxiosUtil.post('/api/mailing/sendResume', this.state.mailingObj)
+        if (ret) {
+          this.setState({showToast: true})
+          this.state.toastTimer = setTimeout(() => {
+            location.href = '/job?jobId=' + this.state.mailingObj.jobId
+          }, 2000)
+        }
+      }
+    } catch (e) {
+      toptips.type = 'warn'
+      toptips.show = true
+      toptips.msg = e.message
+    }
+    this.setState({
+      toptips: toptips
+    })
+  }
+
+  changeHandle (e, field) {
+    this.state.mailingObj[field] = e.target.value
+    this.setState({
+      mailingObj: this.state.mailingObj
+    })
+  }
+
+  checkboxChangeHandle (e, id, fromType) {
+    if (e.target.checked) {
+      this.state.mailingObj.resumeTypeDTOList.push({fromType: fromType, id: id})
+    } else {
+      this.state.mailingObj.resumeTypeDTOList.map((item, index) => {
+        if (item != null && item.id === id) {
+          this.state.mailingObj.resumeTypeDTOList.splice(index, 1)
+        }
+      })
+    }
+    this.setState({
+      mailingObj: this.state.mailingObj
+    })
   }
 
   renderHeadInfo () {
@@ -104,7 +175,8 @@ export default class extends React.Component {
           <CellsTitle>邮件标题：</CellsTitle>
           <FormCell>
             <CellBody>
-              <Input className='input-text' type='text' placeholder='' />
+              <Input className='input-text' type='text' placeholder=''
+                onChange={e => this.changeHandle(e, 'title')} />
             </CellBody>
           </FormCell>
           <CellsTips>该职位HR要求邮件标题格式为：{job.demand}</CellsTips>
@@ -114,8 +186,9 @@ export default class extends React.Component {
             href='https://shimo.im/doc/BDtNgrI5SWwpnsyc/'>如何写好一份求职信?</a></CellsTitle>
           <FormCell>
             <CellBody>
-              <TextArea className='input-textarea'
-                placeholder='求职信可以撰写自我介绍、对该公司和岗位的认识、自己的能力和优势等。' rows='3' />
+              <TextArea className='input-textarea' rows='3'
+                placeholder='求职信可以撰写自我介绍、对该公司和岗位的认识、自己的能力和优势等。'
+                onChange={e => this.changeHandle(e, 'mailBody')} />
             </CellBody>
           </FormCell>
           <CellsTips>选填，填写高质量求职信可大大提升求职成功率</CellsTips>
@@ -140,7 +213,8 @@ export default class extends React.Component {
       const listElement = resumeList.map((item, index) => {
         return <FormCell checkbox key={index}>
           <CellHeader>
-            <Checkbox name={item.name} value={item.id} />
+            <Checkbox name={item.name} value={item.id}
+              onChange={e => this.checkboxChangeHandle(e, item.id, item.fromType)} />
           </CellHeader>
           <CellBody className='resume-name'>{item.name}</CellBody>
           <CellFooter>
@@ -171,7 +245,7 @@ export default class extends React.Component {
   render () {
     const {job} = this.state
     return (
-      <JobLayout>
+      <JobLayout toptips={this.state.toptips}>
         <div className='job-list'>
           <Panel className='job-panel'>
             <PanelHeader className='head-info'>
@@ -181,10 +255,11 @@ export default class extends React.Component {
               {this.renderMailingInfo()}
               {this.renderResumeList()}
               <div className='button-sp-area'>
-                {job && <Button>立即投递</Button>}
+                {job && <Button onClick={this.mailing}>立即投递</Button>}
               </div>
             </PanelBody>
           </Panel>
+          <Toast icon='success-no-circle' show={this.state.showToast}>投递成功</Toast>
         </div>
         <style jsx>{`
           .job-list {

@@ -4,7 +4,7 @@ import JobLayout from '../../containers/job/layout'
 import DateUtil from '../../util/date'
 import Banner from '../../components/banner'
 import { Button, Panel, PanelBody, MediaBox, MediaBoxHeader, MediaBoxTitle,
-  MediaBoxBody, LoadMore, InfiniteLoader,
+  MediaBoxBody, LoadMore, InfiniteLoader, Popup,
   SearchBar, Tab, NavBar, NavBarItem, TabBody} from 'react-weui'
 
 export default class extends React.Component {
@@ -16,12 +16,18 @@ export default class extends React.Component {
         totalSize: 0
       },
       params: {
+        city: '全国',
         cityIdList: [54],
+        section: '全部',
         sectionIdList: [],
         pn: 0
       },
       tab: 0,
       bannerList: null,
+      cityList: null,
+      sectionList: null,
+      cityfullpage_show: false,
+      sectionfullpage_show: false,
       isRender: true,
       dataState: 'none', /* none 未加载，loading 正在加载，null 没有数据，more 继续加载 */
       error: ''
@@ -30,20 +36,15 @@ export default class extends React.Component {
 
   componentDidMount = async () => {
     this.loadBannerList()
-    this.loadJobList()
+    this.loadCityData()
+    this.loadSectionData()
+    this.loadJobList(true)
   }
 
   loadBannerList = async () => {
-    const type = 1
+    const type = 8
     try {
       let bannerList = await AxiosUtil.get(`/api/adv/getAdvByTypeAndObjId/${type}/1`)
-      bannerList = [
-        {img: '/static/img/job/1.jpg', url: '/job/internship'},
-        {img: '/static/img/job/2.jpg', url: '/job/123'},
-        {img: '/static/img/job/3.jpg', url: '/job/2342'},
-        {img: '/static/img/job/4.jpg', url: '/job/2523'},
-        {img: '/static/img/job/5.jpg', url: '/job/899'}
-      ]
       this.setState({
         bannerList: bannerList
       })
@@ -55,16 +56,46 @@ export default class extends React.Component {
     }
   }
 
-  loadJobList = async () => {
+  loadCityData = async () => {
+    try {
+      let cityList = await AxiosUtil.get('/api/dictionary/city')
+      console.log(cityList)
+      this.setState({
+        cityList: cityList
+      })
+    } catch (e) {
+      this.setState({
+        isRender: false,
+        error: e.message
+      })
+    }
+  }
+
+  loadSectionData = async () => {
+    try {
+      let sectionList = await AxiosUtil.get('/api/dictionary/section')
+      this.setState({
+        sectionList: sectionList
+      })
+    } catch (e) {
+      this.setState({
+        isRender: false,
+        error: e.message
+      })
+    }
+  }
+
+  loadJobList = async (isConcat) => {
     this.setState({dataState: 'loading'})
     try {
+      console.log(this.state.params)
       let pageList = await AxiosUtil.post('/api/private/job/internship',
         this.state.params)
       this.state.params.pn = this.state.params.pn + 1
       if (pageList) {
         let {list} = this.state
         list.totalSize = pageList.totalSize
-        list.data = list.data.concat(pageList.data)
+        list.data = isConcat ? list.data.concat(pageList.data) : pageList.data
 
         this.setState({
           list: list,
@@ -77,6 +108,28 @@ export default class extends React.Component {
         error: e.message
       })
     }
+  }
+
+  selectCity (e, name, id) {
+    this.state.params.city = name
+    this.state.params.cityIdList = (id === null ? [] : [id])
+    this.state.params.pn = 0
+    this.setState({
+      params: this.state.params,
+      cityfullpage_show: false
+    })
+    this.loadJobList(false)
+  }
+
+  selectSection (e, name, id) {
+    this.state.params.section = name
+    this.state.params.sectionIdList = (id === null ? [] : [id])
+    this.state.params.pn = 0
+    this.setState({
+      params: this.state.params,
+      sectionfullpage_show: false
+    })
+    this.loadJobList(false)
   }
 
   handleSearchBarChange (e) {
@@ -102,7 +155,7 @@ export default class extends React.Component {
       if (this.state.list.data.length >= this.state.list.totalSize) {
         finish()
       } else {
-        this.loadJobList()
+        this.loadJobList(true)
         this.setState({
         }, () => resolve())
       }
@@ -123,6 +176,117 @@ export default class extends React.Component {
     return <Banner bannerList={this.state.bannerList} />
   }
 
+  renderSelect () {
+    const city = this.state.params.city
+    const section = this.state.params.section
+    return <div className='selects'>
+      城市：<span className='param'
+        onClick={e => this.setState({cityfullpage_show: true})}>
+        {city}</span>
+      职能：<span className='param'
+        onClick={e => this.setState({sectionfullpage_show: true})}>
+        {section}</span>
+      <style jsx>{`
+        .selects {
+          padding: 15px;
+        }
+        .param {
+          margin-right: 10px;
+        }
+        .param:after {
+          content: ' v'
+        }
+      `}</style>
+    </div>
+  }
+
+  renderCityPopup () {
+    const {cityList} = this.state
+    if (cityList) {
+      const cityElements = cityList.map((item, index) => {
+        return <Button key={index} size='small' className='select-btn'
+          onClick={e => this.selectCity(e, item.name, item.id)}>{item.name}</Button>
+      })
+      console.log(cityElements)
+      return <div>
+        <Popup
+          show={this.state.cityfullpage_show}
+          onRequestClose={e => this.setState({cityfullpage_show: false})}>
+          <div className='select-list'
+            onClick={e => this.setState({cityfullpage_show: false})}>
+            <h3 className='label'>选择城市：</h3>
+            <div>
+              <Button size='small' className='select-btn'
+                onClick={e => this.selectCity(e, '全国', null)}>全国</Button>
+              {cityElements}
+            </div>
+          </div>
+        </Popup>
+        <style jsx>{`
+          .label {
+            margin: 15px;
+          }
+          .selects {
+            padding: 15px;
+          }
+          .param {
+            margin-right: 10px;
+          }
+          .param:after {
+            content: ' v'
+          }
+          .select-list {
+            height: 100vh;
+            overflow: scroll;
+          }
+        `}</style>
+      </div>
+    }
+  }
+
+  renderSectionPopup () {
+    const {sectionList} = this.state
+    if (sectionList) {
+      const sectionElements = sectionList.map((item, index) => {
+        return <Button key={index} size='small' className='select-btn'
+          onClick={e => this.selectSection(e, item.name, item.id)}>{item.name}</Button>
+      })
+      return <div>
+        <Popup
+          show={this.state.sectionfullpage_show}
+          onRequestClose={e => this.setState({sectionfullpage_show: false})}>
+          <div className='select-list'
+            onClick={e => this.setState({sectionfullpage_show: false})}>
+            <h3 className='label'>选择职能：</h3>
+            <div>
+              <Button size='small' className='select-btn'
+                onClick={e => this.selectSection(e, '全部', null)}>全部</Button>
+              {sectionElements}
+            </div>
+          </div>
+        </Popup>
+        <style jsx>{`
+          .label {
+            margin: 15px;
+          }
+          .selects {
+            padding: 15px;
+          }
+          .param {
+            margin-right: 10px;
+          }
+          .param:after {
+            content: ' v'
+          }
+          .select-list {
+            height: 100vh;
+            overflow: scroll;
+          }
+        `}</style>
+      </div>
+    }
+  }
+
   renderTabbar () {
     return <Tab>
       <NavBar>
@@ -131,6 +295,7 @@ export default class extends React.Component {
       </NavBar>
       <TabBody>
         <Panel>
+          {this.renderSelect()}
           {this.renderList()}
         </Panel>
       </TabBody>
@@ -234,12 +399,39 @@ export default class extends React.Component {
         <div className='job-list'>
           {this.renderTabbar()}
         </div>
+        {this.renderCityPopup()}
+        {this.renderSectionPopup()}
         <style global jsx>{`
           .job-list {
 
           }
           .react-weui-infiniteloader {
             overflow: scroll;
+          }
+          .weui-popup {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            -webkit-transform: translate(0, 100%);
+            -ms-transform: translate(0, 100%);
+            transform: translate(0, 100%);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            z-index: 5000;
+            width: 100%;
+            background-color: #EFEFF4;
+            -webkit-transition: -webkit-transform .3s;
+            transition: -webkit-transform .3s;
+            transition: transform .3s;
+            transition: transform .3s, -webkit-transform .3s;
+          }
+          .weui-popup_toggle {
+            -webkit-transform: translate(0, 0);
+            -ms-transform: translate(0, 0);
+            transform: translate(0, 0);
+          }
+          .select-btn {
+            margin-left: 15px !important;
           }
         `}</style>
       </JobLayout>

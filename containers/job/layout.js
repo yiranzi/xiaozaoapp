@@ -11,7 +11,8 @@ export default class extends React.Component {
       toptips: {
         type: 'default', /* default primary info warn */
         show: false,
-        msg: null
+        msg: null,
+        callback: null
       }
     }
   }
@@ -22,6 +23,9 @@ export default class extends React.Component {
     if (this.state.toptips.show) {
       const _this = this
       setTimeout(function () {
+        if (typeof _this.state.toptips.callback === 'function') {
+          _this.state.toptips.callback()
+        }
         _this.setState({
           toptips: {
             show: false

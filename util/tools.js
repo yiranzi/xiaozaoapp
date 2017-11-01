@@ -83,4 +83,8 @@ ToolsUtil.isRecord = function (type) {
   return type === 5
 }
 
+ToolsUtil.strIsEmpty = function (str) {
+  return str === null || (str !== null && str.trim() === '')
+}
+
 module.exports = ToolsUtil
