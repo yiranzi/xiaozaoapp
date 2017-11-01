@@ -66,7 +66,7 @@ export default class extends React.Component {
    */
   renderButtonState () {
     if (!this.state.payStatus) {
-      let payButton = <Button onClick={() => { location.href = '/interviewvip/introPage' }} key={1} half text={'立即购买'} />
+      let payButton = <Button bg={'rgb(255, 93, 93)'} onClick={() => { location.href = '/interviewvip/introPage' }} key={1} half text={'优惠报名'} />
       return (<Fixfooter content={payButton} />)
     } else {
       let ele = <Button onClick={this.goRouter.bind(this, this.state.nextTaskUrl)} key={1}half text={this.state.buttonWord} />
@@ -88,7 +88,7 @@ export default class extends React.Component {
     return (
       <InterviewLayout isRender={isRender} error={error}>
         <div className='result-page'>
-          <a href='/interviewvip/introPage'><Back direct='left' text='返回主页' /></a>
+          {this.renderBackButton()}
           {this.renderResultContent()}
           <ReadMore topicKey={this.state.topicKey} />
           {this.renderButtonState()}
@@ -103,6 +103,16 @@ export default class extends React.Component {
         `}</style>
       </InterviewLayout>
     )
+  }
+
+  renderBackButton () {
+    let url
+    if (this.state.payStatus) {
+      url = '/interviewvip/list'
+    } else {
+      url = '/interviewvip/introPage'
+    }
+    return (<a href={url}><Back direct='left' text='返回主页' /></a>)
   }
 
   seeReview () {

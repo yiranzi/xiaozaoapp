@@ -29,7 +29,7 @@ export default class extends React.Component {
     return (
       <div className='action'>
         <a href='/interviewvip/introPage'>
-          <Button text='立即报名' />
+          <Button bg={'rgb(255, 93, 93)'} text='优惠报名' />
         </a>
         <a href='/interviewvip/experience/task'>
           <Button text='下一页' />
