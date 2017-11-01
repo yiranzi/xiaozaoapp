@@ -88,7 +88,7 @@ export default class extends React.Component {
     return (
       <InterviewLayout isRender={isRender} error={error}>
         <div className='result-page'>
-          <a href='/interviewvip/list'><Back direct='left' text='返回主页' /></a>
+          <a href='/interviewvip/introPage'><Back direct='left' text='返回主页' /></a>
           {this.renderResultContent()}
           <ReadMore topicKey={this.state.topicKey} />
           {this.renderButtonState()}
