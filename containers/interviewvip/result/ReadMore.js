@@ -21,6 +21,9 @@ export default class ReadMore extends React.Component{
   renderByKey (key) {
     let arr = []
     switch (key) {
+      case 'free':
+        arr = this.renderModalFree()
+        break
       case '1':
         arr = this.renderModal1()
         break
@@ -68,6 +71,29 @@ export default class ReadMore extends React.Component{
     )
   }
 
+
+  renderModalFree () {
+    return (<div>
+      <h4 className='readmore-h4'>推荐阅读?：如何阅读图表</h4>
+      <div className='readmore-div'>
+        下载链接：{this.addA('http://pan.baidu.com/s/1boAChyR')}
+        <p>密码：fx9t</p>
+      </div>
+      <h4 className='readmore-h4'>推荐练习：</h4>
+      <div className='outer'>
+        {this.addImageContent(1, 1, 'resultBg')}
+      </div>
+      <p>进入小灶官网主页，点击笔试题库，进入英语练练练免费练习</p>
+
+      <style jsx>
+        {`
+        .outer {
+          margin: 1rem 0 1rem 0;
+        }
+        `}
+      </style>
+    </div>)
+  }
 
   renderModal1 () {
     return (<div>

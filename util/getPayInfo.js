@@ -1,7 +1,6 @@
 import AxiosUtil from '../util/axios'
 
 // 付费信息
-let payStatus = null
 let canBuy = null
 let canEnter = null
 
@@ -14,7 +13,7 @@ payInfo.getPayInfo = async () => {
   return new Promise((resolve, reject) => {
     AxiosUtil.get('/api/interview/buyInfo').then((res) => {
       // 设置付费
-      payStatus = res.buyed
+      localStorage.setItem('payStatus', res.buyed)
       canBuy = res.canBuy
       canEnter = res.canEnter
       let {price, offerPrice} = res
@@ -37,12 +36,18 @@ payInfo.getPriceInfo = () => {
   return priceInfo
 }
 
-payInfo.getCanEnter = function () {
-  return canEnter
+payInfo.getPayStatus = () => {
+  let payStatus = localStorage.getItem('payStatus')
+  if (payStatus === 'true') {
+    payStatus = true
+  } else {
+    payStatus = false
+  }
+  return payStatus
 }
 
-payInfo.getPayStatus = function () {
-  return payStatus
+payInfo.getCanEnter = function () {
+  return canEnter
 }
 
 payInfo.getCanBuy = function () {

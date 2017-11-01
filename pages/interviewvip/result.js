@@ -21,46 +21,44 @@ export default class extends React.Component {
       todayDoing: false,
       isShowNextButton: false,
       nextTaskUrl: '',
-      buttonWord: '',
-      groupIndex: -1 // 当前组号
+      buttonWord: ''
     }
   }
 
   componentDidMount = async () => {
     let topicKey = ToolsUtil.getQueryString('topicKey')
-    try {
-      let list = await CourseInfo.getList('list')
-      let groupIndex = list.findIndex((groups, index) => {
-        let a = groups.group.findIndex((eleTopic, index) => {
-          return (eleTopic.topicKey === topicKey)
+
+    let payStatus = CourseInfo.getPayStatus()
+    // 体验 or 购买
+    if (payStatus) {
+      try {
+        let list = await CourseInfo.getList()
+        this.setState({
+          list: list
         })
-        if (a !== -1) {
-          return true
-        }
-      })
+      } catch (e) {
+        // 未付费 渲染报错信息.不渲染列表
+        this.setState({
+          error: e.message
+        })
+      }
+      let result = CourseInfo.isLast(topicKey)
+      let {taskUrl, show, word} = result
       this.setState({
-        groupIndex: groupIndex,
-        list: list
+        topicKey: topicKey,
+        isShowNextButton: show,
+        buttonWord: word,
+        nextTaskUrl: taskUrl,
+        isRender: false,
+        payStatus: payStatus
       })
-    } catch (e) {
-      // 未付费 渲染报错信息.不渲染列表
+    } else {
       this.setState({
-        error: e.message
+        topicKey: 'free',
+        payStatus: payStatus,
+        isRender: false
       })
     }
-    this.setState({
-      isRender: false
-    })
-    // 设置
-
-    let result = CourseInfo.isLast(topicKey)
-    let {taskUrl, show, word} = result
-    this.setState({
-      topicKey: topicKey,
-      isShowNextButton: show,
-      buttonWord: word,
-      nextTaskUrl: taskUrl
-    })
   }
 
   /*
@@ -68,18 +66,16 @@ export default class extends React.Component {
    下一课 没做 就有按钮.
    */
   renderButtonState () {
-    let ele = (
-      <Button
-        onClick={this.goRouter.bind(this, this.state.nextTaskUrl)}
-        key={1}
-        half
-        text={this.state.buttonWord}
-      />
-    )
-    if (this.state.isShowNextButton) {
-      return (<Fixfooter className='next' content={ele} />)
+    if (!this.state.payStatus) {
+      let payButton = <Button onClick={() => { location.href = '/interviewvip/introPage' }} key={1} half text={'立即购买'} />
+      return (<Fixfooter content={payButton} />)
     } else {
-      return null
+      let ele = <Button onClick={this.goRouter.bind(this, this.state.nextTaskUrl)} key={1}half text={this.state.buttonWord} />
+      if (this.state.isShowNextButton) {
+        return (<Fixfooter content={ele} />)
+      } else {
+        return null
+      }
     }
   }
 
@@ -110,12 +106,21 @@ export default class extends React.Component {
     )
   }
 
+  seeReview () {
+    if (this.state.payStatus) {
+      location.href = `/interviewvip/review?topicKey=${this.state.topicKey}`
+    } else {
+      console.log(123)
+      location.href = `/interviewvip/payment`
+    }
+  }
+
   renderResultContent () {
     let style = {
       width: '70%',
       margin: '0 auto 20px auto'
     }
-    let content = resultContent[this.state.groupIndex + 1]
+    let content = resultContent[this.state.topicKey]
     return (
       <div className='main'>
         <div className='out'>
@@ -126,10 +131,10 @@ export default class extends React.Component {
           </div>
         </div>
         <div style={style}>
-          <Button onClick={() => { location.href = `/interviewvip/review?topicKey=${this.state.topicKey}` }}
-            bg={ThemeConfig.color.yellow}
-            color={'white'}
-            text={'查看答案及解析'} />
+          <Button onClick={() => { this.seeReview.bind(this) }}
+                  bg={ThemeConfig.color.yellow}
+                  color={'white'}
+                  text={'查看答案及解析'} />
         </div>
         <style jsx>
           {`
