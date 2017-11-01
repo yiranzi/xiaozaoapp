@@ -68,9 +68,9 @@ export default class extends React.Component {
    下一课 没做 就有按钮.
    */
   renderButtonState () {
-    let ele = <Button key={1}half text={this.state.buttonWord}></Button>
+    let ele = <Button onClick={this.goRouter.bind(this, this.state.nextTaskUrl)} key={1}half text={this.state.buttonWord}></Button>
     if (this.state.isShowNextButton) {
-      return (<Fixfooter className='next' onClick={this.goRouter.bind(this, this.state.nextTaskUrl)} content={ele} />)
+      return (<Fixfooter className='next' content={ele} />)
     } else {
       return null
     }
@@ -96,7 +96,7 @@ export default class extends React.Component {
             color: ${ThemeConfig.color.blue};
           }
           .result-page {
-            padding-bottom: 40px;
+            padding-bottom: 200px;
           }
         `}</style>
       </InterviewLayout>
