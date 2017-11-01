@@ -107,9 +107,9 @@ export default class extends React.Component {
    */
   renderEnter (state) {
     if (state) {
-      return <Button className='enter' onClick={() => { this.goPath('/interviewvip/list') }}>进入打卡</Button>
+      return <Button className='enter' onClick={() => { this.goPath('/interviewvip/list') }}>进入群面</Button>
     } else {
-      return <Button type='default' disabled>进入打卡</Button>
+      return <Button type='default' disabled>进入群面</Button>
     }
   }
 
