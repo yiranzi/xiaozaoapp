@@ -38,8 +38,7 @@ export default class extends React.Component {
     const {answerDTOList} = questionList
     return (
       <InterviewLayout isRender={isRender} error={error}>
-        {answerDTOList && answerDTOList.length > 0 && <Review questionList={questionList} />}
-        {answerDTOList && answerDTOList.length === 0 && <Task questionList={questionList} />}
+        {answerDTOList && <Task questionList={questionList} />}
       </InterviewLayout>
     )
   }

@@ -2,7 +2,7 @@ import React from 'react'
 import AxiosUtil from '../../../util/axios'
 import InterviewLayout from '../../../containers/interview/layout'
 import Task from '../../../containers/interviewvip/task'
-import Review from './reviewContainer'
+import Review from '../../../containers/interviewvip/experience/reviewContainer'
 
 export default class extends React.Component {
   constructor (props) {
@@ -38,8 +38,7 @@ export default class extends React.Component {
     const {answerDTOList} = questionList
     return (
       <InterviewLayout isRender={isRender} error={error}>
-        {answerDTOList && answerDTOList.length > 0 && <Review questionList={questionList} />}
-        {answerDTOList && answerDTOList.length === 0 && <Task questionList={questionList} />}
+        {answerDTOList && <Review questionList={questionList} />}
       </InterviewLayout>
     )
   }

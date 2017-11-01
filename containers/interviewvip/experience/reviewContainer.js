@@ -341,7 +341,7 @@ export default class extends React.Component {
     const _this = this
     Confirm({
       content: (<div><p style={{textAlign: 'center'}}>想体验更多精彩群面内容，</p><p style={{textAlign: 'center'}}>立即优惠报名吧～</p></div>),
-      okText: '优惠报名',
+      okText: (<span style={{color: 'rgb(255, 93, 93)'}}>优惠报名</span>),
       cancelText: '残忍拒绝',
       ok: () => { location.href = '/interviewvip/introPage' },
       cancel: () => { _this.setState({isReject: true}, () => {console.log(_this.state.isReject)}) }
