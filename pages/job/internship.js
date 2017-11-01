@@ -59,7 +59,6 @@ export default class extends React.Component {
   loadCityData = async () => {
     try {
       let cityList = await AxiosUtil.get('/api/dictionary/city')
-      console.log(cityList)
       this.setState({
         cityList: cityList
       })
@@ -207,7 +206,6 @@ export default class extends React.Component {
         return <Button key={index} size='small' className='select-btn'
           onClick={e => this.selectCity(e, item.name, item.id)}>{item.name}</Button>
       })
-      console.log(cityElements)
       return <div>
         <Popup
           show={this.state.cityfullpage_show}

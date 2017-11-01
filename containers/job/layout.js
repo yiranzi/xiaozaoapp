@@ -71,7 +71,7 @@ export default class extends React.Component {
             {this.state.toptips.msg}</Toptips>
         }
         {this.props.tabbar &&
-          <Tabbar tab={2}>
+          <Tabbar tab={1}>
             {this.renderChildren()}
           </Tabbar>
         }
