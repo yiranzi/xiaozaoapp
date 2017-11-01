@@ -27,7 +27,6 @@ export default class extends React.Component {
 
   componentDidMount = async () => {
     let topicKey = ToolsUtil.getQueryString('topicKey')
-
     let payStatus = CourseInfo.getPayStatus()
     // 体验 or 购买
     if (payStatus) {
@@ -54,7 +53,7 @@ export default class extends React.Component {
       })
     } else {
       this.setState({
-        topicKey: 'free',
+        topicKey: 'demo',
         payStatus: payStatus,
         isRender: false
       })
@@ -110,8 +109,7 @@ export default class extends React.Component {
     if (this.state.payStatus) {
       location.href = `/interviewvip/review?topicKey=${this.state.topicKey}`
     } else {
-      console.log(123)
-      location.href = `/interviewvip/payment`
+      location.href = `/interviewvip/experience/review`
     }
   }
 
@@ -131,7 +129,7 @@ export default class extends React.Component {
           </div>
         </div>
         <div style={style}>
-          <Button onClick={() => { this.seeReview.bind(this) }}
+          <Button onClick={this.seeReview.bind(this)}
                   bg={ThemeConfig.color.yellow}
                   color={'white'}
                   text={'查看答案及解析'} />
