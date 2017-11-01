@@ -96,6 +96,7 @@ export default class MyCheckbox extends React.Component {
             content: '' !important;
             height: 100%;
             width: 100%;
+            font-size: 16px;
             border: 1px solid #e5e5e5;
             box-sizing: border-box;
             position: absolute;
@@ -111,19 +112,22 @@ export default class MyCheckbox extends React.Component {
             height: 100%;
             width: 100%;
             background-color: #117ee9;
-            color: #fff !important;
             font-size: 16px;
+            color: #fff !important;
             border: 1px solid #117ee9;
             box-sizing: border-box;
             position: absolute;
+            top: 0;
+            left: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            top: 0;
-            left: 0;
           }
           .weui-cell__bd {
             margin-left: 1rem;
+          }
+          [class^="weui-icon-"]:before, [class*=" weui-icon-"]:before {
+            margin: 0 !important;
           }
         `}</style>
       </Form>
