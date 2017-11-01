@@ -52,10 +52,10 @@ export default class extends React.Component {
       return <Toptips type='warn' show={show} >{error}</Toptips>
     } else {
       return (
-        <div className='job wx-line'>
+        <div className='ucenter wx-line'>
           {this.props.children}
           <style jsx>{`
-            .job {
+            .ucenter {
 
             }
           `}</style>

@@ -83,6 +83,7 @@ ToolsUtil.isRecord = function (type) {
   return type === 5
 }
 
+// 是否空字符串
 ToolsUtil.strIsEmpty = function (str) {
   return str === null || (str !== null && str.trim() === '')
 }

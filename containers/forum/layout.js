@@ -11,8 +11,7 @@ export default class extends React.Component {
       toptips: {
         type: 'default', /* default primary info warn */
         show: false,
-        msg: null,
-        callback: null
+        msg: null
       }
     }
   }
@@ -23,9 +22,6 @@ export default class extends React.Component {
     if (this.state.toptips.show) {
       const _this = this
       setTimeout(function () {
-        if (typeof _this.state.toptips.callback === 'function') {
-          _this.state.toptips.callback()
-        }
         _this.setState({
           toptips: {
             show: false
@@ -52,10 +48,10 @@ export default class extends React.Component {
       return <Toptips type='warn' show={show} >{error}</Toptips>
     } else {
       return (
-        <div className='job wx-line'>
+        <div className='forum wx-line'>
           {this.props.children}
           <style jsx>{`
-            .job {
+            .forum {
 
             }
           `}</style>
@@ -71,7 +67,7 @@ export default class extends React.Component {
             {this.state.toptips.msg}</Toptips>
         }
         {this.props.tabbar &&
-          <Tabbar tab={2}>
+          <Tabbar tab={1}>
             {this.renderChildren()}
           </Tabbar>
         }
