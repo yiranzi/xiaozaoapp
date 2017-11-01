@@ -200,7 +200,7 @@ export default class extends React.Component {
   renderDTOList (dtoList, answerDTOList, questionLength) {
     const {currentIndex, noPrev, noNext} = this.state
     const dtoItem = dtoList[currentIndex] // 当前题目详情
-    const {id} = dtoItem
+    const {id, material} = dtoItem
 
     return (
       <div className='dto-list'>
@@ -210,6 +210,7 @@ export default class extends React.Component {
             <a href={`/interviewvip/result?topicKey=${this.props.questionList.topicKey}`}><Back direct='right' text='推荐阅读' /></a>
           </div>
           <div className='content'>
+            {this.renderMaterial(material)}
             <div className='question'>{dtoItem.no}、{dtoItem.question}</div>
             <div className='options'>
               {this.renderAnswerOption(id, answerDTOList, dtoItem)}
