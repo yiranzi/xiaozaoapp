@@ -123,17 +123,17 @@ export default class extends React.Component {
   }
   renderCut1 () {
     return (
-      <Button className='price-button1' onClick={() => { this.goPath('https://h5.youzan.com/v2/goods/2frl13591n7m9') }}>299拼团<img src='https://pic.sopili.net/pub/emoji/twitter/2/72x72/1f525.png' style={{width: '20px', height: '20px'}} /></Button>
+      <Button className='price-button1' onClick={() => { this.goPath('https://kdt.im/Rqyg0h') }}>299拼团<img src='https://pic.sopili.net/pub/emoji/twitter/2/72x72/1f525.png' style={{width: '20px', height: '20px'}} /></Button>
     )
   }
   renderCut2 () {
     return (
-      <Button className='price-button2' onClick={() => { this.goPath('https://h5.youzan.com/v2/goods/361kw3i92xaup') }}>349拼团</Button>
+      <Button className='price-button2' onClick={() => { this.goPath('https://kdt.im/p8yg0h') }}>349拼团</Button>
     )
   }
   renderCut3 () {
     return (
-      <Button className='price-button3' onClick={() => { this.goPath('https://h5.youzan.com/v2/goods/2g07fyj39ndwx') }}>399原价</Button>
+      <Button className='price-button3' onClick={() => { this.goPath('https://kdt.im/r1Ig0h') }}>399原价</Button>
     )
   }
 
