@@ -31,7 +31,7 @@ export default class extends React.Component {
         <a href='/interviewvip/introPage'>
           <Button text='立即报名' />
         </a>
-        <a href='/interviewvip/experiencetask'>
+        <a href='/interviewvip/experience/task'>
           <Button text='下一页' />
         </a>
         <style jsx>{`
@@ -39,9 +39,9 @@ export default class extends React.Component {
             display: flex;
             justify-content: space-between;
           }
-        `}</style>
-        <style global jsx>{`
-          .action div {
+          .action a {
+            display: inline-block;
+            width: 45%;
           }
         `}</style>
       </div>

@@ -8,7 +8,8 @@ export default class MyCheckbox extends React.Component {
     styleParams = Object.assign(styleParams, {
       color: color || '#fff',
       backgroundColor: bg || '#117ee9',
-      width: half ? '50%' : '100%'
+      width: half ? '50%' : '100%',
+      fontSize: '14px'
     })
     return (
       <div>
