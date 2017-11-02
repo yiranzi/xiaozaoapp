@@ -1,7 +1,7 @@
 import React from 'react'// 库
-import Button from '../../components/button'// 组件库
-import Back from '../../components/back'
-import Fixfooter from '../../components/fixfooter'
+import Button from '../../xz-components/button'// 组件库
+import Back from '../../xz-components/back'
+import Fixfooter from '../../xz-components/fixfooter'
 import resultContent from '../../containers/interviewvip/result/resultContent'
 import ReadMore from '../../containers/interviewvip/result/ReadMore'
 import InterviewLayout from '../../containers/interviewvip/layout'// container

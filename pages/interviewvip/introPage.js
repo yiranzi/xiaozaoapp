@@ -1,7 +1,7 @@
 import React from 'react'// 库
-import Card from '../../components/card'
-import More from '../../components/more'
-import Motal from '../../components/motal'
+import Card from '../../xz-components/card'
+import More from '../../xz-components/more'
+import Motal from '../../xz-components/motal'
 import SignUpButton from '../../containers/interviewvip/signUpButton'// 自定义组件
 import InterviewLayout from '../../containers/interviewvip/layout'// container
 import GetPayInfo from '../../util/getPayInfo'// 工具类

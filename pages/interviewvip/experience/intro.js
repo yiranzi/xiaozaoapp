@@ -1,8 +1,8 @@
 import React from 'react'
 import InterviewLayout from '../../../containers/interviewvip/layout'
-import Button from '../../../components/button'
-import Card from '../../../components/card'
-import FixFooter from '../../../components/fixfooter'
+import Button from '../../../xz-components/button'
+import Card from '../../../xz-components/card'
+import FixFooter from '../../../xz-components/fixfooter'
 
 export default class extends React.Component {
   renderContent (topicKey) {

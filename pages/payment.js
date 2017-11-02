@@ -1,6 +1,6 @@
 import React from 'react'
 import {Button} from 'react-weui'// 组件库
-import Card from '../components/card'// 组件库
+import Card from '../xz-components/card'// 组件库
 import InterviewLayout from '../containers/interviewvip/layout'
 import GetPayInfo from '../util/getPayInfo'
 import wxPayController from '../util/wxPayController'// 工具类

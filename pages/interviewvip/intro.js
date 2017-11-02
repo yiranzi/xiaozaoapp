@@ -1,11 +1,11 @@
 import React from 'react'
 import InterviewLayout from '../../containers/interviewvip/layout'
 import ThemeConfig from '../../config/theme'
-import Button from '../../components/button'
-import Card from '../../components/card'
-import FixFooter from '../../components/fixfooter'
+import Button from '../../xz-components/button'
+import Card from '../../xz-components/card'
+import FixFooter from '../../xz-components/fixfooter'
 import ToolsUtil from '../../util/tools'
-import Back from '../../components/back'
+import Back from '../../xz-components/back'
 import IntroContent from '../../containers/interviewvip/introcontent'
 
 export default class extends React.Component {

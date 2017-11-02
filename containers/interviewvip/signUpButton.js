@@ -1,8 +1,7 @@
 import React from 'react'
-import Button from '../../components/button'
+import Button from '../../xz-components/button'
 import ThemeConfig from '../../config/theme'
 import classNames from 'classnames'
-import Fixfooter from '../../components/fixfooter'
 
 /*
 props
