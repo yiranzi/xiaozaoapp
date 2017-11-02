@@ -482,7 +482,6 @@ export default class extends React.Component {
         canBuy={this.state.canBuy}
         payStatus={this.state.payStatus}
         canEnter={this.state.canEnter}
-        buttonContent={'立即咨询'}
         price={this.state.price}
         onClickButton={this.onShowTryTask.bind(this)}
       />

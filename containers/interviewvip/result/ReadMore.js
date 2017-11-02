@@ -1,6 +1,4 @@
 import React from 'react'
-import Audio from '../../../components/audio'
-
 /*
  props
  topicKey:
@@ -21,6 +19,9 @@ export default class ReadMore extends React.Component{
   renderByKey (key) {
     let arr = []
     switch (key) {
+      case 'demo':
+        arr = this.renderModalFree()
+        break
       case '1':
         arr = this.renderModal1()
         break
@@ -68,6 +69,34 @@ export default class ReadMore extends React.Component{
     )
   }
 
+
+  renderModalFree () {
+    return (<div>
+      <p>提升自己的对商业分析框架的运用，我们有以下的建议：</p>
+      <h4 className='readmore-h4'>推荐阅读</h4>
+      <div className='readmore-div'>
+        <ul className='readmore-ul'>
+          <li>{this.addA('http://mp.weixin.qq.com/s/ySmE1WqxUauPnantr6CZfw', '学了很多框架，却还是不会分析 ')}</li>
+        </ul>
+      </div>
+      <h4 className='readmore-h4'>日常练习</h4>
+      <div className='readmore-div'>
+        <p>真正深入理解一个商业分析框架，需要阅读相应的著作，可以试着从 3C 模型和五力模型作为例子开始：</p>
+        3C_s_model下载链接：{this.addA('http://pan.baidu.com/s/1hrOESHQ')}
+        <p>密码: msad</p>
+        五力模型下载链接：{this.addA('http://pan.baidu.com/s/1qYWgrj2')}
+        <p>密码: xj74</p>
+      </div>
+
+      <style jsx>
+        {`
+        .outer {
+          margin: 1rem 0 1rem 0;
+        }
+        `}
+      </style>
+    </div>)
+  }
 
   renderModal1 () {
     return (<div>

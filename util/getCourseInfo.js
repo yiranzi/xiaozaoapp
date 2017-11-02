@@ -1,8 +1,5 @@
 import AxiosUtil from '../util/axios'
 
-// 付费状态
-let payStatus = null
-
 // 整理后的list
 let groupArrayInfo = [
 ]
@@ -146,32 +143,33 @@ courseInfo.getNext = (groupIndex, elementIndex, buttonWord) => {
 }
 
 /*
-
+  列表页
  */
 
 courseInfo.getList = async () => {
   return new Promise((resolve, reject) => {
     AxiosUtil.get('/api/interview/getList').then((res) => {
       // 1 set pay status
-      payStatus = true
+      localStorage.setItem('payStatus', true)
       // 2 new array by group
       courseInfo.makeGroupArray(res)
       // 3 return group array
       resolve(groupArrayInfo)
     }).catch((e) => {
       if (e.status === 10001) {
-        payStatus = false
+        localStorage.setItem('payStatus', false)
       }
       reject(e)
     })
   })
 }
 
+// 个人信息
 courseInfo.getUserInfoAndList = async () => {
   return new Promise((resolve, reject) => {
     AxiosUtil.get('/api/interview/userInfo').then((res) => {
       // 1 set pay status
-      payStatus = true
+      localStorage.setItem('payStatus', true)
       // 2 new array by group
       courseInfo.makeGroupArray(res.interviewListDetailDTOList)
       userInfo.nickName = res.nickname
@@ -187,6 +185,12 @@ courseInfo.getUserInfo = function () {
 }
 
 courseInfo.getPayStatus = function () {
+  let payStatus = localStorage.getItem('payStatus')
+  if (payStatus === 'true') {
+    payStatus = true
+  } else {
+    payStatus = false
+  }
   return payStatus
 }
 
