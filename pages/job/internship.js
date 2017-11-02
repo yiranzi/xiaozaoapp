@@ -17,7 +17,7 @@ export default class extends React.Component {
       },
       params: {
         city: '全国',
-        cityIdList: [54],
+        cityIdList: [],
         section: '全部',
         sectionIdList: [],
         pn: 0

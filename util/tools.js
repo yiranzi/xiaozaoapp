@@ -88,4 +88,9 @@ ToolsUtil.strIsEmpty = function (str) {
   return str === null || (str !== null && str.trim() === '')
 }
 
+// 是否手机号
+ToolsUtil.isPhone = function (str) {
+  return /^1\d{10}$/.test(str)
+}
+
 module.exports = ToolsUtil
