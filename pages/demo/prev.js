@@ -178,6 +178,7 @@ export default class extends React.Component {
                 value: '正常1',
                 label: '正常1'
               }}
+              onChange={(e) => console.log('name1选中:', e)}
             />
             <Radio
               params={{
@@ -185,6 +186,7 @@ export default class extends React.Component {
                 value: '正常2',
                 label: '正常2'
               }}
+              onChange={(e) => console.log('name1选中:', e)}
             />
           </Form>
           <Form radio>
@@ -194,6 +196,7 @@ export default class extends React.Component {
                 value: '默认1',
                 label: '默认1'
               }}
+              onChange={(e) => console.log('name2选中:', e)}
             />
             <Radio
               params={{
@@ -202,6 +205,7 @@ export default class extends React.Component {
                 label: '默认2',
                 defaultValue: '默认2'
               }}
+              onChange={(e) => console.log('name2选中:', e)}
             />
           </Form>
           <Form radio>
@@ -209,15 +213,17 @@ export default class extends React.Component {
               params={{
                 name: 'name3',
                 value: 'disable1',
-                label: 'disable1'
+                label: 'disable1',
+                disabled: true
               }}
             />
             <Radio
               params={{
                 name: 'name3',
                 value: 'disable2',
-                label: 'disable1',
-                defaultValue: 'disable1'
+                label: 'disable2',
+                defaultValue: 'disable2',
+                disabled: true
               }}
             />
           </Form>
