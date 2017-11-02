@@ -35,7 +35,7 @@ export default class extends React.Component {
           <TabBarItem
             icon={<img src='/static/img/forum/center.png' />}
             active={this.state.tab === 2}
-            onClick={e => this.toLink('/ucenter')}
+            onClick={e => this.toLink('/ucenter/portal')}
             label='我的'
           />
         </TabBar>

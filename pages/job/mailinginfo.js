@@ -109,7 +109,7 @@ export default class extends React.Component {
         if (ret) {
           this.setState({showToast: true})
           this.state.toastTimer = setTimeout(() => {
-            location.href = '/job?jobId=' + this.state.mailingObj.jobId
+            location.href = '/job/detail?jobId=' + this.state.mailingObj.jobId
           }, 2000)
         }
       }

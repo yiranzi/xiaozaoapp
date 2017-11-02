@@ -135,7 +135,7 @@ export default class extends React.Component {
   }
 
   toJob = (id) => {
-    location.href = '/job?jobId=' + id
+    location.href = '/job/detail?jobId=' + id
   }
 
   onLoadMore (resolve, finish) {
