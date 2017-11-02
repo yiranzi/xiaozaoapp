@@ -37,7 +37,6 @@ export default class MyCheckbox extends React.Component {
   }
   render () {
     const {name, defaultValue, options, disabled} = this.props
-    console.log('disabled:', disabled)
     return (
       <Form checkbox >
         {options.map((item, index) => {
