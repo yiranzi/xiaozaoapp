@@ -40,7 +40,8 @@ export default class extends React.Component {
           (item.totalChapter === 0 ? 1 : item.totalChapter) * 100)
         const endDay = DateUtil.diffDay(item.endDate)
         return <MediaBox type='text' key={index}>
-          <MediaBoxBody>{item.courseName}
+          <MediaBoxBody className='wx-clearfix'>
+            <span className='wx-pull-left' style={{width: '65%'}}>{item.courseName}</span>
             <span className='wx-pull-right'>
               {endDay > 0 ? (endDay + '天后结束') : '已结束'}</span>
           </MediaBoxBody>
