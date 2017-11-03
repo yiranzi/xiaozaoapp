@@ -131,7 +131,6 @@ export default class extends React.Component {
   render () {
     const {isRender, error} = this.state
     return (
-      // 如果异常.在这里处理
       <InterviewLayout isRender={isRender} error={error}>
         {!isRender && this.renderContent()}
       </InterviewLayout>
@@ -179,6 +178,10 @@ export default class extends React.Component {
     // 用stage 换取
     let date = this.indexToDate(this.state.day)
     let dateDiv = <div style={chooseStyle}>{this.renderButton(`${date}群面模拟`)}</div>
+    let object = this.state.interviewInfoList.find((item, index) => {
+      return (item.id === this.state.day)
+    })
+    let number = object.signUpUser
 
     return (
       <div className='main'>
@@ -187,8 +190,9 @@ export default class extends React.Component {
         </div>
         <Card content={dateDiv} />
         <div className='intro'>
-          <p>我们会在您选择群面模拟日期的</p>
-          <p><span className='red'>上午 9:00 </span>上线案例模拟群二维码</p>
+          <p>当天已报名人数: {number}</p>
+          <br />
+          <p>我们会在当天<span className='red'>上午 9:00 </span>显示群二维码</p>
           <p>请到时查看并加群哦！</p>
         </div>
         <img className='qr-code' src={this.state.classUrl} />

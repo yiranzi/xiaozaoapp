@@ -34,6 +34,7 @@ export default class extends React.Component {
     }
   }
   renderMaterialItem (item) {
+    console.log('renderMaterialItem')
     if (!item) { return item }
     // 图片材料
     if (ToolsUtil.isImg(item)) {
@@ -47,7 +48,7 @@ export default class extends React.Component {
       return <Video videoUrl={item} />
     } else if (ToolsUtil.isString(item)) {
       // 文字材料
-      return item
+      return <div dangerouslySetInnerHTML={{__html: item}} />
     }
   }
 
@@ -496,11 +497,13 @@ export default class extends React.Component {
         <style global jsx>{`
           .meterial-item {
             margin-bottom: 1rem;
-            font-weight: bold;
           }
           /* 图片材料样式 */
           .meterial-item img {
-            width: 100%;
+            width: 100% !important;
+          }
+          .meterial-item span {
+            width: 100% !important;
           }
           .weui-btn_primary.enter,
           .weui-btn_primary.enter:not(.weui-btn_disabled):active {

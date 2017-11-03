@@ -1,7 +1,6 @@
 import React from 'react'
 import InterviewLayout from '../../containers/interviewvip/layout'
 import ThemeConfig from '../../config/theme'
-import AxiosUtil from '../../util/axios'
 import getCourseInfo from '../../util/getCourseInfo'
 
 export default class extends React.Component {
@@ -19,13 +18,13 @@ export default class extends React.Component {
       let list = await getCourseInfo.getUserInfoAndList()
       let userInfo = getCourseInfo.getUserInfo()
       let allFinish
-      let finishArray
+      let score
       for (let groups of list) {
         allFinish = true
-        finishArray = []
+        score = 0
         for (let topic of groups.group) {
           if (topic.over) {
-            finishArray.push(topic.topicKey)
+            score += parseInt(topic.accuracy)
           } else {
             allFinish = false
             break
@@ -33,11 +32,10 @@ export default class extends React.Component {
         }
         // 如果一组都完成.一次发送请求获得结果.
         if (allFinish) {
-          groups.score = await this.getAnswerBtTopicKey(finishArray)
+          groups.score = score / groups.group.length
           groups.allFinish = allFinish
         } else {
           groups.allFinish = allFinish
-          break
         }
       }
       this.setState({
@@ -52,17 +50,6 @@ export default class extends React.Component {
         isRender: false
       })
     }
-  }
-
-  getAnswerBtTopicKey = async function (finishArray) {
-    let answer
-    let score = 0
-    for (let topicKey of finishArray) {
-      answer = await AxiosUtil.get(`/api/interview/getByTopicKey/${topicKey}`)
-      score += parseInt(answer.accuracy)
-    }
-    let averageScore = score/finishArray.length
-    return (averageScore)
   }
 
   renderGroupTitle (groupName, name) {
