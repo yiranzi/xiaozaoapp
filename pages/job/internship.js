@@ -162,7 +162,7 @@ export default class extends React.Component {
   }
 
   renderSearchBar () {
-    return <div onClick={e => this.handleSearchBarChange(e)}>
+    return <div onClick={e => this.handleSearchBarChange(e)} className='wx-top-fixed'>
       <SearchBar
         placeholder='搜索职位或公司'
         lang={{
@@ -373,11 +373,7 @@ export default class extends React.Component {
         </div>
       })
       return <PanelBody>
-        <InfiniteLoader
-          onLoadMore={(resolve, finish) => this.onLoadMore(resolve, finish)}
-        >
-          {listElement}
-        </InfiniteLoader>
+        {listElement}
         {this.state.dataState === 'none' && <LoadMore showLine showDot />}
         {this.state.dataState === 'more' && <Button type='default'>More</Button>}
       </PanelBody>
@@ -393,10 +389,14 @@ export default class extends React.Component {
     return (
       <JobLayout tabbar={1}>
         {this.renderSearchBar()}
-        {this.renderBanner()}
-        <div className='job-list'>
-          {this.renderTabbar()}
-        </div>
+        <br /><br />
+        <InfiniteLoader
+          onLoadMore={(resolve, finish) => this.onLoadMore(resolve, finish)}>
+          {this.renderBanner()}
+          <div className='job-list'>
+            {this.renderTabbar()}
+          </div>
+        </InfiniteLoader>
         {this.renderCityPopup()}
         {this.renderSectionPopup()}
         <style global jsx>{`

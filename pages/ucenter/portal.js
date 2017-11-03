@@ -63,11 +63,11 @@ export default class extends React.Component {
             </CellBody>
           </Cell>
           <Cell access>
-            <CellBody>
-              <a href='/ucenter/classroom'>
-              我的教室
-              </a>
-            </CellBody>
+            <a href='/ucenter/classroom' style={{width: '100%'}}>
+              <CellBody>
+                我的教室
+              </CellBody>
+            </a>
             <CellFooter />
           </Cell>
         </Cells>
