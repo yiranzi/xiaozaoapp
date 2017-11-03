@@ -3,7 +3,7 @@ import AxiosUtil from '../../util/axios'
 import JobLayout from '../../containers/job/layout'
 import ThemeConfig from '../../config/theme'
 import ToolsUtil from '../../util/tools'
-import Navbar from '../../containers/job/navbar'
+import Navbar from '../../components/navbar'
 import DateUtil from '../../util/date'
 import { Panel, PanelHeader, PanelBody, MediaBox, MediaBoxHeader, MediaBoxTitle,
   MediaBoxBody, MediaBoxDescription, Button, LoadMore, Toast} from 'react-weui'

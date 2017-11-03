@@ -28,4 +28,14 @@ DateUtil.format = function (date, fmt) {
   return fmt
 }
 
+DateUtil.diffDay = function (endTime) {
+  let d1 = DateUtil.format(new Date(endTime.replace(/-/g, '/')), 'yyyy-MM-dd')
+  let d2 = DateUtil.format(new Date(), 'yyyy-MM-dd')
+  d1 = new Date(d1)
+  d2 = new Date(d2)
+  var days = d1.getTime() - d2.getTime()
+  var time = parseInt(days / (1000 * 60 * 60 * 24))
+  return time
+}
+
 module.exports = DateUtil
