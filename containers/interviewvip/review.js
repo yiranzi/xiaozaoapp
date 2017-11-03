@@ -332,7 +332,7 @@ export default class extends React.Component {
         {isShowResource && this.renderResourceGroup(resource)}
         {!isShowResource && this.renderDTOList(interviewTopicDTOList, answerDTOList, questionLength)}
         <style global jsx>{`
-          .meterial-item {
+          .dto-list .meterial-item {
             margin-bottom: 1rem;
             font-weight: bold;
           }
