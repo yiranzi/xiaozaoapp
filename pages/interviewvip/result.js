@@ -9,6 +9,7 @@ import ToolsUtil from '../../util/tools'
 import ThemeConfig from '../../config/theme'
 
 import CourseInfo from '../../util/getCourseInfo'
+import AxiosUtil from '../../util/axios'
 
 export default class extends React.Component {
   constructor (props) {
