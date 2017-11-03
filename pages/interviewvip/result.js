@@ -27,20 +27,16 @@ export default class extends React.Component {
 
   componentDidMount = async () => {
     let topicKey = ToolsUtil.getQueryString('topicKey')
-    let payStatus = CourseInfo.getPayStatus()
+    let buyInfo = await AxiosUtil.get('/api/interview/buyInfo')
+    let payStatus
+    if (buyInfo) {
+      payStatus = buyInfo.buyed
+    } else {
+      payStatus = false
+    }
     // 体验 or 购买
     if (payStatus) {
-      try {
-        let list = await CourseInfo.getList()
-        this.setState({
-          list: list
-        })
-      } catch (e) {
-        // 未付费 渲染报错信息.不渲染列表
-        this.setState({
-          error: e.message
-        })
-      }
+      let list = await CourseInfo.getList()
       let result = CourseInfo.isLast(topicKey)
       let {taskUrl, show, word} = result
       this.setState({
