@@ -25,7 +25,7 @@ export default class extends React.Component {
               <img src='/static/img/common/course_active.png' /> :
               <img src='/static/img/common/course.png' />}
             active={this.state.tab === 0}
-            onClick={e => this.toLink('/college/index')}
+            onClick={e => this.toLink('/college/portal')}
             label='学院'
           />
           <TabBarItem

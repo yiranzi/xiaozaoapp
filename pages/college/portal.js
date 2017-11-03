@@ -251,7 +251,7 @@ export default class extends React.Component {
         }
         h2 {
           font-weight: bolder;
-          margin-top: 25px;
+          margin-top: 20px;
           margin-bottom: 20px;
           margin-left: 10px;
         }

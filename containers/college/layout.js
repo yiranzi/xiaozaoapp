@@ -70,12 +70,12 @@ export default class extends React.Component {
           <Toptips type={this.state.toptips.type} show={this.state.toptips.show}>
             {this.state.toptips.msg}</Toptips>
         }
-        {this.props.tabbar &&
+        {this.props.tabbar !== null &&
           <Tabbar tab={this.props.tabbar}>
             {this.renderChildren()}
           </Tabbar>
         }
-        {!this.props.tabbar && this.renderChildren()}
+        {!(this.props.tabbar !== null) && this.renderChildren()}
         <style global jsx>{`
           body {
             font-size: 14px;
