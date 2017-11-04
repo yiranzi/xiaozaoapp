@@ -37,7 +37,17 @@ export default class extends React.Component {
     }
     // 体验 or 购买
     if (payStatus) {
-      let list = await CourseInfo.getList()
+      try {
+        let list = await CourseInfo.getList()
+        this.setState({
+          list: list
+        })
+      } catch (e) {
+        // 未付费 渲染报错信息.不渲染列表
+        this.setState({
+          error: e.message
+        })
+      }
       let result = CourseInfo.isLast(topicKey)
       let {taskUrl, show, word} = result
       this.setState({
