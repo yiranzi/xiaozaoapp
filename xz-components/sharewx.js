@@ -23,8 +23,9 @@ export default class ShareWxDom extends React.Component {
       // eslint-disable-next-line
       wx.onMenuShareTimeline({
         title: title,
-        link: 'http://rcwx.review.xiaozao.org/interviewvip/list',
-        imgUrl: 'https://www.baidu.com/img/bd_logo1.png', // 分享图标
+        desc: desc,
+        link: link,
+        imgUrl: imgUrl, // 分享图标
         success: function () {
           alert('分享成功')
         },
@@ -34,8 +35,9 @@ export default class ShareWxDom extends React.Component {
       })
       wx.onMenuShareAppMessage({
         title: title,
-        link: 'http://rcwx.review.xiaozao.org/interviewvip/list',
-        imgUrl: 'https://www.baidu.com/img/bd_logo1.png', // 分享图标
+        desc: desc,
+        link: link,
+        imgUrl: imgUrl, // 分享图标
         success: function () {
           alert('分享成功')
         },
@@ -45,8 +47,9 @@ export default class ShareWxDom extends React.Component {
       })
       wx.onMenuShareQQ({
         title: title,
-        link: 'http://rcwx.review.xiaozao.org/interviewvip/list',
-        imgUrl: 'https://www.baidu.com/img/bd_logo1.png', // 分享图标
+        desc: desc,
+        link: link,
+        imgUrl: imgUrl, // 分享图标
         success: function () {
           alert('分享成功')
         },
@@ -56,8 +59,9 @@ export default class ShareWxDom extends React.Component {
       })
       wx.onMenuShareWeibo({
         title: title,
-        link: 'http://rcwx.review.xiaozao.org/interviewvip/list',
-        imgUrl: 'https://www.baidu.com/img/bd_logo1.png', // 分享图标
+        desc: desc,
+        link: link,
+        imgUrl: imgUrl, // 分享图标
         success: function () {
           alert('分享成功')
         },
@@ -67,8 +71,9 @@ export default class ShareWxDom extends React.Component {
       })
       wx.onMenuShareQZone({
         title: title,
-        link: 'http://rcwx.review.xiaozao.org/interviewvip/list',
-        imgUrl: 'https://www.baidu.com/img/bd_logo1.png', // 分享图标
+        desc: desc,
+        link: link,
+        imgUrl: imgUrl, // 分享图标
         success: function () {
           alert('分享成功')
         },
