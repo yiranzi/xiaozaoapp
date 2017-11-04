@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import ThemeConfig from '../../config/theme'
 import {Button} from 'react-weui'
 import InterviewLayout from '../../containers/interview/layout'
-import Card from '../../components/card'
+import Card from '../../xz-components/card'
 import AxiosUtil from '../../util/axios'
 
 const avatars = ['http://wx.qlogo.cn/mmopen/PiajxSqBRaEK8PU42LtGrcl796lUzEcOYQhdBaialhfibgj65w2IF22XmgjtCuhicZKsscyqxibXvAyjvwGCoQEd9CQ/0',

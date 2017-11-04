@@ -2,25 +2,26 @@ import React from 'react'
 import {Form} from 'react-weui'
 import Layout from '../../components/layout'
 
-import Audio from '../../components/audio'
-import Back from '../../components/back'
-import Button from '../../components/button'
-import Card from '../../components/card'
-import Checkbox from '../../components/checkbox'
-import { Confirm } from '../../components/confirm'
-import FixFooter from '../../components/fixfooter'
-import Loading from '../../components/loading'
-import More from '../../components/more'
-import Motal from '../../components/motal'
-import Radio from '../../components/radio'
-import ShareWx from '../../components/sharewx'
-import tabbar from '../../components/tabbar'
-import TextArea from '../../components/textarea'
-import TimeDown from '../../components/timedown'
-import TimeUp from '../../components/timeup'
-import Uploader from '../../components/uploader'
-import Video from '../../components/video'
-import wxRecord from '../../components/wxrecord'
+import Audio from '../../xz-components/audio'
+import Back from '../../xz-components/back'
+import Button from '../../xz-components/button'
+import Card from '../../xz-components/card'
+import Checkbox from '../../xz-components/checkbox'
+import { Confirm } from '../../xz-components/confirm'
+import { Alert } from '../../xz-components/alert'
+import FixFooter from '../../xz-components/fixfooter'
+import Loading from '../../xz-components/loading'
+import More from '../../xz-components/more'
+import Motal from '../../xz-components/motal'
+import Radio from '../../xz-components/radio'
+import ShareWx from '../../xz-components/sharewx'
+import tabbar from '../../xz-components/tabbar'
+import TextArea from '../../xz-components/textarea'
+import TimeDown from '../../xz-components/timedown'
+import TimeUp from '../../xz-components/timeup'
+import Uploader from '../../xz-components/uploader'
+import Video from '../../xz-components/video'
+import wxRecord from '../../xz-components/wxrecord'
 
 export default class extends React.Component {
   constructor (props) {
@@ -40,6 +41,14 @@ export default class extends React.Component {
       cancelText: '取消',
       ok: () => _this.setState({confirmText: 'ok'}),
       cancel: () => _this.setState({confirmText: 'cancel'})
+    })
+  }
+  openAlert () {
+    Alert({
+      title: '标题',
+      content: '这是alert内容',
+      okText: '好的,知道了',
+      ok: () => console.log('知道了')
     })
   }
   openLoading () {
@@ -92,12 +101,14 @@ export default class extends React.Component {
             <Checkbox
               name='group1'
               options={[{value: '正常1', label: '正常1'}, {value: '正常2', label: '正常2'}]}
+              onChange={(e) => { console.log('group1 选中：', e) }}
             />
             <br />
             <Checkbox
               name='group2'
               defaultValue='默认1'
               options={[{value: '默认1', label: '默认1'}, {value: '默认2', label: '默认2'}]}
+              onChange={(e) => { console.log('group2 选中：', e) }}
             />
             <br />
             <Checkbox
@@ -111,8 +122,14 @@ export default class extends React.Component {
           <div className='title'>confirm：</div>
           <br />
           <div className='confirm'>
-            <Button text='confirm弹框' onClick={() => { this.openConfirm() }} />
+            <Button text='Confirm弹框' onClick={() => { this.openConfirm() }} />
             {this.state.confirmText && <p>你点击了：{this.state.confirmText}</p>}
+          </div>
+          <br />
+          <div className='title'>Alert:</div>
+          <br />
+          <div className='alert'>
+            <Button text='Alert弹框' onClick={() => { this.openAlert() }} />
           </div>
           <br />
           <FixFooter
@@ -161,6 +178,7 @@ export default class extends React.Component {
                 value: '正常1',
                 label: '正常1'
               }}
+              onChange={(e) => console.log('name1选中:', e)}
             />
             <Radio
               params={{
@@ -168,6 +186,7 @@ export default class extends React.Component {
                 value: '正常2',
                 label: '正常2'
               }}
+              onChange={(e) => console.log('name1选中:', e)}
             />
           </Form>
           <Form radio>
@@ -177,6 +196,7 @@ export default class extends React.Component {
                 value: '默认1',
                 label: '默认1'
               }}
+              onChange={(e) => console.log('name2选中:', e)}
             />
             <Radio
               params={{
@@ -185,6 +205,7 @@ export default class extends React.Component {
                 label: '默认2',
                 defaultValue: '默认2'
               }}
+              onChange={(e) => console.log('name2选中:', e)}
             />
           </Form>
           <Form radio>
@@ -192,15 +213,17 @@ export default class extends React.Component {
               params={{
                 name: 'name3',
                 value: 'disable1',
-                label: 'disable1'
+                label: 'disable1',
+                disabled: true
               }}
             />
             <Radio
               params={{
                 name: 'name3',
                 value: 'disable2',
-                label: 'disable1',
-                defaultValue: 'disable1'
+                label: 'disable2',
+                defaultValue: 'disable2',
+                disabled: true
               }}
             />
           </Form>

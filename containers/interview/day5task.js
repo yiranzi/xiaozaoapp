@@ -4,9 +4,9 @@ import classNames from 'classnames'
 import ToolsUtil from '../../util/tools'
 import AxiosUtil from '../../util/axios'
 import DataUtil from '../../util/data'
-import Audio from '../../components/audio'
-import Loading from '../../components/loading'
-import TimeDown from '../../components/timedown'
+import Audio from '../../xz-components/audio'
+import Loading from '../../xz-components/loading'
+import TimeDown from '../../xz-components/timedown'
 
 export default class extends React.Component {
   constructor (props) {

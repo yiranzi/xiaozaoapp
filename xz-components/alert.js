@@ -1,7 +1,7 @@
 import React from 'react'
 import {render, unmountComponentAtNode} from 'react-dom'
 
-class ConfirmDom extends React.Component {
+class AlertDom extends React.Component {
   ok () {
     const {ok} = this.props
     if (ok) {
@@ -9,30 +9,22 @@ class ConfirmDom extends React.Component {
     }
     close()
   }
-  cancel () {
-    const {cancel} = this.props
-    if (cancel) {
-      cancel()
-    }
-    close()
-  }
   render () {
-    let { content, okText, cancelText } = this.props
+    let { content, okText } = this.props
     okText = okText || '确认'
-    cancelText = cancelText || '取消'
     return (
-      <div className='confirm'>
+      <div className='alert'>
         <div className='dialog'>
           {content && <div className='content'>{content}</div>}
           <div className='action'>
-            <div className='cancel' onClick={() => { this.cancel() }}>{cancelText}</div>
             <div className='ok' onClick={() => { this.ok() }}>{okText}</div>
           </div>
         </div>
         <style jsx>{`
-          .confirm {
+          .alert {
             width: 100%;
             height: 100%;
+            font-size: 14px;
             background: rgba(0,0,0, 0.5);
             position: fixed;
             z-index: 999;
@@ -42,28 +34,20 @@ class ConfirmDom extends React.Component {
             align-items: center;
             justify-content: center;
           }
-          .confirm .dialog {
+          .alert .dialog {
             width: 70%;
             background-color: #fff;
             border-radius: 6px;
             line-height: 32px;
           }
-          .confirm .dialog .content {
+          .alert .dialog .content {
             color: #242223;
             padding: 0.5rem 1rem;
-          }
-          .confirm .dialog .action {
-            display: flex;
-            justify-content: space-between;
-            border-top: 1px solid #e5e5e5;
-          }
-          .confirm .dialog .action .cancel,
-          .confirm .dialog .action .ok {
-            flex: 1;
             text-align: center;
           }
-          .confirm .dialog .action .ok {
-            border-left: 1px solid #e5e5e5;
+          .alert .dialog .action {
+            border-top: 1px solid #e5e5e5;
+            text-align: center;
             color: #117ee9;
           }
         `}</style>
@@ -73,15 +57,15 @@ class ConfirmDom extends React.Component {
 }
 
 function close () {
-  const target = document.getElementById('xz-confirm')
+  const target = document.getElementById('xz-alert')
   unmountComponentAtNode(target)
   target.parentNode.removeChild(target)
 }
 
-export function Confirm (properties) {
-  document.body.children[0].classList.add('xz-confirm-blur')
+export function Alert (properties) {
+  document.body.children[0].classList.add('xz-alert-blur')
   let divTarget = document.createElement('div')
-  divTarget.id = 'xz-confirm'
+  divTarget.id = 'xz-alert'
   document.body.appendChild(divTarget)
-  render(<ConfirmDom {...properties} />, divTarget)
+  render(<AlertDom {...properties} />, divTarget)
 }

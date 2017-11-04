@@ -4,17 +4,18 @@ import classNames from 'classnames'
 import ToolsUtil from '../../util/tools'
 import AxiosUtil from '../../util/axios'
 import DataUtil from '../../util/data'
-import Radio from '../../components/radio'
-import CheckBox from '../../components/checkbox'
-import Uploader from '../../components/uploader'
-import FixFooter from '../../components/fixfooter'
-import TextArea from '../../components/textarea'
-import Audio from '../../components/audio'
-import Video from '../../components/video'
-import WxRecord from '../../components/wxrecord'
-import Loading from '../../components/loading'
-import Back from '../../components/back'
+import Radio from '../../xz-components/radio'
+import CheckBox from '../../xz-components/checkbox'
+import Uploader from '../../xz-components/uploader'
+import FixFooter from '../../xz-components/fixfooter'
+import TextArea from '../../xz-components/textarea'
+import Audio from '../../xz-components/audio'
+import Video from '../../xz-components/video'
+import WxRecord from '../../xz-components/wxrecord'
+import Loading from '../../xz-components/loading'
+import Back from '../../xz-components/back'
 import ThemeConfig from '../../config/theme'
+import Material from '../../containers/clock/material'
 
 export default class extends React.Component {
   constructor (props) {
@@ -33,57 +34,6 @@ export default class extends React.Component {
       scrollTop: 0
     }
   }
-  renderMaterialItem (item) {
-    console.log('renderMaterialItem')
-    if (!item) { return item }
-    // 图片材料
-    if (ToolsUtil.isImg(item)) {
-      return <img src={item} />
-    } else if (ToolsUtil.isMp3(item)) {
-      // 音频材料
-      let idTag = `audio-${Math.random().toString(36).substr(2)}`
-      return <Audio idTag={idTag} audioUrl={item} />
-    } else if (ToolsUtil.isMp4(item)) {
-      // 视频材料
-      return <Video videoUrl={item} />
-    } else if (ToolsUtil.isString(item)) {
-      // 文字材料
-      return <div dangerouslySetInnerHTML={{__html: item}} />
-    }
-  }
-
-  // render不同类型的材料
-  renderMaterial (material) {
-    const _this = this
-    try {
-      // meterial 返回结果有两种，一种是文字材料(字符串)，另一种是“['mp3', 'img', 'mp4']”
-      // eslint-disable-next-line
-      let meterialArray = eval(material)
-      if (meterialArray) {
-        // 是一个数组
-        return meterialArray.map((item, index) => {
-          return (
-            <div key={index} className='meterial-item'>
-              {_this.renderMaterialItem(item)}
-            </div>
-          )
-        })
-      } else {
-        // 字符串
-        return (
-          <div className='meterial-item'>
-            {_this.renderMaterialItem(material)}
-          </div>
-        )
-      }
-    } catch (e) {
-      return (
-        <div className='meterial-item'>
-          {_this.renderMaterialItem(material)}
-        </div>
-      )
-    }
-  }
   renderResourceGroup (resource) {
     const content = (
       <Button className='enter' onClick={() => { this.toTask() }}>答 题</Button>
@@ -91,7 +41,7 @@ export default class extends React.Component {
     return (
       <div className='resource'>
         <div className='title'>阅读材料</div>
-        <div className='content'>{this.renderMaterial(resource)}</div>
+        <div className='content'><Material content={resource} /></div>
         <FixFooter content={content} />
         <style jsx>{`
           .title {
@@ -211,7 +161,7 @@ export default class extends React.Component {
             <div onClick={() => { this.toMaterial() }}><Back direct='left' text='查看材料' /></div>
           </div>
           <div className='content'>
-            {this.renderMaterial(material)}
+            <Material content={material} />
             <div className='question'>{dtoItem.no}、{dtoItem.question}</div>
             <div className='options'>
               {this.renderAnswerOption(id, dtoItem)}

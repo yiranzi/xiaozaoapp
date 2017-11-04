@@ -1,13 +1,9 @@
 import React from 'react'// 库
-import {Button} from 'react-weui'// 组件库
-import Card from '../../components/card'
-import Back from '../../containers/interviewvip/back'
-import Tabbar from '../../components/tabbar'
+import Card from '../../xz-components/card'
+import Tabbar from '../../xz-components/tabbar'
 import InterviewLayout from '../../containers/interviewvip/layout'// container
 import AxiosUtil from '../../util/axios'
-
 import ThemeConfig from '../../config/theme'
-
 
 export default class extends React.Component {
   staticIndex = {} // map of {index : date}

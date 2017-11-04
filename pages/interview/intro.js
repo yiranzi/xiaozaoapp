@@ -1,6 +1,6 @@
 import React from 'react'
 import {Button} from 'react-weui'
-import Card from '../../components/card'
+import Card from '../../xz-components/card'
 import ToolsUtil from '../../util/tools'
 import Back from '../../containers/interview/back'
 import InterviewLayout from '../../containers/interview/layout'
