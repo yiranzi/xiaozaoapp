@@ -15,11 +15,10 @@ export default class ShareWxDom extends React.Component {
     ]
     // eslint-disable-next-line
     wx.config(wxConfig)
-    // eslint-disable-next-line
+
     let { title, desc, link, imgUrl } = this.props
     // eslint-disable-next-line
     wx.ready(function () {
-      console.log('微信认证成功')
       // eslint-disable-next-line
       wx.onMenuShareTimeline({
         title: title,
@@ -32,6 +31,7 @@ export default class ShareWxDom extends React.Component {
           alert('取消分享')
         }
       })
+      // eslint-disable-next-line
       wx.onMenuShareAppMessage({
         title: title,
         desc: desc,
@@ -44,6 +44,7 @@ export default class ShareWxDom extends React.Component {
           alert('取消分享')
         }
       })
+      // eslint-disable-next-line
       wx.onMenuShareQQ({
         title: title,
         desc: desc,
@@ -56,6 +57,7 @@ export default class ShareWxDom extends React.Component {
           alert('取消分享')
         }
       })
+      // eslint-disable-next-line
       wx.onMenuShareWeibo({
         title: title,
         desc: desc,
@@ -68,6 +70,7 @@ export default class ShareWxDom extends React.Component {
           alert('取消分享')
         }
       })
+      // eslint-disable-next-line
       wx.onMenuShareQZone({
         title: title,
         desc: desc,
