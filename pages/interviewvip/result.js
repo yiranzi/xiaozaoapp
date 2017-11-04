@@ -9,6 +9,7 @@ import ToolsUtil from '../../util/tools'
 import ThemeConfig from '../../config/theme'
 
 import CourseInfo from '../../util/getCourseInfo'
+import AxiosUtil from '../../util/axios'
 
 export default class extends React.Component {
   constructor (props) {
@@ -27,7 +28,13 @@ export default class extends React.Component {
 
   componentDidMount = async () => {
     let topicKey = ToolsUtil.getQueryString('topicKey')
-    let payStatus = CourseInfo.getPayStatus()
+    let buyInfo = await AxiosUtil.get('/api/interview/buyInfo')
+    let payStatus
+    if (buyInfo) {
+      payStatus = buyInfo.buyed
+    } else {
+      payStatus = false
+    }
     // 体验 or 购买
     if (payStatus) {
       try {
