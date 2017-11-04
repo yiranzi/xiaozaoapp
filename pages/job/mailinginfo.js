@@ -106,12 +106,10 @@ export default class extends React.Component {
         toptips.msg = '请选择简历'
       } else {
         const ret = await AxiosUtil.post('/api/mailing/sendResume', this.state.mailingObj)
-        if (ret) {
-          this.setState({showToast: true})
-          this.state.toastTimer = setTimeout(() => {
-            location.href = '/job/detail?jobId=' + this.state.mailingObj.jobId
-          }, 2000)
-        }
+        this.setState({showToast: true})
+        this.state.toastTimer = setTimeout(() => {
+          location.href = '/job/detail?jobId=' + this.state.mailingObj.jobId
+        }, 2000)
       }
     } catch (e) {
       toptips.type = 'warn'

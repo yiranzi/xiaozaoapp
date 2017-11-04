@@ -121,7 +121,6 @@ export default class extends React.Component {
       }
       console.log(this.state.params)
       let ret = await AxiosUtil.get(`/api/user/registerAndBind?phone=${this.state.params.phone}&regionCodeIndex=${this.state.params.regionCodeIndex}&validateCode=${this.state.params.validateCode}&password=${this.state.params.password}`)
-      console.log(ret)
       alert('注册绑定成功')
       setTimeout(() => {
         location.href = '/user/registerfinish'

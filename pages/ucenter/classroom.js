@@ -49,8 +49,10 @@ export default class extends React.Component {
           <MediaBoxBody className='wx-clearfix course-list-item'>
             <Progress value={prog} showCancel={false}
               className='wx-pull-left course-progress' />&nbsp;{prog}%&nbsp;
-            <a href={Environment.getApiUrl() + 'learn/course/' + item.courseId}>
-              <Button size='small' className='wx-pull-right'>去上课</Button></a>
+            {endDay > 0 &&
+              <a href={Environment.api_url + '/learn/course/' + item.courseId}>
+                <Button size='small' className='wx-pull-right'>去上课</Button></a>
+            }
           </MediaBoxBody>
         </MediaBox>
       })

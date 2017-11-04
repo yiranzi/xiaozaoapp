@@ -151,7 +151,8 @@ export default class extends React.Component {
   }
 
   renderSearchBar () {
-    return <div><a href='/job/internship'><span className='return-page'>&lt;</span></a>
+    return <div><a href='/job/internship'>
+      <span className='return-page'>&lsaquo;</span></a>
       <SearchBar
         placeholder='搜索职位或公司'
         lang={{cancel: '取消'}}
@@ -160,10 +161,54 @@ export default class extends React.Component {
       />
       <style jsx>{`
         .return-page {
-          float: left;
-          padding: 11px 14px;
-          background: #EFEFF4;
-          font-weight: bold;
+            position: relative;
+            padding: 11px 11px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            background-color: #EFEFF4;
+            float: left
+        }
+        .return-page:before {
+            content: " ";
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            height: 1px;
+            border-top: 1px solid #D7D6DC;
+            color: #D7D6DC;
+            -webkit-transform-origin: 0 0;
+            -webkit-transform-origin: 0 0;
+            -ms-transform-origin: 0 0;
+            transform-origin: 0 0;
+            -webkit-transform: scaleY(0.5);
+            -webkit-transform: scaleY(0.5);
+            -ms-transform: scaleY(0.5);
+            transform: scaleY(0.5);
+        }
+        .return-page:after {
+            content: " ";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            height: 1px;
+            border-bottom: 1px solid #D7D6DC;
+            color: #D7D6DC;
+            -webkit-transform-origin: 0 100%;
+            -webkit-transform-origin: 0 100%;
+            -ms-transform-origin: 0 100%;
+            transform-origin: 0 100%;
+            -webkit-transform: scaleY(0.5);
+            -webkit-transform: scaleY(0.5);
+            -ms-transform: scaleY(0.5);
+            transform: scaleY(0.5);
         }
       `}</style>
     </div>

@@ -22,7 +22,6 @@ export default class extends React.Component {
       this.setState({
         user: user
       })
-      console.log(user)
     } catch (e) {
       this.setState({
         error: e.message
@@ -32,7 +31,6 @@ export default class extends React.Component {
 
   renderHeader () {
     const {user} = this.state
-    console.log(user)
     if (user) {
       return <div>
         <img className='headimg' src={user.headimgurl} />

@@ -1,12 +1,10 @@
-const environment = {
-  api_url: {
-    development: 'http://rcweb.review.xiaozao.org',
-    production: 'https://www.xiaozao.org'
+const config = {
+  development: {
+    api_url: 'http://rcweb.review.xiaozao.org'
+  },
+  production: {
+    api_url: 'https://www.xiaozao.org'
   }
 }
 
-environment.getApiUrl = function () {
-  return environment.api_url[process.env.NODE_ENV]
-}
-
-module.exports = environment
+module.exports = config[process.env.NODE_ENV]
