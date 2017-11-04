@@ -498,6 +498,10 @@ export default class extends React.Component {
           .meterial-item {
             margin-bottom: 1rem;
           }
+          .resource .meterial-item {
+            font-size: 16px !important;
+            color: ${ThemeConfig.color.dark_black};
+          }
           /* 图片材料样式 */
           .meterial-item img {
             width: 100% !important;
