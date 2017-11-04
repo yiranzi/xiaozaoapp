@@ -16,8 +16,66 @@ export default class ShareWxDom extends React.Component {
     // eslint-disable-next-line
     wx.config(wxConfig)
     // eslint-disable-next-line
+    let { title, desc, link, imgUrl } = this.props
+    // eslint-disable-next-line
     wx.ready(function () {
       console.log('微信认证成功')
+      // eslint-disable-next-line
+      wx.onMenuShareTimeline({
+        title: title,
+        link: 'http://rcwx.review.xiaozao.org/interviewvip/list',
+        imgUrl: 'https://www.baidu.com/img/bd_logo1.png', // 分享图标
+        success: function () {
+          alert('分享成功')
+        },
+        cancel: function () {
+          alert('取消分享')
+        }
+      })
+      wx.onMenuShareAppMessage({
+        title: title,
+        link: 'http://rcwx.review.xiaozao.org/interviewvip/list',
+        imgUrl: 'https://www.baidu.com/img/bd_logo1.png', // 分享图标
+        success: function () {
+          alert('分享成功')
+        },
+        cancel: function () {
+          alert('取消分享')
+        }
+      })
+      wx.onMenuShareQQ({
+        title: title,
+        link: 'http://rcwx.review.xiaozao.org/interviewvip/list',
+        imgUrl: 'https://www.baidu.com/img/bd_logo1.png', // 分享图标
+        success: function () {
+          alert('分享成功')
+        },
+        cancel: function () {
+          alert('取消分享')
+        }
+      })
+      wx.onMenuShareWeibo({
+        title: title,
+        link: 'http://rcwx.review.xiaozao.org/interviewvip/list',
+        imgUrl: 'https://www.baidu.com/img/bd_logo1.png', // 分享图标
+        success: function () {
+          alert('分享成功')
+        },
+        cancel: function () {
+          alert('取消分享')
+        }
+      })
+      wx.onMenuShareQZone({
+        title: title,
+        link: 'http://rcwx.review.xiaozao.org/interviewvip/list',
+        imgUrl: 'https://www.baidu.com/img/bd_logo1.png', // 分享图标
+        success: function () {
+          alert('分享成功')
+        },
+        cancel: function () {
+          alert('取消分享')
+        }
+      })
     })
     // eslint-disable-next-line
     wx.error(function (res) {
