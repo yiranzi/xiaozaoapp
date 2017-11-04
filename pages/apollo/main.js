@@ -8,7 +8,7 @@ export default class extends React.Component {
     ShareWx({
       title: '标题',
       desc: '描述',
-      link: 'https://www.baidu.com',
+      link: 'http://rcwx.review.xiaozao.org/interviewvip/list',
       imgUrl: 'https://www.baidu.com/img/bd_logo1.png'
     })
   }

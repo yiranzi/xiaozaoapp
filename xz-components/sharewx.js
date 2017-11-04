@@ -23,7 +23,6 @@ export default class ShareWxDom extends React.Component {
       // eslint-disable-next-line
       wx.onMenuShareTimeline({
         title: title,
-        desc: desc,
         link: link,
         imgUrl: imgUrl, // 分享图标
         success: function () {
