@@ -27,10 +27,10 @@ export default class extends React.Component {
           onClick={e => this.tolink(e)}>
           <h2 className='fixMargin'>打卡专区</h2>
           <img src='/static/imgs/test-bg.png' className='header__image' />
-          <div className='subContent'>
-            <p className='subTitle'>小灶群面7天闪电计划 第一期 </p>
-            <a className='more' href='http://wx.xiaozao.org/interview/main'>点击进入</a>
-          </div>
+            <div className='subContent'>
+              <p className='subTitle'>小马哥教你过群面 </p>
+              <a className='more' href='http://wx.xiaozao.org/interviewvip/introPage'>点击报名</a>
+            </div>
         </section>
         <section className='interview-plan'>
           <h2 className='fixMargin'>面试课程</h2>
@@ -45,20 +45,20 @@ export default class extends React.Component {
             href='https://h5.youzan.com/v2/showcase/homepage?alias=ph3y0wi'>更多</a>
           <div className='wrapper'>
             <a className='course__block' href='https://kdt.im/i053_h'>
-              <img src='/static/imgs/course/course-1.png' alt='' />
+              <img src='/static/imgs/course/course-1.png' />
               <div className='title'>三三原则-90%面试题都适用</div>
             </a>
             <a className='course__block'
               href='https://h5.youzan.com/v2/showcase/homepage?alias=ph3y0wi'>
-              <img src='/static/imgs/course/course-2.png' alt='' />
+              <img src='/static/imgs/course/course-2.png' />
               <div className='title'>四大行业一路通关</div>
             </a>
             <a className='course__block' href='https://kdt.im/Xju3_h'>
-              <img src='/static/imgs/course/course-3.png' alt='' />
+              <img src='/static/imgs/course/course-3.png' />
               <div className='title'>咨询行业秋招一路通关</div>
             </a>
             <a className='course__block' href='https://kdt.im/cVu3_h'>
-              <img src='/static/imgs/course/course-4.png' alt='' />
+              <img src='/static/imgs/course/course-4.png' />
               <div className='title'>快消行业秋招一路通关</div>
             </a>
           </div>
@@ -67,7 +67,7 @@ export default class extends React.Component {
           <a className='item'
             href='https://mp.weixin.qq.com/mp/homepage?__biz=MzIyNjAwMDc3Mg==&hid=15&sn=9ded9df774fcdb4ee570dec7e15387dc&uin=&key=&devicetype=Windows+10&version=6204014f&lang=zh_CN&winzoom=1'>
             <div className='image-wrapper'>
-              <img src='/static/imgs/course/assistant_09.png' alt='' />
+              <img src='/static/imgs/course/assistant_09.png' />
             </div>
             <div className='container'>
               <div className='title'>求职干货</div>
@@ -77,16 +77,17 @@ export default class extends React.Component {
           <a className='item'
             href='https://m.qlchat.com/wechat/page/live/540000007060032'>
             <div className='image-wrapper'>
-              <img src='/static/imgs/course/assistant_11.png' alt='' />
+              <img src='/static/imgs/course/assistant_11.png' />
             </div>
             <div className='container'>
               <div className='title'>在线直播</div>
               <div className='sub'>40余场直播，可回看</div>
             </div>
           </a>
-          <a className='item' href='http://mp.weixin.qq.com/s/s4fpMoTQeGqB0c3rM2V59Q'>
+          <a className='item'
+            href='http://mp.weixin.qq.com/s/s4fpMoTQeGqB0c3rM2V59Q'>
             <div className='image-wrapper'>
-              <img src='/static/imgs/course/assistant_15.png' alt='' />
+              <img src='/static/imgs/course/assistant_15.png' />
             </div>
             <div className='container'>
               <div className='title'>简历工具</div>
@@ -96,16 +97,17 @@ export default class extends React.Component {
           <a className='item'
             href='http://mp.weixin.qq.com/s?__biz=MzA4ODU5NTY1Mw==&mid=501160894&idx=1&sn=9862c7af997f7394de43ebdd64267e3f&chksm=080c76143f7bff02c1a6e03b6f0c26ac89bef63d9794424db45e7fd08b9753d9570dbfe72bb5#rd'>
             <div className='image-wrapper'>
-              <img src='/static/imgs/course/assistant_16.png' alt='' />
+              <img src='/static/imgs/course/assistant_16.png' />
             </div>
             <div className='container'>
               <div className='title'>笔试题库</div>
               <div className='sub'>模拟真实做题环境</div>
             </div>
           </a>
-          <a className='item' href='https://mp.weixin.qq.com/s/3wWHU0F2NBdwaCFGcwRLqg'>
+          <a className='item'
+            href='https://mp.weixin.qq.com/s/3wWHU0F2NBdwaCFGcwRLqg'>
             <div className='image-wrapper'>
-              <img src='/static/imgs/course/assistant_20.png' alt='' />
+              <img src='/static/imgs/course/assistant_20.png' />
             </div>
             <div className='container'>
               <div className='title'>四大红宝书</div>
@@ -114,7 +116,7 @@ export default class extends React.Component {
           </a>
           <a className='item' href='http://cn.mikecrm.com/xaflF9L'>
             <div className='image-wrapper'>
-              <img src='/static/imgs/course/assistant_22.png' alt='' />
+              <img src='/static/imgs/course/assistant_22.png' />
             </div>
             <div className='container'>
               <div className='title'>心愿树洞</div>
@@ -122,7 +124,7 @@ export default class extends React.Component {
             </div>
           </a>
         </section>
-        <section className='exam' style={{display: 'none'}}>
+        <section className='exam' style='display: none'>
           <h2>笔试打卡</h2>
           <img src='/static/imgs/course/assistant_05.png' />
           <div className='goinfor'>
@@ -158,7 +160,7 @@ export default class extends React.Component {
         }
         body {
           line-height: 1;
-          font-family: "Helvetica Neue For Number",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Helvetica,Arial,sans-serif;
+          font-family: 'Helvetica Neue For Number',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Hiragino Sans GB','Microsoft YaHei','Helvetica Neue',Helvetica,Arial,sans-serif;
         }
         ol, ul {
           list-style: none;
