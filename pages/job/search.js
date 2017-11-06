@@ -69,7 +69,6 @@ export default class extends React.Component {
   loadJobList = async (isConcat) => {
     this.setState({dataState: 'loading'})
     try {
-      console.log(this.state.params)
       let pageList = await AxiosUtil.post('/api/private/job/internship',
         this.state.params)
       this.state.params.pn = this.state.params.pn + 1
@@ -119,7 +118,6 @@ export default class extends React.Component {
     this.setState({
       params: this.state.params
     })
-    console.log(this.state.params)
     this.loadJobList(false)
   }
 
@@ -129,7 +127,6 @@ export default class extends React.Component {
     this.setState({
       params: this.state.params
     })
-    console.log(this.state.params)
     this.loadJobList(false)
   }
 
@@ -398,11 +395,7 @@ export default class extends React.Component {
         </div>
       })
       return <PanelBody>
-        <InfiniteLoader
-          onLoadMore={(resolve, finish) => this.onLoadMore(resolve, finish)}
-        >
-          {listElement}
-        </InfiniteLoader>
+        {listElement}
         {this.state.dataState === 'none' && <LoadMore showLine showDot />}
         {this.state.dataState === 'more' && <Button type='default'>More</Button>}
       </PanelBody>
@@ -418,9 +411,13 @@ export default class extends React.Component {
     return (
       <JobLayout>
         {this.renderSearchBar()}
-        <div className='job-list'>
-          {this.renderTabbar()}
-        </div>
+        <br /><br />
+        <InfiniteLoader
+          onLoadMore={(resolve, finish) => this.onLoadMore(resolve, finish)}>
+          <div className='job-list'>
+            {this.renderTabbar()}
+          </div>
+        </InfiniteLoader>
         {this.renderCityPopup()}
         {this.renderSectionPopup()}
         <style global jsx>{`
