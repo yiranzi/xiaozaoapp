@@ -37,7 +37,7 @@ export default class extends React.Component {
   getDetail = async function () {
     try {
       let getDetail = await AxiosUtil.get('/api/apollo/getDetail')
-      let {week, dayOfYear, apolloWeekDTOList} = getDetail
+      let {week, dayOfYear, apolloWeekDTOList, clockCount} = getDetail
       let apolloWeekDayDTOList = apolloWeekDTOList[week].apolloWeekDayDTOList
       let currentDay = apolloWeekDayDTOList.findIndex((ele, index) => {
         return (ele.dayOfYear === dayOfYear)
@@ -45,7 +45,7 @@ export default class extends React.Component {
 
       this.setState({
         allWeek: apolloWeekDTOList, // 总日期
-
+        signTotalDay: clockCount, // 总投递次数
         currentSelectDay: currentDay, // 当前选中日
         currentSelectWeek: week, // 当前选中周
         isRender: false
@@ -177,10 +177,10 @@ export default class extends React.Component {
   renderAvatar () {
     let style = {
       fontSize: '0',
-      width: '25px',
-      height: '25px',
+      width: '18px',
+      height: '18px',
       borderRadius: '50%',
-      margin: '0px'
+      margin: '1px'
     }
     let headArray = this.state.headimgList
     if (headArray && headArray.length > 0) {
@@ -211,7 +211,7 @@ export default class extends React.Component {
     return (<div>
       <h1 className='content'>今日有<span className='count'> {this.state.todayFinishCount} </span>人完成打卡</h1>
       <div className='flex'>
-        {this.renderAvatar()}
+        <div>{this.renderAvatar()}</div>
         <div className='content' onClick={() => { this.goRouter('/apollo/rank') }}>查看总排行榜 ></div>
       </div>
       <style jsx>{`
@@ -234,13 +234,13 @@ export default class extends React.Component {
   renderButtonList () {
     return (<div className='column'>
       <div className='colume-inner has-border-div' onClick={() => { this.goRouter('https://shimo.im/doc/WpXxL5ZVRkUusykC?r=J5P19Z/') }}>
-        <span>点击前往能力学院获取实习干货</span>
+        <span>点击获取实习干货</span>
         <span>{'>'}</span>
       </div>
-      <div className='colume-inner' onClick={() => { this.goRouter('/apollo/finish') }}>
+      {this.todayDayKey > 318 && <div className='colume-inner' onClick={() => { this.goRouter('/apollo/finish') }}>
         <span>我已找到实习，结束打卡</span>
         <span>{'>'}</span>
-      </div>
+      </div>}
       <style>{
         `
         .column {
@@ -315,7 +315,7 @@ export default class extends React.Component {
               <img className='top-bg' src='/static/img/apollo/bg1.jpg' />
               <div className='top-content'>
                 <div className='header'>
-                  <p>您已成功打卡{this.state.signTotalDay}天</p>
+                  <p>您已成功打卡 {this.state.signTotalDay} 天</p>
                 </div>
                 <DateSelector
                   todayIndex={0}
@@ -361,7 +361,7 @@ export default class extends React.Component {
             height: 40px;
             line-height: 40px;
             text-align: center;
-            font-size: 20px;
+            font-size: 18px;
           }
           .finish-button {
             font-size: 30px !important;

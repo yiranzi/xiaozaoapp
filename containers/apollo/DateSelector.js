@@ -74,8 +74,8 @@ export default class extends React.Component {
           }
           .calendar img {
             margin-top: 12px;
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
           }
         `}</style>
       </div>
@@ -117,7 +117,7 @@ export default class extends React.Component {
           }
           .dayName {
             color: white;
-            font-size: 22px;
+            font-size: 24px;
           }
           .date-container {
             position: relative;
@@ -136,8 +136,7 @@ export default class extends React.Component {
             height: 28px;
             margin:auto;
           }
-
-`
+          `
           }
         </style>
       </div>)
@@ -145,44 +144,36 @@ export default class extends React.Component {
   }
 
   styleByStatus (item) {
+    let style = {
+      borderRadius: '50%',
+      width: '20px',
+      height: '20px',
+      lineHeight: '20px',
+      textAlign: 'center',
+      display: 'inline-block'
+    }
     let styleFinish = {
       color: `${ThemeConfig.color.deepBlue}`,
       backgroundColor: `${ThemeConfig.color.yellow}`,
-      borderRadius: '50%',
-      width: '22px',
-      height: '22px',
-      lineHeight: '22px',
-      textAlign: 'center',
-      display: 'inline-block'
+      borderRadius: '50%'
     }
     let styleUnFinish = {
       color: `white`,
       backgroundColor: `#e1e4f0`,
-      borderRadius: '50%',
-      width: '22px',
-      height: '22px',
-      lineHeight: '22px',
-      textAlign: 'center',
-      display: 'inline-block'
+      borderRadius: '50%'
     }
     let unReach = {
-      color: `white`,
-      width: '22px',
-      height: '22px',
-      lineHeight: '22px',
-      textAlign: 'center',
-      display: 'inline-block'
+      color: `white`
     }
-    let style
     // 之后的
     if (item.start) {
       if (item.over) {
-        style = styleFinish
+        style = Object.assign(style, styleFinish)
       } else {
-        style = styleUnFinish
+        style = Object.assign(style, styleUnFinish)
       }
     } else {
-      style = unReach
+      style = Object.assign(style, unReach)
     }
     return style
   }
