@@ -1,5 +1,3 @@
-import Environment from '../../config/environment'
-
 const axios = require('axios')
 
 let AxiosUtil = {}
@@ -25,7 +23,7 @@ function request (param) {
         location.reload(true)
       } if (error.response.status === 403) {
         alert('未绑定手机号，没有权限')
-        location.href = Environment.api_url + '/user/register'
+        location.href = '/user/register'
       } else {
         reject(error.message)
       }
