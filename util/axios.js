@@ -1,3 +1,5 @@
+import Environment from '../../config/environment'
+
 const axios = require('axios')
 
 let AxiosUtil = {}
@@ -21,6 +23,9 @@ function request (param) {
       if (error.response.status === 401) {
         alert('登录已过期，请重新登录')
         location.reload(true)
+      } if (error.response.status === 403) {
+        alert('未绑定手机号，没有权限')
+        location.href = Environment.api_url + '/user/register'
       } else {
         reject(error.message)
       }
