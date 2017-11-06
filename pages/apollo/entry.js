@@ -18,7 +18,9 @@ export default class extends React.Component {
             <div className='card'>群内小伙伴一起努力，监督打卡拿offer</div>
           </div>
           <div className='button'>
-            <Button text='立即申请加入阿波罗实习计划' />
+            <a href='https://cn.mikecrm.com/XHASF7T' style={{display: 'inline-block', width: '100%'}}>
+              <Button text='立即申请加入阿波罗实习计划' />
+            </a>
           </div>
         </div>
         <style jsx>{`
