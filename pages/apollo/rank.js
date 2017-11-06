@@ -73,7 +73,6 @@ export default class extends React.Component {
           .apollo-rank .header .text {
             font-size: 16px;
             color: #ffd164;
-            font-weight: bold;
           }
           .apollo-rank .header .text .line {
             display: inline-block;
@@ -117,6 +116,7 @@ export default class extends React.Component {
             margin-top: 0.5rem;
             padding: 0.25rem 1rem;
             border-radius: 2rem;
+            box-shadow: 0 5px 5px rgba(229,229,229, 1);
           }
           .apollo-rank .list .item .left {
             display: flex;
