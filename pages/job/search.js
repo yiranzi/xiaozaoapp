@@ -2,7 +2,6 @@ import React from 'react'
 import AxiosUtil from '../../util/axios'
 import JobLayout from '../../containers/job/layout'
 import DateUtil from '../../util/date'
-import Banner from '../../components/banner'
 import { Button, Panel, PanelBody, MediaBox, MediaBoxHeader, MediaBoxTitle,
   MediaBoxBody, LoadMore, InfiniteLoader, Popup,
   SearchBar, Tab, NavBar, NavBarItem, TabBody} from 'react-weui'
