@@ -23,7 +23,9 @@ export default class extends React.Component {
         <div className='apollo-rank'>
           <div className='header'>
             <div className='title'>阿波罗实习计划</div>
-            <div className='text'><span className='line' />总排行榜<span className='line' /></div>
+            <div className='text'>
+              <span className='line' />总排行榜<span className='line' />
+            </div>
             <div className='mine'>
               <div className='rank'>
                 <p>排名</p>
