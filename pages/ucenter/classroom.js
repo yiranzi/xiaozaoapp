@@ -1,8 +1,6 @@
 import React from 'react'
 import AxiosUtil from '../../util/axios'
 import UCenterLayout from '../../containers/ucenter/layout'
-import ThemeConfig from '../../config/theme'
-import Environment from '../../config/environment'
 import Navbar from '../../components/navbar'
 import DateUtil from '../../util/date'
 import { Panel, PanelBody, MediaBox, MediaBoxBody,
@@ -50,7 +48,7 @@ export default class extends React.Component {
             <Progress value={prog} showCancel={false}
               className='wx-pull-left course-progress' />&nbsp;{prog}%&nbsp;
             {endDay > 0 &&
-              <a href={Environment.api_url + '/learn/course/' + item.courseId}>
+              <a href={'https://www.xiaozao.org/learn/course/' + item.courseId}>
                 <Button size='small' className='wx-pull-right'>去上课</Button></a>
             }
           </MediaBoxBody>
