@@ -1,5 +1,6 @@
 import React from 'react'
 import SwipeView from '../../xz-components/SwipeView'
+import ThemeConfig from '../../config/theme'
 
 /*
   week数组
@@ -17,6 +18,8 @@ export default class extends React.Component {
     this.cbfMoving = this.cbfMoving.bind(this)
     this.cbfPutOn = this.cbfPutOn.bind(this)
     this.onChooseOnDay = this.onChooseOnDay.bind(this)
+    this.styleByStatus = this.styleByStatus.bind(this)
+    this.onChangeWeek = this.onChangeWeek.bind(this)
   }
 
   cbfMoving (e, deltaX, deltaY, absX, absY, velocity) {
@@ -31,32 +34,156 @@ export default class extends React.Component {
       return
     }
     if (deltaX > 0) {
-      direction = 'left'
-    } else {
       direction = 'right'
+    } else {
+      direction = 'left'
     }
     this.moving = false
-    this.props.onChange(direction)
+    this.onChangeWeek(direction)
   }
 
+  onChangeWeek (direction) {
+    this.props.onChange(direction)
+  }
   onChooseOnDay (index) {
     this.props.onChoose(index)
   }
 
   // onTap = {this.cbfPress}
   render () {
-    console.log(this.props)
     return (
       <div >
         <div className='fixfooter-container'>
           <SwipeView className='banner-container' onSwiping={this.cbfMoving} onSwiped={this.cbfPutOn} >
-            <div>{this.props.dayType}</div>
+            <div className='calendar'>
+              <div onClick={() => { this.onChangeWeek('left') }}>
+                <img src='/static/img/apollo/prev.png' />
+              </div>
+              {this.renderCalendarItem()}
+              <div onClick={() => { this.onChangeWeek('right') }}>
+                <img src='/static/img/apollo/next.png' />
+              </div>
+              </div>
           </SwipeView>
         </div>
         <style jsx>{`
-
+          .calendar {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+          }
+          .calendar img {
+            margin-top: 12px;
+            width: 10px;
+            height: 10px;
+          }
         `}</style>
       </div>
     )
+  }
+
+  IndexToDay (index) {
+    let date = {
+      '1': '一',
+      '2': '二',
+      '3': '三',
+      '4': '四',
+      '5': '五',
+      '6': '六',
+      '7': '日'
+    }
+    return date[index]
+  }
+  
+  renderCalendarItem () {
+    let weekInfo = this.props.weekInfo
+    return weekInfo.map((ele, index) => {
+      let dayName = this.IndexToDay(ele.dayOfWeek)
+      return (<div onClick={() => { this.onChooseOnDay(index) }} className='calendar-item' key={ele.dayOfYear}>
+        <span className='dayName'>{dayName}</span>
+        <div className='date-container'>
+          <span className='date' style={this.styleByStatus(ele)}>{ele.dayOfMonth}</span>
+          {ele.today && <img className='today-tag' src='/static/img/apollo/current.png' />}
+        </div>
+        <style jsx>
+          {`
+          .calendar-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            width: 30px;
+
+          }
+          .dayName {
+            color: white;
+            font-size: 22px;
+          }
+          .date-container {
+            position: relative;
+            width: 30px;
+            height: 30px;
+          }
+          .date {
+            position:absolute;
+            left:0; right:0; top:0; bottom:0;
+            margin:auto;
+          }
+          .today-tag {
+            position:absolute;
+            left:0; right:0; top:0; bottom:0;
+            width: 28px;
+            height: 28px;
+            margin:auto;
+          }
+
+`
+          }
+        </style>
+      </div>)
+    })
+  }
+
+  styleByStatus (item) {
+    let styleFinish = {
+      color: `${ThemeConfig.color.deepBlue}`,
+      backgroundColor: `${ThemeConfig.color.yellow}`,
+      borderRadius: '50%',
+      width: '22px',
+      height: '22px',
+      lineHeight: '22px',
+      textAlign: 'center',
+      display: 'inline-block'
+    }
+    let styleUnFinish = {
+      color: `white`,
+      backgroundColor: `#e1e4f0`,
+      borderRadius: '50%',
+      width: '22px',
+      height: '22px',
+      lineHeight: '22px',
+      textAlign: 'center',
+      display: 'inline-block'
+    }
+    let unReach = {
+      color: `white`,
+      width: '22px',
+      height: '22px',
+      lineHeight: '22px',
+      textAlign: 'center',
+      display: 'inline-block'
+    }
+    let style
+    // 之后的
+    if (item.start) {
+      if (item.over) {
+        style = styleFinish
+      } else {
+        style = styleUnFinish
+      }
+    } else {
+      style = unReach
+    }
+    return style
   }
 }

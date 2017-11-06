@@ -49,8 +49,7 @@ export default class extends React.Component {
       })
       this.todayDayKey = dayOfYear // 设置今天的日期标识常量
       this.todayWeekKey = week // 设置今天的日期标识常量
-      this.setToday(dayOfYear)
-
+      this.setToday(apolloWeekDayDTOList[currentDay])
     } catch (e) {
       this.setState({
         error: e.message,
@@ -59,13 +58,20 @@ export default class extends React.Component {
     }
   }
 
-  setToday = async function (dayOfYear) {
-    let getByDay = await AxiosUtil.get(`/api/apollo/getByDay/?day=${dayOfYear}`)
-    let {totalCount, headimgUrlList} = getByDay
-    this.setState({
-      todayFinishCount: totalCount,
-      headimgList: headimgUrlList
-    })
+  setToday = async function (item) {
+    if (item.start) {
+      let getByDay = await AxiosUtil.get(`/api/apollo/getByDay/?day=${item.dayOfYear}`)
+      let {totalCount, headimgUrlList} = getByDay
+      this.setState({
+        todayFinishCount: totalCount,
+        headimgList: headimgUrlList
+      })
+    } else {
+      this.setState({
+        todayFinishCount: 0,
+        headimgList: []
+      })
+    }
   }
 
   paddingDay () {
@@ -100,44 +106,9 @@ export default class extends React.Component {
     }
   }
 
-  /*
-   设置页面的总人数/头像
-   */
-  setPageInfo (payInfo) {
-    let {totalUserCount, headimgList} = payInfo
-    this.setState({
-      totalUserCount: totalUserCount,
-      headimgList: headimgList
-    })
-  }
-
-  /*
-   设置报名状态信息
-   */
-  setPayStatus () {
-    // 获取报名信息
-    let payStatus = GetPayInfo.getPayStatus()
-    let canEnter = GetPayInfo.getCanEnter()
-    this.setState({
-      payStatus: payStatus,
-      canBuy: GetPayInfo.getCanBuy(),
-      canEnter: canEnter
-    })
-  }
-
-  /*
-   设置价格
-   */
-  setPrice () {
-    // 设置价格
-    let {discountPrice} = GetPayInfo.getPriceInfo()
-    this.setState({
-      price: discountPrice
-    })
-  }
 
   signUp () {
-    this.onSignSuccess()
+    // this.onSignSuccess()
   }
 
   // 弹窗1
@@ -180,74 +151,145 @@ export default class extends React.Component {
   // 更改周
   onChangeWeek (type) {
     console.log(type)
-    if (type === 'next') {
-
+    let week = this.state.currentSelectWeek
+    if (type === 'left') {
+      week--
     } else {
-
+      week = this.state.currentSelectWeek
+      week++
+    }
+    if (week >= 0) {
+      this.setState({
+        currentSelectWeek: week
+      })
     }
   }
 
   // 选中某一天
   onChooseDay (index) {
+    // 设置日期
     this.setState({
-      currentSelect: index
+      currentSelectDay: index
+    }, () => {
+      let week = this.state.allWeek[this.state.currentSelectWeek].apolloWeekDayDTOList
+      let day = week[index]
+      this.setToday(day)
     })
+    // 查看当日完成人数
   }
 
+  renderAvatar () {
+    let style = {
+      fontSize: '0',
+      width: '25px',
+      height: '25px',
+      borderRadius: '50%',
+      margin: '0px'
+    }
+    let headArray = this.state.headimgList
+    if (headArray && headArray.length > 0) {
+      return headArray.map((item, index) => {
+        return <img style={style} key={item} src={item} />
+      })
+    } else {
+      let emptyArr = []
+      let style2 = {
+        backgroundColor: `${ThemeConfig.color.deepBorder}`
+      }
+      style = Object.assign(style, style2)
+      for (let i = 0; i < 8; i++) {
+        emptyArr.push('')
+      }
+      return emptyArr.map((item, index) => {
+        return <img style={style} key={index} />
+      })
+    }
+  }
+
+  goRouter (goRouter) {
+    location.href = goRouter
+  }
+
+  // 今日review
   renderSignReview () {
     return (<div>
-      <h1>今日有{this.state.todayFinishCount}人完成打卡</h1>
+      <h1 className='content'>今日有<span className='count'> {this.state.todayFinishCount} </span>人完成打卡</h1>
       <div className='flex'>
         {this.renderAvatar()}
-        <div onClick={() => { this.goRouter('123') }}>查看总排行榜</div>
+        <div className='content' onClick={() => { this.goRouter('123') }}>查看总排行榜 ></div>
       </div>
       <style jsx>{`
-        .flex{
+        .flex {
+          font-size: 0px;
           display: flex;
           justify-content: space-between;
+        }
+        .content {
+          font-size: 18px;
+        }
+        .count {
+          font-size: 22px;
         }
       `}</style>
     </div>)
   }
 
-  goRouter (goRouter) {
-    console.log(goRouter)
-    location.href = goRouter
-  }
-
-  renderAvatar () {
-    let style = {
-      width: '30px',
-      height: '30px',
-      borderRadius: '30px'
-    }
-    let headArray = this.state.headimgList
-    if (headArray && headArray.length > 0) {
-      return headArray.map((item, index) => {
-        return <img style={style} key={index} src={item} />
-      })
-    }
-  }
-
+  // 跳转链接
   renderButtonList () {
-    return (<div>
-      <div className='' onClick={() => { this.goRouter('2') }}>点击前往</div>
-      <div onClick={() => { this.goRouter('3') }}>我已找到</div>
+    return (<div className='column'>
+      <div className='colume-inner has-border-div' onClick={() => { this.goRouter('2') }}>
+        <span>点击前往</span>
+        <span>{'>'}</span>
+      </div>
+      <div className='colume-inner' onClick={() => { this.goRouter('3') }}>
+        <span>我已找到</span>
+        <span>{'>'}</span>
+      </div>
       <style>{
-        `{
-        .
-        }`
+        `
+        .column {
+          margin: -1rem auto -1rem auto;
+        }
+        .colume-inner {
+          line-height: 60px;
+          height: 60px;
+          display: flex;
+          justify-content: space-between;
+        }
+        .has-border-div {
+          border-bottom: 1px solid ${ThemeConfig.color.deepBorder};
+        }
+        `
       }</style>
     </div>)
   }
 
   // 活动信息
   renderactivityInfo () {
-    return (<div>
-      <h1>活动注意事项</h1>
+    return (<div className='help-info'>
+      <h1 className='title'>活动注意事项</h1>
       <p>活动注意事项</p>
       <p>活动注意事项</p>
+      <style jsx>{`
+      .help-info {
+        text-align: center;
+      }
+      .title {
+        margin: 20px auto 10px auto;
+        font-size: 18px;
+      }
+      `}</style>
     </div>)
+  }
+
+  renderSignUpButton () {
+    let week = this.state.allWeek[this.state.currentSelectWeek].apolloWeekDayDTOList
+    let day = week[this.state.currentSelectDay]
+    if (day.start) {
+      return <Button half text={'完成今日打卡'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.yellow} onClick={this.signUp} />
+    } else {
+      return <Button half text={'打卡未开始'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.deepBorder} />
+    }
   }
 
   render () {
@@ -258,45 +300,72 @@ export default class extends React.Component {
       return (
         <InterviewLayout isRender={isRender} error={error}>
           <div className='page'>
-            <div className='header'>
-              <p>您已成功打卡{this.state.signTotalDay}天</p>
+            <div className='top'>
+              <img className='top-bg' src='/static/img/apollo/bg1.jpg' />
+              <div className='top-content'>
+                <div className='header'>
+                  <p>您已成功打卡{this.state.signTotalDay}天</p>
+                </div>
+                <DateSelector
+                  todayIndex={0}
+                  dayType={this.paddingDay()}
+                  weekInfo={week}
+                  onChange={this.onChangeWeek}
+                  onChoose={this.onChooseDay}
+                  currentSelect={this.state.currentSelectDay}>
+                </DateSelector>
+                <div className='finish-button'>
+                  {this.renderSignUpButton()}
+                </div>
+                <div className='top-help-info'>打卡满三天即可完成本周任务</div>
+              </div>
             </div>
-            <DateSelector
-              dayType={this.paddingDay()}
-              weekInfo={week}
-              onChange={this.onChangeWeek}
-              onClick={this.onChooseDay}
-              currentSelect={this.state.currentSelectDay}>
-            </DateSelector>
-            <Button text={'完成今日打卡'} color={'red'} bg={'blue'} onClick={this.signUp}/>
-            <div className='title'>打卡满三天即可完成本周任务</div>
             <div className='container'>{this.renderSignReview()}</div>
             <div className='container'>{this.renderButtonList()}</div>
-            <div className='container'>{this.renderactivityInfo()}</div>
+            {this.renderactivityInfo()}
           </div>
           <style jsx>{`
           .page{
             width: 100%;
+            color: ${ThemeConfig.color.deepBlue};
           }
-          .header img{
+          .top {
+            min-height: 270px;
+            margin: 0 -1rem 0 -1rem;
+          }
+          .top-bg {
+            position: relative;
             width: 100%;
           }
-          .title {
+          .top-content {
+            position: absolute;
+            z-index: 1;
+            top: 0;
+            width: 100%;
+          }
+          .header{
+            background-color: #001453;
+            color: white
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            font-size: 20px;
+          }
+          .finish-button {
+            font-size: 30px !important;
+          }
+          .top-help-info {
             padding: 0 1rem;
-            color: ${ThemeConfig.color.dark_black};
-            font-size: 26px;
+            color: ${ThemeConfig.color.yellow};
+            font-size: 12px;
+            text-align: center;
+            margin-top: 10px;
           }
-          .content {
-            padding: 1rem 1rem 4rem 1rem;
-            color: ${ThemeConfig.color.content};
-          }
-          .content .join {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-          }
-          .content .join .count {
-            margin-left: 1rem;
+          .container {
+            margin: 0 -1rem 0 -1rem;
+            padding: 1rem;
+            border-bottom: 10px solid ${ThemeConfig.color.deepBorder};
           }
         `}</style>
         </InterviewLayout>
