@@ -14,7 +14,7 @@ export default class extends React.Component {
   componentDidMount = async () => { }
 
   tolink () {
-    location.href = 'http://wx.xiaozao.org/interview/main'
+    location.href = '/interviewvip/introPage'
   }
 
   render () {
@@ -26,11 +26,11 @@ export default class extends React.Component {
         <section className='signUp'
           onClick={e => this.tolink(e)}>
           <h2 className='fixMargin'>打卡专区</h2>
-          <img src='/static/imgs/test-bg.png' className='header__image' />
+          <img src='/static/imgs/test-bg.png?v=1' className='header__image' />
           <div className='subContent'>
             <p className='subTitle'>小马哥教你过群面 </p>
             <a className='more'
-              href='http://wx.xiaozao.org/interviewvip/introPage'>点击报名</a>
+              href='/interviewvip/introPage'>点击报名</a>
           </div>
         </section>
         <section className='interview-plan'>
