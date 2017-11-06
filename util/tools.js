@@ -83,4 +83,14 @@ ToolsUtil.isRecord = function (type) {
   return type === 5
 }
 
+// 是否空字符串
+ToolsUtil.strIsEmpty = function (str) {
+  return str === null || (str !== null && str.trim() === '')
+}
+
+// 是否手机号
+ToolsUtil.isPhone = function (str) {
+  return /^1\d{10}$/.test(str)
+}
+
 module.exports = ToolsUtil

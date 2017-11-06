@@ -2,6 +2,7 @@ import React from 'react'
 import Header from './partical/header'
 import {Toptips} from 'react-weui'
 import weui from 'weui'
+import DefaultCss from '../config/defaultCss'
 
 export default class Layout extends React.Component {
   renderChild () {
@@ -33,6 +34,7 @@ export default class Layout extends React.Component {
       <div>
         <Header />
         <style dangerouslySetInnerHTML={{__html: weui}} />
+        <DefaultCss />
         {this.renderChild()}
         {this.renderGlobalCss()}
         <script src='/static/js/jweixin.js' />

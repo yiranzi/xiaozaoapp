@@ -8,19 +8,24 @@ function request (param) {
       if (res.status === 200 && res.data.status === 200) {
         resolve(res.data.response)
       } else {
-        const {data} = res
-        // 接口返回错误
-        const json = {
-          status: data.status,
-          message: data.message,
-          url: param.url
+        if (res.data.status === 9999) {
+          alert('未绑定手机号，没有权限')
+          location.href = '/user/register'
+        } else {
+          const {data} = res
+          // 接口返回错误
+          const json = {
+            status: data.status,
+            message: data.message,
+            url: param.url
+          }
+          reject(json)
         }
-        reject(json)
       }
     }).catch((error) => {
       if (error.response.status === 401) {
         alert('登录已过期，请重新登录')
-        location.href = 'http://wx.xiaozao.org/auth/logout'
+        location.reload(true)
       } else {
         reject(error.message)
       }
