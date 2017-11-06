@@ -11,7 +11,7 @@ dev_deploy:
    - test
   script:
    - yarn
-   - npm run rcbuild
+   - npm run build
    - rm -rf /usr/local/wechat-app
    - "rsync -a out/. /usr/local/wechat-app"
 
