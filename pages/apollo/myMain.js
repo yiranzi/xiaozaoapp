@@ -2,7 +2,6 @@ import React from 'react'// 库
 import Button from '../../xz-components/button'
 import DateSelector from '../../containers/apollo/DateSelector'// 自定义组件
 import InterviewLayout from '../../containers/interviewvip/layout'// container
-import GetPayInfo from '../../util/getPayInfo'// 工具类
 import ThemeConfig from '../../config/theme'
 import { Confirm } from '../../xz-components/confirm'
 import WxShare from '../../xz-components/WxShare'
@@ -104,10 +103,10 @@ export default class extends React.Component {
   // 设置分享
   setShare () {
     let prop = {
-      title: '快分享吧',
-      desc: '他们正在打卡',
-      link: 'http://rcwx.review.xiaozao.org/interviewvip/list',
-      imgUrl: 'https://www.baidu.com/img/bd_logo1.png'
+      title: '我正在参加 - 找实习有投必反馈的【阿波罗实习计划】...',
+      desc: '一起来参加',
+      link: 'http://rcwx.review.xiaozao.org/apollo/entry',
+      imgUrl: '/static/img/apollo/share-icon.jpg'
     }
     return (<WxShare {...prop} />)
   }
@@ -139,30 +138,6 @@ export default class extends React.Component {
       ok: () => WxShareBg(),
       cancel: () => console.log('456')
     })
-  }
-
-  onSignFailed () {
-
-  }
-
-  renderHelpInfo () {
-    return (
-      <div>
-        <p className='title'>常见问题</p>
-        <p>请点击左下角的【在线咨询】，可以查看常见问题哦！若有更多问题，请添加小灶求职顾问-Ted（微信：xiaozao025)，进行咨询。</p>
-        <style>
-          {`
-          .title{
-            color: ${ThemeConfig.color.dark_black};
-            font-size: 26px;
-          }
-          .card {
-            margin: 30px 0 30px 0 !important;
-          }
-          `}
-        </style>
-      </div>
-    )
   }
 
   // 更改周
@@ -237,7 +212,7 @@ export default class extends React.Component {
       <h1 className='content'>今日有<span className='count'> {this.state.todayFinishCount} </span>人完成打卡</h1>
       <div className='flex'>
         {this.renderAvatar()}
-        <div className='content' onClick={() => { this.goRouter('123') }}>查看总排行榜 ></div>
+        <div className='content' onClick={() => { this.goRouter('/apollo/rank') }}>查看总排行榜 ></div>
       </div>
       <style jsx>{`
         .flex {
@@ -258,12 +233,12 @@ export default class extends React.Component {
   // 跳转链接
   renderButtonList () {
     return (<div className='column'>
-      <div className='colume-inner has-border-div' onClick={() => { this.goRouter('2') }}>
-        <span>点击前往</span>
+      <div className='colume-inner has-border-div' onClick={() => { this.goRouter('https://shimo.im/doc/WpXxL5ZVRkUusykC?r=J5P19Z/') }}>
+        <span>点击前往能力学院获取实习干货</span>
         <span>{'>'}</span>
       </div>
-      <div className='colume-inner' onClick={() => { this.goRouter('3') }}>
-        <span>我已找到</span>
+      <div className='colume-inner' onClick={() => { this.goRouter('/apollo/finish') }}>
+        <span>我已找到实习，结束打卡</span>
         <span>{'>'}</span>
       </div>
       <style>{
@@ -289,8 +264,9 @@ export default class extends React.Component {
   renderactivityInfo () {
     return (<div className='help-info'>
       <h1 className='title'>活动注意事项</h1>
-      <p>活动注意事项</p>
-      <p>活动注意事项</p>
+      <p>每天完成一次投递，并点击"完成今日打卡"</p>
+      <p>即可完成今日打卡任务哦。</p>
+      <p>*一周至少打卡3次即可完成本周打卡任务。*</p>
       <style jsx>{`
       .help-info {
         text-align: center;
