@@ -38,7 +38,9 @@ export default class extends React.Component {
               </div>
             </div>
           </div>
-          <div style={{textAlign: 'center', padding: '0.5rem 0 0 0', color: '#001567', fontSize: '14px'}}>点击查看已获得offer的同学经验分享</div>
+          <div className='link'>
+            <a href='https://shimo.im/doc/iCUzunr03MAucvSs?r=J5P19Z/%E3%80%8C%E5%AE%9E%E4%B9%A0offer%E7%BB%8F%E9%AA%8C%E6%B1%87%E6%80%BB%E3%80%8D'>点击查看已获得offer的同学经验分享</a>
+          </div>
           <div className='list'>
             {rank.apolloOrderListDTOList.map((item, index) => {
               return (
@@ -101,6 +103,15 @@ export default class extends React.Component {
           .apollo-rank .header .mine .headimgurl img {
             width: 4rem;
             border-radius: 4rem;
+          }
+          .apollo-rank .link {
+            text-align: center;
+            padding: 0.5rem 0 0 0;
+            font-size: 14px;
+            color: #001567;
+          }
+          .apollo-rank .link a {
+            color: #001567;
           }
           /* 列表样式 */
           .apollo-rank .list {
