@@ -5,40 +5,99 @@ import InterviewLayout from '../../containers/interviewvip/layout'// container
 import GetPayInfo from '../../util/getPayInfo'// 工具类
 import ThemeConfig from '../../config/theme'
 import { Confirm } from '../../xz-components/confirm'
+import WxShare from '../../xz-components/WxShare'
+import AxiosUtil from '../../util/axios'
 
 // 介绍页
 
 export default class extends React.Component {
+  todayDayKey
+  todayWeekKey
   constructor (props) {
     super(props)
     this.state = {
       todayFinishCount: null,
       headimgList: null,
+      allWeek: {},
+      currentSelectDay: -1, // 当前选中日
+      currentSelectWeek: -1, // 当前选中周
+      isRender: false,
       error: ''
     }
     this.signUp = this.signUp.bind(this)
+    this.onChangeWeek = this.onChangeWeek.bind(this)
+    this.onChooseDay = this.onChooseDay.bind(this)
+    this.setShare = this.setShare.bind(this)
   }
 
   componentDidMount = async () => {
-    this.setState({
-      isRender: false
-    })
-    return
     try {
-      // 获取常规数据
-      let payInfo = await GetPayInfo.getPayInfo()
-      // 设置
-      this.setPageInfo(payInfo)
-      this.setPayStatus()
-      this.setPrice()
+      //
+      let getDetail = await AxiosUtil.get('/api/apollo/getDetail')
+      let {week, dayOfYear, apolloWeekDTOList} = getDetail
+      let apolloWeekDayDTOList = apolloWeekDTOList[week].apolloWeekDayDTOList
+      let currentDay = apolloWeekDayDTOList.findIndex((ele, index) => {
+        return (ele.dayOfYear === dayOfYear)
+      })
+
+      this.setState({
+        allWeek: apolloWeekDTOList, // 总日期
+
+        currentSelectDay: currentDay, // 当前选中日
+        currentSelectWeek: week, // 当前选中周
+        isRender: false
+      })
+      this.todayDayKey = dayOfYear // 设置今天的日期标识常量
+      this.todayWeekKey = week // 设置今天的日期标识常量
+      this.setToday(dayOfYear)
+
     } catch (e) {
       this.setState({
-        error: e.message
+        error: e.message,
+        isRender: false
       })
     }
+  }
+
+  setToday = async function (dayOfYear) {
+    let getByDay = await AxiosUtil.get(`/api/apollo/getByDay/?day=${dayOfYear}`)
+    let {totalCount, headimgUrlList} = getByDay
     this.setState({
-      isRender: false
+      todayFinishCount: totalCount,
+      headimgList: headimgUrlList
     })
+  }
+
+  paddingDay () {
+    let result
+
+    if (this.todayWeekKey > this.state.currentSelectWeek) {
+      result = 'after'
+    } else if (this.todayWeekKey < this.state.currentSelectWeek) {
+      result = 'before'
+    } else {
+      if (this.todayDayKey > this.state.currentSelectDay) {
+        result = 'after'
+      } else if (this.todayDayKey < this.state.currentSelectDay) {
+        result = 'before'
+      } else {
+        result = 'today'
+      }
+    }
+    return result
+  }
+
+  getCurrentWeek () {
+    return (this.state.allWeek)
+  }
+
+  setShare () {
+    let prop = {
+      title: '标题',
+      desc: '描述',
+      link: 'http://rcwx.review.xiaozao.org/interviewvip/list',
+      imgUrl: 'https://www.baidu.com/img/bd_logo1.png'
+    }
   }
 
   /*
@@ -120,6 +179,7 @@ export default class extends React.Component {
 
   // 更改周
   onChangeWeek (type) {
+    console.log(type)
     if (type === 'next') {
 
     } else {
@@ -192,24 +252,29 @@ export default class extends React.Component {
 
   render () {
     const {isRender, error} = this.state
-    return (
-      <InterviewLayout isRender={isRender} error={error}>
-        <div className='page'>
-          <div className='header'>
-            <p>您已成功打卡{this.state.signTotalDay}天</p>
+    if (this.state.allWeek.length > 0) {
+      let week = this.state.allWeek[this.state.currentSelectWeek].apolloWeekDayDTOList
+      let day = week[this.state.currentSelectDay]
+      return (
+        <InterviewLayout isRender={isRender} error={error}>
+          <div className='page'>
+            <div className='header'>
+              <p>您已成功打卡{this.state.signTotalDay}天</p>
+            </div>
+            <DateSelector
+              dayType={this.paddingDay()}
+              weekInfo={week}
+              onChange={this.onChangeWeek}
+              onClick={this.onChooseDay}
+              currentSelect={this.state.currentSelectDay}>
+            </DateSelector>
+            <Button text={'完成今日打卡'} color={'red'} bg={'blue'} onClick={this.signUp}/>
+            <div className='title'>打卡满三天即可完成本周任务</div>
+            <div className='container'>{this.renderSignReview()}</div>
+            <div className='container'>{this.renderButtonList()}</div>
+            <div className='container'>{this.renderactivityInfo()}</div>
           </div>
-          <DateSelector
-            onChange={this.onChangeWeek}
-            onClick={this.onChooseDay}
-            currentSelect={this.state.currentSelectDay}>
-          </DateSelector>
-          <Button text={'完成今日打卡'} color={'red'} bg={'blue'} onClick={this.signUp}/>
-          <div className='title'>打卡满三天即可完成本周任务</div>
-          <div className='container'>{this.renderSignReview()}</div>
-          <div className='container'>{this.renderButtonList()}</div>
-          <div className='container'>{this.renderactivityInfo()}</div>
-        </div>
-        <style jsx>{`
+          <style jsx>{`
           .page{
             width: 100%;
           }
@@ -234,7 +299,12 @@ export default class extends React.Component {
             margin-left: 1rem;
           }
         `}</style>
-      </InterviewLayout>
-    )
+        </InterviewLayout>
+      )
+    } else {
+      return (
+        <InterviewLayout isRender={isRender} error={error} />
+      )
+    }
   }
 }

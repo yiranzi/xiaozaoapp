@@ -1,7 +1,5 @@
 import React from 'react'
-import Button from '../../xz-components/button'
-import ThemeConfig from '../../config/theme'
-import classNames from 'classnames'
+import SwipeView from '../../xz-components/SwipeView'
 
 /*
   week数组
@@ -13,17 +11,47 @@ import classNames from 'classnames'
  */
 
 export default class extends React.Component {
-  constructor () {
-    super()
-    this.state = {
-      seeButton: false
+  moving = false
+  constructor (props) {
+    super(props)
+    this.cbfMoving = this.cbfMoving.bind(this)
+    this.cbfPutOn = this.cbfPutOn.bind(this)
+    this.onChooseOnDay = this.onChooseOnDay.bind(this)
+  }
+
+  cbfMoving (e, deltaX, deltaY, absX, absY, velocity) {
+    if (!this.moving) {
+      this.moving = true
     }
   }
+
+  cbfPutOn (e, deltaX, deltaY, absX, absY, velocity) {
+    let direction
+    if (!this.moving) {
+      return
+    }
+    if (deltaX > 0) {
+      direction = 'left'
+    } else {
+      direction = 'right'
+    }
+    this.moving = false
+    this.props.onChange(direction)
+  }
+
+  onChooseOnDay (index) {
+    this.props.onChoose(index)
+  }
+
+  // onTap = {this.cbfPress}
   render () {
+    console.log(this.props)
     return (
       <div >
         <div className='fixfooter-container'>
-          {<div className='button'>周76543</div>}
+          <SwipeView className='banner-container' onSwiping={this.cbfMoving} onSwiped={this.cbfPutOn} >
+            <div>{this.props.dayType}</div>
+          </SwipeView>
         </div>
         <style jsx>{`
 
