@@ -13,7 +13,6 @@ export default class extends React.Component {
   }
   componentDidMount = async () => {
     let rank = await AxiosUtil.get('/api/apollo/getRank')
-    console.log(rank)
     this.setState({rank: rank})
   }
   render () {
@@ -37,7 +36,7 @@ export default class extends React.Component {
               </div>
             </div>
           </div>
-          <div style={{textAlign: 'center', padding: '0.25rem 0', color: '#001567'}}>点击查看已获得offer的同学经验分享</div>
+          <div style={{textAlign: 'center', padding: '0.5rem 0 0 0', color: '#001567', fontSize: '14px'}}>点击查看已获得offer的同学经验分享</div>
           <div className='list'>
             {rank.apolloOrderListDTOList.map((item, index) => {
               return (
@@ -114,7 +113,7 @@ export default class extends React.Component {
             align-items: center;
             background: #fff;
             margin-top: 0.5rem;
-            padding: 0.25rem 1rem;
+            padding: 0.4rem 1rem;
             border-radius: 2rem;
             box-shadow: 0 5px 5px rgba(229,229,229, 1);
           }
