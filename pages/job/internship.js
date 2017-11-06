@@ -374,7 +374,7 @@ export default class extends React.Component {
       })
       return <PanelBody>
         {listElement}
-        {this.state.dataState === 'none' && <LoadMore showLine showDot />}
+        {this.state.dataState === 'none' && <LoadMore showLine>No Data</LoadMore>}
         {this.state.dataState === 'more' && <Button type='default'>More</Button>}
       </PanelBody>
     } else {

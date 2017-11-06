@@ -147,7 +147,7 @@ export default class extends React.Component {
   }
 
   renderSearchBar () {
-    return <div><a href='/job/internship'>
+    return <div className='wx-top-fixed'><a href='/job/internship'>
       <span className='return-page'>&lsaquo;</span></a>
       <SearchBar
         placeholder='搜索职位或公司'
@@ -396,7 +396,7 @@ export default class extends React.Component {
       })
       return <PanelBody>
         {listElement}
-        {this.state.dataState === 'none' && <LoadMore showLine showDot />}
+        {this.state.dataState === 'none' && <LoadMore showLine>No Data</LoadMore>}
         {this.state.dataState === 'more' && <Button type='default'>More</Button>}
       </PanelBody>
     } else {
