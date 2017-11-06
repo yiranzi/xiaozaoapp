@@ -6,6 +6,7 @@ import GetPayInfo from '../../util/getPayInfo'// 工具类
 import ThemeConfig from '../../config/theme'
 import { Confirm } from '../../xz-components/confirm'
 import WxShare from '../../xz-components/WxShare'
+import WxShareBg from '../../xz-components/sharewx'
 import AxiosUtil from '../../util/axios'
 
 // 介绍页
@@ -31,8 +32,11 @@ export default class extends React.Component {
   }
 
   componentDidMount = async () => {
+    this.getDetail()
+  }
+
+  getDetail = async function () {
     try {
-      //
       let getDetail = await AxiosUtil.get('/api/apollo/getDetail')
       let {week, dayOfYear, apolloWeekDTOList} = getDetail
       let apolloWeekDayDTOList = apolloWeekDTOList[week].apolloWeekDayDTOList
@@ -97,29 +101,42 @@ export default class extends React.Component {
     return (this.state.allWeek)
   }
 
+  // 设置分享
   setShare () {
     let prop = {
-      title: '标题',
-      desc: '描述',
+      title: '快分享吧',
+      desc: '他们正在打卡',
       link: 'http://rcwx.review.xiaozao.org/interviewvip/list',
       imgUrl: 'https://www.baidu.com/img/bd_logo1.png'
     }
+    return (<WxShare {...prop} />)
   }
 
-
-  signUp () {
-    // this.onSignSuccess()
+  // 发起打卡
+  signUp = async function () {
+    try {
+      let getDetail = await AxiosUtil.get('/api/apollo/complete')
+      if (getDetail.status === '200') {
+        this.onSignSuccess ()
+      } else {
+        alert(getDetail.message)
+      }
+    } catch (e) {
+      alert(e.message)
+    }
+    // 刷新
+    this.getDetail()
   }
 
-  // 弹窗1
+  // 成功弹窗弹窗
   onSignSuccess () {
     const _this = this
     Confirm({
-      title: '不能打卡群',
-      content: '对不起,....',
-      okText: '确定',
-      cancelText: '取消',
-      ok: () => console.log('123'),
+      title: '恭喜你完成打卡',
+      content: '恭喜你完成打卡，快分享给你的朋友吧',
+      okText: '分享',
+      cancelText: '返回',
+      ok: () => WxShareBg(),
       cancel: () => console.log('456')
     })
   }
@@ -161,6 +178,10 @@ export default class extends React.Component {
     if (week >= 0) {
       this.setState({
         currentSelectWeek: week
+      }, () => {
+        let week = this.state.allWeek[this.state.currentSelectWeek].apolloWeekDayDTOList
+        let day = week[this.state.currentSelectDay]
+        this.setToday(day)
       })
     }
   }
@@ -172,7 +193,7 @@ export default class extends React.Component {
       currentSelectDay: index
     }, () => {
       let week = this.state.allWeek[this.state.currentSelectWeek].apolloWeekDayDTOList
-      let day = week[index]
+      let day = week[this.state.currentSelectDay]
       this.setToday(day)
     })
     // 查看当日完成人数
@@ -285,10 +306,23 @@ export default class extends React.Component {
   renderSignUpButton () {
     let week = this.state.allWeek[this.state.currentSelectWeek].apolloWeekDayDTOList
     let day = week[this.state.currentSelectDay]
-    if (day.start) {
-      return <Button half text={'完成今日打卡'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.yellow} onClick={this.signUp} />
+    // 如果是当日
+    if (day.today) {
+      if (day.over) {
+        return <Button half text={'今日已完成'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.yellow} onClick={this.onSignSuccess} />
+      } else {
+        return <Button half text={'完成今日打卡'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.yellow} onClick={this.signUp} />
+      }
     } else {
-      return <Button half text={'打卡未开始'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.deepBorder} />
+      if (day.start) {
+        if (day.over) {
+          return <Button half text={'已完成打卡'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.yellow} onClick={this.onSignSuccess} />
+        } else {
+          return <Button half text={'未完成打卡'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.deepBorder} />
+        }
+      } else {
+        return <Button half text={'打卡未开始'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.deepBorder} />
+      }
     }
   }
 
@@ -299,6 +333,7 @@ export default class extends React.Component {
       let day = week[this.state.currentSelectDay]
       return (
         <InterviewLayout isRender={isRender} error={error}>
+          {this.setShare()}
           <div className='page'>
             <div className='top'>
               <img className='top-bg' src='/static/img/apollo/bg1.jpg' />
