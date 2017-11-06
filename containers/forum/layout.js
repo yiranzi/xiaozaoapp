@@ -1,7 +1,7 @@
 import React from 'react'
 import { Toptips } from 'react-weui'
 import Layout from '../../components/layout'
-import Loading from '../../components/loading'
+import Loading from '../../xz-components/loading'
 import Tabbar from '../../components/maintabbar'
 
 export default class extends React.Component {
