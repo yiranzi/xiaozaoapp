@@ -27,10 +27,11 @@ export default class extends React.Component {
           onClick={e => this.tolink(e)}>
           <h2 className='fixMargin'>打卡专区</h2>
           <img src='/static/imgs/test-bg.png' className='header__image' />
-            <div className='subContent'>
-              <p className='subTitle'>小马哥教你过群面 </p>
-              <a className='more' href='http://wx.xiaozao.org/interviewvip/introPage'>点击报名</a>
-            </div>
+          <div className='subContent'>
+            <p className='subTitle'>小马哥教你过群面 </p>
+            <a className='more'
+              href='http://wx.xiaozao.org/interviewvip/introPage'>点击报名</a>
+          </div>
         </section>
         <section className='interview-plan'>
           <h2 className='fixMargin'>面试课程</h2>
@@ -123,14 +124,6 @@ export default class extends React.Component {
               <div className='sub'>烦恼的和小灶说说</div>
             </div>
           </a>
-        </section>
-        <section className='exam' style='display: none'>
-          <h2>笔试打卡</h2>
-          <img src='/static/imgs/course/assistant_05.png' />
-          <div className='goinfor'>
-            <span>小灶四大七天打卡&nbsp;第二期</span>
-            <a href='http://mp.weixin.qq.com/s/R6cunpkpCUBeSmtPBdrRjw'>立即报名</a>
-          </div>
         </section>
       </section>
       <style global jsx>{`
