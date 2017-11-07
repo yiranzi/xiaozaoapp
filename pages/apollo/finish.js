@@ -2,10 +2,32 @@ import React from 'react'
 import AxiosUtil from '../../util/axios'
 import Layout from '../../components/layout'
 import Uploader from '../../xz-components/uploader'
-import Loading from '../../xz-components/loading'
 import Button from '../../xz-components/button'
+import DataUtil from '../../util/data'
 
 export default class extends React.Component {
+  offerPostDate = {}
+  constructor (props) {
+    super(props)
+    this.saveChange = this.saveChange.bind(this)
+    this.postOfferInfo = this.postOfferInfo.bind(this)
+  }
+
+  saveChange (type, value) {
+    if (type === 0) {
+      this.offerPostDate.name = value
+    } else {
+      this.offerPostDate.imageList = value
+    }
+  }
+
+  postOfferInfo = async function () {
+    let uuid = DataUtil.uuid(11)
+    console.log(this.offerPostDate.imageList)
+    let formdata = DataUtil.imgFormat(this.offerPostDate.imageList[0].url, uuid, 'jpg')
+    await AxiosUtil.post(`/api/apollo/uploadOffer?title=${this.offerPostDate.name}`, formdata)
+  }
+
   render () {
     return (
       <Layout>
@@ -22,7 +44,7 @@ export default class extends React.Component {
                 <span className='icon' /><span>请输入收到Offer的企业和岗位</span>
               </div>
               <div className='sub-content'>
-                <input type='text' placeholder='例如：宝洁－市场实习生' />
+                <input type='text' placeholder='例如：宝洁－市场实习生' onChange={(e) => this.saveChange(0, e.target.value)} />
               </div>
             </div>
             <div className='img'>
@@ -33,12 +55,13 @@ export default class extends React.Component {
                 <p>截图形式可以使短信截图、邮件截图、微信截图</p>
                 <div className='uploader'>
                   <span>上传截图：</span>
-                  <Uploader defaultValue={[]} />
+                  <Uploader defaultValue={[]}
+                    onChange={(value) => this.saveChange(1, value)} />
                 </div>
               </div>
             </div>
           </div>
-          <Button text='提交' bg='#ffd164' color='#001567' />
+          <Button text='提交' bg='#ffd164' color='#001567' onClick={() => { this.postOfferInfo() }} />
         </div>
         <style jsx>{`
           .apollo-finish {

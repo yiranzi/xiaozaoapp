@@ -35,6 +35,7 @@ export default class extends React.Component {
     this.getDetail()
   }
 
+  // 拉取数据
   getDetail = async function () {
     try {
       let getDetail = await AxiosUtil.get('/api/apollo/getDetail')
@@ -81,17 +82,6 @@ export default class extends React.Component {
     }
   }
 
-  // 设置分享
-  setShare () {
-    let prop = {
-      title: '我正在参加 - 找实习有投必反馈的【阿波罗实习计划】...',
-      desc: '立即申请加入阿波罗实习计划',
-      link: 'http://rcwx.review.xiaozao.org/apollo/entry',
-      imgUrl: 'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg'
-    }
-    return (<WxShare {...prop} />)
-  }
-
   // 发起打卡
   signUp = async function () {
     try {
@@ -102,6 +92,17 @@ export default class extends React.Component {
     }
     // 刷新
     this.getDetail()
+  }
+
+  // 设置分享
+  setShare () {
+    let prop = {
+      title: '我正在参加 - 找实习有投必反馈的【阿波罗实习计划】...',
+      desc: '立即申请加入阿波罗实习计划',
+      link: 'http://rcwx.review.xiaozao.org/apollo/entry',
+      imgUrl: 'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg'
+    }
+    return (<WxShare {...prop} />)
   }
 
   // 成功弹窗弹窗
@@ -178,12 +179,138 @@ export default class extends React.Component {
     // 查看当日完成人数
   }
 
-
-
+  // 路由跳转
   goRouter (goRouter) {
     location.href = goRouter
   }
 
+  render () {
+    const {error} = this.state
+    if (this.state.allWeek.length > 0) {
+      let week = this.state.allWeek[this.state.currentSelectWeek].apolloWeekDayDTOList
+      return (
+        <Layout error={error}>
+          {this.setShare()}
+          <div className='out'>
+            <div className='page'>
+              <div className='top'>
+                <img className='top-bg' src='/static/img/apollo/bg1.jpg' />
+                <div className='top-content'>
+                  <div className='header'>
+                    <p>您已成功打卡 {this.state.signTotalDay} 天</p>
+                  </div>
+                  <DateSelector
+                    weekInfo={week}
+                    onChange={this.onChangeWeek}
+                    onChoose={this.onChooseDay}
+                    currentSelect={this.state.currentSelectDay} />
+                  <div className='finish-button'>
+                    {this.renderSignUpButton()}
+                  </div>
+                  <div className='top-help-info'>打卡满三天即可完成本周任务</div>
+                </div>
+              </div>
+              <div className='container rank'>{this.renderSignReview()}</div>
+              <div className='container'>{this.renderButtonList()}</div>
+              {this.renderActivityInfo()}
+              <div className='logo-line'>
+                <img src='/static/img/apollo/logoLine.png' />
+              </div>
+            </div>
+
+          </div>
+          <style jsx>{`
+          .out {
+            background-color: #f8f9ff;
+            font-size: 0px;
+            padding: 1rem 1rem 0 1rem;
+          }
+          .page{
+            width: 100%;
+            color: ${ThemeConfig.color.deepBlue};
+          }
+          .top {
+            min-height: 270px;
+            margin: 0 -1rem 0 -1rem;
+          }
+          .top-bg {
+            position: relative;
+            width: 100%;
+          }
+          .top-content {
+            position: absolute;
+            z-index: 1;
+            top: 0;
+            width: 100%;
+          }
+          .header{
+            background-color: #001453;
+            color: white
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            font-size: 16px;
+          }
+          .finish-button {
+            font-size: 30px !important;
+          }
+          .top-help-info {
+            padding: 0 1rem;
+            color: ${ThemeConfig.color.yellow};
+            font-size: 12px;
+            text-align: center;
+            margin-top: 10px;
+          }
+          .container {
+            margin: 0 -1rem 0 -1rem;
+            padding: 1rem;
+            border-bottom: 10px solid ${ThemeConfig.color.deepBorder};
+          }
+          .rank {
+            margin-top: -1rem;
+          }
+          .logo-line {
+            margin: 1rem -1rem 0 -1rem;
+          }
+          .logo-line img{
+            width: 100%;
+          }
+        `}</style>
+        </Layout>
+      )
+    } else {
+      return (
+        <Layout error={error} />
+      )
+    }
+  }
+
+  // 今日review
+  renderSignReview () {
+    return (<div>
+      <h1 className='content'>今日有<span className='count'> {this.state.todayFinishCount} </span>人完成打卡</h1>
+      <div className='flex'>
+        <div>{this.renderAvatar()}</div>
+        <div className='content' onClick={() => { this.goRouter('/apollo/rank') }}>查看总排行榜 ></div>
+      </div>
+      <style jsx>{`
+        .flex {
+          font-size: 0px;
+          display: flex;
+          justify-content: space-between;
+        }
+        .content {
+          font-size: 16px;
+        }
+        .count {
+          font-size: 20px;
+        }
+      `}</style>
+    </div>)
+  }
+
+  // 渲染头像列表
   renderAvatar () {
     let style = {
       fontSize: '0',
@@ -214,30 +341,6 @@ export default class extends React.Component {
     }
   }
 
-  // 今日review
-  renderSignReview () {
-    return (<div>
-      <h1 className='content'>今日有<span className='count'> {this.state.todayFinishCount} </span>人完成打卡</h1>
-      <div className='flex'>
-        <div>{this.renderAvatar()}</div>
-        <div className='content' onClick={() => { this.goRouter('/apollo/rank') }}>查看总排行榜 ></div>
-      </div>
-      <style jsx>{`
-        .flex {
-          font-size: 0px;
-          display: flex;
-          justify-content: space-between;
-        }
-        .content {
-          font-size: 16px;
-        }
-        .count {
-          font-size: 20px;
-        }
-      `}</style>
-    </div>)
-  }
-
   // 跳转链接
   renderButtonList () {
     return (<div className='column'>
@@ -245,7 +348,7 @@ export default class extends React.Component {
         <span>点击获取实习干货</span>
         <span>{'>'}</span>
       </div>
-      {this.todayDayKey > 318 && <div className='colume-inner has-border-div' onClick={() => { this.goRouter('/apollo/finish') }}>
+      {this.todayDayKey < 318 && <div className='colume-inner has-border-div' onClick={() => { this.goRouter('/apollo/finish') }}>
         <span>我已找到实习，结束打卡</span>
         <span>{'>'}</span>
       </div>}
@@ -309,98 +412,6 @@ export default class extends React.Component {
       } else {
         return <Button half text={'打卡未开始'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.deepBorder} />
       }
-    }
-  }
-
-  render () {
-    const {error} = this.state
-    if (this.state.allWeek.length > 0) {
-      let week = this.state.allWeek[this.state.currentSelectWeek].apolloWeekDayDTOList
-      let day = week[this.state.currentSelectDay]
-      return (
-        <Layout error={error}>
-          {this.setShare()}
-          <div className='out'>
-            <div className='page'>
-              <div className='top'>
-                <img className='top-bg' src='/static/img/apollo/bg1.jpg' />
-                <div className='top-content'>
-                  <div className='header'>
-                    <p>您已成功打卡 {this.state.signTotalDay} 天</p>
-                  </div>
-                  <DateSelector
-                    weekInfo={week}
-                    onChange={this.onChangeWeek}
-                    onChoose={this.onChooseDay}
-                    currentSelect={this.state.currentSelectDay}>
-                  </DateSelector>
-                  <div className='finish-button'>
-                    {this.renderSignUpButton()}
-                  </div>
-                  <div className='top-help-info'>打卡满三天即可完成本周任务</div>
-                </div>
-              </div>
-              <div className='container rank'>{this.renderSignReview()}</div>
-              <div className='container'>{this.renderButtonList()}</div>
-              {this.renderActivityInfo()}
-            </div>
-          </div>
-          <style jsx>{`
-          .out {
-            padding: 1rem;
-          }
-          .page{
-            width: 100%;
-            color: ${ThemeConfig.color.deepBlue};
-          }
-          .top {
-            min-height: 270px;
-            margin: 0 -1rem 0 -1rem;
-          }
-          .top-bg {
-            position: relative;
-            width: 100%;
-          }
-          .top-content {
-            position: absolute;
-            z-index: 1;
-            top: 0;
-            width: 100%;
-          }
-          .header{
-            background-color: #001453;
-            color: white
-            width: 100%;
-            height: 40px;
-            line-height: 40px;
-            text-align: center;
-            font-size: 16px;
-          }
-          .finish-button {
-            font-size: 30px !important;
-          }
-          .top-help-info {
-            padding: 0 1rem;
-            color: ${ThemeConfig.color.yellow};
-            font-size: 12px;
-            text-align: center;
-            margin-top: 10px;
-          }
-          .container {
-            margin: 0 -1rem 0 -1rem;
-            padding: 1rem;
-            border-bottom: 10px solid ${ThemeConfig.color.deepBorder};
-          }
-          .rank {
-            margin-top: -1.2rem;
-          }
-        `}</style>
-        </Layout>
-      )
-    } else {
-      return (
-        <Layout error={error} />
-      )
     }
   }
 }

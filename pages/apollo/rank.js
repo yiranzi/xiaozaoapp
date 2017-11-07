@@ -57,6 +57,9 @@ export default class extends React.Component {
               )
             })}
           </div>
+          <div className='logo-line'>
+            <img src='/static/img/apollo/logoLine.png' />
+          </div>
         </div>
         <style jsx>{`
           .apollo-rank {
@@ -143,6 +146,13 @@ export default class extends React.Component {
             width: 25px;
             border-radius: 25px;
             display: block;
+          }
+          .logo-line {
+            width: 100%
+            margin-top: 1rem;
+          }
+          .logo-line img{
+            width: 100%;
           }
         `}</style>
       </Layout>
