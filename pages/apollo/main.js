@@ -13,7 +13,6 @@ import AxiosUtil from '../../util/axios'
 
 export default class extends React.Component {
   todayDayKey
-  todayWeekKey
   constructor (props) {
     super(props)
     this.state = {
@@ -52,7 +51,6 @@ export default class extends React.Component {
         currentSelectWeek: week // 当前选中周
       })
       this.todayDayKey = dayOfYear // 设置今天的日期标识常量
-      this.todayWeekKey = week // 设置今天的日期标识常量
       this.setToday(apolloWeekDayDTOList[currentDay])
     } catch (e) {
       this.setState({
