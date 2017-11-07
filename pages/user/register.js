@@ -218,7 +218,6 @@ export default class extends React.Component {
         &nbsp;&nbsp;注册即代表你同意 <a href='javascript:;'>《小灶教育用户注册协议》</a>
       </Agreement>
       <p className='tips'>收不到验证码？请尝试删掉号码中第一个0，例如：某韩国手机号码01097284660，删掉第一个0后，即填入1097284660，就能够收到验证码。（区号在列表中选择，无需写在号码中）如果验证码收不到，请添加小助手帮助解决（微信：xiaozaoPM）</p>
-      <p className='tips'><a href='/auth/logout'>已经注册手机号，重新登录</a></p>
       <style jsx>{`
         .tips {
           font-size: 12px;
