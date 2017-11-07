@@ -236,6 +236,11 @@ export default class extends React.Component {
       return <Form checkbox>
         <CellsTitle>选择你的简历：</CellsTitle>
         {listElement}
+        {listElement.length === 0 &&
+          <FormCell style={{fontSize: '14px', color: '#555'}}>
+            请电脑端登录（www.xiaozao.org）上传你的简历。上传后即可每天在移动端快捷投递！
+          </FormCell>
+        }
       </Form>
     }
   }
