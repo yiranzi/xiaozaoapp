@@ -32,12 +32,6 @@ export default class WxShare extends React.Component {
         title: title,
         link: link,
         imgUrl: imgUrl, // 分享图标
-        success: function () {
-          alert('分享成功')
-        },
-        cancel: function () {
-          alert('取消分享')
-        }
       })
       // eslint-disable-next-line
       wx.onMenuShareAppMessage({
@@ -45,12 +39,6 @@ export default class WxShare extends React.Component {
         desc: desc,
         link: link,
         imgUrl: imgUrl, // 分享图标
-        success: function () {
-          alert('分享成功')
-        },
-        cancel: function () {
-          alert('取消分享')
-        }
       })
       // eslint-disable-next-line
       wx.onMenuShareQQ({
@@ -58,12 +46,6 @@ export default class WxShare extends React.Component {
         desc: desc,
         link: link,
         imgUrl: imgUrl, // 分享图标
-        success: function () {
-          alert('分享成功')
-        },
-        cancel: function () {
-          alert('取消分享')
-        }
       })
       // eslint-disable-next-line
       wx.onMenuShareWeibo({
@@ -71,12 +53,6 @@ export default class WxShare extends React.Component {
         desc: desc,
         link: link,
         imgUrl: imgUrl, // 分享图标
-        success: function () {
-          alert('分享成功')
-        },
-        cancel: function () {
-          alert('取消分享')
-        }
       })
       // eslint-disable-next-line
       wx.onMenuShareQZone({
@@ -84,12 +60,6 @@ export default class WxShare extends React.Component {
         desc: desc,
         link: link,
         imgUrl: imgUrl, // 分享图标
-        success: function () {
-          alert('分享成功')
-        },
-        cancel: function () {
-          alert('取消分享')
-        }
       })
     })
     // eslint-disable-next-line
