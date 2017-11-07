@@ -117,7 +117,7 @@ export default class extends React.Component {
           }
           .dayName {
             color: white;
-            font-size: 24px;
+            font-size: 22px;
           }
           .date-container {
             position: relative;

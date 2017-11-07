@@ -2,6 +2,13 @@ import React from 'react'
 import AxiosUtil from '../util/axios'
 import Layout from '../components/layout'
 
+// 直接引用 传入props完成设置 就可以在该页面使用分享
+// title: 分享标题
+// desc: 描述
+// link: 跳转链接
+// imgUrl: 分享图片
+// 使用绝对路径
+
 export default class WxShare extends React.Component {
   componentDidMount = async () => {
     const url = `/api/interview/getWXConfig?url=${location.href.split('#')[0]}`
