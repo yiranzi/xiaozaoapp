@@ -119,7 +119,7 @@ export default class extends React.Component {
           }
           .dayName {
             color: white;
-            font-size: 22px;
+            font-size: 20px;
           }
           .date-container {
             position: relative;
@@ -127,6 +127,7 @@ export default class extends React.Component {
             height: 30px;
           }
           .date {
+            font-size: 16px;
             position:absolute;
             left:0; right:0; top:0; bottom:0;
             margin:auto;
@@ -174,7 +175,7 @@ export default class extends React.Component {
       borderRadius: '50%'
     }
     let styleUnFinish = {
-      color: `white`,
+      color: `${ThemeConfig.color.deepBlue}`,
       backgroundColor: `#e1e4f0`,
       borderRadius: '50%'
     }
