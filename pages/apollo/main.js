@@ -10,7 +10,6 @@ import WxShare from '../../xz-components/WxShare'
 import AxiosUtil from '../../util/axios'
 
 // 介绍页
-
 export default class extends React.Component {
   todayDayKey
   constructor (props) {
@@ -99,7 +98,7 @@ export default class extends React.Component {
     let prop = {
       title: '我正在参加 - 找实习有投必反馈的【阿波罗实习计划】...',
       desc: '立即申请加入阿波罗实习计划',
-      link: 'http://rcwx.review.xiaozao.org/apollo/entry',
+      link: 'http://wx.xiaozao.org/apollo/entry',
       imgUrl: 'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg'
     }
     return (<WxShare {...prop} />)
@@ -109,7 +108,7 @@ export default class extends React.Component {
   onSignSuccess () {
     Confirm({
       title: '恭喜你完成打卡',
-      content: '恭喜你完成打卡，快分享给你的朋友吧',
+      content: '很棒！已完成今日打卡，你获得了1次推荐机会，分享链接邀请你的朋友加入【阿波罗实习计划】吧！(当日有效)',
       okText: '分享',
       cancelText: '返回',
       ok: () => { this.setModalPop() }
