@@ -40,6 +40,7 @@ export default class extends React.Component {
         this.setState({isSubmit: true})
         await AxiosUtil.post(`/api/apollo/uploadOffer?title=${this.offerPostDate.name}`, formdata)
         this.setState({isSubmit: false})
+        Alert({content: '提交成功', okText: '确认'})
       } catch (e) {
         Alert({content: e.message, okText: '确认'})
         this.setState({isSubmit: false})
