@@ -4,6 +4,7 @@ import Layout from '../../components/layout'
 import Uploader from '../../xz-components/uploader'
 import Button from '../../xz-components/button'
 import DataUtil from '../../util/data'
+import {Alert} from '../../xz-components/alert'
 
 export default class extends React.Component {
   offerPostDate = {}
@@ -22,10 +23,23 @@ export default class extends React.Component {
   }
 
   postOfferInfo = async function () {
-    let uuid = DataUtil.uuid(11)
-    console.log(this.offerPostDate.imageList)
-    let formdata = DataUtil.imgFormat(this.offerPostDate.imageList[0].url, uuid, 'jpg')
-    await AxiosUtil.post(`/api/apollo/uploadOffer?title=${this.offerPostDate.name}`, formdata)
+    if (this.offerPostDate.name) {
+      let formdata
+      if (this.offerPostDate.imageList && this.offerPostDate.imageList.length > 0) {
+        let uuid = DataUtil.uuid(11)
+        formdata = DataUtil.imgFormat(this.offerPostDate.imageList[0].url, uuid, 'jpg')
+      } else {
+        let uuid = DataUtil.uuid(11)
+        formdata = DataUtil.imgFormat('', uuid, 'jpg')
+      }
+      try {
+        await AxiosUtil.post(`/api/apollo/uploadOffer?title=${this.offerPostDate.name}`, formdata)
+      } catch (e) {
+        Alert({content: e.message, okText: '确认'})
+      }
+    } else {
+      Alert({content: '没有填写任何职位信息', okText: '确认'})
+    }
   }
 
   render () {
