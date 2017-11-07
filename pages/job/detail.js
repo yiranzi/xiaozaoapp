@@ -39,7 +39,10 @@ export default class extends React.Component {
 
   loadJobData = async () => {
     this.setState({dataState: 'loading'})
-    const jobId = ToolsUtil.getQueryString('jobId')
+    let jobId = ToolsUtil.getQueryString('jobId')
+    if (location.pathname.indexOf('/jobs/') >= 0) {
+      jobId = location.pathname.replace('/jobs/', '')
+    }
     try {
       let job = await AxiosUtil.get(`/api/private/job/${jobId}`)
       this.setState({
