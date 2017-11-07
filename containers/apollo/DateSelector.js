@@ -132,8 +132,8 @@ export default class extends React.Component {
           .today-tag {
             position:absolute;
             left:0; right:0; top:0; bottom:0;
-            width: 28px;
-            height: 28px;
+            width: 26px;
+            height: 26px;
             margin:auto;
           }
           `

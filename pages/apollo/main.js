@@ -233,11 +233,11 @@ export default class extends React.Component {
   // 跳转链接
   renderButtonList () {
     return (<div className='column'>
-      <div className='colume-inner has-border-div' onClick={() => { this.goRouter('https://shimo.im/doc/WpXxL5ZVRkUusykC?r=J5P19Z/') }}>
+      <div className='colume-inner' onClick={() => { this.goRouter('https://shimo.im/doc/WpXxL5ZVRkUusykC?r=J5P19Z/') }}>
         <span>点击获取实习干货</span>
         <span>{'>'}</span>
       </div>
-      {this.todayDayKey > 318 && <div className='colume-inner' onClick={() => { this.goRouter('/apollo/finish') }}>
+      {this.todayDayKey > 318 && <div className='colume-inner has-border-div' onClick={() => { this.goRouter('/apollo/finish') }}>
         <span>我已找到实习，结束打卡</span>
         <span>{'>'}</span>
       </div>}
@@ -254,7 +254,7 @@ export default class extends React.Component {
           justify-content: space-between;
         }
         .has-border-div {
-          border-bottom: 1px solid ${ThemeConfig.color.deepBorder};
+          border-top: 1px solid ${ThemeConfig.color.deepBorder};
         }
         `
       }</style>
@@ -332,7 +332,7 @@ export default class extends React.Component {
                   <div className='top-help-info'>打卡满三天即可完成本周任务</div>
                 </div>
               </div>
-              <div className='container'>{this.renderSignReview()}</div>
+              <div className='container rank'>{this.renderSignReview()}</div>
               <div className='container'>{this.renderButtonList()}</div>
               {this.renderActivityInfo()}
             </div>
@@ -382,6 +382,9 @@ export default class extends React.Component {
             margin: 0 -1rem 0 -1rem;
             padding: 1rem;
             border-bottom: 10px solid ${ThemeConfig.color.deepBorder};
+          }
+          .rank {
+            margin-top: -1rem;
           }
         `}</style>
         </Layout>
