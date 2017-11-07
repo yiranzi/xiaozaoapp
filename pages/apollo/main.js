@@ -105,10 +105,16 @@ export default class extends React.Component {
   }
 
   // 成功弹窗弹窗
-  onSignSuccess () {
+  onSignSuccess (type) {
+    let content
+    if (type === 1) {
+      content = '很棒！完成今日打卡，你获得了1次推荐机会，分享链接邀请你的朋友加入【阿波罗实习计划】吧！(当日有效)'
+    } else {
+      content = '恭喜你完成打卡，快分享给你的朋友吧'
+    }
     Confirm({
       title: '恭喜你完成打卡',
-      content: '很棒！已完成今日打卡，你获得了1次推荐机会，分享链接邀请你的朋友加入【阿波罗实习计划】吧！(当日有效)',
+      content: content,
       okText: '分享',
       cancelText: '返回',
       ok: () => { this.setModalPop() }
@@ -397,14 +403,14 @@ export default class extends React.Component {
     // 如果是当日
     if (day.today) {
       if (day.over) {
-        return <Button half text={'今日已完成'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.yellow} onClick={this.onSignSuccess} />
+        return <Button half text={'今日已完成'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.yellow} onClick={this.onSignSuccess.bind(this, 1)} />
       } else {
         return <Button half text={'完成今日打卡'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.yellow} onClick={this.signUp} />
       }
     } else {
       if (day.start) {
         if (day.over) {
-          return <Button half text={'已完成打卡'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.yellow} onClick={this.onSignSuccess} />
+          return <Button half text={'已完成打卡'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.yellow} onClick={this.onSignSuccess.bind(this, 0)} />
         } else {
           return <Button half text={'未完成打卡'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.deepBorder} />
         }

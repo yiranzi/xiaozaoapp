@@ -32,18 +32,17 @@ export default class extends React.Component {
       if (this.offerPostDate.imageList && this.offerPostDate.imageList.length > 0) {
         let uuid = DataUtil.uuid(11)
         formdata = DataUtil.imgFormat(this.offerPostDate.imageList[0].url, uuid, 'jpg')
+        try {
+          this.setState({isSubmit: true})
+          await AxiosUtil.post(`/api/apollo/uploadOffer?title=${this.offerPostDate.name}`, formdata)
+          this.setState({isSubmit: false})
+          Alert({content: (<div style={{textAlign: 'left'}}>恭喜小伙伴，获得实习offer，赢回押金哦！欢迎添加小助手 Joan（微信：Joan629-v5）分享你的实习求职经验，即可获得【成为优秀实习生攻略】！<br />温馨提示：入群押金会在（2018年1月8日-2018年1月12日）期间原路退还。</div>), okText: '确认'})
+        } catch (e) {
+          Alert({content: e.message, okText: '确认'})
+          this.setState({isSubmit: false})
+        }
       } else {
-        let uuid = DataUtil.uuid(11)
-        formdata = DataUtil.imgFormat('', uuid, 'jpg')
-      }
-      try {
-        this.setState({isSubmit: true})
-        await AxiosUtil.post(`/api/apollo/uploadOffer?title=${this.offerPostDate.name}`, formdata)
-        this.setState({isSubmit: false})
-        Alert({content: '提交成功', okText: '确认'})
-      } catch (e) {
-        Alert({content: e.message, okText: '确认'})
-        this.setState({isSubmit: false})
+        Alert({content: '没有提交图片', okText: '确认'})
       }
     } else {
       Alert({content: '没有填写任何职位信息', okText: '确认'})
