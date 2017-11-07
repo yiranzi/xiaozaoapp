@@ -197,7 +197,7 @@ export default class extends React.Component {
                 <img className='top-bg' src='/static/img/apollo/bg1.jpg' />
                 <div className='top-content'>
                   <div className='header'>
-                    <p>您已成功打卡 {this.state.signTotalDay} 天</p>
+                    <p>阿波罗实习打卡 您已成功打卡 {this.state.signTotalDay} 天</p>
                   </div>
                   <DateSelector
                     weekInfo={week}
