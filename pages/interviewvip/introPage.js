@@ -196,7 +196,7 @@ export default class extends React.Component {
               <li>参加线上模拟需要先完成所有模块的学习，学完后模拟更有效哦</li>
               <li>群面时间：<span className='red'>多时段选一</span>(每个时间段开放 300 个名额，为保证群面效果，完成课程学习才可报名群面啦！请务必确认参加哦）</li>
               <div className='introImg'>
-                <img src='/static/img/interviewvip/introPage/timeChoose.png'/>
+                <img src='/static/img/interviewvip/introPage/timeChoose.jpg' style={{width: '100%'}} />
               </div>
             </ul>
           </section>
@@ -466,7 +466,7 @@ export default class extends React.Component {
       )
     })
     return (<div className='page'>
-      <h1 className='title'>第一期群面打卡回顾</h1>
+      <h1 className='title'>《小马哥教你过群面》精华页面</h1>
       {result}
       <style jsx>
         {`
