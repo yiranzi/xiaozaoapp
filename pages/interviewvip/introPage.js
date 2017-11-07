@@ -375,6 +375,10 @@ export default class extends React.Component {
                 .card {
                   margin: 30px 0 30px 0 !important;
                 }
+                a {
+                  color: #242223;
+                  font-weight: bold;
+                }
                 `}
             </style>
             {this.renderStartTime()}
