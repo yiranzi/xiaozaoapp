@@ -54,7 +54,7 @@ export default class extends React.Component {
       this.setToday(apolloWeekDayDTOList[currentDay])
     } catch (e) {
       this.setState({
-        error: e.message
+        error: e
       })
     }
   }
@@ -221,10 +221,10 @@ export default class extends React.Component {
           justify-content: space-between;
         }
         .content {
-          font-size: 18px;
+          font-size: 16px;
         }
         .count {
-          font-size: 22px;
+          font-size: 20px;
         }
       `}</style>
     </div>)
@@ -244,7 +244,7 @@ export default class extends React.Component {
       <style>{
         `
         .column {
-          font-size: 18px;
+          font-size: 16px;
           margin: -1rem auto -1rem auto;
         }
         .colume-inner {
@@ -270,11 +270,12 @@ export default class extends React.Component {
       <p>*一周至少打卡3次即可完成本周打卡任务。*</p>
       <style jsx>{`
       .help-info {
+        font-size: 14px;
         text-align: center;
       }
       .title {
         margin: 20px auto 10px auto;
-        font-size: 18px;
+        font-size: 16px;
       }
       `}</style>
     </div>)
@@ -365,7 +366,7 @@ export default class extends React.Component {
             height: 40px;
             line-height: 40px;
             text-align: center;
-            font-size: 18px;
+            font-size: 16px;
           }
           .finish-button {
             font-size: 30px !important;

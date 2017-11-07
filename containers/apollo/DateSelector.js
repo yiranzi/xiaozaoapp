@@ -94,7 +94,7 @@ export default class extends React.Component {
     }
     return date[index]
   }
-  
+
   renderCalendarItem () {
     let weekInfo = this.props.weekInfo
     return weekInfo.map((ele, index) => {
@@ -105,7 +105,7 @@ export default class extends React.Component {
           <span className='date' style={this.styleByStatus(ele)}>{ele.dayOfMonth}</span>
           {ele.today && <img className='today-tag' src='/static/img/apollo/current.png' />}
         </div>
-        {this.props.currentSelect === index && <span className='current-tag'></span>}
+        {<span className={this.props.currentSelect === index ? 'current-tag-see' : 'current-tag'}></span>}
         <style jsx>
           {`
           .calendar-item {
@@ -115,7 +115,7 @@ export default class extends React.Component {
             align-items: center;
             flex-wrap: wrap;
             width: 30px;
-
+            align-items: flex-start;
           }
           .dayName {
             color: white;
@@ -138,14 +138,19 @@ export default class extends React.Component {
             height: 26px;
             margin:auto;
           }
-          .current-tag {
-            position: absolute;
-            bottom: -5px;
+          .current-tag-see {
             width:0;
             height:0;
             border-left:4px solid transparent;
             border-right:4px solid transparent;
             border-bottom:4px solid red;
+          }
+          .current-tag {
+            width:0;
+            height:0;
+            border-left:4px solid transparent;
+            border-right:4px solid transparent;
+            border-bottom:4px solid transparent;
           }
           `
           }
