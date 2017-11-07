@@ -347,7 +347,7 @@ export default class extends React.Component {
         <span>点击获取实习干货</span>
         <span>{'>'}</span>
       </div>
-      {this.todayDayKey < 318 && <div className='colume-inner has-border-div' onClick={() => { this.goRouter('/apollo/finish') }}>
+      {this.todayDayKey > 318 && <div className='colume-inner has-border-div' onClick={() => { this.goRouter('/apollo/finish') }}>
         <span>我已找到实习，结束打卡</span>
         <span>{'>'}</span>
       </div>}
