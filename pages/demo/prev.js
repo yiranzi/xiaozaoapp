@@ -14,7 +14,7 @@ import Loading from '../../xz-components/loading'
 import More from '../../xz-components/more'
 import Motal from '../../xz-components/motal'
 import Radio from '../../xz-components/radio'
-import ShareWx from '../../xz-components/sharewx'
+import WxShare from '../../xz-components/WxShare'
 import tabbar from '../../xz-components/tabbar'
 import TextArea from '../../xz-components/textarea'
 import TimeDown from '../../xz-components/timedown'
@@ -234,9 +234,10 @@ export default class extends React.Component {
             />
           </Form>
           <br />
-          <div className='title'>ShareWx：</div>
+          <div className='title'>WxShare：引入组件!!就可以分享!!</div>
+          <WxShare title={'组件demo'} desc={'一起学习'} link={'http://rcwx.review.xiaozao.org/demo/prev'} imgUrl={'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg'} />
           <br />
-          <div><strong style={{color: 'red'}}>待补全</strong></div>
+          <div>参数为 标题 内容 图片 链接</div>
           <br />
           <div className='title'>Tabber：</div>
           <br />
