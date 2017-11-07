@@ -320,7 +320,6 @@ export default class extends React.Component {
                     <p>您已成功打卡 {this.state.signTotalDay} 天</p>
                   </div>
                   <DateSelector
-                    todayIndex={0}
                     weekInfo={week}
                     onChange={this.onChangeWeek}
                     onChoose={this.onChooseDay}

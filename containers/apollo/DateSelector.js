@@ -105,9 +105,11 @@ export default class extends React.Component {
           <span className='date' style={this.styleByStatus(ele)}>{ele.dayOfMonth}</span>
           {ele.today && <img className='today-tag' src='/static/img/apollo/current.png' />}
         </div>
+        {this.props.currentSelect === index && <span className='current-tag'></span>}
         <style jsx>
           {`
           .calendar-item {
+            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -135,6 +137,15 @@ export default class extends React.Component {
             width: 26px;
             height: 26px;
             margin:auto;
+          }
+          .current-tag {
+            position: absolute;
+            bottom: -5px;
+            width:0;
+            height:0;
+            border-left:4px solid transparent;
+            border-right:4px solid transparent;
+            border-bottom:4px solid red;
           }
           `
           }
