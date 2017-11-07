@@ -362,10 +362,7 @@ export default class extends React.Component {
               />
             </div>
             <div className='teacher-intro'>
-              <Card
-                title='导师介绍'
-                content={this.teacherIntro()}
-              />
+              <Card title='导师介绍'>{this.teacherIntro()}</Card>
             </div>
             <div className='course-detail'>
               <Card title='课程内容'>{this.courseDetail()}</Card>
