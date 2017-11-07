@@ -3,6 +3,7 @@ import {Button} from 'react-weui'
 import Card from '../../xz-components/card'
 import FixFooter from '../../xz-components/fixfooter'
 import InterviewLayout from '../../containers/interviewvip/layout'
+import NoSignUp from '../../containers/interviewvip/nosignup'
 import ThemeConfig from '../../config/theme'
 import AxiosUtil from '../../util/axios'
 
@@ -12,7 +13,8 @@ export default class extends React.Component {
     this.state = {
       list: '',
       isRender: true,
-      error: ''
+      error: '',
+      status: 0
     }
   }
 
@@ -25,9 +27,11 @@ export default class extends React.Component {
         isRender: false
       })
     } catch (e) {
+      console.log(e)
       // 未付费 渲染报错信息.不渲染列表
       this.setState({
         error: e.message,
+        status: e.status,
         isRender: false
       })
     }
@@ -146,7 +150,8 @@ export default class extends React.Component {
   }
 
   render () {
-    const {list, isRender, error} = this.state
+    const {list, isRender, error, status} = this.state
+    if (status === 10001) { return <NoSignUp /> }
     return (
       <InterviewLayout isRender={isRender} error={error}>
         <div className='list'>
