@@ -206,7 +206,7 @@ export default class extends React.Component {
                 </div>
                 <div style={{marginTop: '1rem'}}>
                   <a href='https://m.qlchat.com/topic/2000000219000074.htm?preview=Y&intoPreview=Y'>
-                  小马哥教你过群面课程系列直播之金融（中资银行）
+                  小马哥教你过群面课程系列直播之金融（中资银行）--点击回看
                   </a>
                   <p>密码：qmkc1106</p>
                 </div>

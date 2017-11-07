@@ -166,7 +166,7 @@ export default class extends React.Component {
 
   renderFreeTry () {
     return (
-      <Button className='price-button1' onClick={() => { this.goPath('/interviewvip/experience/intro') }} text={'抢先体验'} />
+      <Button className='price-button1' onClick={() => { this.goPath('/interviewvip/experience/intro') }} text={'体验5分钟'} />
     )
   }
 
