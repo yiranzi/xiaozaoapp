@@ -53,8 +53,14 @@ export default class extends React.Component {
       this.todayDayKey = dayOfYear // 设置今天的日期标识常量
       this.setToday(apolloWeekDayDTOList[currentDay])
     } catch (e) {
+      let err = {}
+      if (!e.message) {
+        err.message = e
+      } else {
+        err = e
+      }
       this.setState({
-        error: e
+        error: err
       })
     }
   }
