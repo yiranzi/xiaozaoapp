@@ -55,18 +55,17 @@ export default class extends React.Component {
                 <p>截图形式可以使短信截图、邮件截图、微信截图</p>
                 <div className='uploader'>
                   <span>上传截图：</span>
-                  <Uploader defaultValue={[]}
+                  <Uploader defaultValue={[]} maxCount={1}
                     onChange={(value) => this.saveChange(1, value)} />
                 </div>
               </div>
             </div>
+            <Button text='提交' bg='#ffd164' color='#001567' onClick={() => { this.postOfferInfo() }} />
           </div>
-          <Button text='提交' bg='#ffd164' color='#001567' onClick={() => { this.postOfferInfo() }} />
         </div>
         <style jsx>{`
           .apollo-finish {
             background-color: #f8f9ff;
-            height: 100vh;
             min-height: 100vh;
           }
           .apollo-finish .header {
@@ -93,7 +92,6 @@ export default class extends React.Component {
           .apollo-finish .action {
             color: #001567;
             padding: 1rem;
-            margin-bottom: 1rem;
           }
           .apollo-finish .action .sub-title {
             font-size: 16px;
@@ -135,6 +133,7 @@ export default class extends React.Component {
           }
           .apollo-finish .action .img {
             margin-top: 2rem;
+            margin-bottom: 2rem;
           }
         `}</style>
         <style global jsx>{`
@@ -142,7 +141,8 @@ export default class extends React.Component {
             margin-top: 0 !important;
             background-color: transparent !important;
           }
-          .weui-cells:before {
+          .weui-cells:before,
+          .weui-cells:after {
             border: none !important;
           }
           .weui-cells .weui-uploader__hd {
@@ -150,6 +150,9 @@ export default class extends React.Component {
           }
           .weui-cells .weui-cell__bd {
             background-color: #cfd0dc;
+          }
+          .weui-uploader__input-box {
+            border: none !important;
           }
           .weui-uploader__input-box:before, .weui-uploader__input-box:after {
             background-color: #fff !important;
