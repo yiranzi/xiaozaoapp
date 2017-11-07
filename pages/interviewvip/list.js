@@ -190,6 +190,28 @@ export default class extends React.Component {
                 </ul>
               </div>
             </section>
+            <section className='part'>
+              <div className='sub-content'>
+                <div>
+                  <a href='https://m.qlchat.com/topic/2000000197353098.htm'>
+                  小马哥教你过群面课程系列直播之四大--点击回看
+                  </a>
+                  <p>密码：qmdk01</p>
+                </div>
+                <div style={{marginTop: '1rem'}}>
+                  <a href='https://m.qlchat.com/topic/2000000213857805.htm?preview=Y&intoPreview=Y'>
+                  小马哥带你过群面系列直播之群面案例解析--点击回看
+                  </a>
+                  <p>密码：qmkc1105</p>
+                </div>
+                <div style={{marginTop: '1rem'}}>
+                  <a href='https://m.qlchat.com/topic/2000000219000074.htm?preview=Y&intoPreview=Y'>
+                  小马哥教你过群面课程系列直播之金融（中资银行）
+                  </a>
+                  <p>密码：qmkc1106</p>
+                </div>
+              </div>
+            </section>
           </div>
           <FixFooter content={this.renderButton()} />
         </div>
@@ -216,6 +238,10 @@ export default class extends React.Component {
             margin-top: 1rem;
           }
           section.part .sub-content span {
+            font-weight: bold;
+          }
+          section.part .sub-content a {
+            color: ${ThemeConfig.color.content};
             font-weight: bold;
           }
           li {

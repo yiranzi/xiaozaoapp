@@ -341,28 +341,6 @@ export default class extends React.Component {
             <div className='course-detail'>
               <Card title='课程内容'>{this.courseDetail()}</Card>
             </div>
-            <div className='zhi-bo'>
-              <Card title='直播回看'>
-                <div>
-                  <a href='https://m.qlchat.com/topic/2000000197353098.htm'>
-                  小马哥教你过群面课程系列直播之四大--点击回看
-                  </a>
-                  <p>密码：qmdk01</p>
-                </div>
-                <div style={{marginTop: '1rem'}}>
-                  <a href='https://m.qlchat.com/topic/2000000213857805.htm?preview=Y&intoPreview=Y'>
-                  小马哥带你过群面系列直播之群面案例解析--点击回看
-                  </a>
-                  <p>密码：qmkc1105</p>
-                </div>
-                <div style={{marginTop: '1rem'}}>
-                  <a href='https://m.qlchat.com/topic/2000000219000074.htm?preview=Y&intoPreview=Y'>
-                  小马哥教你过群面课程系列直播之金融（中资银行）
-                  </a>
-                  <p>密码：qmkc1106</p>
-                </div>
-              </Card>
-            </div>
             <div className='fit'>
               <Card title='你将收获什么'>{this.courseLearn()}</Card>
             </div>
@@ -374,10 +352,6 @@ export default class extends React.Component {
                 }
                 .card {
                   margin: 30px 0 30px 0 !important;
-                }
-                a {
-                  color: #242223;
-                  font-weight: bold;
                 }
                 `}
             </style>
