@@ -110,7 +110,7 @@ export default class extends React.Component {
     if (type === 1) {
       content = '很棒！完成今日打卡，你获得了1次推荐机会，分享链接邀请你的朋友加入【阿波罗实习计划】吧！(当日有效)'
     } else {
-      content = '恭喜你完成打卡，快分享给你的朋友吧'
+      content = '很棒！完成今日打卡，你获得了1次推荐机会，分享链接邀请你的朋友加入【阿波罗实习计划】吧！(当日有效)'
     }
     Confirm({
       title: '恭喜你完成打卡',
