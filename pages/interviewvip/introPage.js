@@ -462,7 +462,7 @@ export default class extends React.Component {
     }
     let result = arr.map((ele, index) => {
       return (
-        <img style={style} src={`/static/img/interviewvip/introPage/intro_0${ele}.jpg`} />
+        <img style={style} src={`/static/img/interviewvip/introPage/intro_0${ele}1.jpg`} />
       )
     })
     return (<div className='page'>
