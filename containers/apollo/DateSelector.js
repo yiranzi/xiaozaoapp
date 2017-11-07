@@ -73,9 +73,8 @@ export default class extends React.Component {
             padding: 10px;
           }
           .calendar img {
-            margin-top: 12px;
+            margin-top: 6px;
             width: 12px;
-            height: 12px;
           }
         `}</style>
       </div>

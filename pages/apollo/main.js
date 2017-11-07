@@ -189,7 +189,9 @@ export default class extends React.Component {
     let headArray = this.state.headimgList
     if (headArray && headArray.length > 0) {
       return headArray.map((item, index) => {
-        return <img style={style} key={item + index} src={item} />
+        if (index < 7) {
+          return <img style={style} key={item + index} src={item} />
+        }
       })
     } else {
       let emptyArr = []
@@ -197,7 +199,7 @@ export default class extends React.Component {
         backgroundColor: `${ThemeConfig.color.deepBorder}`
       }
       style = Object.assign(style, style2)
-      for (let i = 0; i < 8; i++) {
+      for (let i = 0; i < 7; i++) {
         emptyArr.push('')
       }
       return emptyArr.map((item, index) => {
@@ -384,7 +386,7 @@ export default class extends React.Component {
             border-bottom: 10px solid ${ThemeConfig.color.deepBorder};
           }
           .rank {
-            margin-top: -1rem;
+            margin-top: -1.2rem;
           }
         `}</style>
         </Layout>
