@@ -344,9 +344,9 @@ export default class extends React.Component {
           <div className='intro'>
             {this.renderTop(mainintro)}
             <div className='sub'>
-              <Card
-                title='小灶群面7天闪电计划(初级)'
-                content={this.renderContent()} />
+              <Card title='小灶群面7天闪电计划(初级)'>
+                {this.renderContent()}
+              </Card>
             </div>
             {day < 1 && <Button className='disabled'>未开始</Button>}
             {(day >= 1 && day <= 8) &&

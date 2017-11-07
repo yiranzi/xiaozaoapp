@@ -174,40 +174,42 @@ export default class extends React.Component {
     let style = {
       backgroundColor: 'red'
     }
-    return (<Card style={style} content={
-      <div className='my-flex2'>
-        <span className='name'>小马哥教你过群面</span>
-        <span className='price'>{this.state.price}</span>
-        <span className='offerPrice'>{this.state.discountPrice}</span>
+    return (
+      <Card style={style} >
+        <div className='my-flex2'>
+          <span className='name'>小马哥教你过群面</span>
+          <span className='price'>{this.state.price}</span>
+          <span className='offerPrice'>{this.state.discountPrice}</span>
+        </div>
         <style>{`
-        .card {
-          padding: 10px !important
-        }
-        .my-flex2 {
-          display: flex;
-          justify-content: space-between;
-        }
-        .name {
-          width: 110px;
-          text-align: left;
-          font-size: 10px;
-        }
-        .price {
-          font-weight: 900;
-          width: 80px;
-          text-align: left;
-          font-size: 20px;
-        }
-        .offerPrice {
-          font-weight: 900;
-          color: #117ee9;
-          width: 80px;
-          text-align: center;
-          font-size: 20px;
-        }
-      `}</style>
-      </div>
-    } />)
+          .card {
+            padding: 10px !important
+          }
+          .my-flex2 {
+            display: flex;
+            justify-content: space-between;
+          }
+          .name {
+            width: 110px;
+            text-align: left;
+            font-size: 10px;
+          }
+          .price {
+            font-weight: 900;
+            width: 80px;
+            text-align: left;
+            font-size: 20px;
+          }
+          .offerPrice {
+            font-weight: 900;
+            color: #117ee9;
+            width: 80px;
+            text-align: center;
+            font-size: 20px;
+          }
+        `}</style>
+      </Card>
+    )
   }
 
   renderDiscountList () {

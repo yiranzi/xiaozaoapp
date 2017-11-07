@@ -3,6 +3,7 @@ import {Button} from 'react-weui'
 import Card from '../../xz-components/card'
 import FixFooter from '../../xz-components/fixfooter'
 import InterviewLayout from '../../containers/interviewvip/layout'
+import NoSignUp from '../../containers/interviewvip/nosignup'
 import ThemeConfig from '../../config/theme'
 import AxiosUtil from '../../util/axios'
 
@@ -12,7 +13,8 @@ export default class extends React.Component {
     this.state = {
       list: '',
       isRender: true,
-      error: ''
+      error: '',
+      status: 0
     }
   }
 
@@ -25,9 +27,11 @@ export default class extends React.Component {
         isRender: false
       })
     } catch (e) {
+      console.log(e)
       // 未付费 渲染报错信息.不渲染列表
       this.setState({
         error: e.message,
+        status: e.status,
         isRender: false
       })
     }
@@ -98,9 +102,9 @@ export default class extends React.Component {
       </div>
     )
     if (href) {
-      return <a href={href}><Card content={content} /></a>
+      return <a href={href}><Card>{content}</Card></a>
     } else {
-      return <Card content={content} />
+      return <Card>{content}</Card>
     }
   }
 
@@ -146,7 +150,8 @@ export default class extends React.Component {
   }
 
   render () {
-    const {list, isRender, error} = this.state
+    const {list, isRender, error, status} = this.state
+    if (status === 10001) { return <NoSignUp /> }
     return (
       <InterviewLayout isRender={isRender} error={error}>
         <div className='list'>
@@ -185,6 +190,28 @@ export default class extends React.Component {
                 </ul>
               </div>
             </section>
+            <section className='part'>
+              <div className='sub-content'>
+                <div>
+                  <a href='https://m.qlchat.com/topic/2000000197353098.htm'>
+                  小马哥教你过群面课程系列直播之四大--点击回看
+                  </a>
+                  <p>密码：qmdk01</p>
+                </div>
+                <div style={{marginTop: '1rem'}}>
+                  <a href='https://m.qlchat.com/topic/2000000213857805.htm?preview=Y&intoPreview=Y'>
+                  小马哥带你过群面系列直播之群面案例解析--点击回看
+                  </a>
+                  <p>密码：qmkc1105</p>
+                </div>
+                <div style={{marginTop: '1rem'}}>
+                  <a href='https://m.qlchat.com/topic/2000000219000074.htm?preview=Y&intoPreview=Y'>
+                  小马哥教你过群面课程系列直播之金融（中资银行）--点击回看
+                  </a>
+                  <p>密码：qmkc1106</p>
+                </div>
+              </div>
+            </section>
           </div>
           <FixFooter content={this.renderButton()} />
         </div>
@@ -211,6 +238,10 @@ export default class extends React.Component {
             margin-top: 1rem;
           }
           section.part .sub-content span {
+            font-weight: bold;
+          }
+          section.part .sub-content a {
+            color: ${ThemeConfig.color.content};
             font-weight: bold;
           }
           li {

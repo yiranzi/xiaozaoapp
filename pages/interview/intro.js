@@ -45,10 +45,7 @@ export default class extends React.Component {
       <InterviewLayout isRender={isRender} >
         <Back text='< 返回打卡主页' url='/interview/main' />
         <div className='intro-content'>
-          <Card
-            title='打卡说明'
-            content={this.renderIntroContent()}
-          />
+          <Card title='打卡说明'>{this.renderIntroContent()}</Card>
           {day == 1 &&
             <a href='/interview/background1'><Button>开始打卡</Button></a>
           }

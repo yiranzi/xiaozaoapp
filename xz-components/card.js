@@ -2,11 +2,11 @@ import React from 'react'
 
 export default class extends React.Component {
   render () {
-    const { title, content } = this.props
+    const { title, children } = this.props
     return (
       <div className='card'>
         {title && <div className='title'>{title}</div>}
-        {content && <div className='content'>{content}</div>}
+        {children && <div className='content'>{children}</div>}
         <style jsx>{`
           .card {
             background-color: #fff;
