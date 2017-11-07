@@ -93,7 +93,13 @@ export default class extends React.Component {
           <div className='title'>Card：</div>
           <div className='card'>
             <br />
-            <Card title='标题' content='内容' />
+            <Card title='标题'>
+              <div>内容1</div>
+              <div>内容2</div>
+              <div>内容3</div>
+              <div>内容4</div>
+              <div>内容5</div>
+            </Card>
           </div>
           <br />
           <div className='title'>Checkbox：</div>

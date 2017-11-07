@@ -98,9 +98,9 @@ export default class extends React.Component {
       </div>
     )
     if (href) {
-      return <a href={href}><Card content={content} /></a>
+      return <a href={href}><Card>{content}</Card></a>
     } else {
-      return <Card content={content} />
+      return <Card>{content}</Card>
     }
   }
 

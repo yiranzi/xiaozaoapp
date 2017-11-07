@@ -340,7 +340,7 @@ export default class extends React.Component {
             <InterviewLayout isRender={isRender} error={error}>
               <Back text='< 返回' url='/interview/list'/>
               <div className='interview-result'>
-                <Card content={this.renderContent()}/>
+                <Card>{this.renderContent()}</Card>
                 <div className='analysis'>{this.renderAnalysis()}</div>
                 <br/>
                 <div><img className='interview-adv' src='/static/img/interview/interview_adv.jpg'/> </div>

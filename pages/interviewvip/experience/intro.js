@@ -54,7 +54,7 @@ export default class extends React.Component {
         <div className='intro'>
           <div className='title'>群面说明</div>
           <div className='content'>
-            <Card content={this.renderContent()} />
+            <Card>{this.renderContent()}</Card>
           </div>
           <FixFooter content={this.renderAction()} />
         </div>

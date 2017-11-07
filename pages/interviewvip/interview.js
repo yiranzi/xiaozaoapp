@@ -184,7 +184,7 @@ export default class extends React.Component {
         <div className='title'>
           {this.addTitleFactory(`您选择的模拟面试时间是`)}
         </div>
-        <Card content={dateDiv} />
+        <Card>{dateDiv}</Card>
         <div className='intro'>
           <p>当天已报名人数: {number}</p>
           <br />
@@ -308,8 +308,8 @@ export default class extends React.Component {
       backgroundColor: `white`,
       color: `${ThemeConfig.color.content}`
     }
-    return (<Card
-      content={
+    return (
+      <Card>
         <Tabbar
           currentSelect={this.state.currentSelect}
           buttonStatus={this.buttonStatusArr}
@@ -319,8 +319,8 @@ export default class extends React.Component {
           disabledStyle={disabledStyle}
           onClickTabbar={this.onClickTabbar.bind(this)}
         />
-      }
-    />)
+      </Card>
+    )
   }
 
   // tabbar回调

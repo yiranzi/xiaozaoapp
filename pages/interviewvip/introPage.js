@@ -368,23 +368,16 @@ export default class extends React.Component {
               />
             </div>
             <div className='course-detail'>
-              <Card
-                title='课程内容'
-                content={this.courseDetail()}
-              />
+              <Card title='课程内容'>{this.courseDetail()}</Card>
             </div>
             <div className='fit'>
-              <Card
-                title='你将收获什么'
-                content={this.courseLearn()}
-              />
+              <Card title='你将收获什么'>{this.courseLearn()}</Card>
             </div>
             {/*<div className='how-join'>*/}
               {/*<Card*/}
                 {/*title='参与方式'*/}
                 {/*content={this.howJoin()}*/}
               {/*/>*/}
-
             {/*</div>*/}
             <style>
               {`
