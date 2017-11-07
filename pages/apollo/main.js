@@ -313,31 +313,36 @@ export default class extends React.Component {
       return (
         <Layout error={error}>
           {this.setShare()}
-          <div className='page'>
-            <div className='top'>
-              <img className='top-bg' src='/static/img/apollo/bg1.jpg' />
-              <div className='top-content'>
-                <div className='header'>
-                  <p>您已成功打卡 {this.state.signTotalDay} 天</p>
+          <div className='out'>
+            <div className='page'>
+              <div className='top'>
+                <img className='top-bg' src='/static/img/apollo/bg1.jpg' />
+                <div className='top-content'>
+                  <div className='header'>
+                    <p>您已成功打卡 {this.state.signTotalDay} 天</p>
+                  </div>
+                  <DateSelector
+                    todayIndex={0}
+                    weekInfo={week}
+                    onChange={this.onChangeWeek}
+                    onChoose={this.onChooseDay}
+                    currentSelect={this.state.currentSelectDay}>
+                  </DateSelector>
+                  <div className='finish-button'>
+                    {this.renderSignUpButton()}
+                  </div>
+                  <div className='top-help-info'>打卡满三天即可完成本周任务</div>
                 </div>
-                <DateSelector
-                  todayIndex={0}
-                  weekInfo={week}
-                  onChange={this.onChangeWeek}
-                  onChoose={this.onChooseDay}
-                  currentSelect={this.state.currentSelectDay}>
-                </DateSelector>
-                <div className='finish-button'>
-                  {this.renderSignUpButton()}
-                </div>
-                <div className='top-help-info'>打卡满三天即可完成本周任务</div>
               </div>
+              <div className='container'>{this.renderSignReview()}</div>
+              <div className='container'>{this.renderButtonList()}</div>
+              {this.renderActivityInfo()}
             </div>
-            <div className='container'>{this.renderSignReview()}</div>
-            <div className='container'>{this.renderButtonList()}</div>
-            {this.renderActivityInfo()}
           </div>
           <style jsx>{`
+          .out {
+            padding: 1rem;
+          }
           .page{
             width: 100%;
             color: ${ThemeConfig.color.deepBlue};
