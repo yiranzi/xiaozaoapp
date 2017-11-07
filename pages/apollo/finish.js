@@ -4,12 +4,16 @@ import Layout from '../../components/layout'
 import Uploader from '../../xz-components/uploader'
 import Button from '../../xz-components/button'
 import DataUtil from '../../util/data'
+import Loading from '../../xz-components/loading'
 import {Alert} from '../../xz-components/alert'
 
 export default class extends React.Component {
   offerPostDate = {}
   constructor (props) {
     super(props)
+    this.state = {
+      isSubmit: false
+    }
     this.saveChange = this.saveChange.bind(this)
     this.postOfferInfo = this.postOfferInfo.bind(this)
   }
@@ -33,9 +37,12 @@ export default class extends React.Component {
         formdata = DataUtil.imgFormat('', uuid, 'jpg')
       }
       try {
+        this.setState({isSubmit: true})
         await AxiosUtil.post(`/api/apollo/uploadOffer?title=${this.offerPostDate.name}`, formdata)
+        this.setState({isSubmit: false})
       } catch (e) {
         Alert({content: e.message, okText: '确认'})
+        this.setState({isSubmit: false})
       }
     } else {
       Alert({content: '没有填写任何职位信息', okText: '确认'})
@@ -43,8 +50,10 @@ export default class extends React.Component {
   }
 
   render () {
+    const {isSubmit} = this.state
     return (
       <Layout>
+        {isSubmit && <Loading />}
         <div className='apollo-finish'>
           <div className='header'>
             <div className='title'>荣誉殿堂</div>
