@@ -70,7 +70,7 @@ export default class extends React.Component {
           .calendar {
             display: flex;
             justify-content: space-between;
-            padding: 10px;
+            padding: 0 10px 20px 10px;
           }
           .calendar img {
             margin-top: 6px;
