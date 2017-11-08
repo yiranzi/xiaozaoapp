@@ -32,11 +32,11 @@ export default class extends React.Component {
             <span style={{padding: '0 10px', backgroundColor: '#fff'}}>
               <span style={{color: '#F5CC46'}}>限时福利</span>&nbsp;
               能力卡可兑换2018课表所有课程</span></h2>
-          <a href='/learncard/index'>
+          <a href='/learncard/detail'>
             <img src='/static/img/ucenter/banner2.jpg'
               className='header__image' />
           </a>
-          <a href='/learncard/index?tab=2'>
+          <a href='/learncard/detail?tab=2'>
             <img src='/static/img/college/courselink.jpg'
               className='header__image' />
           </a>
