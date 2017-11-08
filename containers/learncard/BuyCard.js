@@ -57,7 +57,7 @@ export default class extends React.Component {
             padding: 10px;
           }
           .my-card {
-            font-size: 16px;
+            font-size: 14px;
             margin-top: -20px;
           }
         `}</style>

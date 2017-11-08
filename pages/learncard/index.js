@@ -105,14 +105,14 @@ export default class extends React.Component {
           text-align: left;
           list-style: outside;
           color: ${Theme.color.blue};
+          line-height: 26px;
         }
         ul li {
-          margin-bottom: 10px;
+          margin-bottom: 8px;
         }
         ul p {
           display: inline;
           color: ${Theme.color.content};
-          line-height: 20px;
         }
         ul strong {
           font-weight: bold;
@@ -168,7 +168,7 @@ export default class extends React.Component {
       <style jsx>{`
           .out {
             position: absolute;
-            top: 50px;
+            top: 20px;
           }
           .title {
             font-weight: bold;
