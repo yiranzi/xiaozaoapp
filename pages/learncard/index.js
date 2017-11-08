@@ -14,7 +14,7 @@ export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      current: '1',
+      current: '2',
       userInfo: {},
       canRender: false
     }
@@ -47,12 +47,12 @@ export default class extends React.Component {
     let {userInfo} = this.state
     let prop
     prop = {
-      desc: '2018课表全新上线！3大能力，36个专题课，报名后还将回赠你的朋友1张能力卡！',
+      desc: '2018课表全新上线！3大能力，26个专题课，报名后还将回赠你的朋友1张能力卡！',
       link: 'http://rcwx.review.xiaozao.org/learncard/index',
       imgUrl: 'http://rcwx.review.xiaozao.org/static/img/learncard/shareLogo.jpg'
     }
     if (userInfo.nickname) {
-      prop.title = `${userInfo.nickname}邀请你一起成为能力派！能力卡特惠低至3折，兑换2018能力课！`
+      prop.title = `${userInfo.nickname}邀请你一起成为能力派！能力卡特惠低至2.3折，兑换2018能力课！`
     } else {
       prop.title = `小灶邀请你一起成为能力派！能力卡特惠低至3折，兑换2018能力课！`
     }
@@ -66,11 +66,11 @@ export default class extends React.Component {
         {this.state.canRender && <div className='learn-card'>
           {this.setShare()}
           <div className='header'>
-            <div className={classNames('tab', {current: current === '1'})} onClick={() => { this.onChange('1') }}>课程体验</div>
             <div className={classNames('tab', {current: current === '2'})} onClick={() => { this.onChange('2') }}>小灶能力卡</div>
+            <div className={classNames('tab', {current: current === '1'})} onClick={() => { this.onChange('1') }}>课程体验</div>
           </div>
-          {current === '1' && <Experience />}
           {current === '2' && <BuyCard setPopContent={this.setPopContent} />}
+          {current === '1' && <Experience />}
           <div className='logo-line'>
             <img src='/static/img/footer.png' />
           </div>
@@ -222,7 +222,7 @@ export default class extends React.Component {
       }
       let dom = <div>
         <img style={imgStyle} src='/static/img/apollo/shareArrow.png' />
-        <p style={innerContent}>点击右上角发给好友<br />再得邀请卡！！</p>
+        <p style={innerContent}>点击右上角发给好友<br />再得能力卡！！</p>
       </div>
       let prop = {
         inner: dom,
