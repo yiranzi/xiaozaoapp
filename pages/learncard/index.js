@@ -28,8 +28,9 @@ export default class extends React.Component {
       userInfo: getUserName
     })
   }
-  onChange (e) {
-    this.setState({current: e})
+  onChange (tabIndex) {
+    console.log(tabIndex)
+    this.setState({current: tabIndex})
   }
 
   // 设置分享
@@ -56,8 +57,8 @@ export default class extends React.Component {
         <div className='learn-card'>
           {this.setShare()}
           <div className='header'>
-            <div className={classNames('tab', {current: current === '1'})} onClick={() => { this.onChange(1) }}>课程体验</div>
-            <div className={classNames('tab', {current: current === '2'})} onClick={() => { this.onChange(2) }}>小灶学习卡</div>
+            <div className={classNames('tab', {current: current === '1'})} onClick={() => { this.onChange('1') }}>课程体验</div>
+            <div className={classNames('tab', {current: current === '2'})} onClick={() => { this.onChange('2') }}>小灶学习卡</div>
           </div>
           {current === '1' && <Experience />}
           {current === '2' && <BuyCard setPopContent={this.setPopContent} />}
