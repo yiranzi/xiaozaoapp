@@ -21,7 +21,7 @@ export default class extends React.Component {
             </div>
             <div className='list'>{this.renderLearnCardList()}</div>
             <div className='my-card'>
-              <span onClick={() => { this.goRouter() }}>{`查看我已获得的学习卡>`}</span>
+              <span onClick={() => { this.goRouter('/ucenter/studycard') }}>{`查看我已获得的学习卡>`}</span>
             </div>
           </div>
         </div>

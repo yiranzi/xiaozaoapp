@@ -6,14 +6,21 @@ import Experience from '../../containers/learncard/experience'
 import Theme from '../../config/theme'
 import FixFooter from '../../xz-components/fixfooter'
 import {ModalPop} from '../../xz-components/ModalBox'
+import ToolsUtil from '../../util/tools'
 
 export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      current: 1
+      current: '1'
     }
     this.setPopContent = this.setPopContent.bind(this)
+  }
+  componentDidMount () {
+    const tabKey = ToolsUtil.getQueryString('tab')
+    this.setState({
+      current: tabKey
+    })
   }
   onChange (e) {
     this.setState({current: e})
@@ -24,11 +31,11 @@ export default class extends React.Component {
       <Layout>
         <div className='learn-card'>
           <div className='header'>
-            <div className={classNames('tab', {current: current === 1})} onClick={() => { this.onChange(1) }}>课程体验</div>
-            <div className={classNames('tab', {current: current === 2})} onClick={() => { this.onChange(2) }}>小灶学习卡</div>
+            <div className={classNames('tab', {current: current === '1'})} onClick={() => { this.onChange(1) }}>课程体验</div>
+            <div className={classNames('tab', {current: current === '2'})} onClick={() => { this.onChange(2) }}>小灶学习卡</div>
           </div>
-          {current === 1 && <Experience />}
-          {current === 2 && <BuyCard setPopContent={this.setPopContent} />}
+          {current === '1' && <Experience />}
+          {current === '2' && <BuyCard setPopContent={this.setPopContent} />}
           <div className='logo-line'>
             <img src='/static/img/footer.png' />
           </div>
