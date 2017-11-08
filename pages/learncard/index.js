@@ -82,7 +82,7 @@ export default class extends React.Component {
                 </a>
               </div>
               <div className='invite' onClick={() => { this.setPopContent('1') }}>邀请好友</div>
-              <div className='buy'><a href='https://kdt.im/RnxZWh'>抢购特惠学习卡</a></div>
+              <div className='buy'><a href='https://kdt.im/RnxZWh'>抢购特惠能力卡</a></div>
             </div>
           )} />
           <style jsx>{`
