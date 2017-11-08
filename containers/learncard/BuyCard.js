@@ -1,9 +1,7 @@
 import React from 'react'
 import Layout from '../../components/layout'
-import Button from '../../xz-components/button'
 import Theme from '../../config/theme'
 import {ModalPop} from '../../xz-components/ModalBox'
-import {Alert} from '../../xz-components/alert'
 
 export default class extends React.Component {
   render () {
@@ -20,9 +18,12 @@ export default class extends React.Component {
               <span onClick={() => { this.showPop('1') }}>{`>>邀请朋友获取更多学习卡`}></span>
             </div>
             <div className='ad-img'>
-              <img src={'/static/img/apollo/share-bg.png'} />
+              <img src={'/static/img/learncard/buy_card_bg.jpg'} />
             </div>
             <div className='list'>{this.renderLearnCardList()}</div>
+            <div className='my-card'>
+              <span onClick={() => { this.goRouter() }}>{`查看我已获得的学习卡>`}</span>
+            </div>
           </div>
         </div>
         <style jsx>{`
@@ -56,48 +57,114 @@ export default class extends React.Component {
             margin: 10px auto auto auto;
             padding: 10px;
           }
+          .my-card {
+            font-size: 14px;
+            margin-top: -20px;
+          }
         `}</style>
       </Layout>
     )
   }
 
+  // 成功弹窗弹窗
+  // 标题
+  // 内容
+  // 按钮
+  setModalPop (title, content, buttonTxt) {
+    let defaultStyle = {
+      backgroundColor: 'rgba(0,0,0, 0.5)'
+    }
+    let dom = <div className='out'>
+      <div className='dialog'>
+        <h1 className='title'>{title}</h1>
+        {content}
+        <div className='action'>
+          <div className='ok'>{buttonTxt}</div>
+        </div>
+      </div>
+      <style jsx>{`
+          .out {
+            position: absolute;
+            top: 50px;
+          }
+          .title {
+            font-weight: bold;
+            font-size: 20px;
+            color: ${Theme.color.content};
+          }
+          .dialog {
+            padding: 10px 10px 30px 10px;
+            margin: 10px;
+            background-color: #fff;
+            border-radius: 6px;
+            line-height: 32px;
+          }
+          .dialog .action {
+            padding-top: 10px;
+            border-top: 1px solid #e5e5e5;
+            text-align: center;
+            color: ${Theme.color.content}
+            font-weight: bold;
+            font-size: 20px;
+          }
+        `}</style>
+    </div>
+    let prop = {
+      inner: dom,
+      style: defaultStyle
+    }
+    ModalPop({...prop})
+  }
+
   showPop (type) {
-    let content
-    if (type === '0') {
-      content = <div className='card-inner'>
-        <h1>购卡小指南</h1>
-        <ul>
-          <li><p>据兴趣和需求，选择购小灶学习卡可以兑换2018年小灶能力学院的课程，小伙伴可以根据兴趣和需求，选择购小灶学习卡可以兑换2018年小灶能力学院的课程，小伙伴可以根据兴趣和需求，选择购小灶学习卡可以兑换2018年小灶能力学院的课程，小伙伴可以根据兴趣和需求，选择购</p></li>
-          <li><p>伙伴可以根据兴趣和需求，选择购小小灶学习卡可以兑换2018年小灶能力学院的课程，小</p></li>
-          <li><p>12灶学习卡可以兑换2018年小灶能力学院的课程，小伙伴可以根据兴趣和需求3123</p></li>
-        </ul>
-        <style jsx>{`
+    let localClass = <style jsx>{`
         .card-inner {
-          padding: 10px;
+          padding: 10px 10px 10px 30px;
         }
-        .title {
-          font-size: 20px;
-        }
+
         ul{
+          font-size: 14px;
           text-align: left;
-          list-style: inside;
-          color: blue;
-          padding: 10px;
+          list-style: outside;
+          color: ${Theme.color.blue};
         }
         ul li {
-          border: 1px solid black;
-          padding: 0px;
+          margin-bottom: 10px;
         }
         ul p {
           display: inline;
-          margin-left: 10px;
+          color: ${Theme.color.content};
+          line-height: 20px;
+        }
+        ul strong {
+          font-weight: bold;
+          color: ${Theme.color.blue};
         }
         `}</style>
+    if (type === '0') {
+      let content = <div className='card-inner'>
+        <ul>
+          <li><p>如果你想提高任意一个核心通用能力，可以选择你最需要的课程，仅需购买1张学习卡；</p></li>
+          <li><p>如果你要准备实习、校招或者提高多个能力，可以选择你最需要和最感兴趣的课程，购买相应数量的学习卡，比如3张；</p></li>
+          <li><p>如果你准备求职某一行业，<strong>可以选择目标行业的求职能力课和核心通用能力课</strong>，一举两得，购买相应数量的学习卡，比如7张；</p></li>
+          <li><p>如果你想<strong>全面提升核心通用能力和职场关键技能</strong>，仅需 15 张学习卡，将会解锁这两类能力中的所有课程，期待你成为能力专家；</p></li>
+          <li><p>如果你想<strong>学习所有课程</strong>，今天，1699=7164！可以解锁全场课程！原本 1699 元只够买 6-8 个学习卡哦，今天可以买36张！速速行动啦！</p></li>
+        </ul>
+        {localClass}
       </div>
+      let title = '购卡小指南'
+      return this.setModalPop(title, content, '知道啦')
     } else {
-
+      let content = <div className='card-inner'>
+        <ul>
+          <li><p>【邀请奖励规则】11.09-11.13期间，超大邀请奖励！购买学习卡后，即可获得 5 张 9 折优惠券，你可以赠送好友或自己使用。邀请好友购买学习卡，你将立即获得 1 张课程学习卡（原价 ¥199），多邀多得！</p></li>
+          <li><p>扫码添加小灶能力顾问Ted（微信：xiaozao025）,备注：“邀请好友”，让他帮你解锁邀请权吧！</p></li>
+        </ul>
+        {localClass}
+      </div>
+      let title = '邀请朋友，获取'
+      return this.setModalPop(title, content, '知道啦')
     }
-    Alert({content: content, okText: '知道啦'})
   }
 
   renderLearnCardList () {
@@ -122,12 +189,24 @@ export default class extends React.Component {
   get () {
     let a = [
       {
-        image: '/static/img/apollo/share-bg.png',
+        image: '/static/img/learncard/buy_card_1.jpg',
         url: '123'
       },
       {
-        image: '/static/img/apollo/share-bg.png',
-        url: '456'
+        image: '/static/img/learncard/buy_card_2.jpg',
+        url: '123'
+      },
+      {
+        image: '/static/img/learncard/buy_card_3.jpg',
+        url: '123'
+      },
+      {
+        image: '/static/img/learncard/buy_card_4.jpg',
+        url: '123'
+      },
+      {
+        image: '/static/img/learncard/buy_card_5.jpg',
+        url: '123'
       }
     ]
     return a
