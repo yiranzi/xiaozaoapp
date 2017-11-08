@@ -49,7 +49,7 @@ export default class extends React.Component {
     prop = {
       desc: '2018课表全新上线！3大能力，26个专题课，报名后还将回赠你的朋友1张能力卡！',
       link: 'http://rcwx.review.xiaozao.org/learncard/index',
-      imgUrl: 'http://rcwx.review.xiaozao.org/static/img/learncard/shareLogo.jpg'
+      imgUrl: 'http://wx.xiaozao.org/static/img/learncard/shareLogo.jpg'
     }
     if (userInfo.nickname) {
       prop.title = `${userInfo.nickname}邀请你一起成为能力派！能力卡特惠低至2.3折，兑换2018能力课！`
