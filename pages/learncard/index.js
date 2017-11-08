@@ -26,7 +26,7 @@ export default class extends React.Component {
           {current === 1 && <Experience />}
           {current === 2 && <BuyCard />}
           <div className='logo-line'>
-            <img src='/static/img/apollo/logoLine.png' />
+            <img src='/static/img/footer.png' />
           </div>
           <div className='footer'>
             <div className='online'>在线咨询</div>
