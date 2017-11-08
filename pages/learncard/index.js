@@ -147,7 +147,7 @@ export default class extends React.Component {
         </div>
         <img className='qrcode' src='/static/img/learncard/tedCode.jpeg' />
       </div>
-      let title = '邀请朋友，获取'
+      let title = '邀请朋友，获取更多学习卡'
       return this.setModalPop(title, content, '知道啦')
     }
   }
@@ -176,7 +176,7 @@ export default class extends React.Component {
             color: ${Theme.color.content};
           }
           .dialog {
-            padding: 10px 10px 30px 10px;
+            padding: 20px 10px 20px 10px;
             margin: 10px;
             background-color: #fff;
             border-radius: 6px;

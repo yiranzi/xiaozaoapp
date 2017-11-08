@@ -40,14 +40,14 @@ export default class extends React.Component {
           }
           .main-content {
             margin-top: 10px;
-            font-size: 18px;
+            font-size: 16px;
             text-align: left;
           }
           .button-list {
             display: flex;
             justify-content: space-between;
             margin: 20px auto 20px auto;
-            font-size: 14px;
+            font-size: 16px;
           }
           .ad-img img{
             width: 100%;
@@ -57,7 +57,7 @@ export default class extends React.Component {
             padding: 10px;
           }
           .my-card {
-            font-size: 14px;
+            font-size: 16px;
             margin-top: -20px;
           }
         `}</style>
