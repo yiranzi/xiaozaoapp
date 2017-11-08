@@ -34,6 +34,7 @@ export default class extends React.Component {
   }
 
   componentDidMount = async () => {
+    this.checkUserIsRegister()
     this.loadAllCountRegion()
   }
 
