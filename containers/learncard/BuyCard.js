@@ -15,7 +15,7 @@ export default class extends React.Component {
             <div className='share-button'>
               <Button text={'立即邀请好友'} color={'white'} bg={ThemeConfig.color.blue} onClick={() => { this.props.setPopContent('1') }} />
             </div>
-            <h1 className='header'>低至2.3折，购买任一能力卡即可获得邀请权限</h1>
+            <h1 className='header'>低至2折，购买任一能力卡即可获得邀请权限</h1>
             <div className='main-content'>
               <p>小灶能力卡可以兑换2018年小灶能力学院的课程，小伙伴可以根据兴趣和需求，选择购买相应的能力卡。</p>
             </div>

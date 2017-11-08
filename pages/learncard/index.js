@@ -52,9 +52,9 @@ export default class extends React.Component {
       imgUrl: 'http://wx.xiaozao.org/static/img/learncard/shareLogo.jpg'
     }
     if (userInfo.nickname) {
-      prop.title = `${userInfo.nickname}邀请你一起成为能力派！能力卡特惠低至2.3折，兑换2018能力课！`
+      prop.title = `${userInfo.nickname}邀请你一起成为能力派！能力卡特惠低至2折，兑换2018能力课！`
     } else {
-      prop.title = `小灶邀请你一起成为能力派！能力卡特惠低至3折，兑换2018能力课！`
+      prop.title = `小灶邀请你一起成为能力派！能力卡特惠低至2折，兑换2018能力课！`
     }
     return (<WxShare {...prop} />)
   }
