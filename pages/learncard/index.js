@@ -32,8 +32,8 @@ export default class extends React.Component {
             <img src='/static/img/footer.png' />
           </div>
           <div className='footer'>
-            <div className='online'>在线咨询</div>
-            <div className='invite' onClick={() => {this.setPopContent('1')}}>邀请好友</div>
+            <div className='online'><img src='/static/img/learncard/icon.png' /><span>在线咨询</span></div>
+            <div className='invite' onClick={() => { this.setPopContent('1') }}>邀请好友</div>
             <div className='buy'>抢购学习卡</div>
           </div>
           <style jsx>{`
@@ -48,6 +48,7 @@ export default class extends React.Component {
               text-align: center;
               font-weight: bold;
               padding-top: 0.5rem;
+              padding-bottom: 0.5rem;
               border-top-left-radius: 0.25rem;
               border-top-right-radius: 0.25rem;
               flex: 1;
@@ -63,30 +64,41 @@ export default class extends React.Component {
               width: 100%;
             }
             .footer {
+              margin-top: 2rem;
+              margin-bottom: 2rem;
               padding: 1rem;
               display: flex;
               justify-content: space-around;
+              font-size: 14px;
             }
             .footer .online,
             .footer .invite {
-              flex: 1;
               text-align: center;
               color: #218ee9;
               border: 1px solid #218ee9;
               border-radius: 0.25rem;
               padding: 0.25rem;
+              flex: 1;
+            }
+            .footer .online img,
+            .footer .online span {
+              width: 1rem;
+              vertical-align: middle;
+            }
+            .footer .online img {
+              margin-right: 0.5rem;
             }
             .footer .invite {
-              margin-left: 1rem;
-              margin-right: 1rem;
+              margin-left: 0.5rem;
+              margin-right: 0.5rem;
             }
             .footer .buy {
-              flex: 1;
               text-align: center;
               background-color: red;
               color: #fff;
               border-radius: 0.25rem;
               padding: 0.25rem;
+              flex: 1;
             }
           `}</style>
         </div>
