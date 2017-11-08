@@ -67,7 +67,7 @@ export default class extends React.Component {
           {this.setShare()}
           <div className='header'>
             <div className={classNames('tab', {current: current === '1'})} onClick={() => { this.onChange('1') }}>课程体验</div>
-            <div className={classNames('tab', {current: current === '2'})} onClick={() => { this.onChange('2') }}>小灶学习卡</div>
+            <div className={classNames('tab', {current: current === '2'})} onClick={() => { this.onChange('2') }}>小灶能力卡</div>
           </div>
           {current === '1' && <Experience />}
           {current === '2' && <BuyCard setPopContent={this.setPopContent} />}
