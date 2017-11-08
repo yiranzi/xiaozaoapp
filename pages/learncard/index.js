@@ -66,12 +66,20 @@ export default class extends React.Component {
             }
             .footer .online,
             .footer .invite {
+              flex: 1;
+              text-align: center;
               color: #218ee9;
               border: 1px solid #218ee9;
               border-radius: 0.25rem;
               padding: 0.25rem;
             }
+            .footer .invite {
+              margin-left: 1rem;
+              margin-right: 1rem;
+            }
             .footer .buy {
+              flex: 1;
+              text-align: center;
               background-color: red;
               color: #fff;
               border-radius: 0.25rem;
