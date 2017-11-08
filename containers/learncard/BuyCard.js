@@ -61,7 +61,7 @@ export default class extends React.Component {
           .button-list {
             display: flex;
             justify-content: space-between;
-            margin: 20px auto 20px auto;
+            margin: 5px auto 10px auto;
             font-size: 16px;
           }
           .ad-img img{
@@ -84,8 +84,8 @@ export default class extends React.Component {
     let arr
     arr = this.get()
     let newarr = arr.map((ele, index) => {
-      return (<div className='line'>
-        <img key={index} src={ele.image} onClick={() => { this.goRouter(ele.url) }} />
+      return (<div key={index} className='line'>
+        <img src={ele.image} onClick={() => { this.goRouter(ele.url) }} />
         <style jsx>{`
           .line {
             margin-bottom: 30px;
