@@ -40,14 +40,14 @@ export default class extends React.Component {
     let {userInfo} = this.state
     let prop
     prop = {
-      desc: '卡卡卡',
+      desc: '2018课表全新上线！3大能力，36个专题课，报名后还将回赠你的朋友1张能力卡！',
       link: 'http://wx.xiaozao.org/apollo/entry',
       imgUrl: '/static/img/learncard/shareLogo.jpg'
     }
     if (userInfo.nickname) {
-      prop.title = `${userInfo.nickname}邀请你`
+      prop.title = `${userInfo.nickname}邀请你一起成为能力派！能力卡特惠低至3折，兑换2018能力课！`
     } else {
-      prop.title = `邀请你`
+      prop.title = `小灶邀请你一起成为能力派！能力卡特惠低至3折，兑换2018能力课！`
     }
     return (<WxShare {...prop} />)
   }
