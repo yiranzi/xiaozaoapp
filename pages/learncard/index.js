@@ -4,6 +4,7 @@ import Layout from '../../components/layout'
 import BuyCard from '../../containers/learncard/BuyCard'
 import Experience from '../../containers/learncard/experience'
 import Theme from '../../config/theme'
+import FixFooter from '../../xz-components/fixfooter'
 import {ModalPop} from '../../xz-components/ModalBox'
 
 export default class extends React.Component {
@@ -31,16 +32,18 @@ export default class extends React.Component {
           <div className='logo-line'>
             <img src='/static/img/footer.png' />
           </div>
-          <div className='footer'>
-            <div className='online'><img src='/static/img/learncard/icon.png' /><span>在线咨询</span></div>
-            <div className='invite' onClick={() => { this.setPopContent('1') }}>邀请好友</div>
-            <div className='buy'>抢购学习卡</div>
-          </div>
+          <FixFooter content={(
+            <div className='footer'>
+              <div className='online'><img src='/static/img/learncard/icon.png' /><span>在线咨询</span></div>
+              <div className='invite' onClick={() => { this.setPopContent('1') }}>邀请好友</div>
+              <div className='buy'>抢购特惠学习卡</div>
+            </div>
+          )} />
           <style jsx>{`
             .header {
               background: url('/static/img/learncard/headbg.png');
               display: flex;
-              padding: 1rem 0.5rem 0rem 0.5rem;
+              padding: 2rem 0.5rem 0rem 0.5rem;
             }
             .header .tab {
               color: #fff;
@@ -60,13 +63,13 @@ export default class extends React.Component {
             .header .tab + .tab{
               margin-left: 0.5rem;
             }
+            .logo-line {
+              margin-bottom: 5rem;
+            }
             .logo-line img {
               width: 100%;
             }
             .footer {
-              margin-top: 2rem;
-              margin-bottom: 2rem;
-              padding: 1rem;
               display: flex;
               justify-content: space-around;
               font-size: 14px;
