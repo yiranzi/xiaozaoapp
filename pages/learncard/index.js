@@ -15,21 +15,23 @@ export default class extends React.Component {
     super(props)
     this.state = {
       current: '1',
-      userInfo: {}
+      userInfo: {},
+      canRender: false
     }
     this.setPopContent = this.setPopContent.bind(this)
   }
   componentDidMount = async function () {
-    console.log('componentDidMount')
     const tabKey = ToolsUtil.getQueryString('tab')
-    let getUserName = await AxiosUtil.get('/api/user')
     this.setState({
       current: tabKey,
+      canRender: true
+    })
+    let getUserName = await AxiosUtil.get('/api/user')
+    this.setState({
       userInfo: getUserName
     })
   }
   onChange (tabIndex) {
-    console.log(tabIndex)
     this.setState({current: tabIndex})
   }
 
@@ -54,7 +56,7 @@ export default class extends React.Component {
     const {current} = this.state
     return (
       <Layout>
-        <div className='learn-card'>
+        {this.state.canRender && <div className='learn-card'>
           {this.setShare()}
           <div className='header'>
             <div className={classNames('tab', {current: current === '1'})} onClick={() => { this.onChange('1') }}>课程体验</div>
@@ -137,7 +139,7 @@ export default class extends React.Component {
               flex: 1;
             }
           `}</style>
-        </div>
+        </div>}
       </Layout>
     )
   }
