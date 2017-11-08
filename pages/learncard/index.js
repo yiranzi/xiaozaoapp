@@ -3,6 +3,8 @@ import classNames from 'classnames'
 import Layout from '../../components/layout'
 import BuyCard from '../../containers/learncard/BuyCard'
 import Experience from '../../containers/learncard/experience'
+import Theme from '../../config/theme'
+import {ModalPop} from '../../xz-components/ModalBox'
 
 export default class extends React.Component {
   constructor (props) {
@@ -10,6 +12,7 @@ export default class extends React.Component {
     this.state = {
       current: 1
     }
+    this.setPopContent = this.setPopContent.bind(this)
   }
   onChange (e) {
     this.setState({current: e})
@@ -24,13 +27,13 @@ export default class extends React.Component {
             <div className={classNames('tab', {current: current === 2})} onClick={() => { this.onChange(2) }}>小灶学习卡</div>
           </div>
           {current === 1 && <Experience />}
-          {current === 2 && <BuyCard />}
+          {current === 2 && <BuyCard setPopContent={this.setPopContent} />}
           <div className='logo-line'>
             <img src='/static/img/footer.png' />
           </div>
           <div className='footer'>
             <div className='online'>在线咨询</div>
-            <div className='invite'>邀请好友</div>
+            <div className='invite' onClick={() => {this.setPopContent('1')}}>邀请好友</div>
             <div className='buy'>抢购学习卡</div>
           </div>
           <style jsx>{`
@@ -89,5 +92,110 @@ export default class extends React.Component {
         </div>
       </Layout>
     )
+  }
+
+  //
+  setPopContent (type) {
+    let localClass = <style jsx>{`
+        .card-inner {
+          padding: 10px 10px 10px 30px;
+        }
+        ul{
+          font-size: 14px;
+          text-align: left;
+          list-style: outside;
+          color: ${Theme.color.blue};
+        }
+        ul li {
+          margin-bottom: 10px;
+        }
+        ul p {
+          display: inline;
+          color: ${Theme.color.content};
+          line-height: 20px;
+        }
+        ul strong {
+          font-weight: bold;
+          color: ${Theme.color.blue};
+        }
+        .qrcode {
+          width: 50%;
+          margin-bottom: 20px;
+        }
+        `}</style>
+    if (type === '0') {
+      let content = <div className='card-inner'>
+        <ul>
+          <li><p>如果你想提高任意一个核心通用能力，可以选择你最需要的课程，仅需购买1张学习卡；</p></li>
+          <li><p>如果你要准备实习、校招或者提高多个能力，可以选择你最需要和最感兴趣的课程，购买相应数量的学习卡，比如3张；</p></li>
+          <li><p>如果你准备求职某一行业，<strong>可以选择目标行业的求职能力课和核心通用能力课</strong>，一举两得，购买相应数量的学习卡，比如7张；</p></li>
+          <li><p>如果你想<strong>全面提升核心通用能力和职场关键技能</strong>，仅需 15 张学习卡，将会解锁这两类能力中的所有课程，期待你成为能力专家；</p></li>
+          <li><p>如果你想<strong>学习所有课程</strong>，今天，1699=7164！可以解锁全场课程！原本 1699 元只够买 6-8 个学习卡哦，今天可以买36张！速速行动啦！</p></li>
+        </ul>
+        {localClass}
+      </div>
+      let title = '购卡小指南'
+      return this.setModalPop(title, content, '知道啦')
+    } else {
+      let content = <div >
+        <div className='card-inner'>
+          <ul>
+            <li><p>【邀请奖励规则】11.09-11.13期间，超大邀请奖励！购买学习卡后，即可获得 5 张 9 折优惠券，你可以赠送好友或自己使用。邀请好友购买学习卡，你将立即获得 1 张课程学习卡（原价 ¥199），多邀多得！</p></li>
+            <li><p>扫码添加小灶能力顾问Ted（微信：xiaozao025）,备注：“邀请好友”，让他帮你解锁邀请权吧！</p></li>
+          </ul>
+          {localClass}
+        </div>
+        <img className='qrcode' src='/static/img/learncard/tedCode.jpeg' />
+      </div>
+      let title = '邀请朋友，获取'
+      return this.setModalPop(title, content, '知道啦')
+    }
+  }
+
+  // 调用弹框
+  setModalPop (title, content, buttonTxt) {
+    let defaultStyle = {
+      backgroundColor: 'rgba(0,0,0, 0.5)'
+    }
+    let dom = <div className='out'>
+      <div className='dialog'>
+        <h1 className='title'>{title}</h1>
+        {content}
+        <div className='action'>
+          <div className='ok'>{buttonTxt}</div>
+        </div>
+      </div>
+      <style jsx>{`
+          .out {
+            position: absolute;
+            top: 50px;
+          }
+          .title {
+            font-weight: bold;
+            font-size: 20px;
+            color: ${Theme.color.content};
+          }
+          .dialog {
+            padding: 10px 10px 30px 10px;
+            margin: 10px;
+            background-color: #fff;
+            border-radius: 6px;
+            line-height: 32px;
+          }
+          .dialog .action {
+            padding-top: 10px;
+            border-top: 1px solid #e5e5e5;
+            text-align: center;
+            color: ${Theme.color.content}
+            font-weight: bold;
+            font-size: 20px;
+          }
+        `}</style>
+    </div>
+    let prop = {
+      inner: dom,
+      style: defaultStyle
+    }
+    ModalPop({...prop})
   }
 }
