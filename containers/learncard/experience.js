@@ -18,6 +18,7 @@ export default class extends React.Component {
           <p>该课程已有 2000+ 人学习，斩获了腾迅、花旗、毕马威、某 MBB、苹果 Offer 的大神，1原则先行：教你掌握撰写简历的3大原则：“既能一见钟情， 又能日久生情”、“以读者为中心”、“用 YOLO 打败 FOMO”，2 无微不至：教你细致到联系方式怎么写，标点符号要怎么注意。3 出彩的经历：教育经历、实习经历、工作经历写得精彩有套路！</p>
           <div className='btn'><a href='https://www.xiaozao.org/learn/course/60'><Button text='立即体验' bg='#218ee9' /></a></div>
         </section>
+        <p>【上面的简历秘籍课程，电脑端体验更佳哦，稍后为大家开放。大家可以先感受下课程内容】</p>
         <section>
           <div className='sub-title'>除了以上课程体验，2018你即将拥有的能力：</div>
           <img src='/static/img/learncard/03.jpg' />
