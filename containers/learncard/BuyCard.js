@@ -14,7 +14,7 @@ export default class extends React.Component {
             </div>
             <div className='button-list'>
               <span onClick={() => { this.props.setPopContent('0') }}>{`>>购卡小指南`}</span>
-              <span onClick={() => { this.props.setPopContent('1') }}>{`>>邀请朋友获取更多学习卡`}></span>
+              <span onClick={() => { this.props.setPopContent('1') }}>{`>>邀请朋友获取更多学习卡`}</span>
             </div>
             <div className='ad-img'>
               <img src={'/static/img/learncard/buy_card_bg.jpg'} />

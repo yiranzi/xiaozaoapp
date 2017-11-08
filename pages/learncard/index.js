@@ -113,17 +113,17 @@ export default class extends React.Component {
   setPopContent (type) {
     let localClass = <style jsx>{`
         .card-inner {
-          padding: 10px 10px 10px 30px;
+          padding: 0px 10px 5px 30px;
         }
         ul{
           font-size: 14px;
           text-align: left;
           list-style: outside;
           color: ${Theme.color.blue};
-          line-height: 26px;
+          line-height: 22px;
         }
         ul li {
-          margin-bottom: 8px;
+          margin-bottom: 5px;
         }
         ul p {
           display: inline;
@@ -135,7 +135,7 @@ export default class extends React.Component {
         }
         .qrcode {
           width: 50%;
-          margin-bottom: 20px;
+          margin-bottom: 5px;
         }
         `}</style>
     if (type === '0') {
@@ -182,8 +182,9 @@ export default class extends React.Component {
       </div>
       <style jsx>{`
           .out {
-            position: absolute;
-            top: 20px;
+            {/*position: absolute;*/}
+            {/*top: 10px;*/}
+            {/*left: 0px;*/}
           }
           .title {
             font-weight: bold;
@@ -191,14 +192,14 @@ export default class extends React.Component {
             color: ${Theme.color.content};
           }
           .dialog {
-            padding: 20px 10px 20px 10px;
+            padding: 10px 10px 10px 10px;
             margin: 10px;
             background-color: #fff;
             border-radius: 6px;
             line-height: 32px;
           }
           .dialog .action {
-            padding-top: 10px;
+            padding-top: 5px;
             border-top: 1px solid #e5e5e5;
             text-align: center;
             color: ${Theme.color.content}
