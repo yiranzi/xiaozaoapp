@@ -9,6 +9,7 @@ import {ModalPop} from '../../xz-components/ModalBox'
 import ToolsUtil from '../../util/tools'
 import WxShare from '../../xz-components/WxShare'
 import AxiosUtil from '../../util/axios'
+import {Alert} from '../../xz-components/alert'
 
 export default class extends React.Component {
   constructor (props) {
@@ -16,9 +17,11 @@ export default class extends React.Component {
     this.state = {
       current: '2',
       userInfo: {},
-      canRender: false
+      canRender: false,
+      studyCard: null
     }
     this.setPopContent = this.setPopContent.bind(this)
+    this.paddingIsBuy = this.paddingIsBuy.bind(this)
   }
   componentDidMount = async function () {
     const tabKey = ToolsUtil.getQueryString('tab')
@@ -32,12 +35,26 @@ export default class extends React.Component {
         canRender: true
       })
     }
-
+    const studyCard = await AxiosUtil.get('/api/vip/getStudyCard')
+    this.setState({
+      studyCard: studyCard
+    })
     let getUserName = await AxiosUtil.get('/api/user')
     this.setState({
       userInfo: getUserName
     })
   }
+
+  paddingIsBuy () {
+    const {studyCard} = this.state
+    console.log(studyCard)
+    if (studyCard && studyCard.buyCount > 0) {
+      this.props.setPopContent('1')
+    } else {
+      Alert({content: '购买任一能力卡，即可获得邀请权限哦~能力卡限时特惠，低至2折，购买后即可邀请好友，多邀多得！', okText: '知道了'})
+    }
+  }
+
   onChange (tabIndex) {
     this.setState({current: tabIndex})
   }
@@ -81,7 +98,7 @@ export default class extends React.Component {
                   <img src='/static/img/learncard/icon.png' /><span>在线咨询</span>
                 </a>
               </div>
-              <div className='invite' onClick={() => { this.setPopContent('1') }}>邀请好友</div>
+              <div className='invite' onClick={this.paddingIsBuy}>邀请好友</div>
               <div className='buy'><a href='https://kdt.im/RnxZWh'>抢购特惠能力卡</a></div>
             </div>
           )} />
