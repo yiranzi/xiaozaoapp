@@ -7,29 +7,54 @@ import Theme from '../../config/theme'
 import FixFooter from '../../xz-components/fixfooter'
 import {ModalPop} from '../../xz-components/ModalBox'
 import ToolsUtil from '../../util/tools'
+import WxShare from '../../xz-components/WxShare'
+import AxiosUtil from '../../util/axios'
 
 export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      current: '1'
+      current: '1',
+      userInfo: {}
     }
     this.setPopContent = this.setPopContent.bind(this)
   }
-  componentDidMount () {
+  componentDidMount = async function () {
+    console.log('componentDidMount')
     const tabKey = ToolsUtil.getQueryString('tab')
+    let getUserName = await AxiosUtil.get('/api/user')
     this.setState({
-      current: tabKey
+      current: tabKey,
+      userInfo: getUserName
     })
   }
   onChange (e) {
     this.setState({current: e})
   }
+
+  // 设置分享
+  setShare () {
+    let {userInfo} = this.state
+    let prop
+    prop = {
+      desc: '卡卡卡',
+      link: 'http://wx.xiaozao.org/apollo/entry',
+      imgUrl: '/static/img/learncard/shareLogo.jpg'
+    }
+    if (userInfo.nickname) {
+      prop.title = `${userInfo.nickname}邀请你`
+    } else {
+      prop.title = `邀请你`
+    }
+    return (<WxShare {...prop} />)
+  }
+
   render () {
     const {current} = this.state
     return (
       <Layout>
         <div className='learn-card'>
+          {this.setShare()}
           <div className='header'>
             <div className={classNames('tab', {current: current === '1'})} onClick={() => { this.onChange(1) }}>课程体验</div>
             <div className={classNames('tab', {current: current === '2'})} onClick={() => { this.onChange(2) }}>小灶学习卡</div>
@@ -118,7 +143,8 @@ export default class extends React.Component {
 
   //
   setPopContent (type) {
-    let localClass = <style jsx>{`
+    if (type === '0') {
+      let localClass = <style jsx>{`
         .card-inner {
           padding: 0px 10px 5px 30px;
         }
@@ -145,7 +171,6 @@ export default class extends React.Component {
           margin-bottom: 5px;
         }
         `}</style>
-    if (type === '0') {
       let content = <div className='card-inner'>
         <ul>
           <li><p>如果你想提高任意一个核心通用能力，可以选择你最需要的课程，仅需购买1张学习卡；</p></li>
@@ -159,18 +184,30 @@ export default class extends React.Component {
       let title = '购卡小指南'
       return this.setModalPop(title, content, '知道啦')
     } else {
-      let content = <div >
-        <div className='card-inner'>
-          <ul>
-            <li><p>【邀请奖励规则】11.09-11.13期间，超大邀请奖励！购买学习卡后，即可获得 5 张 9 折优惠券，你可以赠送好友或自己使用。邀请好友购买学习卡，你将立即获得 1 张课程学习卡（原价 ¥199），多邀多得！</p></li>
-            <li><p>扫码添加小灶能力顾问Ted（微信：xiaozao025）,备注：“邀请好友”，让他帮你解锁邀请权吧！</p></li>
-          </ul>
-          {localClass}
-        </div>
-        <img className='qrcode' src='/static/img/learncard/tedCode.jpeg' />
+      let defaultStyle = {
+        backgroundColor: 'rgba(0, 10, 49, 0.5)'
+      }
+      let imgStyle = {
+        position: 'absolute',
+        top: '0',
+        right: '0',
+        width: '150px',
+        height: '300px'
+      }
+      let innerContent = {
+        position: 'absolute',
+        top: '288px',
+        right: '10px'
+      }
+      let dom = <div>
+        <img style={imgStyle} src='/static/img/apollo/shareArrow.png' />
+        <p style={innerContent}>点击右上角发给好友<br />再得邀请卡！！</p>
       </div>
-      let title = '邀请朋友，获取更多学习卡'
-      return this.setModalPop(title, content, '知道啦')
+      let prop = {
+        inner: dom,
+        style: defaultStyle
+      }
+      ModalPop({...prop})
     }
   }
 
