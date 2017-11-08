@@ -2,28 +2,37 @@ import React from 'react'
 import classNames from 'classnames'
 import Layout from '../../components/layout'
 import BuyCard from '../../containers/learncard/BuyCard'
+import Experience from '../../containers/learncard/experience'
 
 export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      index: 1
+      current: 1
     }
   }
   onChange (e) {
-    this.setState({index: e})
+    this.setState({current: e})
   }
   render () {
-    const {index} = this.state
+    const {current} = this.state
     return (
       <Layout>
         <div className='learn-card'>
           <div className='header'>
-            <div className={classNames('tab', {current: index === 1})} onClick={() => {this.onChange(1)}}>课程体验</div>
-            <div className={classNames('tab', {current: index === 2})} onClick={() => {this.onChange(2)}}>小灶学习卡</div>
+            <div className={classNames('tab', {current: current === 1})} onClick={() => { this.onChange(1) }}>课程体验</div>
+            <div className={classNames('tab', {current: current === 2})} onClick={() => { this.onChange(2) }}>小灶学习卡</div>
           </div>
-          {index === 1 && <div>课程体验内容</div>}
-          {index === 2 && <BuyCard />}
+          {current === 1 && <Experience />}
+          {current === 2 && <BuyCard />}
+          <div className='logo-line'>
+            <img src='/static/img/apollo/logoLine.png' />
+          </div>
+          <div className='footer'>
+            <div className='online'>在线咨询</div>
+            <div className='invite'>邀请好友</div>
+            <div className='buy'>抢购学习卡</div>
+          </div>
           <style jsx>{`
             .header {
               background: url('/static/img/learncard/headbg.png');
@@ -47,7 +56,27 @@ export default class extends React.Component {
             .header .tab + .tab{
               margin-left: 0.5rem;
             }
-
+            .logo-line img {
+              width: 100%;
+            }
+            .footer {
+              padding: 1rem;
+              display: flex;
+              justify-content: space-around;
+            }
+            .footer .online,
+            .footer .invite {
+              color: #218ee9;
+              border: 1px solid #218ee9;
+              border-radius: 0.25rem;
+              padding: 0.25rem;
+            }
+            .footer .buy {
+              background-color: red;
+              color: #fff;
+              border-radius: 0.25rem;
+              padding: 0.25rem;
+            }
           `}</style>
         </div>
       </Layout>
