@@ -27,6 +27,9 @@ export default class WxShare extends React.Component {
     // eslint-disable-next-line
     wx.ready(function () {
       alert('shareready')
+      alert(title)
+      alert(link)
+      alert(imgUrl)
       console.log('ready')
       // eslint-disable-next-line
       wx.onMenuShareTimeline({
