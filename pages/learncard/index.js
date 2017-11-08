@@ -1,6 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import Layout from '../../components/layout'
+import BuyCard from '../../containers/learncard/BuyCard'
 
 export default class extends React.Component {
   constructor (props) {
@@ -22,7 +23,7 @@ export default class extends React.Component {
             <div className={classNames('tab', {current: index === 2})} onClick={() => {this.onChange(2)}}>小灶学习卡</div>
           </div>
           {index === 1 && <div>课程体验内容</div>}
-          {index === 2 && <div>小灶学习卡</div>}
+          {index === 2 && <BuyCard />}
           <style jsx>{`
             .header {
               background: url('/static/img/learncard/headbg.png');
