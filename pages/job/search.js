@@ -20,7 +20,7 @@ export default class extends React.Component {
         section: '全部',
         sectionIdList: [],
         key: null,
-        pn: 0
+        pn: 1
       },
       tab: 0,
       cityList: null,
@@ -93,7 +93,7 @@ export default class extends React.Component {
   selectCity (e, name, id) {
     this.state.params.city = name
     this.state.params.cityIdList = (id === null ? [] : [id])
-    this.state.params.pn = 0
+    this.state.params.pn = 1
     this.setState({
       params: this.state.params,
       cityfullpage_show: false
@@ -104,7 +104,7 @@ export default class extends React.Component {
   selectSection (e, name, id) {
     this.state.params.section = name
     this.state.params.sectionIdList = (id === null ? [] : [id])
-    this.state.params.pn = 0
+    this.state.params.pn = 1
     this.setState({
       params: this.state.params,
       sectionfullpage_show: false
@@ -114,7 +114,7 @@ export default class extends React.Component {
 
   handleSearchBarChange (text, e) {
     this.state.params.key = text
-    this.state.params.pn = 0
+    this.state.params.pn = 1
     this.setState({
       params: this.state.params
     })
@@ -123,7 +123,7 @@ export default class extends React.Component {
 
   cancelSearchBar (text, e) {
     this.state.params.key = null
-    this.state.params.pn = 0
+    this.state.params.pn = 1
     this.setState({
       params: this.state.params
     })

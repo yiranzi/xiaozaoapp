@@ -20,9 +20,27 @@ export default class extends React.Component {
   render () {
     return <CollegeLayout tabbar={0}>
       <section className='header'>
-        <img src='/static/imgs/course/assistant_02.jpeg' className='header__image' />
+        <img src='/static/img/college/banner1.jpg' className='header__image' />
       </section>
       <section className='main-content'>
+        <section className='interview-plan'>
+          <h2 className='fixMargin'>小灶能力学院2018年课表新鲜出炉</h2>
+          <img src='/static/img/college/courselist.jpg'
+            className='header__image' />
+          <h2 className='fixMargin wx-text-center'
+            style={{borderBottom: '1px solid #efefef', lineHeight: 0}}>
+            <span style={{padding: '0 10px', backgroundColor: '#fff'}}>
+              <span style={{color: '#F5CC46'}}>限时福利</span>&nbsp;
+              能力卡可兑换2018课表所有课程</span></h2>
+          <a href='/learncard/index'>
+            <img src='/static/img/ucenter/banner2.jpg'
+              className='header__image' />
+          </a>
+          <a href='/learncard/index?tab=2'>
+            <img src='/static/img/college/courselink.jpg'
+              className='header__image' />
+          </a>
+        </section>
         <section className='signUp'
           onClick={e => this.tolink(e)}>
           <h2 className='fixMargin'>打卡专区</h2>

@@ -8,12 +8,14 @@ export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      user: null
+      user: null,
+      studyCard: null
     }
   }
 
   componentDidMount = async () => {
     this.loadUserData()
+    this.loadStudyCardInfo()
   }
 
   loadUserData = async () => {
@@ -21,6 +23,19 @@ export default class extends React.Component {
       let user = await AxiosUtil.get('/api/user')
       this.setState({
         user: user
+      })
+    } catch (e) {
+      this.setState({
+        error: e.message
+      })
+    }
+  }
+
+  loadStudyCardInfo = async () => {
+    try {
+      const studyCard = await AxiosUtil.get('/api/vip/getStudyCard')
+      this.setState({
+        studyCard: studyCard
       })
     } catch (e) {
       this.setState({
@@ -64,6 +79,17 @@ export default class extends React.Component {
             <a href='/ucenter/classroom' style={{width: '100%'}}>
               <CellBody>
                 我的教室
+              </CellBody>
+            </a>
+            <CellFooter />
+          </Cell>
+          <Cell access>
+            <a href='/ucenter/studycard' style={{width: '100%'}}>
+              <CellBody>
+                我的能力卡
+                <span className='wx-pull-right'>共
+                  {this.state.studyCard ? (this.state.studyCard.buyCount +
+                    this.state.studyCard.inviteCount) : 0}张</span>
               </CellBody>
             </a>
             <CellFooter />

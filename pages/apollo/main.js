@@ -126,7 +126,6 @@ export default class extends React.Component {
     let defaultStyle = {
       backgroundColor: 'rgba(0, 10, 49, 0.5)'
     }
-
     let imgStyle = {
       position: 'absolute',
       top: '0',

@@ -20,7 +20,7 @@ export default class extends React.Component {
         cityIdList: [],
         section: '全部',
         sectionIdList: [],
-        pn: 0
+        pn: 1
       },
       tab: 0,
       bannerList: null,
@@ -112,7 +112,7 @@ export default class extends React.Component {
   selectCity (e, name, id) {
     this.state.params.city = name
     this.state.params.cityIdList = (id === null ? [] : [id])
-    this.state.params.pn = 0
+    this.state.params.pn = 1
     this.setState({
       params: this.state.params,
       cityfullpage_show: false
@@ -123,7 +123,7 @@ export default class extends React.Component {
   selectSection (e, name, id) {
     this.state.params.section = name
     this.state.params.sectionIdList = (id === null ? [] : [id])
-    this.state.params.pn = 0
+    this.state.params.pn = 1
     this.setState({
       params: this.state.params,
       sectionfullpage_show: false
