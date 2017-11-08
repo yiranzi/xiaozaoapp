@@ -59,9 +59,7 @@ export default class extends React.Component {
       let user = await AxiosUtil.get('/api/user')
       if (user && !DataUtil.isEmpty(user.phone)) {
         alert('您已绑定过手机号，请在PC端进入www.xiaozao.org，在个人中心查看手机号')
-        setTimeout(() => {
-          location.href = '/'
-        }, 2000)
+        location.href = '/'
       }
     } catch (e) {
       this.setState({
