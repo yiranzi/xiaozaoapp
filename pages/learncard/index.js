@@ -22,10 +22,17 @@ export default class extends React.Component {
   }
   componentDidMount = async function () {
     const tabKey = ToolsUtil.getQueryString('tab')
-    this.setState({
-      current: tabKey,
-      canRender: true
-    })
+    if (tabKey) {
+      this.setState({
+        current: tabKey,
+        canRender: true
+      })
+    } else {
+      this.setState({
+        canRender: true
+      })
+    }
+
     let getUserName = await AxiosUtil.get('/api/user')
     this.setState({
       userInfo: getUserName
@@ -41,8 +48,8 @@ export default class extends React.Component {
     let prop
     prop = {
       desc: '2018课表全新上线！3大能力，36个专题课，报名后还将回赠你的朋友1张能力卡！',
-      link: 'http://wx.xiaozao.org/apollo/entry',
-      imgUrl: '/static/img/learncard/shareLogo.jpg'
+      link: 'http://rcwx.xiaozao.org/apollo/entry',
+      imgUrl: 'http://rcwx.xiaozao.org/static/img/learncard/shareLogo.jpg'
     }
     if (userInfo.nickname) {
       prop.title = `${userInfo.nickname}邀请你一起成为能力派！能力卡特惠低至3折，兑换2018能力课！`
