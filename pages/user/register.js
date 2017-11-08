@@ -3,6 +3,7 @@ import AxiosUtil from '../../util/axios'
 import Layout from '../../components/layout'
 import ThemeConfig from '../../config/theme'
 import ToolsUtil from '../../util/tools'
+import DataUtil from '../../util/data'
 import Logo from '../../containers/user/logo'
 import { Button, Panel, PanelHeader, PanelBody, CellHeader,
   Form, CellsTitle, FormCell, CellBody, CellFooter, ButtonArea,
@@ -52,6 +53,22 @@ export default class extends React.Component {
     }
   }
 
+  checkUserIsRegister = async () => {
+    try {
+      let user = await AxiosUtil.get('/api/user')
+      if (user && !DataUtil.isEmpty(user.phone)) {
+        alert('您已绑定过手机号，请在PC端进入www.xiaozao.org，在个人中心查看手机号')
+        setTimeout(() => {
+          location.href = '/'
+        }, 2000)
+      }
+    } catch (e) {
+      this.setState({
+        error: e.message
+      })
+    }
+  }
+
   loadAllCountRegion = async () => {
     try {
       let regionList = await AxiosUtil.get('/api/user/getAllCountryRegion')
@@ -86,7 +103,8 @@ export default class extends React.Component {
       alert('密码不能为空')
       return false
     }
-    if (this.state.params.password.trim().length < 6 || this.state.params.password.trim().length > 16) {
+    if (this.state.params.password.trim().length < 6 ||
+      this.state.params.password.trim().length > 16) {
       alert('密码长度为6-16位')
       return false
     }

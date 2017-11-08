@@ -100,6 +100,10 @@ export default class extends React.Component {
         toptips.type = 'warn'
         toptips.show = true
         toptips.msg = '请输入邮件标题（长度不超过100个字）'
+      } else if (this.state.mailingObj.title.length > 100) {
+        toptips.type = 'warn'
+        toptips.show = true
+        toptips.msg = '邮件标题长度不能超过100个字'
       } else if (this.state.mailingObj.resumeTypeDTOList.length <= 0) {
         toptips.type = 'warn'
         toptips.show = true
