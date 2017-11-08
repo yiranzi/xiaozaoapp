@@ -27,12 +27,7 @@ export default class extends React.Component {
     const tabKey = ToolsUtil.getQueryString('tab')
     if (tabKey) {
       this.setState({
-        current: tabKey,
-        canRender: true
-      })
-    } else {
-      this.setState({
-        canRender: true
+        current: tabKey
       })
     }
     const studyCard = await AxiosUtil.get('/api/vip/getStudyCard')
@@ -41,7 +36,8 @@ export default class extends React.Component {
     })
     let getUserName = await AxiosUtil.get('/api/user')
     this.setState({
-      userInfo: getUserName
+      userInfo: getUserName,
+      canRender: true
     })
   }
 
@@ -49,7 +45,7 @@ export default class extends React.Component {
     const {studyCard} = this.state
     console.log(studyCard)
     if (studyCard && studyCard.buyCount > 0) {
-      this.props.setPopContent('1')
+      this.setPopContent('1')
     } else {
       Alert({content: '购买任一能力卡，即可获得邀请权限哦~能力卡限时特惠，低至2折，购买后即可邀请好友，多邀多得！', okText: '知道了'})
     }
@@ -64,7 +60,7 @@ export default class extends React.Component {
     let {userInfo} = this.state
     let prop
     prop = {
-      desc: '2018课表全新上线！3大能力，26个专题课，报名后还将回赠你的朋友1张能力卡！',
+      desc: '2018课表全新上线！三大类能力，26个专题课，报名后再邀请好友购买，你再免费获得能力卡！',
       link: 'http://wx.xiaozao.org/learncard/detail',
       imgUrl: 'http://wx.xiaozao.org/static/img/learncard/shareLogo.jpg'
     }

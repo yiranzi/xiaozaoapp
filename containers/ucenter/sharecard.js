@@ -30,7 +30,7 @@ export default class extends React.Component {
   paddingIsBuy () {
     const {studyCard} = this.state
     if (studyCard && studyCard.buyCount > 0) {
-      this.props.setPopContent('1')
+      this.renderPop('1')
     } else {
       Alert({content: '购买任一能力卡，即可获得邀请权限哦~能力卡限时特惠，低至2折，购买后即可邀请好友，多邀多得！', okText: '知道了'})
     }
