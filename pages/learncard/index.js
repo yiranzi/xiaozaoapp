@@ -69,9 +69,13 @@ export default class extends React.Component {
           </div>
           <FixFooter content={(
             <div className='footer'>
-              <div className='online'><img src='/static/img/learncard/icon.png' /><span>在线咨询</span></div>
+              <div className='online'>
+                <a href='https://shimo.im/doc/LQWZzIKVVkIeLMXl?r=L5KPGD/'>
+                  <img src='/static/img/learncard/icon.png' /><span>在线咨询</span>
+                </a>
+              </div>
               <div className='invite' onClick={() => { this.setPopContent('1') }}>邀请好友</div>
-              <div className='buy'>抢购特惠学习卡</div>
+              <div className='buy'><a href='https://kdt.im/RnxZWh'>抢购特惠学习卡</a></div>
             </div>
           )} />
           <style jsx>{`
@@ -109,6 +113,10 @@ export default class extends React.Component {
               justify-content: space-around;
               font-size: 14px;
             }
+            .footer a {
+              display: inline-block;
+              color: #218ee9;
+            }
             .footer .online,
             .footer .invite {
               text-align: center;
@@ -116,7 +124,6 @@ export default class extends React.Component {
               border: 1px solid #218ee9;
               border-radius: 0.25rem;
               padding: 0.25rem;
-              flex: 1;
             }
             .footer .online img,
             .footer .online span {
@@ -137,6 +144,10 @@ export default class extends React.Component {
               border-radius: 0.25rem;
               padding: 0.25rem;
               flex: 1;
+            }
+            .footer .buy a {
+              display: inline-block;
+              color: #fff;
             }
           `}</style>
         </div>}
