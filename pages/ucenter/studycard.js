@@ -52,7 +52,10 @@ export default class extends React.Component {
     prop = {
       desc: '2018课表全新上线！三大类能力，26个专题课，报名后再邀请好友购买，你再免费获得能力卡！',
       link: 'http://wx.xiaozao.org/learncard/detail',
-      imgUrl: 'http://wx.xiaozao.org/static/img/learncard/shareLogo.jpg'
+      imgUrl: 'http://wx.xiaozao.org/static/img/learncard/shareLogo.jpg',
+      success: function () {
+        AxiosUtil.get('/api/interview/getWXConfig?url=onUcenterStudyCard')
+      }
     }
     if (userInfo && userInfo.nickname) {
       prop.title = `${userInfo.nickname}邀请你一起成为能力派！能力卡特惠低至2折，兑换2018能力课！`

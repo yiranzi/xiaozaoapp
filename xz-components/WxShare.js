@@ -23,7 +23,7 @@ export default class WxShare extends React.Component {
     // eslint-disable-next-line
     wx.config(wxConfig)
     console.log(this.props)
-    let { title, desc, link, imgUrl } = this.props
+    let { title, desc, link, imgUrl, success, cancel } = this.props
     // eslint-disable-next-line
     wx.ready(function () {
       // eslint-disable-next-line
@@ -31,6 +31,12 @@ export default class WxShare extends React.Component {
         title: title,
         link: link,
         imgUrl: imgUrl, // 分享图标
+        success: function () {
+          if (success) {success ()}
+        },
+        cancel: function () {
+          if (cancel) {cancel()}
+        }
       })
       // eslint-disable-next-line
       wx.onMenuShareAppMessage({
@@ -38,6 +44,12 @@ export default class WxShare extends React.Component {
         desc: desc,
         link: link,
         imgUrl: imgUrl, // 分享图标
+        success: function () {
+          if (success) {success ()}
+        },
+        cancel: function () {
+          if (cancel) {cancel()}
+        }
       })
       // eslint-disable-next-line
       wx.onMenuShareQQ({
@@ -45,6 +57,12 @@ export default class WxShare extends React.Component {
         desc: desc,
         link: link,
         imgUrl: imgUrl, // 分享图标
+        success: function () {
+          if (success) {success ()}
+        },
+        cancel: function () {
+          if (cancel) {cancel()}
+        }
       })
       // eslint-disable-next-line
       wx.onMenuShareWeibo({
@@ -52,6 +70,12 @@ export default class WxShare extends React.Component {
         desc: desc,
         link: link,
         imgUrl: imgUrl, // 分享图标
+        success: function () {
+          if (success) {success ()}
+        },
+        cancel: function () {
+          if (cancel) {cancel()}
+        }
       })
       // eslint-disable-next-line
       wx.onMenuShareQZone({
@@ -59,6 +83,12 @@ export default class WxShare extends React.Component {
         desc: desc,
         link: link,
         imgUrl: imgUrl, // 分享图标
+        success: function () {
+          if (success) {success ()}
+        },
+        cancel: function () {
+          if (cancel) {cancel()}
+        }
       })
     })
     // eslint-disable-next-line

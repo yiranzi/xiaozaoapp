@@ -99,7 +99,10 @@ export default class extends React.Component {
       title: '我正在参加 - 找实习有投必反馈的【阿波罗实习计划】...',
       desc: '立即申请加入阿波罗实习计划',
       link: 'http://wx.xiaozao.org/apollo/entry',
-      imgUrl: 'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg'
+      imgUrl: 'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg',
+      success: function () {
+        AxiosUtil.get(`/api/interview/getWXConfig?url=onApolloMain`)
+      }
     }
     return (<WxShare {...prop} />)
   }
