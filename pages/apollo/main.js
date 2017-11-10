@@ -87,7 +87,13 @@ export default class extends React.Component {
       await AxiosUtil.get('/api/apollo/complete')
       this.onSignSuccess()
     } catch (e) {
-      Alert({content: e.message, okText: '确认'})
+      Confirm({
+        title: '小伙伴，您今日尚未投递职位哦~',
+        content: <p>小伙伴，您今日尚未投递职位哦~<br />当天至少完成一次投递，才可打卡</p>,
+        okText: '去投递',
+        cancelText: '残忍拒绝',
+        ok: () => { this.goRouter('http://wx.xiaozao.org') }
+      })
     }
     // 刷新
     this.getDetail()
@@ -99,7 +105,10 @@ export default class extends React.Component {
       title: '我正在参加 - 找实习有投必反馈的【阿波罗实习计划】...',
       desc: '立即申请加入阿波罗实习计划',
       link: 'http://wx.xiaozao.org/apollo/entry',
-      imgUrl: 'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg'
+      imgUrl: 'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg',
+      success: function () {
+        AxiosUtil.get(`/api/interview/getWXConfig?url=onApolloMain`)
+      }
     }
     return (<WxShare {...prop} />)
   }
@@ -232,6 +241,7 @@ export default class extends React.Component {
           .page{
             width: 100%;
             color: ${ThemeConfig.color.deepBlue};
+            padding-bottom: 100px;
           }
           .top {
             min-height: 270px;

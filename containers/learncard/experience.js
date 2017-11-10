@@ -7,6 +7,10 @@ export default class extends React.Component {
     return (
       <div className='experience'>
         <section>
+          <img src='/static/img/learncard/03.jpg' />
+        </section>
+        <section>
+          <p className='sub-content'>2018课表课程将在约定的时间与大家见面，小伙伴可以先体验一下下面2个课程哦，很多新功能也即将与大家见面啦~</p>
           <div className='sub-title'>面试考验了一个人的综合实力，逻辑思维、分析、表达、协作等，如何能够在群面中脱颖而出？你只需要全程跟着学！</div>
           <a href='/interviewvip/experience/intro'><img src='/static/img/learncard/01.jpg' /></a>
           <p>该课程已有 5000+ 人学习，从面试官角度出发，透彻分析群面打分表，精心制作本次群面快速提升计划。5大案例实例解决，7大核心技能提升，6人组队群面实战，4场在线答疑讲座，掌控群面全场，你只需要全程跟着学！</p>
@@ -19,13 +23,13 @@ export default class extends React.Component {
           <div className='btn'><a href='https://www.xiaozao.org/learn/course/60'><Button text='立即体验' bg='#218ee9' /></a></div>
         </section>
         <p>【上面的简历秘籍课程，电脑端体验更佳哦，稍后为大家开放。大家可以先感受下课程内容】</p>
-        <section>
-          <div className='sub-title'>除了以上课程体验，2018你即将拥有的能力：</div>
-          <img src='/static/img/learncard/03.jpg' />
-        </section>
+
         <style jsx>{`
           .experience {
             padding: 1rem;
+          }
+          .sub-content {
+            font-size: 18px;
           }
           .sub-title {
             padding: 1rem;

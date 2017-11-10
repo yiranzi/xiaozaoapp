@@ -20,7 +20,9 @@ export default class extends React.Component {
   render () {
     return <CollegeLayout tabbar={0}>
       <section className='header'>
-        <img src='/static/img/college/banner1.jpg' className='header__image' />
+        <a href='/learncard/detail'>
+          <img src='/static/img/college/banner1.jpg' className='header__image' />
+        </a>
       </section>
       <section className='main-content'>
         <section className='interview-plan'>
