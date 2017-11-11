@@ -61,7 +61,7 @@ export default class extends React.Component {
     let prop
     prop = {
       desc: '2018课表全新上线！三大类能力，26个专题课，报名后再邀请好友购买，你再免费获得能力卡！',
-      link: 'http://wx.xiaozao.org/learncard/detail',
+      link: 'http://wx.xiaozao.org/learncard/redirect',
       imgUrl: 'http://wx.xiaozao.org/static/img/learncard/shareLogo.jpg',
       success: function () {
         AxiosUtil.get('/api/interview/getWXConfig?url=onLearnCardDetail')
@@ -83,7 +83,7 @@ export default class extends React.Component {
           {this.setShare()}
           <div className='header'>
             <div className={classNames('tab', {current: current === '2'})} onClick={() => { this.onChange('2') }}>小灶能力卡</div>
-            <div className={classNames('tab', {current: current === '1'})} onClick={() => { this.onChange('1') }}>2018课表</div>
+            <div className={classNames('tab', {current: current === '1'})} onClick={() => { this.onChange('1') }}>{`2018课表&课程体验`}</div>
           </div>
           {current === '2' && <BuyCard setPopContent={this.setPopContent} />}
           {current === '1' && <Experience />}
@@ -98,7 +98,7 @@ export default class extends React.Component {
                 </a>
               </div>
               <div className='invite' onClick={this.setPopContent.bind(this, '1')}>邀请好友</div>
-              <div className='buy'><a href='https://kdt.im/RnxZWh'>抢购特惠能力卡</a></div>
+              <div className='buy'><a href='https://kdt.im/eDS-Qh'>抢购特惠能力卡</a></div>
             </div>
           )} />
           <style jsx>{`
