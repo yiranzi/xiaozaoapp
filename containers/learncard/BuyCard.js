@@ -135,23 +135,23 @@ export default class extends React.Component {
     let a = [
       {
         image: '/static/img/learncard/buy_card_1.jpg',
-        url: 'https://h5.youzan.com/v2/goods/3nizxrw2xpaq9?showsku=true'
+        url: 'https://kdt.im/RnxZWh'
       },
       {
         image: '/static/img/learncard/buy_card_2.jpg',
-        url: 'https://h5.youzan.com/v2/goods/3nizxrw2xpaq9?showsku=true'
+        url: 'https://kdt.im/Xn4-Qh'
       },
       {
         image: '/static/img/learncard/buy_card_3.jpg',
-        url: 'https://h5.youzan.com/v2/goods/3nizxrw2xpaq9?showsku=true'
+        url: 'https://kdt.im/eU4-Qh'
       },
       {
         image: '/static/img/learncard/buy_card_4.jpg',
-        url: 'https://h5.youzan.com/v2/goods/3nizxrw2xpaq9?showsku=true'
+        url: 'https://kdt.im/ekp-Qh'
       },
       {
         image: '/static/img/learncard/buy_card_5.jpg',
-        url: 'https://h5.youzan.com/v2/goods/3nizxrw2xpaq9?showsku=true'
+        url: 'https://kdt.im/yJ3-Qh'
       }
     ]
     return a
