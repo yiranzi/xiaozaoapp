@@ -88,7 +88,7 @@ export default class extends React.Component {
       textAlign: 'center'
     }
     let content = <div style={centerStyle}>
-      <p>小伙伴，您今日尚未投递职位哦~
+      <p>小伙
         <br />
         当天至少完成一次投递，才可打卡
       </p>
@@ -114,7 +114,7 @@ export default class extends React.Component {
     let prop = {
       title: '我正在参加 - 找实习有投必反馈的【阿波罗实习计划】...',
       desc: '立即申请加入阿波罗实习计划',
-      link: 'http://wx.xiaozao.org/apollo/entry',
+      link: 'http://rcwx.review.xiaozao.org/redirect?url=https://detail.youzan.com/show/goods?alias=26winu6syk8pd&v2/goods/26winu6syk8pd',
       imgUrl: 'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg',
       success: function () {
         AxiosUtil.get(`/api/interview/getWXConfig?url=onApolloMain`)
