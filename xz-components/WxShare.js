@@ -49,35 +49,64 @@ export default class WxShare extends React.PureComponent {
     wx.onMenuShareTimeline({
       title: title,
       link: link,
-      imgUrl: imgUrl // 分享图标
+      imgUrl: imgUrl, // 分享图标
+      success: function () {
+        if (success) {success ()}
+      },
+      cancel: function () {
+        if (cancel) {cancel()}
+      }
     })
     // eslint-disable-next-line
     wx.onMenuShareAppMessage({
       title: title,
       desc: desc,
       link: link,
-      imgUrl: imgUrl // 分享图标
+      imgUrl: imgUrl, // 分享图标
+      success: function () {
+        if (success) {success ()}
+      },
+      cancel: function () {
+        if (cancel) {cancel()}
+      }
     })
     // eslint-disable-next-line
     wx.onMenuShareQQ({
       title: title,
       desc: desc,
-      link: link,
-      imgUrl: imgUrl // 分享图标
+      link: link,imgUrl: imgUrl, // 分享图标
+      success: function () {
+        if (success) {success ()}
+      },
+      cancel: function () {
+        if (cancel) {cancel()}
+      }imgUrl: imgUrl // 分享图标
     })
     // eslint-disable-next-line
     wx.onMenuShareWeibo({
       title: title,
       desc: desc,
       link: link,
-      imgUrl: imgUrl // 分享图标
+      imgUrl: imgUrl, // 分享图标
+      success: function () {
+        if (success) {success ()}
+      },
+      cancel: function () {
+        if (cancel) {cancel()}
+      }
     })
     // eslint-disable-next-line
     wx.onMenuShareQZone({
       title: title,
       desc: desc,
       link: link,
-      imgUrl: imgUrl // 分享图标
+      imgUrl: imgUrl, // 分享图标
+      success: function () {
+        if (success) {success ()}
+      },
+      cancel: function () {
+        if (cancel) {cancel()}
+      }
     })
   }
   render () {
