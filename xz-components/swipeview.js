@@ -37,6 +37,7 @@ class SwipeView extends React.Component {
     // setup internal swipeable state
     this.swipeable = this.state
     if (this.props.preventDefaultTouchmoveEvent) {
+      // eslint-disable-next-line
       document.body.addEventListener('touchstart', this.preventDefaultTouchmoveEventListener)
     }
   }
@@ -47,6 +48,7 @@ class SwipeView extends React.Component {
       document.removeEventListener('mouseup', this.mouseUp)
     }
     if (this.props.preventDefaultTouchmoveEvent) {
+      // eslint-disable-next-line
       document.body.removeEventListener('touchstart', this.preventDefaultTouchmoveEventListener)
     }
   }
@@ -78,7 +80,9 @@ class SwipeView extends React.Component {
     this.swipeable = { start: Date.now(), x, y, swiping: false }
   }
   eventMove (e) {
+    // eslint-disable-next-line
     const { stopPropagation, delta, onSwiping, onSwipingLeft, onSwipedLeft, onSwipingRight, onSwipedRight, onSwipingUp, onSwipedUp, onSwipingDown, onSwipedDown, preventDefaultTouchmoveEvent } = this.props
+    // eslint-disable-next-line
     if (!this.swipeable.x || !this.swipeable.y || e.touches && e.touches.length > 1) {
       return
     }
@@ -117,6 +121,7 @@ class SwipeView extends React.Component {
     }
   }
   eventEnd (e) {
+    // eslint-disable-next-line
     const { stopPropagation, flickThreshold, onSwiped, onSwipedLeft, onSwipedRight, onSwipedUp, onSwipedDown, onTap } = this.props
     if (this.swipeable.swiping) {
       const pos = calculatePos(e, this.swipeable)
@@ -141,6 +146,7 @@ class SwipeView extends React.Component {
     this.swipeable = this.state
   }
   render () {
+    // eslint-disable-next-line
     const newProps = Object.assign({}, this.props, { onTouchStart: this.eventStart, onTouchMove: this.eventMove, onTouchEnd: this.eventEnd, onMouseDown: this.mouseDown })
     // clean up swipeable's props to avoid react warning
     delete newProps.onSwiped

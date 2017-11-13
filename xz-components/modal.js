@@ -21,7 +21,7 @@ export default class extends React.Component {
       top: 0,
       left: 0
     }
-
+    // eslint-disable-next-line
     let styleClick = {
       position: 'fixed',
       width: '100%',

@@ -421,14 +421,14 @@ export default class extends React.Component {
     // 如果是当日
     if (day.today) {
       if (day.over) {
-        return <Button half text={'今日已完成'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.yellow} onClick={this.onSignSuccess.bind(this, 1)} />
+        return <Button half text={'今日已完成'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.yellow} onClick={() => this.onSignSuccess(1)} />
       } else {
         return <Button half text={'完成今日打卡'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.yellow} onClick={this.signUp} />
       }
     } else {
       if (day.start) {
         if (day.over) {
-          return <Button half text={'已完成打卡'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.yellow} onClick={this.onSignSuccess.bind(this, 0)} />
+          return <Button half text={'已完成打卡'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.yellow} onClick={() => this.onSignSuccess(0)} />
         } else {
           return <Button half text={'未完成打卡'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.deepBorder} />
         }

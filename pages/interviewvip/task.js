@@ -1,7 +1,7 @@
 import React from 'react'
 import AxiosUtil from '../../util/axios'
 import ToolsUtil from '../../util/tools'
-import InterviewLayout from '../../containers/interview/layout'
+import InterviewLayout from '../../containers/interviewvip/layout'
 import Task from '../../containers/interviewvip/task'
 import Review from '../../containers/interviewvip/review'
 
@@ -33,15 +33,17 @@ export default class extends React.Component {
         error: e.message
       })
     }
-  }
+  };
 
   render () {
-    const {isRender, questionList, error} = this.state
-    const {answerDTOList} = questionList
+    const { isRender, questionList, error } = this.state
+    const { answerDTOList } = questionList
     return (
       <InterviewLayout isRender={isRender} error={error}>
-        {answerDTOList && answerDTOList.length > 0 && <Review questionList={questionList} />}
-        {answerDTOList && answerDTOList.length === 0 && <Task questionList={questionList} />}
+        {answerDTOList &&
+          answerDTOList.length > 0 && <Review questionList={questionList} />}
+        {answerDTOList &&
+          answerDTOList.length === 0 && <Task questionList={questionList} />}
       </InterviewLayout>
     )
   }

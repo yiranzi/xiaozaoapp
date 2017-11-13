@@ -13,7 +13,8 @@ export default class MyCheckbox extends React.Component {
     })
     return (
       <div>
-        {onClick && <Button style={styleParams} onClick={() => { onClick() }}>{text}</Button>}
+        {onClick &&
+          <Button style={styleParams} onClick={() => { onClick() }}>{text}</Button>}
         {!onClick && <Button style={styleParams} >{text}</Button>}
       </div>
     )

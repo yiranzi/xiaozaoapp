@@ -193,7 +193,7 @@ export default class extends React.Component {
         </div>
         <img className='qr-code' src={this.state.classUrl} />
         <div className='bottom'>
-          <div className='button-bar' key={1} style={backButton} onClick={this.buttonClick.bind(this, 'back')}>
+          <div className='button-bar' key={1} style={backButton} onClick={() => this.buttonClick('back')}>
             {this.renderButton('确定')}
           </div>
         </div>
@@ -260,6 +260,7 @@ export default class extends React.Component {
 
   // 添加标题
   addTitle () {
+    // eslint-disable-next-line
     let divStyle = {
       textAlign: 'center',
       color: `${ThemeConfig.color.dark_black}`,
@@ -317,7 +318,7 @@ export default class extends React.Component {
           normalStyle={normalStyle}
           chooseStyle={chooseStyle}
           disabledStyle={disabledStyle}
-          onClickTabbar={this.onClickTabbar.bind(this)}
+          onClickTabbar={() => this.onClickTabbar(this)}
         />
       </Card>
     )
@@ -390,16 +391,16 @@ export default class extends React.Component {
 
     if (this.state.canSignUp) {
       arr.push(
-        <div key={1} style={backButton2} onClick={this.buttonClick.bind(this, 'back')}>
+        <div key={1} style={backButton2} onClick={() => this.buttonClick('back')}>
           {this.renderButton('返回')}
         </div>)
       arr.push(
-        <div key={2} style={sureButon} onClick={this.buttonClick.bind(this, 'sure')}>
+        <div key={2} style={sureButon} onClick={() => this.buttonClick('sure')}>
           {this.renderButton('确定')}
         </div>)
     } else {
       arr.push(
-        <div key={3} style={backButton1} onClick={this.buttonClick.bind(this, 'back')}>
+        <div key={3} style={backButton1} onClick={() => this.buttonClick('back')}>
           {this.renderButton('返回')}
         </div>)
     }
@@ -490,11 +491,11 @@ export default class extends React.Component {
 
     let arr = []
     arr.push(
-      <div key={1} style={backButton} onClick={this.buttonClick.bind(this, 'double-cancel')}>
+      <div key={1} style={backButton} onClick={() => this.buttonClick('double-cancel')}>
         {this.renderButton('再看看')}
       </div>)
     arr.push(
-      <div key={2} style={sureButon} onClick={this.buttonClick.bind(this, 'double-sure')}>
+      <div key={2} style={sureButon} onClick={() => this.buttonClick('double-sure')}>
         {this.renderButton('确定了')}
       </div>)
     return (

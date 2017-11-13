@@ -3,6 +3,4 @@ node_modules/*
 out/*
 static/js/*
 static/plugin/*
-components/audio.js
-pages/interview/*
-containers/interview/*
+pages/demo/prev.js

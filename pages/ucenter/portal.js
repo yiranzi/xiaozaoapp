@@ -1,8 +1,7 @@
 import React from 'react'
 import AxiosUtil from '../../util/axios'
 import UCenterLayout from '../../containers/ucenter/layout'
-import ThemeConfig from '../../config/theme'
-import { Page, Cells, Cell, CellHeader, CellBody, CellFooter } from 'react-weui'
+import { Page, Cells, Cell, CellBody, CellFooter } from 'react-weui'
 
 export default class extends React.Component {
   constructor (props) {

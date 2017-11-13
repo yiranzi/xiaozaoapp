@@ -1,7 +1,5 @@
 
 import React from 'react'
-import {Button} from 'react-weui'// 组件库
-import ThemeConfig from '../config/theme'
 
 // divArr 数组
 // currentSelect //当前选中的按钮
@@ -34,6 +32,7 @@ export default class extends React.Component {
     let style
     let clickBoxArr = this.props.divArr.map((ele, index) => {
       style = this.calcStyle(index)
+      // eslint-disable-next-line
       return <div className='contain' key={index} style={style} onClick={this.onClickTabbar.bind(this, index)}>
         {this.props.divArr[index]}
         {/* 内部元素 */}
@@ -49,6 +48,7 @@ export default class extends React.Component {
 
   calcStyle (index) {
     // 1 是否是选中
+    // eslint-disable-next-line
     let {currentSelect, buttonStatus, normalStyle, chooseStyle, disabledStyle} = this.props
     if (index === currentSelect) {
       return chooseStyle

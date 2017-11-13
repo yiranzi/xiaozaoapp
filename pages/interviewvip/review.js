@@ -1,7 +1,7 @@
 import React from 'react'
 import AxiosUtil from '../../util/axios'
 import ToolsUtil from '../../util/tools'
-import InterviewLayout from '../../containers/interview/layout'
+import InterviewLayout from '../../containers/interviewvip/layout'
 import Review from '../../containers/interviewvip/review'
 
 export default class extends React.Component {

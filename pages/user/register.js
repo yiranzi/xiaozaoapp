@@ -1,7 +1,6 @@
 import React from 'react'
 import AxiosUtil from '../../util/axios'
 import Layout from '../../components/layout'
-import ThemeConfig from '../../config/theme'
 import ToolsUtil from '../../util/tools'
 import DataUtil from '../../util/data'
 import Logo from '../../containers/user/logo'
@@ -137,6 +136,7 @@ export default class extends React.Component {
         return
       }
       console.log(this.state.params)
+      // eslint-disable-next-line
       let ret = await AxiosUtil.get(`/api/user/registerAndBind?phone=${this.state.params.phone}&regionCodeIndex=${this.state.params.regionCodeIndex}&validateCode=${this.state.params.validateCode}&password=${this.state.params.password}`)
       alert('注册绑定成功')
       setTimeout(() => {
@@ -234,7 +234,9 @@ export default class extends React.Component {
       <Agreement onClick={e => this.changeAgreement()} defaultChecked>
         &nbsp;&nbsp;注册即代表你同意 <a href='javascript:;'>《小灶教育用户注册协议》</a>
       </Agreement>
-      <p className='tips'>收不到验证码？请尝试删掉号码中第一个0，例如：某韩国手机号码01097284660，删掉第一个0后，即填入1097284660，就能够收到验证码。（区号在列表中选择，无需写在号码中）如果验证码收不到，请添加小助手帮助解决（微信：xiaozaoPM）</p>
+      <p className='tips'>
+        收不到验证码？请尝试删掉号码中第一个0，例如：某韩国手机号码01097284660，删掉第一个0后，
+        即填入1097284660，就能够收到验证码。（区号在列表中选择，无需写在号码中）如果验证码收不到，请添加小助手帮助解决（微信：xiaozaoPM）</p>
       <style jsx>{`
         .tips {
           font-size: 12px;

@@ -196,7 +196,7 @@ export default class extends React.Component {
       content = '优惠报名↑'
     }
     return (
-      <Button bg={'rgb(255, 93, 93)'} onClick={this.clickBuyGroupButton.bind(this)} text={content} />
+      <Button bg={'rgb(255, 93, 93)'} onClick={this.clickBuyGroupButton()} text={content} />
     )
   }
   renderCut3 () {
