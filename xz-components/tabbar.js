@@ -1,5 +1,4 @@
 
-
 import React from 'react'
 import {Button} from 'react-weui'// 组件库
 import ThemeConfig from '../config/theme'
@@ -16,7 +15,7 @@ export default class extends React.Component {
     return (
       <div className='tabbar'>
         {this.renderMe()}
-        {/*tabbar样式*/}
+        {/* tabbar样式 */}
         <style jsx>{`
           .tabbar {
             width: 250px;
@@ -33,11 +32,11 @@ export default class extends React.Component {
   // 指定回调
   renderMe () {
     let style
-    let clickBoxArr = this.props.divArr.map((ele, index)=>{
+    let clickBoxArr = this.props.divArr.map((ele, index) => {
       style = this.calcStyle(index)
       return <div className='contain' key={index} style={style} onClick={this.onClickTabbar.bind(this, index)}>
         {this.props.divArr[index]}
-        {/*内部元素*/}
+        {/* 内部元素 */}
         <style jsx>{`
           .contain {
             margin: 20px auto 20px auto;

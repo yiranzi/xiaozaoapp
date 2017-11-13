@@ -150,11 +150,11 @@ export default class extends React.Component {
     return <div className='wx-top-fixed'><a href='/job/internship'>
       <span className='return-page'>&lsaquo;</span></a>
       <SearchBar
-        placeholder='搜索职位或公司'
-        lang={{cancel: '取消'}}
-        onSubmit={this.handleSearchBarChange.bind(this)}
-        onCancel={this.cancelSearchBar.bind(this)}
-      />
+      placeholder='搜索职位或公司'
+      lang={{cancel: '取消'}}
+      onSubmit={this.handleSearchBarChange.bind(this)}
+      onCancel={this.cancelSearchBar.bind(this)}
+    />
       <style jsx>{`
         .return-page {
             position: relative;

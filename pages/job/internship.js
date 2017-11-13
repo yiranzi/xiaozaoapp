@@ -310,9 +310,9 @@ export default class extends React.Component {
             <MediaBoxHeader><img className='company-logo'
               src={item.companyLogo} /></MediaBoxHeader>
             <MediaBoxBody>
-              {/*<a href='javascript:;'
+              {/* <a href='javascript:;'
                 onClick={e => this.handleCollectionChange(e, item.id)}
-                className='wx-pull-right'>★☆收藏</a>*/}
+                className='wx-pull-right'>★☆收藏</a> */}
               <MediaBoxTitle className='title'>{item.title}</MediaBoxTitle>
               <MediaBoxTitle className='info'>{item.companyName}</MediaBoxTitle>
               <MediaBoxTitle className='info'>{item.address}

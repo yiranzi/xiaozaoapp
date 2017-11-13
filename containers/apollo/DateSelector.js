@@ -63,7 +63,7 @@ export default class extends React.Component {
               <div onClick={() => { this.onChangeWeek('right') }}>
                 <img src='/static/img/apollo/next.png' />
               </div>
-              </div>
+            </div>
           </SwipeView>
         </div>
         <style jsx>{`
@@ -104,7 +104,7 @@ export default class extends React.Component {
           <span className='date' style={this.styleByStatus(ele)}>{ele.dayOfMonth}</span>
           {ele.today && <img className='today-tag' src='/static/img/apollo/current.png' />}
         </div>
-        {<span className={this.props.currentSelect === index ? 'current-tag-see' : 'current-tag'}></span>}
+        {<span className={this.props.currentSelect === index ? 'current-tag-see' : 'current-tag'} />}
         <style jsx>
           {`
           .calendar-item {

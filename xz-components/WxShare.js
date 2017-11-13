@@ -32,10 +32,10 @@ export default class WxShare extends React.Component {
         link: link,
         imgUrl: imgUrl, // 分享图标
         success: function () {
-          if (success) {success ()}
+          if (success) { success() }
         },
         cancel: function () {
-          if (cancel) {cancel()}
+          if (cancel) { cancel() }
         }
       })
       // eslint-disable-next-line
@@ -45,10 +45,10 @@ export default class WxShare extends React.Component {
         link: link,
         imgUrl: imgUrl, // 分享图标
         success: function () {
-          if (success) {success ()}
+          if (success) { success() }
         },
         cancel: function () {
-          if (cancel) {cancel()}
+          if (cancel) { cancel() }
         }
       })
       // eslint-disable-next-line
@@ -58,10 +58,10 @@ export default class WxShare extends React.Component {
         link: link,
         imgUrl: imgUrl, // 分享图标
         success: function () {
-          if (success) {success ()}
+          if (success) { success() }
         },
         cancel: function () {
-          if (cancel) {cancel()}
+          if (cancel) { cancel() }
         }
       })
       // eslint-disable-next-line
@@ -71,10 +71,10 @@ export default class WxShare extends React.Component {
         link: link,
         imgUrl: imgUrl, // 分享图标
         success: function () {
-          if (success) {success ()}
+          if (success) { success() }
         },
         cancel: function () {
-          if (cancel) {cancel()}
+          if (cancel) { cancel() }
         }
       })
       // eslint-disable-next-line
@@ -84,10 +84,10 @@ export default class WxShare extends React.Component {
         link: link,
         imgUrl: imgUrl, // 分享图标
         success: function () {
-          if (success) {success ()}
+          if (success) { success() }
         },
         cancel: function () {
-          if (cancel) {cancel()}
+          if (cancel) { cancel() }
         }
       })
     })
@@ -103,4 +103,3 @@ export default class WxShare extends React.Component {
     </div>
   }
 }
-

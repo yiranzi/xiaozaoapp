@@ -19,7 +19,7 @@ export default class extends React.Component {
       height: '100%',
       zIndex: '9999',
       top: 0,
-      left: 0,
+      left: 0
     }
 
     let styleClick = {

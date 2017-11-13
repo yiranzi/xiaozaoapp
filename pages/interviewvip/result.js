@@ -147,9 +147,9 @@ export default class extends React.Component {
         </div>
         <div style={style}>
           <Button onClick={this.seeReview.bind(this)}
-                  bg={ThemeConfig.color.yellow}
-                  color={'white'}
-                  text={'查看答案及解析'} />
+            bg={ThemeConfig.color.yellow}
+            color={'white'}
+            text={'查看答案及解析'} />
         </div>
         <style jsx>
           {`

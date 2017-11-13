@@ -147,7 +147,7 @@ export default class extends React.Component {
     </div>
   }
 
-  //arr列表
+  // arr列表
 
   /*
   没有开课的进入打卡按钮

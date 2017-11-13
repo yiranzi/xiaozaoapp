@@ -91,7 +91,7 @@ export default class extends React.Component {
     const {isRender, error} = this.state
     return (
       <InterviewLayout isRender={isRender} error={error}>
-        {/*<Back text='< 返回介绍页' url='/interviewvip/introPage' />*/}
+        {/* <Back text='< 返回介绍页' url='/interviewvip/introPage' /> */}
         {!isRender && <div className='page'>
           {this.renderPriceDiv()}
           {this.renderDiscountList()}
@@ -222,7 +222,6 @@ export default class extends React.Component {
         } else {
           return (<div key={index}>{this.renderLine(nickname, offerPrice, true)}</div>)
         }
-
       })
       return (<div className='list'>
         <p className='tip'>

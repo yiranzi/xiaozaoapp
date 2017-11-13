@@ -2,6 +2,7 @@ node_modules/*
 .next/*
 out/*
 static/js/*
+static/plugin/*
 components/audio.js
 pages/interview/*
 containers/interview/*

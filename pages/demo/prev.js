@@ -248,7 +248,7 @@ export default class extends React.Component {
           <TextArea
             placeholder='请输入文字'
             maxLength={200}
-            onChange={(e) => {this.changeTextArea(e)}}
+            onChange={(e) => { this.changeTextArea(e) }}
           />
           {this.state.textArea && <p>输入文字：{this.state.textArea}</p>}
           <br />

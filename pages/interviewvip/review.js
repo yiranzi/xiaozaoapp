@@ -21,7 +21,6 @@ export default class extends React.Component {
     try {
       questionList = await AxiosUtil.get(`/api/interview/getByTopicKey/${topicKey}`)
 
-
       this.setState({
         questionList: questionList,
         isRender: false

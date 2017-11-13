@@ -432,7 +432,6 @@ export default class extends React.Component {
     }
   }
 
-
   // 根据条件渲染按钮
   renderButton () {
     return (

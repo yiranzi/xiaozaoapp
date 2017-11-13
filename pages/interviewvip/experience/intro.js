@@ -10,7 +10,7 @@ export default class extends React.Component {
       <div>
         <p><strong>今日打卡内容</strong></p>
         <p>经过结构化分析的学习，你应该已经了解到怎么运用逻辑结构帮助我们着手分析一个或复杂、或空泛的案例。在此基础上，如果我们掌握一些常见的商业分析框架，让我们分析案例的效率大大提高。</p>
-        <br/>
+        <br />
         <p><strong>学习形式</strong></p>
         <ul style={{listStyle: 'none'}}>
           <li>1. 意义：通过案例实例说明商业分析框架的应用意义</li>
@@ -18,7 +18,7 @@ export default class extends React.Component {
           <li>3. 练习：England Bank 案例，6 道单项选择题，限时 10 分钟</li>
           <li>4. 延伸：推荐阅读材料和日常练习方法</li>
         </ul>
-        <br/>
+        <br />
         <p><strong>目标效果</strong></p>
         <p>理解常用的商业分析框架，结合结构化思维，并能在案例面试中运用</p>
       </div>

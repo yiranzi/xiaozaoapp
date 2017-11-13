@@ -10,8 +10,7 @@ import React from 'react'
  根据key 进行对应的规则渲染.
  渲染出最后的内容.
  */
-export default class ReadMore extends React.Component{
-
+export default class ReadMore extends React.Component {
   render () {
     return (this.renderByKey(this.props.topicKey))
   }
@@ -68,7 +67,6 @@ export default class ReadMore extends React.Component{
       </div>
     )
   }
-
 
   renderModalFree () {
     return (<div>
@@ -170,7 +168,7 @@ export default class ReadMore extends React.Component{
           <li>小米为什么要做线下和使用代理模式？</li>
           <li>共享充电宝有没有市场？</li>
         </ul>
-        </div>
+      </div>
       <h4 className='readmore-h4'>这些问题都没有标准答案，但多思考和锻炼，成果会在你面试以及工作的时候显示出来！</h4>
     </div>)
   }
@@ -208,7 +206,7 @@ export default class ReadMore extends React.Component{
       <div className='readmore-div'>
         <p>长按扫码，进入「小灶计划」，后台回复关键词“<span className='readmore-red'>case</span>”，</p>
         <p>获取小灶精选 Casebook 大礼包</p>
-        <div className="outer">
+        <div className='outer'>
           {this.addImageContent(6, 6, 'resultBg')}
         </div>
       </div>
@@ -253,7 +251,7 @@ export default class ReadMore extends React.Component{
     return (
       <div>
         <br />
-        {/*<Audio src={audioSrc} />*/}
+        {/* <Audio src={audioSrc} /> */}
         <br />
       </div>)
   }
@@ -261,7 +259,7 @@ export default class ReadMore extends React.Component{
   addImageContent (from, to, name) {
     let arr = []
     let styleInner = {
-      width: '100%',
+      width: '100%'
     }
     for (let i = from; i < to + 1; i++) {
       arr.push(

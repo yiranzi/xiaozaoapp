@@ -114,7 +114,7 @@ export default class extends React.Component {
       borderStyle: 'solid',
       borderWidth: '1px',
       textAlign: 'center',
-      lineHeight: '2rem',
+      lineHeight: '2rem'
     }
     return (<div style={style2}>{content}</div>)
   }
