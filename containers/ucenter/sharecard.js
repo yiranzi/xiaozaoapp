@@ -1,5 +1,5 @@
 import React from 'react'
-import {ModalPop} from '../../xz-components/ModalBox'
+import {ModalBoxPopFunc} from '../../xz-components/ModalBox'
 import Button from '../../xz-components/button'
 import ThemeConfig from '../../config/theme'
 import {Alert} from '../../xz-components/alert'
@@ -80,9 +80,9 @@ export default class extends React.Component {
       <p style={innerContent}>点击右上角发给好友<br />再得邀请卡！！</p>
     </div>
     let prop = {
-      inner: dom,
+      innerDiv: dom,
       style: defaultStyle
     }
-    ModalPop({...prop})
+    ModalBoxPopFunc({...prop})
   }
 }

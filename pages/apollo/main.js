@@ -1,7 +1,6 @@
 import React from 'react'// 库
 import Button from '../../xz-components/button'
-import {ModalPop} from '../../xz-components/ModalBox'
-import {Alert} from '../../xz-components/alert'
+import {ModalBoxPopFunc} from '../../xz-components/ModalBox'
 import DateSelector from '../../containers/apollo/DateSelector'// 自定义组件
 import Layout from '../../components/layout'// container
 import ThemeConfig from '../../config/theme'
@@ -162,10 +161,10 @@ export default class extends React.Component {
       <p style={innerContent}>点击右上角分享给你的朋友吧</p>
     </div>
     let prop = {
-      inner: dom,
+      innerDiv: dom,
       style: defaultStyle
     }
-    ModalPop({...prop})
+    ModalBoxPopFunc({...prop})
   }
 
   // 更改周

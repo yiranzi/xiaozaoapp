@@ -1,6 +1,5 @@
 import React from 'react'
 import AxiosUtil from '../util/axios'
-import Layout from '../components/layout'
 
 // 直接引用 传入props完成设置 就可以在该页面使用分享
 // title: 分享标题
@@ -9,7 +8,14 @@ import Layout from '../components/layout'
 // imgUrl: 分享图片
 // 使用绝对路径
 
-export default class WxShare extends React.Component {
+export default class WxShare extends React.PureComponent {
+  constructor (props) {
+    super(props)
+    this.setShare = this.setShare.bind(this)
+    this.state = {
+      wxReady: false
+    }
+  }
   componentDidMount = async () => {
     const url = `/api/interview/getWXConfig?url=${location.href.split('#')[0]}`
     let wxConfig = await AxiosUtil.get(url)
@@ -22,84 +28,63 @@ export default class WxShare extends React.Component {
     ]
     // eslint-disable-next-line
     wx.config(wxConfig)
-    console.log(this.props)
-    let { title, desc, link, imgUrl, success, cancel } = this.props
     // eslint-disable-next-line
-    wx.ready(function () {
-      // eslint-disable-next-line
-      wx.onMenuShareTimeline({
-        title: title,
-        link: link,
-        imgUrl: imgUrl, // 分享图标
-        success: function () {
-          if (success) { success() }
-        },
-        cancel: function () {
-          if (cancel) { cancel() }
-        }
-      })
-      // eslint-disable-next-line
-      wx.onMenuShareAppMessage({
-        title: title,
-        desc: desc,
-        link: link,
-        imgUrl: imgUrl, // 分享图标
-        success: function () {
-          if (success) { success() }
-        },
-        cancel: function () {
-          if (cancel) { cancel() }
-        }
-      })
-      // eslint-disable-next-line
-      wx.onMenuShareQQ({
-        title: title,
-        desc: desc,
-        link: link,
-        imgUrl: imgUrl, // 分享图标
-        success: function () {
-          if (success) { success() }
-        },
-        cancel: function () {
-          if (cancel) { cancel() }
-        }
-      })
-      // eslint-disable-next-line
-      wx.onMenuShareWeibo({
-        title: title,
-        desc: desc,
-        link: link,
-        imgUrl: imgUrl, // 分享图标
-        success: function () {
-          if (success) { success() }
-        },
-        cancel: function () {
-          if (cancel) { cancel() }
-        }
-      })
-      // eslint-disable-next-line
-      wx.onMenuShareQZone({
-        title: title,
-        desc: desc,
-        link: link,
-        imgUrl: imgUrl, // 分享图标
-        success: function () {
-          if (success) { success() }
-        },
-        cancel: function () {
-          if (cancel) { cancel() }
-        }
-      })
-    })
+    wx.ready(this.setState({
+      wxReady: true
+    }))
     // eslint-disable-next-line
     wx.error(function (res) {
       console.log('微信认证失败')
       console.log(res)
     })
   }
+
+  setShare () {
+    if (!this.state.wxReady) {
+      return
+    }
+
+    let { title, desc, link, imgUrl } = this.props
+    // eslint-disable-next-line
+    wx.onMenuShareTimeline({
+      title: title,
+      link: link,
+      imgUrl: imgUrl // 分享图标
+    })
+    // eslint-disable-next-line
+    wx.onMenuShareAppMessage({
+      title: title,
+      desc: desc,
+      link: link,
+      imgUrl: imgUrl // 分享图标
+    })
+    // eslint-disable-next-line
+    wx.onMenuShareQQ({
+      title: title,
+      desc: desc,
+      link: link,
+      imgUrl: imgUrl // 分享图标
+    })
+    // eslint-disable-next-line
+    wx.onMenuShareWeibo({
+      title: title,
+      desc: desc,
+      link: link,
+      imgUrl: imgUrl // 分享图标
+    })
+    // eslint-disable-next-line
+    wx.onMenuShareQZone({
+      title: title,
+      desc: desc,
+      link: link,
+      imgUrl: imgUrl // 分享图标
+    })
+  }
   render () {
     return <div>
-      <Layout />
+      <script src='/static/js/jweixin.js' />
+      {this.setShare()}
     </div>
   }
 }
+
