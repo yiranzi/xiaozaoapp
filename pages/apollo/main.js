@@ -88,7 +88,7 @@ export default class extends React.Component {
       textAlign: 'center'
     }
     let content = <div style={centerStyle}>
-      <p>小伙
+      <p>小伙伴，您今日尚未投递职位哦~
         <br />
         当天至少完成一次投递，才可打卡
       </p>
