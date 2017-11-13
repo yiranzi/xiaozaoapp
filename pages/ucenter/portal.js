@@ -47,22 +47,28 @@ export default class extends React.Component {
   renderHeader () {
     const {user} = this.state
     if (user) {
-      return <div>
-        <img className='headimg' src={user.headimgurl} />
-        <span className='nickname'>{user.nickname}</span>
-        <style jsx>{`
-          .headimg {
-            width: 40px;
-            height: 40px;
-            border-radius: 20px;
-          }
-          .nickname {
-            margin-left: 15px;
-            line-height: 40px;
-            vertical-align: text-bottom;
-          }
-        `}</style>
-      </div>
+      return (
+        <div>
+          <img className='headimg' src={user.headimgurl} />
+          <div className='nickname'>{user.nickname}</div>
+          <div className='phone'>{user.phone}
+            {!user.phone &&
+            <a href='/user/register'>去绑定手机号</a>
+            }
+          </div>
+          <style jsx>{`
+            .headimg {
+              width: 45px;
+              height: 45px;
+              border-radius: 20px;
+              float: left;
+            }
+            .nickname, .phone {
+              margin-left: 55px;
+            }
+          `}</style>
+        </div>
+      )
     }
   }
 

@@ -83,13 +83,23 @@ export default class extends React.Component {
 
   // 发起打卡
   signUp = async function () {
+    // 增加居中样式
+    let centerStyle = {
+      textAlign: 'center'
+    }
+    let content = <div style={centerStyle}>
+      <p>小伙伴，您今日尚未投递职位哦~
+        <br />
+        当天至少完成一次投递，才可打卡
+      </p>
+    </div>
     try {
       await AxiosUtil.get('/api/apollo/complete')
       this.onSignSuccess()
     } catch (e) {
       Confirm({
         title: '小伙伴，您今日尚未投递职位哦~',
-        content: <p>小伙伴，您今日尚未投递职位哦~<br />当天至少完成一次投递，才可打卡</p>,
+        content: content,
         okText: '去投递',
         cancelText: '残忍拒绝',
         ok: () => { this.goRouter('http://wx.xiaozao.org') }
@@ -104,7 +114,7 @@ export default class extends React.Component {
     let prop = {
       title: '我正在参加 - 找实习有投必反馈的【阿波罗实习计划】...',
       desc: '立即申请加入阿波罗实习计划',
-      link: 'http://wx.xiaozao.org/apollo/entry',
+      link: 'http://wx.xiaozao.org/redirect?url=https://detail.youzan.com/show/goods?alias=26winu6syk8pd&v2/goods/26winu6syk8pd',
       imgUrl: 'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg',
       success: function () {
         AxiosUtil.get(`/api/interview/getWXConfig?url=onApolloMain`)
@@ -220,7 +230,7 @@ export default class extends React.Component {
                   <div className='finish-button'>
                     {this.renderSignUpButton()}
                   </div>
-                  <div className='top-help-info'>打卡满三天即可完成本周任务</div>
+                  <div className='top-help-info'>入群开始2个月内进行10次打卡即可完成全部任务</div>
                 </div>
               </div>
               <div className='container rank'>{this.renderSignReview()}</div>
@@ -392,7 +402,7 @@ export default class extends React.Component {
       <h1 className='title'>活动注意事项</h1>
       <p>每天完成一次投递，并点击"完成今日打卡"</p>
       <p>即可完成今日打卡任务哦。</p>
-      <p>*一周至少打卡3次即可完成本周打卡任务。*</p>
+      <p>*入群开始2个月内进行10次打卡即可完成全部任务~*</p>
       <style jsx>{`
       .help-info {
         font-size: 14px;
