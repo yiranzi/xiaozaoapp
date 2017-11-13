@@ -114,7 +114,7 @@ export default class extends React.Component {
     let prop = {
       title: '我正在参加 - 找实习有投必反馈的【阿波罗实习计划】...',
       desc: '立即申请加入阿波罗实习计划',
-      link: 'http://rcwx.review.xiaozao.org/redirect?url=https://detail.youzan.com/show/goods?alias=26winu6syk8pd&v2/goods/26winu6syk8pd',
+      link: 'http://wx.xiaozao.org/redirect?url=https://detail.youzan.com/show/goods?alias=26winu6syk8pd&v2/goods/26winu6syk8pd',
       imgUrl: 'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg',
       success: function () {
         AxiosUtil.get(`/api/interview/getWXConfig?url=onApolloMain`)
