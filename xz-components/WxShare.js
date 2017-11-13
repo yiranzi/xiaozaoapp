@@ -44,17 +44,17 @@ export default class WxShare extends React.PureComponent {
       return
     }
 
-    let { title, desc, link, imgUrl } = this.props
+    let { title, desc, link, imgUrl, success, cancel } = this.props
     // eslint-disable-next-line
     wx.onMenuShareTimeline({
       title: title,
       link: link,
       imgUrl: imgUrl, // 分享图标
       success: function () {
-        if (success) {success ()}
+        if (success) { success() }
       },
       cancel: function () {
-        if (cancel) {cancel()}
+        if (cancel) { cancel() }
       }
     })
     // eslint-disable-next-line
@@ -64,23 +64,24 @@ export default class WxShare extends React.PureComponent {
       link: link,
       imgUrl: imgUrl, // 分享图标
       success: function () {
-        if (success) {success ()}
+        if (success) { success() }
       },
       cancel: function () {
-        if (cancel) {cancel()}
+        if (cancel) { cancel() }
       }
     })
     // eslint-disable-next-line
     wx.onMenuShareQQ({
       title: title,
       desc: desc,
-      link: link,imgUrl: imgUrl, // 分享图标
+      link: link,
+      imgUrl: imgUrl, // 分享图标
       success: function () {
-        if (success) {success ()}
+        if (success) { success() }
       },
       cancel: function () {
-        if (cancel) {cancel()}
-      }imgUrl: imgUrl // 分享图标
+        if (cancel) { cancel() }
+      }
     })
     // eslint-disable-next-line
     wx.onMenuShareWeibo({
@@ -89,10 +90,10 @@ export default class WxShare extends React.PureComponent {
       link: link,
       imgUrl: imgUrl, // 分享图标
       success: function () {
-        if (success) {success ()}
+        if (success) { success() }
       },
       cancel: function () {
-        if (cancel) {cancel()}
+        if (cancel) { cancel() }
       }
     })
     // eslint-disable-next-line
@@ -102,10 +103,10 @@ export default class WxShare extends React.PureComponent {
       link: link,
       imgUrl: imgUrl, // 分享图标
       success: function () {
-        if (success) {success ()}
+        if (success) { success() }
       },
       cancel: function () {
-        if (cancel) {cancel()}
+        if (cancel) { cancel() }
       }
     })
   }
