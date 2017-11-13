@@ -2,6 +2,7 @@ import React from 'react'
 import InterviewLayout from '../../containers/interviewvip/layout'
 import ThemeConfig from '../../config/theme'
 import getCourseInfo from '../../util/getCourseInfo'
+import AxiosUtil from '../../util/axios'
 
 export default class extends React.Component {
   constructor (props) {
@@ -12,35 +13,16 @@ export default class extends React.Component {
       error: ''
     }
   }
-
   componentDidMount = async () => {
     try {
-      let list = await getCourseInfo.getUserInfoAndList()
-      let userInfo = getCourseInfo.getUserInfo()
-      let allFinish
-      let score
-      for (let groups of list) {
-        allFinish = true
-        score = 0
-        for (let topic of groups.group) {
-          if (topic.over) {
-            score += parseInt(topic.accuracy)
-          } else {
-            allFinish = false
-            break
-          }
-        }
-        // 如果一组都完成.一次发送请求获得结果.
-        if (allFinish) {
-          groups.score = score / groups.group.length
-          groups.allFinish = allFinish
-        } else {
-          groups.allFinish = allFinish
-        }
-      }
+      let originList = await AxiosUtil.get('/api/interview/userInfo')
+      let list = getCourseInfo.formatList(originList.interviewListDetailDTOList)
+      let userInfo = {}
+      userInfo.nickName = originList.nickname
+      let listWithFinishStatus = this.calcAccuracy(list)
       this.setState({
         userInfo: userInfo,
-        list: list,
+        list: listWithFinishStatus,
         isRender: false
       })
     } catch (e) {
@@ -50,6 +32,37 @@ export default class extends React.Component {
         isRender: false
       })
     }
+  }
+
+  // 计算分组后的正确率
+  calcAccuracy (list) {
+    let allFinish
+    let score
+    // 根据分组计算平均分。
+    let averageAccuracy = list.map((groups, index) => {
+      let newGroup = {}
+      newGroup.group = groups.group
+      newGroup.groupName = groups.groupName
+      allFinish = true
+      score = 0
+      for (let topic of groups.group) {
+        if (topic.over) {
+          score += parseInt(topic.accuracy)
+        } else {
+          allFinish = false
+          break
+        }
+      }
+      if (allFinish) {
+        // 填入平均值
+        newGroup.score = score / groups.group.length
+        newGroup.allFinish = allFinish
+      } else {
+        newGroup.allFinish = allFinish
+      }
+      return newGroup
+    })
+    return averageAccuracy
   }
 
   renderGroupTitle (groupName, name) {
@@ -74,12 +87,12 @@ export default class extends React.Component {
       <div key={index}>
         <div style={style} >{content}</div>
         <style jsx>{`
-      .topic-bar {
-        width: 100%
-        display: flex
-        justify-content: space-between
-      }
-    `}</style>
+          .topic-bar {
+            width: 100%
+            display: flex
+            justify-content: space-between
+          }
+        `}</style>
       </div>)
   }
 
@@ -104,13 +117,13 @@ export default class extends React.Component {
     return (
       <div>
         <div className='circle'>123</div>
-        <style jsx>
-          {`.circle{
+        <style jsx>{`
+          .circle{
             position: relative;
             border-radius: 1rem;
             background-color: ${ThemeConfig.color.yellow};
-          }`}
-        </style>
+          }
+        `}</style>
       </div>
     )
   }
