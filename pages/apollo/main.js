@@ -83,6 +83,7 @@ export default class extends React.Component {
 
   // 发起打卡
   signUp = async function () {
+    // 增加居中样式
     let centerStyle = {
       textAlign: 'center'
     }
@@ -229,7 +230,7 @@ export default class extends React.Component {
                   <div className='finish-button'>
                     {this.renderSignUpButton()}
                   </div>
-                  <div className='top-help-info'>打卡满三天即可完成本周任务</div>
+                  <div className='top-help-info'>入群开始2个月内进行10次打卡即可完成全部任务</div>
                 </div>
               </div>
               <div className='container rank'>{this.renderSignReview()}</div>
