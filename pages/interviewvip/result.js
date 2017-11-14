@@ -78,17 +78,25 @@ export default class extends React.Component {
    */
   renderButtonState () {
     if (!this.state.payStatus) {
-      let payButton = <Button bg={'rgb(255, 93, 93)'} key={1} half
-        onClick={() => { location.href = '/interviewvip/introPage' }}
-        text={'优惠报名'} />
-      return (<Fixfooter content={payButton} />)
+      return (
+        <Fixfooter>
+          <Button
+            key={1}
+            style={{backgroundColor: 'rgb(255, 93, 93)'}} 
+            onClick={() => { location.href = '/interviewvip/introPage' }}
+          >优惠报名</Button>
+        </Fixfooter>
+      )
     } else {
-      let ele = <Button key={1}
-        half
-        onClick={() => { this.goRouter(this.state.nextTaskUrl) }}
-        text={this.state.buttonWord} />
       if (this.state.isShowNextButton) {
-        return (<Fixfooter content={ele} />)
+        return (
+          <Fixfooter>
+            <Button
+              key={1}
+              onClick={() => { this.goRouter(this.state.nextTaskUrl) }}
+            >{this.state.buttonWord}</Button>
+          </Fixfooter>
+        )
       } else {
         return null
       }
@@ -136,10 +144,10 @@ export default class extends React.Component {
           </div>
         </div>
         <div style={style}>
-          <Button onClick={this.seeReview}
-            bg={ThemeConfig.color.yellow}
-            color={'white'}
-            text={'查看答案及解析'} />
+          <Button
+            style={{backgroundColor: ThemeConfig.color.yellow, color: '#fff'}}
+            onClick={this.seeReview}
+          >查看答案及解析</Button>
         </div>
         <style jsx>{`
           .out {

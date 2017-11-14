@@ -1,22 +1,58 @@
 import React from 'react'
-import {Button} from 'react-weui'
+import PropTypes from 'prop-types'
 
-export default class MyCheckbox extends React.Component {
+export default class Button extends React.Component {
+  static propTypes = {
+    type: PropTypes.string,
+    onClick: PropTypes.func,
+    disabled: PropTypes.bool
+  }
+  static defaultProps = {
+    type: 'primary',
+    onClick: function () {},
+    disabled: false
+  }
+
   render () {
-    const {text, bg, color, half, onClick, style} = this.props
-    let styleParams = style || {}
-    styleParams = Object.assign(styleParams, {
-      color: color || '#fff',
-      backgroundColor: bg || '#117ee9',
-      width: half ? '50%' : '100%',
-      fontSize: '14px'
-    })
     return (
-      <div>
-        {onClick &&
-          <Button style={styleParams} onClick={() => { onClick() }}>{text}</Button>}
-        {!onClick && <Button style={styleParams} >{text}</Button>}
-      </div>
+      <button {...this.props} >
+        {this.props.children}
+        <style jsx>{`
+          /* button 全局样式 */
+          button {
+            width: 100%;
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 4px;
+            margin: 4px 0;
+          }
+          button,
+          button:active,
+          button:focus {
+            border: none;
+            outline: none;
+          }
+          /* button type primary */
+          button[type='primary'] {
+            background-color: #117ee9;
+          }
+          button[type='primary']:disabled {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 1px solid rgba(0, 0, 0, 0.2);
+          }
+          /* button type normal */
+          button[type='normal'] {
+            background-color: transparent;
+            color: #117ee9;
+            border: 1px solid #117ee9;
+          }
+          button[type='normal']:disabled {
+            color: rgba(0, 0, 0, 0.2);
+            background-color: transparent;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+          }
+        `}</style>
+      </button>
     )
   }
 }

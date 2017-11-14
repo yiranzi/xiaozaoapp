@@ -21,7 +21,7 @@ export default class extends React.Component {
   }
 
   renderButtonBar () {
-    let styleClassName = <style jsx>{`
+    let styleClassName = <style>{`
     .out {
       height: 100%;
       display: flex;
@@ -95,11 +95,9 @@ export default class extends React.Component {
   renderEnter () {
     let state = this.props.canEnter
     if (state) {
-      return <Button bg={`${ThemeConfig.color.yellow}`}
-        text={'进入群面'}
-        onClick={() => { this.goPath('/interviewvip/list') }} />
+      return <Button style={{backgroundColor: 'fdc23e'}} onClick={() => {this.goPath('/interviewvip/list') }}>进入群面</Button>
     } else {
-      return <Button text={'未开始'} type='default' disabled />
+      return <Button disabled >未开始</Button>
     }
   }
 
@@ -111,15 +109,15 @@ export default class extends React.Component {
     return (
       <Button className='price-button1'
         onClick={() => { this.goPath('/interviewvip/experience/intro') }}
-        text={'体验5分钟'} />
+      >体验5分钟</Button>
     )
   }
 
   renderAskInfo () {
     return (
       <Button
-        text={'立即咨询'}
-        onClick={() => { this.goPath('https://shimo.im/doc/hMWImuwPj4Q1ZEYj?r=NZOD95') }} />
+        /* onClick={() => { this.goPath('https://shimo.im/doc/hMWImuwPj4Q1ZEYj?r=NZOD95') }} */
+      >立即咨询</Button>
     )
   }
 
@@ -133,7 +131,7 @@ export default class extends React.Component {
   renderBuyButtonGroup () {
     let content = this.state.seeButton ? '优惠报名↓' : '优惠报名↑'
     return (
-      <Button bg={'rgb(255, 93, 93)'} onClick={this.clickBuyGroupButton} text={content} />
+      <Button style={{backgroundColor: 'rgb(255, 93, 93)'}} onClick={this.clickBuyGroupButton} >{content}</Button>
     )
   }
   renderCut3 () {
@@ -142,25 +140,24 @@ export default class extends React.Component {
         style={{width: '20px', height: '20px'}} />
     </div>
     return (
-      <Button bg={'#fe0000'}
-        onClick={() => { this.goPath('https://kdt.im/Rqyg0h') }} text={content} />
+      <Button style={{backgroundColor: '#fe0000'}}
+        onClick={() => { this.goPath('https://kdt.im/Rqyg0h') }} >{content}</Button>
     )
   }
   renderCut2 () {
     return (
-      <Button bg={'#ff5d5d'}
-        onClick={() => { this.goPath('https://kdt.im/p8yg0h') }} text='2人团349' />
+      <Button style={{backgroundColor: '#ff5d5d'}}
+        onClick={() => { this.goPath('https://kdt.im/p8yg0h') }} >2人团349</Button>
     )
   }
   renderCut1 () {
     return (
-      <Button bg={`${ThemeConfig.color.blue}`}
-        onClick={() => { this.goPath('https://kdt.im/r1Ig0h') }} text='单人399' />
+      <Button onClick={() => { this.goPath('https://kdt.im/r1Ig0h') }} >单人399</Button>
     )
   }
 
   renderHaveClosed () {
-    return <Button text='报名已截止' />
+    return <Button>报名已截止</Button>
   }
 
   goPath (goPath) {

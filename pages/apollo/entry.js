@@ -19,7 +19,7 @@ export default class extends React.Component {
           </div>
           <div className='button'>
             <a href='https://cn.mikecrm.com/XHASF7T' style={{display: 'inline-block', width: '100%'}}>
-              <Button text='立即申请加入阿波罗实习计划' />
+              <Button>立即申请加入阿波罗实习计划</Button>
             </a>
           </div>
         </div>

@@ -378,14 +378,13 @@ export default class extends React.Component {
     }
     let result = arr.map((ele, index) => {
       return (
-        <img style={style} src={`/static/img/interviewvip/introPage/intro_0${ele}1.jpg`} />
+        <img key={index} style={style} src={`/static/img/interviewvip/introPage/intro_0${ele}1.jpg`} />
       )
     })
     return (<div className='page'>
       <h1 className='title'>《小马哥教你过群面》精华页面</h1>
       {result}
-      <style jsx>
-        {`
+      <style jsx>{`
         .page {
           margin: -1rem;
           font-size: 0;
@@ -397,8 +396,7 @@ export default class extends React.Component {
           font-size: 20px;
           margin: 40px 0 20px 0;
         }
-        `}
-      </style>
+      `}</style>
     </div>)
   }
 
@@ -432,17 +430,6 @@ export default class extends React.Component {
             <div className='fit'>
               <Card title='你将收获什么'>{this.courseLearn()}</Card>
             </div>
-            <style>
-              {`
-                .title{
-                  font-size: 20px !important;
-                  font-weight: bold;
-                }
-                .card {
-                  margin: 30px 0 30px 0 !important;
-                }
-                `}
-            </style>
             {this.renderStartTime()}
             {this.renderButton()}
             {this.renderHelpInfo()}

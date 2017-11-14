@@ -1,16 +1,22 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 export default class extends React.Component {
+  static propTypes = {
+    title: PropTypes.string,
+    children: PropTypes.object
+  }
+
   render () {
     const { title, children } = this.props
     return (
       <div className='card'>
-        {title && <div className='title'>{title}</div>}
-        {children && <div className='content'>{children}</div>}
+        <div className='title'>{title}</div>
+        <div className='content'>{children}</div>
         <style jsx>{`
           .card {
             background-color: #fff;
-            box-shadow: 0 5px 5px rgba(229,229,229, 1);
+            box-shadow: 0 5px 5px rgba(229, 229, 229, 1);
             padding: 1rem;
             margin: 1rem 0;
             border-radius: 6px;

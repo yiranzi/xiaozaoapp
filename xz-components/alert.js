@@ -1,23 +1,29 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {render, unmountComponentAtNode} from 'react-dom'
 
 class AlertDom extends React.Component {
+  static propTypes = {
+    okText: PropTypes.string,
+    ok: PropTypes.func
+  }
+  static defaultProps = {
+    okText: '知道了',
+    ok: function () {}
+  }
+
   ok () {
-    const {ok} = this.props
-    if (ok) {
-      ok()
-    }
+    this.props.ok()
     close()
   }
   render () {
     let { content, okText } = this.props
-    okText = okText || '确认'
     return (
       <div className='alert'>
         <div className='dialog'>
-          {content && <div className='content'>{content}</div>}
+          <div className='content'>{content}</div>
           <div className='action'>
-            <div className='ok' onClick={() => { this.ok() }}>{okText}</div>
+            <div className='ok' onClick={this.ok()}>{okText}</div>
           </div>
         </div>
         <style jsx>{`

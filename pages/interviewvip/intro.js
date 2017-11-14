@@ -41,7 +41,7 @@ export default class extends React.Component {
     // 这里需要管理状态，如果做过，直接到解析页面
     let content = (
       <a href={`/interviewvip/task?topicKey=${topicKey}`}>
-        <Button text='下一页' bg='#fdc23e' half />
+        <Button style={{bakckgroundColor: '#fdc23e'}}>下一页</Button>
       </a>
     )
     return (

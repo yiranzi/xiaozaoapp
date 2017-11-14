@@ -1,12 +1,19 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 export default class MyBack extends React.Component {
+  static propTypes = {
+    direct: PropTypes.string
+  }
+  static defaultProps = {
+    direct: 'left'
+  }
   render () {
-    const {direct, text} = this.props
+    const {direct, children} = this.props
     return (
       <div>
-        {direct === 'left' && <span className='left'>{text}</span>}
-        {direct === 'right' && <span className='right'>{text}</span>}
+        {direct === 'left' && <span className='left'>{children}</span>}
+        {direct === 'right' && <span className='right'>{children}</span>}
         <style jsx>{`
           span {
             border: 1px solid #117ee9;

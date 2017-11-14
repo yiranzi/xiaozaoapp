@@ -421,19 +421,19 @@ export default class extends React.Component {
     // 如果是当日
     if (day.today) {
       if (day.over) {
-        return <Button half text={'今日已完成'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.yellow} onClick={() => this.onSignSuccess(1)} />
+        return <Button style={{backgroundColor: ThemeConfig.color.yellow, color: ThemeConfig.color.deepBlue}} onClick={() => this.onSignSuccess(1)} >今日已完成</Button>
       } else {
-        return <Button half text={'完成今日打卡'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.yellow} onClick={this.signUp} />
+        return <Button style={{backgroundColor: ThemeConfig.color.yellow, color: ThemeConfig.color.deepBlue}} onClick={this.signUp} >完成今日打卡</Button>
       }
     } else {
       if (day.start) {
         if (day.over) {
-          return <Button half text={'已完成打卡'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.yellow} onClick={() => this.onSignSuccess(0)} />
+          return <Button style={{backgroundColor: ThemeConfig.color.yellow, color: ThemeConfig.color.deepBlue}} onClick={() => this.onSignSuccess(0)} >已完成打卡</Button>
         } else {
-          return <Button half text={'未完成打卡'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.deepBorder} />
+          return <Button style={{backgroundColor: ThemeConfig.color.deepBorder, color: ThemeConfig.color.deepBlue}} >未完成打卡</Button>
         }
       } else {
-        return <Button half text={'打卡未开始'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.deepBorder} />
+        return <Button style={{backgroundColor: ThemeConfig.color.deepBorder, color: ThemeConfig.color.deepBlue}} >打卡未开始</Button>
       }
     }
   }

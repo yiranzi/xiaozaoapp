@@ -68,25 +68,17 @@ export default class extends React.Component {
           <div className='title'>返回：</div>
           <div className='back'>
             <br />
-            <Back direct='left' text='向左' />
+            <Back direct='left'>向左</Back>
             <br />
-            <Back direct='right' text='向右' />
+            <Back direct='right'>向右</Back>
           </div>
           <br />
           <div className='title'>Button：</div>
           <div className='button'>
-            <br />
-            <Button text='默认' />
-            <br />
-            <Button
-              text='自定义背景和文字颜色'
-              bg='red'
-              color='white'
-            />
-            <br />
-            <Button text='half' half />
-            <br />
-            <Button text='其他，样式通过style属性传入' />
+            <Button>默认</Button>
+            <Button disabled>默认 disable</Button>
+            <Button type='normal'>normal</Button>
+            <Button type='normal' disabled>normal disable</Button>
           </div>
           <br />
           <div className='title'>Card：</div>

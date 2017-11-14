@@ -29,10 +29,10 @@ export default class extends React.Component {
     return (
       <div className='action'>
         <a href='/interviewvip/introPage'>
-          <Button bg={'rgb(255, 93, 93)'} text='优惠报名' />
+          <Button style={{backgroundColor: 'rgb(255, 93, 93)'}}>优惠报名</Button>
         </a>
         <a href='/interviewvip/experience/task'>
-          <Button text='下一页' />
+          <Button>下一页</Button>
         </a>
         <style jsx>{`
           .action {
