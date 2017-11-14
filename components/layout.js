@@ -32,6 +32,7 @@ export default class Layout extends React.Component {
   render () {
     return (
       <div>
+        <script src='/static/js/retcode.js' />
         <Header />
         <style dangerouslySetInnerHTML={{__html: weui}} />
         <DefaultCss />
@@ -39,7 +40,6 @@ export default class Layout extends React.Component {
         {this.renderGlobalCss()}
         <script src='/static/js/jweixin.js' />
         <script src='/static/js/baidutongji.js' />
-        <script src='/static/js/retcode.js' />
         <style global jsx>{`
           body {
             font-family: PingFang SC,Helvetica Neue,Helvetica,Arial,Hiragino Sans GB,Microsoft Yahei,sans-serif !important;
