@@ -4,7 +4,7 @@ export default class extends React.Component {
   render () {
     return (
       <div className='fixFooter'>
-        <div className='content'>{this.props.content}</div>
+        <div className='content'>{this.props.children}</div>
         <style jsx>{`
           .fixFooter {
             background-color: #F9F9F9;

@@ -1,32 +1,38 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {render, unmountComponentAtNode} from 'react-dom'
 
 class ConfirmDom extends React.Component {
+  static propTypes = {
+    okText: PropTypes.string,
+    ok: PropTypes.func,
+    cancelText: PropTypes.string,
+    cancel: PropTypes.func
+  }
+  static defaultProps = {
+    okText: '确认',
+    ok: function () {},
+    cancelText: '取消',
+    cancel: function () {}
+  }
   ok () {
-    const {ok} = this.props
-    if (ok) {
-      ok()
-    }
+    this.props.ok()
     close()
   }
   cancel () {
-    const {cancel} = this.props
-    if (cancel) {
-      cancel()
-    }
+    this.props.cancel()
     close()
   }
   render () {
-    let { content, okText, cancelText } = this.props
-    okText = okText || '确认'
-    cancelText = cancelText || '取消'
+    const { content, okText, cancelText } = this.props
+
     return (
       <div className='confirm'>
         <div className='dialog'>
-          {content && <div className='content'>{content}</div>}
+          <div className='content'>{content}</div>
           <div className='action'>
-            <div className='cancel' onClick={() => { this.cancel() }}>{cancelText}</div>
-            <div className='ok' onClick={() => { this.ok() }}>{okText}</div>
+            <div className='cancel' onClick={this.cancel()}>{cancelText}</div>
+            <div className='ok' onClick={this.ok()}>{okText}</div>
           </div>
         </div>
         <style jsx>{`
