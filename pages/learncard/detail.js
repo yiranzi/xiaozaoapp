@@ -61,7 +61,7 @@ export default class extends React.Component {
   }
 
   // 点击按钮 购卡小指南
-  setBuyMotalContent () {
+  setBuyModalContent () {
     let content = <div className='card-inner'>
       <ul>
         <li><p>如果你想提高任意一个核心通用能力，可以选择你最需要的课程，仅需购买1张学习卡；</p></li>
@@ -101,11 +101,11 @@ export default class extends React.Component {
       `}</style>
     </div>
     let title = '购卡小指南'
-    return this.setBuyMotal(title, content, '知道啦')
+    return this.setBuyModal(title, content, '知道啦')
   }
 
   // 调用弹框
-  setBuyMotal (title, content, buttonTxt) {
+  setBuyModal (title, content, buttonTxt) {
     let defaultStyle = {
       backgroundColor: 'rgba(0,0,0, 0.5)'
     }
@@ -176,7 +176,7 @@ export default class extends React.Component {
 
   setPopContent (type) {
     if (type === '0') {
-      this.setBuyMotalContent()
+      this.setBuyModalContent()
     } else if (type === '1') {
       this.setShareModal()
     }
