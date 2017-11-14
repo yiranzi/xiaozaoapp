@@ -5,9 +5,9 @@ import BuyCard from '../../containers/learncard/BuyCard'
 import Experience from '../../containers/learncard/experience'
 import Theme from '../../config/theme'
 import FixFooter from '../../xz-components/fixfooter'
-import {ModalBoxPopFunc} from '../../xz-components/ModalBox'
+import {ModalBoxPopFunc} from '../../xz-components/modalbox'
 import ToolsUtil from '../../util/tools'
-import WxShare from '../../xz-components/WxShare'
+import WxShare from '../../xz-components/wxshare'
 import AxiosUtil from '../../util/axios'
 
 export default class extends React.Component {

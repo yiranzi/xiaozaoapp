@@ -1,5 +1,5 @@
 import React from 'react'
-import {ModalBoxPopFunc} from '../../xz-components/ModalBox'
+import {ModalBoxPopFunc} from '../../xz-components/modalbox'
 import Button from '../../xz-components/button'
 import ThemeConfig from '../../config/theme'
 import {Alert} from '../../xz-components/alert'

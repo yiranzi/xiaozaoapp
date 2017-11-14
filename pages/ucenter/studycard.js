@@ -3,7 +3,7 @@ import AxiosUtil from '../../util/axios'
 import UCenterLayout from '../../containers/ucenter/layout'
 import Navbar from '../../components/navbar'
 import ShareCard from '../../containers/ucenter/sharecard'
-import WxShare from '../../xz-components/WxShare'
+import WxShare from '../../xz-components/wxshare'
 import { Panel, PanelBody, MediaBox } from 'react-weui'
 
 export default class extends React.Component {

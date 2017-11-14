@@ -1,5 +1,5 @@
 import React from 'react'
-import SwipeView from '../../xz-components/SwipeView'
+import SwipeView from '../../xz-components/swipeview'
 import ThemeConfig from '../../config/theme'
 
 /*
