@@ -117,3 +117,4 @@ export default class WxShare extends React.PureComponent {
     </div>
   }
 }
+
