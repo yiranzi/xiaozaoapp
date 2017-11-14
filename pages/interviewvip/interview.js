@@ -197,9 +197,7 @@ export default class extends React.Component {
             {this.renderButton('确定')}
           </div>
         </div>
-        <style jsx>
-          {
-            `
+        <style jsx>{`
             .qr-code {
               width: 80%;
             }
@@ -225,9 +223,7 @@ export default class extends React.Component {
             }
             .button-bar{
             }
-            `
-          }
-        </style>
+        `}</style>
       </div>
     )
   }
@@ -238,12 +234,10 @@ export default class extends React.Component {
   renderNotChoose () {
     return (<div>
       <div className='title'>{this.addTitle()}</div>
-
       {this.addTabbar()}
       {this.addRuleContent()}
       <div className='button'>{this.addBottom()}</div>
-      <style jsx>
-        {`
+      <style jsx>{`
         .button{
           margin-top: 10px;
           {/*position: fixed;*/}
@@ -253,8 +247,8 @@ export default class extends React.Component {
           }
         .title {
           margin: 10px auto 20px auto;
-        }`}
-      </style>
+        }
+      `}</style>
     </div>)
   }
 
@@ -343,8 +337,7 @@ export default class extends React.Component {
       <p>参与规则：参加线上模拟需要先完成所有模块的学习，学完后模拟更有效哦</p>
       <p>人数限制：每个时间段开放 300 个名额，若报满 300 人，则该期无法再选择；若报名人数不到6人，则该期取消，可选择其他期数</p>
       <p className='bold'><strong>注意: </strong>选择了模拟时间之后若没有按时参加，则视为自动放弃，无法再重新选择时间！</p>
-      <style jsx>{
-        `
+      <style jsx>{`
         .bold {
           font-weight: bold;
         }
@@ -353,8 +346,7 @@ export default class extends React.Component {
           margin-left: 15px;
           color: ${ThemeConfig.color.content};
         }
-        `
-      }</style>
+      `}</style>
     </div>)
   }
 
@@ -408,8 +400,7 @@ export default class extends React.Component {
     return (
       <div className='button-bar'>
         {arr}
-        <style>
-          {`
+        <style>{`
           .button-bar{
             display: flex;
             justify-content: space-between;
@@ -457,15 +448,11 @@ export default class extends React.Component {
           {this.addTitleFactory(`您当前选择的是${this.indexToDate(stageId)}群面模拟`, '请再次确认,一旦确认无法更改时间哦!')}
         </div>
         {this.renderDoubleSureButton()}
-        <style jsx>
-          {
-            `
-            .title {
-              margin: 10px auto 20px auto;
-            }
-            `
+        <style jsx>{`
+          .title {
+            margin: 10px auto 20px auto;
           }
-        </style>
+        `}</style>
       </div>
     )
   }
@@ -501,14 +488,12 @@ export default class extends React.Component {
     return (
       <div className='button-bar'>
         {arr}
-        <style>
-          {`
+        <style>{`
           .button-bar{
             display: flex;
             justify-content: space-between;
           }
-          `}
-        </style>
+        `}</style>
       </div>)
   }
 }
