@@ -17,8 +17,6 @@ export default class extends React.Component {
     }
   }
 
-  componentDidMount () { }
-
   componentDidUpdate () {
     if (this.state.toptips.show) {
       const _this = this
