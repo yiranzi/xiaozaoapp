@@ -2,11 +2,13 @@
 Object.defineProperty(exports, '__esModule', { value: true })
 const React = require('react')
 /**
- * react触摸适配view，用于任意点击，滑动事件，滑动加速矢量获取等 by HeartBlood
+ * react触摸适配view，用于任意点击，滑动事件，滑动加速矢量获取等
  *
  * @export
  * @class SwipeView
  * @extends {React.Component<SwipeViewPropsTypes, StateTypes>}
+ *
+ * by yiran
  */
 class SwipeView extends React.Component {
   constructor (props) {
