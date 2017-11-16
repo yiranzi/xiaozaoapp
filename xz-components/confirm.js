@@ -31,8 +31,8 @@ class ConfirmDom extends React.Component {
         <div className='dialog'>
           <div className='content'>{content}</div>
           <div className='action'>
-            <div className='cancel' onClick={this.cancel()}>{cancelText}</div>
-            <div className='ok' onClick={this.ok()}>{okText}</div>
+            <div className='cancel' onClick={() => this.cancel()}>{cancelText}</div>
+            <div className='ok' onClick={() => this.ok()}>{okText}</div>
           </div>
         </div>
         <style jsx>{`
@@ -86,6 +86,7 @@ function close () {
 }
 
 export function Confirm (properties) {
+  console.log('Confirm')
   document.body.children[0].classList.add('xz-confirm-blur')
   let divTarget = document.createElement('div')
   divTarget.id = 'xz-confirm'

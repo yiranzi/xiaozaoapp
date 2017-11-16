@@ -1,12 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 export default class extends React.Component {
-  static propTypes = {
-    title: PropTypes.string,
-    children: PropTypes.object
-  }
-
   render () {
     const { title, children } = this.props
     return (

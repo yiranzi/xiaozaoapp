@@ -23,7 +23,7 @@ class AlertDom extends React.Component {
         <div className='dialog'>
           <div className='content'>{content}</div>
           <div className='action'>
-            <div className='ok' onClick={this.ok()}>{okText}</div>
+            <div className='ok' onClick={() => this.ok()}>{okText}</div>
           </div>
         </div>
         <style jsx>{`
