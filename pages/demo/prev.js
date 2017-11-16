@@ -13,7 +13,7 @@ import FixFooter from '../../xz-components/fixfooter'
 import Loading from '../../xz-components/loading'
 import More from '../../xz-components/more'
 import Radio from '../../xz-components/radio'
-import tabbar from '../../xz-components/tabbar'
+import {Tabbar} from '../../xz-components/tabbar2'
 import TextArea from '../../xz-components/textarea'
 import TimeDown from '../../xz-components/timedown'
 import TimeUp from '../../xz-components/timeup'
@@ -35,6 +35,7 @@ export default class extends React.Component {
       shareTitle: this.shareContent,
       canRender: false
     }
+    this.renderTabbar = this.renderTabbar.bind(this)
   }
 
   componentDidMount () {
@@ -126,6 +127,100 @@ export default class extends React.Component {
       style: outStyle
     }
     return (ModalBoxPopFunc(imageProps))
+  }
+
+  onTabbarClick (index) {
+    // 是否可以点击？
+    this.setState({
+      currentSelect: index
+    })
+  }
+
+  renderTabbar () {
+    let tabs = [
+      {title: 't1'},
+      {title: 't2'},
+      {title: 't3'},
+    ]
+
+    let normalStyle = {
+      width: '100px',
+      height: '40px',
+      color: 'red',
+      backgroundColor: 'white',
+      borderRadius: '5px',
+      border: '2px solid black',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      margin: '3px auto'
+    }
+    let chooseStyle = {
+      color: 'blue',
+      backgroundColor: 'yellow'
+    }
+    return(<div>
+      <Tabbar
+        normalStyle={normalStyle}
+        chooseStyle={chooseStyle}
+        tabs={tabs}
+        onChange={this.onChange}
+        defaultActiveKey={0} />
+    </div>)
+  }
+
+  renderTabbarLine () {
+    let tabs = [
+      {title: 't1'},
+      {title: 't2'},
+      {title: 't3'},
+      {title: 't3', disabled: true}
+    ]
+    let normalStyle = {
+      width: '100px',
+      height: '40px',
+      color: 'red',
+      backgroundColor: 'white',
+      borderRadius: '5px',
+      border: '2px solid black',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      margin: '3px',
+      flexGrow: 1,
+    }
+    let chooseStyle = {
+      color: 'blue',
+      backgroundColor: 'yellow'
+    }
+    let disabledStyle = {
+      color: 'yellow',
+      backgroundColor: 'gray'
+    }
+    let tabStyle = {
+      display: 'flex',
+      backgroundColor: 'green',
+      margin: 'auto -1rem'
+    }
+    return(<div className='line'>
+      <Tabbar
+        tabStyle={tabStyle}
+        normalStyle={normalStyle}
+        chooseStyle={chooseStyle}
+        disabledStyle={disabledStyle}
+        tabs={tabs}
+        onChange={this.onChange}
+        onTabClick={this.onTabClick}
+        defaultActiveKey={0} />
+    </div>)
+  }
+
+  onTabClick (e) {
+    console.log(e)
+  }
+
+  onChange (e) {
+    console.log(e)
   }
 
   render () {
@@ -306,16 +401,17 @@ export default class extends React.Component {
             {/*分享*/}
             {this.renderShare()}
             {/*分享背景弹窗*/}
-            <p>123</p>
             <Button onClick={() => { showShareBg(<div>分享右上角<br />现在就分享</div>) }} text={'弹出分享右上角'} />
             {/*modal弹框*/}
             {this.renderModalBox('image')}
-            <br />
-            <div>参数为 标题 内容 图片 链接</div>
-            <br />
+            {/*tabbar*/}
             <div className='title'>Tabber：</div>
             <br />
-            <div><strong style={{color: 'red'}}>待补全</strong></div>
+            <p>普通的</p>
+            {this.renderTabbar()}
+            <br />
+            <p>有不可点击的的</p>
+            {this.renderTabbarLine()}
             <br />
             <div className='title'>TextArea：</div>
             <br />
