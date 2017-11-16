@@ -101,7 +101,7 @@ export default class extends React.Component {
         content: content,
         okText: '去投递',
         cancelText: '残忍拒绝',
-        ok: () => { this.goRouter('http://wx.xiaozao.org') }
+        ok: () => { this.goRouter('/') }
       })
     }
     // 刷新
