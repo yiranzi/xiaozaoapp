@@ -1,6 +1,6 @@
 import React from 'react'// 库
 import Card from '../../xz-components/card'
-import Tabbar from '../../xz-components/tabbar'
+import {Tabbar, Tab} from '../../xz-components/tabbar'
 import InterviewLayout from '../../containers/interviewvip/layout'// container
 import AxiosUtil from '../../util/axios'
 import ThemeConfig from '../../config/theme'
@@ -22,6 +22,7 @@ export default class extends React.Component {
       classUrl: null, // 面试二维码
       currentSelect: null// 当前tabbar选中的
     }
+    this.onClickTabbar = this.onClickTabbar.bind(this)
   }
 
   postInterviewTime = async () => {
@@ -93,15 +94,6 @@ export default class extends React.Component {
         // 如果完成 直接复制
         this.buttonStatusArr.push(data.canSignUp)
       }
-    })
-    // 4制作按钮列表tt
-    this.makeDivByContent()
-  }
-
-  makeDivByContent () {
-    // 1 渲染button样式
-    this.buttonDivArr = this.contentArr.map((content, index) => {
-      return (this.renderButton(content))
     })
   }
 
@@ -307,19 +299,26 @@ export default class extends React.Component {
       backgroundColor: `white`,
       color: `${ThemeConfig.color.content}`
     }
+    let tabbarStyle = {
+      color: `${ThemeConfig.color.content}`
+    }
     return (
       <Card>
-        <Tabbar
-          currentSelect={this.state.currentSelect}
-          buttonStatus={this.buttonStatusArr}
-          divArr={this.buttonDivArr}
-          normalStyle={normalStyle}
-          chooseStyle={chooseStyle}
-          disabledStyle={disabledStyle}
-          onClickTabbar={() => this.onClickTabbar(this)}
-        />
+        <Tabbar style={tabbarStyle} onChange={this.onClickTabbar} defaultActiveKey={this.state.currentSelect}>
+          {this.makeDivByContent()}
+        </Tabbar>
       </Card>
     )
+  }
+
+  makeDivByContent () {
+    // 1 渲染button样式
+    if (this.contentArr && this.contentArr.length > 0) {
+      console.log(this.contentArr)
+      return this.contentArr.map((content, index) => {
+        return (<Tab key={index} title={content} disabled={this.buttonStatusArr[index]} />)
+      })
+    }
   }
 
   // tabbar回调
