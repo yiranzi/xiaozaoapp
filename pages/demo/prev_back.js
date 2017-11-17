@@ -13,7 +13,7 @@ import FixFooter from '../../xz-components/fixfooter'
 import Loading from '../../xz-components/loading'
 import More from '../../xz-components/more'
 import Radio from '../../xz-components/radio'
-import {Tabbar} from '../../xz-components/tabbar2'
+import {Tabbar} from '../../xz-components/tabbar'
 import TextArea from '../../xz-components/textarea'
 import TimeDown from '../../xz-components/timedown'
 import TimeUp from '../../xz-components/timeup'
@@ -203,15 +203,7 @@ export default class extends React.Component {
       margin: 'auto -1rem'
     }
     return(<div className='line'>
-      <Tabbar
-        tabStyle={tabStyle}
-        normalStyle={normalStyle}
-        chooseStyle={chooseStyle}
-        disabledStyle={disabledStyle}
-        tabs={tabs}
-        onChange={this.onChange}
-        onTabClick={this.onTabClick}
-        defaultActiveKey={0} />
+      <Tabbar defaultActiveKey={0} />
     </div>)
   }
 
