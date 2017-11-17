@@ -22,7 +22,7 @@ export default class Button extends React.Component {
           button {
             width: 100%;
             color: #fff;
-            padding: 8px 12px;
+            padding: 8px 0;
             border-radius: 4px;
             margin: 4px 0;
             border: 1px solid transparent;

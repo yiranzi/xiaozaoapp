@@ -144,7 +144,7 @@ export default class extends React.Component {
           打卡规则
         </Button>
         <Button
-          style={{marginLeft: '1rem', marginRight: '1rem'}}
+          style={{marginLeft: '0.5rem', marginRight: '0.5rem'}}
           className='mid'
           onClick={() => {
             location.href = '/interviewvip/interview'
