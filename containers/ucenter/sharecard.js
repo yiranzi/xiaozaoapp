@@ -43,7 +43,8 @@ export default class extends React.Component {
         <p className='red-content'>成功购买能力卡后，享专属权利------邀请好友成功购买任意能力卡，你将再次获得 1 张能力卡（原价 ¥199），多邀多得！</p>
         <p className='main-content'>*好友购买时在推荐人一栏填写你的手机号即可。</p>
         <div className='share-button'>
-          <Button half text={'立即邀请好友'} color={'white'} bg={ThemeConfig.color.blue} onClick={this.paddingIsBuy} />
+          <Button half color={'white'} bg={ThemeConfig.color.blue}
+            onClick={this.paddingIsBuy} >立即邀请好友</Button>
         </div>
         <style jsx>{`
           .share-button {
