@@ -64,7 +64,7 @@ export default class extends React.Component {
       }
     } else {
       style = {
-        bottom: '-100px'
+        bottom: '-200px'
       }
     }
     return <div style={style} className='fix-button-list'>
