@@ -32,6 +32,7 @@ export default class Layout extends React.Component {
   render () {
     return (
       <div>
+        <script src='/static/js/retcode.js' />
         <Header />
         <style dangerouslySetInnerHTML={{__html: weui}} />
         <DefaultCss />
