@@ -22,15 +22,17 @@ export default class Button extends React.Component {
           button {
             width: 100%;
             color: #fff;
-            padding: 6px 12px;
+            padding: 8px 12px;
             border-radius: 4px;
             margin: 4px 0;
+            border: 1px solid transparent;
           }
           button,
           button:active,
           button:focus {
             border: none;
             outline: none;
+            border: 1px solid transparent;
           }
           /* button type primary */
           button[type='primary'] {

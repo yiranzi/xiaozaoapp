@@ -117,7 +117,7 @@ export default class extends React.Component {
     } else {
       url = '/interviewvip/introPage'
     }
-    return (<a href={url}><Back direct='left' text='返回主页' /></a>)
+    return (<a href={url}><Back direct='left'>返回主页</Back></a>)
   }
 
   seeReview () {

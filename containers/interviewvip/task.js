@@ -1,5 +1,6 @@
 import React from 'react'
-import {Button, Form} from 'react-weui'
+import {Form} from 'react-weui'
+import Button from '../../xz-components/button'
 import classNames from 'classnames'
 import ToolsUtil from '../../util/tools'
 import AxiosUtil from '../../util/axios'
@@ -40,7 +41,7 @@ export default class extends React.Component {
       <div className='resource'>
         <div className='title'>阅读材料</div>
         <div className='content'><Material content={resource} /></div>
-        <FixFooter content={content} />
+        <FixFooter>{content}</FixFooter>
         <style jsx>{`
           .title {
             font-weight: bold;
@@ -156,7 +157,7 @@ export default class extends React.Component {
       <div className='dto-list'>
         <div className='pratice'>
           <div className='title'>
-            <div onClick={() => { this.toMaterial() }}><Back direct='left' text='查看材料' /></div>
+            <div onClick={() => { this.toMaterial() }}><Back direct='left'>查看材料</Back></div>
           </div>
           <div className='content'>
             <Material content={material} />
@@ -167,21 +168,24 @@ export default class extends React.Component {
           </div>
         </div>
         <div className='action'>
-          {noPrev && (<div className='prev disabled'><Button>上一题</Button></div>)}
+          {noPrev && (<div className='prev disabled'><Button type='normal' disabled>上一题</Button></div>)}
           {!noPrev && (
             <div className={classNames({prev: true, disabled: this.state.noPrev})}>
-              <Button onClick={() => {
-                this.prev(id, questionLength, dtoItem)
-              }}>上一题</Button>
+              <Button
+                style={{backgroundColor: ThemeConfig.color.yellow}}
+                onClick={() => { this.prev(id, questionLength, dtoItem) }}
+              >上一题</Button>
             </div>
           )}
           <div className='next'>
-            {noNext && <Button onClick={() => {
-              this.answerComplete()
-            }}>提交</Button>}
-            {!noNext && <Button onClick={() => {
-              this.next(id, questionLength, dtoItem)
-            }}>下一题</Button>}
+            {noNext && <Button
+              style={{backgroundColor: ThemeConfig.color.yellow}}
+              onClick={() => {
+                this.answerComplete()
+              }}>提交</Button>}
+            {!noNext && <Button
+              style={{backgroundColor: ThemeConfig.color.yellow}}
+              onClick={() => { this.next(id, questionLength, dtoItem) }}>下一题</Button>}
           </div>
         </div>
         <style jsx>{`

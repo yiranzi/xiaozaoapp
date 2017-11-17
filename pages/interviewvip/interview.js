@@ -137,12 +137,16 @@ export default class extends React.Component {
     let view
     // 判定界面类型
     if (this.state.doubleCheck) {
+      console.log('1111111')
       view = this.renderDoubleCheck()
     } else {
+      console.log('22222222')
       // 是否已近选中
       if (this.state.day) {
+        console.log('333333333')
         view = this.renderHaveChoose()
       } else {
+        console.log('444444444')
         view = this.renderNotChoose()
       }
     }

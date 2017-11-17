@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from 'react-weui'
+import Button from '../../xz-components/button'
 import Card from '../../xz-components/card'
 import FixFooter from '../../xz-components/fixfooter'
 import InterviewLayout from '../../containers/interviewvip/layout'
@@ -144,6 +144,7 @@ export default class extends React.Component {
           打卡规则
         </Button>
         <Button
+          style={{marginLeft: '1rem', marginRight: '1rem'}}
           className='mid'
           onClick={() => {
             location.href = '/interviewvip/interview'

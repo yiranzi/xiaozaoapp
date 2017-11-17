@@ -49,7 +49,7 @@ export default class extends React.Component {
         <div className='intro'>
           <div className='header'>
             <a href='/interviewvip/list'>
-              <Back direct='left' text='返回主页' />
+              <Back direct='left'>返回主页</Back>
             </a>
           </div>
           <div className='title'>群面说明</div>
