@@ -1,6 +1,6 @@
 import React from 'react'// 库
 import Card from '../../xz-components/card'
-import {Tabbar, Tab} from '../../xz-components/tabbar'
+import {ChooseBar, ChooseItem} from '../../xz-components/choosebar'
 import InterviewLayout from '../../containers/interviewvip/layout'// container
 import AxiosUtil from '../../util/axios'
 import ThemeConfig from '../../config/theme'
@@ -20,9 +20,9 @@ export default class extends React.Component {
       canSignUp: null, // 能否报名
       day: null,
       classUrl: null, // 面试二维码
-      currentSelect: null// 当前tabbar选中的
+      currentSelect: null// 当前chooseBar选中的
     }
-    this.onClickTabbar = this.onClickTabbar.bind(this)
+    this.onClickChooseBar = this.onClickChooseBar.bind(this)
   }
 
   postInterviewTime = async () => {
@@ -129,16 +129,12 @@ export default class extends React.Component {
     let view
     // 判定界面类型
     if (this.state.doubleCheck) {
-      console.log('1111111')
       view = this.renderDoubleCheck()
     } else {
-      console.log('22222222')
       // 是否已近选中
       if (this.state.day) {
-        console.log('333333333')
         view = this.renderHaveChoose()
       } else {
-        console.log('444444444')
         view = this.renderNotChoose()
       }
     }
@@ -230,7 +226,7 @@ export default class extends React.Component {
   renderNotChoose () {
     return (<div>
       <div className='title'>{this.addTitle()}</div>
-      {this.addTabbar()}
+      {this.addChooseBar()}
       {this.addRuleContent()}
       <div className='button'>{this.addBottom()}</div>
       <style jsx>{`
@@ -280,49 +276,49 @@ export default class extends React.Component {
     )
   }
 
-  // 添加tabbar
-  addTabbar () {
-    let normalStyle = {
-      borderRadius: '10px',
-      borderColor: `${ThemeConfig.color.yellow}`,
-      backgroundColor: `white`
-    }
+  // 添加ChooseBar
+  addChooseBar () {
     let chooseStyle = {
-      borderRadius: '10px',
       backgroundColor: `${ThemeConfig.color.yellow}`,
       borderColor: `${ThemeConfig.color.yellow}`,
       color: 'white'
     }
-    let disabledStyle = {
-      borderRadius: '10px',
-      borderColor: `${ThemeConfig.color.border}`,
-      backgroundColor: `white`,
-      color: `${ThemeConfig.color.content}`
-    }
-    let tabbarStyle = {
+    let chooseBarStyle = {
+      width: '250px',
       color: `${ThemeConfig.color.content}`
     }
     return (
       <Card>
-        <Tabbar style={tabbarStyle} onChange={this.onClickTabbar} defaultActiveKey={this.state.currentSelect}>
+        <ChooseBar style={chooseBarStyle}
+          chooseStyle={chooseStyle}
+          onChange={this.onClickChooseBar}
+          defaultActiveKey={this.state.currentSelect}>
           {this.makeDivByContent()}
-        </Tabbar>
+        </ChooseBar>
       </Card>
     )
   }
 
   makeDivByContent () {
-    // 1 渲染button样式
+    let normalStyle = {
+      borderColor: `${ThemeConfig.color.yellow}`
+    }
+    let disabledStyle = {
+      borderColor: `${ThemeConfig.color.border}`,
+      color: `${ThemeConfig.color.content}`
+    }
     if (this.contentArr && this.contentArr.length > 0) {
       console.log(this.contentArr)
       return this.contentArr.map((content, index) => {
-        return (<Tab key={index} title={content} disabled={this.buttonStatusArr[index]} />)
+        return (<ChooseItem key={index} title={content}
+          style={this.buttonStatusArr[index] ? normalStyle : disabledStyle}
+          disabled={!this.buttonStatusArr[index]} />)
       })
     }
   }
 
-  // tabbar回调
-  onClickTabbar (index) {
+  // ChooseBar回调
+  onClickChooseBar (index) {
     if (this.state.canSignUp) {
       if (this.state.interviewInfoList[index].canSignUp) {
         this.setState({

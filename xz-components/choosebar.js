@@ -1,6 +1,6 @@
 
 import React from 'react'
-export class Tab extends React.Component {
+export class ChooseItem extends React.Component {
   render () {
     return (<div>{this.props.children}</div>)
   }
@@ -9,12 +9,12 @@ export class Tab extends React.Component {
 /**
  * param
  * onChange // 变动回调
- * onTabClick // 点击tabbar回调
+ * onTabClick // 点击chooseBar回调
  *
  * by yiran
  */
 
-export class Tabbar extends React.Component {
+export class ChooseBar extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -37,8 +37,10 @@ export class Tabbar extends React.Component {
   }
 
   render () {
-    // tabbar默认样式
+    // chooseBar默认样式
     let tabStyle = {
+      margin: 'auto',
+      width: '100%'
     }
     let finalStyle = this.myNew(tabStyle, this.props.style)
     return (
@@ -59,7 +61,7 @@ export class Tabbar extends React.Component {
   renderMe () {
     let finalStyle
     const tabsData = this.getTabs()
-    if ( tabsData && tabsData.length > 0) {
+    if (tabsData && tabsData.length > 0) {
       const content = tabsData.map((cProps, index) => {
         finalStyle = this.calcStyle(cProps.style, index)
         return <div key={index} style={finalStyle} onClick={() => { this.onTabClick(cProps.disabled, index) }}>
@@ -76,15 +78,14 @@ export class Tabbar extends React.Component {
     // 按钮默认样式
     let tabStyle = {
       width: '100%',
-      height: '40px',
-      color: 'red',
+      lineHeight: '2rem',
       backgroundColor: 'white',
       borderRadius: '5px',
-      border: '2px solid black',
+      border: '1px solid black',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      margin: '3px auto'
+      margin: '20px auto'
     }
     // 默认样式
     let finalStyle = this.myNew(tabStyle, propsStyle)
