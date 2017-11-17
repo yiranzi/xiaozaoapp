@@ -199,7 +199,7 @@ export default class extends React.Component {
           <div className='logo-line'>
             <img src='/static/img/footer.png' />
           </div>
-          <FixFooter content={(
+          <FixFooter>
             <div className='footer'>
               <div className='online'>
                 <a href='https://shimo.im/doc/LQWZzIKVVkIeLMXl?r=L5KPGD/'>
@@ -210,7 +210,7 @@ export default class extends React.Component {
                 onClick={() => { this.setPopContent('1') }}>邀请好友</div>
               <div className='buy'><a href='https://kdt.im/eDS-Qh'>抢购特惠能力卡</a></div>
             </div>
-          )} />
+          </FixFooter>
           <style jsx>{`
             .header {
               background: url('/static/img/learncard/headbg.png');

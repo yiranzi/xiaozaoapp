@@ -257,7 +257,7 @@ export default class extends React.Component {
               </div>
             </section>
           </div>
-          <FixFooter content={this.renderButton()} />
+          <FixFooter>{this.renderButton()}</FixFooter>
         </div>
         <style jsx>{`
           .list .header img {

@@ -116,7 +116,7 @@ export default class extends React.Component {
   renderAskInfo () {
     return (
       <Button
-        /* onClick={() => { this.goPath('https://shimo.im/doc/hMWImuwPj4Q1ZEYj?r=NZOD95') }} */
+        onClick={() => { this.goPath('https://shimo.im/doc/hMWImuwPj4Q1ZEYj?r=NZOD95') }}
       >立即咨询</Button>
     )
   }

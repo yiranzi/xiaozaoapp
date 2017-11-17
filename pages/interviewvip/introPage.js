@@ -415,11 +415,7 @@ export default class extends React.Component {
               <div className='count'>{this.state.totalUserCount}人已经报名,限时优惠...</div>
             </div>
             <div className='intro'>
-              <More
-                title='课程介绍'
-                content={this.courseIntro()}
-                height={120}
-              />
+              <More title='课程介绍' height={120}>{this.courseIntro()}</More>
             </div>
             <div className='teacher-intro'>
               <Card title='导师介绍'>{this.teacherIntro()}</Card>

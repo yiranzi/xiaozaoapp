@@ -56,7 +56,7 @@ export default class extends React.Component {
           <div className='content'>
             <Card>{this.renderContent(topicKey)}</Card>
           </div>
-          <FixFooter content={content} />
+          <FixFooter>{content}</FixFooter>
         </div>
         <style jsx>{`
           .header a {
