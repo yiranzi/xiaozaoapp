@@ -49,7 +49,7 @@ export default class WxShare extends React.PureComponent {
     if (!this.state.wxReady) {
       return
     }
-
+    console.log('分享标题为' + this.props.title)
     let { title, desc, link, imgUrl, success, cancel } = this.props
     // eslint-disable-next-line
     wx.onMenuShareTimeline({

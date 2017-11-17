@@ -1,20 +1,42 @@
-
 import React from 'react'
-export class ChooseItem extends React.Component {
-  render () {
-    return (<div>{this.props.children}</div>)
-  }
-}
+import PropTypes from 'prop-types'
 
 /**
- * param
- * onChange // 变动回调
- * onTabClick // 点击chooseBar回调
- *
+ * 这是选择bar。用户从多个选项中选择一个选项。不可选，选中，未选中。
  * by yiran
  */
 
+export class ChooseItem extends React.Component {
+  static propTypes = {
+    title: PropTypes.string,
+    style: PropTypes.object,
+    disabled: PropTypes.bool
+
+  }
+  static defaultProps = {
+    title: '123', // 按钮名称
+    style: {}, // 自定义样式
+    disabled: false // 禁止选 （禁止选中 需要自己添加上对应的style样式）
+  }
+}
+
 export class ChooseBar extends React.Component {
+  static propTypes = {
+    defaultActiveKey: PropTypes.number,
+    style: PropTypes.object,
+    chooseStyle: PropTypes.object,
+    onTabClick: PropTypes.func,
+    onChange: PropTypes.func
+  }
+
+  static defaultProps = {
+    defaultActiveKey: -1, // 初始选中
+    style: {}, // chooseBar样式
+    chooseStyle: {backgroundColor: 'red'}, // 选中后 chooseItem的样式
+    onTabClick: function () {}, // 点击chooseBar的回调
+    onChange: function () {} // 选择发生变化的回调
+  }
+
   constructor (props) {
     super(props)
     this.state = {
@@ -22,30 +44,31 @@ export class ChooseBar extends React.Component {
     }
     this.onChange = this.onChange.bind(this)
     this.onTabClick = this.onTabClick.bind(this)
-    this.renderMe = this.renderMe.bind(this)
+    this.renderChooseList = this.renderChooseList.bind(this)
     this.getTabs = this.getTabs.bind(this)
     this.calcStyle = this.calcStyle.bind(this)
-    this.myNew = this.myNew.bind(this)
+    this.objectAssign = this.objectAssign.bind(this)
   }
 
   componentDidMount () {
-    if (this.props.defaultActiveKey) {
-      this.setState({
-        currentSelect: this.props.defaultActiveKey
-      })
-    }
+    this.setState({
+      currentSelect: this.props.defaultActiveKey
+    })
   }
 
   render () {
     // chooseBar默认样式
     let tabStyle = {
+      boxSizing: 'border-box',
       margin: 'auto',
-      width: '100%'
+      width: '100%',
+      padding: '10px',
+      border: '1px solid black'
     }
-    let finalStyle = this.myNew(tabStyle, this.props.style)
+    let finalStyle = this.objectAssign(tabStyle, this.props.style)
     return (
       <div style={finalStyle}>
-        {this.renderMe()}
+        {this.renderChooseList()}
       </div>
     )
   }
@@ -58,7 +81,7 @@ export class ChooseBar extends React.Component {
     })
   }
 
-  renderMe () {
+  renderChooseList () {
     let finalStyle
     const tabsData = this.getTabs()
     if (tabsData && tabsData.length > 0) {
@@ -78,7 +101,7 @@ export class ChooseBar extends React.Component {
     // 按钮默认样式
     let tabStyle = {
       width: '100%',
-      lineHeight: '2rem',
+      height: '30px',
       backgroundColor: 'white',
       borderRadius: '5px',
       border: '1px solid black',
@@ -88,17 +111,15 @@ export class ChooseBar extends React.Component {
       margin: '20px auto'
     }
     // 默认样式
-    let finalStyle = this.myNew(tabStyle, propsStyle)
-
-    let chooseStyle = this.props.chooseStyle
+    let finalStyle = this.objectAssign(tabStyle, propsStyle)
     if (index === this.state.currentSelect) {
-      return this.myNew(finalStyle, chooseStyle)
+      return this.objectAssign(finalStyle, this.props.chooseStyle)
     } else {
       return finalStyle
     }
   }
 
-  myNew (oldObj, addObj) {
+  objectAssign (oldObj, addObj) {
     if (addObj !== undefined && addObj !== null) {
       let a = JSON.parse(JSON.stringify(oldObj))
       Object.assign(a, addObj)
@@ -111,7 +132,7 @@ export class ChooseBar extends React.Component {
   // click
   onTabClick (disabled, index) {
     let {onTabClick} = this.props
-    onTabClick && onTabClick(index)
+    onTabClick(index)
     this.onChange(disabled, index)
   }
 
@@ -122,7 +143,7 @@ export class ChooseBar extends React.Component {
       this.setState({
         currentSelect: index
       }, () => {
-        onChange && onChange(index)
+        onChange(index)
       })
     }
   }

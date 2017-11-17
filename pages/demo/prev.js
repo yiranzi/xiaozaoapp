@@ -15,7 +15,6 @@ import ModalBox from '../../containers/demo/modal'
 import More from '../../containers/demo/more'
 import Radio from '../../containers/demo/radio'
 import SwipeView from '../../containers/demo/swipeview'
-// import Tabbar from '../../containers/demo/tabbar'
 import TextArea from '../../containers/demo/textarea'
 import TimeDown from '../../containers/demo/timedown'
 import TimeUp from '../../containers/demo/timeup'
@@ -24,6 +23,7 @@ import Video from '../../containers/demo/video'
 import WxRecord from '../../containers/demo/wxrecord'
 import WxShare from '../../containers/demo/wxshare'
 import WxShareBg from '../../containers/demo/wxsharebg'
+import ChooseBar from '../../containers/demo/choosebar'
 
 export default class extends React.Component {
   render () {
@@ -40,19 +40,19 @@ export default class extends React.Component {
           <Banner />
           <FixFooter />
           <Loading />
-          <ModalBox />
           <More />
           <Radio />
-          <SwipeView />
-          {/*<Tabbar />*/}
           <TextArea />
           <TimeDown />
           <TimeUp />
           <Uploader />
           <Video />
           <WxRecord />
+          <SwipeView />
+          <ChooseBar />
           <WxShare />
           <WxShareBg />
+          <ModalBox />
         </div>
         <style global jsx>{`
           .wrapper {
