@@ -13,7 +13,7 @@ import FixFooter from '../../xz-components/fixfooter'
 import Loading from '../../xz-components/loading'
 import More from '../../xz-components/more'
 import Radio from '../../xz-components/radio'
-import {Tabbar} from '../../xz-components/tabbar'
+// import {Tabbar} from '../../xz-components/tabbar'
 import TextArea from '../../xz-components/textarea'
 import TimeDown from '../../xz-components/timedown'
 import TimeUp from '../../xz-components/timeup'
@@ -159,14 +159,14 @@ export default class extends React.Component {
       color: 'blue',
       backgroundColor: 'yellow'
     }
-    return(<div>
-      <Tabbar
-        normalStyle={normalStyle}
-        chooseStyle={chooseStyle}
-        tabs={tabs}
-        onChange={this.onChange}
-        defaultActiveKey={0} />
-    </div>)
+    // return(<div>
+    //   <Tabbar
+    //     normalStyle={normalStyle}
+    //     chooseStyle={chooseStyle}
+    //     tabs={tabs}
+    //     onChange={this.onChange}
+    //     defaultActiveKey={0} />
+    // </div>)
   }
 
   renderTabbarLine () {
@@ -202,9 +202,9 @@ export default class extends React.Component {
       backgroundColor: 'green',
       margin: 'auto -1rem'
     }
-    return(<div className='line'>
-      <Tabbar defaultActiveKey={0} />
-    </div>)
+    // return(<div className='line'>
+    //   <Tabbar defaultActiveKey={0} />
+    // </div>)
   }
 
   onTabClick (e) {
@@ -400,10 +400,10 @@ export default class extends React.Component {
             <div className='title'>Tabber：</div>
             <br />
             <p>普通的</p>
-            {this.renderTabbar()}
+            {/*{this.renderTabbar()}*/}
             <br />
             <p>有不可点击的的</p>
-            {this.renderTabbarLine()}
+            {/*{this.renderTabbarLine()}*/}
             <br />
             <div className='title'>TextArea：</div>
             <br />

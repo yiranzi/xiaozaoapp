@@ -1,5 +1,5 @@
 import React from 'react'
-import Tabbar from '../../xz-components/tabbar'
+// import Tabbar from '../../xz-components/tabbar'
 
 export default class extends React.Component {
   render () {
