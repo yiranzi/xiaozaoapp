@@ -1,6 +1,6 @@
 import React from 'react'// 库
 import Card from '../../xz-components/card'
-import Tabbar from '../../xz-components/tabbar'
+import {ChooseBar, ChooseItem} from '../../xz-components/choosebar'
 import InterviewLayout from '../../containers/interviewvip/layout'// container
 import AxiosUtil from '../../util/axios'
 import ThemeConfig from '../../config/theme'
@@ -20,8 +20,9 @@ export default class extends React.Component {
       canSignUp: null, // 能否报名
       day: null,
       classUrl: null, // 面试二维码
-      currentSelect: null// 当前tabbar选中的
+      currentSelect: null// 当前chooseBar选中的
     }
+    this.onClickChooseBar = this.onClickChooseBar.bind(this)
   }
 
   postInterviewTime = async () => {
@@ -94,15 +95,6 @@ export default class extends React.Component {
         this.buttonStatusArr.push(data.canSignUp)
       }
     })
-    // 4制作按钮列表tt
-    this.makeDivByContent()
-  }
-
-  makeDivByContent () {
-    // 1 渲染button样式
-    this.buttonDivArr = this.contentArr.map((content, index) => {
-      return (this.renderButton(content))
-    })
   }
 
   renderButton (content) {
@@ -114,7 +106,7 @@ export default class extends React.Component {
       borderStyle: 'solid',
       borderWidth: '1px',
       textAlign: 'center',
-      lineHeight: '2rem',
+      lineHeight: '2rem'
     }
     return (<div style={style2}>{content}</div>)
   }
@@ -193,13 +185,11 @@ export default class extends React.Component {
         </div>
         <img className='qr-code' src={this.state.classUrl} />
         <div className='bottom'>
-          <div className='button-bar' key={1} style={backButton} onClick={this.buttonClick.bind(this, 'back')}>
+          <div className='button-bar' key={1} style={backButton} onClick={() => this.buttonClick('back')}>
             {this.renderButton('确定')}
           </div>
         </div>
-        <style jsx>
-          {
-            `
+        <style jsx>{`
             .qr-code {
               width: 80%;
             }
@@ -225,9 +215,7 @@ export default class extends React.Component {
             }
             .button-bar{
             }
-            `
-          }
-        </style>
+        `}</style>
       </div>
     )
   }
@@ -238,12 +226,10 @@ export default class extends React.Component {
   renderNotChoose () {
     return (<div>
       <div className='title'>{this.addTitle()}</div>
-
-      {this.addTabbar()}
+      {this.addChooseBar()}
       {this.addRuleContent()}
       <div className='button'>{this.addBottom()}</div>
-      <style jsx>
-        {`
+      <style jsx>{`
         .button{
           margin-top: 10px;
           {/*position: fixed;*/}
@@ -253,13 +239,14 @@ export default class extends React.Component {
           }
         .title {
           margin: 10px auto 20px auto;
-        }`}
-      </style>
+        }
+      `}</style>
     </div>)
   }
 
   // 添加标题
   addTitle () {
+    // eslint-disable-next-line
     let divStyle = {
       textAlign: 'center',
       color: `${ThemeConfig.color.dark_black}`,
@@ -289,42 +276,49 @@ export default class extends React.Component {
     )
   }
 
-  // 添加tabbar
-  addTabbar () {
-    let normalStyle = {
-      borderRadius: '10px',
-      borderColor: `${ThemeConfig.color.yellow}`,
-      backgroundColor: `white`
-    }
+  // 添加ChooseBar
+  addChooseBar () {
     let chooseStyle = {
-      borderRadius: '10px',
       backgroundColor: `${ThemeConfig.color.yellow}`,
       borderColor: `${ThemeConfig.color.yellow}`,
       color: 'white'
     }
-    let disabledStyle = {
-      borderRadius: '10px',
-      borderColor: `${ThemeConfig.color.border}`,
-      backgroundColor: `white`,
+    let chooseBarStyle = {
+      width: '250px',
       color: `${ThemeConfig.color.content}`
     }
     return (
       <Card>
-        <Tabbar
-          currentSelect={this.state.currentSelect}
-          buttonStatus={this.buttonStatusArr}
-          divArr={this.buttonDivArr}
-          normalStyle={normalStyle}
+        <ChooseBar style={chooseBarStyle}
           chooseStyle={chooseStyle}
-          disabledStyle={disabledStyle}
-          onClickTabbar={this.onClickTabbar.bind(this)}
-        />
+          onChange={this.onClickChooseBar}
+          defaultActiveKey={this.state.currentSelect}>
+          {this.makeDivByContent()}
+        </ChooseBar>
       </Card>
     )
   }
 
-  // tabbar回调
-  onClickTabbar (index) {
+  makeDivByContent () {
+    let normalStyle = {
+      borderColor: `${ThemeConfig.color.yellow}`
+    }
+    let disabledStyle = {
+      borderColor: `${ThemeConfig.color.border}`,
+      color: `${ThemeConfig.color.content}`
+    }
+    if (this.contentArr && this.contentArr.length > 0) {
+      console.log(this.contentArr)
+      return this.contentArr.map((content, index) => {
+        return (<ChooseItem key={index} title={content}
+          style={this.buttonStatusArr[index] ? normalStyle : disabledStyle}
+          disabled={!this.buttonStatusArr[index]} />)
+      })
+    }
+  }
+
+  // ChooseBar回调
+  onClickChooseBar (index) {
     if (this.state.canSignUp) {
       if (this.state.interviewInfoList[index].canSignUp) {
         this.setState({
@@ -342,8 +336,7 @@ export default class extends React.Component {
       <p>参与规则：参加线上模拟需要先完成所有模块的学习，学完后模拟更有效哦</p>
       <p>人数限制：每个时间段开放 300 个名额，若报满 300 人，则该期无法再选择；若报名人数不到6人，则该期取消，可选择其他期数</p>
       <p className='bold'><strong>注意: </strong>选择了模拟时间之后若没有按时参加，则视为自动放弃，无法再重新选择时间！</p>
-      <style jsx>{
-        `
+      <style jsx>{`
         .bold {
           font-weight: bold;
         }
@@ -352,8 +345,7 @@ export default class extends React.Component {
           margin-left: 15px;
           color: ${ThemeConfig.color.content};
         }
-        `
-      }</style>
+      `}</style>
     </div>)
   }
 
@@ -390,16 +382,16 @@ export default class extends React.Component {
 
     if (this.state.canSignUp) {
       arr.push(
-        <div key={1} style={backButton2} onClick={this.buttonClick.bind(this, 'back')}>
+        <div key={1} style={backButton2} onClick={() => this.buttonClick('back')}>
           {this.renderButton('返回')}
         </div>)
       arr.push(
-        <div key={2} style={sureButon} onClick={this.buttonClick.bind(this, 'sure')}>
+        <div key={2} style={sureButon} onClick={() => this.buttonClick('sure')}>
           {this.renderButton('确定')}
         </div>)
     } else {
       arr.push(
-        <div key={3} style={backButton1} onClick={this.buttonClick.bind(this, 'back')}>
+        <div key={3} style={backButton1} onClick={() => this.buttonClick('back')}>
           {this.renderButton('返回')}
         </div>)
     }
@@ -407,8 +399,7 @@ export default class extends React.Component {
     return (
       <div className='button-bar'>
         {arr}
-        <style>
-          {`
+        <style>{`
           .button-bar{
             display: flex;
             justify-content: space-between;
@@ -456,15 +447,11 @@ export default class extends React.Component {
           {this.addTitleFactory(`您当前选择的是${this.indexToDate(stageId)}群面模拟`, '请再次确认,一旦确认无法更改时间哦!')}
         </div>
         {this.renderDoubleSureButton()}
-        <style jsx>
-          {
-            `
-            .title {
-              margin: 10px auto 20px auto;
-            }
-            `
+        <style jsx>{`
+          .title {
+            margin: 10px auto 20px auto;
           }
-        </style>
+        `}</style>
       </div>
     )
   }
@@ -490,24 +477,22 @@ export default class extends React.Component {
 
     let arr = []
     arr.push(
-      <div key={1} style={backButton} onClick={this.buttonClick.bind(this, 'double-cancel')}>
+      <div key={1} style={backButton} onClick={() => this.buttonClick('double-cancel')}>
         {this.renderButton('再看看')}
       </div>)
     arr.push(
-      <div key={2} style={sureButon} onClick={this.buttonClick.bind(this, 'double-sure')}>
+      <div key={2} style={sureButon} onClick={() => this.buttonClick('double-sure')}>
         {this.renderButton('确定了')}
       </div>)
     return (
       <div className='button-bar'>
         {arr}
-        <style>
-          {`
+        <style>{`
           .button-bar{
             display: flex;
             justify-content: space-between;
           }
-          `}
-        </style>
+        `}</style>
       </div>)
   }
 }

@@ -83,7 +83,7 @@ export default class extends React.Component {
                 </div>
               </div>
             </div>
-            <Button text='提交' bg='#ffd164' color='#001567' onClick={() => { this.postOfferInfo() }} />
+            <Button style={{backgroundColor: '#ffd164', color: '#001567'}} onClick={() => { this.postOfferInfo() }}>提交</Button>
           </div>
         </div>
         <style jsx>{`

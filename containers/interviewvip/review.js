@@ -1,5 +1,6 @@
 import React from 'react'
-import {Button, Form} from 'react-weui'
+import {Form} from 'react-weui'
+import Button from '../../xz-components/button'
 import classNames from 'classnames'
 import ToolsUtil from '../../util/tools'
 import Radio from '../../xz-components/radio'
@@ -7,7 +8,6 @@ import CheckBox from '../../xz-components/checkbox'
 import FixFooter from '../../xz-components/fixfooter'
 import TextArea from '../../xz-components/textarea'
 import Audio from '../../xz-components/audio'
-import Video from '../../xz-components/video'
 import Loading from '../../xz-components/loading'
 import Back from '../../xz-components/back'
 import ThemeConfig from '../../config/theme'
@@ -33,7 +33,7 @@ export default class extends React.Component {
       <div className='resource'>
         <div className='title'>阅读材料</div>
         <div className='content'><Material content={resource} /></div>
-        <FixFooter content={content} />
+        <FixFooter>{content}</FixFooter>
         <style jsx>{`
           .title {
             font-weight: bold;
@@ -157,8 +157,8 @@ export default class extends React.Component {
       <div className='dto-list'>
         <div className='pratice'>
           <div className='title'>
-            <div onClick={() => { this.toMaterial() }}><Back direct='left' text='查看材料' /></div>
-            <a href={`/interviewvip/result?topicKey=${this.props.questionList.topicKey}`}><Back direct='right' text='推荐阅读' /></a>
+            <div onClick={() => { this.toMaterial() }}><Back direct='left'>查看材料</Back></div>
+            <a href={`/interviewvip/result?topicKey=${this.props.questionList.topicKey}`}><Back direct='right'>推荐阅读</Back></a>
           </div>
           <div className='content'>
             <Material content={material} />
@@ -172,17 +172,18 @@ export default class extends React.Component {
           </div>
         </div>
         <div className='action'>
-          {noPrev && (<div className='prev disabled'><Button>上一题</Button></div>)}
+          {noPrev && (<div className='prev disabled'><Button type='normal' disabled>上一题</Button></div>)}
           {!noPrev && (
             <div className={classNames({prev: true, disabled: this.state.noPrev})}>
-              <Button onClick={() => {
-                this.prev(id, questionLength)
-              }}>上一题</Button>
+              <Button
+                style={{backgroundColor: ThemeConfig.color.yellow}}
+                onClick={() => { this.prev(id, questionLength) }}
+              >上一题</Button>
             </div>
           )}
           <div className='next'>
-            {noNext && (<div className='next disabled'><Button>下一题</Button></div>)}
-            {!noNext && <Button onClick={() => {
+            {noNext && (<div className='next disabled'><Button type='normal' disabled>下一题</Button></div>)}
+            {!noNext && <Button style={{backgroundColor: ThemeConfig.color.yellow}} onClick={() => {
               this.next(id, questionLength, dtoItem)
             }}>下一题</Button>}
           </div>

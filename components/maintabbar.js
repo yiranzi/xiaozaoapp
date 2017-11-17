@@ -21,25 +21,25 @@ export default class extends React.Component {
         </TabBody>
         <TabBar>
           <TabBarItem
-            icon={this.state.tab === 0 ?
-              <img src='/static/img/common/course_active.png' /> :
-              <img src='/static/img/common/course.png' />}
+            icon={this.state.tab === 0
+              ? <img src='/static/img/common/course_active.png' />
+              : <img src='/static/img/common/course.png' />}
             active={this.state.tab === 0}
             onClick={e => this.toLink('/college/portal')}
             label='学院'
           />
           <TabBarItem
-            icon={this.state.tab === 1 ?
-              <img src='/static/img/common/enterprise_active.png' /> :
-              <img src='/static/img/common/enterprise.png' />}
+            icon={this.state.tab === 1
+              ? <img src='/static/img/common/enterprise_active.png' />
+              : <img src='/static/img/common/enterprise.png' />}
             active={this.state.tab === 1}
             onClick={e => this.toLink('/job/internship')}
             label='实习'
           />
           <TabBarItem
-            icon={this.state.tab === 2 ?
-              <img src='/static/img/common/center_active.png' /> :
-              <img src='/static/img/common/center.png' />}
+            icon={this.state.tab === 2
+              ? <img src='/static/img/common/center_active.png' />
+              : <img src='/static/img/common/center.png' />}
             active={this.state.tab === 2}
             onClick={e => this.toLink('/ucenter/portal')}
             label='我的'

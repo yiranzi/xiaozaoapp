@@ -2,31 +2,8 @@ import React from 'react'
 import Layout from '../../components/layout'
 import ThemeConfig from '../../config/theme'
 import Button from '../../xz-components/button'
-import {Alert} from '../../xz-components/alert'
-import AxiosUtil from '../../util/axios'
 
 export default class extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      studyCard: null
-    }
-    this.paddingIsBuy = this.paddingIsBuy.bind(this)
-  }
-
-  componentDidMount = async function () {
-    try {
-      const studyCard = await AxiosUtil.get('/api/vip/getStudyCard')
-      this.setState({
-        studyCard: studyCard
-      })
-    } catch (e) {
-      this.setState({
-        error: e.message
-      })
-    }
-  }
-
   render () {
     return (
       <Layout>
@@ -36,7 +13,8 @@ export default class extends React.Component {
             <p className='red-content'>成功购买能力卡后，享专属权利------邀请好友成功购买任意能力卡，马上获得 1 张课程能力卡（原价 ¥199），多邀多得！</p>
             <p className='main-content'>*好友购买时在推荐人一栏填写你的手机号即可。</p>
             <div className='share-button'>
-              <Button text={'立即邀请好友'} color={'white'} bg={ThemeConfig.color.blue} onClick={ () => {this.props.setPopContent('1')}} />
+              <Button onClick={() => { this.props.setPopContent('1') }}
+              >立即邀请好友</Button>
             </div>
             <h1 className='header'>购买任一能力卡即可获得邀请权限</h1>
             <div className='main-content'>
@@ -103,19 +81,10 @@ export default class extends React.Component {
     )
   }
 
-  paddingIsBuy () {
-    const {studyCard} = this.state
-    if (studyCard && studyCard.buyCount > 0) {
-      this.props.setPopContent('1')
-    } else {
-      Alert({content: '购买任一能力卡，即可获得邀请权限哦~能力卡限时特惠，低至2折，购买后即可邀请好友，多邀多得！', okText: '知道了'})
-    }
-  }
-
   renderLearnCardList () {
-    let arr
-    arr = this.get()
-    let newarr = arr.map((ele, index) => {
+    let dataList
+    dataList = this.getLineList()
+    let arr = dataList.map((ele, index) => {
       return (<div key={index} className='line'>
         <img src={ele.image} onClick={() => { this.goRouter(ele.url) }} />
         <style jsx>{`
@@ -128,11 +97,11 @@ export default class extends React.Component {
         `}</style>
       </div>)
     })
-    return newarr
+    return arr
   }
 
-  get () {
-    let a = [
+  getLineList () {
+    let list = [
       {
         image: '/static/img/learncard/buy_card_1.jpg',
         url: 'https://kdt.im/RnxZWh'
@@ -154,7 +123,7 @@ export default class extends React.Component {
         url: 'https://kdt.im/yJ3-Qh'
       }
     ]
-    return a
+    return list
   }
 
   goRouter (url) {

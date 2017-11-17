@@ -179,9 +179,11 @@ courseInfo.getUserInfoAndList = async () => {
   })
 }
 
-// get
-courseInfo.getUserInfo = function () {
-  return userInfo
+// 整理数据
+courseInfo.formatList = function (res) {
+  courseInfo.makeGroupArray(res)
+  console.log(groupArrayInfo)
+  return (groupArrayInfo)
 }
 
 courseInfo.getPayStatus = function () {

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default class Loading extends React.Component {
+export default class TimeUp extends React.Component {
   constructor (props) {
     super(props)
     this.state = {

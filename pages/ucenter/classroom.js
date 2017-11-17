@@ -74,14 +74,16 @@ export default class extends React.Component {
       href: '/ucenter/portal',
       name: '返回'
     }
-    return <UCenterLayout>
-      <Navbar fixed leftbar={leftbar} navtitle='我的课堂' />
-      <br /><br />
-      <Panel>
-        {this.renderCourseList()}
-      </Panel>
-      <style global jsx>{`
-      `}</style>
-    </UCenterLayout>
+    return (
+      <UCenterLayout>
+        <Navbar fixed leftbar={leftbar} navtitle='我的课堂' />
+        <br /><br />
+        <Panel>
+          {this.renderCourseList()}
+        </Panel>
+        <style global jsx>{`
+        `}</style>
+      </UCenterLayout>
+    )
   }
 }

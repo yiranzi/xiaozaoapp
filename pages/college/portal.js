@@ -1,8 +1,5 @@
 import React from 'react'
-import AxiosUtil from '../../util/axios'
 import CollegeLayout from '../../containers/college/layout'
-import ThemeConfig from '../../config/theme'
-import { } from 'react-weui'
 
 export default class extends React.Component {
   constructor (props) {
@@ -10,8 +7,6 @@ export default class extends React.Component {
     this.state = {
     }
   }
-
-  componentDidMount = async () => { }
 
   tolink () {
     location.href = '/interviewvip/introPage'

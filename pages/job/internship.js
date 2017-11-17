@@ -206,39 +206,41 @@ export default class extends React.Component {
         return <Button key={index} size='small' className='select-btn'
           onClick={e => this.selectCity(e, item.name, item.id)}>{item.name}</Button>
       })
-      return <div>
-        <Popup
-          show={this.state.cityfullpage_show}
-          onRequestClose={e => this.setState({cityfullpage_show: false})}>
-          <div className='select-list'
-            onClick={e => this.setState({cityfullpage_show: false})}>
-            <h3 className='label'>选择城市：</h3>
-            <div>
-              <Button size='small' className='select-btn'
-                onClick={e => this.selectCity(e, '全国', null)}>全国</Button>
-              {cityElements}
+      return (
+        <div>
+          <Popup
+            show={this.state.cityfullpage_show}
+            onRequestClose={e => this.setState({cityfullpage_show: false})}>
+            <div className='select-list'
+              onClick={e => this.setState({cityfullpage_show: false})}>
+              <h3 className='label'>选择城市：</h3>
+              <div>
+                <Button size='small' className='select-btn'
+                  onClick={e => this.selectCity(e, '全国', null)}>全国</Button>
+                {cityElements}
+              </div>
             </div>
-          </div>
-        </Popup>
-        <style jsx>{`
-          .label {
-            margin: 15px;
-          }
-          .selects {
-            padding: 15px;
-          }
-          .param {
-            margin-right: 10px;
-          }
-          .param:after {
-            content: ' v'
-          }
-          .select-list {
-            height: 100vh;
-            overflow: scroll;
-          }
-        `}</style>
-      </div>
+          </Popup>
+          <style jsx>{`
+            .label {
+              margin: 15px;
+            }
+            .selects {
+              padding: 15px;
+            }
+            .param {
+              margin-right: 10px;
+            }
+            .param:after {
+              content: ' v'
+            }
+            .select-list {
+              height: 100vh;
+              overflow: scroll;
+            }
+          `}</style>
+        </div>
+      )
     }
   }
 
@@ -249,139 +251,149 @@ export default class extends React.Component {
         return <Button key={index} size='small' className='select-btn'
           onClick={e => this.selectSection(e, item.name, item.id)}>{item.name}</Button>
       })
-      return <div>
-        <Popup
-          show={this.state.sectionfullpage_show}
-          onRequestClose={e => this.setState({sectionfullpage_show: false})}>
-          <div className='select-list'
-            onClick={e => this.setState({sectionfullpage_show: false})}>
-            <h3 className='label'>选择职能：</h3>
-            <div>
-              <Button size='small' className='select-btn'
-                onClick={e => this.selectSection(e, '全部', null)}>全部</Button>
-              {sectionElements}
+      return (
+        <div>
+          <Popup
+            show={this.state.sectionfullpage_show}
+            onRequestClose={e => this.setState({sectionfullpage_show: false})}>
+            <div className='select-list'
+              onClick={e => this.setState({sectionfullpage_show: false})}>
+              <h3 className='label'>选择职能：</h3>
+              <div>
+                <Button size='small' className='select-btn'
+                  onClick={e => this.selectSection(e, '全部', null)}>全部</Button>
+                {sectionElements}
+              </div>
             </div>
-          </div>
-        </Popup>
-        <style jsx>{`
-          .label {
-            margin: 15px;
-          }
-          .selects {
-            padding: 15px;
-          }
-          .param {
-            margin-right: 10px;
-          }
-          .param:after {
-            content: ' v'
-          }
-          .select-list {
-            height: 100vh;
-            overflow: scroll;
-          }
-        `}</style>
-      </div>
+          </Popup>
+          <style jsx>{`
+            .label {
+              margin: 15px;
+            }
+            .selects {
+              padding: 15px;
+            }
+            .param {
+              margin-right: 10px;
+            }
+            .param:after {
+              content: ' v'
+            }
+            .select-list {
+              height: 100vh;
+              overflow: scroll;
+            }
+          `}</style>
+        </div>
+      )
     }
   }
 
   renderTabbar () {
-    return <Tab>
-      <NavBar>
-        <NavBarItem active={this.state.tab === 0}
-          onClick={e => this.setState({tab: 0})}>名企实习</NavBarItem>
-      </NavBar>
-      <TabBody>
-        <Panel>
-          {this.renderSelect()}
-          {this.renderList()}
-        </Panel>
-      </TabBody>
-    </Tab>
+    return (
+      <Tab>
+        <NavBar>
+          <NavBarItem active={this.state.tab === 0}
+            onClick={e => this.setState({tab: 0})}>名企实习</NavBarItem>
+        </NavBar>
+        <TabBody>
+          <Panel>
+            {this.renderSelect()}
+            {this.renderList()}
+          </Panel>
+        </TabBody>
+      </Tab>
+    )
   }
 
   renderList () {
     const {list} = this.state
     if (list) {
       const listElement = list.data.map((item, index) => {
-        return <div key={index} className='job-item'
-          onClick={e => this.toJob(item.id)}>
-          <MediaBox type='appmsg'>
-            <MediaBoxHeader><img className='company-logo'
-              src={item.companyLogo} /></MediaBoxHeader>
-            <MediaBoxBody>
-              {/*<a href='javascript:;'
-                onClick={e => this.handleCollectionChange(e, item.id)}
-                className='wx-pull-right'>★☆收藏</a>*/}
-              <MediaBoxTitle className='title'>{item.title}</MediaBoxTitle>
-              <MediaBoxTitle className='info'>{item.companyName}</MediaBoxTitle>
-              <MediaBoxTitle className='info'>{item.address}
-                <span className='wx-pull-right'>
-                  {DateUtil.format(item.createTime, 'MM月dd日')}</span></MediaBoxTitle>
-            </MediaBoxBody>
-          </MediaBox>
-          {item.comment &&
-            <div className='comment'>
-              <img className='comment-icon'
-                src='/static/img/common/recommend.png' /> {item.comment}
+        return (
+          <div key={index} className='job-item'
+            onClick={e => this.toJob(item.id)}>
+            <MediaBox type='appmsg'>
+              <MediaBoxHeader><img className='company-logo'
+                src={item.companyLogo} /></MediaBoxHeader>
+              <MediaBoxBody>
+                {/* <a href='javascript:;'
+                  onClick={e => this.handleCollectionChange(e, item.id)}
+                  className='wx-pull-right'>★☆收藏</a> */}
+                <MediaBoxTitle className='title'>{item.title}</MediaBoxTitle>
+                <MediaBoxTitle className='info'>{item.companyName}</MediaBoxTitle>
+                <MediaBoxTitle className='info'>{item.address}
+                  <span className='wx-pull-right'>
+                    {DateUtil.format(item.createTime, 'MM月dd日')}</span></MediaBoxTitle>
+              </MediaBoxBody>
+            </MediaBox>
+            {item.comment &&
+              <div className='comment'>
+                <img className='comment-icon'
+                  src='/static/img/common/recommend.png' /> {item.comment}
+              </div>
+            }
+            <div className='tags'>
+              {item.trade && <span className='tagName'>{item.trade}</span>}
+              {item.tagName && <span className='tagName'>{item.tagName}</span>}
             </div>
-          }
-          <div className='tags'>
-            {item.trade && <span className='tagName'>{item.trade}</span>}
-            {item.tagName && <span className='tagName'>{item.tagName}</span>}
+            <style jsx>{`
+              .company-logo {
+                width: 50px;
+                height: 50px;
+                border-radius: 8px;
+                border: 1px solid #ddd;
+              }
+              .job-item {
+                padding-bottom: 15px;
+                border-bottom: 1px dotted #ddd;
+                color: #6f6f6f;
+              }
+              .comment,
+              .tags {
+                padding: 0 15px;
+                margin-bottom: 5px;
+              }
+              .comment-icon {
+                width: 20px;
+                margin: 0 0 -3px 0;
+              }
+              .tagName {
+                background-color: #efefef;
+                color: #666;
+                margin-right: 5px;
+                padding: 2px 4px;
+              }
+            `}</style>
+            <style global jsx>{`
+              .title {
+                font-size: 16px !important;
+                width: 70% !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+                white-space: nowrap !important;
+              }
+              .info {
+                font-size: 14px !important;
+              }
+            `}</style>
           </div>
-          <style jsx>{`
-            .company-logo {
-              width: 50px;
-              height: 50px;
-              border-radius: 8px;
-              border: 1px solid #ddd;
-            }
-            .job-item {
-              padding-bottom: 15px;
-              border-bottom: 1px dotted #ddd;
-              color: #6f6f6f;
-            }
-            .comment,
-            .tags {
-              padding: 0 15px;
-              margin-bottom: 5px;
-            }
-            .comment-icon {
-              width: 20px;
-              margin: 0 0 -3px 0;
-            }
-            .tagName {
-              background-color: #efefef;
-              color: #666;
-              margin-right: 5px;
-              padding: 2px 4px;
-            }
-          `}</style>
-          <style global jsx>{`
-            .title {
-              font-size: 16px !important;
-              width: 70% !important;
-              overflow: hidden !important;
-              text-overflow: ellipsis !important;
-              white-space: nowrap !important;
-            }
-            .info {
-              font-size: 14px !important;
-            }
-          `}</style>
-        </div>
+        )
       })
-      return <PanelBody>
-        {listElement}
-        {this.state.dataState === 'none' && <LoadMore showLine>No Data</LoadMore>}
-        {this.state.dataState === 'more' && <Button type='default'>More</Button>}
-      </PanelBody>
+      return (
+        <PanelBody>
+          {listElement}
+          {this.state.dataState === 'none' && <LoadMore showLine>No Data</LoadMore>}
+          {this.state.dataState === 'more' && <Button type='default'>More</Button>}
+        </PanelBody>
+      )
     } else {
-      return <PanelBody className='wx-text-center'>
-        {this.state.dataState === 'loading' && <LoadMore loading>Loading</LoadMore>}
-        {this.state.dataState === 'null' && <LoadMore showLine>No Data</LoadMore>}
-      </PanelBody>
+      return (
+        <PanelBody className='wx-text-center'>
+          {this.state.dataState === 'loading' && <LoadMore loading>Loading</LoadMore>}
+          {this.state.dataState === 'null' && <LoadMore showLine>No Data</LoadMore>}
+        </PanelBody>
+      )
     }
   }
 

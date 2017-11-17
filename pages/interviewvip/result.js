@@ -24,45 +24,50 @@ export default class extends React.Component {
       nextTaskUrl: '',
       buttonWord: ''
     }
+    this.seeReview = this.seeReview.bind(this)
   }
 
   componentDidMount = async () => {
     let topicKey = ToolsUtil.getQueryString('topicKey')
-    let buyInfo = await AxiosUtil.get('/api/interview/buyInfo')
     let payStatus
-    if (buyInfo) {
-      payStatus = buyInfo.buyed
-    } else {
-      payStatus = false
-    }
-    // 体验 or 购买
-    if (payStatus) {
-      try {
-        let list = await CourseInfo.getList()
+    try {
+      // 先判定购买情况
+      let payInfo = await AxiosUtil.get('/api/interview/buyInfo')
+      payStatus = payInfo.buyed
+      // 体验 or 购买
+      if (payStatus) {
+        try {
+          let list = await CourseInfo.getList()
+          this.setState({
+            list: list
+          })
+        } catch (e) {
+          // 未付费 渲染报错信息.不渲染列表
+          this.setState({
+            error: e.message
+          })
+        }
+        let result = CourseInfo.isLast(topicKey)
+        let {taskUrl, show, word} = result
         this.setState({
-          list: list
+          topicKey: topicKey,
+          isShowNextButton: show,
+          buttonWord: word,
+          nextTaskUrl: taskUrl,
+          isRender: false,
+          payStatus: payStatus
         })
-      } catch (e) {
-        // 未付费 渲染报错信息.不渲染列表
+      } else {
         this.setState({
-          error: e.message
+          topicKey: 'demo',
+          payStatus: payStatus,
+          isRender: false
         })
       }
-      let result = CourseInfo.isLast(topicKey)
-      let {taskUrl, show, word} = result
+    } catch (e) {
       this.setState({
-        topicKey: topicKey,
-        isShowNextButton: show,
-        buttonWord: word,
-        nextTaskUrl: taskUrl,
-        isRender: false,
-        payStatus: payStatus
-      })
-    } else {
-      this.setState({
-        topicKey: 'demo',
-        payStatus: payStatus,
-        isRender: false
+        error: e.message,
+        payStatus: false
       })
     }
   }
@@ -73,12 +78,25 @@ export default class extends React.Component {
    */
   renderButtonState () {
     if (!this.state.payStatus) {
-      let payButton = <Button bg={'rgb(255, 93, 93)'} onClick={() => { location.href = '/interviewvip/introPage' }} key={1} half text={'优惠报名'} />
-      return (<Fixfooter content={payButton} />)
+      return (
+        <Fixfooter>
+          <Button
+            key={1}
+            style={{backgroundColor: 'rgb(255, 93, 93)'}} 
+            onClick={() => { location.href = '/interviewvip/introPage' }}
+          >优惠报名</Button>
+        </Fixfooter>
+      )
     } else {
-      let ele = <Button onClick={this.goRouter.bind(this, this.state.nextTaskUrl)} key={1}half text={this.state.buttonWord} />
       if (this.state.isShowNextButton) {
-        return (<Fixfooter content={ele} />)
+        return (
+          <Fixfooter>
+            <Button
+              key={1}
+              onClick={() => { this.goRouter(this.state.nextTaskUrl) }}
+            >{this.state.buttonWord}</Button>
+          </Fixfooter>
+        )
       } else {
         return null
       }
@@ -87,29 +105,9 @@ export default class extends React.Component {
 
   goRouter (topicKey) {
     // 进入下一节的介绍页
-    location.href = `/interviewvip/intro?topicKey=${topicKey}`
-  }
-
-  render () {
-    const {isRender, error} = this.state
-    return (
-      <InterviewLayout isRender={isRender} error={error}>
-        <div className='result-page'>
-          {this.renderBackButton()}
-          {this.renderResultContent()}
-          <ReadMore topicKey={this.state.topicKey} />
-          {this.renderButtonState()}
-        </div>
-        <style jsx>{`
-          a {
-            color: ${ThemeConfig.color.blue};
-          }
-          .result-page {
-            padding-bottom: 200px;
-          }
-        `}</style>
-      </InterviewLayout>
-    )
+    if (topicKey) {
+      location.href = `/interviewvip/intro?topicKey=${topicKey}`
+    }
   }
 
   renderBackButton () {
@@ -119,7 +117,7 @@ export default class extends React.Component {
     } else {
       url = '/interviewvip/introPage'
     }
-    return (<a href={url}><Back direct='left' text='返回主页' /></a>)
+    return (<a href={url}><Back direct='left'>返回主页</Back></a>)
   }
 
   seeReview () {
@@ -146,13 +144,12 @@ export default class extends React.Component {
           </div>
         </div>
         <div style={style}>
-          <Button onClick={this.seeReview.bind(this)}
-                  bg={ThemeConfig.color.yellow}
-                  color={'white'}
-                  text={'查看答案及解析'} />
+          <Button
+            style={{backgroundColor: ThemeConfig.color.yellow, color: '#fff'}}
+            onClick={this.seeReview}
+          >查看答案及解析</Button>
         </div>
-        <style jsx>
-          {`
+        <style jsx>{`
           .out {
             position: relative;
           }
@@ -190,9 +187,29 @@ export default class extends React.Component {
           .inner p {
             width: 100%;
           }
-          `}
-        </style>
+        `}</style>
       </div>
+    )
+  }
+  render () {
+    const {isRender, error} = this.state
+    return (
+      <InterviewLayout isRender={isRender} error={error}>
+        <div className='result-page'>
+          {this.renderBackButton()}
+          {this.renderResultContent()}
+          <ReadMore topicKey={this.state.topicKey} />
+          {this.renderButtonState()}
+        </div>
+        <style jsx>{`
+          a {
+            color: ${ThemeConfig.color.blue};
+          }
+          .result-page {
+            padding-bottom: 200px;
+          }
+        `}</style>
+      </InterviewLayout>
     )
   }
 }

@@ -13,11 +13,6 @@ rules:
   linebreak-style:
   - error
   - unix
-  max-len:
-  - error
-  - 90
-  - ignoreStrings: true
-  - ignoreTemplateLiterals: true
   max-lines:
   - warn
   - 400

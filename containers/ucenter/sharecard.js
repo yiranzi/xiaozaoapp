@@ -1,5 +1,5 @@
 import React from 'react'
-import {ModalPop} from '../../xz-components/ModalBox'
+import {ModalBoxPopFunc} from '../../xz-components/modalbox'
 import Button from '../../xz-components/button'
 import ThemeConfig from '../../config/theme'
 import {Alert} from '../../xz-components/alert'
@@ -42,8 +42,9 @@ export default class extends React.Component {
         <h2 className='wx-text-center'>邀请好友购买，免费再得能力卡</h2>
         <p className='red-content'>成功购买能力卡后，享专属权利------邀请好友成功购买任意能力卡，你将再次获得 1 张能力卡（原价 ¥199），多邀多得！</p>
         <p className='main-content'>*好友购买时在推荐人一栏填写你的手机号即可。</p>
-        <div className='share-button'>
-          <Button half text={'立即邀请好友'} color={'white'} bg={ThemeConfig.color.blue} onClick={this.paddingIsBuy} />
+        <div className='share-button wx-text-center'>
+          <Button half color={'white'} bg={ThemeConfig.color.blue} style={{width: '50%'}}
+            onClick={this.paddingIsBuy} >立即邀请好友</Button>
         </div>
         <style jsx>{`
           .share-button {
@@ -80,9 +81,9 @@ export default class extends React.Component {
       <p style={innerContent}>点击右上角发给好友<br />再得邀请卡！！</p>
     </div>
     let prop = {
-      inner: dom,
+      innerDiv: dom,
       style: defaultStyle
     }
-    ModalPop({...prop})
+    ModalBoxPopFunc({...prop})
   }
 }

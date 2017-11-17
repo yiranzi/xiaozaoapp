@@ -19,7 +19,9 @@ export default class extends React.Component {
     let content = this.refs.content
     let clientHeight = content.clientHeight // 期望展示高度
     let contentHeight = content.children[0].clientHeight // 实际内容高度
-
+    console.log('content: ', content)
+    console.log('clientHeight:', clientHeight)
+    console.log('contentHeight:', contentHeight)
     if (contentHeight > clientHeight) {
       this.setState({needShowBotton: true})
     }
@@ -70,7 +72,7 @@ export default class extends React.Component {
     return (
       <div className='more'>
         <div className='title'>{this.props.title}</div>
-        <div className='content' style={style} ref='content'>{this.props.content}</div>
+        <div className='content' style={style} ref='content'><div>{this.props.children}</div></div>
         {needShowBotton && this.renderButton()}
         <style jsx>{`
           .more {

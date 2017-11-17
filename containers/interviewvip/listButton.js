@@ -88,7 +88,6 @@ export default class extends React.Component {
     )
   }
 
-
   // 组件回调父组件
   onClickButton () {
     this.props.onClickButton()

@@ -1,8 +1,7 @@
 import React from 'react'
 import AxiosUtil from '../../util/axios'
 import UCenterLayout from '../../containers/ucenter/layout'
-import ThemeConfig from '../../config/theme'
-import { Page, Cells, Cell, CellHeader, CellBody, CellFooter } from 'react-weui'
+import { Page, Cells, Cell, CellBody, CellFooter } from 'react-weui'
 
 export default class extends React.Component {
   constructor (props) {
@@ -50,21 +49,17 @@ export default class extends React.Component {
       return (
         <div>
           <img className='headimg' src={user.headimgurl} />
-          <div className='nickname'>{user.nickname}</div>
-          <div className='phone'>{user.phone}
-            {!user.phone &&
-            <a href='/user/register'>去绑定手机号</a>
-            }
-          </div>
+          <span className='nickname'>{user.nickname}</span>
           <style jsx>{`
             .headimg {
-              width: 45px;
-              height: 45px;
+              width: 40px;
+              height: 40px;
               border-radius: 20px;
-              float: left;
             }
-            .nickname, .phone {
-              margin-left: 55px;
+            .nickname {
+              margin-left: 15px;
+              line-height: 40px;
+              vertical-align: text-bottom;
             }
           `}</style>
         </div>
@@ -73,37 +68,39 @@ export default class extends React.Component {
   }
 
   render () {
-    return <UCenterLayout tabbar={2}>
-      <Page>
-        <Cells>
-          <Cell access>
-            <CellBody>
-              {this.renderHeader()}
-            </CellBody>
-          </Cell>
-          <Cell access>
-            <a href='/ucenter/classroom' style={{width: '100%'}}>
+    return (
+      <UCenterLayout tabbar={2}>
+        <Page>
+          <Cells>
+            <Cell access>
               <CellBody>
-                我的教室
+                {this.renderHeader()}
               </CellBody>
-            </a>
-            <CellFooter />
-          </Cell>
-          <Cell access>
-            <a href='/ucenter/studycard' style={{width: '100%'}}>
-              <CellBody>
-                我的能力卡
-                <span className='wx-pull-right'>共
-                  {this.state.studyCard ? (this.state.studyCard.buyCount +
-                    this.state.studyCard.inviteCount) : 0}张</span>
-              </CellBody>
-            </a>
-            <CellFooter />
-          </Cell>
-        </Cells>
-      </Page>
-      <style global jsx>{`
-      `}</style>
-    </UCenterLayout>
+            </Cell>
+            <Cell access>
+              <a href='/ucenter/classroom' style={{width: '100%'}}>
+                <CellBody>
+                  我的教室
+                </CellBody>
+              </a>
+              <CellFooter />
+            </Cell>
+            <Cell access>
+              <a href='/ucenter/studycard' style={{width: '100%'}}>
+                <CellBody>
+                  我的能力卡
+                  <span className='wx-pull-right'>共
+                    {this.state.studyCard ? (this.state.studyCard.buyCount +
+                      this.state.studyCard.inviteCount) : 0}张</span>
+                </CellBody>
+              </a>
+              <CellFooter />
+            </Cell>
+          </Cells>
+        </Page>
+        <style global jsx>{`
+        `}</style>
+      </UCenterLayout>
+    )
   }
 }

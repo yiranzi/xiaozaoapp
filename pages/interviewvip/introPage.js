@@ -1,7 +1,6 @@
 import React from 'react'// 库
 import Card from '../../xz-components/card'
 import More from '../../xz-components/more'
-import Motal from '../../xz-components/motal'
 import SignUpButton from '../../containers/interviewvip/signUpButton'// 自定义组件
 import InterviewLayout from '../../containers/interviewvip/layout'// container
 import GetPayInfo from '../../util/getPayInfo'// 工具类
@@ -314,88 +313,6 @@ export default class extends React.Component {
     )
   }
 
-  render () {
-    const {isRender, error} = this.state
-    return (
-      <InterviewLayout isRender={isRender} error={error}>
-        <div className='page'>
-          <div className='header'>
-            <img src='/static/img/interviewvip/main.jpg' />
-          </div>
-          <div className='title'>小马哥教你过群面</div>
-          <div className='content'>
-            <div className='join'>
-              <div className='avatar'>{this.renderAvatar()}</div>
-              <div className='count'>{this.state.totalUserCount}人已经报名,限时优惠...</div>
-            </div>
-            <div className='intro'>
-              <More
-                title='课程介绍'
-                content={this.courseIntro()}
-                height={120}
-              />
-            </div>
-            <div className='teacher-intro'>
-              <Card title='导师介绍'>{this.teacherIntro()}</Card>
-            </div>
-            <div className='course-detail'>
-              <Card title='课程内容'>{this.courseDetail()}</Card>
-            </div>
-            <div className='fit'>
-              <Card title='你将收获什么'>{this.courseLearn()}</Card>
-            </div>
-            <style>
-              {`
-                .title{
-                  font-size: 20px !important;
-                  font-weight: bold;
-                }
-                .card {
-                  margin: 30px 0 30px 0 !important;
-                }
-                `}
-            </style>
-            {this.renderStartTime()}
-            {this.renderButton()}
-            {this.renderMotal()}
-            {this.renderHelpInfo()}
-            {this.renderBg()}
-          </div>
-        </div>
-        <style jsx>{`
-          .page{
-            padding-bottom: 50px;
-            width: 100%;
-          }
-          .header img{
-            width: 100%;
-          }
-          .title {
-            padding: 0 1rem;
-            color: ${ThemeConfig.color.dark_black};
-            font-size: 26px;
-          }
-          .content {
-            padding: 1rem 1rem 4rem 1rem;
-            color: ${ThemeConfig.color.content};
-          }
-          .content .join {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-          }
-          .content .join .count {
-            margin-left: 1rem;
-          }
-        `}</style>
-        <style global jsx>{`
-          .interviewvip {
-            padding: 0 !important;
-          }
-        `}</style>
-      </InterviewLayout>
-    )
-  }
   renderAvatar () {
     let style = {
       width: '30px',
@@ -432,7 +349,6 @@ export default class extends React.Component {
     }
   }
 
-
   // 根据条件渲染按钮
   renderButton () {
     return (
@@ -462,14 +378,13 @@ export default class extends React.Component {
     }
     let result = arr.map((ele, index) => {
       return (
-        <img style={style} src={`/static/img/interviewvip/introPage/intro_0${ele}1.jpg`} />
+        <img key={index} style={style} src={`/static/img/interviewvip/introPage/intro_0${ele}1.jpg`} />
       )
     })
     return (<div className='page'>
       <h1 className='title'>《小马哥教你过群面》精华页面</h1>
       {result}
-      <style jsx>
-        {`
+      <style jsx>{`
         .page {
           margin: -1rem;
           font-size: 0;
@@ -481,43 +396,74 @@ export default class extends React.Component {
           font-size: 20px;
           margin: 40px 0 20px 0;
         }
-        `}
-      </style>
+      `}</style>
     </div>)
   }
 
-  renderMotal () {
-    let style = {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'center',
-      alignItems: 'center',
-      fontSize: '20px',
-      width: '100%',
-      height: '100%',
-      backgroundColor: 'rgba(35,24,21,0.5)',
-      textAlign: 'center',
-      color: 'white'
-    }
-    let styleImg = {
-      width: '256px',
-      height: '297px'
-    }
-
-    let styleP = {
-      margin: '0 30px 0 30px'
-    }
+  render () {
+    const {isRender, error} = this.state
     return (
-      <Motal
-        onClickBg={() => { this.setState({isHelpShow: false}) }}
-        isShow={this.state.isHelpShow}>
-        <div style={style}>
-          <div style={{backgroundColor: '#fff', color: '#242223', padding: '1rem', margin: '1rem'}}>
-            <p style={styleP}>扫描二维码生成自己的砍价邀请卡~邀请好友扫码砍价哦~ </p>
-            <img style={styleImg} src='/static/img/interviewvip/qrcode.jpg' />
+      <InterviewLayout isRender={isRender} error={error}>
+        <div className='page'>
+          <div className='header'>
+            <img src='/static/img/interviewvip/main.jpg' />
+          </div>
+          <div className='title'>小马哥教你过群面</div>
+          <div className='content'>
+            <div className='join'>
+              <div className='avatar'>{this.renderAvatar()}</div>
+              <div className='count'>{this.state.totalUserCount}人已经报名,限时优惠...</div>
+            </div>
+            <div className='intro'>
+              <More title='课程介绍' height={120}>{this.courseIntro()}</More>
+            </div>
+            <div className='teacher-intro'>
+              <Card title='导师介绍'>{this.teacherIntro()}</Card>
+            </div>
+            <div className='course-detail'>
+              <Card title='课程内容'>{this.courseDetail()}</Card>
+            </div>
+            <div className='fit'>
+              <Card title='你将收获什么'>{this.courseLearn()}</Card>
+            </div>
+            {this.renderStartTime()}
+            {this.renderButton()}
+            {this.renderHelpInfo()}
+            {this.renderBg()}
           </div>
         </div>
-      </Motal>
+        <style jsx>{`
+          .page{
+            padding-bottom: 50px;
+            width: 100%;
+          }
+          .header img{
+            width: 100%;
+          }
+          .title {
+            padding: 0 1rem;
+            color: ${ThemeConfig.color.dark_black};
+            font-size: 26px;
+          }
+          .content {
+            padding: 1rem 1rem 4rem 1rem;
+            color: ${ThemeConfig.color.content};
+          }
+          .content .join {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+          }
+          .content .join .count {
+            margin-left: 1rem;
+          }
+        `}</style>
+        <style global jsx>{`
+          .interviewvip {
+            padding: 0 !important;
+          }
+        `}</style>
+      </InterviewLayout>
     )
   }
 }

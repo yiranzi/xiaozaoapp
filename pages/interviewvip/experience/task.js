@@ -1,6 +1,6 @@
 import React from 'react'
 import AxiosUtil from '../../../util/axios'
-import InterviewLayout from '../../../containers/interview/layout'
+import InterviewLayout from '../../../containers/interviewvip/layout'
 import Task from '../../../containers/interviewvip/task'
 
 export default class extends React.Component {

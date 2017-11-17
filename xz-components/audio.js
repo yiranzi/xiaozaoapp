@@ -184,11 +184,14 @@ export default class extends React.Component {
         initAudioEvent: function () {
           var _this = this
           // 音频事件
+          // eslint-disable-next-line
           _this.wxAudio.onplaying = function () {
             var date = new Date()
             _this.isPlaying = true
+            // eslint-disable-next-line
             _this.reduceTBefore = Date.parse(date) - Math.floor(_this.wxAudio.currentTime * 1000)
             _this.wxAudioStateImg.src = '/static/img/audio/playing.gif'
+            // eslint-disable-next-line
           },
           _this.wxAudio.onpause = function () {
             _this.isPlaying = false
@@ -214,6 +217,7 @@ export default class extends React.Component {
             if (_this.wxAudio.buffered.length > 0) {
               var bufferedT = 0
               for (var i = 0; i < _this.wxAudio.buffered.length; i++) {
+                // eslint-disable-next-line
                 bufferedT += _this.wxAudio.buffered.end(i) - _this.wxAudio.buffered.start(i)
                 if (bufferedT > _this.durationT) {
                   bufferedT = _this.durationT
@@ -249,6 +253,7 @@ export default class extends React.Component {
               _this.wxVoiceP.style.width = _this.currentP + '%'
               _this.wxAudioOrigin.style.left = _this.currentP + '%'
               // 更改时间进度
+              // eslint-disable-next-line
               _this.wxAudioCurrent.innerText = _this.formartTime(_this.wxAudio.currentTime)
               _this.showLoading(false)
             }
@@ -268,6 +273,7 @@ export default class extends React.Component {
               if (_this.isDrag) {
                 var e = event || window.event
                 var thisX = e.clientX
+                // eslint-disable-next-line
                 _this.dragProgressTo = Math.min(_this.maxProgressWidth, Math.max(0, l + (thisX - x)))
                 _this.updatePorgress()
               }
@@ -275,15 +281,15 @@ export default class extends React.Component {
             _this.wxAudioC.onmouseup = function () {
               if (_this.isDrag) {
                 _this.isDrag = false
+                // eslint-disable-next-line
                 _this.wxAudio.currentTime = Math.floor(_this.dragProgressTo / _this.maxProgressWidth * _this.durationT)
-              } else {
-
               }
             }
 
             _this.wxAudioC.onmouseleave = function () {
               if (_this.isDrag) {
                 _this.isDrag = false
+                // eslint-disable-next-line
                 _this.wxAudio.currentTime = Math.floor(_this.dragProgressTo / _this.maxProgressWidth * _this.durationT)
               } else {
 
@@ -298,18 +304,21 @@ export default class extends React.Component {
             var l = e.target.offsetLeft
 
             _this.maxProgressWidth = _this.wxAudioDetail.offsetWidth
-
+            // eslint-disable-next-line
             _this.wxAudioC.ontouchmove = function (event) {
               if (_this.isDrag) {
                 var e = event || window.event
                 var thisX = e.touches[0].clientX
+                // eslint-disable-next-line
                 _this.dragProgressTo = Math.min(_this.maxProgressWidth, Math.max(0, l + (thisX - x)))
                 _this.updatePorgress()
               }
+              // eslint-disable-next-line
             },
             _this.wxAudioC.ontouchend = function () {
               if (_this.isDrag) {
                 _this.isDrag = false
+                // eslint-disable-next-line
                 _this.wxAudio.currentTime = Math.floor(_this.dragProgressTo / _this.maxProgressWidth * _this.durationT)
               } else {
 
@@ -328,6 +337,7 @@ export default class extends React.Component {
         updatePorgress: function () {
           this.wxAudioOrigin.style.left = this.dragProgressTo + 'px'
           this.wxVoiceP.style.width = this.dragProgressTo + 'px'
+          // eslint-disable-next-line
           var currentTime = Math.floor(this.dragProgressTo / this.maxProgressWidth * this.durationT)
           this.wxAudioCurrent.innerText = this.formartTime(currentTime)
         },
@@ -356,7 +366,7 @@ export default class extends React.Component {
     })(window, document)
 
     const {idTag, audioUrl} = this.props
-
+    // eslint-disable-next-line
     var wxAudio = new Wxaudio({
       ele: '#' + idTag,
       src: audioUrl,

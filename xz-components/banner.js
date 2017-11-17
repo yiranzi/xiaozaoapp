@@ -27,7 +27,7 @@ export default class extends React.Component {
   }
 
   renderEvent () {
-    if (!this.state.swiper && this.state.bannerList) { //只渲染一次swiper
+    if (!this.state.swiper && this.state.bannerList) { // 只渲染一次swiper
       this.state.swiper = new Swiper('.swiper-container', {
         pagination: {
           el: '.swiper-pagination',

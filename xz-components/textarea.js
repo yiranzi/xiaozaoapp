@@ -1,7 +1,7 @@
 import React from 'react'
 import {Form, FormCell, CellBody, TextArea} from 'react-weui'
 
-export default class Layout extends React.Component {
+export default class MyTextArea extends React.Component {
   render () {
     const {placeholder, defaultValue, maxLength, onChange, disabled} = this.props
     return (

@@ -41,7 +41,7 @@ export default class extends React.Component {
     // 这里需要管理状态，如果做过，直接到解析页面
     let content = (
       <a href={`/interviewvip/task?topicKey=${topicKey}`}>
-        <Button text='下一页' bg='#fdc23e' half />
+        <Button style={{bakckgroundColor: '#fdc23e'}}>下一页</Button>
       </a>
     )
     return (
@@ -49,14 +49,14 @@ export default class extends React.Component {
         <div className='intro'>
           <div className='header'>
             <a href='/interviewvip/list'>
-              <Back direct='left' text='返回主页' />
+              <Back direct='left'>返回主页</Back>
             </a>
           </div>
           <div className='title'>群面说明</div>
           <div className='content'>
             <Card>{this.renderContent(topicKey)}</Card>
           </div>
-          <FixFooter content={content} />
+          <FixFooter>{content}</FixFooter>
         </div>
         <style jsx>{`
           .header a {

@@ -1,12 +1,11 @@
 import React from 'react'// 库
 import Button from '../../xz-components/button'
-import {ModalPop} from '../../xz-components/ModalBox'
-import {Alert} from '../../xz-components/alert'
+import {ModalBoxPopFunc} from '../../xz-components/modalbox'
 import DateSelector from '../../containers/apollo/DateSelector'// 自定义组件
 import Layout from '../../components/layout'// container
 import ThemeConfig from '../../config/theme'
 import { Confirm } from '../../xz-components/confirm'
-import WxShare from '../../xz-components/WxShare'
+import WxShare from '../../xz-components/wxshare'
 import AxiosUtil from '../../util/axios'
 
 // 介绍页
@@ -162,10 +161,10 @@ export default class extends React.Component {
       <p style={innerContent}>点击右上角分享给你的朋友吧</p>
     </div>
     let prop = {
-      inner: dom,
+      innerDiv: dom,
       style: defaultStyle
     }
-    ModalPop({...prop})
+    ModalBoxPopFunc({...prop})
   }
 
   // 更改周
@@ -278,6 +277,7 @@ export default class extends React.Component {
           }
           .finish-button {
             font-size: 30px !important;
+            text-align: center;
           }
           .top-help-info {
             padding: 0 1rem;
@@ -422,19 +422,19 @@ export default class extends React.Component {
     // 如果是当日
     if (day.today) {
       if (day.over) {
-        return <Button half text={'今日已完成'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.yellow} onClick={this.onSignSuccess.bind(this, 1)} />
+        return <Button style={{width: '50%', backgroundColor: ThemeConfig.color.yellow, color: ThemeConfig.color.deepBlue}} onClick={() => this.onSignSuccess(1)} >今日已完成</Button>
       } else {
-        return <Button half text={'完成今日打卡'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.yellow} onClick={this.signUp} />
+        return <Button style={{width: '50%', backgroundColor: ThemeConfig.color.yellow, color: ThemeConfig.color.deepBlue}} onClick={this.signUp} >完成今日打卡</Button>
       }
     } else {
       if (day.start) {
         if (day.over) {
-          return <Button half text={'已完成打卡'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.yellow} onClick={this.onSignSuccess.bind(this, 0)} />
+          return <Button style={{width: '50%', backgroundColor: ThemeConfig.color.yellow, color: ThemeConfig.color.deepBlue}} onClick={() => this.onSignSuccess(0)} >已完成打卡</Button>
         } else {
-          return <Button half text={'未完成打卡'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.deepBorder} />
+          return <Button style={{width: '50%', backgroundColor: ThemeConfig.color.deepBorder, color: ThemeConfig.color.deepBlue}} >未完成打卡</Button>
         }
       } else {
-        return <Button half text={'打卡未开始'} color={ThemeConfig.color.deepBlue} bg={ThemeConfig.color.deepBorder} />
+        return <Button style={{width: '50%', backgroundColor: ThemeConfig.color.deepBorder, color: ThemeConfig.color.deepBlue}} >打卡未开始</Button>
       }
     }
   }

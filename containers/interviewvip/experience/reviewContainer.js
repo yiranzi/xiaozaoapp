@@ -74,7 +74,6 @@ export default class extends React.Component {
         <div className='meterial-item'>{this.renderMaterialItem(material)}</div>
       )
     }
-    
   }
   renderResourceGroup (resource) {
     const content = (
@@ -320,7 +319,7 @@ export default class extends React.Component {
     if (nextIndex >= questionLength - 1) {
       this.setState({currentIndex: nextIndex, noNext: true, noPrev: false}, () => {
         const {isReject} = this.state
-        
+
         console.log('isReject:', isReject, ' nextIndex: ', nextIndex)
         if (nextIndex + 1 === 2 && !isReject) {
           _this.confirmDialog()
@@ -330,7 +329,7 @@ export default class extends React.Component {
       this.setState({currentIndex: nextIndex, noPrev: false}, () => {
         const {isReject} = this.state
         console.log('isReject:', isReject, ' nextIndex: ', nextIndex)
-        
+
         if (nextIndex + 1 === 2 && !isReject) {
           _this.confirmDialog()
         }
@@ -344,7 +343,7 @@ export default class extends React.Component {
       okText: (<span style={{color: 'rgb(255, 93, 93)'}}>优惠报名</span>),
       cancelText: '残忍拒绝',
       ok: () => { location.href = '/interviewvip/introPage' },
-      cancel: () => { _this.setState({isReject: true}, () => {console.log(_this.state.isReject)}) }
+      cancel: () => { _this.setState({isReject: true}, () => { console.log(_this.state.isReject) }) }
     })
   }
   render () {
