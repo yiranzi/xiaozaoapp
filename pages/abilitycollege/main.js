@@ -97,6 +97,9 @@ export default class extends React.Component {
           .main {
             background-color: #f0f2f6;
           }
+          .content {
+            padding-bottom: 7rem;
+          }
         `}</style>
         <style global jsx>{`
           h1 {

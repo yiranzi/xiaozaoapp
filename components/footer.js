@@ -22,16 +22,20 @@ export default class extends React.Component {
         </div>
         <style jsx>{`
           .footer {
+            font-size: 14px;
             padding: 0.5rem 0;
             background-color: #fff;
             display: flex;
             justify-content: space-between;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
           }
           .footer div {
             text-align: center;
           }
           .footer .icon img {
-            width: 2.5rem;
+            width: 2rem;
           }
           .footer .college {
             padding-left: 2rem;
