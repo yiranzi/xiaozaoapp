@@ -40,7 +40,10 @@ wxPayController.onBridgeReady = () => {
     function (res) {
       if (res.err_msg === 'get_brand_wcpay_request:ok') {
       }
-      location.href = `/interviewvip/introPage`
+      for (let i of res) {
+        alert(i)
+      }
+      // location.href = `/interviewvip/introPage`
     }
   )
 }
