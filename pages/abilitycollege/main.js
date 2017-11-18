@@ -4,6 +4,7 @@ import Loading from '../../xz-components/loading'
 import AxiosUtil from '../../util/axios'
 import DataUtils from '../../util/data'
 import Header from '../../containers/abilitycollege/header'
+import Footer from '../../components/footer'
 import Schedule from '../../containers/abilitycollege/main/schedule'
 import Plan from '../../containers/abilitycollege/main/plan'
 import Course from '../../containers/abilitycollege/main/course'
@@ -90,6 +91,7 @@ export default class extends React.Component {
             <Study />
             <Comment />
           </div>
+          <Footer />
         </div>
         <style jsx>{`
           .main {
@@ -98,20 +100,21 @@ export default class extends React.Component {
         `}</style>
         <style global jsx>{`
           h1 {
+            font-size: 24px;
             font-weight: normal;
             color: #2f3138;
             display: inline-block;
             position: relative;
-            padding-left: 15px;
+            padding-left: 12px;
             margin-left: 1rem;
           }
           h1::before {
             content: '';
             position: absolute;
             left: 0;
-            top: 8px;
-            width: 8px;
-            height: 30px;
+            top: 6px;
+            width: 6px;
+            height: 24px;
             border-radius: 15px;
             background-color: #241d66;
           }

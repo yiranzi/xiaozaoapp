@@ -50,7 +50,7 @@ export default class extends React.Component {
             overflow-x: hidden;
           }
           .title {
-            font-size: 18px;
+            font-size: 1rem;
             margin: 0.5rem 1rem 1rem 1rem;
           }
           .card {
@@ -67,12 +67,13 @@ export default class extends React.Component {
             border-top-right-radius: 10px;
           }
           .card .header .sub-title {
-            font-size: 24px;
+            font-size: 1.25rem;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
           }
           .card .header .group {
+            font-size: 14px;
             margin-top: 0.5rem;
             display: flex;
             justify-content: space-between;
@@ -101,6 +102,7 @@ export default class extends React.Component {
           /* ------------ */
           /* content 样式 */
           .card .sub-content {
+            font-size: 14px;
             padding: 0 1rem 1rem 1rem;
             border-bottom-left-radius: 10px;
             border-bottom-right-radius: 10px;
@@ -118,17 +120,18 @@ export default class extends React.Component {
           .card .sub-content .publish-date {
             margin-top: 1rem;
             position: relative;
-            padding-left: 1.5rem;
+            padding-left: 18px;;
+            font-size: 14px;
           }
           .card .sub-content .publish-date::before {
             content: '';
-            width: 1rem;
-            height: 1rem;
+            width: 14px;
+            height: 14px;
             border-radius: 1rem;
             background-color: red;
             position: absolute;
             left: 0;
-            top: 0.3rem
+            top: 3px;
           }
         `}</style>
       </div>

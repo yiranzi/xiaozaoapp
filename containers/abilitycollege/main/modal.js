@@ -9,7 +9,7 @@ export default class Modal extends React.Component {
         <div>{group[0]}：</div><div>{group[1]}</div>
         <style jsx>{`
           .sub-title {
-            font-size: 24px;
+            font-size: 22px;
             border-bottom: 1px solid #e5e5e5;
             padding-bottom: 0.5rem;
             margin-bottom: 0.5rem;

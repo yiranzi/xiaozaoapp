@@ -58,7 +58,7 @@ export default class extends React.Component {
             padding: 0 1.5rem;
           }
           .detail .title {
-            font-size: 18px;
+            font-size: 1rem;
           }
           .detail .content {
             padding: 2rem 0;

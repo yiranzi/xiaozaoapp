@@ -23,8 +23,8 @@ export default class extends React.Component {
             margin-top: 3rem;
           }
           .title {
-            font-size: 18px;
-            margin: 1rem;
+            font-size: 1rem;
+            margin-left: 1rem;
           }
           .content {
             padding: 1rem;

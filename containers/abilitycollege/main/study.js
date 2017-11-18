@@ -27,7 +27,7 @@ export default class extends React.Component {
             padding: 1rem;
           }
           .title {
-            font-size: 18px;
+            font-size: 1rem;
           }
           a.know {
             color: red;
