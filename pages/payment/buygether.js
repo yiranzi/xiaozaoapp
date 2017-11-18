@@ -5,8 +5,9 @@ import DateSelector from '../../containers/apollo/DateSelector'// 自定义组�
 import Layout from '../../components/layout'// container
 import ThemeConfig from '../../config/theme'
 import { Confirm } from '../../xz-components/confirm'
-import WxShare from '../../xz-components/wxshare'
 import AxiosUtil from '../../util/axios'
+import WxShare from '../../xz-components/wxshare'
+import wxPayController from '../../util/wxPayController2'// 工具类
 
 // 介绍页
 export default class extends React.Component {
@@ -18,47 +19,53 @@ export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      otherGroup: undefined,
-      currentViewGroup: null,
-      isGrouping: false, // 是否正在开团
-
-      studyCardPackageList: [] // 套餐列表
+      myGroup: [], // 我的团信息
+      otherGroup: undefined, // 其他团信息
+      myGroupingId: null, // 是否正在开团
+      studyCardPackageList: [], // 套餐列表
+      couponInfo: []
     }
     this.renderCard = this.renderCard.bind(this)
     this.buyGroup = this.buyGroup.bind(this)
+    this.renderShare = this.renderShare.bind(this)
   }
 
   componentDidMount = async () => {
     // 0 去参数
     // 1 拉取优惠券 （如果有。
     let buyDetail = await AxiosUtil.get('/api/study-card/buyDetail')
+    let couponInfo = await AxiosUtil.get('/api/study-card/coupon')
     let {myGroup, otherGroup, studyCardPackageList} = buyDetail
+    console.log(otherGroup)
     // 4 设置不同的分享
     this.setGroupStatus(myGroup)
-    this.setShare()
     this.setState({
-      otherGroup: otherGroup
-    }, this.setChangeInterval)
+      myGroup: myGroup,
+      otherGroup: otherGroup,
+      studyCardPackageList: studyCardPackageList,
+      couponInfo: couponInfo
+    }, this.setRenderOtherGroupInterval)
   }
 
-  // 根据信息设置开团状态
+  // 根据信息设置开团状态 如果有团 设置团号 没有滞null
   setGroupStatus (myGroup) {
-    let isGrouping = false
+    let myGroupingId = null
     if (myGroup && myGroup.length > 0) {
-      let result = myGroup.map((ele, index) => {
+      let result = myGroup.find((ele, index) => {
         return (ele.status === 0)
       })
-      isGrouping = result ? true : false
+      myGroupingId = result ? result.groupId : null
     } else {
-      isGrouping = false
+      myGroupingId = null
     }
     this.setState({
-      isGrouping: true
+      myGroupingId: myGroupingId
     })
   }
 
-  setChangeInterval () {
-    // 如果需要刷新
+  // otherGroup 列表自动刷新
+  setRenderOtherGroupInterval () {
+    // 如果可供参团大于一次展示的数量
     if (this.state.otherGroup.length > this.groupLength) {
       window.setInterval(this.refreshGroup, this.changeInterval)
     }
@@ -74,13 +81,29 @@ export default class extends React.Component {
     })
   }
 
+  renderShare () {
+    let shareProp = {
+      title: '我没有团，你可以来看看',
+      desc: '我没有团',
+      link: 'http://rcwx.review.xiaozao.org/buygether',
+      imgUrl: 'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg',
+    }
+    if (this.state.myGroupingId) {
+      shareProp.title = '我正在团，来和我参团'
+      shareProp.desc = '我正在团'
+      shareProp.link += `/?groundId=${this.state.myGroupingId}`
+    }
+
+    return (<WxShare {...shareProp} />)
+  }
+
   // 立即邀请好友 弹窗 正在开团的line
   // 邀请好友，再得卡 跳转 已成团的line
   renderMyGroup () {
-    let {myGroup} = this.state
-    let button
+    const {myGroup} = this.state
     if (myGroup && myGroup.length > 0) {
-      myGroup.map((ele, index) => {
+      let button
+      let arr = myGroup.map((ele, index) => {
         // 要根据这个团的不同情况进行渲染
         if (ele.status === 1) {
           // 历史团
@@ -89,23 +112,19 @@ export default class extends React.Component {
           // 正在团
           button = <Button onClick>立即邀请好友</Button>
         }
+        return (this.renderCard(ele, button))
       })
-
       return (<div>
-        <p>待定</p>
+        {this.renderTitle('我的团')}
+        {arr}
+
       </div>)
     }
   }
 
-  // 渲染 小标题
-  renderTitle (title) {
-    return (
-      <h1>{title}</h1>
-    )
-  }
-
-  renderDiscount () {
-    if (true) {
+  renderCoupon () {
+    let {couponInfo} = this.state
+    if (couponInfo && couponInfo.length > 0) {
       return (<div>
         {this.renderTitle('我获得的优惠券')}
         <p>报名后你的好友</p>
@@ -113,44 +132,46 @@ export default class extends React.Component {
     }
   }
 
-  renderOtherGroupList () {
+  renderOtherGroup () {
     let {otherGroup} = this.state
     if (otherGroup !== undefined) {
+      const perLength = this.groupLength
       let groupingArr = []
-      let perLength = this.groupLength
       if (otherGroup.length > perLength) {
         // 如果人数多于4个，取出4个渲染
-        let arr = otherGroup.slice(1, perLength)
-        groupingArr = arr.map((ele, index) => {
-          return (this.renderCard(ele))
+        groupingArr = otherGroup.slice(1, perLength).map((ele, index) => {
+          const button = <Button onClick={() => { this.buyGroup(ele.groupId) }}>参团</Button>
+          return (this.renderCard(ele, button))
         })
       } else {
         // 如果人数不足4个，先取出所有，再补上缺省
         let count = 0
-        let arr = otherGroup.map((ele, index) => {
+        groupingArr = otherGroup.map((ele, index) => {
           count++
-          return (this.renderCard(ele))
+          const button = <Button onClick={() => { this.buyGroup(ele.groupId) }}>参团</Button>
+          return (this.renderCard(ele, button))
         })
         while (count < perLength) {
           count++
-          arr.push()
+          groupingArr.push(<div>缺省</div>)
         }
       }
       return (<div>
+        {this.renderTitle('拼团进行中')}
         {groupingArr}
         <style jsx>{`
         .
-      `}</style>
+        `}</style>
       </div>)
     }
   }
 
   // 解析参数。渲染拼团
   renderCard (groupInfo, button) {
-    button = button || <Button onClick={() => { this.buyGroup(groupInfo.groupId) }}>参团</Button>
+    console.log(groupInfo)
     let {headimgurl, leftHour, leftMinute, nickname, groupId} = groupInfo
     return (<div>
-      <img />
+      <img src={headimgurl} />
       <div>
         <span>1</span>
         <span>剩余，还差1人</span>
@@ -160,6 +181,26 @@ export default class extends React.Component {
 
       `}</style>
     </div>)
+  }
+
+  // 渲染 小标题
+  renderTitle (title) {
+    return (
+      <div className='title-line'>
+        <span className='dot' />
+        <h1>{title}</h1>
+        <style jsx>{`
+          .title-line {
+            display: flex;
+            margin: 10px auto;
+          }
+          .dot {
+            background-color: purple
+            border-radius: 5px;
+          }
+        `}</style>
+      </div>
+    )
   }
 
   // 按钮可能
@@ -181,6 +222,8 @@ export default class extends React.Component {
    */
 
   buyGroup (groupId) {
+    console.log(groupId)
+    wxPayController.payInit()
     // 自己开团
     // 参加别人的团（点击 or 邀请）
     // 调用之后，显示。
@@ -205,66 +248,56 @@ export default class extends React.Component {
 
   // 购买回调
   buyCallBack (groupId) {
+
     if (groupId) {
+
       // 设置groupId。调用另外的接口
     } else {
       // 传入套餐。调用开团接口
     }
   }
 
+  renderGroupType () {
+    return (<div>
+      <div className='line'>
+        <span>能力卡可以用于兑换2018课表课程</span>
+        <span>已有9999人获得能力卡</span>
+      </div>
+      <style jsx>{`
+        .line {
+          display: flex;
+          justify-content: space-between;
+        }
+      `}</style>
+    </div>)
+  }
+
   render () {
     return (
       <Layout>
+        {this.renderShare()}
         <div className='buy-card-page'>
-          <h1 className='header'>获得能力卡</h1>
-          <p className='red-content'>成功购买能力卡后，享专属权利------邀请好友成功购买任意能力卡，马上获得 1 张课程能力卡（原价 ¥199），多邀多得！</p>
-          <p className='main-content'>*好友购买时在推荐人一栏填写你的手机号即可。</p>
-          <h1 className='header'>购买任一能力卡即可获得邀请权限</h1>
-          <div className='main-content'>
-            <p>小灶能力卡可以兑换2018年小灶能力学院的课程，小伙伴可以根据兴趣和需求，选择购买相应的能力卡。</p>
-          </div>
           <div className='ad-img'>
             <img src={'/static/img/learncard/buy_card_bg.jpg'} />
           </div>
+          <div >{this.renderGroupType()}</div>
+          <div className='div-with-border'>
+            {this.renderMyGroup()}
+            {this.renderCoupon()}
+            {this.renderOtherGroup()}
+          </div>
         </div>
         <style jsx>{`
+          .div-with-border > div{
+            border-bottom: 1px solid black;
+            color: red;
+          }
           .buy-card-page {
             padding: 20px;
             text-align: center;
           }
           .header {
             font-size: 22px;
-          }
-          .red-content {
-            color: red;
-            margin-top: 15px;
-            font-size: 16px;
-            text-align: left;
-          }
-          .main-content {
-            margin-top: 10px;
-            font-size: 16px;
-            text-align: left;
-          }
-          .share-button {
-            margin: 20px auto 30px auto;
-          }
-          .button-list {
-            display: flex;
-            justify-content: space-between;
-            margin: 5px auto 10px auto;
-            font-size: 16px;
-          }
-          .ad-img img{
-            width: 100%;
-          }
-          .list {
-            margin: 10px auto auto auto;
-            padding: 10px;
-          }
-          .my-card {
-            font-size: 14px;
-            margin-top: -20px;
           }
         `}</style>
       </Layout>
