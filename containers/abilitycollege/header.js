@@ -1,5 +1,6 @@
 import React from 'react'
 import ClassNames from 'classnames'
+import { Confirm } from '../../xz-components/confirm'
 
 export default class extends React.Component {
   constructor (props) {
@@ -10,13 +11,26 @@ export default class extends React.Component {
       get: false
     }
   }
+  share () {
+    const {buyDetail} = this.props
+    if (buyDetail.studyCardPackageList.length > 0) {
+      location.href = '/abilitycollege/coupon'
+    } else {
+      Confirm({
+        content: '没有优惠券',
+        okText: '去购买',
+        cancelText: '不去了',
+        ok: () => { location.href = '/payment/buygether' }
+      })
+    }
+  }
   render () {
     return (
       <div className='header'>
         <div
           className={ClassNames('item', {'current': this.state.invite})}
           onTouchStart={() => { this.setState({invite: true}) }}
-          onTouchEnd={() => { this.setState({invite: false}) }}
+          onTouchEnd={() => { this.setState({invite: false}, () => { this.share() }) }}
         >
           <div className='icon'><img src='/static/img/abilitycollege/invite.png' /></div>
           <div className='text'>邀请好友</div>
@@ -24,7 +38,7 @@ export default class extends React.Component {
         <div
           className={ClassNames('item', {'current': this.state.chat})}
           onTouchStart={() => { this.setState({chat: true}) }}
-          onTouchEnd={() => { this.setState({chat: false}) }}
+          onTouchEnd={() => { this.setState({chat: false}, () => { location.href = 'https://static.meiqia.com/dist/standalone.html?_=t&eid=63917&agentid=ed8f6b7c96fc339a6fcd6f8985624f82' }) }}
         >
           <div className='icon'><img src='/static/img/abilitycollege/chat.png' /></div>
           <div className='text'>在线咨询</div>

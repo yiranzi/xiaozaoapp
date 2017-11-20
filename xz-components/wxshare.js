@@ -1,8 +1,6 @@
 import React from 'react'
 import AxiosUtil from '../util/axios'
 
-
-
 /*
  直接引用 传入props完成设置 就可以在该页面使用分享 使用绝对路径设置图片、分享地址
  param:

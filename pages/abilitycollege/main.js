@@ -1,6 +1,6 @@
 import React from 'react'
 import Layout from '../../components/layout'
-import Loading from '../../xz-components/loading'
+import LoadingIcon from '../../xz-components/loadingicon'
 import AxiosUtil from '../../util/axios'
 import DataUtils from '../../util/data'
 import Header from '../../containers/abilitycollege/header'
@@ -17,13 +17,15 @@ export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      exchangeDetail: {}
+      exchangeDetail: {},
+      buyDetail: {}
     }
   }
   componentDidMount = async () => {
     let exchangeDetail = await AxiosUtil.get('/api/study-card/exchangeDetail')
+    let buyDetail = await AxiosUtil.get('/api/study-card/buyDetail')
     exchangeDetail = this.formData(exchangeDetail)
-    this.setState({exchangeDetail: exchangeDetail})
+    this.setState({exchangeDetail: exchangeDetail, buyDetail: buyDetail})
   }
   formData (exchangeDetail) {
     let json = {}
@@ -75,17 +77,17 @@ export default class extends React.Component {
     return json
   }
   render () {
-    if (DataUtils.isEmpty(this.state.exchangeDetail)) return (<Layout><Loading /></Layout>)
+    const {exchangeDetail, buyDetail} = this.state
     return (
       <Layout>
         <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css' />
         <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css' />
         <div className='main'>
-          <Header />
+          <Header buyDetail={buyDetail} />
           <div className='content'>
-            <Schedule exchangeDetail={this.state.exchangeDetail} />
+            {DataUtils.isEmpty(exchangeDetail) ? <LoadingIcon /> : <Schedule exchangeDetail={this.state.exchangeDetail} />}
             <Plan />
-            <Course exchangeDetail={this.state.exchangeDetail} />
+            {DataUtils.isEmpty(exchangeDetail) ? <LoadingIcon /> : <Course exchangeDetail={this.state.exchangeDetail} />}
             <Patent />
             <Teacher />
             <Study />

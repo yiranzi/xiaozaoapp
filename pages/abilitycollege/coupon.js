@@ -7,6 +7,22 @@ import Header from '../../containers/abilitycollege/header'
 import Footer from '../../components/footer'
 
 export default class extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      detail: {}
+    }
+  }
+  componentDidMount = async () => {
+    try {
+      let detail = await AxiosUtil.get('/api/study-card')
+      this.setState({detail: detail})
+    } catch (e) {
+      this.setState({
+        error: e.message
+      })
+    }
+  }
   renderCouponItem (subTitle, bg) {
     return (
       <div className='item'>
@@ -50,7 +66,7 @@ export default class extends React.Component {
     )
   }
   render () {
-    // if (DataUtils.isEmpty(this.state.exchangeDetail)) return (<Layout><Loading /></Layout>)
+    const {detail} = this.state
     return (
       <Layout>
         <div className='coupon'>
@@ -69,7 +85,7 @@ export default class extends React.Component {
           </div>
           <div className='own'>
             <div className='text'>已通过邀请获得能力卡</div>
-            <div className='acount'>{}张</div>
+            <div className='acount'>{!DataUtils.isEmpty(detail) && detail.buyCount}张</div>
           </div>
           <div className='link'>查看我的能力卡</div>
           <style jsx>{`
