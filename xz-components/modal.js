@@ -71,6 +71,7 @@ function close () {
   const target = document.getElementById('xz-modal')
   unmountComponentAtNode(target)
   target.parentNode.removeChild(target)
+  document.body.style.overflow = 'auto'
 }
 
 export function Modal (properties) {
@@ -78,5 +79,6 @@ export function Modal (properties) {
   let divTarget = document.createElement('div')
   divTarget.id = 'xz-modal'
   document.body.appendChild(divTarget)
+  document.body.style.overflow = 'hidden'
   render(<ModalDom {...properties} />, divTarget)
 }
