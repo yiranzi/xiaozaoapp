@@ -28,6 +28,7 @@ export default class extends React.Component {
     this.renderCard = this.renderCard.bind(this)
     this.buyGroup = this.buyGroup.bind(this)
     this.renderShare = this.renderShare.bind(this)
+    this.getPayInfo = this.getPayInfo.bind(this)
   }
 
   componentDidMount = async () => {
@@ -223,7 +224,7 @@ export default class extends React.Component {
 
   buyGroup (groupId) {
     console.log(groupId)
-    wxPayController.payInit()
+    this.getPayInfo(groupId)
     // 自己开团
     // 参加别人的团（点击 or 邀请）
     // 调用之后，显示。
@@ -248,9 +249,7 @@ export default class extends React.Component {
 
   // 购买回调
   buyCallBack (groupId) {
-
     if (groupId) {
-
       // 设置groupId。调用另外的接口
     } else {
       // 传入套餐。调用开团接口
@@ -272,6 +271,22 @@ export default class extends React.Component {
     </div>)
   }
 
+  renderBuyButton () {
+    return (<div>
+      <Button onClick={() => { this.getPayInfo() }}>自己开团</Button>
+    </div>)
+  }
+
+  getPayInfo = async (groupId) => {
+    let payInfo
+    if (groupId) {
+      payInfo = await AxiosUtil.get(`/api/study-card/buyTogether/${groupId}/3`)
+    } else {
+      payInfo = await AxiosUtil.get('/api/study-card/buy/3')
+    }
+    wxPayController.payInit(payInfo)
+  }
+
   render () {
     return (
       <Layout>
@@ -286,6 +301,7 @@ export default class extends React.Component {
             {this.renderCoupon()}
             {this.renderOtherGroup()}
           </div>
+          {this.renderBuyButton()}
         </div>
         <style jsx>{`
           .div-with-border > div{

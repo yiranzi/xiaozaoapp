@@ -4,9 +4,8 @@ let payData = null
 
 let wxPayController = {}
 
-wxPayController.payInit = async () => {
-  // 1 获取订单数据
-  await wxPayController.getPayInfo()
+wxPayController.payInit = async (payInfo) => {
+  payData = payInfo
   // 2 调用微信
   wxPayController.pay()
 }
@@ -43,18 +42,9 @@ wxPayController.onBridgeReady = () => {
       for (let i of res) {
         alert(i)
       }
-      // location.href = `/interviewvip/introPage`
+      location.href = `/payment/buygether`
     }
   )
-}
-
-wxPayController.getPayInfo = async () => {
-  try {
-    let payInfo = await AxiosUtil.get('/api/study-card/buy/3')
-    payData = payInfo
-  } catch (e) {
-    alert(e.message)
-  }
 }
 
 module.exports = wxPayController
