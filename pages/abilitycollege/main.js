@@ -91,7 +91,7 @@ export default class extends React.Component {
             <Study />
             <Comment />
           </div>
-          <Footer />
+          <Footer type='college' />
         </div>
         <style jsx>{`
           .main {

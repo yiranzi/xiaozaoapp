@@ -7,12 +7,15 @@ export default class extends React.Component {
         <h1>严选导师和顾问团队</h1>
         <div className='detail'>
           <div className='content'>
-          asdf
+            <img src='/static/img/abilitycollege/Marc.png' />
           </div>
         </div>
         <style jsx>{`
           .teacher {
             margin-top: 3rem;
+          }
+          .content img {
+            width: 100%;
           }
         `}</style>
       </div>
