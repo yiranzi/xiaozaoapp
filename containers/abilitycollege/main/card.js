@@ -70,6 +70,8 @@ export default class extends React.Component {
             border-top-right-radius: 10px;
           }
           .card .header .sub-title {
+            width: 80%;
+            font-family: 'SimSun';
             font-size: 1.25rem;
             white-space: nowrap;
             overflow: hidden;
@@ -77,19 +79,19 @@ export default class extends React.Component {
           }
           .card .header .group {
             font-size: 14px;
-            margin-top: 0.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
           }
           .card .header .group .need-card {
+            font-size: 0.85rem;
             display: flex;
             justify-content: flex-start;
             align-items: center;
           }
           .card .header .group .need-card img {
             margin-right: 0.5rem;
-            width: 2rem;
+            width: 1.5rem;
           }
           .card .header .group .price {
             display: flex;
@@ -97,10 +99,10 @@ export default class extends React.Component {
             align-items: center;
           }
           .card .header .group .price .before {
+            font-size: 0.85rem;
             text-decoration: line-through;
           }
           .card .header .group .price .now {
-            font-size: 1.25rem;
             margin-left: 0.5rem;
           }
           /* ------------ */
@@ -109,13 +111,16 @@ export default class extends React.Component {
             background: url('/static/img/abilitycollege/shadow.png');
             background-size: 100% 100%;
             font-size: 14px;
+            color: #241d66;
             padding: 0 1rem 1rem 1rem;
             border-bottom-left-radius: 10px;
             border-bottom-right-radius: 10px;
           }
           .card .sub-content .main,
           .card .sub-content .get {
-            padding-top: 1rem;
+            font-size: 0.75rem;
+            line-height: 150%;
+            padding-top: 0.5rem;
             overflow:hidden; 
             text-overflow:ellipsis;
             display:-webkit-box; 
@@ -123,7 +128,8 @@ export default class extends React.Component {
             -webkit-line-clamp:2;
           }
           .card .sub-content .publish-date {
-            margin: 1rem 0;
+            margin-top: 0.75rem;
+            font-size: 0.75rem;
             position: relative;
             padding-left: 18px;;
             font-size: 14px;
@@ -133,7 +139,7 @@ export default class extends React.Component {
             width: 14px;
             height: 14px;
             border-radius: 1rem;
-            background-color: red;
+            background-color: #c41616;
             position: absolute;
             left: 0;
             top: 3px;

@@ -103,7 +103,7 @@ export default class extends React.Component {
         `}</style>
         <style global jsx>{`
           h1 {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: normal;
             color: #2f3138;
             display: inline-block;

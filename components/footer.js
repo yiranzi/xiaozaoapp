@@ -67,12 +67,15 @@ export default class extends React.Component {
             width: 100%;
           }
           .footer .item {
-            padding: 0.5rem 0;
+            padding: 5px 0;
             flex: 1;
           }
           .footer .current {
             background-color: #241d66;
             color: #fff;
+          }
+          .footer .icon {
+            font-size: 0;
           }
           .footer .icon img {
             width: 1.7rem;

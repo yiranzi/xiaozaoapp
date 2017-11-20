@@ -46,7 +46,7 @@ export default class extends React.Component {
             justify-content: space-between;
           }
           .header .item {
-            padding: 0.5rem 0;
+            padding: 5px 0;
             flex: 1;
           }
           .header .current {
@@ -54,6 +54,9 @@ export default class extends React.Component {
           }
           .header .icon img {
             width: 2rem;
+          }
+          .header .text {
+            font-size: 0.85rem;
           }
         `}</style>
       </div>

@@ -20,7 +20,7 @@ export default class extends React.Component {
           <div className='tips'>*以上课程均可使用小灶能力卡兑换</div>
           <div className='button-group'>
             <a href='/payment/buygether'>
-              <Button style={{backgroundColor: 'red', fontSize: '16px'}}>
+              <Button style={{backgroundColor: '#c41616', fontSize: '16px'}}>
                 <img src='/static/img/abilitycollege/fire.png' />能力卡火热拼团中 <strong style={{marginLeft: '0.5rem'}}>立即获取</strong>
               </Button>
             </a>
@@ -28,20 +28,21 @@ export default class extends React.Component {
         </div>
         <style jsx>{`
           .schedule {
-            margin-top: 3rem;
+            margin-top: 2.5rem;
             padding-left: 0.5rem;
             padding-right: 0.5rem;
           }
           .schedule .tips {
-            margin-top: 3rem;
+            margin-top: 2rem;
+            font-size: 0.75rem;
             text-align: center;
           }
           .schedule .work,
           .schedule .job {
-            margin-top: 3rem;
+            margin-top: 2.5rem;
           }
           .schedule .button-group {
-            padding: 1rem;
+            padding: 0 1rem;
           }
           .schedule .button-group a {
             display: inline-block;
@@ -58,7 +59,7 @@ export default class extends React.Component {
             align-items: center;
           }
           .schedule button img {
-            width: 2rem;
+            width: 1.25rem;
             margin-right: 1rem;
           }
         `}</style>
