@@ -35,7 +35,7 @@ export default class extends React.Component {
             text-align: center;
           }
           .footer .icon img {
-            width: 2rem;
+            width: 1.7rem;
           }
           .footer .college {
             padding-left: 2rem;

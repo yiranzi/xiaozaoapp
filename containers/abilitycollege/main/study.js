@@ -29,7 +29,11 @@ export default class extends React.Component {
           .title {
             font-size: 1rem;
           }
-          a.know {
+          a.know,
+          a.know:hover,
+          a.know:active,
+          a.know:visited,
+          a.know:focus {
             color: red;
             font-weight: bold;
           }

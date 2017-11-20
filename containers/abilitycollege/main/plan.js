@@ -24,7 +24,7 @@ export default class extends React.Component {
           }
           .title {
             font-size: 1rem;
-            margin-left: 1rem;
+            margin-left: 1.5rem;
           }
           .content {
             padding: 1rem;
@@ -36,8 +36,13 @@ export default class extends React.Component {
           .content .link a img {
             width: 100%;
           }
-          .content .feedback {
+          .content a.feedback,
+          .content a.feedback:active,
+          .content a.feedback:hover,
+          .content a.feedback:visited,
+          .content a.feedback:focus {
             text-align: center;
+            color: #2f3138;
           }
         `}</style>
       </div>

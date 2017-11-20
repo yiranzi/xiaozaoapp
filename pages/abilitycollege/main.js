@@ -108,13 +108,13 @@ export default class extends React.Component {
             color: #2f3138;
             display: inline-block;
             position: relative;
-            padding-left: 12px;
+            padding-left: 1.25rem;
             margin-left: 1rem;
           }
           h1::before {
             content: '';
             position: absolute;
-            left: 0;
+            left: 8px;
             top: 6px;
             width: 6px;
             height: 24px;
