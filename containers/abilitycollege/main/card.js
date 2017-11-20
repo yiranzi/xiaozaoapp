@@ -1,7 +1,12 @@
 import React from 'react'
 import Slider from 'react-slick'
+import {Modal} from '../../../xz-components/modal'
+import ModalContent from './modal'
 
 export default class extends React.Component {
+  openModal (item) {
+    Modal({children: <ModalContent data={item} />})
+  }
   render () {
     const {detail, bg, showTitle} = this.props
     if (!detail) return null

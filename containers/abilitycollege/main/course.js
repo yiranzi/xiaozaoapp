@@ -1,14 +1,9 @@
 import React from 'react'
-import {Modal} from '../../../xz-components/modal'
-import ModalContent from './modal'
 import Card from './card'
 
 export default class extends React.Component {
   renderContent (detail, bg) {
     return <Card detail={detail} bg={bg} />
-  }
-  openModal (item) {
-    Modal({children: <ModalContent data={item} />})
   }
   render () {
     const {exchangeDetail} = this.props

@@ -83,6 +83,7 @@ export default class Modal extends React.Component {
           .sub-content .main,
           .sub-content .get {
             padding-top: 1rem;
+            line-height: 180%;
           }
           .sub-content .publish-date {
             margin-top: 1rem;
