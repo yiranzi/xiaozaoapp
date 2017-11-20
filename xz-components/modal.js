@@ -34,8 +34,8 @@ class ModalDom extends React.Component {
             overflow: scroll;
           }
           .modal .modal-content .close {
-            width: 20px;
-            height: 20px;
+            width: 30px;
+            height: 30px;
             margin-top: 10px;
             margin-right: 10px;
             position: relative;
@@ -48,7 +48,7 @@ class ModalDom extends React.Component {
             background: rgba(0,0,0,.43);
             transform: rotate(45deg);
             position: absolute;
-            left: 0;
+            left: 10px;
             top: 0;
           }
           .modal .modal-content .close::after {
@@ -58,7 +58,7 @@ class ModalDom extends React.Component {
             background: rgba(0,0,0,.43);
             transform: rotate(-45deg);
             position: absolute;
-            left: 0;
+            left: 10px;
             top: 0;
           }
         `}</style>
