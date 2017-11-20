@@ -8,6 +8,7 @@ import { Confirm } from '../../xz-components/confirm'
 import AxiosUtil from '../../util/axios'
 import WxShare from '../../xz-components/wxshare'
 import wxPayController from '../../util/wxPayController2'// 工具类
+import BuyPop from '../../containers/buygether/buypop'
 
 // 介绍页
 export default class extends React.Component {
@@ -28,12 +29,15 @@ export default class extends React.Component {
       otherGroup: undefined, // 其他团信息
       myGroupingId: null, // 是否正在开团
       studyCardPackageList: [], // 套餐列表
-      couponInfo: []
+      couponInfo: [], // 优惠券信息
+      joinInfo: {}, // 参团信息
+      defaultSelect: 0 // 默认选中的拼团商品类型。
     }
     this.renderCard = this.renderCard.bind(this)
     this.renderShare = this.renderShare.bind(this)
     this.buyMyGroup = this.buyMyGroup.bind(this)
     this.buyOtherGroup = this.buyOtherGroup.bind(this)
+    this.buyButtonCallBack = this.buyButtonCallBack.bind(this)
   }
 
   componentDidMount = async () => {
@@ -42,7 +46,6 @@ export default class extends React.Component {
     let buyDetail = await AxiosUtil.get('/api/study-card/buyDetail')
     let couponInfo = await AxiosUtil.get('/api/study-card/coupon')
     let {myGroup, otherGroup, studyCardPackageList, studyCardCouponInvite} = buyDetail
-    console.log(buyDetail)
     // 4 设置不同的分享
     this.setGroupStatus(myGroup)
     this.setState({
@@ -105,7 +108,6 @@ export default class extends React.Component {
 
   renderGroupType () {
     let {studyCardPackageList} = this.state
-    console.log(studyCardPackageList)
     return (<div className='show-card'>
       <div className='line'>
         <span>能力卡可以用于兑换2018课表课程</span>
@@ -114,7 +116,7 @@ export default class extends React.Component {
       <div className='card-line'>
         {studyCardPackageList.map((ele, index) => {
           return (
-            <div onClick={() => { this.buyMyGroup(ele.id) }}>
+            <div key={index} onClick={() => { this.buyMyGroup(index) }}>
               <img src={`/static/img/buygether/card_${ele.id}.png`} />
             </div>)
         })}
@@ -165,12 +167,12 @@ export default class extends React.Component {
         // 要根据这个团的不同情况进行渲染
         if (ele.status === 1) {
           // 历史团
-          button = <Button onClick>邀请好友，再得卡</Button>
+          button = <Button onClick={this.goRouter}>邀请好友，再得卡</Button>
         } else {
           // 正在团
-          button = <Button onClick>立即邀请好友</Button>
+          button = <Button onClick={this.renderPop}>立即邀请好友</Button>
         }
-        return (this.renderCard(ele, button))
+        return (this.renderCard(ele, button, index))
       })
       return (<div>
         {this.renderTitle('我的团')}
@@ -179,6 +181,15 @@ export default class extends React.Component {
       </div>)
     }
   }
+
+  renderPop () {
+    console.log('renderPop')
+  }
+
+  goRouter () {
+    console.log('go router')
+  }
+
 
   renderCoupon () {
     let {hasCoupon} = this.state
@@ -198,20 +209,20 @@ export default class extends React.Component {
       if (otherGroup.length > perLength) {
         // 如果人数多于4个，取出4个渲染
         groupingArr = otherGroup.slice(1, perLength).map((ele, index) => {
-          const button = <Button onClick={() => { this.buyOtherGroup(ele.groupId) }}>参团</Button>
-          return (this.renderCard(ele, button))
+          const button = <Button onClick={() => { this.buyOtherGroup(ele) }}>参团</Button>
+          return (this.renderCard(ele, button, index))
         })
       } else {
         // 如果人数不足4个，先取出所有，再补上缺省
         let count = 0
         groupingArr = otherGroup.map((ele, index) => {
           count++
-          const button = <Button onClick={() => { this.buyOtherGroup(ele.groupId) }}>参团</Button>
-          return (this.renderCard(ele, button))
+          const button = <Button onClick={() => { this.buyOtherGroup(ele) }}>参团</Button>
+          return (this.renderCard(ele, button, count))
         })
         while (count < perLength) {
           count++
-          groupingArr.push(<div>缺省</div>)
+          groupingArr.push(<div key={count}>缺省</div>)
         }
       }
       return (<div>
@@ -228,8 +239,7 @@ export default class extends React.Component {
   // 已成团 参团
 
   // 解析参数。渲染拼团
-  renderCard (groupInfo, button) {
-    console.log(groupInfo)
+  renderCard (groupInfo, button, index) {
     let {headimgurl, leftHour, leftMinute, nickname, groupId} = groupInfo
     let content
     if (groupInfo.status === 1) {
@@ -237,10 +247,10 @@ export default class extends React.Component {
     } else {
       content = '剩余结束，还差1人'
     }
-    return (<div className='group-card'>
+    return (<div key={index} className='group-card'>
       <div className='head-list'>
         {headimgurl.map((ele, index) => {
-          return <img src={ele} />
+          return <img key={index} src={ele} />
         })}
       </div>
       <div>
@@ -337,21 +347,34 @@ export default class extends React.Component {
     </div>)
   }
 
-  buyMyGroup = async (typeId) => {
+  buyButtonCallBack = async (typeId, groupId) => {
     console.log(typeId)
-    if (typeId) {
-      console.log(typeId)
-      // 设置好 再弹出 弹框。
-    }
-    let payInfo = await AxiosUtil.get('/api/study-card/buy/3')
-    wxPayController.payInit(payInfo)
-  }
-
-  buyOtherGroup = async (groupId) => {
+    console.log(groupId)
     if (groupId) {
-      let payInfo = await AxiosUtil.get(`/api/study-card/buyTogether/${groupId}/3`)
+      let payInfo = await AxiosUtil.get(`/api/study-card/buyTogether/${groupId}/${typeId}`)
+      wxPayController.payInit(payInfo)
+    } else {
+      let payInfo = await AxiosUtil.get(`/api/study-card/buy/${typeId}`)
       wxPayController.payInit(payInfo)
     }
+  }
+
+  buyMyGroup = async (typeId) => {
+    console.log(typeId)
+    let defaultSelect = typeId || 0
+    this.setState({
+      defaultSelect: defaultSelect,
+      joinInfo: {}
+    })
+  }
+
+  buyOtherGroup = (ele) => {
+    console.log(ele)
+    let {id, nickname} = ele
+    this.setState({
+      defaultSelect: 0,
+      joinInfo: ele
+    })
   }
 
   render () {
@@ -361,18 +384,23 @@ export default class extends React.Component {
         <div className='buy-card-page'>
           <img className='bg-img1' src={'/static/img/buygether/buyBg_1.jpeg'} />
 
-          <div >{this.renderGroupType()}</div>
+          <div>{this.renderGroupType()}</div>
           <div className='div-with-border'>
             {this.renderMyGroup()}
             {this.renderCoupon()}
             {this.renderOtherGroup()}
           </div>
           {this.renderBuyButton()}
+          <BuyPop
+            defaultActiveKey={this.state.defaultSelect}
+            buyButtonCallBack={this.buyButtonCallBack}
+            joinInfo={this.state.joinInfo}
+            dataInfo={this.state.studyCardPackageList} />
         </div>
         <style jsx>{`
           .buy-card-page {
             width: 100%;
-            font-size: 0;
+            font-size: 10;
             text-align: center;
           }
           .buy-card-page *{

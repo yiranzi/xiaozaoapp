@@ -88,12 +88,11 @@ export class ChooseBar extends React.Component {
       const content = tabsData.map((cProps, index) => {
         finalStyle = this.calcStyle(cProps.style, index)
         return <div key={index} style={finalStyle} onClick={() => { this.onTabClick(cProps.disabled, index) }}>
-          <p>{cProps.title}</p>
+          {cProps.children || <p>{cProps.title}</p>}
         </div>
       })
       return content
     } else {
-      console.log(tabsData)
     }
   }
 
@@ -101,7 +100,7 @@ export class ChooseBar extends React.Component {
     // 按钮默认样式
     let tabStyle = {
       width: '100%',
-      height: '30px',
+      minHeight: '30px',
       backgroundColor: 'white',
       borderRadius: '5px',
       border: '1px solid black',
