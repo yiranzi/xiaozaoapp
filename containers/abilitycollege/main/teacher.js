@@ -12,7 +12,7 @@ export default class extends React.Component {
         </div>
         <style jsx>{`
           .teacher {
-            margin-top: 3rem;
+            margin-top: 2rem;
           }
           .content img {
             width: 100%;

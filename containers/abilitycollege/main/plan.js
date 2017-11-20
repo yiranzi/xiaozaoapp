@@ -20,7 +20,7 @@ export default class extends React.Component {
         </div>
         <style jsx>{`
           .plan {
-            margin-top: 3rem;
+            margin-top: 2rem;
           }
           .title {
             font-size: 1rem;

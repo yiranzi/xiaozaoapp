@@ -24,7 +24,7 @@ export default class extends React.Component {
         </div>
         <style jsx>{`
           .course {
-            margin-top: 3rem;
+            margin-top: 1.5rem;
             padding-left: 0.5rem;
             padding-right: 0.5rem;
           }

@@ -33,13 +33,13 @@ export default class extends React.Component {
             padding-right: 0.5rem;
           }
           .schedule .tips {
-            margin-top: 2rem;
+            margin-top: 1.5rem;
             font-size: 0.75rem;
             text-align: center;
           }
           .schedule .work,
           .schedule .job {
-            margin-top: 2.5rem;
+            margin-top: 1.5rem;
           }
           .schedule .button-group {
             padding: 0 1rem;

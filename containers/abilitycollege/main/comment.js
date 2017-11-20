@@ -9,7 +9,7 @@ export default class extends React.Component {
         </div>
         <style jsx>{`
           .comment {
-            margin-top: 3rem;
+            margin-top: 2rem;
           }
         `}</style>
       </div>
