@@ -1,43 +1,41 @@
 import React from 'react'// 库
 import Button from '../../xz-components/button'
-import {ModalBoxPopFunc} from '../../xz-components/modalbox'
-import DateSelector from '../../containers/apollo/DateSelector'// 自定义组件
 import Layout from '../../components/layout'// container
-import ThemeConfig from '../../config/theme'
-import { Confirm } from '../../xz-components/confirm'
 import AxiosUtil from '../../util/axios'
 import WxShare from '../../xz-components/wxshare'
 import wxPayController from '../../util/wxPayController2'// 工具类
 import BuyPop from '../../containers/buygether/buypop'
+import Fixfooter from '../../xz-components/fixfooter'
 
 // 介绍页
 export default class extends React.Component {
-  font={
-    small: '14px',
-    mid: '14px',
-    large: '14px'
-  }
   groupLength = 4
   changeInterval = 1000
-  // currentGroupId = null // 当前选择的组号。用于购买
-  // currentSelectType: null, // 当前选择的拼团套餐。用于购买
+
+  buttonStyle = {
+    backgroundColor: '#c41616',
+    color: 'white'
+  }
 
   constructor (props) {
     super(props)
     this.state = {
+      showPop: false, // 购买弹窗
       myGroup: [], // 我的团信息
       otherGroup: undefined, // 其他团信息
-      myGroupingId: null, // 是否正在开团
       studyCardPackageList: [], // 套餐列表
-      couponInfo: [], // 优惠券信息
-      joinInfo: {}, // 参团信息
-      defaultSelect: 0 // 默认选中的拼团商品类型。
+      couponInfo: [], // 优惠券信息（我发给别人的）
+      hasCoupon: {}, // 优惠券信息（我自己持有的）
+      myGroupingId: null, // 我正在开团的id
+      currentJoinInfo: {}, // 参团信息
+      currentTypeSelect: 0 // // 当前选择的拼团套餐。用于购买
     }
     this.renderCard = this.renderCard.bind(this)
     this.renderShare = this.renderShare.bind(this)
     this.buyMyGroup = this.buyMyGroup.bind(this)
     this.buyOtherGroup = this.buyOtherGroup.bind(this)
     this.buyButtonCallBack = this.buyButtonCallBack.bind(this)
+    this.canleCallBack = this.canleCallBack.bind(this)
   }
 
   componentDidMount = async () => {
@@ -52,7 +50,8 @@ export default class extends React.Component {
       myGroup: myGroup,
       otherGroup: otherGroup,
       studyCardPackageList: studyCardPackageList,
-      hasCoupon: studyCardCouponInvite
+      hasCoupon: studyCardCouponInvite,
+      couponInfo: couponInfo
     }, this.setRenderOtherGroupInterval)
   }
 
@@ -144,8 +143,7 @@ export default class extends React.Component {
           margin-top: 5px;
         }
         .card-line img {
-          width: 100%;
-          max-width: 120px;
+          width: 80px;
         }
         .text-line {
           position: absolute;
@@ -167,17 +165,22 @@ export default class extends React.Component {
         // 要根据这个团的不同情况进行渲染
         if (ele.status === 1) {
           // 历史团
-          button = <Button onClick={this.goRouter}>邀请好友，再得卡</Button>
+          button = <Button style={this.buttonStyle} onClick={this.goRouter}>邀请好友，再得卡</Button>
         } else {
           // 正在团
-          button = <Button onClick={this.renderPop}>立即邀请好友</Button>
+          button = <Button style={this.buttonStyle} onClick={this.renderPop}>立即邀请好友</Button>
         }
         return (this.renderCard(ele, button, index))
       })
-      return (<div>
+      return (<div className='div-with-bottom'>
         {this.renderTitle('我的团')}
         {arr}
-
+        <style jsx>{`
+          .div-with-bottom {
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e5e5e5;
+          }
+        `}</style>
       </div>)
     }
   }
@@ -190,13 +193,18 @@ export default class extends React.Component {
     console.log('go router')
   }
 
-
   renderCoupon () {
     let {hasCoupon} = this.state
     if (hasCoupon) {
-      return (<div>
+      return (<div className='div-with-bottom'>
         {this.renderTitle('我获得的优惠券')}
         <p>报名后你的好友</p>
+        <style jsx>{`
+          .div-with-bottom {
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e5e5e5;
+          }
+        `}</style>
       </div>)
     }
   }
@@ -209,27 +217,27 @@ export default class extends React.Component {
       if (otherGroup.length > perLength) {
         // 如果人数多于4个，取出4个渲染
         groupingArr = otherGroup.slice(1, perLength).map((ele, index) => {
-          const button = <Button onClick={() => { this.buyOtherGroup(ele) }}>参团</Button>
+          const button = <Button style={this.buttonStyle} onClick={() => { this.buyOtherGroup(ele) }}>参团</Button>
+          return (this.renderCard(ele, button, index))
+        })
+      } else if (otherGroup.length > 0) {
+        // 如果人数不足4个
+        groupingArr = otherGroup.map((ele, index) => {
+          const button = <Button style={this.buttonStyle} onClick={() => { this.buyOtherGroup(ele) }}>参团</Button>
           return (this.renderCard(ele, button, index))
         })
       } else {
-        // 如果人数不足4个，先取出所有，再补上缺省
-        let count = 0
-        groupingArr = otherGroup.map((ele, index) => {
-          count++
-          const button = <Button onClick={() => { this.buyOtherGroup(ele) }}>参团</Button>
-          return (this.renderCard(ele, button, count))
-        })
-        while (count < perLength) {
-          count++
-          groupingArr.push(<div key={count}>缺省</div>)
-        }
+        // 如果无人
+        groupingArr = <img style={{width: '60%'}} src='/static/img/buygether/no_group.png' />
       }
-      return (<div>
+      return (<div className='div-with-bottom'>
         {this.renderTitle('拼团进行中')}
         {groupingArr}
         <style jsx>{`
-        .
+          .div-with-bottom {
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e5e5e5;
+          }
         `}</style>
       </div>)
     }
@@ -245,7 +253,15 @@ export default class extends React.Component {
     if (groupInfo.status === 1) {
       content = '已成团'
     } else {
-      content = '剩余结束，还差1人'
+      let style = {
+        backgroundColor: '#f0f2f6',
+        borderRadius: '20px',
+        padding: '2px 5px'
+      }
+      content = <div >
+        剩余<span style={style}>{`${leftHour}时${leftMinute}分${29}秒`}</span>
+        <br />还差1人
+      </div>
     }
     return (<div key={index} className='group-card'>
       <div className='head-list'>
@@ -253,22 +269,53 @@ export default class extends React.Component {
           return <img key={index} src={ele} />
         })}
       </div>
-      <div>
-        <span>{groupInfo.nickname}的能力卡拼团</span>
-        <span>{content}</span>
+      <div className='content'>
+        <p>{nickname}的拼团</p>
+        <p>{content}</p>
       </div>
-      {button}
+      <div className='button'>
+        {button}
+      </div>
       <style jsx>{`
         .group-card {
           display: flex;
           font-size: 14px;
+          justift-content: space-between;
+          align-items: center;
+          padding: 10px 0px;
+        }
+        .group-card > div{
+          margin: 0 6px;
+        }
+        .content {
+          text-align: left;
+          min-width: 180px;
+        }
+        .button {
+          width: 100%;
+          {/*height: 50px;*/}
+        }
+        .button > div {
+          height: 100%;
         }
         .head-list {
+          text-align: center;
+          min-width: 80px;
           display: flex;
         }
         .head-list img {
-          width: 30px;
-          height: 30px;
+          margin: auto;
+          position: relative;
+          z-index: 10;
+        }
+        .head-list img+img {
+          z-index: 5;
+          margin-left: -40px;
+        }
+        .head-list img {
+          border-radius: 50%;
+          width: 60px;
+          height: 60px;
         }
       `}</style>
     </div>)
@@ -279,71 +326,32 @@ export default class extends React.Component {
     return (
       <div className='title-line'>
         <span className='dot'>.</span>
-        <h1>{title}</h1>
+        <h1 className='my-h1'>{title}</h1>
         <style jsx>{`
           .title-line {
-            font-size: 16px;
             padding: 10px;
             display: flex;
             align-items: center;
           }
+          .my-h1 {
+            font-size: 20px !important;
+          }
           .dot {
-            background-color: purple;
-            color: purple;
-            margin-right: 10px;
+            background-color: #241d66;
+            color: #241d66;
+            margin-right: 5px;
             border-radius: 5px;
-            height: 30px;
-            width: 10px;
+            height: 24px;
+            width: 8px;
           }
         `}</style>
       </div>
     )
   }
 
-  // 按钮可能
-
-  // 参团 其他人的line
-  // 我自己去开团 （我没团的时候才有。 点击去开团）
-
-  /**
-   * 按照状态来说
-   * 这边可能的有
-   * 未开团
-   * 我自己去开团
-   * 普通分享
-   *
-   * 正在开团中
-   * 高级分享设置（购买后需要重新刷新这些状态，进行设置）
-   *
-   * 点击参团在两个状态下也有不同的反应。
-   */
-
-
-  // 传入团的信息。
-  // 传入groupId的信息（如果有）
-  // 最后 调用func or 修改visble 并传入参数
-  renderBuyPop () {
-    /**
-     * 优惠券信息
-     套餐信息
-     自己团？
-     */
-
-  }
-
-  // 购买回调
-  buyCallBack (groupId) {
-    if (groupId) {
-      // 设置groupId。调用另外的接口
-    } else {
-      // 传入套餐。调用开团接口
-    }
-  }
-
-
   renderBuyButton () {
     return (<div>
-      <Button onClick={() => { this.buyMyGroup() }}>自己开团</Button>
+      <Button style={this.buttonStyle} onClick={() => { this.buyMyGroup() }}>自己开团</Button>
     </div>)
   }
 
@@ -360,21 +368,68 @@ export default class extends React.Component {
   }
 
   buyMyGroup = async (typeId) => {
-    console.log(typeId)
-    let defaultSelect = typeId || 0
+    let currentTypeSelect = typeId || 0
     this.setState({
-      defaultSelect: defaultSelect,
-      joinInfo: {}
+      currentTypeSelect: currentTypeSelect,
+      currentJoinInfo: {},
+      showPop: true
     })
   }
 
   buyOtherGroup = (ele) => {
-    console.log(ele)
-    let {id, nickname} = ele
     this.setState({
-      defaultSelect: 0,
-      joinInfo: ele
+      currentTypeSelect: 0,
+      currentJoinInfo: ele,
+      showPop: true
     })
+  }
+
+  canleCallBack () {
+    this.setState({
+      showPop: false
+    })
+  }
+
+  renderFooter () {
+    return (<Fixfooter>
+      <div className='fix-foot'>
+        <div className='left'>
+          <img src='/static/img/buygether/ask.png' />
+          <span>在线咨询</span>
+        </div>
+        <div className='right' onClick={this.buyMyGroup}>
+          <img src='/static/img/buygether/buy.png' />
+          <span>获得能力卡 开团享3折</span>
+        </div>
+      </div>
+      <style jsx>{`
+        .fix-foot {
+          margin: -16px;
+          display: flex;
+          font-size: 14px;
+          color: white;
+          height: 50px;
+          line-height: 50px;
+        }
+        .left {
+          flex: 1;
+          background-color: #4146aa;
+        }
+        .right {
+          flex: 2;
+          background-color: #c41616;
+        }
+        .fix-foot > div{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .fix-foot img{
+          width: 25px;
+          margin-right: 5px;
+        }
+      `}</style>
+      </Fixfooter>)
   }
 
   render () {
@@ -383,25 +438,32 @@ export default class extends React.Component {
         {this.renderShare()}
         <div className='buy-card-page'>
           <img className='bg-img1' src={'/static/img/buygether/buyBg_1.jpeg'} />
-
           <div>{this.renderGroupType()}</div>
-          <div className='div-with-border'>
+          <div className='card-div'>
             {this.renderMyGroup()}
             {this.renderCoupon()}
             {this.renderOtherGroup()}
           </div>
-          {this.renderBuyButton()}
-          <BuyPop
-            defaultActiveKey={this.state.defaultSelect}
-            buyButtonCallBack={this.buyButtonCallBack}
-            joinInfo={this.state.joinInfo}
-            dataInfo={this.state.studyCardPackageList} />
+          <div className='buy-button'>
+            {this.renderBuyButton()}
+          </div>
+          <div className='more-info'>
+          </div>
+          {this.renderFooter()}
         </div>
+        {this.state.showPop && <BuyPop
+          defaultActiveKey={this.state.currentTypeSelect}
+          buyButtonCallBack={this.buyButtonCallBack}
+          joinInfo={this.state.currentJoinInfo}
+          canleCallBack={this.canleCallBack}
+          dataInfo={this.state.studyCardPackageList} />}
         <style jsx>{`
           .buy-card-page {
+            padding-bottom: 80px;
             width: 100%;
-            font-size: 10;
+            font-size: 0;
             text-align: center;
+            color: #2f3138;
           }
           .buy-card-page *{
             margin: 0px;
@@ -410,14 +472,18 @@ export default class extends React.Component {
           .bg-img1 {
             width: 100%;
           }
-          .div-with-border > div{
-            border-bottom: 1px solid black;
-            color: red;
+          .buy-button {
+            padding: 5px;
           }
-
           .header {
             font-size: 22px;
-            }
+          }
+          .card-div {
+            padding: 0 10px;
+          }
+          .more-info {
+            background-color: #f0f2f6;
+          }
         `}</style>
       </Layout>
     )

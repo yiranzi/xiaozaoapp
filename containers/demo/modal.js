@@ -7,6 +7,7 @@ export default class extends React.Component {
     super(props)
     this.renderModalBoxImageStyle = this.renderModalBoxImageStyle.bind(this)
     this.renderModalBoxDiv = this.renderModalBoxDiv.bind(this)
+    this.test = this.test.bind(this)
   }
 
   render () {
@@ -23,12 +24,17 @@ export default class extends React.Component {
   renderModalBoxDiv () {
     let imageProps = {
       cancelCallBack: () => { console.log('点击背景关闭回调1') },
-      innerDiv: <div>
-        <p style={{color: 'red'}}>123</p>
+      innerDiv: <div onClick={(e) => { this.test(e) }}>
+        <p style={{color: 'red'}}>123321</p>
         <img style={{width: '100%', height: '100%'}} src='/static/img/apollo/share-icon.jpg' />
       </div>
     }
     return (ModalBoxPopFunc(imageProps))
+  }
+
+  test (e) {
+    e.stopPropagation()
+    console.log('点击按钮')
   }
 
   // 自定义样式的内置div
