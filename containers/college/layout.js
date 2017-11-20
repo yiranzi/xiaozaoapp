@@ -2,7 +2,7 @@ import React from 'react'
 import { Toptips } from 'react-weui'
 import Layout from '../../components/layout'
 import Loading from '../../xz-components/loading'
-import Tabbar from '../../components/maintabbar'
+import Tabbar from '../../components/footer'
 
 export default class extends React.Component {
   constructor (props) {

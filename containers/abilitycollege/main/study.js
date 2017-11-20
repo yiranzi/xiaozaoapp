@@ -16,7 +16,7 @@ export default class extends React.Component {
               目前，小灶能力学院主要有系统学（重规划、重输出）和 打卡学（有监督、重积累） 两类学习模式。
             </div>
             <br />
-            <a className='know' href=''>>>　点击了解系统学、打卡学</a>
+            <a className='know' href='https://shimo.im/doc/bThcHymHbXAMGwKr?r=5XOR3K'>>>　点击了解系统学、打卡学</a>
           </div>
         </div>
         <style jsx>{`

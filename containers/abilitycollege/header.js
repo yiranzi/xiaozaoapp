@@ -13,15 +13,27 @@ export default class extends React.Component {
   render () {
     return (
       <div className='header'>
-        <div className={ClassNames('item', {'current': this.state.invite})} onTouchStart={() => { this.setState({invite: true}) }} onTouchEnd={() => { this.setState({invite: false}) }}>
+        <div
+          className={ClassNames('item', {'current': this.state.invite})}
+          onTouchStart={() => { this.setState({invite: true}) }}
+          onTouchEnd={() => { this.setState({invite: false}) }}
+        >
           <div className='icon'><img src='/static/img/abilitycollege/invite.png' /></div>
           <div className='text'>邀请好友</div>
         </div>
-        <div className={ClassNames('item', {'current': this.state.chat})} onTouchStart={() => { this.setState({chat: true}) }} onTouchEnd={() => { this.setState({chat: false}) }}>
+        <div
+          className={ClassNames('item', {'current': this.state.chat})}
+          onTouchStart={() => { this.setState({chat: true}) }}
+          onTouchEnd={() => { this.setState({chat: false}) }}
+        >
           <div className='icon'><img src='/static/img/abilitycollege/chat.png' /></div>
           <div className='text'>在线咨询</div>
         </div>
-        <div className={ClassNames('item', {'current': this.state.get})} onTouchStart={() => { this.setState({get: true}) }} onTouchEnd={() => { this.setState({get: false}) }}>
+        <div
+          className={ClassNames('item', {'current': this.state.get})}
+          onTouchStart={() => { this.setState({get: true}) }}
+          onTouchEnd={() => { this.setState({get: false}, () => { location.href = '/payment/buygether' }) }}
+        >
           <div className='icon'><img src='/static/img/abilitycollege/card.png' /></div>
           <div className='text'>获取能力卡</div>
         </div>

@@ -19,9 +19,11 @@ export default class extends React.Component {
           <div className='job'>{this.renderContent(job, '#465978')}</div>
           <div className='tips'>*以上课程均可使用小灶能力卡兑换</div>
           <div className='button-group'>
-            <Button style={{backgroundColor: 'red', fontSize: '16px'}}>
-              <img src='/static/img/abilitycollege/fire.png' />能力卡火热拼团中 <strong style={{marginLeft: '0.5rem'}}>立即获取</strong>
-            </Button>
+            <a href='/payment/buygether'>
+              <Button style={{backgroundColor: 'red', fontSize: '16px'}}>
+                <img src='/static/img/abilitycollege/fire.png' />能力卡火热拼团中 <strong style={{marginLeft: '0.5rem'}}>立即获取</strong>
+              </Button>
+            </a>
           </div>
         </div>
         <style jsx>{`
@@ -40,6 +42,10 @@ export default class extends React.Component {
           }
           .schedule .button-group {
             padding: 1rem;
+          }
+          .schedule .button-group a {
+            display: inline-block;
+            width: 100%;
           }
         `}</style>
         <style global jsx>{`
