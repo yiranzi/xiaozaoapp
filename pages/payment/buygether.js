@@ -95,13 +95,13 @@ export default class extends React.Component {
     let shareProp = {
       title: '我没有团，你可以来看看',
       desc: '我没有团',
-      link: 'http://rcwx.review.xiaozao.org/buygether',
-      imgUrl: 'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg',
+      link: 'http://rcwx.review.xiaozao.org/',
+      imgUrl: 'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg'
     }
     if (this.state.myGroupingId) {
       shareProp.title = '我正在团，来和我参团'
       shareProp.desc = '我正在团'
-      shareProp.link += `/?groundId=${this.state.myGroupingId}`
+      shareProp.link += `abilitycollege/?groundId=${this.state.myGroupingId}&headimg=123&nickname=321`
     }
 
     return (<WxShare {...shareProp} />)
@@ -383,8 +383,6 @@ export default class extends React.Component {
   }
 
   buyButtonCallBack = async (typeId, groupId) => {
-    console.log(typeId)
-    console.log(groupId)
     if (groupId) {
       let payInfo = await AxiosUtil.get(`/api/study-card/buyTogether/${groupId}/${typeId}`)
       wxPayController.payInit(payInfo)
@@ -395,7 +393,7 @@ export default class extends React.Component {
   }
 
   buyMyGroup = (typeId) => {
-    if (this.state.myGroupingId === null) {
+    if (this.state.myGroupingId !== null) {
       let currentTypeSelect = typeId || 0
       this.setState({
         currentTypeSelect: currentTypeSelect,
@@ -464,7 +462,7 @@ export default class extends React.Component {
           margin-right: 5px;
         }
       `}</style>
-      </Fixfooter>)
+    </Fixfooter>)
   }
 
   render () {
@@ -482,8 +480,7 @@ export default class extends React.Component {
           <div className='buy-button'>
             {this.renderBuyButton()}
           </div>
-          <div className='more-info'>
-          </div>
+          <div className='more-info' />
           {this.renderFooter()}
         </div>
         {this.state.showPop && <BuyPop

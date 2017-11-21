@@ -33,7 +33,6 @@ export default class extends React.Component {
   }
 
   componentDidMount () {
-    console.log('componentDidMount')
     this.setState({
       currentSelect: this.props.defaultActiveKey,
       render: true
@@ -81,31 +80,42 @@ export default class extends React.Component {
       </div>)
     } else {
       return (<div className='title'>
-        <p className='title-font'>拼团流程</p>
+        <p style={{textAlign: 'center'}} className='title-font'>拼团流程</p>
+        <div className='content'>
+          <span className='content-color'>1.选择能力卡</span>
+          <span className='line-color'>——</span>
+          <span className='content-color'>2.邀请好友</span>
+          <span className='line-color'>——</span>
+          <span className='content-color'>3.人满成团</span>
+        </div>
+        <span style={{textAlign: 'left'}}>选择套餐</span>
         <style jsx>{`
           .title {
-            text-align: center;
-            padding: 10px 10px 10px 0px;
+            text-align: left;
+            padding: 10px 10px 10px 10px;
           }
           .title-font {
             font-size: 20px;
             font-weight: bold;
           }
           .content {
+            margin: 20px 10px;
             height: 30px;
             line-height: 30px;
             display: flex;
             align-items; center;
             justify-content: center;
-            height: 40px;
-            line-height: 40px;
+            height: 20px;
+            line-height: 20px;
+
           }
-          .head-img {
-            margin: 0 10px;
-            vertical-align: middle;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
+          .content-color {
+            border-radius: 20px;
+            background-color: #f0f2f6;
+          }
+          .line-color {
+            margin: 0 2px;
+            color: #e5e5e5;
           }
         `}</style>
       </div>)
@@ -117,12 +127,16 @@ export default class extends React.Component {
     let chooseBar = {
       border: 'none',
       paddingTop: '0',
-      marginTop: '-10px'
+      marginTop: '-20px'
     }
     let chooseStyle = {
       color: 'white',
-      backgroundColor: 'red',
-      borderColor: 'red'
+      backgroundColor: '#c41616',
+      borderColor: '#c41616'
+    }
+    let barStyle = {
+      padding: '10px',
+      boxSizing: 'border-box'
     }
     return (
       <ChooseBar style={chooseBar}
@@ -130,15 +144,29 @@ export default class extends React.Component {
         onChange={this.onChange}
         chooseStyle={chooseStyle}>
         {dataInfo.map((ele, index) => {
-          return (<ChooseItem key={index}>
+          return (<ChooseItem key={index} style={barStyle}>
             <div className='line'>
-              <img />
-              <span>{`能力卡${ele.buyCount}张`}</span>
-              <span>{`立省${ele.showPrice - ele.price}`}</span>
+              <img className='left' src={'/static/img/buygether/card_icon.png'} />
+              <span className='mid'>{`能力卡${ele.buyCount}张`}</span>
+              <span className='right'>{`立省${ele.showPrice - ele.price}`}</span>
             </div>
             <style jsx>{`
               .line {
                 display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+              }
+              .left {
+                margin-right: 10px;
+                flex: 1；
+                width: 30px;
+              }
+              .mid {
+                flex: 4
+              }
+              .right {
+                flex: 2
               }
             `}</style>
           </ChooseItem>)
@@ -149,8 +177,6 @@ export default class extends React.Component {
 
   renderBottom () {
     if (this.props.dataInfo && this.props.dataInfo.length > 0) {
-      console.log('renderBottom')
-      console.log(this.state.currentSelect)
       let priceInfo = this.props.dataInfo[this.state.currentSelect]
       return (
         <div className='bottom-line'>
@@ -161,7 +187,7 @@ export default class extends React.Component {
           <style jsx>{`
           .bottom-line{
             position: relative;
-            border-top: 1px solid red;
+            border-top: 1px solid #c41616;
             display: flex;
             height: 50px;
             line-height: 50px;
@@ -183,11 +209,11 @@ export default class extends React.Component {
           }
           .left-button {
             background-color: white;
-            color: red;
+            color: #c41616;
             flex: 1;
           }
           .rigth-button {
-            background-color: red;
+            background-color: #c41616;
             color: white;
             flex: 1;
           }
@@ -241,7 +267,6 @@ export default class extends React.Component {
 
   // change
   onChange (index) {
-    console.log('onchange')
     this.setState({
       currentSelect: index
     })
