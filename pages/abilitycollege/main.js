@@ -12,13 +12,18 @@ import Patent from '../../containers/abilitycollege/main/patent'
 import Teacher from '../../containers/abilitycollege/main/teacher'
 import Study from '../../containers/abilitycollege/main/study'
 import Comment from '../../containers/abilitycollege/main/comment'
+import ToolsUtil from '../../util/tools'
 
 export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       exchangeDetail: {},
-      buyDetail: {}
+      buyDetail: {},
+      groupId: '',
+      headimg: '',
+      nickname: '',
+      category: ''
     }
   }
   componentDidMount = async () => {
@@ -26,6 +31,18 @@ export default class extends React.Component {
     let buyDetail = await AxiosUtil.get('/api/study-card/buyDetail')
     exchangeDetail = this.formData(exchangeDetail)
     this.setState({exchangeDetail: exchangeDetail, buyDetail: buyDetail})
+
+    let groupId = ToolsUtil.getQueryString('groupId')
+    let headimg = ToolsUtil.getQueryString('headimg')
+    let nickname = ToolsUtil.getQueryString('nickname')
+    let category = ToolsUtil.getQueryString('category')
+
+    this.setState({
+      groupId: groupId,
+      headimg: headimg,
+      nickname: nickname,
+      category: category
+    })
   }
   formData (exchangeDetail) {
     let json = {}
@@ -76,14 +93,37 @@ export default class extends React.Component {
     })
     return json
   }
+  jumpTo (groupId, headimg, nickname) {
+    let string = ''
+    string = string + groupId ? 'groupId=' + groupId : ''
+    string = string + headimg ? 'headimg=' + headimg : ''
+    string += nickname ? 'nickname=' + nickname : ''
+
+    location.href = '/payment/buygether?' + string
+  }
   render () {
-    const {exchangeDetail, buyDetail} = this.state
+    const {exchangeDetail, buyDetail, groupId, headimg, nickname, category} = this.state
     return (
       <Layout>
         <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css' />
         <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css' />
         <div className='main'>
           <Header buyDetail={buyDetail} />
+          {category === 'invite' &&
+            <div className='tips' onClick={() => { this.jumpTo(groupId, headimg, nickname) }}>
+              <div><img src={headimg} /></div>
+              <div style={{marginLeft: '0.5rem'}}>参加{nickname}的团，低至3折获取能力卡</div>
+            </div>
+          }
+          {category === 'coupon' &&
+            <div className='tips' onClick={() => { this.jumpTo(groupId, headimg, nickname) }}>
+              <div><img src={headimg} /></div>
+              <div style={{marginLeft: '0.5rem'}}>
+                <p>接受{nickname}的邀请，获得友情券</p>
+                <p>获取能力卡 立享9折</p>
+              </div>
+            </div>
+          }
           <div className='content'>
             {DataUtils.isEmpty(exchangeDetail) ? <LoadingIcon /> : <Schedule exchangeDetail={this.state.exchangeDetail} />}
             <Plan />
@@ -101,6 +141,21 @@ export default class extends React.Component {
           }
           .content {
             padding-bottom: 7rem;
+          }
+          .tips {
+            margin-top: 1rem;
+            background-color: #c41616;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #fff;
+            padding: 0.5rem 0;
+          }
+          .tips img {
+            width: 2rem;
+            border-radius: 2rem;
+            display: block;
           }
         `}</style>
         <style global jsx>{`

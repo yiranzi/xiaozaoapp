@@ -131,6 +131,7 @@ export default class extends React.Component {
               background-color: #f0f2f6;
               min-height: 100vh;
               padding-bottom: 3rem;
+              box-sizing: border-box;
             }
             .header {
               color: #fff;
