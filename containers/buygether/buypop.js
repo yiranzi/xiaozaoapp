@@ -4,6 +4,8 @@ import {ChooseBar, ChooseItem} from '../../xz-components/choosebar'
 import Triangle from '../../containers/buygether/poptag'
 
 export default class extends React.Component {
+  newGroupDiscount = 1000 // 开团立减
+  coupon = 0.9 // 折扣
   static propTypes = {
     dataInfo: PropTypes.array,
     defaultSelect: PropTypes.number,
@@ -54,7 +56,7 @@ export default class extends React.Component {
         <style jsx>{`
           .title {
             text-align: center;
-            padding: 10px 10px 10px 0px;
+            padding: 10px 10px 30px 10px;
           }
           .title-font {
             font-size: 20px;
@@ -127,7 +129,7 @@ export default class extends React.Component {
     let chooseBar = {
       border: 'none',
       paddingTop: '0',
-      marginTop: '-20px'
+      margin: '-20px auto -20px auto'
     }
     let chooseStyle = {
       color: 'white',
@@ -148,7 +150,7 @@ export default class extends React.Component {
             <div className='line'>
               <img className='left' src={'/static/img/buygether/card_icon.png'} />
               <span className='mid'>{`能力卡${ele.buyCount}张`}</span>
-              <span className='right'>{`立省${ele.showPrice - ele.price}`}</span>
+              <span className='right'>{`立省￥${this.calcPrice(ele, 'discount')}`}</span>
             </div>
             <style jsx>{`
               .line {
@@ -175,13 +177,44 @@ export default class extends React.Component {
     )
   }
 
+  calcPrice (priceInfo, type) {
+    let value = 1000
+    let isNewGroup
+    if (this.props.joinInfo && this.props.joinInfo.groupId) {
+      isNewGroup = false
+    } else {
+      isNewGroup = true
+    }
+    let isCoupon = true
+    let {showPrice, price} = priceInfo
+    if (isCoupon) {
+      price = price * this.coupon
+      if (isNewGroup) {
+        price -= this.newGroupDiscount
+      }
+    }
+    let calcPrice
+    switch (type) {
+      case 'origin':
+        calcPrice = showPrice
+        break
+      case 'now':
+        calcPrice = price
+        break
+      case 'discount':
+        calcPrice = (showPrice - price)
+        break
+    }
+    return (parseInt(calcPrice / value))
+  }
+
   renderBottom () {
     if (this.props.dataInfo && this.props.dataInfo.length > 0) {
       let priceInfo = this.props.dataInfo[this.state.currentSelect]
       return (
         <div className='bottom-line'>
-          <div className='button left-button'>{`原价￥${priceInfo.showPrice}`}</div>
-          <div onClick={this.buyButtonClick} className='button rigth-button'>{`参团￥${priceInfo.price}`}</div>
+          <div className='button left-button'>{`原价￥${this.calcPrice(priceInfo, 'origin')}`}</div>
+          <div onClick={this.buyButtonClick} className='button rigth-button'>{`参团￥${this.calcPrice(priceInfo, 'now')}`}</div>
           {!this.props.joinInfo.groupId &&
           <Triangle style={{right: '60px', bottom: '40px'}}>团长开团立减10元</Triangle>}
           <style jsx>{`
@@ -229,6 +262,20 @@ export default class extends React.Component {
     this.props.buyButtonCallBack(typeId, groupId)
   }
 
+  renderCoupon () {
+    let name = '依然'
+    return (<div className='coupon-div'>
+      <p>•使用{name}赠送的优惠券，享9折</p>
+      <p>报名后你的好友{name}将免费获得一张能力卡</p>
+      <style jsx>{`
+        .coupon-div {
+          margin-bottom: 40px;
+          padding: 0px 10px;
+        }
+      `}</style>
+    </div>)
+  }
+
   render () {
     if (this.state.render) {
       return (
@@ -236,6 +283,7 @@ export default class extends React.Component {
           <div className='buy-pop-div' onClick={(e) => { e.stopPropagation() }}>
             {this.renderTitle()}
             {this.renderList()}
+            {this.renderCoupon()}
             {this.renderBottom()}
           </div>
           <style jsx>{`

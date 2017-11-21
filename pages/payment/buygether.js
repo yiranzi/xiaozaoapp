@@ -361,24 +361,31 @@ export default class extends React.Component {
   renderTitle (title) {
     return (
       <div className='title-line'>
-        <span className='dot'>.</span>
         <h1 className='my-h1'>{title}</h1>
         <style jsx>{`
           .title-line {
-            padding: 10px;
+            padding: 10px 0px;
             display: flex;
             align-items: center;
           }
           .my-h1 {
-            font-size: 20px !important;
+            font-size: 22px;
+            font-weight: normal;
+            color: #2f3138;
+            display: inline-block;
+            position: relative;
+            padding-left: 1rem;
           }
-          .dot {
-            background-color: #241d66;
-            color: #241d66;
-            margin-right: 5px;
-            border-radius: 5px;
+          h1::before {
+            font-size: 14px;
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 6px;
+            width: 6px;
             height: 24px;
-            width: 8px;
+            border-radius: 15px;
+            background-color: #241d66;
           }
         `}</style>
       </div>
