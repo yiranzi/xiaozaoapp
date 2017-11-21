@@ -119,6 +119,7 @@ export default class WxShare extends React.PureComponent {
     return <div>
       <script src='/static/js/jweixin.js' />
       {this.setShare()}
+      {this.state.wxReady ? 'share true' : 'share false'}
     </div>
   }
 }
