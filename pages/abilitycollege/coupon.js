@@ -9,31 +9,47 @@ export default class extends React.Component {
     super(props)
     this.state = {
       detail: {},
-      coupon: []
+      coupon: [],
+      user: {},
+      category: '通用券'
     }
   }
   componentDidMount = async () => {
     try {
       let detail = await AxiosUtil.get('/api/study-card') // 通过邀请获得的能力卡
+      this.setState({detail: detail})
+
       let coupon = await AxiosUtil.get('/api/study-card/coupon') // 优惠券
-      this.setState({detail: detail, coupon: coupon})
+      this.setState({coupon: coupon})
+
+      let user = await AxiosUtil.get('/api/user') // 获取用户信息
+      this.setState({user: user})
     } catch (e) {
       this.setState({
         error: e.message
       })
     }
+  }
+  setShare () {
+    const {user} = this.state
+    let link = 'http://rcwx.review.xiaozao.org/abilitycollege/main?headimg=' + user.headimgurl +
+               '&nickname=' + user.nickname +
+               '&category=coupon' +
+               '&couponname=' + this.state.category
     let prop = {
-      title: '优惠券',
+      title: '领取优惠券',
       desc: '优惠券详情',
-      link: '',
-      imgUrl: 'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg',
-      success: function () {
-        AxiosUtil.get(`/api/interview/getWXConfig?url=onApolloMain`)
-      }
+      link: JSON.stringify(link),
+      imgUrl: 'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg'
+      // success: function () {
+      //   AxiosUtil.get(`/api/interview/getWXConfig?url=onShareCoupon`)
+      // }
     }
     return (<WxShare {...prop} />)
   }
+
   openShadow (category) {
+    this.setState({category: category})
     let content = (
       <div className='content'>
         <div className='arrow'>
@@ -107,6 +123,7 @@ export default class extends React.Component {
     const {detail} = this.state
     return (
       <Layout>
+        {this.setShare()}
         <div className='coupon'>
           <div className='header'>
             <div className='title'>邀请好友，TA得优惠，你得能力卡</div>

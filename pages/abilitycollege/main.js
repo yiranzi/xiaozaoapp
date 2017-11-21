@@ -23,7 +23,8 @@ export default class extends React.Component {
       groupId: '',
       headimg: '',
       nickname: '',
-      category: ''
+      category: '',
+      couponname: ''
     }
   }
   componentDidMount = async () => {
@@ -36,12 +37,14 @@ export default class extends React.Component {
     let headimg = ToolsUtil.getQueryString('headimg')
     let nickname = ToolsUtil.getQueryString('nickname')
     let category = ToolsUtil.getQueryString('category')
+    let couponname = ToolsUtil.getQueryString('couponname')
 
     this.setState({
       groupId: groupId,
       headimg: headimg,
       nickname: nickname,
-      category: category
+      category: category,
+      couponname: couponname
     })
   }
   formData (exchangeDetail) {
@@ -102,7 +105,7 @@ export default class extends React.Component {
     location.href = '/payment/buygether?' + string
   }
   render () {
-    const {exchangeDetail, buyDetail, groupId, headimg, nickname, category} = this.state
+    const {exchangeDetail, buyDetail, groupId, headimg, nickname, category, couponname} = this.state
     return (
       <Layout>
         <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css' />
@@ -119,7 +122,7 @@ export default class extends React.Component {
             <div className='tips' onClick={() => { this.jumpTo(groupId, headimg, nickname) }}>
               <div><img src={headimg} /></div>
               <div style={{marginLeft: '0.5rem'}}>
-                <p>接受{nickname}的邀请，获得友情券</p>
+                <p>接受{nickname}的邀请，获得{couponname}</p>
                 <p>获取能力卡 立享9折</p>
               </div>
             </div>
