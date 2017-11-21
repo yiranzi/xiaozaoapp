@@ -4,7 +4,7 @@ import {render, unmountComponentAtNode} from 'react-dom'
 export default class ShadowDom extends React.Component {
   render () {
     return (
-      <div className='shadow' onClick={() => close()}>
+      <div className='shadow' style={this.props.style} onClick={() => close()}>
         {this.props.content}
         <style jsx>{`
           .shadow {
@@ -30,6 +30,7 @@ function close () {
   const target = document.getElementById('xz-shadow')
   unmountComponentAtNode(target)
   target.parentNode.removeChild(target)
+  document.body.style.overflow = 'auto'
 }
 
 export function Shadow (properties) {
@@ -37,5 +38,6 @@ export function Shadow (properties) {
   let divTarget = document.createElement('div')
   divTarget.id = 'xz-shadow'
   document.body.appendChild(divTarget)
+  document.body.style.overflow = 'hidden'
   render(<ShadowDom {...properties} />, divTarget)
 }

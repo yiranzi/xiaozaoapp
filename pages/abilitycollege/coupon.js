@@ -2,6 +2,7 @@ import React from 'react'
 import Layout from '../../components/layout'
 import AxiosUtil from '../../util/axios'
 import {Shadow} from '../../xz-components/shadow'
+import WxShare from '../../xz-components/wxshare'
 
 export default class extends React.Component {
   constructor (props) {
@@ -21,24 +22,43 @@ export default class extends React.Component {
         error: e.message
       })
     }
+    let prop = {
+      title: '优惠券',
+      desc: '优惠券详情',
+      link: '',
+      imgUrl: 'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg',
+      success: function () {
+        AxiosUtil.get(`/api/interview/getWXConfig?url=onApolloMain`)
+      }
+    }
+    return (<WxShare {...prop} />)
   }
   openShadow (category) {
     let content = (
       <div className='content'>
-        <img src='/static/img/abilitycollege/share_arrow.png' />
+        <div className='arrow'>
+          <img src='/static/img/abilitycollege/share_arrow.png' />
+        </div>
         <p>你正在分享{category}券</p>
         <p>点击右上角发送给你的朋友或者分享到朋友圈</p>
         <p>*你可以分享多次给多个朋友哦，多邀多得能力卡</p>
         <style jsx>{`
           .content {
-            color: #fff;
+            color: #2f3138;
+          }
+          .content .arrow {
+            text-align: right;
+          }
+          .content .arrow img {
+            width: 50%;
           }
         `}</style>
       </div>
     )
 
     Shadow({
-      content: content
+      content: content,
+      style: {backgroundColor: '#f0f2f6'}
     })
   }
   renderCouponItem (subTitle, bg, category) {
