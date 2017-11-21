@@ -72,7 +72,7 @@ export default class Modal extends React.Component {
           }
           .header .group .price .before {
             text-decoration: line-through;
-            text-decoration-color: red;
+            text-decoration-color: #c41616;
           }
           .header .group .price .now {
             font-size: 1.25rem;
@@ -95,13 +95,13 @@ export default class Modal extends React.Component {
             width: 1rem;
             height: 1rem;
             border-radius: 1rem;
-            background-color: red;
+            background-color: #c41616;
             position: absolute;
             left: 0;
             top: 0.3rem
           }
           .need-card-line {
-            color: red;
+            color: #c41616;
             text-align: center;
             margin: 2rem 0;
           }
