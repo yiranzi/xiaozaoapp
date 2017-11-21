@@ -19,7 +19,7 @@ export default class extends React.Component {
     defaultSelect: 0, // 初始选中
     buyButtonCallBack: function () {}, // 购买回调
     cancelCallBack: function () {}, // 取消购买回调
-    joinInfo: {},
+    joinInfo: {}
   }
 
   constructor (props) {
@@ -262,7 +262,7 @@ export default class extends React.Component {
 
   renderCoupon () {
     if (this.props.couponInfo) {
-      let nickname = this.props.couponInfo
+      let {nickname} = this.props.couponInfo
       return (<div className='coupon-div'>
         <p> • 使用{nickname}赠送的优惠券，享9折</p>
         <p>报名后你的好友{nickname}将免费获得一张能力卡</p>

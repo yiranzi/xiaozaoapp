@@ -6,6 +6,7 @@ import WxShare from '../../xz-components/newWxShare'
 import wxPayController from '../../util/wxPayController2'// 工具类
 import BuyPop from '../../containers/buygether/buypop'
 import Triangle from '../../containers/buygether/poptag'
+import Scrolling from '../../containers/buygether/scrolling'
 import Fixfooter from '../../xz-components/fixfooter'
 import TimeDown from '../../xz-components/timedown'
 import ToolsUtil from '../../util/tools'
@@ -134,7 +135,7 @@ export default class extends React.Component {
       let headimgurl = encodeURI(this.headimgurl)
       shareProp.title = this.nickname + shareProp.title
       shareProp.imgUrl = this.headimgurl
-      shareProp.link += `abilitycollege/main/?groundId=${this.state.myGroupingId}&headimgurl=${headimgurl}&nickname=${nickname}&category=invite`
+      shareProp.link += `abilitycollege/main/?groupId=${this.state.myGroupingId}&headimgurl=${headimgurl}&nickname=${nickname}&category=invite`
     }
     this.state.wxConfig.setShareConfig(shareProp)
   }
@@ -155,7 +156,7 @@ export default class extends React.Component {
         })}
       </div>
       <div className='text-line'>
-        {/*<p>123123123</p>*/}
+        <Scrolling interval={2500} />
       </div>
       <style jsx>{`
         .show-card {
@@ -182,7 +183,7 @@ export default class extends React.Component {
         }
         .text-line {
           position: absolute;
-          bottom: 5px;
+          bottom: 0;
           left: 0;
           width: 100%;
         }
@@ -528,7 +529,7 @@ export default class extends React.Component {
           buyButtonCallBack={this.buyButtonCallBack}
           joinInfo={this.state.currentJoinInfo}
           cancelCallBack={this.cancelCallBack}
-          couponInfo={this.state.couponInfo.nickname}
+          couponInfo={this.state.couponInfo}
           dataInfo={this.state.studyCardPackageList} />}
         <style jsx>{`
           .buy-card-page {
