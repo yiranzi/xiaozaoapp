@@ -47,8 +47,8 @@ export default class WxShare extends React.PureComponent {
     if (!this.state.wxReady) {
       return
     }
-    console.log('分享地址为' + this.props.link)
-    alert('分享地址为' + this.props.link)
+    // console.log('分享地址为' + this.props.link)
+    // alert('分享地址为' + this.props.link)
     let { title, desc, link, imgUrl, success, cancel } = this.props
     // eslint-disable-next-line
     wx.onMenuShareTimeline({
