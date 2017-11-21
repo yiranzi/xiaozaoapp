@@ -34,6 +34,8 @@ export default class TimeDown extends React.Component {
   render () {
     return (
       <div className='timedown'>
+        {/*因为想填充小时进去*/}
+        {this.props.children}
         {this.renderLeftTime()}
       </div>
     )

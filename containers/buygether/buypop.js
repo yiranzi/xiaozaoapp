@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {ChooseBar, ChooseItem} from '../../xz-components/choosebar'
+import Triangle from '../../containers/buygether/poptag'
 
 export default class extends React.Component {
   static propTypes = {
@@ -9,14 +10,14 @@ export default class extends React.Component {
     buyButtonCallBack: PropTypes.func,
     joinInfo: PropTypes.object,
     couponInfo: PropTypes.object,
-    canleCallBack: PropTypes.func
+    cancelCallBack: PropTypes.func
   }
 
   static defaultProps = {
     dataInfo: [], // 购买回调
     defaultSelect: 0, // 初始选中
     buyButtonCallBack: function () {}, // 购买回调
-    canleCallBack: function () {}, // 取消购买回调
+    cancelCallBack: function () {}, // 取消购买回调
     joinInfo: {},
     couponInfo: {}
   }
@@ -24,15 +25,18 @@ export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      currentSelect: 0
+      currentSelect: 0,
+      render: false
     }
     this.onChange = this.onChange.bind(this)
     this.buyButtonClick = this.buyButtonClick.bind(this)
   }
 
   componentDidMount () {
+    console.log('componentDidMount')
     this.setState({
-      currentSelect: this.props.defaultActiveKey
+      currentSelect: this.props.defaultActiveKey,
+      render: true
     })
   }
 
@@ -145,12 +149,15 @@ export default class extends React.Component {
 
   renderBottom () {
     if (this.props.dataInfo && this.props.dataInfo.length > 0) {
+      console.log('renderBottom')
+      console.log(this.state.currentSelect)
       let priceInfo = this.props.dataInfo[this.state.currentSelect]
       return (
         <div className='bottom-line'>
           <div className='button left-button'>{`原价￥${priceInfo.showPrice}`}</div>
           <div onClick={this.buyButtonClick} className='button rigth-button'>{`参团￥${priceInfo.price}`}</div>
-          {!this.props.joinInfo.nickname && <img className='tag' src='/static/img/buygether/group_tag.png' />}
+          {!this.props.joinInfo.nickname &&
+          <Triangle style={{right: '60px', bottom: '40px'}}>团长开团立减10元</Triangle>}
           <style jsx>{`
           .bottom-line{
             position: relative;
@@ -197,14 +204,15 @@ export default class extends React.Component {
   }
 
   render () {
-    return (
-      <div className='buy-pop-bg' onClick={() => { this.props.canleCallBack() }}>
-        <div className='buy-pop-div' onClick={(e) => { e.stopPropagation() }}>
-          {this.renderTitle()}
-          {this.renderList()}
-          {this.renderBottom()}
-        </div>
-        <style jsx>{`
+    if (this.state.render) {
+      return (
+        <div className='buy-pop-bg' onClick={() => { this.props.cancelCallBack() }}>
+          <div className='buy-pop-div' onClick={(e) => { e.stopPropagation() }}>
+            {this.renderTitle()}
+            {this.renderList()}
+            {this.renderBottom()}
+          </div>
+          <style jsx>{`
           .buy-pop-bg {
             background-color: rgba(35,24,21,0.5);
             position: fixed;
@@ -224,12 +232,16 @@ export default class extends React.Component {
             font-size: 14px;
           }
         `}</style>
-      </div>
-    )
+        </div>
+      )
+    } else {
+      return null
+    }
   }
 
   // change
   onChange (index) {
+    console.log('onchange')
     this.setState({
       currentSelect: index
     })

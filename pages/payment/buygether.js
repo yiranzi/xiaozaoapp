@@ -5,7 +5,9 @@ import AxiosUtil from '../../util/axios'
 import WxShare from '../../xz-components/wxshare'
 import wxPayController from '../../util/wxPayController2'// 工具类
 import BuyPop from '../../containers/buygether/buypop'
+import Triangle from '../../containers/buygether/poptag'
 import Fixfooter from '../../xz-components/fixfooter'
+import TimeDown from '../../xz-components/timedown'
 
 // 介绍页
 export default class extends React.Component {
@@ -25,8 +27,8 @@ export default class extends React.Component {
       otherGroup: undefined, // 其他团信息
       studyCardPackageList: [], // 套餐列表
       couponInfo: [], // 优惠券信息（我发给别人的）
-      hasCoupon: {}, // 优惠券信息（我自己持有的）
-      myGroupingId: null, // 我正在开团的id
+      hasCoupon: undefined, // 优惠券信息（我自己持有的）
+      myGroupingId: undefined, // 我正在开团的id
       currentJoinInfo: {}, // 参团信息
       currentTypeSelect: 0 // // 当前选择的拼团套餐。用于购买
     }
@@ -35,7 +37,7 @@ export default class extends React.Component {
     this.buyMyGroup = this.buyMyGroup.bind(this)
     this.buyOtherGroup = this.buyOtherGroup.bind(this)
     this.buyButtonCallBack = this.buyButtonCallBack.bind(this)
-    this.canleCallBack = this.canleCallBack.bind(this)
+    this.cancelCallBack = this.cancelCallBack.bind(this)
   }
 
   componentDidMount = async () => {
@@ -109,8 +111,8 @@ export default class extends React.Component {
     let {studyCardPackageList} = this.state
     return (<div className='show-card'>
       <div className='line'>
-        <span>能力卡可以用于兑换2018课表课程</span>
-        <span>已有9999人获得能力卡</span>
+        <p>能力卡用于兑换2018课表课程</p>
+        <p>已有9999人获得</p>
       </div>
       <div className='card-line'>
         {studyCardPackageList.map((ele, index) => {
@@ -121,7 +123,7 @@ export default class extends React.Component {
         })}
       </div>
       <div className='text-line'>
-        <p>123123123</p>
+        {/*<p>123123123</p>*/}
       </div>
       <style jsx>{`
         .show-card {
@@ -136,6 +138,7 @@ export default class extends React.Component {
         .line {
           display: flex;
           justify-content: space-between;
+          flex-wrap: wrap;
         }
         .card-line {
           display: flex;
@@ -170,6 +173,7 @@ export default class extends React.Component {
           // 正在团
           button = <Button style={this.buttonStyle} onClick={this.renderPop}>立即邀请好友</Button>
         }
+        {/*return <div style={{fontSize: '20px'}} key={index}>123</div>*/}
         return (this.renderCard(ele, button, index))
       })
       return (<div className='div-with-bottom'>
@@ -198,11 +202,17 @@ export default class extends React.Component {
     if (hasCoupon) {
       return (<div className='div-with-bottom'>
         {this.renderTitle('我获得的优惠券')}
+        <img src='/static/img/buygether/coupon.png' />
         <p>报名后你的好友</p>
         <style jsx>{`
           .div-with-bottom {
             padding-bottom: 10px;
             border-bottom: 1px solid #e5e5e5;
+            font-size: 14px;
+            text-align: left
+          }
+          img {
+            width: 100%;
           }
         `}</style>
       </div>)
@@ -256,17 +266,20 @@ export default class extends React.Component {
       let style = {
         backgroundColor: '#f0f2f6',
         borderRadius: '20px',
-        padding: '2px 5px'
+        padding: '0px 5px',
+        display: 'inline-block'
       }
-      content = <div >
-        剩余<span style={style}>{`${leftHour}时${leftMinute}分${29}秒`}</span>
-        <br />还差1人
+      content = <div>
+        剩余<div style={style}><TimeDown limitTime={leftMinute}>{`${leftHour} : `}</TimeDown></div>
+        {/*<br />还差1人*/}
       </div>
     }
     return (<div key={index} className='group-card'>
       <div className='head-list'>
         {headimgurl.map((ele, index) => {
-          return <img key={index} src={ele} />
+          return (<div key={index} >
+            <img src={ele} />
+          </div>)
         })}
       </div>
       <div className='content'>
@@ -280,42 +293,44 @@ export default class extends React.Component {
         .group-card {
           display: flex;
           font-size: 14px;
-          justift-content: space-between;
+          justify-content: space-between;
           align-items: center;
           padding: 10px 0px;
-        }
-        .group-card > div{
-          margin: 0 6px;
-        }
-        .content {
-          text-align: left;
-          min-width: 180px;
-        }
-        .button {
-          width: 100%;
-          {/*height: 50px;*/}
-        }
-        .button > div {
-          height: 100%;
+          height: 50px;
         }
         .head-list {
           text-align: center;
-          min-width: 80px;
           display: flex;
+          justify-content: center;
+          flex: 2;
+          margin-right: 6px;
         }
-        .head-list img {
-          margin: auto;
+        .head-list div {
           position: relative;
           z-index: 10;
-        }
-        .head-list img+img {
-          z-index: 5;
-          margin-left: -40px;
+
+          width: 70%;
+          flex: none;
+          text-align:center;
         }
         .head-list img {
+          width: 100%;
           border-radius: 50%;
-          width: 60px;
-          height: 60px;
+        }
+        .head-list div+div {
+          z-index: 15;
+          margin-left: -35px;
+        }
+        .content {
+          text-align: left;
+          flex: 4;
+        }
+        .button {
+          width: 100%;
+          flex: 3;
+        }
+        .button > div {
+          height: 100%;
         }
       `}</style>
     </div>)
@@ -350,9 +365,21 @@ export default class extends React.Component {
   }
 
   renderBuyButton () {
-    return (<div>
-      <Button style={this.buttonStyle} onClick={() => { this.buyMyGroup() }}>自己开团</Button>
-    </div>)
+    if (this.state.myGroupingId === null) {
+      return (<div className='button'>
+        <Triangle
+          borderStyle={{top: '-8px', borderColor: 'transparent transparent #cba46b #cba46b'}}
+          style={{right: '60px', bottom: '-10px'}}>
+          团长开团立减10元
+        </Triangle>}
+        <Button style={this.buttonStyle} onClick={() => { this.buyMyGroup() }}>自己开团</Button>
+        <style jsx>{`
+        .button {
+          position: relative;
+        }
+      `}</style>
+      </div>)
+    }
   }
 
   buyButtonCallBack = async (typeId, groupId) => {
@@ -367,24 +394,32 @@ export default class extends React.Component {
     }
   }
 
-  buyMyGroup = async (typeId) => {
-    let currentTypeSelect = typeId || 0
-    this.setState({
-      currentTypeSelect: currentTypeSelect,
-      currentJoinInfo: {},
-      showPop: true
-    })
+  buyMyGroup = (typeId) => {
+    if (this.state.myGroupingId === null) {
+      let currentTypeSelect = typeId || 0
+      this.setState({
+        currentTypeSelect: currentTypeSelect,
+        currentJoinInfo: {},
+        showPop: true
+      })
+    } else {
+      alert('no')
+    }
   }
 
   buyOtherGroup = (ele) => {
-    this.setState({
-      currentTypeSelect: 0,
-      currentJoinInfo: ele,
-      showPop: true
-    })
+    if (this.state.myGroupingId === null) {
+      this.setState({
+        currentTypeSelect: 0,
+        currentJoinInfo: ele,
+        showPop: true
+      })
+    } else {
+      alert('no')
+    }
   }
 
-  canleCallBack () {
+  cancelCallBack () {
     this.setState({
       showPop: false
     })
@@ -397,7 +432,7 @@ export default class extends React.Component {
           <img src='/static/img/buygether/ask.png' />
           <span>在线咨询</span>
         </div>
-        <div className='right' onClick={this.buyMyGroup}>
+        <div className='right' onClick={() => { this.buyMyGroup() }}>
           <img src='/static/img/buygether/buy.png' />
           <span>获得能力卡 开团享3折</span>
         </div>
@@ -455,7 +490,7 @@ export default class extends React.Component {
           defaultActiveKey={this.state.currentTypeSelect}
           buyButtonCallBack={this.buyButtonCallBack}
           joinInfo={this.state.currentJoinInfo}
-          canleCallBack={this.canleCallBack}
+          cancelCallBack={this.cancelCallBack}
           dataInfo={this.state.studyCardPackageList} />}
         <style jsx>{`
           .buy-card-page {
