@@ -8,11 +8,15 @@ import BuyPop from '../../containers/buygether/buypop'
 import Triangle from '../../containers/buygether/poptag'
 import Fixfooter from '../../xz-components/fixfooter'
 import TimeDown from '../../xz-components/timedown'
+import ToolsUtil from '../../util/tools'
+import {Alert} from '../../xz-components/alert'
 
 // 介绍页
 export default class extends React.Component {
   groupLength = 4
   changeInterval = 1000
+  nickname // 分享昵称
+  headimgurl // 分享头像
 
   buttonStyle = {
     backgroundColor: '#c41616',
@@ -26,7 +30,6 @@ export default class extends React.Component {
       myGroup: [], // 我的团信息
       otherGroup: undefined, // 其他团信息
       studyCardPackageList: [], // 套餐列表
-      couponInfo: [], // 优惠券信息（我发给别人的）
       hasCoupon: undefined, // 优惠券信息（我自己持有的）
       myGroupingId: undefined, // 我正在开团的id
       currentJoinInfo: {}, // 参团信息
@@ -41,30 +44,52 @@ export default class extends React.Component {
   }
 
   componentDidMount = async () => {
-    // 0 去参数
-    // 1 拉取优惠券 （如果有。
     let buyDetail = await AxiosUtil.get('/api/study-card/buyDetail')
-    let couponInfo = await AxiosUtil.get('/api/study-card/coupon')
     let {myGroup, otherGroup, studyCardPackageList, studyCardCouponInvite} = buyDetail
-    // 4 设置不同的分享
-    this.setGroupStatus(myGroup)
     this.setState({
       myGroup: myGroup,
       otherGroup: otherGroup,
       studyCardPackageList: studyCardPackageList,
-      hasCoupon: studyCardCouponInvite,
-      couponInfo: couponInfo
+      hasCoupon: studyCardCouponInvite
     }, this.setRenderOtherGroupInterval)
+    // 这只我的团状态
+    await this.setGroupStatus(myGroup)
+    // 0 取参数
+    this.joinGroupFromShare()
+  }
+
+  // 根据链接 弹出购买框
+  joinGroupFromShare () {
+    let groupId = ToolsUtil.getQueryString('groupId')
+    if (groupId) {
+      let nickname = ToolsUtil.getQueryString('nickname')
+      let headimgurl = ToolsUtil.getQueryString('headimgurl')
+
+      let currentJoinInfo = {
+        nickname: nickname,
+        headimgurl: headimgurl,
+        groupId: groupId
+      }
+      this.buyOtherGroup(currentJoinInfo)
+    }
   }
 
   // 根据信息设置开团状态 如果有团 设置团号 没有滞null
-  setGroupStatus (myGroup) {
+  setGroupStatus = async (myGroup) => {
     let myGroupingId = null
     if (myGroup && myGroup.length > 0) {
       let result = myGroup.find((ele, index) => {
         return (ele.status === 0)
       })
-      myGroupingId = result ? result.groupId : null
+      if (result) {
+        myGroupingId = result.groupId
+        let userInfo = await AxiosUtil.get('/api/user')
+        let {nickname, headimgurl} = userInfo
+        this.nickname = nickname
+        this.headimgurl = headimgurl
+      } else {
+        myGroupingId = null
+      }
     } else {
       myGroupingId = null
     }
@@ -101,9 +126,9 @@ export default class extends React.Component {
     if (this.state.myGroupingId) {
       shareProp.title = '我正在团，来和我参团'
       shareProp.desc = '我正在团'
-      shareProp.link += `abilitycollege/?groundId=${this.state.myGroupingId}&headimg=123&nickname=321`
+      shareProp.imgUrl = this.headimgurl
+      shareProp.link += `abilitycollege/main/?groundId=${this.state.myGroupingId}&headimgurl=${this.headimgurl}&nickname=${this.nickname}&category=invite`
     }
-
     return (<WxShare {...shareProp} />)
   }
 
@@ -253,9 +278,6 @@ export default class extends React.Component {
     }
   }
 
-  // 1 判定状态。
-  // 已成团 参团
-
   // 解析参数。渲染拼团
   renderCard (groupInfo, button, index) {
     let {headimgurl, leftHour, leftMinute, nickname, groupId} = groupInfo
@@ -308,7 +330,6 @@ export default class extends React.Component {
         .head-list div {
           position: relative;
           z-index: 10;
-
           width: 70%;
           flex: none;
           text-align:center;
@@ -393,7 +414,7 @@ export default class extends React.Component {
   }
 
   buyMyGroup = (typeId) => {
-    if (this.state.myGroupingId !== null) {
+    if (this.state.myGroupingId == null) {
       let currentTypeSelect = typeId || 0
       this.setState({
         currentTypeSelect: currentTypeSelect,
@@ -401,19 +422,24 @@ export default class extends React.Component {
         showPop: true
       })
     } else {
-      alert('no')
+      Alert({
+        content: '您正在拼团，无法重新参团，拼团成功后会通知您哦'
+      })
     }
   }
 
   buyOtherGroup = (ele) => {
-    if (this.state.myGroupingId === null) {
+    console.log(ele)
+    if (this.state.myGroupingId == null) {
       this.setState({
         currentTypeSelect: 0,
         currentJoinInfo: ele,
         showPop: true
       })
     } else {
-      alert('no')
+      Alert({
+        content: '您正在拼团，无法重新参团，拼团成功后会通知您哦'
+      })
     }
   }
 

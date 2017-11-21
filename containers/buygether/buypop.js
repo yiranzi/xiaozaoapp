@@ -40,7 +40,7 @@ export default class extends React.Component {
   }
 
   renderTitle () {
-    if (this.props.joinInfo && this.props.joinInfo.headimgurl) {
+    if (this.props.joinInfo && this.props.joinInfo.groupId) {
       let {headimgurl, nickname} = this.props.joinInfo
       return (<div className='title'>
         <div className='content title-font'>
@@ -182,7 +182,7 @@ export default class extends React.Component {
         <div className='bottom-line'>
           <div className='button left-button'>{`原价￥${priceInfo.showPrice}`}</div>
           <div onClick={this.buyButtonClick} className='button rigth-button'>{`参团￥${priceInfo.price}`}</div>
-          {!this.props.joinInfo.nickname &&
+          {!this.props.joinInfo.groupId &&
           <Triangle style={{right: '60px', bottom: '40px'}}>团长开团立减10元</Triangle>}
           <style jsx>{`
           .bottom-line{
