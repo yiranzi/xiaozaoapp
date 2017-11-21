@@ -114,6 +114,7 @@ export default class WxShare extends React.PureComponent {
         if (cancel) { cancel() }
       }
     })
+    return (<div>{title}</div>)
   }
   render () {
     return <div>
