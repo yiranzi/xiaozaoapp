@@ -2,7 +2,7 @@ import React from 'react'// 库
 import Button from '../../xz-components/button'
 import Layout from '../../components/layout'// container
 import AxiosUtil from '../../util/axios'
-import WxShare from '../../xz-components/wxshare'
+import WxShare from '../../xz-components/newWxShare'
 import wxPayController from '../../util/wxPayController2'// 工具类
 import BuyPop from '../../containers/buygether/buypop'
 import Triangle from '../../containers/buygether/poptag'
@@ -26,17 +26,17 @@ export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+      wxConfig: new WxShare(), // 分享初始化
       showPop: false, // 购买弹窗
       myGroup: [], // 我的团信息
       otherGroup: undefined, // 其他团信息
       studyCardPackageList: [], // 套餐列表
-      hasCoupon: undefined, // 优惠券信息（我自己持有的）
+      couponInfo: undefined, // 优惠券信息（我自己持有的）
       myGroupingId: undefined, // 我正在开团的id
       currentJoinInfo: {}, // 参团信息
       currentTypeSelect: 0 // // 当前选择的拼团套餐。用于购买
     }
     this.renderCard = this.renderCard.bind(this)
-    this.renderShare = this.renderShare.bind(this)
     this.buyMyGroup = this.buyMyGroup.bind(this)
     this.buyOtherGroup = this.buyOtherGroup.bind(this)
     this.buyButtonCallBack = this.buyButtonCallBack.bind(this)
@@ -50,12 +50,18 @@ export default class extends React.Component {
       myGroup: myGroup,
       otherGroup: otherGroup,
       studyCardPackageList: studyCardPackageList,
-      hasCoupon: studyCardCouponInvite
+      couponInfo: studyCardCouponInvite
     }, this.setRenderOtherGroupInterval)
     // 这只我的团状态
     await this.setGroupStatus(myGroup)
-    // 0 取参数
+
+    // 0 取参数 并弹出购买框
     this.joinGroupFromShare()
+
+    // 调用分享函数
+    let {wxConfig} = this.state
+    await wxConfig.init()
+    this.setShare()
   }
 
   // 根据链接 弹出购买框
@@ -116,20 +122,21 @@ export default class extends React.Component {
     })
   }
 
-  renderShare () {
+  setShare () {
     let shareProp = {
-      title: '我没有团，你可以来看看',
-      desc: '我没有团',
+      title: '邀你一起拼团能力课程，低至3折',
+      desc: '小灶能力学院限时拼团特惠，PPT 课、商业英语课、结构化逻辑课、四大求职通关课等26大课程3大类能力等你拥有。',
       link: 'http://rcwx.review.xiaozao.org/',
       imgUrl: 'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg'
     }
     if (this.state.myGroupingId) {
-      shareProp.title = '我正在团，来和我参团'
-      shareProp.desc = '我正在团'
+      let nickname = encodeURI(encodeURI(this.nickname))
+      let headimgurl = encodeURI(this.headimgurl)
+      shareProp.title = this.nickname + shareProp.title
       shareProp.imgUrl = this.headimgurl
-      shareProp.link += `abilitycollege/main/?groundId=${this.state.myGroupingId}&headimgurl=${this.headimgurl}&nickname=${this.nickname}&category=invite`
+      shareProp.link += `abilitycollege/main/?groundId=${this.state.myGroupingId}&headimgurl=${headimgurl}&nickname=${nickname}&category=invite`
     }
-    return (<WxShare {...shareProp} />)
+    this.state.wxConfig.setShareConfig(shareProp)
   }
 
   renderGroupType () {
@@ -223,12 +230,13 @@ export default class extends React.Component {
   }
 
   renderCoupon () {
-    let {hasCoupon} = this.state
-    if (hasCoupon) {
+    let {couponInfo} = this.state
+    if (couponInfo) {
+      let {nickname} = couponInfo
       return (<div className='div-with-bottom'>
         {this.renderTitle('我获得的优惠券')}
         <img src='/static/img/buygether/coupon.png' />
-        <p>报名后你的好友</p>
+        <p>* {nickname} 赠送，报名后你的好友 {nickname} 将免费获得一张能力卡</p>
         <style jsx>{`
           .div-with-bottom {
             padding-bottom: 10px;
@@ -280,7 +288,7 @@ export default class extends React.Component {
 
   // 解析参数。渲染拼团
   renderCard (groupInfo, button, index) {
-    let {headimgurl, leftHour, leftMinute, nickname, groupId} = groupInfo
+    let {headimgurl, leftHour, leftMinute, nickname} = groupInfo
     let content
     if (groupInfo.status === 1) {
       content = '已成团'
@@ -501,7 +509,6 @@ export default class extends React.Component {
   render () {
     return (
       <Layout>
-        {this.renderShare()}
         <div className='buy-card-page'>
           <img className='bg-img1' src={'/static/img/buygether/buyBg_1.jpeg'} />
           <div>{this.renderGroupType()}</div>
@@ -521,6 +528,7 @@ export default class extends React.Component {
           buyButtonCallBack={this.buyButtonCallBack}
           joinInfo={this.state.currentJoinInfo}
           cancelCallBack={this.cancelCallBack}
+          couponInfo={this.state.couponInfo.nickname}
           dataInfo={this.state.studyCardPackageList} />}
         <style jsx>{`
           .buy-card-page {

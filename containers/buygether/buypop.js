@@ -11,7 +11,6 @@ export default class extends React.Component {
     defaultSelect: PropTypes.number,
     buyButtonCallBack: PropTypes.func,
     joinInfo: PropTypes.object,
-    couponInfo: PropTypes.object,
     cancelCallBack: PropTypes.func
   }
 
@@ -21,7 +20,6 @@ export default class extends React.Component {
     buyButtonCallBack: function () {}, // 购买回调
     cancelCallBack: function () {}, // 取消购买回调
     joinInfo: {},
-    couponInfo: {}
   }
 
   constructor (props) {
@@ -185,7 +183,7 @@ export default class extends React.Component {
     } else {
       isNewGroup = true
     }
-    let isCoupon = true
+    let isCoupon = this.props.couponInfo
     let {showPrice, price} = priceInfo
     if (isCoupon) {
       price = price * this.coupon
@@ -263,17 +261,19 @@ export default class extends React.Component {
   }
 
   renderCoupon () {
-    let name = '依然'
-    return (<div className='coupon-div'>
-      <p>•使用{name}赠送的优惠券，享9折</p>
-      <p>报名后你的好友{name}将免费获得一张能力卡</p>
-      <style jsx>{`
+    if (this.props.couponInfo) {
+      let nickname = this.props.couponInfo
+      return (<div className='coupon-div'>
+        <p> • 使用{nickname}赠送的优惠券，享9折</p>
+        <p>报名后你的好友{nickname}将免费获得一张能力卡</p>
+        <style jsx>{`
         .coupon-div {
           margin-bottom: 40px;
           padding: 0px 10px;
         }
       `}</style>
-    </div>)
+      </div>)
+    }
   }
 
   render () {
