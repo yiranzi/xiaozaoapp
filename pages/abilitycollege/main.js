@@ -28,24 +28,23 @@ export default class extends React.Component {
     }
   }
   componentDidMount = async () => {
-    let exchangeDetail = await AxiosUtil.get('/api/study-card/exchangeDetail')
-    let buyDetail = await AxiosUtil.get('/api/study-card/buyDetail')
-    exchangeDetail = this.formData(exchangeDetail)
-    this.setState({exchangeDetail: exchangeDetail, buyDetail: buyDetail})
-
     let groupId = ToolsUtil.getQueryString('groupId')
     let headimg = ToolsUtil.getQueryString('headimg')
     let nickname = ToolsUtil.getQueryString('nickname')
     let category = ToolsUtil.getQueryString('category')
     let couponname = ToolsUtil.getQueryString('couponname')
-
     this.setState({
       groupId: groupId,
       headimg: headimg,
-      nickname: nickname,
+      nickname: decodeURI(decodeURI(nickname)),
       category: category,
-      couponname: couponname
+      couponname: decodeURI(decodeURI(couponname))
     })
+
+    let exchangeDetail = await AxiosUtil.get('/api/study-card/exchangeDetail')
+    let buyDetail = await AxiosUtil.get('/api/study-card/buyDetail')
+    exchangeDetail = this.formData(exchangeDetail)
+    this.setState({exchangeDetail: exchangeDetail, buyDetail: buyDetail})
   }
   formData (exchangeDetail) {
     let json = {}
@@ -96,16 +95,11 @@ export default class extends React.Component {
     })
     return json
   }
-  jumpTo (groupId, headimg, nickname) {
-    let string = ''
-    string = string + groupId ? 'groupId=' + groupId : ''
-    string = string + headimg ? 'headimg=' + headimg : ''
-    string += nickname ? 'nickname=' + nickname : ''
-
-    location.href = '/payment/buygether?' + string
+  jumpTo () {
+    location.href = '/payment/buygether' + location.search
   }
   render () {
-    const {exchangeDetail, buyDetail, groupId, headimg, nickname, category, couponname} = this.state
+    const {exchangeDetail, buyDetail, headimg, nickname, category, couponname} = this.state
     return (
       <Layout>
         <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css' />
@@ -113,13 +107,13 @@ export default class extends React.Component {
         <div className='main'>
           <Header buyDetail={buyDetail} />
           {category === 'invite' &&
-            <div className='tips' onClick={() => { this.jumpTo(groupId, headimg, nickname) }}>
+            <div className='tips' onClick={() => { this.jumpTo() }}>
               <div><img src={headimg} /></div>
               <div style={{marginLeft: '0.5rem'}}>参加{nickname}的团，低至3折获取能力卡</div>
             </div>
           }
           {category === 'coupon' &&
-            <div className='tips' onClick={() => { this.jumpTo(groupId, headimg, nickname) }}>
+            <div className='tips' onClick={() => { this.jumpTo() }}>
               <div><img src={headimg} /></div>
               <div style={{marginLeft: '0.5rem'}}>
                 <p>接受{nickname}的邀请，获得{couponname}</p>
