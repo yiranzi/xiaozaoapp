@@ -35,7 +35,7 @@ export default class WxShare extends React.PureComponent {
     // eslint-disable-next-line
     wx.ready(this.setState({
       wxReady: true
-    }))
+    }), alert('ready'))
     // eslint-disable-next-line
     wx.error(function (res) {
       console.log('微信认证失败')
