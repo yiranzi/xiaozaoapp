@@ -19,20 +19,30 @@ export default class extends React.Component {
     super(props)
     this.state = {
       exchangeDetail: {},
-      buyDetail: {},
+      coupon: [],
       groupId: '',
       headimg: '',
       nickname: '',
       category: '',
-      couponname: ''
+      couponname: '',
+      couponid: '',
+      couponError: ''
     }
   }
   componentDidMount = async () => {
-    let groupId = ToolsUtil.getQueryString('groupId')
-    let headimg = ToolsUtil.getQueryString('headimg')
-    let nickname = ToolsUtil.getQueryString('nickname')
-    let category = ToolsUtil.getQueryString('category')
-    let couponname = ToolsUtil.getQueryString('couponname')
+    let groupId = ToolsUtil.getQueryString('groupId') // 拼团id
+    let headimg = ToolsUtil.getQueryString('headimg') // 邀请人头像
+    let nickname = ToolsUtil.getQueryString('nickname') // 邀请人昵称
+    let category = ToolsUtil.getQueryString('category') // 区分是邀请参团还是分享优惠券, 参团值为invite, 优惠券是coupon
+    let couponname = ToolsUtil.getQueryString('couponname') // 通用券, 闺蜜券, 基友券, 校友券
+    let couponid = ToolsUtil.getQueryString('couponid') // 优惠券id
+    if (couponid) {
+      try {
+        await AxiosUtil.get('/api/study-card/receiveCoupon/' + couponid)
+      } catch (e) {
+        this.setState({couponError: e.message})
+      }
+    }
     this.setState({
       groupId: groupId,
       headimg: headimg,
@@ -41,10 +51,10 @@ export default class extends React.Component {
       couponname: decodeURI(decodeURI(couponname))
     })
 
-    let exchangeDetail = await AxiosUtil.get('/api/study-card/exchangeDetail')
-    let buyDetail = await AxiosUtil.get('/api/study-card/buyDetail')
+    let exchangeDetail = await AxiosUtil.get('/api/study-card/exchangeDetail') // 获取schedule course文案
+    let coupon = await AxiosUtil.get('/api/study-card/coupon') // 获取已获得的优惠券
     exchangeDetail = this.formData(exchangeDetail)
-    this.setState({exchangeDetail: exchangeDetail, buyDetail: buyDetail})
+    this.setState({exchangeDetail: exchangeDetail, coupon: coupon})
   }
   formData (exchangeDetail) {
     let json = {}
@@ -98,29 +108,37 @@ export default class extends React.Component {
   jumpTo () {
     location.href = '/payment/buygether' + location.search
   }
+  renderInviteBar (headimg, nickname) {
+    return (
+      <div className='tips' onClick={() => { this.jumpTo() }}>
+        <div><img src={headimg} /></div>
+        <div style={{marginLeft: '0.5rem'}}>参加{nickname}的团，低至3折获取能力卡</div>
+      </div>
+    )
+  }
+  renderCouponBar (headimg, nickname) {
+    const {couponname, couponError} = this.state
+    if (couponError) return <div className='tips'>{couponError}</div>
+    return (
+      <div className='tips' onClick={() => { this.jumpTo() }}>
+        <div><img src={headimg} /></div>
+        <div style={{marginLeft: '0.5rem'}}>
+          <p>接受{nickname}的邀请，获得{couponname}</p>
+          <p>获取能力卡 立享9折</p>
+        </div>
+      </div>
+    )
+  }
   render () {
-    const {exchangeDetail, buyDetail, headimg, nickname, category, couponname} = this.state
+    const {exchangeDetail, coupon, headimg, nickname, category} = this.state
     return (
       <Layout>
         <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css' />
         <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css' />
         <div className='main'>
-          <Header buyDetail={buyDetail} />
-          {category === 'invite' &&
-            <div className='tips' onClick={() => { this.jumpTo() }}>
-              <div><img src={headimg} /></div>
-              <div style={{marginLeft: '0.5rem'}}>参加{nickname}的团，低至3折获取能力卡</div>
-            </div>
-          }
-          {category === 'coupon' &&
-            <div className='tips' onClick={() => { this.jumpTo() }}>
-              <div><img src={headimg} /></div>
-              <div style={{marginLeft: '0.5rem'}}>
-                <p>接受{nickname}的邀请，获得{couponname}</p>
-                <p>获取能力卡 立享9折</p>
-              </div>
-            </div>
-          }
+          <Header coupon={coupon} />
+          {category === 'invite' && this.renderInviteBar(headimg, nickname)}
+          {category === 'coupon' && this.renderCouponBar(headimg, nickname)}
           <div className='content'>
             {DataUtils.isEmpty(exchangeDetail) ? <LoadingIcon /> : <Schedule exchangeDetail={this.state.exchangeDetail} />}
             <Plan />
@@ -138,21 +156,6 @@ export default class extends React.Component {
           }
           .content {
             padding-bottom: 7rem;
-          }
-          .tips {
-            margin-top: 1rem;
-            background-color: #c41616;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 0.85rem;
-            color: #fff;
-            padding: 0.5rem 0;
-          }
-          .tips img {
-            width: 2rem;
-            border-radius: 2rem;
-            display: block;
           }
         `}</style>
         <style global jsx>{`
@@ -174,6 +177,24 @@ export default class extends React.Component {
             height: 24px;
             border-radius: 15px;
             background-color: #241d66;
+          }
+          /**
+           * bar 样式
+           */
+          .tips {
+            margin-top: 1rem;
+            background-color: #c41616;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #fff;
+            padding: 0.5rem 0;
+          }
+          .tips img {
+            width: 2rem;
+            border-radius: 2rem;
+            display: block;
           }
         `}</style>
       </Layout>

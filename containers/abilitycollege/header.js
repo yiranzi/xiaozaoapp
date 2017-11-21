@@ -12,8 +12,8 @@ export default class extends React.Component {
     }
   }
   share () {
-    const {buyDetail} = this.props
-    if (buyDetail.studyCardPackageList.length > 0) {
+    const {coupon} = this.props
+    if (coupon.length > 0) {
       location.href = '/abilitycollege/coupon'
     } else {
       Confirm({
