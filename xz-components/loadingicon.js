@@ -7,6 +7,7 @@ class Loading extends React.Component {
         <img src='/static/img/components/loading_icon.png' />
         <style jsx>{`
           .loading-icon {
+            display: inline-block;
             text-align: center;
           }
           .loading-icon img {

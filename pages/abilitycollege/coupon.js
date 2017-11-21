@@ -1,36 +1,54 @@
 import React from 'react'
 import Layout from '../../components/layout'
-import Loading from '../../xz-components/loading'
 import AxiosUtil from '../../util/axios'
-import DataUtils from '../../util/data'
-import Header from '../../containers/abilitycollege/header'
-import Footer from '../../components/footer'
+import {Shadow} from '../../xz-components/shadow'
 
 export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      detail: {}
+      detail: {},
+      coupon: []
     }
   }
   componentDidMount = async () => {
     try {
-      let detail = await AxiosUtil.get('/api/study-card')
-      this.setState({detail: detail})
+      let detail = await AxiosUtil.get('/api/study-card') // 通过邀请获得的能力卡
+      let coupon = await AxiosUtil.get('/api/study-card/coupon') // 优惠券
+      this.setState({detail: detail, coupon: coupon})
     } catch (e) {
       this.setState({
         error: e.message
       })
     }
   }
-  renderCouponItem (subTitle, bg) {
+  openShadow (category) {
+    let content = (
+      <div className='content'>
+        <img src='/static/img/abilitycollege/share_arrow.png' />
+        <p>你正在分享{category}券</p>
+        <p>点击右上角发送给你的朋友或者分享到朋友圈</p>
+        <p>*你可以分享多次给多个朋友哦，多邀多得能力卡</p>
+        <style jsx>{`
+          .content {
+            color: #fff;
+          }
+        `}</style>
+      </div>
+    )
+
+    Shadow({
+      content: content
+    })
+  }
+  renderCouponItem (subTitle, bg, category) {
     return (
       <div className='item'>
         <div className='wrapper'>
           <div className='sub-title' style={{backgroundColor: bg}}>{subTitle}</div>
           <div className='coupon'>9折</div>
         </div>
-        <div className='share'>分享</div>
+        <div className='share' onClick={() => { this.openShadow(category) }}>分享</div>
         <style jsx>{`
           .item {
             flex: 1;
@@ -78,26 +96,27 @@ export default class extends React.Component {
             </p>
           </div>
           <div className='coupon-detail'>
-            {this.renderCouponItem('能力派通用券', '#cba46b')}
-            {this.renderCouponItem('闺蜜券', '#ff91ad')}
-            {this.renderCouponItem('基友券', '#f7be0f')}
-            {this.renderCouponItem('校友券', '#3964c5')}
+            {this.renderCouponItem('通用券', '#cba46b', '通用券')}
+            {this.renderCouponItem('闺蜜券', '#ff91ad', '闺蜜券')}
+            {this.renderCouponItem('基友券', '#f7be0f', '基友券')}
+            {this.renderCouponItem('校友券', '#3964c5', '校友券')}
           </div>
           <div className='own'>
             <div className='text'>已通过邀请获得能力卡</div>
-            <div className='acount'>{!DataUtils.isEmpty(detail) && detail.buyCount}张</div>
+            <div className='acount'>{detail.buyCount}张</div>
           </div>
           <div className='link'>查看我的能力卡</div>
           <style jsx>{`
             .coupon {
               background-color: #f0f2f6;
               min-height: 100vh;
+              padding-bottom: 3rem;
             }
             .header {
               color: #fff;
               background: url('/static/img/abilitycollege/share_bg.png');
               background-size: 100% 100%;
-              padding: 2rem 3rem;
+              padding: 2rem;
             }
             .header .title {
               font-size: 1.25rem;
