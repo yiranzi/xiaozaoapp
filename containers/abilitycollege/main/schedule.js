@@ -6,7 +6,6 @@ export default class extends React.Component {
   renderContent (detail, bg) {
     return <Card detail={detail} bg={bg} showTitle />
   }
-  
   render () {
     const {exchangeDetail} = this.props
     const {currency, work, job} = exchangeDetail

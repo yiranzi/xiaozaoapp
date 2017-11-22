@@ -110,7 +110,7 @@ export default class extends React.Component {
   }
   renderInviteBar (headimg, nickname) {
     return (
-      <div className='tips' onClick={() => { this.jumpTo() }}>
+      <div className='share-tips' onClick={() => { this.jumpTo() }}>
         <div><img src={headimg} /></div>
         <div style={{marginLeft: '0.5rem'}}>参加{nickname}的团，低至3折获取能力卡</div>
       </div>
@@ -120,11 +120,10 @@ export default class extends React.Component {
     const {couponname, couponError} = this.state
     if (couponError) return <div className='tips'>{couponError}</div>
     return (
-      <div className='tips' onClick={() => { this.jumpTo() }}>
+      <div className='share-tips' onClick={() => { this.jumpTo() }}>
         <div><img src={headimg} /></div>
         <div style={{marginLeft: '0.5rem'}}>
-          <p>接受{nickname}的邀请，获得{couponname}</p>
-          <p>获取能力卡 立享9折</p>
+          <p>已获得{nickname}赠送的{couponname}，购买能力卡，立享9折！</p>
         </div>
       </div>
     )
@@ -181,7 +180,7 @@ export default class extends React.Component {
           /**
            * bar 样式
            */
-          .tips {
+          .share-tips {
             margin-top: 1rem;
             background-color: #c41616;
             display: flex;
@@ -191,7 +190,7 @@ export default class extends React.Component {
             color: #fff;
             padding: 0.5rem 0;
           }
-          .tips img {
+          .share-tips img {
             width: 2rem;
             border-radius: 2rem;
             display: block;

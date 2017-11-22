@@ -9,8 +9,8 @@ export default class extends React.Component {
           <div className='title'>前辈帮助规划你需要的能力提升路径</div>
           <div className='content'>
             <div className='link'>
-              <a href=''><img src='/static/img/abilitycollege/zixun.png' /></a>
-              <a href=''><img src='/static/img/abilitycollege/internet.png' /></a>
+              <a href='/abilitycollege/zixun'><img src='/static/img/abilitycollege/zixun.png' /></a>
+              <a href='/abilitycollege/bigfour'><img src='/static/img/abilitycollege/sida.png' /></a>
             </div>
             <a className='feedback' href=''>
               <p>想了解更多行业的能力规划？</p>
