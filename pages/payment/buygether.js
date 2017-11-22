@@ -437,7 +437,10 @@ export default class extends React.Component {
       }
       wxPayController.payInit(payInfo).then(() => {
         this.updateInfo()
-        alert('success123')
+        this.setState({
+          showPop: false
+        })
+        // alert('success123')
       })
     } catch (e) {
       Alert({

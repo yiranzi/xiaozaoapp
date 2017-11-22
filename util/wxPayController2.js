@@ -41,7 +41,7 @@ wxPayController.onBridgeReady = () => {
       function (res) {
         if (res.err_msg === 'get_brand_wcpay_request:ok') {
         }
-        alert('1111')
+        // alert('1111')
         resolve(true)
       }
     )
