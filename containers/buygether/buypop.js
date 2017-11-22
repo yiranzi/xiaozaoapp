@@ -61,13 +61,11 @@ export default class extends React.Component {
             font-weight: bold;
           }
           .content {
-            height: 30px;
-            line-height: 30px;
             display: flex;
-            align-items; center;
+            align-items: center;
             justify-content: center;
-            height: 40px;
-            line-height: 40px;
+            flex-wrap: wrap;
+            margin: 10px auto;
           }
           .head-img {
             margin: 0 10px;

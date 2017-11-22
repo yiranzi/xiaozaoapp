@@ -24,27 +24,26 @@ wxPayController.pay = () => {
 }
 
 wxPayController.onBridgeReady = () => {
-// 2 设置订单
-  let {appId, nonceStr, paySign, timeStamp, prepayId} = payData
-  // eslint-disable-next-line
-  WeixinJSBridge.invoke(
-    'getBrandWCPayRequest', {
-      'appId': appId,
-      'timeStamp': timeStamp,
-      'nonceStr': nonceStr,
-      'package': `prepay_id=${prepayId}`,
-      'signType': 'MD5',
-      'paySign': paySign
-    },
-    function (res) {
-      if (res.err_msg === 'get_brand_wcpay_request:ok') {
+  return new Promise((resolve, reject) => {
+    let {appId, nonceStr, paySign, timeStamp, prepayId} = payData
+    // eslint-disable-next-line
+    WeixinJSBridge.invoke(
+      'getBrandWCPayRequest', {
+        'appId': appId,
+        'timeStamp': timeStamp,
+        'nonceStr': nonceStr,
+        'package': `prepay_id=${prepayId}`,
+        'signType': 'MD5',
+        'paySign': paySign
+      },
+      function (res) {
+        if (res.err_msg === 'get_brand_wcpay_request:ok') {
+        }
+        alert(res)
+        resolve(true)
       }
-      for (let i of res) {
-        alert(i)
-      }
-      location.href = `/payment/buygether`
-    }
-  )
+    )
+  })
 }
 
 module.exports = wxPayController

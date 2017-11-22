@@ -11,6 +11,7 @@ import Fixfooter from '../../xz-components/fixfooter'
 import TimeDown from '../../xz-components/timedown'
 import ToolsUtil from '../../util/tools'
 import {Alert} from '../../xz-components/alert'
+import {showShareBg} from '../../xz-components/wxshareBg'
 
 // 介绍页
 export default class extends React.Component {
@@ -42,9 +43,16 @@ export default class extends React.Component {
     this.buyOtherGroup = this.buyOtherGroup.bind(this)
     this.buyButtonCallBack = this.buyButtonCallBack.bind(this)
     this.cancelCallBack = this.cancelCallBack.bind(this)
+    this.updateInfo = this.updateInfo.bind(this)
+    this.goRouter = this.goRouter.bind(this)
   }
 
   componentDidMount = async () => {
+    this.updateInfo()
+  }
+
+  updateInfo = async () => {
+    //
     let buyDetail = await AxiosUtil.get('/api/study-card/buyDetail')
     let {myGroup, otherGroup, studyCardPackageList, studyCardCouponInvite} = buyDetail
     this.setState({
@@ -53,12 +61,12 @@ export default class extends React.Component {
       studyCardPackageList: studyCardPackageList,
       couponInfo: studyCardCouponInvite
     }, this.setRenderOtherGroupInterval)
-    // 这只我的团状态
+    // 设置我的团状态
     await this.setGroupStatus(myGroup)
 
-    // 0 取参数 并弹出购买框
+    // 取参数 并弹出购买框
     this.joinGroupFromShare()
-
+    console.log('fnish1')
     // 调用分享函数
     let {wxConfig} = this.state
     await wxConfig.init()
@@ -71,7 +79,8 @@ export default class extends React.Component {
     if (groupId) {
       let nickname = ToolsUtil.getQueryString('nickname')
       let headimgurl = ToolsUtil.getQueryString('headimgurl')
-
+      nickname = decodeURI(decodeURI(nickname))
+      headimgurl = decodeURI(headimgurl)
       let currentJoinInfo = {
         nickname: nickname,
         headimgurl: headimgurl,
@@ -223,10 +232,11 @@ export default class extends React.Component {
   }
 
   renderPop () {
-    console.log('renderPop')
+    showShareBg(<div>分享右上角<br />现在就分享</div>)
   }
 
   goRouter () {
+    location.href = '/abilitycollege/coupon'
     console.log('go router')
   }
 
@@ -420,12 +430,21 @@ export default class extends React.Component {
   }
 
   buyButtonCallBack = async (typeId, groupId) => {
-    if (groupId) {
-      let payInfo = await AxiosUtil.get(`/api/study-card/buyTogether/${groupId}/${typeId}`)
-      wxPayController.payInit(payInfo)
-    } else {
-      let payInfo = await AxiosUtil.get(`/api/study-card/buy/${typeId}`)
-      wxPayController.payInit(payInfo)
+    try {
+      let payInfo
+      if (groupId) {
+        payInfo = await AxiosUtil.get(`/api/study-card/buyTogether/${groupId}/${typeId}`)
+      } else {
+        payInfo = await AxiosUtil.get(`/api/study-card/buy/${typeId}`)
+      }
+      wxPayController.payInit(payInfo).then(() => {
+        this.updateInfo()
+        alert('success')
+      })
+    } catch (e) {
+      Alert({
+        content: e.message
+      })
     }
   }
 

@@ -65,7 +65,6 @@ export default class extends React.Component {
   }
 
   render () {
-    console.log(this.staticDate[this.state.currentIndex])
     return (<div className='content'>
       {this.staticDate.length > 0 && this.staticDate[this.state.currentIndex]}
       <style jsx>{`
