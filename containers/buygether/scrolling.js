@@ -10,15 +10,36 @@ export default class extends React.Component {
     '广东外语外贸大学',
     '江西财经大学',
     '首都经济贸易大学',
-    '厦门大学'
+    '厦门大学',
+    '浙江大学',
+    '山东大学',
+    '格拉斯哥大学',
+    '北京理工大学',
+    '北京工商大学',
+    '北京大学',
+    '江南大学',
+    '中国海洋大学',
+    '北京交通大学',
+
   ]
   classStaticNmae = [
-    '商业敏感度课程',
-    'PPT 课程',
-    'EXCEL 课程',
-    'Desk research课程'
+    '商业敏感度',
+    'PPT',
+    'EXCEL',
+    'Desk Research',
+    '数据分析',
+    '商业沟通',
+    '四大实习和储备项目',
+    '毕马威一路通关',
+    '安永一路通关',
+    '德勤一路通关',
+    '普华永道一路通关',
+    '人际沟通',
+    '组织规划',
+    '结构化思维',
+    'Networking'
   ]
-  cardCount = [1, 3, 7, 36]
+  cardCount = [1, 3, 7, 15, 36]
   staticDate = []
 
   constructor (props) {
@@ -41,7 +62,7 @@ export default class extends React.Component {
       let randomValueA = parseInt(stringA.length * Math.random())
       let randomValueB = parseInt(stringB.length * Math.random())
       let randomValueC = parseInt(stringC.length * Math.random())
-      arr.push(<div>{`来自${stringA[randomValueA]}大学的同学购买了${stringC[randomValueC]}张能力卡`}<br />{`预报名${stringB[randomValueB]}。`}</div>)
+      arr.push(<div>{`来自${stringA[randomValueA]}的同学购买了${stringC[randomValueC]}张能力卡`}<br />{`预报名 ${stringB[randomValueB]} 课程。`}</div>)
     }
     this.staticDate = arr
   }

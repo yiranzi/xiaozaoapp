@@ -54,7 +54,7 @@ export default class extends React.Component {
         <style jsx>{`
           .title {
             text-align: center;
-            padding: 10px;
+            padding: 10px 10px 0px 10px;
           }
           .title-font {
             font-size: 20px;
@@ -65,7 +65,7 @@ export default class extends React.Component {
             align-items: center;
             justify-content: center;
             flex-wrap: wrap;
-            margin: 10px auto;
+            margin-bottom: 10px;
           }
           .head-img {
             margin: 0 10px;
@@ -81,39 +81,42 @@ export default class extends React.Component {
         <p style={{textAlign: 'center'}} className='title-font'>拼团流程</p>
         <div className='content'>
           <span className='content-color'>1.选择能力卡</span>
-          <span className='line-color'>——</span>
+          <hr className='my-line' />
           <span className='content-color'>2.邀请好友</span>
-          <span className='line-color'>——</span>
+          <hr className='my-line' />
           <span className='content-color'>3.人满成团</span>
         </div>
         <span style={{textAlign: 'left'}}>选择套餐</span>
         <style jsx>{`
+
           .title {
             text-align: left;
-            padding: 10px 10px 10px 10px;
+            padding: 10px 10px 0px 10px;
           }
           .title-font {
             font-size: 20px;
             font-weight: bold;
           }
           .content {
-            margin: 20px 10px;
+            margin: 10px 10px;
             height: 30px;
             line-height: 30px;
             display: flex;
-            align-items; center;
+            align-items: center;
             justify-content: center;
             height: 20px;
             line-height: 20px;
-
+          }
+          .my-line {
+            width:20px;
+            height:1px;
+            border:none;
+            border-top:1px solid  #e5e5e5;
           }
           .content-color {
+            padding: 0 5px;
             border-radius: 20px;
             background-color: #f0f2f6;
-          }
-          .line-color {
-            margin: 0 2px;
-            color: #e5e5e5;
           }
         `}</style>
       </div>)
@@ -124,7 +127,7 @@ export default class extends React.Component {
     let {dataInfo} = this.props
     let chooseBar = {
       border: 'none',
-      margin: '20px auto'
+      margin: '10px auto'
     }
     let chooseStyle = {
       color: 'white',
@@ -132,7 +135,7 @@ export default class extends React.Component {
       borderColor: '#c41616'
     }
     let barStyle = {
-      padding: '5px 30px 5px 20px',
+      padding: '5px 30px 5px 20px'
     }
     return (
       <ChooseBar style={chooseBar}
@@ -239,9 +242,12 @@ export default class extends React.Component {
       return (
         <div className='bottom-line'>
           <div className='button left-button'><s>{`原价￥${this.calcPrice(priceInfo, 'origin')}`}</s></div>
-          <div onClick={this.buyButtonClick} className='button rigth-button'>{`参团￥${this.calcPrice(priceInfo, 'now')}`}</div>
-          {!this.props.joinInfo.groupId &&
-          <Triangle style={{right: '60px', bottom: '40px'}}>团长开团立减10元</Triangle>}
+          <div onClick={this.buyButtonClick} className='button rigth-button'>{this.props.joinInfo.groupId ? '参团' : '开团'}{`￥${this.calcPrice(priceInfo, 'now')}`}</div>
+          {!this.props.joinInfo.groupId && <div
+            onClick={this.buyButtonClick}>
+            <Triangle style={{right: '60px', bottom: '40px'}}>团长开团立减10元</Triangle>
+          </div>
+          }
           <style jsx>{`
           .bottom-line{
             position: relative;
@@ -295,7 +301,7 @@ export default class extends React.Component {
         <p>报名后你的好友{nickname}将免费获得一张能力卡</p>
         <style jsx>{`
         .coupon-div {
-          margin-bottom: 40px;
+          margin-bottom: 10px;
           padding: 0px 10px;
         }
       `}</style>

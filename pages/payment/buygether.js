@@ -48,11 +48,12 @@ export default class extends React.Component {
   }
 
   componentDidMount = async () => {
-    this.updateInfo()
+    await this.updateInfo()
+    // 分享跳转进入的时候 判定弹出购买框
+    this.joinGroupFromShare()
   }
 
   updateInfo = async () => {
-    //
     let buyDetail = await AxiosUtil.get('/api/study-card/buyDetail')
     let {myGroup, otherGroup, studyCardPackageList, studyCardCouponInvite} = buyDetail
     this.setState({
@@ -63,13 +64,50 @@ export default class extends React.Component {
     }, this.setRenderOtherGroupInterval)
     // 设置我的团状态
     await this.setGroupStatus(myGroup)
-
-    // 取参数 并弹出购买框
-    this.joinGroupFromShare()
     // 调用分享函数
-    let {wxConfig} = this.state
-    await wxConfig.init()
-    this.setShare()
+    this.state.wxConfig.init().then(() => {
+      this.setShare()
+    })
+  }
+
+  // 根据信息设置开团状态
+  setGroupStatus = async (myGroup) => {
+    let myGroupingId = null
+    if (myGroup && myGroup.length > 0) {
+      // 查找 正在开团？
+      let result = myGroup.find((ele, index) => {
+        return (ele.status === 0)
+      })
+      if (result) {
+        // 1 保存分享信息
+        let userInfo = await AxiosUtil.get('/api/user')
+        let {nickname, headimgurl} = userInfo
+        this.nickname = nickname
+        this.headimgurl = headimgurl
+        // 1 设置正在团 状态
+        myGroupingId = result.groupId
+      }
+    }
+    this.setState({
+      myGroupingId: myGroupingId
+    })
+  }
+
+  setShare () {
+    let shareProp = {
+      title: '邀你一起拼团能力课程，低至3折',
+      desc: '小灶能力学院限时拼团特惠，PPT课、商业英语课、结构化逻辑课、四大求职通关课等26大课程3大类能力等你拥有。',
+      link: 'http://rcwx.review.xiaozao.org/',
+      imgUrl: 'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg'
+    }
+    if (this.state.myGroupingId) {
+      let nickname = encodeURI(encodeURI(this.nickname))
+      let headimgurl = encodeURI(this.headimgurl)
+      shareProp.title = this.nickname + shareProp.title
+      shareProp.imgUrl = this.headimgurl
+      shareProp.link += `abilitycollege/main/?groupId=${this.state.myGroupingId}&headimgurl=${headimgurl}&nickname=${nickname}&category=invite`
+    }
+    this.state.wxConfig.setShareConfig(shareProp)
   }
 
   // 根据链接 弹出购买框
@@ -87,30 +125,6 @@ export default class extends React.Component {
       }
       this.buyOtherGroup(currentJoinInfo)
     }
-  }
-
-  // 根据信息设置开团状态 如果有团 设置团号 没有滞null
-  setGroupStatus = async (myGroup) => {
-    let myGroupingId = null
-    if (myGroup && myGroup.length > 0) {
-      let result = myGroup.find((ele, index) => {
-        return (ele.status === 0)
-      })
-      if (result) {
-        myGroupingId = result.groupId
-        let userInfo = await AxiosUtil.get('/api/user')
-        let {nickname, headimgurl} = userInfo
-        this.nickname = nickname
-        this.headimgurl = headimgurl
-      } else {
-        myGroupingId = null
-      }
-    } else {
-      myGroupingId = null
-    }
-    this.setState({
-      myGroupingId: myGroupingId
-    })
   }
 
   // otherGroup 列表自动刷新
@@ -131,24 +145,7 @@ export default class extends React.Component {
     })
   }
 
-  setShare () {
-    let shareProp = {
-      title: '邀你一起拼团能力课程，低至3折',
-      desc: '小灶能力学院限时拼团特惠，PPT 课、商业英语课、结构化逻辑课、四大求职通关课等26大课程3大类能力等你拥有。',
-      link: 'http://rcwx.review.xiaozao.org/',
-      imgUrl: 'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg'
-    }
-    if (this.state.myGroupingId) {
-      let nickname = encodeURI(encodeURI(this.nickname))
-      let headimgurl = encodeURI(this.headimgurl)
-      shareProp.title = this.nickname + shareProp.title
-      shareProp.imgUrl = this.headimgurl
-      shareProp.link += `abilitycollege/main/?groupId=${this.state.myGroupingId}&headimgurl=${headimgurl}&nickname=${nickname}&category=invite`
-    }
-    this.state.wxConfig.setShareConfig(shareProp)
-  }
-
-  renderGroupType () {
+  renderAllGroupView () {
     let {studyCardPackageList} = this.state
     return (<div className='show-card'>
       <div className='line'>
@@ -159,7 +156,7 @@ export default class extends React.Component {
         {studyCardPackageList.map((ele, index) => {
           return (
             <div key={index} onClick={() => { this.buyMyGroup(index) }}>
-              <img src={`/static/img/buygether/card_${ele.id}.png`} />
+              <img src={`/static/img/buygether/card_${index}.png`} />
             </div>)
         })}
       </div>
@@ -187,7 +184,8 @@ export default class extends React.Component {
           margin-top: 5px;
         }
         .card-line img {
-          width: 80px;
+          width: 100%;
+          max-width: 80px;
         }
         .text-line {
           position: absolute;
@@ -214,7 +212,6 @@ export default class extends React.Component {
           // 正在团
           button = <Button style={this.buttonStyle} onClick={this.renderPop}>立即邀请好友</Button>
         }
-        {/*return <div style={{fontSize: '20px'}} key={index}>123</div>*/}
         return (this.renderCard(ele, button, index))
       })
       return (<div className='div-with-bottom'>
@@ -386,7 +383,7 @@ export default class extends React.Component {
             align-items: center;
           }
           .my-h1 {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: normal;
             color: #2f3138;
             display: inline-block;
@@ -532,7 +529,7 @@ export default class extends React.Component {
       <Layout>
         <div className='buy-card-page'>
           <img className='bg-img1' src={'/static/img/buygether/buyBg_1.jpeg'} />
-          <div>{this.renderGroupType()}</div>
+          <div>{this.renderAllGroupView()}</div>
           <div className='card-div'>
             {this.renderMyGroup()}
             {this.renderCoupon()}
@@ -568,9 +565,6 @@ export default class extends React.Component {
           }
           .buy-button {
             padding: 5px;
-          }
-          .header {
-            font-size: 22px;
           }
           .card-div {
             padding: 0 10px;
