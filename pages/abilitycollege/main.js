@@ -118,7 +118,7 @@ export default class extends React.Component {
   }
   renderCouponBar (headimg, nickname) {
     const {couponname, couponError} = this.state
-    if (couponError) return <div className='tips'>{couponError}</div>
+    if (couponError) return <div className='share-tips'>{couponError}</div>
     return (
       <div className='share-tips' onClick={() => { this.jumpTo() }}>
         <div><img src={headimg} /></div>
