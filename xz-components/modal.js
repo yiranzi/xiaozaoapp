@@ -4,13 +4,13 @@ import {render, unmountComponentAtNode} from 'react-dom'
 class ModalDom extends React.Component {
   render () {
     return (
-      <div className='modal'>
-        <div className='modal-content'>
+      <div className='xz-modal-wrap' onClick={() => { close() }}>
+        <div className='xz-modal'>
           <div className='close' onClick={() => { close() }} />
-          {this.props.children}
+          <div className='xz-modal-content' onClick={(event) => { event.stopPropagation() }}>{this.props.children}</div>
         </div>
         <style jsx>{`
-          .modal {
+          .xz-modal-wrap {
             width: 100%;
             height: 100%;
             font-size: 14px;
@@ -23,9 +23,10 @@ class ModalDom extends React.Component {
             align-items: center;
             justify-content: center;
           }
-          .modal .modal-content {
+          .xz-modal-wrap .xz-modal {
+            width: 100%;
+            height: 100%;
             margin: 40px 20px;
-            padding: 40px 20px;
             box-sizing: border-box;
             background-color: #fff;
             border-radius: 6px;
@@ -33,7 +34,10 @@ class ModalDom extends React.Component {
             max-height: 90vh;
             overflow: scroll;
           }
-          .modal .modal-content .close {
+          .xz-modal-wrap .xz-modal .xz-modal-content {
+            padding: 40px 20px;
+          }
+          .xz-modal-wrap .xz-modal .close {
             width: 30px;
             height: 30px;
             margin-top: 10px;
@@ -41,7 +45,7 @@ class ModalDom extends React.Component {
             position: relative;
             float: right;
           }
-          .modal .modal-content .close::before {
+          .xz-modal-wrap .xz-modal .close::before {
             content: '';
             width: 2px;
             height: 30px;
@@ -51,7 +55,7 @@ class ModalDom extends React.Component {
             left: 10px;
             top: 0;
           }
-          .modal .modal-content .close::after {
+          .xz-modal-wrap .xz-modal .close::after {
             content: '';
             width: 2px;
             height: 30px;
@@ -67,19 +71,18 @@ class ModalDom extends React.Component {
   }
 }
 
-function close () {
-  const target = document.getElementById('xz-modal')
+function close (event) {
+  const target = document.getElementById('xz-modal-blur')
   unmountComponentAtNode(target)
   target.parentNode.removeChild(target)
-  document.body.style.overflow = 'auto'
+  document.body.style.position = 'relative'
+  event.stopPropagation()
 }
 
 export function Modal (properties) {
-  document.body.children[0].classList.add('xz-modal-blur')
   let divTarget = document.createElement('div')
-  divTarget.id = 'xz-modal'
+  divTarget.id = 'xz-modal-blur'
+  document.body.style.position = 'fixed'
   document.body.appendChild(divTarget)
-  document.body.style.height = '100vh'
-  document.body.style.overflow = 'hidden'
   render(<ModalDom {...properties} />, divTarget)
 }

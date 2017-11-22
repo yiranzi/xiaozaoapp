@@ -1,4 +1,5 @@
 import React from 'react'
+import ThemeConfig from '../../../config/theme'
 
 export default class extends React.Component {
   render () {
@@ -12,10 +13,10 @@ export default class extends React.Component {
               <a href='/abilitycollege/zixun'><img src='/static/img/abilitycollege/zixun.png' /></a>
               <a href='/abilitycollege/bigfour'><img src='/static/img/abilitycollege/sida.png' /></a>
             </div>
-            <a className='feedback' href=''>
-              <p>想了解更多行业的能力规划？</p>
-              <p>填写反馈</p>
-            </a>
+            <div className='feedback'>
+              <p>更多行业的能力规划？</p>
+              <p>敬请期待</p>
+            </div>
           </div>
         </div>
         <style jsx>{`
@@ -36,13 +37,10 @@ export default class extends React.Component {
           .content .link a img {
             width: 100%;
           }
-          .content a.feedback,
-          .content a.feedback:active,
-          .content a.feedback:hover,
-          .content a.feedback:visited,
-          .content a.feedback:focus {
+          .content .feedback {
+            font-size: 1rem;
             text-align: center;
-            color: #2f3138;
+            color: ${ThemeConfig.color.content};
           }
         `}</style>
       </div>

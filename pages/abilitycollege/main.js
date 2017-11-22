@@ -11,7 +11,6 @@ import Course from '../../containers/abilitycollege/main/course'
 import Patent from '../../containers/abilitycollege/main/patent'
 import Teacher from '../../containers/abilitycollege/main/teacher'
 import Study from '../../containers/abilitycollege/main/study'
-import Comment from '../../containers/abilitycollege/main/comment'
 import ToolsUtil from '../../util/tools'
 
 export default class extends React.Component {
@@ -145,7 +144,6 @@ export default class extends React.Component {
             <Patent />
             <Teacher />
             <Study />
-            <Comment />
           </div>
           <Footer type='college' />
         </div>

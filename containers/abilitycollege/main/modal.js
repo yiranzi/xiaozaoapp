@@ -41,14 +41,13 @@ export default class Modal extends React.Component {
           <div className='need-card-line'>该课程可使用{data.cardCount}张能力卡兑换</div>
         </div>
         <div className='button-group'>
-          <Button style={{backgroundColor: 'red', fontSize: '16px'}}>
-            <img src='/static/img/abilitycollege/fire.png' />能力卡火热拼团中 <strong style={{marginLeft: '0.5rem'}}>立即获取</strong>
-          </Button>
+          <a href='/payment/buygether' style={{display: 'inline-block', width: '100%'}}>
+            <Button style={{backgroundColor: '#c41616', fontSize: '1rem'}}>
+              <img src='/static/img/abilitycollege/fire.png' />能力卡火热拼团中 <strong style={{marginLeft: '0.5rem'}}>立即获取</strong>
+            </Button>
+          </a>
         </div>
         <style jsx>{`
-          .modal-wrapper {
-            padding: 40px 20px;
-          }
           /* header 样式 */
           .header .group {
             margin-top: 0.5rem;
@@ -105,22 +104,25 @@ export default class Modal extends React.Component {
             text-align: center;
             margin: 2rem 0;
           }
+          .button-group {
+            position: fixed;
+            bottom: 33px;
+            left: 0;
+            width: 100%;
+            padding-left: 20px;
+            padding-right: 20px;
+            box-sizing: border-box;
+          }
+          .button-group img {
+            width: 1.25rem;
+            margin-right: 1rem;
+          }
         `}</style>
         <style global jsx>{`
-          .modal .modal-content {
-            padding: 0 !important;
-          }
-          .modal button {
-            margin: 0 !important;
-          }
-          .modal button {
+          .xz-modal-wrap button {
             display: flex;
             justify-content: center;
             align-items: center;
-          }
-          .modal button img {
-            width: 2rem;
-            margin-right: 1rem;
           }
         `}</style>
       </div>
