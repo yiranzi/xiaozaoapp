@@ -57,7 +57,7 @@ export default class extends React.Component {
         </div>
         <style jsx>{`
           .footer {
-            font-size: 14px;
+            font-size: 10pt;
             text-align: center;
             background-color: #fff;
             display: flex;
@@ -78,7 +78,7 @@ export default class extends React.Component {
             font-size: 0;
           }
           .footer .icon img {
-            width: 1.7rem;
+            width: 16pt;
           }
         `}</style>
       </div>

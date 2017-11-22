@@ -2,6 +2,7 @@ import React from 'react'
 import Slider from 'react-slick'
 import {Modal} from '../../../xz-components/modal'
 import ModalContent from './modal'
+import ThemeConfig from '../../../config/theme'
 
 export default class extends React.Component {
   openModal (item) {
@@ -98,7 +99,7 @@ export default class extends React.Component {
           .wrapper .card .header .sub-title {
             width: 80%;
             font-family: 'SimSun';
-            font-size: 1.25rem;
+            font-size: 1rem;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -137,7 +138,7 @@ export default class extends React.Component {
             background: url('/static/img/abilitycollege/shadow.png');
             background-size: 100% 100%;
             font-size: 14px;
-            color: #241d66;
+            color: ${ThemeConfig.color.content};
             padding: 0 1rem 1rem 1rem;
             border-bottom-left-radius: 10px;
             border-bottom-right-radius: 10px;
@@ -154,21 +155,22 @@ export default class extends React.Component {
             -webkit-line-clamp:2;
           }
           .wrapper .card .sub-content .publish-date {
+            color: ${ThemeConfig.color.red};
             margin-top: 0.75rem;
             font-size: 0.75rem;
             position: relative;
-            padding-left: 18px;;
+            padding-left: 1rem;
             font-size: 14px;
           }
           .wrapper .card .sub-content .publish-date::before {
             content: '';
-            width: 14px;
-            height: 14px;
+            width: 0.6rem;
+            height: 0.6rem;
             border-radius: 1rem;
             background-color: #c41616;
             position: absolute;
             left: 0;
-            top: 3px;
+            top: 4pt;
           }
         `}</style>
       </div>

@@ -79,6 +79,7 @@ export function Modal (properties) {
   let divTarget = document.createElement('div')
   divTarget.id = 'xz-modal'
   document.body.appendChild(divTarget)
+  document.body.style.height = '100vh'
   document.body.style.overflow = 'hidden'
   render(<ModalDom {...properties} />, divTarget)
 }
