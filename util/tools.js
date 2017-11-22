@@ -93,4 +93,10 @@ ToolsUtil.isPhone = function (str) {
   return /^1\d{10}$/.test(str)
 }
 
+// 是否邮箱
+ToolsUtil.isMail = function (str) {
+  // eslint-disable-next-line max-len
+  return /^\b(^[_A-Za-z0-9-]+(\.[_A-Za-z0-9-]+)*@([A-Za-z0-9-])+(\.[A-Za-z0-9-]+)*((\.[A-Za-z0-9]{2,})|(\.[A-Za-z0-9]{2,}\.[A-Za-z0-9]{2,}))$)\b$/.test(str)
+}
+
 module.exports = ToolsUtil

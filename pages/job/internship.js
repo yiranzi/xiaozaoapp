@@ -1,6 +1,7 @@
 import React from 'react'
 import AxiosUtil from '../../util/axios'
 import JobLayout from '../../containers/job/layout'
+import ToolsUtil from '../../util/tools'
 import DateUtil from '../../util/date'
 import Banner from '../../xz-components/banner'
 import { Button, Panel, PanelBody, MediaBox, MediaBoxHeader, MediaBoxTitle,
@@ -20,7 +21,8 @@ export default class extends React.Component {
         cityIdList: [],
         section: '全部',
         sectionIdList: [],
-        pn: 1
+        pn: 1,
+        inside: true
       },
       tab: 0,
       bannerList: null,
@@ -35,6 +37,18 @@ export default class extends React.Component {
   }
 
   componentDidMount = async () => {
+    const city = ToolsUtil.getQueryString('city')
+    const inside = ToolsUtil.getQueryString('inside')
+    if (city) {
+      this.state.params.cityIdList[0] = Number(city)
+    }
+    if (inside) {
+      this.state.params.inside = inside === 'true' ? true : null
+      this.state.tab = this.state.params.inside ? 0 : 1
+    }
+    if (city || inside) {
+      this.setState({params: this.state.params})
+    }
     this.loadBannerList()
     this.loadCityData()
     this.loadSectionData()
@@ -62,6 +76,15 @@ export default class extends React.Component {
       this.setState({
         cityList: cityList
       })
+      if (cityList && this.state.params.cityIdList.length > 0) {
+        const _this = this
+        cityList.map(function (item, index) {
+          if (_this.state.params.cityIdList[0] === item.id) {
+            _this.state.params.city = item.name
+            _this.setState({params: _this.state.params})
+          }
+        })
+      }
     } catch (e) {
       this.setState({
         isRender: false,
@@ -131,14 +154,12 @@ export default class extends React.Component {
   }
 
   handleSearchBarChange (e) {
-    console.log(e)
     location.href = '/job/search'
     e.stopPropagation()
     return false
   }
 
   handleCollectionChange (e, id) {
-    console.log(e)
     console.log(id)
     e.stopPropagation()
     return false
@@ -158,6 +179,20 @@ export default class extends React.Component {
         }, () => resolve())
       }
     }, 1000)
+  }
+
+  changeTabbar (tab) {
+    if (tab === this.state.tab) {
+      return
+    }
+    if (tab === 0) {
+      this.state.params.inside = true
+    } else {
+      this.state.params.inside = null
+    }
+    this.state.params.pn = 1
+    this.setState({tab: tab, params: this.state.params})
+    this.loadJobList(false)
   }
 
   renderSearchBar () {
@@ -186,10 +221,13 @@ export default class extends React.Component {
         {section}</span>
       <style jsx>{`
         .selects {
-          padding: 15px;
+          padding: 10px 15px;
+          font-size: 16px;
+          border-bottom: 1px solid #ddd;
         }
         .param {
-          margin-right: 10px;
+          margin-right: 20px;
+          margin-left: 10px;
         }
         .param:after {
           content: ' v'
@@ -293,7 +331,9 @@ export default class extends React.Component {
       <Tab>
         <NavBar>
           <NavBarItem active={this.state.tab === 0}
-            onClick={e => this.setState({tab: 0})}>名企实习</NavBarItem>
+            onClick={e => this.changeTabbar(0)}>HR直聘</NavBarItem>
+          <NavBarItem active={this.state.tab === 1}
+            onClick={e => this.changeTabbar(1)}>更多实习</NavBarItem>
         </NavBar>
         <TabBody>
           <Panel>
@@ -319,6 +359,7 @@ export default class extends React.Component {
                 {/* <a href='javascript:;'
                   onClick={e => this.handleCollectionChange(e, item.id)}
                   className='wx-pull-right'>★☆收藏</a> */}
+                {item.inside && <span className='wx-pull-right hr-inside'>HR直聘</span>}
                 <MediaBoxTitle className='title'>{item.title}</MediaBoxTitle>
                 <MediaBoxTitle className='info'>{item.companyName}</MediaBoxTitle>
                 <MediaBoxTitle className='info'>{item.address}
@@ -362,6 +403,9 @@ export default class extends React.Component {
                 color: #666;
                 margin-right: 5px;
                 padding: 2px 4px;
+              }
+              .hr-inside {
+                color: #F7412D;
               }
             `}</style>
             <style global jsx>{`

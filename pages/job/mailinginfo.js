@@ -2,6 +2,9 @@ import React from 'react'
 import AxiosUtil from '../../util/axios'
 import JobLayout from '../../containers/job/layout'
 import ToolsUtil from '../../util/tools'
+import Navbar from '../../components/navbar'
+import {Confirm} from '../../xz-components/confirm'
+import { Alert } from '../../xz-components/alert'
 import {
   Button,
   Panel,
@@ -32,7 +35,9 @@ export default class extends React.Component {
         jobId: null,
         mailBody: null,
         resumeTypeDTOList: [],
-        title: null
+        title: null,
+        userPhone: null,
+        userEmail: null
       },
       toptips: {
         type: null,
@@ -53,6 +58,7 @@ export default class extends React.Component {
   componentDidMount = async () => {
     this.state.mailingObj.jobId = ToolsUtil.getQueryString('jobId')
     this.loadUserData()
+    this.loadUserMailInfo()
     this.loadJobData()
     this.loadResumeListData()
   };
@@ -64,8 +70,10 @@ export default class extends React.Component {
   loadUserData = async () => {
     try {
       let user = await AxiosUtil.get('/api/user')
+      this.state.mailingObj.userPhone = user.phone
       this.setState({
-        user: user
+        user: user,
+        mailingObj: this.state.mailingObj
       })
     } catch (e) {
       this.setState({
@@ -73,6 +81,25 @@ export default class extends React.Component {
       })
     }
   };
+
+  loadUserMailInfo = async () => {
+    try {
+      let mailInfo = await AxiosUtil.get('/api/private/mailing/userMailInfo')
+      if (mailInfo) {
+        this.state.mailingObj.mailBody = mailInfo.mailBody
+        this.state.mailingObj.userPhone = mailInfo.phone
+        this.state.mailingObj.userEmail = mailInfo.email
+      }
+      console.log(this.state.mailingObj)
+      this.setState({
+        mailingObj: this.state.mailingObj
+      })
+    } catch (e) {
+      this.setState({
+        error: e.message
+      })
+    }
+  }
 
   loadJobData = async () => {
     const jobId = ToolsUtil.getQueryString('jobId')
@@ -106,38 +133,60 @@ export default class extends React.Component {
   /*
   * 提交投递信息
   * */
-  mailing = async () => {
-    let toptips = this.state.toptips
-    try {
-      if (ToolsUtil.strIsEmpty(this.state.mailingObj.title)) {
-        toptips.type = 'warn'
-        toptips.show = true
-        toptips.msg = '请输入邮件标题（长度不超过100个字）'
-      } else if (this.state.mailingObj.title.length > 100) {
-        toptips.type = 'warn'
-        toptips.show = true
-        toptips.msg = '邮件标题长度不能超过100个字'
-      } else if (this.state.mailingObj.resumeTypeDTOList.length <= 0) {
-        toptips.type = 'warn'
-        toptips.show = true
-        toptips.msg = '请选择简历'
-      } else {
-        await AxiosUtil.post('/api/mailing/sendResume', this.state.mailingObj
-        )
-        this.setState({ showToast: true })
-        this.state.toastTimer = setTimeout(() => {
-          location.href = '/job/detail?jobId=' + this.state.mailingObj.jobId
-        }, 2000)
-      }
-    } catch (e) {
+  mailing () {
+    let {toptips} = this.state
+    if (ToolsUtil.strIsEmpty(this.state.mailingObj.userPhone) ||
+      !ToolsUtil.isPhone(this.state.mailingObj.userPhone)) {
       toptips.type = 'warn'
       toptips.show = true
-      toptips.msg = e.message
+      toptips.msg = '请输入正确的手机号'
+    } else if (ToolsUtil.strIsEmpty(this.state.mailingObj.userEmail) ||
+      !ToolsUtil.isMail(this.state.mailingObj.userEmail)) {
+      toptips.type = 'warn'
+      toptips.show = true
+      toptips.msg = '请输入正确的邮箱'
+    } else if (ToolsUtil.strIsEmpty(this.state.mailingObj.title)) {
+      toptips.type = 'warn'
+      toptips.show = true
+      toptips.msg = '请输入邮件标题（长度不超过100个字）'
+    } else if (this.state.mailingObj.title.length > 100) {
+      toptips.type = 'warn'
+      toptips.show = true
+      toptips.msg = '邮件标题长度不能超过100个字'
+    } else if (this.state.mailingObj.resumeTypeDTOList.length <= 0) {
+      toptips.type = 'warn'
+      toptips.show = true
+      toptips.msg = '请选择简历'
+    } else {
+      const _this = this
+      Confirm({
+        title: '确认发送',
+        content: '即将发送到HR邮箱，确认发送？',
+        okText: '立即发送',
+        cancelText: '再检查下',
+        ok: () => _this.doMailing()
+      })
     }
     this.setState({
       toptips: toptips
     })
   };
+
+  doMailing = async () => {
+    try {
+      await AxiosUtil.post('/api/mailing/sendResume', this.state.mailingObj)
+      this.setState({showToast: true})
+      this.state.toastTimer = setTimeout(() => {
+        location.href = '/job/detail?jobId=' + this.state.mailingObj.jobId
+      }, 2000)
+    } catch (e) {
+      Alert({
+        title: '提示',
+        content: e.message,
+        okText: '确定'
+      })
+    }
+  }
 
   changeHandle (e, field) {
     this.state.mailingObj[field] = e.target.value
@@ -170,51 +219,128 @@ export default class extends React.Component {
       return <div />
     }
     return (
-      <div className='wx-text-center'>
-        <img className='headimg' src={user.headimgurl} />
-        <p className='nickname'>{user.nickname}</p>
-        <p className='job-title'>投递的职位：{job.title}</p>
+      <div className='wx-clearfix headinfo'>
+        <img className='headimg wx-pull-left' src={user.headimgurl} />
+        <p className='nickname'>{user.nickname}<br />
+        投递的职位：{job.title}</p>
         <style jsx>{`
+          .headinfo {
+            background-color: #3E84E0;
+            color: #fff;
+            margin: -15px -15px -10px -15px;
+            padding: 15px;
+          }
           .headimg {
             width: 40px;
             height: 40px;
             border-radius: 20px;
           }
-          .nickname,
-          .job-title {
+          .nickname {
             font-size: 14px !important;
+            margin-left: 55px;
           }
         `}</style>
       </div>
     )
   }
 
-  renderMailingInfo () {
+  renderMailContactInfo () {
     const { job } = this.state
     if (job) {
       return (
         <div>
           <Form>
-            <CellsTitle>邮件标题：</CellsTitle>
+            <CellsTitle>联系方式<span className='red'>*</span>：</CellsTitle>
+            <FormCell>
+              <CellHeader>
+                <img className='contact-img'
+                  src='https://www.xiaozao.org/upload/comp/phone.png' />
+              </CellHeader>
+              <CellBody>
+                <Input
+                  className='input-text'
+                  type='text'
+                  placeholder='请输入手机号'
+                  onChange={e => this.changeHandle(e, 'userPhone')}
+                  value={this.state.mailingObj.userPhone !== null
+                    ? this.state.mailingObj.userPhone : ''}
+                />
+              </CellBody>
+            </FormCell>
+            <FormCell>
+              <CellHeader>
+                <img className='contact-img'
+                  src='https://www.xiaozao.org/upload/comp/mail.png' />
+              </CellHeader>
+              <CellBody>
+                <Input
+                  className='input-text'
+                  type='text'
+                  placeholder='请输入你的邮箱，用于接收投递反馈'
+                  onChange={e => this.changeHandle(e, 'userEmail')}
+                  value={this.state.mailingObj.userEmail !== null
+                    ? this.state.mailingObj.userEmail : ''}
+                />
+              </CellBody>
+            </FormCell>
+          </Form>
+          <style global jsx>{`
+            .input-text {
+              font-size: 14px !important;
+            }
+            .contact-img {
+              margin-right: 10px;
+            }
+          `}</style>
+        </div>
+      )
+    }
+  }
+
+  renderMailTitleInfo () {
+    const { job } = this.state
+    if (job) {
+      return (
+        <div>
+          <Form>
+            <CellsTitle>邮件标题<span className='red'>*</span>：</CellsTitle>
             <FormCell>
               <CellBody>
                 <Input
                   className='input-text'
                   type='text'
-                  placeholder=''
+                  placeholder='邮箱标题要有规范哦'
                   onChange={e => this.changeHandle(e, 'title')}
                 />
               </CellBody>
             </FormCell>
             <CellsTips>该职位HR要求邮件标题格式为：{job.demand}</CellsTips>
           </Form>
+          <style global jsx>{`
+            .input-text {
+              font-size: 14px !important;
+            }
+            .red {
+              color: red;
+              vertical-align: sub;
+              margin-left: 3px;
+            }
+          `}</style>
+        </div>
+      )
+    }
+  }
+
+  renderMailBodyInfo () {
+    const { job } = this.state
+    if (job) {
+      return (
+        <div>
           <Form>
             <CellsTitle>
-              邮件正文：<a
-                className='wx-pull-right small-font'
-                href='https://shimo.im/doc/BDtNgrI5SWwpnsyc/'
-              >
-                如何写好一份求职信?
+              求职信（选填）：<a className='wx-pull-right small-font'
+                href='https://shimo.im/doc/BDtNgrI5SWwpnsyc/' >
+              如何写好一份求职信?
               </a>
             </CellsTitle>
             <FormCell>
@@ -224,6 +350,8 @@ export default class extends React.Component {
                   rows='3'
                   placeholder='求职信可以撰写自我介绍、对该公司和岗位的认识、自己的能力和优势等。'
                   onChange={e => this.changeHandle(e, 'mailBody')}
+                  value={this.state.mailingObj.mailBody !== null
+                    ? this.state.mailingObj.mailBody : ''}
                 />
               </CellBody>
             </FormCell>
@@ -235,7 +363,6 @@ export default class extends React.Component {
             }
           `}</style>
           <style global jsx>{`
-            .input-text,
             .input-textarea {
               font-size: 14px !important;
             }
@@ -284,7 +411,7 @@ export default class extends React.Component {
       })
       return (
         <Form checkbox>
-          <CellsTitle>选择你的简历：</CellsTitle>
+          <CellsTitle>选择你的简历<span className='red'>*</span>：</CellsTitle>
           {listElement}
           {listElement.length === 0 && (
             <FormCell style={{ fontSize: '14px', color: '#555' }}>
@@ -298,18 +425,33 @@ export default class extends React.Component {
 
   render () {
     const { job } = this.state
+    const leftbar = {
+      onclick: function () {
+        history.go(-1)
+      },
+      name: '返回'
+    }
+    const rightbar = {
+      href: '/job/internship',
+      name: '主页'
+    }
     return (
       <JobLayout toptips={this.state.toptips}>
+        <Navbar fixed leftbar={leftbar} rightbar={rightbar} navtitle='职位投递' />
+        <br />
+        <br />
         <div className='job-list'>
           <Panel className='job-panel'>
             <PanelHeader className='head-info'>
               {this.renderHeadInfo()}
             </PanelHeader>
             <PanelBody>
-              {this.renderMailingInfo()}
+              {this.renderMailContactInfo()}
+              {this.renderMailTitleInfo()}
               {this.renderResumeList()}
+              {this.renderMailBodyInfo()}
               <div className='button-sp-area'>
-                {job && <Button onClick={this.mailing}>立即投递</Button>}
+                {job && <Button onClick={(e) => this.mailing()}>立即投递</Button>}
               </div>
             </PanelBody>
           </Panel>
