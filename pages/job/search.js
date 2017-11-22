@@ -170,8 +170,8 @@ export default class extends React.Component {
         <SearchBar
           placeholder='搜索职位或公司'
           lang={{ cancel: '取消' }}
-          onSubmit={this.handleSearchBarChange()}
-          onCancel={this.cancelSearchBar()}
+          onSubmit={(e) => this.handleSearchBarChange(e)}
+          onCancel={(e) => this.cancelSearchBar(e)}
         />
         <style jsx>{`
           .return-page {

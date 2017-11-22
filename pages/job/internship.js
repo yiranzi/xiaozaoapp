@@ -87,7 +87,6 @@ export default class extends React.Component {
   loadJobList = async (isConcat) => {
     this.setState({dataState: 'loading'})
     try {
-      console.log(this.state.params)
       let pageList = await AxiosUtil.post('/api/private/job/internship',
         this.state.params)
       this.state.params.pn = this.state.params.pn + 1
@@ -400,6 +399,8 @@ export default class extends React.Component {
   render () {
     return (
       <JobLayout tabbar={1}>
+        {this.renderSearchBar()}
+        <br /><br />
         <InfiniteLoader
           onLoadMore={(resolve, finish) => this.onLoadMore(resolve, finish)}>
           {this.renderBanner()}
