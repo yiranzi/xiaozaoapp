@@ -34,10 +34,10 @@ export default class extends React.Component {
                      '&couponid=' + _default.id
       await wxConfig.init()
       await wxConfig.setShareConfig({
-        title: '领取优惠券',
-        desc: name,
+        title: `${nickname}送你26个能力课，${name}享9折`,
+        desc: '小灶能力学院限时拼团特惠，PPT 课、商业英语课、结构化逻辑课、四大求职通关课等26大课程3大类能力等你拥有。',
         link: 'http://rcwx.review.xiaozao.org/abilitycollege/main?' + afterfix,
-        imgUrl: 'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg'
+        imgUrl: 'http://wx.xiaozao.org/static/img/abilitycollege/shareicon.png'
       })
       this.setState({ coupon: coupon })
     } catch (e) {
@@ -55,10 +55,10 @@ export default class extends React.Component {
                    '&couponname=' + encodeURI(encodeURI(name)) +
                    '&couponid=' + id
     this.state.wxConfig.setShareConfig({
-      title: '领取优惠券',
-      desc: name,
+      title: `${nickname}送你26个能力课，${name}享9折`,
+      desc: '小灶能力学院限时拼团特惠，PPT 课、商业英语课、结构化逻辑课、四大求职通关课等26大课程3大类能力等你拥有。',
       link: 'http://rcwx.review.xiaozao.org/abilitycollege/main?' + afterfix,
-      imgUrl: 'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg'
+      imgUrl: 'http://wx.xiaozao.org/static/img/abilitycollege/shareicon.png'
     })
 
     let content = (
