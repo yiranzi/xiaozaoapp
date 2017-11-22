@@ -210,7 +210,7 @@ export default class extends React.Component {
         // 要根据这个团的不同情况进行渲染
         if (ele.status === 1) {
           // 历史团
-          button = <Button style={this.buttonStyle} onClick={this.goRouter}>邀请好友，再得卡</Button>
+          button = <Button style={this.buttonStyle} onClick={() => { this.goRouter('/abilitycollege/coupon') }}>邀请好友，再得卡</Button>
         } else {
           // 正在团
           button = <Button style={this.buttonStyle} onClick={this.renderPop}>立即邀请好友</Button>
@@ -235,8 +235,8 @@ export default class extends React.Component {
     showShareBg(<div>分享右上角<br />现在就分享</div>)
   }
 
-  goRouter () {
-    location.href = '/abilitycollege/coupon'
+  goRouter (router) {
+    location.href = router
     console.log('go router')
   }
 
@@ -487,7 +487,8 @@ export default class extends React.Component {
   renderFooter () {
     return (<Fixfooter>
       <div className='fix-foot'>
-        <div className='left'>
+        <div className='left'
+          onClick={() => { this.goRouter('https://static.meiqia.com/dist/standalone.html?_=t&eid=63917&agentid=ed8f6b7c96fc339a6fcd6f8985624f82)') }}>
           <img src='/static/img/buygether/ask.png' />
           <span>在线咨询</span>
         </div>

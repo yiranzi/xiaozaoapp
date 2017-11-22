@@ -4,7 +4,7 @@ import {ChooseBar, ChooseItem} from '../../xz-components/choosebar'
 import Triangle from '../../containers/buygether/poptag'
 
 export default class extends React.Component {
-  newGroupDiscount = 1000 // 开团立减
+  newGroupDiscount = 10 // 开团立减
   coupon = 0.9 // 折扣
   static propTypes = {
     dataInfo: PropTypes.array,
@@ -54,7 +54,7 @@ export default class extends React.Component {
         <style jsx>{`
           .title {
             text-align: center;
-            padding: 10px 10px 30px 10px;
+            padding: 10px;
           }
           .title-font {
             font-size: 20px;
@@ -124,8 +124,7 @@ export default class extends React.Component {
     let {dataInfo} = this.props
     let chooseBar = {
       border: 'none',
-      paddingTop: '0',
-      margin: '-20px auto -20px auto'
+      margin: '20px auto'
     }
     let chooseStyle = {
       color: 'white',
@@ -133,8 +132,7 @@ export default class extends React.Component {
       borderColor: '#c41616'
     }
     let barStyle = {
-      padding: '10px',
-      boxSizing: 'border-box'
+      padding: '5px 30px 5px 20px',
     }
     return (
       <ChooseBar style={chooseBar}
@@ -143,38 +141,69 @@ export default class extends React.Component {
         chooseStyle={chooseStyle}>
         {dataInfo.map((ele, index) => {
           return (<ChooseItem key={index} style={barStyle}>
-            <div className='line'>
-              <img className='left' src={'/static/img/buygether/card_icon.png'} />
-              <span className='mid'>{`能力卡${ele.buyCount}张`}</span>
-              <span className='right'>{`立省￥${this.calcPrice(ele, 'discount')}`}</span>
-            </div>
-            <style jsx>{`
-              .line {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                width: 100%;
-              }
-              .left {
-                margin-right: 10px;
-                flex: 1；
-                width: 30px;
-              }
-              .mid {
-                flex: 4
-              }
-              .right {
-                flex: 2
-              }
-            `}</style>
+            {this.renderInnerContent(ele, index)}
           </ChooseItem>)
         })}
       </ChooseBar>
     )
   }
 
+  renderInnerContent (ele, index) {
+    let choose = {
+      backgroundColor: 'white',
+      color: '#c41616'
+    }
+    let normal = {
+      backgroundColor: '#241d66',
+      color: 'white'
+    }
+    let style = (index === this.state.currentSelect) ? choose : normal
+    return (
+      <div className='line'>
+        <img className='icon' src={'/static/img/buygether/card_icon.png'} />
+        <div className='card-name'>能力卡<span className='card' style={style}>{`${ele.buyCount}`}张</span></div>
+        <span className='price'>{`立省 ￥`}<strong>{`${this.calcPrice(ele, 'discount')}`}</strong></span>
+        <style jsx>{`
+            .line {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              width: 100%;
+            }
+            .icon {
+              margin-right: 10px;
+              flex: 1；
+              width: 30px;
+            }
+            .card-name {
+              flex: 4;
+              margin-right: 10px;
+              display: flex;
+              align-items: center;
+            }
+            .card {
+              margin-left: 10px;
+              display: inline-block;
+              border-radius: 50%;
+              height: 30px;
+              line-height: 30px;
+              width: 30px;
+              text-align: center;
+              font-size: 16px;
+            }
+            .price {
+              flex: 2
+            }
+            .price strong {
+              font-size: 16px;
+            }
+          `}</style>
+      </div>
+    )
+  }
+
   calcPrice (priceInfo, type) {
-    let value = 1000
+    let value = 100
     let isNewGroup
     if (this.props.joinInfo && this.props.joinInfo.groupId) {
       isNewGroup = false
@@ -185,9 +214,9 @@ export default class extends React.Component {
     let {showPrice, price} = priceInfo
     if (isCoupon) {
       price = price * this.coupon
-      if (isNewGroup) {
-        price -= this.newGroupDiscount
-      }
+    }
+    if (isNewGroup) {
+      price -= this.newGroupDiscount * value
     }
     let calcPrice
     switch (type) {
@@ -209,7 +238,7 @@ export default class extends React.Component {
       let priceInfo = this.props.dataInfo[this.state.currentSelect]
       return (
         <div className='bottom-line'>
-          <div className='button left-button'>{`原价￥${this.calcPrice(priceInfo, 'origin')}`}</div>
+          <div className='button left-button'><s>{`原价￥${this.calcPrice(priceInfo, 'origin')}`}</s></div>
           <div onClick={this.buyButtonClick} className='button rigth-button'>{`参团￥${this.calcPrice(priceInfo, 'now')}`}</div>
           {!this.props.joinInfo.groupId &&
           <Triangle style={{right: '60px', bottom: '40px'}}>团长开团立减10元</Triangle>}

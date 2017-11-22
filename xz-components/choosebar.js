@@ -62,7 +62,7 @@ export class ChooseBar extends React.Component {
       boxSizing: 'border-box',
       margin: 'auto',
       width: '100%',
-      padding: '10px',
+      padding: '0px 10px',
       border: '1px solid black'
     }
     let finalStyle = this.objectAssign(tabStyle, this.props.style)
@@ -107,7 +107,8 @@ export class ChooseBar extends React.Component {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      margin: '20px auto'
+      margin: '10px auto',
+      boxSizing: 'border-box'
     }
     // 默认样式
     let finalStyle = this.objectAssign(tabStyle, propsStyle)
