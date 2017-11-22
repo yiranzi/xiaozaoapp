@@ -66,7 +66,6 @@ export default class extends React.Component {
 
     // 取参数 并弹出购买框
     this.joinGroupFromShare()
-    console.log('fnish1')
     // 调用分享函数
     let {wxConfig} = this.state
     await wxConfig.init()
@@ -237,7 +236,6 @@ export default class extends React.Component {
 
   goRouter (router) {
     location.href = router
-    console.log('go router')
   }
 
   renderCoupon () {
@@ -439,7 +437,7 @@ export default class extends React.Component {
       }
       wxPayController.payInit(payInfo).then(() => {
         this.updateInfo()
-        alert('success')
+        alert('success123')
       })
     } catch (e) {
       Alert({
@@ -464,7 +462,6 @@ export default class extends React.Component {
   }
 
   buyOtherGroup = (ele) => {
-    console.log(ele)
     if (this.state.myGroupingId == null) {
       this.setState({
         currentTypeSelect: 0,

@@ -7,10 +7,11 @@ let wxPayController = {}
 wxPayController.payInit = async (payInfo) => {
   payData = payInfo
   // 2 调用微信
-  wxPayController.pay()
+  await wxPayController.pay()
 }
 
-wxPayController.pay = () => {
+wxPayController.pay = async () => {
+  console.log('wxPayController.pay')
   if (typeof WeixinJSBridge === 'undefined') {
     if (document.addEventListener) {
       document.addEventListener('WeixinJSBridgeReady', wxPayController.pay, false)
@@ -19,7 +20,8 @@ wxPayController.pay = () => {
       document.attachEvent('onWeixinJSBridgeReady', wxPayController.pay)
     }
   } else {
-    wxPayController.onBridgeReady()
+    console.log('wxPayController.onBridgeReady')
+    await wxPayController.onBridgeReady()
   }
 }
 
@@ -39,7 +41,7 @@ wxPayController.onBridgeReady = () => {
       function (res) {
         if (res.err_msg === 'get_brand_wcpay_request:ok') {
         }
-        alert(res)
+        alert('1111')
         resolve(true)
       }
     )
