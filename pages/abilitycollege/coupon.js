@@ -165,9 +165,9 @@ export default class extends React.Component {
           </div>
           <div className='own'>
             <div className='text'>已通过邀请获得能力卡</div>
-            <div className='acount'>{detail.buyCount}张</div>
+            <div className='acount'>{detail.inviteCount}张</div>
           </div>
-          <div className='link'>查看我的能力卡</div>
+          <div className='link'><a href='/ucenter/studycard'>查看我的能力卡</a></div>
           <style jsx>{`
             .coupon {
               background-color: #f0f2f6;
