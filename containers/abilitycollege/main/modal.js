@@ -106,7 +106,7 @@ export default class Modal extends React.Component {
           }
           .button-group {
             position: fixed;
-            bottom: 33px;
+            bottom: 20px;
             left: 0;
             width: 100%;
             padding-left: 20px;

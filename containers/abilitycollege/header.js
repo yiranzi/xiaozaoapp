@@ -1,6 +1,8 @@
 import React from 'react'
 import ClassNames from 'classnames'
-import { Confirm } from '../../xz-components/confirm'
+import { Modal } from '../../xz-components/modal'
+import Button from '../../xz-components/button'
+import ThemeConfig from '../../config/theme'
 
 export default class extends React.Component {
   constructor (props) {
@@ -16,12 +18,17 @@ export default class extends React.Component {
     if (coupon.length > 0) {
       location.href = '/abilitycollege/coupon'
     } else {
-      Confirm({
-        content: '没有优惠券',
-        okText: '去购买',
-        cancelText: '不去了',
-        ok: () => { location.href = '/payment/buygether' }
-      })
+      let content = (
+        <div style={{textAlign: 'center'}}>
+          <div style={{fontSize: '1.25rem'}}>要先购买能力卡，成为学员才可以邀请好友哦</div>
+          <img style={{width: '50%', margin: '1rem 0'}} src='/static/img/abilitycollege/warning.png' />
+          <div style={{fontSize: '0.75rem', lineHeight: '150%', color: ThemeConfig.color.content}}>*能力卡可用于兑换2018课程；邀请好友入学可免费再得能力卡。</div>
+          <a href='/payment/buygether' style={{display: 'block'}}>
+            <Button style={{backgroundColor: '#c41616'}}>先去购买能力卡</Button>
+          </a>
+        </div>
+      )
+      Modal({children: content})
     }
   }
   render () {

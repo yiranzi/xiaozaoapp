@@ -4,9 +4,9 @@ import {render, unmountComponentAtNode} from 'react-dom'
 class ModalDom extends React.Component {
   render () {
     return (
-      <div className='xz-modal-wrap' onClick={() => { close() }}>
+      <div className='xz-modal-wrap'>
         <div className='xz-modal'>
-          <div className='close' onClick={() => { close() }} />
+          <div className='close' onClick={(event) => { close(event) }} />
           <div className='xz-modal-content' onClick={(event) => { event.stopPropagation() }}>{this.props.children}</div>
         </div>
         <style jsx>{`
@@ -25,7 +25,6 @@ class ModalDom extends React.Component {
           }
           .xz-modal-wrap .xz-modal {
             width: 100%;
-            height: 100%;
             margin: 40px 20px;
             box-sizing: border-box;
             background-color: #fff;
