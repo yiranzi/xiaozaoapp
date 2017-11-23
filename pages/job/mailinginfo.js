@@ -47,7 +47,6 @@ export default class extends React.Component {
           _this.state.toptips.show = false
         }
       },
-      showToast: false,
       toastTimer: null,
       isRender: true,
       dataState: 'none' /* none 未加载，loading 正在加载，null 没有数据，more 继续加载 */,
@@ -90,7 +89,7 @@ export default class extends React.Component {
         this.state.mailingObj.userPhone = mailInfo.phone
         this.state.mailingObj.userEmail = mailInfo.email
       }
-      console.log(this.state.mailingObj)
+
       this.setState({
         mailingObj: this.state.mailingObj
       })
@@ -175,13 +174,17 @@ export default class extends React.Component {
   doMailing = async () => {
     try {
       await AxiosUtil.post('/api/mailing/sendResume', this.state.mailingObj)
-      this.setState({showToast: true})
-      this.state.toastTimer = setTimeout(() => {
-        location.href = '/job/detail?jobId=' + this.state.mailingObj.jobId
-      }, 2000)
-    } catch (e) {
       Alert({
         title: '提示',
+        content: '投递成功，返回列表继续浏览其他职位',
+        okText: '确定',
+        ok: () => {
+          location.href = '/job/internship'
+        }
+      })
+    } catch (e) {
+      Alert({
+        title: '错误',
         content: e.message,
         okText: '确定'
       })
@@ -455,9 +458,6 @@ export default class extends React.Component {
               </div>
             </PanelBody>
           </Panel>
-          <Toast icon='success-no-circle' show={this.state.showToast}>
-            投递成功
-          </Toast>
         </div>
         <style jsx>{`
           .job-list {
