@@ -11,18 +11,20 @@ import Fixfooter from '../../xz-components/fixfooter'
 import TimeDown from '../../xz-components/timedown'
 import ToolsUtil from '../../util/tools'
 import {Alert} from '../../xz-components/alert'
-import {showShareBg} from '../../xz-components/wxshareBg'
+import {ModalBoxPopFunc} from '../../xz-components/modalbox'
+import MoreLine from '../../xz-components/moreLine'
 
 // 介绍页
 export default class extends React.Component {
   groupLength = 4
-  changeInterval = 1000
+  changeInterval = 3500
   nickname // 分享昵称
   headimgurl // 分享头像
 
   buttonStyle = {
     backgroundColor: '#c41616',
-    color: 'white'
+    color: 'white',
+    fontSize: '14px'
   }
 
   constructor (props) {
@@ -45,12 +47,15 @@ export default class extends React.Component {
     this.cancelCallBack = this.cancelCallBack.bind(this)
     this.updateInfo = this.updateInfo.bind(this)
     this.goRouter = this.goRouter.bind(this)
+    this.renderPop = this.renderPop.bind(this)
+    this.refreshGroup = this.refreshGroup.bind(this)
   }
 
   componentDidMount = async () => {
     await this.updateInfo()
     // 分享跳转进入的时候 判定弹出购买框
     this.joinGroupFromShare()
+    this.renderPop()
   }
 
   updateInfo = async () => {
@@ -66,6 +71,7 @@ export default class extends React.Component {
     await this.setGroupStatus(myGroup)
     // 调用分享函数
     this.state.wxConfig.init().then(() => {
+      alert('setShareIng')
       this.setShare()
     })
   }
@@ -138,8 +144,8 @@ export default class extends React.Component {
   refreshGroup () {
     let {otherGroup} = this.state
     // 将前面的移动到最后
-    let popArr = otherGroup.splice(1, this.groupLength)
-    otherGroup.concat(popArr)
+    let popArr = otherGroup.splice(0, this.groupLength)
+    otherGroup = otherGroup.concat(popArr)
     this.setState({
       otherGroup: otherGroup
     })
@@ -147,10 +153,14 @@ export default class extends React.Component {
 
   renderAllGroupView () {
     let {studyCardPackageList} = this.state
+    let count = 0
+    studyCardPackageList.forEach((ele, index) => {
+      count += ele.buyCount
+    })
     return (<div className='show-card'>
       <div className='line'>
         <p>能力卡用于兑换2018课表课程</p>
-        <p>已有9999人获得</p>
+        <p>已有{count}人获得</p>
       </div>
       <div className='card-line'>
         {studyCardPackageList.map((ele, index) => {
@@ -161,7 +171,7 @@ export default class extends React.Component {
         })}
       </div>
       <div className='text-line'>
-        <Scrolling interval={2500} />
+        <Scrolling interval={4000} />
       </div>
       <style jsx>{`
         .show-card {
@@ -181,7 +191,7 @@ export default class extends React.Component {
         .card-line {
           display: flex;
           justify-content: space-between;
-          margin-top: 5px;
+          margin-top: 15px;
         }
         .card-line img {
           width: 100%;
@@ -210,7 +220,7 @@ export default class extends React.Component {
           button = <Button style={this.buttonStyle} onClick={() => { this.goRouter('/abilitycollege/coupon') }}>邀请好友，再得卡</Button>
         } else {
           // 正在团
-          button = <Button style={this.buttonStyle} onClick={this.renderPop}>立即邀请好友</Button>
+          button = <Button style={this.buttonStyle} onClick={() => { this.renderPop(ele) }}>立即邀请好友</Button>
         }
         return (this.renderCard(ele, button, index))
       })
@@ -227,8 +237,43 @@ export default class extends React.Component {
     }
   }
 
-  renderPop () {
-    showShareBg(<div>分享右上角<br />现在就分享</div>)
+  renderPop (ele) {
+    if (ele) {
+      let {leftHour, leftMinute} = ele
+      let defaultStyle = {
+        backgroundColor: 'rgba(0, 10, 49, 0.5)'
+      }
+      let randomSecond = parseInt(60 * Math.random())
+      let dom = <div>
+        <img className='img-style' src='/static/img/apollo/shareArrow.png' />
+        <p className='title'>离成团只剩{leftHour}时{leftMinute}分{randomSecond}秒</p>
+        <p className='title'>还差<strong className='strong'> 1 </strong>人，赶紧邀请好友来拼团吧~</p>
+        <p className='title'>拼团人满后可拿成就卡</p>
+        <style jsx>{`
+        .title {
+          font-size:20px;
+          font-weight: bold;
+        }
+        .strong {
+          font-size:28px;
+          font-weight: bold;
+          color: red;
+        }
+        .img-style {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 150px;
+          height: 300px;
+        }
+      `}</style>
+      </div>
+      let prop = {
+        innerDiv: dom,
+        style: defaultStyle
+      }
+      ModalBoxPopFunc({...prop})
+    }
   }
 
   goRouter (router) {
@@ -241,7 +286,7 @@ export default class extends React.Component {
       let {nickname} = couponInfo
       return (<div className='div-with-bottom'>
         {this.renderTitle('我获得的优惠券')}
-        <img src='/static/img/buygether/coupon.png' />
+        <img onClick={() => { this.buyMyGroup() }} src='/static/img/buygether/coupon.png' />
         <p>* {nickname} 赠送，报名后你的好友 {nickname} 将免费获得一张能力卡</p>
         <style jsx>{`
           .div-with-bottom {
@@ -265,7 +310,7 @@ export default class extends React.Component {
       let groupingArr = []
       if (otherGroup.length > perLength) {
         // 如果人数多于4个，取出4个渲染
-        groupingArr = otherGroup.slice(1, perLength).map((ele, index) => {
+        groupingArr = otherGroup.slice(0, perLength).map((ele, index) => {
           const button = <Button style={this.buttonStyle} onClick={() => { this.buyOtherGroup(ele) }}>参团</Button>
           return (this.renderCard(ele, button, index))
         })
@@ -344,7 +389,7 @@ export default class extends React.Component {
         .head-list div {
           position: relative;
           z-index: 10;
-          width: 70%;
+          width: 55%;
           flex: none;
           text-align:center;
         }
@@ -426,18 +471,36 @@ export default class extends React.Component {
 
   buyButtonCallBack = async (typeId, groupId) => {
     try {
+      let _this = this
       let payInfo
       if (groupId) {
         payInfo = await AxiosUtil.get(`/api/study-card/buyTogether/${groupId}/${typeId}`)
       } else {
         payInfo = await AxiosUtil.get(`/api/study-card/buy/${typeId}`)
       }
-      wxPayController.payInit(payInfo).then(() => {
-        this.updateInfo()
-        this.setState({
+      wxPayController.payInit(payInfo).then(async function () {
+        // 关闭弹窗
+        _this.setState({
           showPop: false
         })
-        // alert('success123')
+        // 刷新数据
+        await _this.updateInfo()
+        // 判定是否需要跳转
+        if (groupId) {
+          try {
+            await AxiosUtil.get(`/api/study-card/buyTogether/${groupId}/${typeId}`)
+          } catch (e) {
+            alert(e.status)
+            // 如果订单已经消失。跳转
+            if (e.status === '10001') {
+              Alert({
+                content: '您已拼团成功！现在每成功分享一位好友，都能免费得到成就卡！',
+                okText: '去看看',
+                ok: () => location.href = '/abilitycollege/coupon'
+              })
+            }
+          }
+        }
       })
     } catch (e) {
       Alert({
@@ -456,7 +519,7 @@ export default class extends React.Component {
       })
     } else {
       Alert({
-        content: '您正在拼团，无法重新参团，拼团成功后会通知您哦'
+        content: '您正在拼团，无法重新参团，快邀请好友帮你完成拼团吧！'
       })
     }
   }
@@ -470,7 +533,7 @@ export default class extends React.Component {
       })
     } else {
       Alert({
-        content: '您正在拼团，无法重新参团，拼团成功后会通知您哦'
+        content: '您正在拼团，无法重新参团，快邀请好友帮你完成拼团吧！'
       })
     }
   }
@@ -524,6 +587,30 @@ export default class extends React.Component {
     </Fixfooter>)
   }
 
+  renderMoreQA () {
+    let content = <div>
+      <p>有三个props:</p>
+      <p>title: 标题（可有可无）</p>
+      <p>content: 内容（必须要有）</p>
+      <p>height: 高度，<strong style={{color: 'red'}}>数字</strong>（超出显示查看全部）</p>
+      <p>1</p>
+      <p>1</p>
+      <p>1</p>
+      <p>1</p>
+      <p>1</p>
+    </div>
+    return (<div className='more'>
+      <MoreLine title='这是标题' height={120} >
+        content={'123123'}
+      </MoreLine>
+      <style jsx>{`
+        .more {
+          font-size: 14px
+        }
+      `}</style>
+    </div>)
+  }
+
   render () {
     return (
       <Layout>
@@ -538,7 +625,10 @@ export default class extends React.Component {
           <div className='buy-button'>
             {this.renderBuyButton()}
           </div>
-          <div className='more-info' />
+          <div className='more-info'>
+            <h1>小灶能力学院Q&A</h1>
+            {/*{this.renderMoreQA()}*/}
+          </div>
           {this.renderFooter()}
         </div>
         {this.state.showPop && <BuyPop

@@ -135,7 +135,7 @@ export default class extends React.Component {
       borderColor: '#c41616'
     }
     let barStyle = {
-      padding: '5px 30px 5px 20px'
+      padding: '5px 10px 5px 20px'
     }
     return (
       <ChooseBar style={chooseBar}
@@ -164,8 +164,8 @@ export default class extends React.Component {
     return (
       <div className='line'>
         <img className='icon' src={'/static/img/buygether/card_icon.png'} />
-        <div className='card-name'>能力卡<span className='card' style={style}>{`${ele.buyCount}`}张</span></div>
-        <span className='price'>{`立省 ￥`}<strong>{`${this.calcPrice(ele, 'discount')}`}</strong></span>
+        <div className='card-name'>能力卡<span className='card' style={style}>{`${ele.buyCount}`}</span>张</div>
+        <span className='price'>{`拼团价 ￥`}<strong>{`${this.calcPrice(ele, 'now')}`}</strong></span>
         <style jsx>{`
             .line {
               display: flex;
@@ -185,7 +185,7 @@ export default class extends React.Component {
               align-items: center;
             }
             .card {
-              margin-left: 10px;
+              margin: auto 10px;
               display: inline-block;
               border-radius: 50%;
               height: 30px;
@@ -215,11 +215,12 @@ export default class extends React.Component {
     }
     let isCoupon = this.props.couponInfo
     let {showPrice, price} = priceInfo
+    let couponPrice
     if (isCoupon) {
-      price = price * this.coupon
+      couponPrice = price * this.coupon
     }
     if (isNewGroup) {
-      price -= this.newGroupDiscount * value
+      couponPrice -= this.newGroupDiscount * value
     }
     let calcPrice
     switch (type) {
@@ -229,8 +230,11 @@ export default class extends React.Component {
       case 'now':
         calcPrice = price
         break
+      case 'finalPrice':
+        calcPrice = couponPrice
+        break
       case 'discount':
-        calcPrice = (showPrice - price)
+        calcPrice = (showPrice - couponPrice)
         break
     }
     return (parseInt(calcPrice / value))
@@ -242,7 +246,7 @@ export default class extends React.Component {
       return (
         <div className='bottom-line'>
           <div className='button left-button'><s>{`原价￥${this.calcPrice(priceInfo, 'origin')}`}</s></div>
-          <div onClick={this.buyButtonClick} className='button rigth-button'>{this.props.joinInfo.groupId ? '参团' : '开团'}{`￥${this.calcPrice(priceInfo, 'now')}`}</div>
+          <div onClick={this.buyButtonClick} className='button rigth-button'>支付{`￥${this.calcPrice(priceInfo, 'finalPrice')}`}</div>
           {!this.props.joinInfo.groupId && <div
             onClick={this.buyButtonClick}>
             <Triangle style={{right: '60px', bottom: '40px'}}>团长开团立减10元</Triangle>
@@ -274,12 +278,12 @@ export default class extends React.Component {
           .left-button {
             background-color: white;
             color: #c41616;
-            flex: 1;
+            flex: 3;
           }
           .rigth-button {
             background-color: #c41616;
             color: white;
-            flex: 1;
+            flex: 5;
           }
         `}</style>
         </div>
