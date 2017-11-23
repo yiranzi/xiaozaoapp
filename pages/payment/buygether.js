@@ -71,9 +71,9 @@ export default class extends React.Component {
     // 设置我的团状态
     await this.setGroupStatus(myGroup)
     // 调用分享函数
+    let _this = this
     this.state.wxConfig.init().then(() => {
-      alert('setShareIng')
-      this.setShare()
+      _this.setShare()
     })
   }
 
@@ -104,7 +104,7 @@ export default class extends React.Component {
     let shareProp = {
       title: '邀你一起拼团能力课程，低至3折',
       desc: '小灶能力学院限时拼团特惠，PPT课、商业英语课、结构化逻辑课、四大求职通关课等26大课程3大类能力等你拥有。',
-      link: 'http://rcwx.review.xiaozao.org/',
+      link: 'http://rcwx.review.xiaozao.org/abilitycollege/main',
       imgUrl: 'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg'
     }
     if (this.state.myGroupingId) {
@@ -112,7 +112,7 @@ export default class extends React.Component {
       let headimgurl = encodeURI(this.headimgurl)
       shareProp.title = this.nickname + shareProp.title
       shareProp.imgUrl = this.headimgurl
-      shareProp.link += `abilitycollege/main/?groupId=${this.state.myGroupingId}&headimgurl=${headimgurl}&nickname=${nickname}&category=invite`
+      shareProp.link += `?groupId=${this.state.myGroupingId}&headimgurl=${headimgurl}&nickname=${nickname}&category=invite`
     }
     this.state.wxConfig.setShareConfig(shareProp)
   }
@@ -527,9 +527,8 @@ export default class extends React.Component {
           try {
             await AxiosUtil.get(`/api/study-card/buyTogether/${groupId}/${typeId}`)
           } catch (e) {
-            alert(e.status)
             // 如果订单已经消失。跳转
-            if (e.status === '10001') {
+            if (e.status === '10001' || e.status === '10002') {
               Alert({
                 content: '您已拼团成功！现在每成功分享一位好友，都能免费得到成就卡！',
                 okText: '去看看',
@@ -635,7 +634,7 @@ export default class extends React.Component {
         marginTop: '10px'
       }
       let arr = staticContent.map((ele, index) => {
-        return (<div className='question'>
+        return (<div key={index} className='question'>
           {/*<h1 style={hStyle}>{ele.question}</h1>*/}
           <MoreLine style={moreStyle} title={ele.question} content={ele.content} />
           <style jsx>{`

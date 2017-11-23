@@ -35,7 +35,7 @@ export default class WxShare extends React.PureComponent {
     // eslint-disable-next-line
     wx.ready(this.setState({
       wxReady: true
-    }), alert('ready'))
+    }))
     // eslint-disable-next-line
     wx.error(function (res) {
       console.log('微信认证失败')
@@ -114,13 +114,11 @@ export default class WxShare extends React.PureComponent {
         if (cancel) { cancel() }
       }
     })
-    return (<div>{title}</div>)
   }
   render () {
     return <div>
       <script src='/static/js/jweixin.js' />
       {this.setShare()}
-      {this.state.wxReady ? 'share true' : 'share false'}
     </div>
   }
 }

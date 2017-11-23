@@ -301,11 +301,17 @@ export default class extends React.Component {
 
   makeDivByContent () {
     let normalStyle = {
-      borderColor: `${ThemeConfig.color.yellow}`
+      borderColor: `${ThemeConfig.color.yellow}`,
+      margin: '20px auto',
+      height: '2rem',
+      lineHeight: '2rem'
     }
     let disabledStyle = {
       borderColor: `${ThemeConfig.color.border}`,
-      color: `${ThemeConfig.color.content}`
+      color: `${ThemeConfig.color.content}`,
+      margin: '20px auto',
+      height: '2rem',
+      lineHeight: '2rem'
     }
     if (this.contentArr && this.contentArr.length > 0) {
       console.log(this.contentArr)

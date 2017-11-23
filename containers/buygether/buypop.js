@@ -126,7 +126,6 @@ export default class extends React.Component {
   renderList () {
     let {dataInfo} = this.props
     let chooseBar = {
-      border: 'none',
       margin: '10px auto'
     }
     let chooseStyle = {
@@ -222,7 +221,6 @@ export default class extends React.Component {
     if (isNewGroup) {
       couponPrice -= this.newGroupDiscount * value
     }
-    console.log(showPrice - couponPrice)
     let calcPrice
     switch (type) {
       case 'origin':

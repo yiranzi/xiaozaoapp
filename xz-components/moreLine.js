@@ -38,7 +38,7 @@ export default class extends React.Component {
       <div style={this.props.style} className='more' onClick={this.clickTitle}>
         <div className='title' >
           {this.props.title}
-          <span>{this.state.isShow ? '◀' : '▼'}</span>
+          <span>{this.state.isShow ? '▲' : '▼'}</span>
         </div>
         <div className='content' style={style}>{this.state.isShow ? this.props.content : ''}</div>
         <style jsx>{`
