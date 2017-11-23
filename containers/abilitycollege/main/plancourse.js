@@ -29,8 +29,8 @@ export default class extends React.Component {
   render () {
     return (
       <div className='plan-course'>
-        <div className='title'>路径详情</div>
         <div className='detail'>
+          <div className='title'>路径详情</div>
           {this.props.data.map((item, index) => {
             return (
               <section>

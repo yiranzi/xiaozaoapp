@@ -54,7 +54,7 @@ export default class extends React.Component {
       <Layout>
         <div className='bigfour'>
           <div className='header'>前四大经理和你聊聊，在实际审计/税务工作中，你为什么需要这些能力！</div>
-          <img src='' />
+          <img style={{width: '100%'}} src='/static/img/abilitycollege/1.png' />
           <div className='detail'>
             <PlanCourse data={this.props.data} />
           </div>

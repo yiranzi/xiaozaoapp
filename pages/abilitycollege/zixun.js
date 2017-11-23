@@ -38,7 +38,7 @@ export default class extends React.Component {
       <Layout>
         <div className='bigfour'>
           <div className='header'>小灶能力学院院长，杜克大学 MBA，资深咨询顾问，拒掉某 MBB Offer，决心创业。</div>
-          <img src='' />
+          <img style={{width: '100%'}} src='/static/img/abilitycollege/2.png' />
           <div className='detail'>
             <PlanCourse data={this.props.data} />
           </div>
