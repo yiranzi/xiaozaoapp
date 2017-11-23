@@ -215,13 +215,14 @@ export default class extends React.Component {
     }
     let isCoupon = this.props.couponInfo
     let {showPrice, price} = priceInfo
-    let couponPrice
+    let couponPrice = price
     if (isCoupon) {
-      couponPrice = price * this.coupon
+      couponPrice = couponPrice * this.coupon
     }
     if (isNewGroup) {
       couponPrice -= this.newGroupDiscount * value
     }
+    console.log(showPrice - couponPrice)
     let calcPrice
     switch (type) {
       case 'origin':
