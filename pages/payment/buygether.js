@@ -167,7 +167,7 @@ export default class extends React.Component {
         {studyCardPackageList.map((ele, index) => {
           return (
             <div key={index} onClick={() => { this.buyMyGroup(index) }}>
-              <img src={`/static/img/buygether/card_${index}.png`} />
+              <img src={`/static/img/buygether/card_${index + 1}.png`} />
             </div>)
         })}
       </div>
@@ -190,6 +190,10 @@ export default class extends React.Component {
           flex-wrap: wrap;
         }
         .card-line {
+          position: absolute;
+          bottom: 60px;
+          left: 0;
+          width: 100%;
           display: flex;
           justify-content: space-between;
           margin-top: 15px;
@@ -218,7 +222,7 @@ export default class extends React.Component {
         // 要根据这个团的不同情况进行渲染
         if (ele.status === 1) {
           // 历史团
-          button = <Button style={this.buttonStyle} onClick={() => { this.goRouter('/abilitycollege/coupon') }}>邀请好友，再得卡</Button>
+          button = <Button style={this.buttonStyle} onClick={() => { this.goRouter('/abilitycollege/coupon') }}>邀好友再得卡</Button>
         } else {
           // 正在团
           button = <Button style={this.buttonStyle} onClick={() => { this.renderPop(ele) }}>立即邀请好友</Button>
@@ -284,10 +288,25 @@ export default class extends React.Component {
   renderCoupon () {
     let {couponInfo} = this.state
     if (couponInfo) {
+      let couponType
+      switch (couponInfo.name) {
+        case '通用券':
+          couponType = 0
+          break
+        case '闺蜜券':
+          couponType = 1
+          break
+        case '基友券':
+          couponType = 2
+          break
+        case '校友券':
+          couponType = 3
+          break
+      }
       let {nickname} = couponInfo
       return (<div className='div-with-bottom'>
         {this.renderTitle('我获得的优惠券')}
-        <img onClick={() => { this.buyMyGroup() }} src='/static/img/buygether/coupon.png' />
+        <img onClick={() => { this.buyMyGroup() }} src={`/static/img/buygether/coupon_card_${couponType}.png`} />
         <p>* {nickname} 赠送，报名后你的好友 {nickname} 将免费获得一张能力卡</p>
         <style jsx>{`
           .div-with-bottom {
@@ -309,16 +328,23 @@ export default class extends React.Component {
     if (otherGroup !== undefined) {
       const perLength = this.groupLength
       let groupingArr = []
+      let buttonStyle = {
+        backgroundColor: '#F9F9F9',
+        color: '#c41616',
+        border: '1px solid #c41616',
+        fontSize: '14px',
+        width: '60px'
+      }
       if (otherGroup.length > perLength) {
         // 如果人数多于4个，取出4个渲染
         groupingArr = otherGroup.slice(0, perLength).map((ele, index) => {
-          const button = <Button style={this.buttonStyle} onClick={() => { this.buyOtherGroup(ele) }}>参团</Button>
+          const button = <Button style={buttonStyle} onClick={() => { this.buyOtherGroup(ele) }}>参团</Button>
           return (this.renderCard(ele, button, index))
         })
       } else if (otherGroup.length > 0) {
         // 如果人数不足4个
         groupingArr = otherGroup.map((ele, index) => {
-          const button = <Button style={this.buttonStyle} onClick={() => { this.buyOtherGroup(ele) }}>参团</Button>
+          const button = <Button style={buttonStyle} onClick={() => { this.buyOtherGroup(ele) }}>参团</Button>
           return (this.renderCard(ele, button, index))
         })
       } else {
@@ -349,11 +375,18 @@ export default class extends React.Component {
         backgroundColor: '#f0f2f6',
         borderRadius: '20px',
         padding: '0px 5px',
-        display: 'inline-block'
+        display: 'inline-block',
+        color: 'red',
+        minWidth: '60px'
       }
       content = <div>
-        剩余<div style={style}><TimeDown limitTime={leftMinute}>{`${leftHour} : `}</TimeDown></div>
-        {/*<br />还差1人*/}
+        剩余
+        <div style={style}>
+          <TimeDown limitTime={leftMinute}>
+            {`${leftHour} : `}
+          </TimeDown>
+        </div>
+        还差<strong style={{color: 'red'}}>1</strong>人
       </div>
     }
     return (<div key={index} className='group-card'>
@@ -368,29 +401,30 @@ export default class extends React.Component {
         <p>{nickname}的拼团</p>
         <p>{content}</p>
       </div>
+      <div className='empty'></div>
       <div className='button'>
         {button}
       </div>
       <style jsx>{`
         .group-card {
           display: flex;
-          font-size: 14px;
-          justify-content: space-between;
+          font-size: 12px;
           align-items: center;
-          padding: 10px 0px;
+          margin: 5px 0px;
           height: 50px;
         }
         .head-list {
           text-align: center;
           display: flex;
           justify-content: center;
-          flex: 2;
-          margin-right: 6px;
+          flex: none;
+          width: 40px;
+          margin-right: 16px;
         }
         .head-list div {
           position: relative;
           z-index: 10;
-          width: 55%;
+          width: 100%;
           flex: none;
           text-align:center;
         }
@@ -400,18 +434,20 @@ export default class extends React.Component {
         }
         .head-list div+div {
           z-index: 15;
-          margin-left: -35px;
+          margin-left: -25px;
         }
         .content {
           text-align: left;
-          flex: 4;
+          min-width: 150px;
+          flex: none;
         }
         .button {
-          width: 100%;
-          flex: 3;
+          flex: auto;
+          max-width: 160px;
+          text-align:right;
         }
-        .button > div {
-          height: 100%;
+        .empty {
+          flex: auto;
         }
       `}</style>
     </div>)
@@ -589,35 +625,54 @@ export default class extends React.Component {
   }
 
   renderMoreQA () {
-    let hStyle = {
-      fontSize: '18px',
-      fontWeight: 'bold',
-      marginLeft: '10px'
-    }
-    let moreStyle = {
-      marginTop: '10px'
-    }
-    let arr = staticContent.map((ele, index) => {
-      return (<div className='question'>
-        <h1 style={hStyle}>{ele.question}</h1>
-        <MoreLine style={moreStyle} title=' • 小灶能力学院院长Marc回答' content={ele.content} />
-        <style jsx>{`
+    if (this.state.otherGroup !== undefined) {
+      let hStyle = {
+        fontSize: '16px',
+        fontWeight: 'bold',
+        marginLeft: '10px'
+      }
+      let moreStyle = {
+        marginTop: '10px'
+      }
+      let arr = staticContent.map((ele, index) => {
+        return (<div className='question'>
+          {/*<h1 style={hStyle}>{ele.question}</h1>*/}
+          <MoreLine style={moreStyle} title={ele.question} content={ele.content} />
+          <style jsx>{`
             .question {
+              color: #646464;
               text-align: left;
-              margin: 10px auto 30px auto;
+              margin: 10px auto 15px auto;
             }
           `}</style>
-      </div>)
-    })
-    return (<div className='more-div'>
-      {arr}
-      <style jsx>{`
+        </div>)
+      })
+      return (<div className='more-div'>
+        <div className='more-info-title'>
+          <span>小灶能力学院Q&A</span>
+        </div>
+        {arr}
+        <style jsx>{`
         .more-div {
           font-size: 14px;
           padding: 4px;
         }
+         .more-info-title{
+            height: 1px;
+            border-top: 3px dotted #e1e4f0;
+            text-align: center;
+            margin: 40px 0px 18px 0px !important;
+          }
+          .more-info-title span{
+            background-color: #f0f2f6;
+            font-size: 18px;
+            position: relative;
+            top: -18px;
+            padding: 0 10px;
+          }
       `}</style>
-    </div>)
+      </div>)
+    }
   }
 
   render () {
@@ -635,9 +690,6 @@ export default class extends React.Component {
             {this.renderBuyButton()}
           </div>
           <div className='more-info'>
-            <div className='more-info-title'>
-              <span>小灶能力学院Q&A</span>
-            </div>
             {this.renderMoreQA()}
           </div>
           {this.renderFooter()}
@@ -676,21 +728,8 @@ export default class extends React.Component {
           }
           .more-info {
             background-color: #f0f2f6;
-            {/*padding: 2px;*/}
           }
-          .more-info-title{
-            height: 1px;
-            border-top: 3px dotted black;
-            text-align: center;
-            margin: 40px 0px 20px 0px !important;
-          }
-          .more-info-title span{
-            background-color: #f0f2f6;
-            font-size: 20px;
-            position: relative;
-            top: -18px;
-            padding: 0 10px;
-          }
+
         `}</style>
       </Layout>
     )

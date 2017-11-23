@@ -38,9 +38,8 @@ export default class extends React.Component {
       <div style={this.props.style} className='more' onClick={this.clickTitle}>
         <div className='title' >
           {this.props.title}
-          <span>{this.state.isShow ? '↓' : '<'}</span>
+          <span>{this.state.isShow ? '◀' : '▼'}</span>
         </div>
-        <div className='content' style={style}>{this.state.isShow ? this.props.content : ''}</div>
         <div className='content' style={style}>{this.state.isShow ? this.props.content : ''}</div>
         <style jsx>{`
           .more {
@@ -48,6 +47,7 @@ export default class extends React.Component {
             box-shadow: 0 1px 6px rgba(0,0,0,.2);
             padding: 10px;
             border-radius: 10px;
+            line-height: 24px;
           }
           .more .title {
             font-size: 14px;

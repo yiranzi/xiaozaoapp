@@ -88,7 +88,6 @@ export default class extends React.Component {
         </div>
         <span style={{textAlign: 'left'}}>选择套餐</span>
         <style jsx>{`
-
           .title {
             text-align: left;
             padding: 10px 10px 0px 10px;
@@ -108,7 +107,8 @@ export default class extends React.Component {
             line-height: 20px;
           }
           .my-line {
-            width:20px;
+            {/*width:20px;*/}
+            flex: 1 1 auto;
             height:1px;
             border:none;
             border-top:1px solid  #e5e5e5;
@@ -195,7 +195,7 @@ export default class extends React.Component {
               font-size: 16px;
             }
             .price {
-              flex: 2
+              flex: 3
             }
             .price strong {
               font-size: 16px;
@@ -301,7 +301,7 @@ export default class extends React.Component {
     if (this.props.couponInfo) {
       let {nickname} = this.props.couponInfo
       return (<div className='coupon-div'>
-        <p> • 使用{nickname}赠送的优惠券，享9折</p>
+        <p> ◉ 已使用{nickname}赠送的优惠券，享9折优惠！</p>
         <p>报名后你的好友{nickname}将免费获得一张能力卡</p>
         <style jsx>{`
         .coupon-div {
