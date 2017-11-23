@@ -4,40 +4,22 @@ import ThemeConfig from '../config/theme'
 export default class extends React.Component {
   constructor (props) {
     super(props)
-    const {height} = this.props
     this.state = {
-      needShowBotton: false,
-      style: {
-        maxHeight: height,
-        height: height,
-        overflowY: 'hidden'
-      },
+      style: {},
       isShow: false
     }
     this.clickTitle = this.clickTitle.bind(this)
   }
   componentDidMount () {
-    let content = this.refs.content
-    let clientHeight = content.clientHeight // 期望展示高度
-    let contentHeight = content.children[0].clientHeight // 实际内容高度
-    console.log('content: ', content)
-    console.log('clientHeight:', clientHeight)
-    console.log('contentHeight:', contentHeight)
-    if (contentHeight > clientHeight) {
-      this.setState({needShowBotton: true})
-    }
   }
 
   clickTitle () {
-    const {height} = this.props
     let {isShow} = this.state
     if (isShow) {
       this.setState({
         isShow: false,
         style: {
-          maxHeight: height,
-          height: height,
-          overflowY: 'hidden'
+          height: '0px'
         }
       })
     } else {
@@ -50,58 +32,34 @@ export default class extends React.Component {
     }
   }
 
-  renderButton () {
-    const { isShow } = this.state
-    return (
-      <div className='show-all'>
-        {isShow && <span onClick={() => { this.hide() }}>收起</span>}
-        {!isShow && <span onClick={() => { this.showAll() }}>查看全部</span>}
-        <style jsx>{`
-          .show-all {
-            text-align: right;
-          }
-          .show-all span {
-            color: #117ee9;
-            border: 1px solid #117ee9;
-            border-radius: 1rem;
-            padding: 0.2rem 0.5rem;
-          }
-        `}</style>
-      </div>
-    )
-  }
-
   render () {
-    const {style, needShowBotton} = this.state
+    const {style} = this.state
     return (
-      <div className='more'>
-        <div className='title' onClick={this.clickTitle}>
+      <div style={this.props.style} className='more' onClick={this.clickTitle}>
+        <div className='title' >
           {this.props.title}
           <span>{this.state.isShow ? '↓' : '<'}</span>
         </div>
-        <div className='content' style={style}>{this.props.content}</div>
-        {/*<div className='content' style={style} ref='content'><div>{this.props.children}</div></div>*/}
-        {/*{needShowBotton && this.renderButton()}*/}
+        <div className='content' style={style}>{this.state.isShow ? this.props.content : ''}</div>
+        <div className='content' style={style}>{this.state.isShow ? this.props.content : ''}</div>
         <style jsx>{`
           .more {
             background-color: ${ThemeConfig.color.gray};
             box-shadow: 0 1px 6px rgba(0,0,0,.2);
-            padding: 1rem;
-            margin: 1rem 0;
+            padding: 10px;
             border-radius: 10px;
           }
           .more .title {
-            font-size: ${ThemeConfig.size.normal};
+            font-size: 14px;
             color: #242223;
-            display: flex'
+            display: flex;
+            justify-content: space-between;
           }
           .more .content {
-            margin: 1rem 0;
+            font-size: 14px;
+            transition: height 1s;
+            overflow: hidden;
             color: #646464;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            word-break:break-all;
           }
         `}</style>
       </div>

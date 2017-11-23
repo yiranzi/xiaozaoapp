@@ -13,6 +13,7 @@ import ToolsUtil from '../../util/tools'
 import {Alert} from '../../xz-components/alert'
 import {ModalBoxPopFunc} from '../../xz-components/modalbox'
 import MoreLine from '../../xz-components/moreLine'
+import staticContent from '../../containers/buygether/staticContent'
 
 // 介绍页
 export default class extends React.Component {
@@ -330,7 +331,7 @@ export default class extends React.Component {
         <style jsx>{`
           .div-with-bottom {
             padding-bottom: 10px;
-            border-bottom: 1px solid #e5e5e5;
+            {/*border-bottom: 1px solid #e5e5e5;*/}
           }
         `}</style>
       </div>)
@@ -588,24 +589,32 @@ export default class extends React.Component {
   }
 
   renderMoreQA () {
-    let content = <div>
-      <p>有三个props:</p>
-      <p>title: 标题（可有可无）</p>
-      <p>content: 内容（必须要有）</p>
-      <p>height: 高度，<strong style={{color: 'red'}}>数字</strong>（超出显示查看全部）</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-    </div>
-    return (<div className='more'>
-      <MoreLine title='这是标题' height={120} >
-        content={'123123'}
-      </MoreLine>
+    let hStyle = {
+      fontSize: '18px',
+      fontWeight: 'bold',
+      marginLeft: '10px'
+    }
+    let moreStyle = {
+      marginTop: '10px'
+    }
+    let arr = staticContent.map((ele, index) => {
+      return (<div className='question'>
+        <h1 style={hStyle}>{ele.question}</h1>
+        <MoreLine style={moreStyle} title=' • 小灶能力学院院长Marc回答' content={ele.content} />
+        <style jsx>{`
+            .question {
+              text-align: left;
+              margin: 10px auto 30px auto;
+            }
+          `}</style>
+      </div>)
+    })
+    return (<div className='more-div'>
+      {arr}
       <style jsx>{`
-        .more {
-          font-size: 14px
+        .more-div {
+          font-size: 14px;
+          padding: 4px;
         }
       `}</style>
     </div>)
@@ -626,8 +635,10 @@ export default class extends React.Component {
             {this.renderBuyButton()}
           </div>
           <div className='more-info'>
-            <h1>小灶能力学院Q&A</h1>
-            {/*{this.renderMoreQA()}*/}
+            <div className='more-info-title'>
+              <span>小灶能力学院Q&A</span>
+            </div>
+            {this.renderMoreQA()}
           </div>
           {this.renderFooter()}
         </div>
@@ -642,9 +653,10 @@ export default class extends React.Component {
           .buy-card-page {
             padding-bottom: 80px;
             width: 100%;
-            font-size: 0;
+            font-size: 0px;
             text-align: center;
             color: #2f3138;
+            background-color: #f0f2f6;
           }
           .buy-card-page *{
             margin: 0px;
@@ -658,9 +670,26 @@ export default class extends React.Component {
           }
           .card-div {
             padding: 0 10px;
+            background-color: #F9F9F9;
+            {/*border-bottom: 1px solid #e5e5e5;*/}
+            {/*margin-bottom: -2px;*/}
           }
           .more-info {
             background-color: #f0f2f6;
+            {/*padding: 2px;*/}
+          }
+          .more-info-title{
+            height: 1px;
+            border-top: 3px dotted black;
+            text-align: center;
+            margin: 40px 0px 20px 0px !important;
+          }
+          .more-info-title span{
+            background-color: #f0f2f6;
+            font-size: 20px;
+            position: relative;
+            top: -18px;
+            padding: 0 10px;
           }
         `}</style>
       </Layout>
