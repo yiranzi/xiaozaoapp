@@ -25,7 +25,8 @@ export default class extends React.Component {
       category: '',
       couponname: '',
       couponid: '',
-      couponError: ''
+      couponError: '',
+      canEnter: false
     }
   }
   componentDidMount = async () => {
@@ -39,6 +40,7 @@ export default class extends React.Component {
       try {
         await AxiosUtil.get('/api/study-card/receiveCoupon/' + couponid)
       } catch (e) {
+        if (e.status === 10003) { this.setState({canEnter: true}) }
         this.setState({couponError: e.message})
       }
     }
@@ -116,7 +118,8 @@ export default class extends React.Component {
     )
   }
   renderCouponBar (headimg, nickname) {
-    const {couponname, couponError} = this.state
+    const {couponname, couponError, canEnter} = this.state
+    if (couponError && canEnter) return <div className='share-tips' onClick={() => { this.jumpTo() }}>{couponError}</div>
     if (couponError) return <div className='share-tips'>{couponError}</div>
     return (
       <div className='share-tips' onClick={() => { this.jumpTo() }}>
