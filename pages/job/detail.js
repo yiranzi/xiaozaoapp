@@ -355,13 +355,12 @@ export default class extends React.Component {
     return (
       <JobLayout toptips={this.state.toptips}>
         <Navbar fixed leftbar={leftbar} rightbar={rightbar} navtitle='职位详情' />
-        <div style={{height: '46px'}} />
         {isDown && (
           <div className='job-expire wx-text-center' id='jobisDown'>
             提示：该职位信息已下线
           </div>
         )}
-        <div className='job-detail'>
+        <div className='job-detail wx-navbar-margin'>
           {this.renderJobTitle()}
           {this.renderCompanyDetail()}
           {this.renderJobDetail()}

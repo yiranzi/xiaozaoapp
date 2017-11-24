@@ -176,7 +176,7 @@ export default class extends React.Component {
         <style jsx>{`
           .return-page {
             position: relative;
-            padding: 8px 10px 9px;
+            padding: 9px 10px 10px;
             display: -webkit-box;
             display: -ms-flexbox;
             display: -webkit-box;
@@ -186,7 +186,7 @@ export default class extends React.Component {
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
             background-color: #efeff4;
-            border-right: 1px solid #efeff4;
+            border-right: 0;
             float: left;
           }
           .return-page:before {
@@ -507,8 +507,7 @@ export default class extends React.Component {
     return (
       <JobLayout>
         {this.renderSearchBar()}
-        <div style={{height: '46px'}} />
-        <InfiniteLoader
+        <InfiniteLoader className='wx-navbar-margin'
           onLoadMore={(resolve, finish) => this.onLoadMore(resolve, finish)}
         >
           <div className='job-list'>{this.renderTabbar()}</div>
@@ -516,6 +515,9 @@ export default class extends React.Component {
         {this.renderCityPopup()}
         {this.renderSectionPopup()}
         <style global jsx>{`
+          .wx-navbar-margin {
+            margin-top: 44px;
+          }
           .job-list {
           }
           .react-weui-infiniteloader {

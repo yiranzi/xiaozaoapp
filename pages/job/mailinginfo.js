@@ -440,8 +440,7 @@ export default class extends React.Component {
     return (
       <JobLayout toptips={this.state.toptips}>
         <Navbar fixed leftbar={leftbar} rightbar={rightbar} navtitle='职位投递' />
-        <div style={{height: '46px'}} />
-        <div className='job-list'>
+        <div className='job-list wx-navbar-margin'>
           <Panel className='job-panel'>
             <PanelHeader className='head-info'>
               {this.renderHeadInfo()}
