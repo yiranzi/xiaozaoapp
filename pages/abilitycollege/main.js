@@ -8,9 +8,9 @@ import Footer from '../../components/footer'
 import Schedule from '../../containers/abilitycollege/main/schedule'
 import Plan from '../../containers/abilitycollege/main/plan'
 import Course from '../../containers/abilitycollege/main/course'
-import Patent from '../../containers/abilitycollege/main/patent'
 import Teacher from '../../containers/abilitycollege/main/teacher'
 import Study from '../../containers/abilitycollege/main/study'
+import Comment from '../../containers/abilitycollege/main/comment'
 import ToolsUtil from '../../util/tools'
 
 export default class extends React.Component {
@@ -158,7 +158,6 @@ export default class extends React.Component {
         <div className='main'>
           <Header coupon={coupon} />
           <img className='bg-img1' src={'/static/img/abilitycollege/main-banner.png'} />
-          {/*{this.renderBar()}*/}
           {category && (
             <div id='tips-wrapper'>
               {category === 'invite' && this.renderInviteBar(headimg, nickname)}
@@ -174,9 +173,9 @@ export default class extends React.Component {
             {this.renderBar()}
             <Teacher />
             {this.renderBar()}
-            <Patent />
-            {this.renderBar()}
             <Study />
+            {this.renderBar()}
+            <Comment />
           </div>
           <Footer type='college' />
         </div>
