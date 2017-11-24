@@ -113,7 +113,7 @@ export default class extends React.Component {
   }
   renderInviteBar (headimg, nickname) {
     return (
-      <div id='share-tips' onClick={() => { this.jumpTo() }}>
+      <div className='share-tips' onClick={() => { this.jumpTo() }}>
         <div><img src={headimg} /></div>
         <div style={{marginLeft: '0.5rem'}}>参加{nickname}的团，低至3折获取能力卡</div>
       </div>
