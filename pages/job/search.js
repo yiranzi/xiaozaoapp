@@ -176,7 +176,7 @@ export default class extends React.Component {
         <style jsx>{`
           .return-page {
             position: relative;
-            padding: 11px 11px;
+            padding: 8px 10px 9px;
             display: -webkit-box;
             display: -ms-flexbox;
             display: -webkit-box;
@@ -186,6 +186,7 @@ export default class extends React.Component {
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
             background-color: #efeff4;
+            border-right: 1px solid #efeff4;
             float: left;
           }
           .return-page:before {
@@ -248,10 +249,13 @@ export default class extends React.Component {
         </span>
         <style jsx>{`
           .selects {
-            padding: 15px;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-bottom: 1px solid #ddd;
           }
           .param {
-            margin-right: 10px;
+            margin-right: 20px;
+            margin-left: 10px;
           }
           .param:after {
             content: " v";
@@ -503,8 +507,7 @@ export default class extends React.Component {
     return (
       <JobLayout>
         {this.renderSearchBar()}
-        <br />
-        <br />
+        <div style={{height: '46px'}} />
         <InfiniteLoader
           onLoadMore={(resolve, finish) => this.onLoadMore(resolve, finish)}
         >

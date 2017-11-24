@@ -444,7 +444,7 @@ export default class extends React.Component {
     return (
       <JobLayout tabbar={1} footer>
         {this.renderSearchBar()}
-        <br /><br />
+        <div style={{height: '46px'}} />
         <InfiniteLoader
           onLoadMore={(resolve, finish) => this.onLoadMore(resolve, finish)}>
           {this.renderBanner()}

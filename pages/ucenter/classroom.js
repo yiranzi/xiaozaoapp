@@ -77,7 +77,7 @@ export default class extends React.Component {
     return (
       <UCenterLayout>
         <Navbar fixed leftbar={leftbar} navtitle='我的课堂' />
-        <br /><br />
+        <div style={{height: '46px'}} />
         <Panel>
           {this.renderCourseList()}
         </Panel>

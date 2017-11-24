@@ -29,7 +29,7 @@ export default class extends React.Component {
             text-align: center;
           }
           .left, .right {
-            padding: 10px;
+            padding: 8px;
           }
           .title {
             line-height: 40px;

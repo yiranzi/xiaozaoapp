@@ -64,6 +64,7 @@ export default class extends React.Component {
             justify-content: space-between;
             position: fixed;
             bottom: 0;
+            border-top: 1px solid #F9F9F9;
             width: 100%;
           }
           .footer .item {

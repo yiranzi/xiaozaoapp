@@ -440,8 +440,7 @@ export default class extends React.Component {
     return (
       <JobLayout toptips={this.state.toptips}>
         <Navbar fixed leftbar={leftbar} rightbar={rightbar} navtitle='职位投递' />
-        <br />
-        <br />
+        <div style={{height: '46px'}} />
         <div className='job-list'>
           <Panel className='job-panel'>
             <PanelHeader className='head-info'>
