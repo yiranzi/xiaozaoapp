@@ -167,6 +167,7 @@ export default class extends React.Component {
               <img src={`/static/img/buygether/card_${index + 1}.png`} />
             </div>)
         })}
+        {(studyCardPackageList && studyCardPackageList.length > 0) && <div><img src={`/static/img/buygether/card_0.png`} /></div>}
       </div>
       <div className='text-line'>
         <Scrolling interval={6000} />
