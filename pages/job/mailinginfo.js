@@ -351,14 +351,13 @@ export default class extends React.Component {
                 <TextArea
                   className='input-textarea'
                   rows='3'
-                  placeholder='求职信可以撰写自我介绍、对该公司和岗位的认识、自己的能力和优势等。'
+                  placeholder='求职信可明确告诉HR你【最快上岗时间】和【实习时间长度】，并对自己在能力、经验、兴趣等匹配度进行简要说明。'
                   onChange={e => this.changeHandle(e, 'mailBody')}
                   value={this.state.mailingObj.mailBody !== null
                     ? this.state.mailingObj.mailBody : ''}
                 />
               </CellBody>
             </FormCell>
-            <CellsTips>选填，填写高质量求职信可大大提升求职成功率</CellsTips>
           </Form>
           <style jsx>{`
             .small-font {

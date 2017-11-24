@@ -333,7 +333,7 @@ export default class extends React.Component {
           <NavBarItem active={this.state.tab === 0}
             onClick={e => this.changeTabbar(0)}>HR直聘</NavBarItem>
           <NavBarItem active={this.state.tab === 1}
-            onClick={e => this.changeTabbar(1)}>更多实习</NavBarItem>
+            onClick={e => this.changeTabbar(1)}>全部职位</NavBarItem>
         </NavBar>
         <TabBody>
           <Panel>
