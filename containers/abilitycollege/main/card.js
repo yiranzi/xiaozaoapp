@@ -68,8 +68,8 @@ export default class extends React.Component {
                 <div className='group' style={groupStyle}>
                   <div className='need-card'><img src='/static/img/abilitycollege/card-intro.png' />{item.cardCount}张能力卡兑换</div>
                   <div className='price'>
-                    <div className='before'>￥{item.onePrice}</div>
-                    <div className='now'>￥{item.twoPrice}</div>
+                    <div className='before'>￥{item.twoPrice}</div>
+                    <div className='now'>￥{item.onePrice}</div>
                   </div>
                 </div>
               </div>
