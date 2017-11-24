@@ -136,14 +136,16 @@ export default class extends React.Component {
     return <div style={{backgroundColor: '#f0f2f6', height: '1rem'}} />
   }
   scrollFunction () {
-    window.onscroll = function () {
-      let tipsDom = document.getElementById('tips-wrapper')
-      let tipsOffsetTop = tipsDom.offsetTop
-      let bodyScrollTop = document.body.scrollTop
-      if (bodyScrollTop > tipsOffsetTop) {
-        tipsDom.style.position = 'fixed'
-      } else {
-        tipsDom.style.position = 'relative'
+    let tipsDom = document.getElementById('tips-wrapper')
+    if (tipsDom) {
+      window.onscroll = function () {
+        let tipsOffsetTop = tipsDom.offsetTop
+        let bodyScrollTop = document.body.scrollTop
+        if (bodyScrollTop > tipsOffsetTop) {
+          tipsDom.style.position = 'fixed'
+        } else {
+          tipsDom.style.position = 'relative'
+        }
       }
     }
   }
@@ -156,10 +158,12 @@ export default class extends React.Component {
         <div className='main'>
           <Header coupon={coupon} />
           {this.renderBar()}
-          <div id='tips-wrapper'>
-            {category === 'invite' && this.renderInviteBar(headimg, nickname)}
-            {category === 'coupon' && this.renderCouponBar(headimg, nickname)}
-          </div>
+          {category && (
+            <div id='tips-wrapper'>
+              {category === 'invite' && this.renderInviteBar(headimg, nickname)}
+              {category === 'coupon' && this.renderCouponBar(headimg, nickname)}
+            </div>
+          )}
           <div className='content'>
             {DataUtils.isEmpty(exchangeDetail) ? <LoadingIcon /> : <Schedule exchangeDetail={this.state.exchangeDetail} />}
             {this.renderBar()}
@@ -224,6 +228,10 @@ export default class extends React.Component {
             width: 2rem;
             border-radius: 2rem;
             display: block;
+          }
+          .schedule .slick-slide,
+          .course .slick-slide {
+            height: 154px !important;
           }
         `}</style>
       </Layout>

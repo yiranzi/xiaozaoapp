@@ -8,9 +8,6 @@ export default class extends React.Component {
   openModal (item) {
     Modal({children: <ModalContent data={item} />})
   }
-  componentDidMount () {
-    console.log(this.refs.card.height)
-  }
   renderItem (detail, bg, showTitle) {
     return (
       <div className='card' onClick={() => this.openModal(detail)}>
@@ -49,14 +46,18 @@ export default class extends React.Component {
       padding: '1rem',
       background: `url(/static/img/abilitycollege/bg${bg}.png)`,
       backgroundSize: '100%',
-      borderRadius: '0'
+      height: '100%',
+      borderRadius: '0',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-around',
+      boxSizing: 'border-box'
     }
     let groupStyle = {
       borderBottom: '1px solid #e5e5e5',
       paddingTop: '1rem',
       paddingBottom: '0.5rem'
     }
-    console.log(style)
     return (
       <Slider {...settings}>
         {detail.content.map((item, index) => {
