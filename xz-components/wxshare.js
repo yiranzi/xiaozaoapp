@@ -1,8 +1,6 @@
 import React from 'react'
 import AxiosUtil from '../util/axios'
 
-
-
 /*
  直接引用 传入props完成设置 就可以在该页面使用分享 使用绝对路径设置图片、分享地址
  param:
@@ -23,7 +21,7 @@ export default class WxShare extends React.PureComponent {
     }
   }
   componentDidMount = async () => {
-    const url = `/api/interview/getWXConfig?url=${location.href.split('#')[0]}`
+    const url = `/api/interview/getWXConfig?url=${encodeURIComponent(location.href.split('#')[0])}`
     let wxConfig = await AxiosUtil.get(url)
     wxConfig.jsApiList = [
       'onMenuShareTimeline',
@@ -49,7 +47,8 @@ export default class WxShare extends React.PureComponent {
     if (!this.state.wxReady) {
       return
     }
-
+    // console.log('分享地址为' + this.props.link)
+    // alert('分享地址为' + this.props.link)
     let { title, desc, link, imgUrl, success, cancel } = this.props
     // eslint-disable-next-line
     wx.onMenuShareTimeline({

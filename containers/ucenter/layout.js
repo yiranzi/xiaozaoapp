@@ -2,7 +2,7 @@ import React from 'react'
 import { Toptips } from 'react-weui'
 import Layout from '../../components/layout'
 import Loading from '../../xz-components/loading'
-import Tabbar from '../../components/maintabbar'
+import Footer from '../../components/footer'
 
 export default class extends React.Component {
   constructor (props) {
@@ -68,12 +68,8 @@ export default class extends React.Component {
           <Toptips type={this.state.toptips.type} show={this.state.toptips.show}>
             {this.state.toptips.msg}</Toptips>
         }
-        {this.props.tabbar &&
-          <Tabbar tab={this.props.tabbar}>
-            {this.renderChildren()}
-          </Tabbar>
-        }
-        {!this.props.tabbar && this.renderChildren()}
+        {this.renderChildren()}
+        {this.props.footer && <Footer type='me' />}
         <style global jsx>{`
           body {
             font-size: 14px;

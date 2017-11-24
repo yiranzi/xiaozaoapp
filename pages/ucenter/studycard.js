@@ -3,7 +3,6 @@ import AxiosUtil from '../../util/axios'
 import UCenterLayout from '../../containers/ucenter/layout'
 import Navbar from '../../components/navbar'
 import ShareCard from '../../containers/ucenter/sharecard'
-import WxShare from '../../xz-components/wxshare'
 import { Panel, PanelBody, MediaBox } from 'react-weui'
 
 export default class extends React.Component {
@@ -35,7 +34,7 @@ export default class extends React.Component {
 
   loadStartCardInfo = async () => {
     try {
-      const studyCard = await AxiosUtil.get('/api/vip/getStudyCard')
+      const studyCard = await AxiosUtil.get('/api/study-card')
       this.setState({
         studyCard: studyCard
       })
@@ -44,25 +43,6 @@ export default class extends React.Component {
         error: e.message
       })
     }
-  }
-
-  setShare () {
-    let {userInfo} = this.state
-    let prop
-    prop = {
-      desc: '2018课表全新上线！三大类能力，26个专题课，报名后再邀请好友购买，你再免费获得能力卡！',
-      link: 'http://wx.xiaozao.org/learncard/redirect',
-      imgUrl: 'http://wx.xiaozao.org/static/img/learncard/shareLogo.jpg',
-      success: function () {
-        AxiosUtil.get('/api/interview/getWXConfig?url=onUcenterStudyCard')
-      }
-    }
-    if (userInfo && userInfo.nickname) {
-      prop.title = `${userInfo.nickname}邀请你一起成为能力派！能力卡特惠低至2折，兑换2018能力课！`
-    } else {
-      prop.title = `小灶邀请你一起成为能力派！能力卡特惠低至3折，兑换2018能力课！`
-    }
-    return (<WxShare {...prop} />)
   }
 
   renderContent () {
@@ -78,7 +58,7 @@ export default class extends React.Component {
             <span className='wx-pull-right'>x&nbsp;
               {studyCard ? studyCard.inviteCount : 0}</span></h3>
           <br />
-          <ShareCard />
+          <ShareCard studyCard={studyCard} />
           <dl>
             <dt><h3>能力卡使用指南</h3></dt>
             <dd>1、小灶能力卡可以兑换2018年小灶能力学院的课程，小伙伴可以根据兴趣和需求，选择购买相应的能力卡。</dd>
@@ -101,7 +81,6 @@ export default class extends React.Component {
       <UCenterLayout>
         <Navbar fixed leftbar={leftbar} navtitle='我的能力卡' />
         <br /><br />
-        {this.setShare()}
         <Panel>
           {this.renderContent()}
         </Panel>

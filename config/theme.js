@@ -4,7 +4,7 @@ const config = {
     content: '#646464',
     yellow: '#fdc23e',
     blue: '#117ee9',
-    red: 'red',
+    red: '#c41616',
     gray: '#F9F9F9',
     border: '#e5e5e5',
     deepBlue: '#001453',
