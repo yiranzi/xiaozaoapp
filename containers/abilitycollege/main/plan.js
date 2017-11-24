@@ -12,6 +12,7 @@ export default class extends React.Component {
             <div className='link'>
               <a href='/abilitycollege/zixun'><img src='/static/img/abilitycollege/zixun.png' /></a>
               <a href='/abilitycollege/bigfour'><img src='/static/img/abilitycollege/sida.png' /></a>
+              <p>更多行业路径持续更新中...</p>
             </div>
           </div>
         </div>
@@ -29,6 +30,10 @@ export default class extends React.Component {
           .content .link a {
             width: 50%;
             display: inline-block;
+          }
+          .content .link p {
+            text-align: center;
+            margin-bottom: -1.5rem;
           }
           .content .link a img {
             width: 100%;
