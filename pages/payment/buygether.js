@@ -164,10 +164,10 @@ export default class extends React.Component {
         {studyCardPackageList.map((ele, index) => {
           return (
             <div key={index} onClick={() => { this.buyMyGroup(index) }}>
-              <img src={`/static/img/buygether/card_${index + 1}.png`} />
+              <img src={`/static/img/buygether/card_${index + 1}0.png`} />
             </div>)
         })}
-        {(studyCardPackageList && studyCardPackageList.length > 0) && <div><img src={`/static/img/buygether/card_0.png`} /></div>}
+        {(studyCardPackageList && studyCardPackageList.length > 0) && <div><img src={`/static/img/buygether/card_00.png`} /></div>}
       </div>
       <div className='text-line'>
         <Scrolling interval={6000} />
