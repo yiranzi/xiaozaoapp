@@ -29,7 +29,7 @@ export default class extends React.Component {
         还差<strong style={{color: 'red'}}>1</strong>人
       </div>
     }
-    return (<div key={groupInfo.groupId} className='group-card'>
+    return (<div className='group-card'>
       <div className='head-list'>
         {headimgurl.map((ele, index) => {
           return (<div key={index} >

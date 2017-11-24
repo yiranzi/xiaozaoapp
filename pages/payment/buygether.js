@@ -219,10 +219,10 @@ export default class extends React.Component {
         // 要根据这个团的不同情况进行渲染
         if (ele.status === 1) {
           // 历史团
-          return (<GroupCard groupInfo={ele}
+          return (<GroupCard key={ele.groupId} groupInfo={ele}
             button={<Button style={this.buttonStyle} onClick={() => { this.goRouter('/abilitycollege/coupon') }}>邀好友，得能力卡</Button>} />)
         } else {
-          return (<GroupCard groupInfo={ele}
+          return (<GroupCard key={ele.groupId} groupInfo={ele}
             button={<Button style={this.buttonStyle} onClick={() => { this.renderPop(ele) }}>立即邀请好友</Button>} />)
         }
       })
@@ -335,13 +335,13 @@ export default class extends React.Component {
       if (otherGroup.length > perLength) {
         // 如果人数多于4个，取出4个渲染
         groupingArr = otherGroup.slice(0, perLength).map((ele, index) => {
-          return (<GroupCard groupInfo={ele}
+          return (<GroupCard key={ele.groupId} groupInfo={ele}
             button={<Button style={buttonStyle} onClick={() => { this.buyOtherGroup(ele) }}>参团</Button>} />)
         })
       } else if (otherGroup.length > 0) {
         // 如果人数不足4个
         groupingArr = otherGroup.map((ele, index) => {
-          return (<GroupCard groupInfo={ele}
+          return (<GroupCard key={ele.groupId} groupInfo={ele}
             button={<Button style={buttonStyle} onClick={() => { this.buyOtherGroup(ele) }}>参团</Button>} />)
         })
       } else {
