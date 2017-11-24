@@ -18,7 +18,7 @@ import staticContent from '../../containers/buygether/staticContent'
 // 介绍页
 export default class extends React.Component {
   groupLength = 4
-  changeInterval = 3500
+  changeInterval = 4000
   nickname // 分享昵称
   headimgurl // 分享头像
 
@@ -373,22 +373,22 @@ export default class extends React.Component {
       let style = {
         backgroundColor: '#f0f2f6',
         borderRadius: '20px',
-        padding: '0px 5px',
+        padding: '0px 0px 0px 10px',
         display: 'inline-block',
         color: 'red',
-        minWidth: '60px'
+        minWidth: '75px'
       }
       content = <div>
         剩余
         <div style={style}>
-          <TimeDown limitTime={leftMinute}>
+          <TimeDown limitTime={leftMinute} randomSecond={parseInt(10 * Math.random())}>
             {`${leftHour} : `}
           </TimeDown>
         </div>
         还差<strong style={{color: 'red'}}>1</strong>人
       </div>
     }
-    return (<div key={index} className='group-card'>
+    return (<div key={groupInfo.groupId} className='group-card'>
       <div className='head-list'>
         {headimgurl.map((ele, index) => {
           return (<div key={index} >
