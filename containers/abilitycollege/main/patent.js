@@ -22,7 +22,7 @@ export default class extends React.Component {
               <div className='item-2'>
                 <img src='/static/img/abilitycollege/1-2.png' />
                 <div className='en'>Spacing</div>
-                <div className='cn'>合理的间</div>
+                <div className='cn'>合理的间隔</div>
               </div>
               <div className='item'>
                 <img src='/static/img/abilitycollege/1-3.png' />

@@ -22,7 +22,7 @@ export default class extends React.Component {
     }
     return (
       <div className='teacher'>
-        <h1>小灶能力学院课程体系</h1>
+        <h1>小灶能力学院导师团队</h1>
         <div className='detail'>
           <Slider {...settings}>
             {detail.map((item, index) => {

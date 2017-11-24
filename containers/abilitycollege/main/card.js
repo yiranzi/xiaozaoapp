@@ -140,11 +140,11 @@ export default class extends React.Component {
           }
           .wrapper .card .header .group .price .before {
             font-size: 0.85rem;
-            text-decoration: line-through;
-            text-decoration-color: ${ThemeConfig.color.red};
           }
           .wrapper .card .header .group .price .now {
             margin-left: 0.5rem;
+            text-decoration: line-through;
+            text-decoration-color: ${ThemeConfig.color.red};
           }
           /* ------------ */
           /* content 样式 */

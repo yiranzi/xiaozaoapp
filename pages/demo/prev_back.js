@@ -76,7 +76,7 @@ export default class extends React.Component {
 
       <WxShare title={this.state.shareTitle}
                desc={'一起学习'}
-               link={'http://rcwx.review.xiaozao.org/demo/prev'}
+               link={'http://wx.xiaozao.org/demo/prev'}
                imgUrl={'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg'} />
       <p>在input中输入。点击按钮后修改props->修改分享标题。</p>
       <div>
