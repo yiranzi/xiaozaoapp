@@ -62,7 +62,7 @@ export default class extends React.Component {
             font-size: 1rem;
           }
           .detail .content {
-            font-size: 1rem;
+            font-size: 0.75rem;
             padding: 2rem 0;
           }
           .detail .content .top {
@@ -81,13 +81,13 @@ export default class extends React.Component {
           }
           .detail .content .item img,
           .detail .content .item-2 img {
-            width: 70%;
+            width: 50%;
           }
           .detail .content .top .item-2 {
-            margin-bottom: 5rem;
+            margin-bottom: 3rem;
           }
           .detail .content .bottom .item-2 {
-            margin-top: 5rem;
+            margin-top: 3rem;
           }
         `}</style>
       </div>

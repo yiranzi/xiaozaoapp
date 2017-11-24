@@ -8,9 +8,9 @@ import Footer from '../../components/footer'
 import Schedule from '../../containers/abilitycollege/main/schedule'
 import Plan from '../../containers/abilitycollege/main/plan'
 import Course from '../../containers/abilitycollege/main/course'
-import Patent from '../../containers/abilitycollege/main/patent'
 import Teacher from '../../containers/abilitycollege/main/teacher'
 import Study from '../../containers/abilitycollege/main/study'
+import Comment from '../../containers/abilitycollege/main/comment'
 import ToolsUtil from '../../util/tools'
 
 export default class extends React.Component {
@@ -157,7 +157,9 @@ export default class extends React.Component {
         <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css' />
         <div className='main'>
           <Header coupon={coupon} />
-          <img className='bg-img1' src={'/static/img/abilitycollege/main-banner.png'} />
+          <a href='/payment/buygether'>
+            <img className='bg-img1' src={'/static/img/abilitycollege/main-banner.png'} />
+          </a>
           {/*{this.renderBar()}*/}
           {category && (
             <div id='tips-wrapper'>
@@ -174,9 +176,9 @@ export default class extends React.Component {
             {this.renderBar()}
             <Teacher />
             {this.renderBar()}
-            <Patent />
-            {this.renderBar()}
             <Study />
+            {this.renderBar()}
+            <Comment />
           </div>
           <Footer type='college' />
         </div>
