@@ -239,7 +239,11 @@ export default class extends React.Component {
   }
 
   renderPop (ele) {
-    let {leftHour = 24, leftMinute = 24} = ele
+    let leftHour = 23
+    let leftMinute = 59
+    if (ele) {
+      ({leftHour, leftMinute} = ele)
+    }
     let defaultStyle = {
       backgroundColor: 'rgba(0, 10, 49, 0.5)'
     }
