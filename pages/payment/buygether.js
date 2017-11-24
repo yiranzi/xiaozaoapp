@@ -105,13 +105,12 @@ export default class extends React.Component {
       title: '邀你一起拼团能力课程，低至3折',
       desc: '小灶能力学院限时拼团特惠，PPT课、商业英语课、结构化逻辑课、四大求职通关课等26大课程3大类能力等你拥有。',
       link: 'http://rcwx.review.xiaozao.org/abilitycollege/main',
-      imgUrl: 'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg'
+      imgUrl: 'http://wx.xiaozao.org/static/img/abilitycollege/shareicon.png'
     }
     if (this.state.myGroupingId) {
       let nickname = encodeURI(encodeURI(this.nickname))
       let headimgurl = encodeURI(this.headimgurl)
       shareProp.title = this.nickname + shareProp.title
-      shareProp.imgUrl = this.headimgurl
       shareProp.link += `?groupId=${this.state.myGroupingId}&headimgurl=${headimgurl}&nickname=${nickname}&category=invite`
     }
     this.state.wxConfig.setShareConfig(shareProp)
@@ -204,7 +203,7 @@ export default class extends React.Component {
         }
         .text-line {
           position: absolute;
-          bottom: 0;
+          bottom: 10px;
           left: 0;
           width: 100%;
         }
@@ -222,7 +221,7 @@ export default class extends React.Component {
         // 要根据这个团的不同情况进行渲染
         if (ele.status === 1) {
           // 历史团
-          button = <Button style={this.buttonStyle} onClick={() => { this.goRouter('/abilitycollege/coupon') }}>邀好友再得卡</Button>
+          button = <Button style={this.buttonStyle} onClick={() => { this.goRouter('/abilitycollege/coupon') }}>邀好友，得能力卡</Button>
         } else {
           // 正在团
           button = <Button style={this.buttonStyle} onClick={() => { this.renderPop(ele) }}>立即邀请好友</Button>
@@ -528,9 +527,7 @@ export default class extends React.Component {
             await AxiosUtil.get(`/api/study-card/buyTogether/${groupId}/${typeId}`)
           } catch (e) {
             // 如果订单已经消失。跳转
-            alert(e.status)
             if (e.status === 10001 || e.status === 10002) {
-              alert(e.status)
               Alert({
                 content: '您已拼团成功！现在每成功分享一位好友，都能免费得到成就卡！',
                 okText: '去看看',
@@ -557,7 +554,7 @@ export default class extends React.Component {
       })
     } else {
       Alert({
-        content: '您正在拼团，无法重新参团，快邀请好友帮你完成拼团吧！'
+        content: '您正在拼团，无法同时参加2个团哦，快邀请好友帮你完成拼团吧！'
       })
     }
   }
@@ -571,7 +568,7 @@ export default class extends React.Component {
       })
     } else {
       Alert({
-        content: '您正在拼团，无法重新参团，快邀请好友帮你完成拼团吧！'
+        content: '您正在拼团，无法同时参加2个团哦，快邀请好友帮你完成拼团吧！'
       })
     }
   }
@@ -627,17 +624,11 @@ export default class extends React.Component {
 
   renderMoreQA () {
     if (this.state.otherGroup !== undefined) {
-      let hStyle = {
-        fontSize: '16px',
-        fontWeight: 'bold',
-        marginLeft: '10px'
-      }
       let moreStyle = {
         marginTop: '10px'
       }
       let arr = staticContent.map((ele, index) => {
         return (<div key={index} className='question'>
-          {/*<h1 style={hStyle}>{ele.question}</h1>*/}
           <MoreLine style={moreStyle} title={ele.question} content={ele.content} />
           <style jsx>{`
             .question {
@@ -730,7 +721,6 @@ export default class extends React.Component {
           .more-info {
             background-color: #f0f2f6;
           }
-
         `}</style>
       </Layout>
     )
