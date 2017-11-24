@@ -32,7 +32,7 @@ export default class extends React.Component {
 
   loadStudyCardInfo = async () => {
     try {
-      const studyCard = await AxiosUtil.get('/api/vip/getStudyCard')
+      const studyCard = await AxiosUtil.get('/api/study-card')
       this.setState({
         studyCard: studyCard
       })

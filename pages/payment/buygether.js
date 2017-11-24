@@ -169,7 +169,7 @@ export default class extends React.Component {
         })}
       </div>
       <div className='text-line'>
-        <Scrolling interval={4000} />
+        <Scrolling interval={6000} />
       </div>
       <style jsx>{`
         .show-card {
@@ -429,7 +429,7 @@ export default class extends React.Component {
         _this.setState({
           showPop: false
         })
-        let currentGroupStatus = this.state.myGroupingId
+        let currentGroupStatus = _this.state.myGroupingId
         // 刷新数据
         await _this.updateInfo()
         // 判定是否需要跳转

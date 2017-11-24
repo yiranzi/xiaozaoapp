@@ -54,7 +54,7 @@ export default class extends React.Component {
           {this.props.children}
           <style jsx>{`
             .job {
-
+              font-size: 12pt;
             }
           `}</style>
         </div>

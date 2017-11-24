@@ -80,8 +80,7 @@ export default class extends React.Component {
     return (
       <UCenterLayout>
         <Navbar fixed leftbar={leftbar} navtitle='我的能力卡' />
-        <br /><br />
-        <Panel>
+        <Panel className='wx-navbar-margin'>
           {this.renderContent()}
         </Panel>
         <style global jsx>{`

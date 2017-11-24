@@ -29,11 +29,16 @@ export default class extends React.Component {
             text-align: center;
           }
           .left, .right {
-            padding: 10px;
+            padding: 9px;
           }
           .title {
             line-height: 40px;
             font-size: 16px;
+          }
+        `}</style>
+        <style global jsx>{`
+          .wx-navbar-margin {
+            margin-top: 44px;
           }
         `}</style>
       </div>

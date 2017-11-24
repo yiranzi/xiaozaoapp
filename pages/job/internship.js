@@ -444,8 +444,7 @@ export default class extends React.Component {
     return (
       <JobLayout tabbar={1} footer>
         {this.renderSearchBar()}
-        <br /><br />
-        <InfiniteLoader
+        <InfiniteLoader className='wx-navbar-margin'
           onLoadMore={(resolve, finish) => this.onLoadMore(resolve, finish)}>
           {this.renderBanner()}
           <div className='job-list'>
@@ -455,6 +454,9 @@ export default class extends React.Component {
         {this.renderCityPopup()}
         {this.renderSectionPopup()}
         <style global jsx>{`
+          .wx-navbar-margin {
+            margin-top: 44px;
+          }
           .job-list {
 
           }

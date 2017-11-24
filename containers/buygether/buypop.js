@@ -163,7 +163,7 @@ export default class extends React.Component {
     return (
       <div className='line'>
         <img className='icon' src={'/static/img/buygether/card_icon.png'} />
-        <div className='card-name'>能力卡<span className='card' style={style}>{`${ele.buyCount}`}</span>张</div>
+        <div className='card-name'>能力卡<span className='card' style={style}>{`${ele.id}`}</span>张</div>
         <span className='price'>{`拼团价 ￥`}<strong>{`${this.calcPrice(ele, 'now')}`}</strong></span>
         <style jsx>{`
             .line {

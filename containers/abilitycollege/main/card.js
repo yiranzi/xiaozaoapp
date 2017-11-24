@@ -16,8 +16,8 @@ export default class extends React.Component {
           <div className='group'>
             <div className='need-card'><img src='/static/img/abilitycollege/card-intro.png' />{detail.cardCount}张能力卡兑换</div>
             <div className='price'>
-              <div className='before'>￥{detail.onePrice}</div>
-              <div className='now'>￥{detail.twoPrice}</div>
+              <div className='before'>￥{detail.twoPrice}</div>
+              <div className='now'>￥{detail.onePrice}</div>
             </div>
           </div>
         </div>
@@ -139,12 +139,22 @@ export default class extends React.Component {
             align-items: center;
           }
           .wrapper .card .header .group .price .before {
+            position: relative;
             font-size: 0.85rem;
           }
+          .wrapper .card .header .group .price .before :: before {
+            content: '';
+            background-color: #c41616;
+            font-size: 14px;
+            position: absolute;
+            width: 38px;
+            height: 1px;
+            top: 10px;
+            transform: rotate(-15deg);
+          }
+
           .wrapper .card .header .group .price .now {
             margin-left: 0.5rem;
-            text-decoration: line-through;
-            text-decoration-color: ${ThemeConfig.color.red};
           }
           /* ------------ */
           /* content 样式 */

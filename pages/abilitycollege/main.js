@@ -157,7 +157,8 @@ export default class extends React.Component {
         <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css' />
         <div className='main'>
           <Header coupon={coupon} />
-          {this.renderBar()}
+          <img className='bg-img1' src={'/static/img/abilitycollege/main-banner.png'} />
+          {/*{this.renderBar()}*/}
           {category && (
             <div id='tips-wrapper'>
               {category === 'invite' && this.renderInviteBar(headimg, nickname)}
@@ -171,9 +172,9 @@ export default class extends React.Component {
             {this.renderBar()}
             {DataUtils.isEmpty(exchangeDetail) ? <LoadingIcon /> : <Course exchangeDetail={this.state.exchangeDetail} />}
             {this.renderBar()}
-            <Patent />
-            {this.renderBar()}
             <Teacher />
+            {this.renderBar()}
+            <Patent />
             {this.renderBar()}
             <Study />
           </div>
@@ -185,6 +186,9 @@ export default class extends React.Component {
           }
         `}</style>
         <style global jsx>{`
+          .bg-img1 {
+            width: 100%;
+          }
           h1 {
             font-size: 1.25rem;
             font-weight: normal;

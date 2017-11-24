@@ -28,8 +28,8 @@ export default class Modal extends React.Component {
             <div className='group'>
               <div className='need-card'><img src='/static/img/abilitycollege/card.png' />{data.cardCount}张能力卡兑换</div>
               <div className='price'>
-                <div className='before'>￥{data.onePrice}</div>
-                <div className='now'>￥{data.twoPrice}</div>
+                <div className='before'>￥{data.twoPrice}</div>
+                <div className='now'>￥{data.onePrice}</div>
               </div>
             </div>
           </div>
@@ -70,8 +70,18 @@ export default class Modal extends React.Component {
             align-items: center;
           }
           .header .group .price .before {
-            text-decoration: line-through;
-            text-decoration-color: #c41616;
+            position: relative;
+          }
+
+          .header .group .price .before::before {
+            content: '';
+            background-color: red;
+            font-size: 14px;
+            position: absolute;
+            width: 40px;
+            height: 1px;
+            top: 15px;
+            transform: rotate(-15deg);
           }
           .header .group .price .now {
             font-size: 1.25rem;
