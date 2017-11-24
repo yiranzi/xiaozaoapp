@@ -5,9 +5,14 @@ export default class TimeDown extends React.Component {
     super(props)
     // 可以传入随机初始值
     if (props.randomSecond) {
+      // <0的时候 变为0
+      let result = this.props.limitTime * 60 - props.randomSecond
+      if (result < 0) {
+        result = 0
+      }
       this.state = {
         currentInterval: {},
-        timedown: this.props.limitTime * 60 - props.randomSecond
+        timedown: result
       }
     } else {
       this.state = {
