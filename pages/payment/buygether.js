@@ -528,7 +528,9 @@ export default class extends React.Component {
             await AxiosUtil.get(`/api/study-card/buyTogether/${groupId}/${typeId}`)
           } catch (e) {
             // 如果订单已经消失。跳转
-            if (e.status === '10001' || e.status === '10002') {
+            alert(e.status)
+            if (e.status === 10001 || e.status === 10002) {
+              alert(e.status)
               Alert({
                 content: '您已拼团成功！现在每成功分享一位好友，都能免费得到成就卡！',
                 okText: '去看看',
