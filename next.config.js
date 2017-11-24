@@ -23,6 +23,11 @@ module.exports = {
         loader: './loader/static-path',
         exclude: /node_modules/
       })
+      config.module.rules.push({
+        test: /\.js(\?[^?]*)?$/,
+        loader: './loader/prod-path',
+        exclude: /node_modules/
+      })
     }
     // 跳过fs编译
     config.node = {
