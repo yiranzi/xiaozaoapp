@@ -69,7 +69,7 @@ export default class extends React.Component {
             {this.state.toptips.msg}</Toptips>
         }
         {this.renderChildren()}
-        <Footer type='me' />
+        {this.props.footer && <Footer type='me' />}
         <style global jsx>{`
           body {
             font-size: 14px;

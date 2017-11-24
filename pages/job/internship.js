@@ -442,7 +442,7 @@ export default class extends React.Component {
 
   render () {
     return (
-      <JobLayout tabbar={1}>
+      <JobLayout tabbar={1} footer>
         {this.renderSearchBar()}
         <br /><br />
         <InfiniteLoader

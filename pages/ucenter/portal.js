@@ -73,7 +73,7 @@ export default class extends React.Component {
 
   render () {
     return (
-      <UCenterLayout tabbar={2}>
+      <UCenterLayout tabbar={2} footer>
         <Page>
           <Cells>
             <Cell access>
