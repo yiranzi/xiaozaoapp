@@ -13,7 +13,7 @@ export default class extends React.Component {
           <span className=''> &lsaquo; {this.props.leftbar.name}</span>
         </a>
         }
-        {!this.props.leftbar && <span className='wx-pull-left left' />}
+        {!this.props.leftbar && <span className='wx-pull-left left'>&emsp;&emsp;&nbsp;</span>}
         {this.props.navtitle && <span className='title'>{this.props.navtitle}</span>}
         {this.props.rightbar &&
         <a className='wx-pull-right right'
@@ -22,7 +22,7 @@ export default class extends React.Component {
           <span className=''>{this.props.rightbar.name}</span>
         </a>
         }
-        {!this.props.rightbar && <span className='wx-pull-right right' />}
+        {!this.props.rightbar && <span className='wx-pull-right right'>&emsp;&emsp;&nbsp;</span>}
         <style jsx>{`
           .navbar {
             border-bottom: 1px solid ${ThemeConfig.color.gray};
@@ -32,8 +32,8 @@ export default class extends React.Component {
             padding: 9px;
           }
           .title {
-            line-height: 40px;
-            font-size: 16px;
+            line-height: 46px;
+            font-size: 1.2rem;
           }
         `}</style>
         <style global jsx>{`
