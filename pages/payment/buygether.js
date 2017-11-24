@@ -55,7 +55,6 @@ export default class extends React.Component {
     await this.updateInfo()
     // 分享跳转进入的时候 判定弹出购买框
     this.joinGroupFromShare()
-    this.renderPop()
   }
 
   updateInfo = async () => {
@@ -240,42 +239,40 @@ export default class extends React.Component {
   }
 
   renderPop (ele) {
-    if (ele) {
-      let {leftHour, leftMinute} = ele
-      let defaultStyle = {
-        backgroundColor: 'rgba(0, 10, 49, 0.5)'
-      }
-      let randomSecond = parseInt(60 * Math.random())
-      let dom = <div>
-        <img className='img-style' src='/static/img/buygether/share-arrow.png' />
-        <p className='title'>离成团只剩{leftHour}时{leftMinute}分{randomSecond}秒</p>
-        <p className='title'>还差<strong className='strong'> 1 </strong>人，赶紧邀请好友来拼团吧~</p>
-        <p className='title'>拼团人满后可拿成就卡</p>
-        <style jsx>{`
-        .title {
-          font-size:20px;
-          font-weight: bold;
-        }
-        .strong {
-          font-size:28px;
-          font-weight: bold;
-          color: red;
-        }
-        .img-style {
-          position: absolute;
-          top: 0;
-          right: 0;
-          width: 150px;
-          height: 300px;
-        }
-      `}</style>
-      </div>
-      let prop = {
-        innerDiv: dom,
-        style: defaultStyle
-      }
-      ModalBoxPopFunc({...prop})
+    let {leftHour = 24, leftMinute = 24} = ele
+    let defaultStyle = {
+      backgroundColor: 'rgba(0, 10, 49, 0.5)'
     }
+    let randomSecond = parseInt(60 * Math.random())
+    let dom = <div>
+      <img className='img-style' src='/static/img/buygether/share-arrow.png' />
+      <p className='title'>离成团只剩{leftHour}时{leftMinute}分{randomSecond}秒</p>
+      <p className='title'>还差<strong className='strong'> 1 </strong>人，赶紧邀请好友来拼团吧~</p>
+      <p className='title'>拼团人满后可拿成就卡</p>
+      <style jsx>{`
+      .title {
+        font-size:20px;
+        font-weight: bold;
+      }
+      .strong {
+        font-size:28px;
+        font-weight: bold;
+        color: red;
+      }
+      .img-style {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 150px;
+        height: 300px;
+      }
+    `}</style>
+    </div>
+    let prop = {
+      innerDiv: dom,
+      style: defaultStyle
+    }
+    ModalBoxPopFunc({...prop})
   }
 
   goRouter (router) {
@@ -428,6 +425,7 @@ export default class extends React.Component {
         _this.setState({
           showPop: false
         })
+        let currentGroupStatus = this.state.myGroupingId
         // 刷新数据
         await _this.updateInfo()
         // 判定是否需要跳转
@@ -443,6 +441,12 @@ export default class extends React.Component {
                 ok: () => location.href = '/abilitycollege/coupon'
               })
             }
+          }
+        } else if (currentGroupStatus === null) {
+          // 如果之前没有团。
+          if (this.state.myGroupingId) {
+            // 弹窗
+            _this.renderPop()
           }
         }
       })
