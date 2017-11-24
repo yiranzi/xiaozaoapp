@@ -59,7 +59,7 @@ export default class extends React.Component {
           .footer {
             font-size: 10pt;
             text-align: center;
-            background-color: #fff;
+            background-color: #f0f2f6;
             display: flex;
             justify-content: space-between;
             position: fixed;
