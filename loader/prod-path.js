@@ -1,3 +1,3 @@
 module.exports = function (source, map) {
-  return source.replace(/http:\/\/rcwx.review.xiaozao.org/g, `$1https://wx.xiaozao.org$2?v=${Date.now()}$3`)
+  return source.replace(/http:\/\/rcwx.review.xiaozao.org/g, 'https://wx.xiaozao.org') && source.replace(/http:\/\/wx.xiaozao.org/g, 'https://wx.xiaozao.org')
 }
