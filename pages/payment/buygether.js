@@ -448,7 +448,7 @@ export default class extends React.Component {
           }
         } else if (currentGroupStatus === null) {
           // 如果之前没有团。
-          if (this.state.myGroupingId) {
+          if (_this.state.myGroupingId) {
             // 弹窗
             _this.renderPop()
           }
