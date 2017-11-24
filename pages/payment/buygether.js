@@ -8,12 +8,12 @@ import BuyPop from '../../containers/buygether/buypop'
 import Triangle from '../../containers/buygether/poptag'
 import Scrolling from '../../containers/buygether/scrolling'
 import Fixfooter from '../../xz-components/fixfooter'
-import TimeDown from '../../xz-components/timedown'
 import ToolsUtil from '../../util/tools'
 import {Alert} from '../../xz-components/alert'
 import {ModalBoxPopFunc} from '../../xz-components/modalbox'
 import MoreLine from '../../xz-components/moreLine'
 import staticContent from '../../containers/buygether/staticContent'
+import GroupCard from '../../containers/buygether/groupcard'
 
 // 介绍页
 export default class extends React.Component {
@@ -41,7 +41,6 @@ export default class extends React.Component {
       currentJoinInfo: {}, // 参团信息
       currentTypeSelect: 0 // // 当前选择的拼团套餐。用于购买
     }
-    this.renderCard = this.renderCard.bind(this)
     this.buyMyGroup = this.buyMyGroup.bind(this)
     this.buyOtherGroup = this.buyOtherGroup.bind(this)
     this.buyButtonCallBack = this.buyButtonCallBack.bind(this)
@@ -216,17 +215,16 @@ export default class extends React.Component {
   renderMyGroup () {
     const {myGroup} = this.state
     if (myGroup && myGroup.length > 0) {
-      let button
       let arr = myGroup.map((ele, index) => {
         // 要根据这个团的不同情况进行渲染
         if (ele.status === 1) {
           // 历史团
-          button = <Button style={this.buttonStyle} onClick={() => { this.goRouter('/abilitycollege/coupon') }}>邀好友，得能力卡</Button>
+          return (<GroupCard groupInfo={ele}
+            button={<Button style={this.buttonStyle} onClick={() => { this.goRouter('/abilitycollege/coupon') }}>邀好友，得能力卡</Button>} />)
         } else {
-          // 正在团
-          button = <Button style={this.buttonStyle} onClick={() => { this.renderPop(ele) }}>立即邀请好友</Button>
+          return (<GroupCard groupInfo={ele}
+            button={<Button style={this.buttonStyle} onClick={() => { this.renderPop(ele) }}>立即邀请好友</Button>} />)
         }
-        return (this.renderCard(ele, button, index))
       })
       return (<div className='div-with-bottom'>
         {this.renderTitle('我的团')}
@@ -337,14 +335,14 @@ export default class extends React.Component {
       if (otherGroup.length > perLength) {
         // 如果人数多于4个，取出4个渲染
         groupingArr = otherGroup.slice(0, perLength).map((ele, index) => {
-          const button = <Button style={buttonStyle} onClick={() => { this.buyOtherGroup(ele) }}>参团</Button>
-          return (this.renderCard(ele, button, index))
+          return (<GroupCard groupInfo={ele}
+            button={<Button style={buttonStyle} onClick={() => { this.buyOtherGroup(ele) }}>参团</Button>} />)
         })
       } else if (otherGroup.length > 0) {
         // 如果人数不足4个
         groupingArr = otherGroup.map((ele, index) => {
-          const button = <Button style={buttonStyle} onClick={() => { this.buyOtherGroup(ele) }}>参团</Button>
-          return (this.renderCard(ele, button, index))
+          return (<GroupCard groupInfo={ele}
+            button={<Button style={buttonStyle} onClick={() => { this.buyOtherGroup(ele) }}>参团</Button>} />)
         })
       } else {
         // 如果无人
@@ -361,95 +359,6 @@ export default class extends React.Component {
         `}</style>
       </div>)
     }
-  }
-
-  // 解析参数。渲染拼团
-  renderCard (groupInfo, button, index) {
-    let {headimgurl, leftHour, leftMinute, nickname} = groupInfo
-    let content
-    if (groupInfo.status === 1) {
-      content = '已成团'
-    } else {
-      let style = {
-        backgroundColor: '#f0f2f6',
-        borderRadius: '20px',
-        padding: '0px 0px 0px 10px',
-        display: 'inline-block',
-        color: 'red',
-        minWidth: '75px'
-      }
-      content = <div>
-        剩余
-        <div style={style}>
-          <TimeDown limitTime={leftMinute} randomSecond={parseInt(10 * Math.random())}>
-            {`${leftHour} : `}
-          </TimeDown>
-        </div>
-        还差<strong style={{color: 'red'}}>1</strong>人
-      </div>
-    }
-    return (<div key={groupInfo.groupId} className='group-card'>
-      <div className='head-list'>
-        {headimgurl.map((ele, index) => {
-          return (<div key={index} >
-            <img src={ele} />
-          </div>)
-        })}
-      </div>
-      <div className='content'>
-        <p>{nickname}的拼团</p>
-        <p>{content}</p>
-      </div>
-      <div className='empty'></div>
-      <div className='button'>
-        {button}
-      </div>
-      <style jsx>{`
-        .group-card {
-          display: flex;
-          font-size: 12px;
-          align-items: center;
-          margin: 5px 0px;
-          height: 50px;
-        }
-        .head-list {
-          text-align: center;
-          display: flex;
-          justify-content: center;
-          flex: none;
-          width: 40px;
-          margin-right: 16px;
-        }
-        .head-list div {
-          position: relative;
-          z-index: 10;
-          width: 100%;
-          flex: none;
-          text-align:center;
-        }
-        .head-list img {
-          width: 100%;
-          border-radius: 50%;
-        }
-        .head-list div+div {
-          z-index: 15;
-          margin-left: -25px;
-        }
-        .content {
-          text-align: left;
-          min-width: 150px;
-          flex: none;
-        }
-        .button {
-          flex: auto;
-          max-width: 160px;
-          text-align:right;
-        }
-        .empty {
-          flex: auto;
-        }
-      `}</style>
-    </div>)
   }
 
   // 渲染 小标题
