@@ -157,7 +157,10 @@ export default class extends React.Component {
         <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css' />
         <div className='main'>
           <Header coupon={coupon} />
-          <img className='bg-img1' src={'/static/img/abilitycollege/main-banner.png'} />
+          <a href='/payment/buygether'>
+            <img className='bg-img1' src={'/static/img/abilitycollege/main-banner.png'} />
+          </a>
+          {/*{this.renderBar()}*/}
           {category && (
             <div id='tips-wrapper'>
               {category === 'invite' && this.renderInviteBar(headimg, nickname)}
