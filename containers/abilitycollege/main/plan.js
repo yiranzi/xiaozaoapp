@@ -13,15 +13,11 @@ export default class extends React.Component {
               <a href='/abilitycollege/zixun'><img src='/static/img/abilitycollege/zixun.png' /></a>
               <a href='/abilitycollege/bigfour'><img src='/static/img/abilitycollege/sida.png' /></a>
             </div>
-            <div className='feedback'>
-              <p>更多行业的能力规划？</p>
-              <p>敬请期待</p>
-            </div>
           </div>
         </div>
         <style jsx>{`
           .plan {
-            margin-top: 2rem;
+            margin: 2.5rem 0;
           }
           .title {
             font-size: 1rem;

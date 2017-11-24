@@ -3,50 +3,49 @@ import Slider from 'react-slick'
 
 export default class extends React.Component {
   render () {
+    let detail = [
+      '/static/img/abilitycollege/Marc.png',
+      '/static/img/abilitycollege/Grace.png',
+      '/static/img/abilitycollege/Laila.png',
+      '/static/img/abilitycollege/Nino.png',
+      '/static/img/abilitycollege/Mandy.png'
+    ]
     let settings = {
       arrows: false,
       className: 'center',
       centerMode: true,
       infinite: true,
-      centerPadding: '10px',
+      centerPadding: '16pt',
       slidesToShow: 1,
       slidesToScroll: 1,
       speed: 500
     }
     return (
       <div className='teacher'>
-        <h1>严选导师和顾问团队</h1>
+        <h1>小灶能力学院课程体系</h1>
         <div className='detail'>
-          <div className='content'>
-            <Slider {...settings}>
-              <div className='wrap'>
-                <img src='/static/img/abilitycollege/Marc.png' />
-              </div>
-              <div className='wrap'>
-                <img src='/static/img/abilitycollege/Grace.png' />
-              </div>
-              <div className='wrap'>
-                <img src='/static/img/abilitycollege/Laila.png' />
-              </div>
-              <div className='wrap'>
-                <img src='/static/img/abilitycollege/Nino.png' />
-              </div>
-              <div className='wrap'>
-                <img src='/static/img/abilitycollege/Mandy.png' />
-              </div>
-            </Slider>
-          </div>
+          <Slider {...settings}>
+            {detail.map((item, index) => {
+              return (
+                <div key={index} className='card'>
+                  <div className='detail'>
+                    <img src={item} />
+                  </div>
+                </div>
+              )
+            })}
+          </Slider>
         </div>
         <style jsx>{`
           .teacher {
-            margin-top: 2rem;
+            margin: 2.5rem 0;
+            padding: 0 0.5rem;
           }
-          .content img {
+          .teacher .detail {
+            margin-top: 1rem;
+          }
+          .detail img {
             width: 100%;
-          }
-          .wrap {
-            padding: 0 0.5rem 0 0;
-            box-sizing: border-box;
           }
         `}</style>
       </div>

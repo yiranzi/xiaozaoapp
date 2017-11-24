@@ -56,6 +56,8 @@ export default class extends React.Component {
     let coupon = await AxiosUtil.get('/api/study-card/coupon') // 获取已获得的优惠券
     exchangeDetail = this.formData(exchangeDetail)
     this.setState({exchangeDetail: exchangeDetail, coupon: coupon})
+
+    this.scrollFunction()
   }
   formData (exchangeDetail) {
     let json = {}
@@ -111,7 +113,7 @@ export default class extends React.Component {
   }
   renderInviteBar (headimg, nickname) {
     return (
-      <div className='share-tips' onClick={() => { this.jumpTo() }}>
+      <div id='share-tips' onClick={() => { this.jumpTo() }}>
         <div><img src={headimg} /></div>
         <div style={{marginLeft: '0.5rem'}}>参加{nickname}的团，低至3折获取能力卡</div>
       </div>
@@ -130,6 +132,21 @@ export default class extends React.Component {
       </div>
     )
   }
+  renderBar () {
+    return <div style={{backgroundColor: '#f0f2f6', height: '1rem'}} />
+  }
+  scrollFunction () {
+    window.onscroll = function () {
+      let tipsDom = document.getElementById('tips-wrapper')
+      let tipsOffsetTop = tipsDom.offsetTop
+      let bodyScrollTop = document.body.scrollTop
+      if (bodyScrollTop > tipsOffsetTop) {
+        tipsDom.style.position = 'fixed'
+      } else {
+        tipsDom.style.position = 'relative'
+      }
+    }
+  }
   render () {
     const {exchangeDetail, coupon, headimg, nickname, category} = this.state
     return (
@@ -138,22 +155,27 @@ export default class extends React.Component {
         <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css' />
         <div className='main'>
           <Header coupon={coupon} />
-          {category === 'invite' && this.renderInviteBar(headimg, nickname)}
-          {category === 'coupon' && this.renderCouponBar(headimg, nickname)}
+          {this.renderBar()}
+          <div id='tips-wrapper'>
+            {category === 'invite' && this.renderInviteBar(headimg, nickname)}
+            {category === 'coupon' && this.renderCouponBar(headimg, nickname)}
+          </div>
           <div className='content'>
             {DataUtils.isEmpty(exchangeDetail) ? <LoadingIcon /> : <Schedule exchangeDetail={this.state.exchangeDetail} />}
+            {this.renderBar()}
             <Plan />
+            {this.renderBar()}
             {DataUtils.isEmpty(exchangeDetail) ? <LoadingIcon /> : <Course exchangeDetail={this.state.exchangeDetail} />}
+            {this.renderBar()}
             <Patent />
+            {this.renderBar()}
             <Teacher />
+            {this.renderBar()}
             <Study />
           </div>
           <Footer type='college' />
         </div>
         <style jsx>{`
-          .main {
-            background-color: #f0f2f6;
-          }
           .content {
             padding-bottom: 7rem;
           }
@@ -181,8 +203,15 @@ export default class extends React.Component {
           /**
            * bar 样式
            */
+          #tips-wrapper {
+            background-color: #fff;
+            width: 100%;
+            top: 0;
+            z-index: 9;
+            padding: 1rem 0;
+          }
           .share-tips {
-            margin-top: 1rem;
+            width: 100%;
             background-color: #c41616;
             display: flex;
             justify-content: center;

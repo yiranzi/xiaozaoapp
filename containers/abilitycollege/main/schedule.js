@@ -13,9 +13,9 @@ export default class extends React.Component {
       <div className='schedule'>
         <h1>小灶能力学院课程体系</h1>
         <div className='detail'>
-          <div className='currency'>{this.renderContent(currency, '#241d66')}</div>
-          <div className='work'>{this.renderContent(work, '#4873b3')}</div>
-          <div className='job'>{this.renderContent(job, '#465978')}</div>
+          <div className='currency'>{this.renderContent(currency, '1')}</div>
+          <div className='work'>{this.renderContent(work, '2')}</div>
+          <div className='job'>{this.renderContent(job, '3')}</div>
           <div className='tips'>*以上课程均可使用小灶能力卡兑换</div>
           <div className='button-group'>
             <a href='/payment/buygether'>
@@ -27,9 +27,8 @@ export default class extends React.Component {
         </div>
         <style jsx>{`
           .schedule {
-            margin-top: 2.5rem;
-            padding-left: 0.5rem;
-            padding-right: 0.5rem;
+            margin: 2.5rem 0;
+            padding: 0 0.5rem;
           }
           .schedule .tips {
             margin-top: 1.5rem;

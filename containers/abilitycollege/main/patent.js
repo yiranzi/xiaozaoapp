@@ -51,7 +51,8 @@ export default class extends React.Component {
         </div>
         <style jsx>{`
           .patent {
-            margin-top: 2rem;
+            margin: 2.5rem 0;
+            padding: 0 0.5rem;
           }
           .detail {
             margin-top: 1rem;

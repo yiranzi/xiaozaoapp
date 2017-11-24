@@ -13,20 +13,19 @@ export default class extends React.Component {
         <div className='hot'>
           <h1>最热课程</h1>
           <div className='detail'>
-            <div className='content'>{this.renderContent(hot, '#241d66')}</div>
+            <div className='content'>{this.renderContent(hot, '1')}</div>
           </div>
         </div>
         <div className='new'>
           <h1>最新课程</h1>
           <div className='detail'>
-            <div className='content'>{this.renderContent(_new, '#241d66')}</div>
+            <div className='content'>{this.renderContent(_new, '1')}</div>
           </div>
         </div>
         <style jsx>{`
           .course {
-            margin-top: 1.5rem;
-            padding-left: 0.5rem;
-            padding-right: 0.5rem;
+            margin: 2.5rem 0;
+            padding: 0 0.5rem;
           }
           .new {
             margin-top: 3rem;

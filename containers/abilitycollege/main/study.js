@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from '../../../xz-components/button'
 
 export default class extends React.Component {
   render () {
@@ -18,6 +19,13 @@ export default class extends React.Component {
             <br />
             <a className='know' href='https://shimo.im/doc/bThcHymHbXAMGwKr?r=5XOR3K'>>>　点击了解系统学、打卡学</a>
           </div>
+          <div className='button-group'>
+            <a href='/payment/buygether'>
+              <Button style={{backgroundColor: '#c41616', fontSize: '16px'}}>
+                <img src='/static/img/abilitycollege/fire.png' />能力卡火热拼团中 <strong style={{marginLeft: '0.5rem'}}>立即获取</strong>
+              </Button>
+            </a>
+          </div>
         </div>
         <style jsx>{`
           .study {
@@ -36,6 +44,25 @@ export default class extends React.Component {
           a.know:focus {
             color: red;
             font-weight: bold;
+          }
+          .button-group {
+            padding: 0 1rem;
+            margin-top: 1rem;
+          }
+          .button-group a {
+            display: inline-block;
+            width: 100%;
+          }
+        `}</style>
+        <style global jsx>{`
+          .study button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          .study button img {
+            width: 1.25rem;
+            margin-right: 1rem;
           }
         `}</style>
       </div>

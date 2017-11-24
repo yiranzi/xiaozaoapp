@@ -8,6 +8,9 @@ export default class extends React.Component {
   openModal (item) {
     Modal({children: <ModalContent data={item} />})
   }
+  componentDidMount () {
+    console.log(this.refs.card.height)
+  }
   renderItem (detail, bg, showTitle) {
     return (
       <div className='card' onClick={() => this.openModal(detail)}>
@@ -31,6 +34,7 @@ export default class extends React.Component {
   }
   renderSlider (detail, bg, showTitle) {
     let settings = {
+      mobileFirst: true,
       arrows: false,
       className: 'center',
       centerMode: true,
@@ -38,27 +42,35 @@ export default class extends React.Component {
       centerPadding: '10px',
       slidesToShow: 1,
       slidesToScroll: 1,
-      speed: 500
+      speed: 500,
+      adaptiveHeight: false
     }
+    let style = {
+      padding: '1rem',
+      background: `url(/static/img/abilitycollege/bg${bg}.png)`,
+      backgroundSize: '100%',
+      borderRadius: '0'
+    }
+    let groupStyle = {
+      borderBottom: '1px solid #e5e5e5',
+      paddingTop: '1rem',
+      paddingBottom: '0.5rem'
+    }
+    console.log(style)
     return (
       <Slider {...settings}>
         {detail.content.map((item, index) => {
           return (
-            <div key={index} className='card' onClick={() => this.openModal(item)}>
-              <div className='header' style={{backgroundColor: bg}}>
-                <div className='sub-title'>{item.subTitle}</div>
-                <div className='group'>
+            <div ref='card' key={index} className='card' onClick={() => this.openModal(item)}>
+              <div className='header' style={style}>
+                <div className='sub-title' style={{whiteSpace: 'normal', width: '100%'}}>{item.subTitle}</div>
+                <div className='group' style={groupStyle}>
                   <div className='need-card'><img src='/static/img/abilitycollege/card-intro.png' />{item.cardCount}张能力卡兑换</div>
                   <div className='price'>
                     <div className='before'>￥{item.onePrice}</div>
                     <div className='now'>￥{item.twoPrice}</div>
                   </div>
                 </div>
-              </div>
-              <div className='sub-content'>
-                <div className='main'>核心内容：{item.oneContent}</div>
-                <div className='get'>你的收获：{item.twoContent}</div>
-                <div className='publish-date'>课程预计上线时间：{item.publishDate}</div>
               </div>
             </div>
           )
@@ -128,6 +140,7 @@ export default class extends React.Component {
           .wrapper .card .header .group .price .before {
             font-size: 0.85rem;
             text-decoration: line-through;
+            text-decoration-color: ${ThemeConfig.color.red};
           }
           .wrapper .card .header .group .price .now {
             margin-left: 0.5rem;
