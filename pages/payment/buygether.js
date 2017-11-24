@@ -17,8 +17,8 @@ import GroupCard from '../../containers/buygether/groupcard'
 
 // 介绍页
 export default class extends React.Component {
-  groupLength = 4
-  changeInterval = 4000
+  groupLength = 4 // 列表长度
+  changeInterval = 4000 // 切换间隔
   nickname // 分享昵称
   headimgurl // 分享头像
 
@@ -247,7 +247,7 @@ export default class extends React.Component {
       }
       let randomSecond = parseInt(60 * Math.random())
       let dom = <div>
-        <img className='img-style' src='/static/img/apollo/shareArrow.png' />
+        <img className='img-style' src='/static/img/buygether/share-arrow.png' />
         <p className='title'>离成团只剩{leftHour}时{leftMinute}分{randomSecond}秒</p>
         <p className='title'>还差<strong className='strong'> 1 </strong>人，赶紧邀请好友来拼团吧~</p>
         <p className='title'>拼团人满后可拿成就卡</p>
