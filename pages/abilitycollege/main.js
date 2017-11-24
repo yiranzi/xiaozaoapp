@@ -171,9 +171,9 @@ export default class extends React.Component {
             {this.renderBar()}
             {DataUtils.isEmpty(exchangeDetail) ? <LoadingIcon /> : <Course exchangeDetail={this.state.exchangeDetail} />}
             {this.renderBar()}
-            <Patent />
-            {this.renderBar()}
             <Teacher />
+            {this.renderBar()}
+            <Patent />
             {this.renderBar()}
             <Study />
           </div>

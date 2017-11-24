@@ -169,7 +169,7 @@ export default class extends React.Component {
         })}
       </div>
       <div className='text-line'>
-        <Scrolling interval={4000} />
+        <Scrolling interval={6000} />
       </div>
       <style jsx>{`
         .show-card {

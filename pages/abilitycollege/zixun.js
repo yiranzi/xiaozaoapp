@@ -37,7 +37,7 @@ export default class extends React.Component {
     return (
       <Layout>
         <div className='bigfour'>
-          <div className='header'>小灶能力学院院长，杜克大学 MBA，资深咨询顾问，拒掉某 MBB Offer，决心创业。</div>
+          <div className='header'>小马哥告诉你咨询顾问的4大必备核心能力和2大求职必备能力</div>
           <img style={{width: '100%'}} src='/static/img/abilitycollege/2.png' />
           <div className='detail'>
             <PlanCourse data={this.props.data} />

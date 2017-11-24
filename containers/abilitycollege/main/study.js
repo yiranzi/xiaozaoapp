@@ -9,7 +9,7 @@ export default class extends React.Component {
         <div className='detail'>
           <div className='content'>
             <div className='title'>
-              小灶能力学院将会在新技术驱动下，不断迭代已有的系统学、打卡学的使用体验和学习效果，
+              小灶能力学院正在新技术驱动下，不断迭代已有的系统学、打卡学的使用体验和学习效果，
               也将探索更高效的学习模式，确保同学们能够最大化地吸收知识，掌握技能。
             </div>
             <br />
