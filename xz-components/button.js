@@ -20,6 +20,7 @@ export default class Button extends React.Component {
         <style jsx>{`
           /* button 全局样式 */
           button {
+            font-size: 1rem;
             width: 100%;
             color: #fff;
             padding: 8px 0;
