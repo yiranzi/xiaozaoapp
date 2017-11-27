@@ -176,7 +176,7 @@ export default class extends React.Component {
         <style jsx>{`
           .return-page {
             position: relative;
-            padding: 9px 10px 10px;
+            padding: 10px 10px 10px;
             display: -webkit-box;
             display: -ms-flexbox;
             display: -webkit-box;
@@ -521,7 +521,8 @@ export default class extends React.Component {
           .job-list {
           }
           .react-weui-infiniteloader {
-            
+            overflow: scroll;
+            -webkit-overflow-scrolling:touch;
           }
           .weui-popup {
             position: fixed;

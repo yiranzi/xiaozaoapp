@@ -461,7 +461,8 @@ export default class extends React.Component {
 
           }
           .react-weui-infiniteloader {
-
+            overflow: scroll;
+            -webkit-overflow-scrolling:touch;
           }
           .weui-popup {
             position: fixed;
