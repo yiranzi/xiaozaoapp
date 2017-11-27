@@ -19,7 +19,7 @@ export default class extends React.Component {
     '北京大学',
     '江南大学',
     '中国海洋大学',
-    '北京交通大学',
+    '北京交通大学'
 
   ]
   classStaticNmae = [
@@ -39,7 +39,7 @@ export default class extends React.Component {
     '结构化思维',
     'Networking'
   ]
-  cardCount = [1, 3, 7, 15, 36]
+  cardCount = [1, 3, 7, 15]
   staticDate = []
 
   constructor (props) {
