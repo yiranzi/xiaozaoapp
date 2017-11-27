@@ -521,7 +521,7 @@ export default class extends React.Component {
           .job-list {
           }
           .react-weui-infiniteloader {
-            overflow: scroll;
+            
           }
           .weui-popup {
             position: fixed;

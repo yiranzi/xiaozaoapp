@@ -368,7 +368,7 @@ export default class extends React.Component {
               </MediaBoxBody>
             </MediaBox>
             {item.comment &&
-              <div className='comment'>
+              <div className='comment wx-line-clamp2'>
                 <img className='comment-icon'
                   src='/static/img/common/recommend.png' /> {item.comment}
               </div>
@@ -461,7 +461,7 @@ export default class extends React.Component {
 
           }
           .react-weui-infiniteloader {
-            overflow: scroll;
+
           }
           .weui-popup {
             position: fixed;
