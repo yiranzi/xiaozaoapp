@@ -32,6 +32,7 @@ export default class extends React.Component {
             display: inline-block;
           }
           .content .link p {
+            font-size: 1rem;
             text-align: center;
             margin-bottom: -1.5rem;
           }
