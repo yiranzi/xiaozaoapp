@@ -22,7 +22,7 @@ export default class extends React.Component {
   }
   componentDidMount = async () => {
     let courseId = ToolsUtil.getQueryString('courseId')
-    let packageId = ToolsUtil.getQueryString('courseId')
+    let packageId = ToolsUtil.getQueryString('packageId')
     let courseDetail = await AxiosUtil.get('/api/private/learning/courseDetail/' + courseId)
     this.setState({courseId: courseId, packageId: packageId, courseDetail: courseDetail})
   }
