@@ -49,6 +49,13 @@ export default class extends React.Component {
       })
     }, 2 * 1000)
   }
+  renderButton (buyed) {
+    if (buyed) {
+      return <a style={{display: 'block'}} href='/ucenter/classroom'><Button style={{backgroundColor: ThemeConfig.color.red}}>去上课</Button></a>
+    } else {
+      return <Button onClick={() => { this.buyFree() }} style={{backgroundColor: ThemeConfig.color.red}}>马上报名</Button>
+    }
+  }
   render () {
     const {courseDetail} = this.state
     return (
@@ -69,8 +76,10 @@ export default class extends React.Component {
           </div>
           <img style={{width: '100%'}} src={`http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/wxfreecourse/${this.state.courseId}.jpg`} />
           <div className='btn-group'>
-            {(courseDetail.buyed || this.state.buyed) && <a style={{display: 'block'}} href='/ucenter/classroom'><Button style={{backgroundColor: ThemeConfig.color.red}}>去上课</Button></a>}
-            {!courseDetail.buyed && <Button onClick={() => { this.buyFree() }} style={{backgroundColor: ThemeConfig.color.red}}>马上报名</Button>}
+            {this.state.buyed
+              ? <a style={{display: 'block'}} href='/ucenter/classroom'><Button style={{backgroundColor: ThemeConfig.color.red}}>去上课</Button></a>
+              : this.renderButton(courseDetail.buyed)
+            }
           </div>
         </div>
         <style jsx>{`
