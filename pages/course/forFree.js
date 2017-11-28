@@ -11,6 +11,7 @@ export default class extends React.Component {
     super(props)
     this.state = {
       courseId: '',
+      packageId: '',
       courseDetail: {},
       isSubmit: false,
       success: false,
@@ -21,13 +22,14 @@ export default class extends React.Component {
   }
   componentDidMount = async () => {
     let courseId = ToolsUtil.getQueryString('courseId')
+    let packageId = ToolsUtil.getQueryString('courseId')
     let courseDetail = await AxiosUtil.get('/api/private/learning/courseDetail/' + courseId)
-    this.setState({courseId: courseId, courseDetail: courseDetail})
+    this.setState({courseId: courseId, packageId: packageId, courseDetail: courseDetail})
   }
   buyFree = async () => {
     try {
       this.setState({isSubmit: true})
-      await AxiosUtil.get('/api/payment/buyFree/' + this.state.courseId)
+      await AxiosUtil.get('/api/payment/buyFree/' + this.state.packageId)
       this.setState({
         isSubmit: false,
         success: true,
