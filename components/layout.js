@@ -42,7 +42,7 @@ export default class Layout extends React.Component {
         <script src='/static/js/baidutongji.js' />
         <style global jsx>{`
           body {
-            font-size: 14pt;
+            font-size: 12pt;
             font-family: PingFang SC,Helvetica Neue,Helvetica,Arial,Hiragino Sans GB,Microsoft Yahei,sans-serif !important;
           }
         `}</style>
