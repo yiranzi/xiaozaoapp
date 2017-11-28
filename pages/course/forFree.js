@@ -11,6 +11,7 @@ export default class extends React.Component {
     super(props)
     this.state = {
       courseId: '',
+      packageId: '',
       courseDetail: {},
       isSubmit: false,
       success: false,
@@ -21,13 +22,14 @@ export default class extends React.Component {
   }
   componentDidMount = async () => {
     let courseId = ToolsUtil.getQueryString('courseId')
+    let packageId = ToolsUtil.getQueryString('courseId')
     let courseDetail = await AxiosUtil.get('/api/private/learning/courseDetail/' + courseId)
-    this.setState({courseId: courseId, courseDetail: courseDetail})
+    this.setState({courseId: courseId, packageId: packageId, courseDetail: courseDetail})
   }
   buyFree = async () => {
     try {
       this.setState({isSubmit: true})
-      await AxiosUtil.get('/api/payment/buyFree/' + this.state.courseId)
+      await AxiosUtil.get('/api/payment/buyFree/' + this.state.packageId)
       this.setState({
         isSubmit: false,
         success: true,
@@ -74,7 +76,7 @@ export default class extends React.Component {
             <div className='expired'><img src='/static/img/course/clock.png' />报名后即可上课，课程有效期７天</div>
             <div className='free'><img src='/static/img/course/cash.png' />限时免费</div>
           </div>
-          <img style={{width: '100%'}} src={`http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/wxfreecourse/${this.state.courseId}.jpg`} />
+          <img style={{width: '100%'}} src={`http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/wxfreecourse/${this.state.packageId}.jpg`} />
           <div className='btn-group'>
             {this.state.buyed
               ? <a style={{display: 'block'}} href='/ucenter/classroom'><Button style={{backgroundColor: ThemeConfig.color.red}}>去上课</Button></a>
