@@ -29,7 +29,7 @@ DateUtil.format = function (date, fmt) {
 }
 
 DateUtil.diffDay = function (endTime) {
-  let d1 = DateUtil.format(new Date(endTime), 'yyyy-MM-dd')
+  let d1 = DateUtil.format(new Date(endTime.replace(/-/g, '/').replace(/T/g, ' ')), 'yyyy-MM-dd')
   let d2 = DateUtil.format(new Date(), 'yyyy-MM-dd')
   d1 = new Date(d1)
   d2 = new Date(d2)
