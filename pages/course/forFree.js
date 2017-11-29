@@ -76,7 +76,7 @@ export default class extends React.Component {
             <div className='expired'><img src='/static/img/course/clock.png' />报名后即可上课，课程有效期７天</div>
             <div className='free'><img src='/static/img/course/cash.png' />限时免费</div>
           </div>
-          <img style={{width: '100%'}} src={`http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/wxfreecourse/${this.state.courseId}.jpg`} />
+          {this.state.courseId && <img style={{width: '100%'}} src={`http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/wxfreecourse/${this.state.courseId}.jpg`} />}
           <div className='btn-group'>
             {this.state.buyed
               ? <a style={{display: 'block'}} href='/ucenter/classroom'><Button style={{backgroundColor: ThemeConfig.color.red}}>去上课</Button></a>
@@ -96,6 +96,7 @@ export default class extends React.Component {
             background-color: #f0f2f6;
             min-height: 100vh;
             color: ${ThemeConfig.color.content};
+            padding-bottom: 2.5rem;
           }
           .course .title {
             margin-top: 1rem;
