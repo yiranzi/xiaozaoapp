@@ -6,7 +6,7 @@ import WxShare from '../../xz-components/newWxShare'
 import wxPay from '../../util/wxPay'// 工具类
 import BuyPop from '../../containers/buygether/buypop'
 import Triangle from '../../containers/buygether/poptag'
-import Scrolling from '../../containers/buygether/scrolling'
+// import Scrolling from '../../containers/buygether/scrolling'
 import Fixfooter from '../../xz-components/fixfooter'
 import ToolsUtil from '../../util/tools'
 import {Alert} from '../../xz-components/alert'
