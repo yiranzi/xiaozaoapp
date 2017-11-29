@@ -3,7 +3,8 @@ import {Button} from 'react-weui'// 组件库
 import Card from '../../xz-components/card'// 组件库
 import InterviewLayout from '../../containers/interviewvip/layout'
 import GetPayInfo from '../../util/getPayInfo'
-import wxPayController from '../../util/wxPayController'// 工具类
+import wxPay from '../../util/wxPay'// 工具类
+import AxiosUtil from '../util/axios'
 
 // 报名付费页
 
@@ -313,7 +314,15 @@ export default class extends React.Component {
     </div>)
   }
 
-  payController = () => {
-    wxPayController.payInit()
+  payController = async () => {
+    try {
+      let payInfo = await AxiosUtil.get('/api/interview/buy')
+      wxPay.payInit(payInfo)
+    } catch (e) {
+      this.setState({
+        error: e.message
+      })
+      alert(e.message)
+    }
   }
 }

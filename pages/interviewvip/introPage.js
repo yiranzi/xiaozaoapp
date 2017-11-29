@@ -366,10 +366,6 @@ export default class extends React.Component {
     this.setState({isHelpShow: true})
   }
 
-  goPath (goPath) {
-    location.href = goPath
-  }
-
   renderBg () {
     let arr = [1, 3, 4, 6, 7, 8, 9]
     let style = {
