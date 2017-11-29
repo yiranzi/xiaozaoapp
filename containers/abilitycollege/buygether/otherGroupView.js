@@ -1,6 +1,6 @@
 import React from 'react'
-import GroupCard from '../../containers/buygether/groupcard'
-import Button from '../../xz-components/button'
+import GroupCard from '../../abilitycollege/buygether/groupcard'
+import Button from '../../../xz-components/button'
 /**
  * 其他人的拼团的浏览
  * 获得数据后需要设置自动刷新间隔

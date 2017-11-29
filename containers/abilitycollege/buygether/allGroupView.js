@@ -1,5 +1,5 @@
 import React from 'react'
-import Scrolling from '../../containers/buygether/scrolling'
+import Scrolling from '../../abilitycollege/buygether/scrolling'
 /**
  * 浏览所有组
  * 有表示学院购买的自动滚动条

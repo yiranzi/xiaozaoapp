@@ -1,5 +1,5 @@
 import React from 'react'
-import {ModalBoxPopFunc} from '../../xz-components/modalbox'
+import {ModalBoxPopFunc} from '../../../xz-components/modalbox'
 /**
  * 分享弹窗
  * 传入时间，加上随机的秒

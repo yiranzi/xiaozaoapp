@@ -1,5 +1,5 @@
 import React from 'react'
-import MoreLine from '../../xz-components/moreLine'
+import MoreLine from '../../../xz-components/moreLine'
 /**
  * 更多信息
  * 引用moreLine多行文本。点击会展开全部。
