@@ -3,4 +3,5 @@ node_modules/*
 out/*
 static/js/*
 static/plugin/*
-pages/demo/prev.js
+pages/demo/*
+containers/demo/*

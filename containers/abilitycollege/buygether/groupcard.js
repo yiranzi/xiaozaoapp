@@ -1,5 +1,5 @@
 import React from 'react'
-import TimeDown from '../../xz-components/timedown'
+import TimeDown from '../../../xz-components/timedown'
 /**
  * 渲染团购的卡片
  */
@@ -41,7 +41,7 @@ export default class extends React.Component {
         <p>{nickname}的拼团</p>
         <p>{content}</p>
       </div>
-      <div className='empty'></div>
+      <div className='empty' />
       <div className='button'>
         {button}
       </div>

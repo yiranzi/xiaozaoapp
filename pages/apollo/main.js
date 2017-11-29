@@ -1,7 +1,7 @@
 import React from 'react'// 库
 import Button from '../../xz-components/button'
 import {ModalBoxPopFunc} from '../../xz-components/modalbox'
-import DateSelector from '/containers/apollo/dateSelector'// 自定义组件
+import DateSelector from '../../containers/apollo/dateSelector'// 自定义组件
 import Layout from '../../components/layout'// container
 import ThemeConfig from '../../config/theme'
 import { Confirm } from '../../xz-components/confirm'

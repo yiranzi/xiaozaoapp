@@ -19,8 +19,7 @@ import {
   CellFooter,
   CellsTips,
   TextArea,
-  Input,
-  Toast
+  Input
 } from 'react-weui'
 
 export default class extends React.Component {

@@ -34,4 +34,3 @@ export function showShareBg (content) {
   }
   ModalBoxPopFunc({...prop})
 }
-

@@ -1,14 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {ChooseBar, ChooseItem} from '../../xz-components/choosebar'
-// import Triangle from '../../containers/buygether/poptag'
+import {ChooseBar, ChooseItem} from '../../../xz-components/choosebar'
+// import Triangle from '../../abilitycollege/buygether/poptag'
 
 export default class extends React.Component {
   newGroupDiscount = 10 // 开团立减
   coupon = 0.9 // 折扣
   static propTypes = {
     dataInfo: PropTypes.array,
-    defaultSelect: PropTypes.number,
+    // defaultSelect: PropTypes.number,
     buyButtonCallBack: PropTypes.func,
     joinInfo: PropTypes.object,
     cancelCallBack: PropTypes.func

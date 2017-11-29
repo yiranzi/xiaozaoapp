@@ -6,7 +6,7 @@ import React from 'react'
 export default class extends React.Component {
   render () {
     return (<div style={this.props.style} className='org_box'>
-      <span style={this.props.triangleStyle} className='org_bot_cor'></span>
+      <span style={this.props.borderStyle} className='org_bot_cor' />
       {this.props.children}
       <style jsx>{`
         .org_box{
