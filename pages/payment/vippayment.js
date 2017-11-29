@@ -4,7 +4,7 @@ import Card from '../../xz-components/card'// 组件库
 import InterviewLayout from '../../containers/interviewvip/layout'
 import GetPayInfo from '../../util/getPayInfo'
 import wxPay from '../../util/wxPay'// 工具类
-import AxiosUtil from '../util/axios'
+import AxiosUtil from '../../util/axios'
 
 // 报名付费页
 
