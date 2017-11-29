@@ -30,7 +30,7 @@ export default class extends React.Component {
         <p>* {nickname} 赠送，报名后你的好友 {nickname} 将免费获得一张能力卡</p>
         <style jsx>{`
           .coupon {
-            padding-bottom: 10px;
+            padding: 10px 0px;
             border-bottom: 1px solid #e5e5e5;
             font-size: 14px;
             text-align: left

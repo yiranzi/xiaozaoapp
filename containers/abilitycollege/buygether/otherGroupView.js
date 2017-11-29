@@ -76,7 +76,7 @@ export default class extends React.Component {
         {groupingArr}
         <style jsx>{`
           .other-grouping {
-            padding-bottom: 10px;
+            padding: 10px 0px;
             text-align: left;
             {/*border-bottom: 1px solid #e5e5e5;*/}
           }
