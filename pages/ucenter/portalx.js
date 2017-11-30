@@ -82,7 +82,7 @@ export default class extends React.Component {
               </CellBody>
             </Cell>
             <Cell access>
-              <a href='/ucenter/classroombackup' style={{width: '100%'}}>
+              <a href='/ucenter/classroomx' style={{width: '100%'}}>
                 <CellBody>
                   我的教室
                 </CellBody>
@@ -90,7 +90,7 @@ export default class extends React.Component {
               <CellFooter />
             </Cell>
             <Cell access>
-              <a href='/ucenter/studycardbackup' style={{width: '100%'}}>
+              <a href='/ucenter/studycardx' style={{width: '100%'}}>
                 <CellBody>
                   我的能力卡
                   <span className='wx-pull-right'>共

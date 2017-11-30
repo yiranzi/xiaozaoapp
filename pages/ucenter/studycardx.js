@@ -74,7 +74,7 @@ export default class extends React.Component {
 
   render () {
     const leftbar = {
-      href: '/ucenter/portalbackup',
+      href: '/ucenter/portalx',
       name: '返回'
     }
     return (

@@ -18,7 +18,7 @@ export default class extends React.Component {
         <div
           className={ClassNames('item', {'current': this.state.college || type === 'college'})} 
           onTouchStart={() => { this.setState({college: true}) }}
-          onTouchEnd={() => { this.setState({college: false}, () => { location.href = '/abilitycollege/mainbackup' }) }}
+          onTouchEnd={() => { this.setState({college: false}, () => { location.href = '/abilitycollege/mainx' }) }}
         >
           <div className='icon'>
             {(this.state.college || type === 'college') ? <img src='/static/img/abilitycollege/college_active.png' /> : <img src='/static/img/abilitycollege/college.png' />}
@@ -28,7 +28,7 @@ export default class extends React.Component {
         <div
           className={ClassNames('item', {'current': this.state.me || type === 'me'})}
           onTouchStart={() => { this.setState({me: true}) }}
-          onTouchEnd={() => { this.setState({me: false}, () => { location.href = '/ucenter/portalbackup' }) }}
+          onTouchEnd={() => { this.setState({me: false}, () => { location.href = '/ucenter/portalx' }) }}
         >
           <div className='icon'>
             {(this.state.me || type === 'me') ? <img src='/static/img/abilitycollege/me_active.png' /> : <img src='/static/img/abilitycollege/me.png' />}
