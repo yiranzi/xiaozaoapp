@@ -43,9 +43,6 @@ export default class extends React.Component {
               </section>
             )
           })}
-          <a style={{display: 'block'}} href='/payment/buygether'>
-            <Button style={{backgroundColor: '#c41616', fontSize: '1rem'}}>去获取能力卡 拼团中</Button>
-          </a>
         </div>
         <style jsx>{`
           .plan-course .title {
