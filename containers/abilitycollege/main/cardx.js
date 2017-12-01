@@ -13,13 +13,6 @@ export default class extends React.Component {
       <div className='card' onClick={() => this.openModal(detail)}>
         <div className='header' style={{backgroundColor: bg}}>
           <div className='sub-title'>{detail.subTitle}</div>
-          <div className='group'>
-            <div className='need-card'><img src='/static/img/abilitycollege/card-intro.png' />{detail.cardCount}张能力卡兑换</div>
-            <div className='price'>
-              <div className='before'>￥{detail.twoPrice}</div>
-              <div className='now'>￥{detail.onePrice}</div>
-            </div>
-          </div>
         </div>
         <div className='sub-content'>
           <div className='main'>核心内容：{detail.oneContent}</div>
