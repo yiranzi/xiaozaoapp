@@ -51,14 +51,13 @@ export default class extends React.Component {
       <PanelBody>
         <MediaBox type='text'>
           <p className='wx-img-full'><img src='/static/img/ucenter/banner1.jpg' /></p>
-          <h3 className='card-count'>购买获得
+          <h3 className='card-count'>已有能力卡
             <span className='wx-pull-right'>x&nbsp;
               {studyCard ? studyCard.buyCount : 0}</span></h3>
           <h3 className='card-count'>通过推荐他人获得
             <span className='wx-pull-right'>x&nbsp;
               {studyCard ? studyCard.inviteCount : 0}</span></h3>
           <br />
-          <ShareCard studyCard={studyCard} />
           <dl>
             <dt><h3>能力卡使用指南</h3></dt>
             <dd>1、小灶能力卡可以兑换2018年小灶能力学院的课程，小伙伴可以根据兴趣和需求，选择购买相应的能力卡。</dd>

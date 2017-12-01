@@ -3,11 +3,10 @@ import Layout from '../../components/layout'
 import LoadingIcon from '../../xz-components/loadingicon'
 import AxiosUtil from '../../util/axios'
 import DataUtils from '../../util/data'
-import Header from '../../containers/abilitycollege/header'
 import Footer from '../../components/footerbackup'
 import Schedule from '../../containers/abilitycollege/main/schedulex'
-import Plan from '../../containers/abilitycollege/main/plan'
-import Course from '../../containers/abilitycollege/main/course'
+import Plan from '../../containers/abilitycollege/main/planx'
+import Course from '../../containers/abilitycollege/main/coursex'
 import Teacher from '../../containers/abilitycollege/main/teacher'
 import Study from '../../containers/abilitycollege/main/study'
 import Comment from '../../containers/abilitycollege/main/commentx'
@@ -156,7 +155,6 @@ export default class extends React.Component {
         <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css' />
         <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css' />
         <div className='main'>
-          <Header coupon={coupon} />
           {category && (
             <div id='tips-wrapper'>
               {category === 'invite' && this.renderInviteBar(headimg, nickname)}

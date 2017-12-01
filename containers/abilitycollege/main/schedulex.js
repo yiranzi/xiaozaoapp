@@ -1,6 +1,6 @@
 import React from 'react'
 import Button from '../../../xz-components/button'
-import Card from './card'
+import Card from './cardx'
 
 export default class extends React.Component {
   renderContent (detail, bg) {
