@@ -1,60 +1,79 @@
 import React from 'react'
-import {Tabbar, TabItem} from '/xz-components/tabbar'
 import Notice from '/containers/study/notice'
 import Homework from '/containers/study/homework'
 import Discuss from '/containers/study/discuss'
 import Achieve from '/containers/study/achieve'
 import Introduce from '/containers/study/introduce'
+import { Tab, NavBarItem, Progress } from 'react-weui'
+import Layout from '../../components/layout'
+import AxiosUtil from '../../util/axios'
 
 import ToolsUtil from '../../util/tools'
-
+import GetPayInfo from '../../util/getPayInfo'
 
 export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      payStatus: undefined,
-      courseId: undefined
+      courseStatus: undefined,
+      courseId: undefined,
+      courseName: undefined,
+      finishSection: undefined,
+      totalSection: undefined,
+      totalChapter: undefined
     }
   }
 
-  componentDidMount () {
+  componentDidMount = async () => {
     // 1 获取课程id
-    let courseId = ToolsUtil.getQueryString('courseId')
+    let courseId = parseInt(ToolsUtil.getQueryString('courseId'))
+    console.log(courseId)
     // 2 根据id拉取数据
-    this.setState({
-      courseId: 1001
+    await this.setState({
+      courseId: courseId
     })
     this.set()
   }
 
   set = async () => {
-    // 2 获取课程的付费状态
-    let a = new Promise((resolve) => {
-      window.setTimeout(() => {
-        console.log('get')
-        resolve(true)
-      }, 1000)
-    })
-    await a
-    // 3 根据状态设置
+    let {courseId} = this.state
+    let courseInfo = await GetPayInfo.getPayInfo(courseId)
     this.setState({
-      payStatus: false
+      // courseStatus: courseInfo.status
+      courseStatus: 'unbuyed'
     })
-    console.log('finish')
+    this.getCourseInfo(courseInfo)
+  }
+
+  getCourseInfo = async (courseInfo) => {
+    let {status: courseStatus} = courseInfo
+    if (courseStatus === undefined || courseStatus === 'unbuyed') {
+      let {courseId} = this.state
+      // 拉取名字
+      let courseInfo = await AxiosUtil.get(`/api/private/learning/courseDetail/${courseId}`)
+      this.setState({
+        courseName: courseInfo.name
+      })
+    } else {
+      console.log(courseInfo)
+      // 保存信息
+      this.setState({
+        courseName: courseInfo.courseName,
+        finishSection: courseInfo.overSection,
+        totalSection: courseInfo.totalSection,
+        totalChapter: courseInfo.totalChapter
+      })
+    }
   }
 
   renderTabbar () {
-    let tabStyle = {
-      display: 'flex'
-    }
     return (<div className='course-tab-bar'>
-      <Tabbar style={tabStyle}>
+      <Tab type='navbar'>
         {this.renderByPayStatus()}
-        <TabItem title='作业'><Homework /></TabItem>
-        <TabItem title='讨论'><Discuss /></TabItem>
-        <TabItem title='成就' disabled><Achieve /></TabItem>
-      </Tabbar>
+        <NavBarItem label='作业'><Homework /></NavBarItem>
+        <NavBarItem label='讨论'><Discuss /></NavBarItem>
+        <NavBarItem label='成就'><Achieve /></NavBarItem>
+      </Tab>
       <style jsx>{`
         .course-tab-bar1 {
           display: flex;
@@ -65,41 +84,52 @@ export default class extends React.Component {
   }
 
   renderByPayStatus () {
-    console.log('starttttt')
-    console.log(this.state.payStatus)
-    if (this.state.payStatus === undefined) {
-      console.log('1')
+    let {courseStatus, courseId} = this.state
+    if (courseStatus === undefined || courseStatus === 'unbuyed') {
+      return (<NavBarItem label='概述'><Introduce courseId={courseId} /></NavBarItem>)
     } else {
-      console.log('2')
-    }
-
-    if (this.state.payStatus) {
-      return (<TabItem title='公告'><Notice /></TabItem>)
-    } else {
-      return (<TabItem title='概述'><Introduce /></TabItem>)
+      return (<NavBarItem label='公告'><Notice /></NavBarItem>)
     }
   }
 
   renderTopImg () {
-    let {payStatus} = this.state
-    let content
-    if (payStatus) {
-      content = <a href={`/study/introduce`}>开始学习</a>
-
+    let {courseStatus, courseName, finishSection, totalSection, totalChapter} = this.state
+    if (courseName) {
+      let content
+      if (courseStatus === 'undefined' || courseStatus === 'unbuyed') {
+        // 未付费
+        {/*content = <a href={`/payment/buygether`}>报名课程</a>*/}
+        content = <a href={`/study/introduce`}>立即报名</a>
+      } else {
+        // 已付费
+        if (courseStatus === 'over') {
+          content = <a>已结束</a>
+        } else {
+          const prog = Math.ceil(finishSection / (totalSection ? totalSection : 1) * 100)
+          content = <div>
+            <p>{`进度（本课程共${totalChapter}章，${totalSection}节，已完成${finishSection}节`}</p>
+            <Progress style={{width: '100%'}} value={prog} showCancel={false}
+              className='wx-pull-left course-progress' />
+            <a href={`/study/introduce`}>开始学习</a>
+          </div>
+        }
+      }
+      return (<div>
+        <h1>{courseName}</h1>
+        {content}
+      </div>)
     } else {
-      {/*content = <a href={`/payment/buygether`}>报名课程</a>*/}
-      content = <a href={`/study/introduce`}>开始学习</a>
+      return null
     }
-    return (<div>
-      <img />
-      {content}
-    </div>)
+
   }
 
   render () {
     return (<div>
-      {this.renderTopImg()}
-      {this.renderTabbar()}
+      <Layout>
+        {this.renderTopImg()}
+        {this.renderTabbar()}
+      </Layout>
     </div>)
   }
 }

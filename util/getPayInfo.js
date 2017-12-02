@@ -1,4 +1,5 @@
 import AxiosUtil from '../util/axios'
+import DateUtil from '../util/date'
 
 // 付费信息
 let canBuy = null
@@ -9,24 +10,47 @@ let priceInfo = {}
 
 let payInfo = {}
 
-payInfo.getPayInfo = async () => {
-  return new Promise((resolve, reject) => {
-    AxiosUtil.get('/api/interview/buyInfo').then((res) => {
-      // 设置付费
-      localStorage.setItem('payStatus', res.buyed)
-      canBuy = res.canBuy
-      canEnter = res.canEnter
-      let {price, offerPrice} = res
+payInfo.getCourseList = async (courseId) => {
+  let originCourseList = await AxiosUtil.get('/api/private/learning/myCourse')
+  return (formate(originCourseList))
+}
 
-      priceInfo.price = price / 100
-      priceInfo.offerPrice = offerPrice / 100
-      priceInfo.discountPrice = (price - offerPrice) / 100
-
-      resolve(res)
-    }).catch((e) => {
-      reject(e)
-    })
+payInfo.getPayInfo = async (courseId) => {
+  let myCourseList = await payInfo.getCourseList()
+  let result = myCourseList.find((course, index) => {
+    return (course.courseId === courseId)
   })
+  if (result) {
+    return (result)
+  } else {
+    let courseInfo = {
+      status: 'unbuyed'
+    }
+    return (courseInfo)
+  }
+}
+
+const formate = (originCourseList) => {
+  if (originCourseList && originCourseList.length > 0) {
+    let myCourseList = JSON.parse(JSON.stringify(originCourseList))
+    // 1 add status
+    myCourseList.forEach((item, index) => {
+      const endDay = DateUtil.diffDay(item.endDate)
+      if (endDay <= 0) {
+        // 已结束
+        item.status = 'over'
+      } else {
+        if (item.overSection === item.totalSection) {
+          item.status = 'finish'
+        } else {
+          item.status = 'doing'
+        }
+      }
+    })
+    return (myCourseList)
+  } else {
+    return (originCourseList)
+  }
 }
 
 /*
