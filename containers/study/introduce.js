@@ -34,6 +34,10 @@ const getData = async function (courseId) {
 export default class extends React.Component {
   RenderComponent = HocRenderContent(innerComponent, getData)
 
+  componentDidMount = async () => {
+    console.log('componentDidMount introduce')
+  }
+
   render () {
     let RenderComponent = this.RenderComponent
     return (<div>

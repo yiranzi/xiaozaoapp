@@ -6,7 +6,7 @@ class innerComponent extends React.Component {
   render () {
     let {data, courseId} = this.props
     if (data && data.length > 0) {
-      return (<div className='introduce'>
+      return (<div className='notice'>
         课程id{courseId}
         {data.map((ele, index) => {
           return (<div key={index}>
