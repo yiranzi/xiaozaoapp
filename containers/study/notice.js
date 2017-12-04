@@ -1,15 +1,43 @@
 import React from 'react'
-
-export default class extends React.Component {
+import AxiosUtil from '../../util/axios'
+import HocRenderContent from '/containers/study/hocRenderContent'
+// 原始组件
+class innerComponent extends React.Component {
   render () {
-    return (<div className='notice-page'>
-      <h1>作业更新</h1>
-      <h2>2017-11-02</h2>
-      <p>作业已经更新了，大家快去做，截止时间是11-07哦</p>
-      <style jsx>{`
+    let {data, courseId} = this.props
+    if (data && data.length > 0) {
+      return (<div className='introduce'>
+        课程id{courseId}
+        {data.map((ele, index) => {
+          return (<div key={index}>
+            <h1>{ele.title}</h1>
+            <p>{ele.content}</p>
+          </div>)
+        })}
+        <style jsx>{`
         .{
         }
       `}</style>
+      </div>)
+    } else {
+      return null
+    }
+  }
+}
+// 自定义拉取数据的方法
+const getData = async function (courseId) {
+  let courseSummaryJson = await AxiosUtil.get(`/api/private/learning/courseNotice/${courseId}`)
+  return courseSummaryJson
+}
+
+// 返回包裹后的组件
+export default class extends React.Component {
+  RenderComponent = HocRenderContent(innerComponent, getData)
+
+  render () {
+    let RenderComponent = this.RenderComponent
+    return (<div>
+      <RenderComponent courseId={this.props.courseId} />
     </div>)
   }
 }

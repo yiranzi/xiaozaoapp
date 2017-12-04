@@ -2,7 +2,6 @@ import React from 'react'
 
 export default class extends React.Component {
   componentDidMount () {
-    console.log('123')
   }
   // 评分
   // 做作业

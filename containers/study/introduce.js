@@ -1,43 +1,14 @@
 import React from 'react'
 import AxiosUtil from '../../util/axios'
-
-export default class extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      summaryJson: []
-    }
-  }
-
-  componentWillReceiveProps = async (nextProps) => {
-    let courseId = nextProps.courseId
-    if (courseId) {
-      if (this.props.courseId !== courseId) {
-        this.getSummart(courseId)
-      }
-    }
-  }
-
-  componentDidMount = async () => {
-    let courseId = this.props.courseId
-    if (courseId) {
-      this.getSummart(courseId)
-    }
-  }
-
-  getSummart = async (courseId) => {
-    let courseSummaryJson = await AxiosUtil.get(`/api/private/learning/courseSummary/${courseId}`)
-    this.setState({
-      summaryJson: courseSummaryJson
-    })
-  }
-
+import HocRenderContent from '/containers/study/hocRenderContent'
+// 原始组件
+class innerComponent extends React.Component {
   render () {
-    let {summaryJson} = this.state
-    if (summaryJson.length > 0) {
+    let {data, courseId} = this.props
+    if (data && data.length > 0) {
       return (<div className='introduce'>
-        课程id{this.props.courseId}
-        {summaryJson.map((ele, index) => {
+        课程id{courseId}
+        {data.map((ele, index) => {
           return (<div key={index}>
             <h1>{ele.title}</h1>
             <p>{ele.content}</p>
@@ -51,5 +22,22 @@ export default class extends React.Component {
     } else {
       return null
     }
+  }
+}
+// 自定义拉取数据的方法
+const getData = async function (courseId) {
+  let courseSummaryJson = await AxiosUtil.get(`/api/private/learning/courseSummary/${courseId}`)
+  return courseSummaryJson
+}
+
+// 返回包裹后的组件
+export default class extends React.Component {
+  RenderComponent = HocRenderContent(innerComponent, getData)
+
+  render () {
+    let RenderComponent = this.RenderComponent
+    return (<div>
+      <RenderComponent courseId={this.props.courseId} />
+    </div>)
   }
 }

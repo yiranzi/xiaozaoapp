@@ -24,8 +24,8 @@ function request (param) {
       }
     }).catch((error) => {
       if (error.response.status === 401) {
-        alert('登录已过期，请重新登录')
-        location.reload(true)
+        // alert('登录已过期，请重新登录')
+        // location.reload(true)
       } else {
         reject(error.message)
       }

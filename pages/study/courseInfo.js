@@ -27,7 +27,6 @@ export default class extends React.Component {
   componentDidMount = async () => {
     // 1 获取课程id
     let courseId = parseInt(ToolsUtil.getQueryString('courseId'))
-    console.log(courseId)
     // 2 根据id拉取数据
     await this.setState({
       courseId: courseId
@@ -55,7 +54,6 @@ export default class extends React.Component {
         courseName: courseInfo.name
       })
     } else {
-      console.log(courseInfo)
       // 保存信息
       this.setState({
         courseName: courseInfo.courseName,
@@ -88,7 +86,7 @@ export default class extends React.Component {
     if (courseStatus === undefined || courseStatus === 'unbuyed') {
       return (<NavBarItem label='概述'><Introduce courseId={courseId} /></NavBarItem>)
     } else {
-      return (<NavBarItem label='公告'><Notice /></NavBarItem>)
+      return (<NavBarItem label='公告'><Notice courseId={courseId} /></NavBarItem>)
     }
   }
 
