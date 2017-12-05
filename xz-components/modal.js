@@ -41,8 +41,9 @@ class ModalDom extends React.Component {
             height: 30px;
             margin-top: 10px;
             margin-right: 10px;
-            position: relative;
-            float: right;
+            position: fixed;
+            right: 20px;
+            background: inherit;
           }
           .xz-modal-wrap .xz-modal .close::before {
             content: '';
@@ -74,14 +75,14 @@ function close (event) {
   const target = document.getElementById('xz-modal-blur')
   unmountComponentAtNode(target)
   target.parentNode.removeChild(target)
-  document.body.style.position = 'relative'
+  document.body.style.overflow = 'auto'
   event.stopPropagation()
 }
 
 export function Modal (properties) {
   let divTarget = document.createElement('div')
   divTarget.id = 'xz-modal-blur'
-  document.body.style.position = 'fixed'
+  document.body.style.overflow = 'hidden'
   document.body.appendChild(divTarget)
   render(<ModalDom {...properties} />, divTarget)
 }

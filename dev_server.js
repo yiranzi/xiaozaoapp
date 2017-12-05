@@ -19,7 +19,7 @@ app.prepare().then(() => {
   }))
 
   server.use('/api', proxy({
-    target: 'http://rcwx.review.xiaozao.org',
+    target: 'https://rcwx.review.xiaozao.org',
     changeOrigin: true
   }))
 

@@ -39,10 +39,18 @@ wxPayController.onBridgeReady = () => {
         'paySign': paySign
       },
       function (res) {
+        let json = {state: 'unknown', message: '未知错误'}
         if (res.err_msg === 'get_brand_wcpay_request:ok') {
+          json.state = 'ok'
+          json.message = '支付成功'
+        } else if (res.err_msg === 'get_brand_wcpay_request:cancel') {
+          json.state = 'cancel'
+          json.message = '支付取消'
+        } else if (res.err_msg === 'get_brand_wcpay_request:fail') {
+          json.state = 'fail'
+          json.message = '支付失败'
         }
-        // alert('1111')
-        resolve(true)
+        resolve(json)
       }
     )
   })
