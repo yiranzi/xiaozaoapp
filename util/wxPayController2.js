@@ -1,16 +1,15 @@
 // 订单页
 let payData = null
-let dev = false
+
 let wxPayController = {}
 
-wxPayController.payInit = async (payInfo, _dev) => {
+wxPayController.payInit = (payInfo) => {
   payData = payInfo
-  dev = _dev
   // 2 调用微信
-  await wxPayController.pay()
+  return wxPayController.pay()
 }
 
-wxPayController.pay = async () => {
+wxPayController.pay = () => {
   console.log('wxPayController.pay')
   if (typeof WeixinJSBridge === 'undefined') {
     if (document.addEventListener) {
@@ -21,7 +20,7 @@ wxPayController.pay = async () => {
     }
   } else {
     console.log('wxPayController.onBridgeReady')
-    await wxPayController.onBridgeReady()
+    return wxPayController.onBridgeReady()
   }
 }
 
@@ -39,19 +38,16 @@ wxPayController.onBridgeReady = () => {
         'paySign': paySign
       },
       function (res) {
-        if (dev) {
-          alert(JSON.stringify(res))
-        }
         let json = {state: 'unknown', message: '未知错误'}
         if (res.err_msg === 'get_brand_wcpay_request:ok') {
-          json = {state: 'ok', message: '支付成功'}
+          json.state = 'ok'
+          json.message = '支付成功'
         } else if (res.err_msg === 'get_brand_wcpay_request:cancel') {
-          json = {state: 'cancel', message: '支付取消'}
+          json.state = 'cancel'
+          json.message = '支付取消'
         } else if (res.err_msg === 'get_brand_wcpay_request:fail') {
-          json = {state: 'fail', message: '支付失败'}
-        }
-        if (dev) {
-          alert(JSON.stringify(json))
+          json.state = 'fail'
+          json.message = '支付失败'
         }
         resolve(json)
       }
