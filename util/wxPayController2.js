@@ -50,6 +50,8 @@ wxPayController.onBridgeReady = () => {
           json.state = 'fail'
           json.message = '支付失败'
         }
+        alert(json)
+        alert(res)
         resolve(json)
       }
     )

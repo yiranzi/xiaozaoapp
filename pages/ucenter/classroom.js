@@ -38,6 +38,11 @@ export default class extends React.Component {
   doCourseRenew = async (courseId, day) => {
     let payInfo = await AxiosUtil.get(`/api/payment/freeCourseRenew/${courseId}/${day}`)
     wxPayController.payInit(payInfo).then(function (res) {
+      Alert({
+        content: res,
+        okText: '确定test'
+      })
+      alert(res)
       if (res) {
         const state = res.state
         Alert({
