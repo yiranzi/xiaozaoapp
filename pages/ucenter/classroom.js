@@ -8,7 +8,7 @@ import { Panel, PanelBody, MediaBox, MediaBoxBody,
 import wxPayController from '../../util/wxPayController2'
 import {Alert} from '../../xz-components/alert'
 import {Modal} from '../../xz-components/modal'
-import ToolsUtil from "../../util/tools";
+import ToolsUtil from '../../util/tools'
 
 export default class extends React.Component {
   constructor (props) {
@@ -61,9 +61,12 @@ export default class extends React.Component {
         })
       } else {
         if (res) {
-          const state = res.state
+          if (this.state.dev === true) {
+            alert(JSON.stringify(res))
+          }
+          const state = 'ok' // res.state
           Alert({
-            content: res.message,
+            content: '支付成功',
             okText: '确定',
             ok: function () {
               if (state === 'ok') {
