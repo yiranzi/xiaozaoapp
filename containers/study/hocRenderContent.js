@@ -28,8 +28,6 @@ export default function (WrappedComponent, getDataFunc) {
 
     // 在第一次渲染结束的时候，判定是否拉取。
     componentDidMount = async () => {
-      console.log('hoc did')
-      console.log(this)
       let courseId = this.props.courseId
       if (courseId) {
         this.getContentData(courseId)
@@ -46,7 +44,13 @@ export default function (WrappedComponent, getDataFunc) {
 
     render () {
       // 重组props。包括原有的和包裹后新增的。
-      return <WrappedComponent data={this.state.data} {...this.props} />
+      if (this.state.data) {
+        // 这样也许保证 子组件的 did一定有数据
+        return <WrappedComponent data={this.state.data} {...this.props} />
+      } else {
+        // 也可以使用loading
+        return null
+      }
     }
   }
 }

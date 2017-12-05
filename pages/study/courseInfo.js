@@ -1,6 +1,6 @@
 import React from 'react'
 import Notice from '/containers/study/notice'
-import Homework from '/containers/study/homework'
+import Homework from '/containers/study/homework/homework'
 import Discuss from '/containers/study/discuss'
 import Achieve from '/containers/study/achieve'
 import Introduce from '/containers/study/introduce'
@@ -38,8 +38,8 @@ export default class extends React.Component {
     let {courseId} = this.state
     let courseInfo = await GetPayInfo.getPayInfo(courseId)
     this.setState({
-      // courseStatus: courseInfo.status
-      courseStatus: 'unbuyed'
+      courseStatus: courseInfo.status
+      // courseStatus: 'unbuyed'
     })
     this.getCourseInfo(courseInfo)
   }
@@ -65,12 +65,13 @@ export default class extends React.Component {
   }
 
   renderTabbar () {
+    let {courseId} = this.state
     return (<div className='course-tab-bar'>
       <Tab type='navbar'>
         {this.renderByPayStatus()}
-        <NavBarItem label='作业'><Homework /></NavBarItem>
-        <NavBarItem label='讨论'><Discuss /></NavBarItem>
-        <NavBarItem label='成就'><Achieve /></NavBarItem>
+        <NavBarItem label='作业'><Homework courseStatus={this.state.courseStatus} courseId={courseId} /></NavBarItem>
+        <NavBarItem label='讨论'><Discuss courseId={courseId} /></NavBarItem>
+        <NavBarItem label='成就'><Achieve courseId={courseId} /></NavBarItem>
       </Tab>
       <style jsx>{`
         .course-tab-bar1 {

@@ -38,4 +38,13 @@ DateUtil.diffDay = function (endTime) {
   return time
 }
 
+DateUtil.diffTime = function (dateStr1, dateStr2) {
+  let d1 = this.format(new Date(dateStr1.replace(/-/g, '/').replace(/T/g, ' ')), 'yyyy-MM-dd hh:mm:ss')
+  let d2 = this.format(new Date(dateStr2.replace(/-/g, '/').replace(/T/g, ' ')), 'yyyy-MM-dd hh:mm:ss')
+  d1 = new Date(d1)
+  d2 = new Date(d2)
+  var time = d1.getTime() - d2.getTime()
+  return time
+}
+
 module.exports = DateUtil

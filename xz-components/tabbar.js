@@ -30,9 +30,9 @@ export class Tabbar extends React.Component {
   }
 
   static defaultProps = {
-    defaultActiveKey: 0, // 初始选中
+    defaultActiveKey: -1, // 初始选中
     style: {}, // chooseBar样式
-    chooseStyle: {backgroundColor: 'red'}, // 选中后 chooseItem的样式
+    chooseStyle: {}, // 选中后 chooseItem的样式
     onTabClick: function () {}, // 点击chooseBar的回调
     onChange: function () {} // 选择发生变化的回调
   }
@@ -40,7 +40,7 @@ export class Tabbar extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      currentSelect: 0
+      currentSelect: -1
     }
     this.onChange = this.onChange.bind(this)
     this.onTabClick = this.onTabClick.bind(this)
@@ -50,10 +50,30 @@ export class Tabbar extends React.Component {
     this.objectAssign = this.objectAssign.bind(this)
   }
 
+  // 受控组件根据父组件修改current
+  componentWillReceiveProps = (nextProps) => {
+    let currentSelect = nextProps.currentSelect
+    if (currentSelect !== undefined) {
+      // 受控组件。
+      if (this.props.currentSelect !== currentSelect) {
+        this.setState({
+          currentSelect: currentSelect
+        })
+      }
+    }
+  }
+
+  // 受控组件根据父组件的current设置初始current
   componentDidMount () {
-    this.setState({
-      currentSelect: this.props.defaultActiveKey
-    })
+    if (this.props.currentSelect !== undefined) {
+      this.setState({
+        currentSelect: this.props.currentSelect
+      })
+    } else {
+      this.setState({
+        currentSelect: this.props.defaultActiveKey
+      })
+    }
   }
 
   getTabs () {
@@ -70,8 +90,13 @@ export class Tabbar extends React.Component {
     if (tabsData && tabsData.length > 0) {
       const content = tabsData.map((cProps, index) => {
         finalStyle = this.calcStyle(cProps.style, index)
-        return <div key={index} style={finalStyle} onClick={() => { this.onTabClick(cProps.disabled, index) }}>
-          <p>{cProps.title}</p>
+        return <div className='tab-bar-item' key={index} style={finalStyle} onClick={() => { this.onTabClick(cProps.disabled, index) }}>
+          {cProps.title}
+          <style jsx>{`
+            .tab-bar-item + div {
+              border-left: 1px solid #dadada;
+            }
+          `}</style>
         </div>
       })
       return content
@@ -83,19 +108,30 @@ export class Tabbar extends React.Component {
     // 按钮默认样式
     let tabStyle = {
       width: '100%',
-      minHeight: '30px',
+      height: '30px',
       backgroundColor: 'white',
-      borderRadius: '5px',
-      border: '1px solid black',
+      borderTop: '1px solid #dadada',
+      borderBottom: '1px solid #dadada',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      margin: '10px auto',
-      boxSizing: 'border-box'
+      color: 'rgba(53,53,53,0.55)',
+      textAlign: 'center',
+      padding: '10px 0px',
+      fontSize: '15px',
+      lineHeight: '20px'
+      // boxSizing: 'border-box'
     }
-    // 默认样式
+    let chooseStyle = {
+      color: 'rgba(53,53,53,1)',
+      backgroundColor: '#efeff4'
+    }
+    // 默认样式 +  style样式
     let finalStyle = this.objectAssign(tabStyle, propsStyle)
     if (index === this.state.currentSelect) {
+      // +  默认选中样式
+      finalStyle = this.objectAssign(finalStyle, chooseStyle)
+      // +  自定义选中样式
       return this.objectAssign(finalStyle, this.props.chooseStyle)
     } else {
       return finalStyle
@@ -112,11 +148,18 @@ export class Tabbar extends React.Component {
     }
   }
 
+  // 当没有currentSelect的控制的时候。
+  // 组件自己修改 并传出 onChange
+  // 如果有currentSelect的控制
+  // 组件传出onTabClick 不会自己change
+
   // click
   onTabClick (disabled, index) {
     let {onTabClick} = this.props
     onTabClick(index)
-    this.onChange(disabled, index)
+    if (this.props.currentSelect === undefined) {
+      this.onChange(disabled, index)
+    }
   }
 
   // change
@@ -126,7 +169,9 @@ export class Tabbar extends React.Component {
       this.setState({
         currentSelect: index
       }, () => {
-        onChange(index)
+        if (onChange) {
+          onChange(index)
+        }
       })
     }
   }
@@ -137,16 +182,19 @@ export class Tabbar extends React.Component {
       boxSizing: 'border-box',
       margin: 'auto',
       width: '100%',
-      padding: '0px 10px'
+      display: 'flex'
     }
     let finalStyle = this.objectAssign(tabStyle, this.props.style)
 
     return (
       <div className='page'>
-        <div style={finalStyle}>
+        <div className='tab-bar' style={finalStyle}>
           {this.renderChooseList()}
         </div>
         {this.renderContent()}
+        <style jsx>{`
+
+        `}</style>
       </div>
     )
   }
