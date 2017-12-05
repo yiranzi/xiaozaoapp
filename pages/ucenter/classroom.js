@@ -8,17 +8,23 @@ import { Panel, PanelBody, MediaBox, MediaBoxBody,
 import wxPayController from '../../util/wxPayController2'
 import {Alert} from '../../xz-components/alert'
 import {Modal} from '../../xz-components/modal'
+import ToolsUtil from "../../util/tools";
 
 export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       courseList: null,
-      courseId: null
+      courseId: null,
+      dev: false
     }
   }
 
   componentDidMount = async () => {
+    const dev = ToolsUtil.getQueryString('dev')
+    if (dev) {
+      this.setState({dev: true})
+    }
     this.loadBuyCourseList()
   }
 
@@ -38,27 +44,39 @@ export default class extends React.Component {
   doCourseRenew = async (courseId, day) => {
     let payInfo = await AxiosUtil.get(`/api/payment/freeCourseRenew/${courseId}/${day}`)
     wxPayController.payInit(payInfo).then(function (res) {
-      Alert({
-        content: res,
-        okText: '确定test'
-      })
-      alert(res)
-      if (res) {
-        const state = res.state
+      if (this.state.dev === true) {
         Alert({
-          content: res.message,
+          content: res,
+          okText: '确定test'
+        })
+        alert(res)
+      }
+      if (this.state.dev === false) {
+        Alert({
+          content: '支付成功',
           okText: '确定',
           ok: function () {
-            if (state === 'ok') {
-              location.reload()
-            }
+            location.reload()
           }
         })
       } else {
-        Alert({
-          content: '支付失败，请刷新后重试',
-          okText: '确定'
-        })
+        if (res) {
+          const state = res.state
+          Alert({
+            content: res.message,
+            okText: '确定',
+            ok: function () {
+              if (state === 'ok') {
+                location.reload()
+              }
+            }
+          })
+        } else {
+          Alert({
+            content: '支付失败，请刷新后重试',
+            okText: '确定'
+          })
+        }
       }
     }).catch(function (err) {
       Alert({
