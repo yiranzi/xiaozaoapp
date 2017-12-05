@@ -45,7 +45,7 @@ wxPayController.onBridgeReady = () => {
           json.message = '支付成功'
         } else if (res.err_msg === 'get_brand_wcpay_request:cancel') {
           json.state = 'cancel'
-          json.message = '支付过程中用户取消'
+          json.message = '支付取消'
         } else if (res.err_msg === 'get_brand_wcpay_request:fail') {
           json.state = 'fail'
           json.message = '支付失败'
