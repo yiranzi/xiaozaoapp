@@ -23,7 +23,7 @@ export default class Button extends React.Component {
             font-size: 1rem;
             width: 100%;
             color: #fff;
-            padding: 8px 0;
+            padding: 4px 8px;
             border-radius: 4px;
             margin: 4px 0;
             border: 1px solid transparent;
@@ -35,6 +35,7 @@ export default class Button extends React.Component {
             outline: none;
             border: 1px solid transparent;
           }
+
           /* button type primary */
           button[type='primary'] {
             background-color: #117ee9;
@@ -43,6 +44,7 @@ export default class Button extends React.Component {
             background-color: rgba(0, 0, 0, 0.2);
             border-radius: 1px solid rgba(0, 0, 0, 0.2);
           }
+
           /* button type normal */
           button[type='normal'] {
             background-color: transparent;
@@ -53,6 +55,16 @@ export default class Button extends React.Component {
             color: rgba(0, 0, 0, 0.2);
             background-color: transparent;
             border: 1px solid rgba(0, 0, 0, 0.2);
+          }
+
+          /* button type mini */
+          button[type='mini'] {
+            width: auto;
+            background-color: #117ee9;
+          }
+          button[type='mini']:disabled {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 1px solid rgba(0, 0, 0, 0.2);
           }
         `}</style>
       </button>

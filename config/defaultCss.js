@@ -87,6 +87,12 @@ export default class extends React.Component {
           width: 100%;
           bottom: 0;
         }
+        /* 左右两侧，上下居中*/
+        .wx-space-center {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
       `}</style>
     )
   }

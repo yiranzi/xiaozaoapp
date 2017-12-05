@@ -17,6 +17,7 @@ export default class extends React.Component {
     if (position === 'left') {
       return (
         `
+          left: 0;
           transform: translate(-100%, 0);
         `
       )
@@ -25,7 +26,43 @@ export default class extends React.Component {
     if (position === 'right') {
       return (
         `
+          right: 0;
           transform: translate(100%, 0);
+        `
+      )
+    }
+    if (position === 'top') {
+      return (
+        `
+          transform: translate(0, -100%);
+        `
+      )
+    }
+    // 显示正确
+    if (position === 'bottom') {
+      return (
+        `
+          transform: translate(0, 100%);
+        `
+      )
+    }
+  }
+  renderToggle () {
+    const {position} = this.props
+    if (position === 'left') {
+      return (
+        `
+          left: 0;
+          transform: translate(0, 0);
+        `
+      )
+    }
+    // 显示正确
+    if (position === 'right') {
+      return (
+        `
+          right: 0;
+          transform: translate(0, 0);
         `
       )
     }
@@ -62,20 +99,22 @@ export default class extends React.Component {
             -webkit-overflow-scrolling:touch;
           }
           .weui-popup {
-            height: 100vh;
+            width: 80%;
+            height: 100%;
+            background-color: #fff;
+            padding: 2rem 1rem;
+            box-sizing: border-box;
             overflow-y: scroll;
             position: fixed;
-            left: 0;
             bottom: 0;
             ${this.renderStyle()}
             backface-visibility: hidden;
             z-index: 5000;
-            width: 100%;
-            background-color: #EFEFF4;
             transition: transform .3s;
           }
           .weui-popup_toggle {
-            transform: translate(0, 0);
+            ${this.renderToggle()}
+            // transform: translate(0, 0);
           }
           .close {
             width: 30px;
