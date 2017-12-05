@@ -8,23 +8,16 @@ import { Panel, PanelBody, MediaBox, MediaBoxBody,
 import wxPayController from '../../util/wxPayController2'
 import {Alert} from '../../xz-components/alert'
 import {Modal} from '../../xz-components/modal'
-import ToolsUtil from '../../util/tools'
 
 export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      courseList: null,
-      courseId: null,
-      dev: false
+      courseList: null
     }
   }
 
   componentDidMount = async () => {
-    const dev = ToolsUtil.getQueryString('dev')
-    if (dev) {
-      this.setState({dev: true})
-    }
     this.loadBuyCourseList()
   }
 
@@ -44,42 +37,23 @@ export default class extends React.Component {
   doCourseRenew = async (courseId, day) => {
     let payInfo = await AxiosUtil.get(`/api/payment/freeCourseRenew/${courseId}/${day}`)
     wxPayController.payInit(payInfo).then(function (res) {
-      if (this.state.dev === true) {
+      if (res) {
+        alert(JSON.stringify(res))
+        const state = res.state
         Alert({
-          content: res,
-          okText: '确定test'
-        })
-        alert(res)
-      }
-      if (this.state.dev === false) {
-        Alert({
-          content: '支付成功',
+          content: res.message,
           okText: '确定',
           ok: function () {
-            location.reload()
+            if (state === 'ok') {
+              location.reload()
+            }
           }
         })
       } else {
-        if (res) {
-          if (this.state.dev === true) {
-            alert(JSON.stringify(res))
-          }
-          const state = 'ok' // res.state
-          Alert({
-            content: '支付成功',
-            okText: '确定',
-            ok: function () {
-              if (state === 'ok') {
-                location.reload()
-              }
-            }
-          })
-        } else {
-          Alert({
-            content: '支付失败，请刷新后重试',
-            okText: '确定'
-          })
-        }
+        Alert({
+          content: '支付失败，请刷新后重试',
+          okText: '确定'
+        })
       }
     }).catch(function (err) {
       Alert({
@@ -89,7 +63,6 @@ export default class extends React.Component {
   }
 
   showCourseRenewModal (courseId) {
-    this.setState({courseId: courseId})
     Modal({children: <div className='wx-text-center'>
       <h3>请选择续费套餐</h3><br />
       <Flex>
