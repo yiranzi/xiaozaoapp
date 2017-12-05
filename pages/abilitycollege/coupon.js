@@ -36,8 +36,8 @@ export default class extends React.Component {
       await wxConfig.setShareConfig({
         title: `${nickname}送你26个能力课，${name}享9折`,
         desc: '小灶能力学院限时拼团特惠，PPT 课、商业英语课、结构化逻辑课、四大求职通关课等26大课程3大类能力等你拥有。',
-        link: 'http://wx.xiaozao.org/abilitycollege/main?' + afterfix,
-        imgUrl: 'http://wx.xiaozao.org/static/img/abilitycollege/shareicon.png'
+        link: 'https://wx.xiaozao.org/abilitycollege/main?' + afterfix,
+        imgUrl: 'https://wx.xiaozao.org/static/img/abilitycollege/shareicon.png'
       })
       this.setState({ coupon: coupon })
     } catch (e) {
@@ -57,8 +57,8 @@ export default class extends React.Component {
     this.state.wxConfig.setShareConfig({
       title: `${nickname}送你26个能力课，${name}享9折`,
       desc: '小灶能力学院限时拼团特惠，PPT 课、商业英语课、结构化逻辑课、四大求职通关课等26大课程3大类能力等你拥有。',
-      link: 'http://wx.xiaozao.org/abilitycollege/main?' + afterfix,
-      imgUrl: 'http://wx.xiaozao.org/static/img/abilitycollege/shareicon.png'
+      link: 'https://wx.xiaozao.org/abilitycollege/main?' + afterfix,
+      imgUrl: 'https://wx.xiaozao.org/static/img/abilitycollege/shareicon.png'
     })
 
     let content = (

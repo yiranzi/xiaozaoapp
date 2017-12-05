@@ -25,9 +25,9 @@ export default class extends React.Component {
   renderShare () {
     return (<div>
       <WxShare title={this.state.shareTitle}
-               desc={'一起学习'}
-               link={'http://rcwx.review.xiaozao.org/demo/prev'}
-               imgUrl={'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg'} />
+        desc={'一起学习'}
+        link={'https://rcwx.review.xiaozao.org/demo/prev'}
+        imgUrl={'https://wx.xiaozao.org/static/img/apollo/share-icon.jpg'} />
       {this.renderOther()}
     </div>)
   }

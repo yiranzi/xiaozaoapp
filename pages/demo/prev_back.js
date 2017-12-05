@@ -75,9 +75,9 @@ export default class extends React.Component {
       <div className='title'>WxShare：</div>
 
       <WxShare title={this.state.shareTitle}
-               desc={'一起学习'}
-               link={'http://wx.xiaozao.org/demo/prev'}
-               imgUrl={'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg'} />
+        desc={'一起学习'}
+        link={'https://wx.xiaozao.org/demo/prev'}
+        imgUrl={'https://wx.xiaozao.org/static/img/apollo/share-icon.jpg'} />
       <p>在input中输入。点击按钮后修改props->修改分享标题。</p>
       <div>
         <span>当前分享内容为</span>
@@ -92,8 +92,8 @@ export default class extends React.Component {
   }
 
   renderModalBox () {
-    return (<Button text='点击弹出弹窗' onClick={this.renderModalBoxImageStyle.bind(this)} />)
-    return (<Button text='点击弹出弹窗' onClick={this.renderModalBoxDiv.bind(this)} />)
+    return (<div><Button text='点击弹出弹窗' onClick={this.renderModalBoxImageStyle.bind(this)} />
+      <Button text='点击弹出弹窗' onClick={this.renderModalBoxDiv.bind(this)} /></div>)
   }
 
   // 默认内置div

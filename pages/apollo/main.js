@@ -101,7 +101,7 @@ export default class extends React.Component {
         content: content,
         okText: '去投递',
         cancelText: '残忍拒绝',
-        ok: () => { this.goRouter('http://wx.xiaozao.org') }
+        ok: () => { this.goRouter('https://wx.xiaozao.org') }
       })
     }
     // 刷新
@@ -113,8 +113,8 @@ export default class extends React.Component {
     let prop = {
       title: '我正在参加 - 找实习有投必反馈的【阿波罗实习计划】...',
       desc: '立即申请加入阿波罗实习计划',
-      link: 'http://wx.xiaozao.org/redirect?url=https://detail.youzan.com/show/goods?alias=26winu6syk8pd&v2/goods/26winu6syk8pd',
-      imgUrl: 'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg',
+      link: 'https://wx.xiaozao.org/redirect?url=https://detail.youzan.com/show/goods?alias=26winu6syk8pd&v2/goods/26winu6syk8pd',
+      imgUrl: 'https://wx.xiaozao.org/static/img/apollo/share-icon.jpg',
       success: function () {
         AxiosUtil.get(`/api/interview/getWXConfig?url=onApolloMain`)
       }
