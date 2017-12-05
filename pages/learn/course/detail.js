@@ -24,6 +24,29 @@ export default class extends React.Component {
     let courseId = ToolsUtil.getQueryString('courseId')
     let menuId = ToolsUtil.getQueryString('menuId')
     let sectionId = ToolsUtil.getQueryString('sectionId')
+    /**
+     * 课程菜单
+     */
+    let menuContent = await AxiosUtil.get(`/api/private/learning/course/${courseId}`)
+    this.setState({menuContent: menuContent})
+    /**
+     * 获取课程详情
+     * 如果链接没有sectionId, 默认显示第一节的内容
+     */
+    if (sectionId) {
+      let course = await AxiosUtil.get(`/api/private/learning/course/${courseId}/${sectionId}/1`)
+      this.setState({course: course})
+    } else {
+      sectionId = menuContent.menuDTOList[0].sectionMenuDTOList[0].id
+      let course = await AxiosUtil.get(`/api/private/learning/course/${courseId}/${sectionId}/1`)
+      this.setState({course: course})
+    }
+    /**
+     * 作业列表
+     */
+    let homeworkContent = await AxiosUtil.get(`/api/private/work/workList/${courseId}`)
+    this.setState({homeworkContent: homeworkContent})
+
     this.setState({
       query: {
         courseId: courseId,
@@ -31,15 +54,6 @@ export default class extends React.Component {
         sectionId: sectionId
       }
     })
-
-    let course = await AxiosUtil.get(`/api/private/learning/course/${courseId}/${sectionId}/1`)
-    this.setState({course: course})
-
-    let menuContent = await AxiosUtil.get(`/api/private/learning/course/${courseId}`)
-    this.setState({menuContent: menuContent})
-
-    let homeworkContent = await AxiosUtil.get(`/api/private/work/workList/${courseId}`)
-    this.setState({homeworkContent: homeworkContent})
   }
   onChangeCourse = async (sectionId) => {
     this.setState({course: '', homeWork: ''})
@@ -51,14 +65,16 @@ export default class extends React.Component {
       <div className='course-detail' dangerouslySetInnerHTML={{__html: course}} />
     )
   }
-  onChangeHomeWork = async (workId) => {
-    this.setState({course: '', homeWork: ''})
-    let homeWork = await AxiosUtil.get(`/api/private/work/${this.state.courseId}/${workId}`)
-    this.setState({homeWork: homeWork})
+  onChangeHomeWork = async (homeWork) => {
+    this.setState({course: '', homeWork: homeWork})
+    // let homeWork = await AxiosUtil.get(`/api/private/work/${this.state.courseId}/${workId}`)
+    // this.setState({homeWork: homeWork})
   }
   renderHomeWork (homeWork) {
     return (
-      <div className='course-detail' dangerouslySetInnerHTML={{__html: homeWork}} />
+      <div className='home-work'>
+        <div className='question' dangerouslySetInnerHTML={{__html: homeWork.question}} />
+      </div>
     )
   }
   render () {
@@ -78,8 +94,7 @@ export default class extends React.Component {
         onChangeHomeWork={(workId) => { this.onChangeHomeWork(workId) }}
       >
         {!DataUtil.isEmpty(course) && this.renderCourse(course)}
-        {!DataUtil.isEmpty(homeWork) && this.renderCourse(homeWork)}
-        {this.renderHomeWork(homeWork)}
+        {!DataUtil.isEmpty(homeWork) && this.renderHomeWork(homeWork)}
         <style global jsx>{`
           .course-detail img,
           .course-detail span,
@@ -88,6 +103,16 @@ export default class extends React.Component {
             width: 100% !important;
           }
           .course-detail li {
+            list-style-type: none;
+          }
+
+          .home-work img,
+          .home-work span,
+          .home-work ol,
+          .home-work ul {
+            width: 100% !important;
+          }
+          .home-work li {
             list-style-type: none;
           }
         `}</style>

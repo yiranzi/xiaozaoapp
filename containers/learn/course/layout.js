@@ -36,7 +36,7 @@ export default class extends React.Component {
         <div className='course-menu'>
           <div className='title'>{menuContent.courseName}</div>
           <div className='content'>
-            {menuDTOList && menuDTOList.map((menu, index) => {
+            {menuDTOList.map((menu, index) => {
               return (
                 <Accordion
                   show={Number(menu.id) === Number(menuId)}
@@ -95,13 +95,18 @@ export default class extends React.Component {
         position='right'
       >
         <div className='homework'>
-          {!DataUtil.isEmpty(homeworkContent) && homeworkContent.map((item, index) => {
+          {homeworkContent.map((chapter, index) => {
             return (
-              <div key={`h_${index}`} className='section' onClick={() => onChangeHomeWork(item.id)} >
-                <Flex>
-                  <FlexItem component='p'>{item.chapterName}</FlexItem>
-                  <FlexItem component='p'>{item.childLearningCourseWorkDTOList.length > 0 ? '已回答' : '未回答'}</FlexItem>
-                </Flex>
+              <div key={`h_${index}`}>
+                <div className='header'>{chapter.chapterName}</div>
+                {chapter.childLearningCourseWorkDTOList.map((work, index) => {
+                  return (
+                    <div className='work wx-space-center' onClick={() => { this.toggleHomeWorkPop(); onChangeHomeWork(work) }}>
+                      <div className='header'>{work.title}</div>
+                      <div className='over'>{work.overWork ? '已完成' : '未完成'}</div>
+                    </div>
+                  )
+                })}
               </div>
             )
           })}
