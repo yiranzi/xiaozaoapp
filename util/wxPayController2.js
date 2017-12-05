@@ -1,11 +1,13 @@
-import AxiosUtil from '../util/axios'
 // 订单页
 let payData = null
-
+let dev = false
 let wxPayController = {}
 
-wxPayController.payInit = async (payInfo) => {
+wxPayController.payInit = async (payInfo, _dev) => {
   payData = payInfo
+  if (_dev) {
+    dev = true
+  }
   // 2 调用微信
   await wxPayController.pay()
 }
@@ -50,8 +52,10 @@ wxPayController.onBridgeReady = () => {
           json.state = 'fail'
           json.message = '支付失败'
         }
-        alert(json)
-        alert(res)
+        if (dev === true) {
+          alert(JSON.stringify(json))
+          alert(JSON.stringify(res))
+        }
         resolve(json)
       }
     )
