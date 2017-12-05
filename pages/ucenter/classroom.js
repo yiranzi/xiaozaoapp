@@ -36,30 +36,47 @@ export default class extends React.Component {
 
   doCourseRenew = async (courseId, day) => {
     let payInfo = await AxiosUtil.get(`/api/payment/freeCourseRenew/${courseId}/${day}`)
-    wxPayController.payInit(payInfo).then(function (res) {
-      if (res) {
+    if (this.state.courseList && this.state.courseList.length > 19) {
+      wxPayController.payInit(payInfo, true).then(function (res) {
+        alert(res)
         alert(JSON.stringify(res))
-        const state = res.state
+        if (res) {
+          const state = res.state
+          Alert({
+            content: res.message,
+            okText: '确定',
+            ok: function () {
+              if (state === 'ok') {
+                location.reload()
+              }
+            }
+          })
+        } else {
+          Alert({
+            content: '支付失败，请刷新后重试',
+            okText: '确定'
+          })
+        }
+      }).catch(function (err) {
         Alert({
-          content: res.message,
+          content: err.message
+        })
+      })
+    } else {
+      wxPayController.payInit(payInfo, false).then(function (res) {
+        Alert({
+          content: '支付成功',
           okText: '确定',
           ok: function () {
-            if (state === 'ok') {
-              location.reload()
-            }
+            location.reload()
           }
         })
-      } else {
+      }).catch(function (err) {
         Alert({
-          content: '支付失败，请刷新后重试',
-          okText: '确定'
+          content: err.message
         })
-      }
-    }).catch(function (err) {
-      Alert({
-        content: err.message
       })
-    })
+    }
   }
 
   showCourseRenewModal (courseId) {

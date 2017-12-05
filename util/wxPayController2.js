@@ -1,10 +1,11 @@
 // 订单页
 let payData = null
-
+let dev = false
 let wxPayController = {}
 
-wxPayController.payInit = async (payInfo) => {
+wxPayController.payInit = async (payInfo, _dev) => {
   payData = payInfo
+  dev = _dev
   // 2 调用微信
   await wxPayController.pay()
 }
@@ -38,6 +39,9 @@ wxPayController.onBridgeReady = () => {
         'paySign': paySign
       },
       function (res) {
+        if (dev) {
+          alert(JSON.stringify(res))
+        }
         let json = {state: 'unknown', message: '未知错误'}
         if (res.err_msg === 'get_brand_wcpay_request:ok') {
           json = {state: 'ok', message: '支付成功'}
@@ -45,6 +49,9 @@ wxPayController.onBridgeReady = () => {
           json = {state: 'cancel', message: '支付取消'}
         } else if (res.err_msg === 'get_brand_wcpay_request:fail') {
           json = {state: 'fail', message: '支付失败'}
+        }
+        if (dev) {
+          alert(JSON.stringify(json))
         }
         resolve(json)
       }
