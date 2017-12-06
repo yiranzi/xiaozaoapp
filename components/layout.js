@@ -35,6 +35,9 @@ export default class Layout extends React.Component {
     return (
       <div>
         {/* <script src='/static/js/retcode.js' /> */}
+        <link href='http://vjs.zencdn.net/6.4.0/video-js.css' rel='stylesheet' />
+        <script src='http://vjs.zencdn.net/6.4.0/video.js' />
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.12.2/videojs-contrib-hls.js' />
         <Header />
         <style dangerouslySetInnerHTML={{__html: weui}} />
         <style dangerouslySetInnerHTML={{__html: rweui}} />

@@ -1,4 +1,5 @@
-const axios = require('axios')
+import Tips from '../xz-components/tips'
+import axios from 'axios'
 
 let AxiosUtil = {}
 
@@ -9,7 +10,6 @@ function request (param) {
         resolve(res.data.response)
       } else {
         if (res.data.status === 9999) {
-          alert('未绑定手机号，没有权限')
           location.href = '/user/register'
         } else {
           const {data} = res
@@ -19,12 +19,14 @@ function request (param) {
             message: data.message,
             url: param.url
           }
+          Tips.info({
+            children: data.message
+          })
           reject(json)
         }
       }
     }).catch((error) => {
       if (error.response.status === 401) {
-        // alert('登录已过期，请重新登录')
         // location.reload(true)
       } else {
         reject(error.message)

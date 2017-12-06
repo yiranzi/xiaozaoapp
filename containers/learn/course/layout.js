@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import {Flex, FlexItem} from 'react-weui'
 import DataUtil from '../../../util/data'
 import Layout from '../../../components/layout'
+import Footer from '../../../containers/learn/footer'
 import Button from '../../../xz-components/button'
 import Popup from '../../../xz-components/popup'
 import Accordion from '../../../xz-components/accordion'
@@ -141,6 +142,7 @@ export default class extends React.Component {
             {this.state.homeWorkShow && this.renderHomeWork()}
           </div>
         </div>
+        <Footer type='learn' courseId={this.props.query.courseId} />
         <style jsx>{`
           .course-page {
             padding: 1rem;

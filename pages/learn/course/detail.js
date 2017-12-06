@@ -3,6 +3,7 @@ import ToolsUtil from '../../../util/tools'
 import AxiosUtil from '../../../util/axios'
 import DataUtil from '../../../util/data'
 import Layout from '../../../containers/learn/course/layout'
+import AliVideo from '../../../xz-components/aliVideo'
 
 export default class extends React.Component {
   constructor (props) {
@@ -33,13 +34,14 @@ export default class extends React.Component {
      * 获取课程详情
      * 如果链接没有sectionId, 默认显示第一节的内容
      */
+    let course
     if (sectionId) {
-      let course = await AxiosUtil.get(`/api/private/learning/course/${courseId}/${sectionId}/1`)
-      this.setState({course: course})
+      course = await AxiosUtil.get(`/api/private/learning/course/${courseId}/${sectionId}/1`)
+      this.setState({course: ToolsUtil.parseVideo(course, true)})
     } else {
       sectionId = menuContent.menuDTOList[0].sectionMenuDTOList[0].id
-      let course = await AxiosUtil.get(`/api/private/learning/course/${courseId}/${sectionId}/1`)
-      this.setState({course: course})
+      course = await AxiosUtil.get(`/api/private/learning/course/${courseId}/${sectionId}/1`)
+      this.setState({course: ToolsUtil.parseVideo(course, true)})
     }
     /**
      * 作业列表
@@ -62,7 +64,21 @@ export default class extends React.Component {
   }
   renderCourse (course) {
     return (
-      <div className='course-detail' dangerouslySetInnerHTML={{__html: course}} />
+      <div className='course-detail'>
+        <div className='course-detail' dangerouslySetInnerHTML={{__html: course.string}} />
+        <div className='video-list'>
+          {course.videoList && course.videoList.map((item, index) => {
+            return (
+              <div key={index}>
+                src: {item.src}
+                <br />
+                playerId: {item.playerId}
+                <AliVideo key={index} playerId={item.playerId} type='m3u8' src={item.src} height='170px' />
+              </div>
+            )
+          })}
+        </div>
+      </div>
     )
   }
   onChangeHomeWork = async (homeWork) => {

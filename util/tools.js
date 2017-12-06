@@ -1,3 +1,4 @@
+const DataUtils = require('./data')
 const fs = require('fs')
 const path = require('path')
 
@@ -9,6 +10,31 @@ ToolsUtil.getQueryString = function (name) {
   var r = window.location.search.substr(1).match(reg)
   if (r != null) return unescape(r[2])
   return null
+}
+
+ToolsUtil.parseVideo = function (content, isH5) {
+  const videoList = []
+  const regexpVideo = /<(video) [^>]*>.*?<\/\1>/g
+  const regexpSrc = /src="([^"]*)"/
+  if (!content) {
+    content = ''
+  }
+  const string = content.replace(regexpVideo, function (str) {
+    const playerId = `player_${DataUtils.uuid()}`
+    let src = str.match(regexpSrc)[1]
+    if (isH5) {
+      src = src.replace(/https:/, 'http:')
+    }
+    videoList.push({
+      playerId,
+      src
+    })
+    return `<video id="${playerId}" class="video-js" style="display:none;"></video>`;
+  })
+  return {
+    string,
+    videoList
+  }
 }
 
 // 遍历文件夹
@@ -24,6 +50,7 @@ ToolsUtil.walkDir = function (dir, files) {
     }
   })
 }
+
 // next.config.js exportPathMap
 ToolsUtil.exportPathMap = function () {
   const dir = path.join(__dirname, '../pages')
