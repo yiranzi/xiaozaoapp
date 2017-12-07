@@ -4,18 +4,12 @@ import {
   Panel
 } from 'react-weui'
 /**
- * 渲染团购的卡片
+ * 准备渲染查看其他人
  */
 export default class extends React.Component {
-  constructor (props) {
-    super(props)
-  }
-
   componentDidMount = async () => {
     console.log('componentDidMount seeother')
   }
-
-
 
   render () {
     let {answerList} = this.props
@@ -26,11 +20,6 @@ export default class extends React.Component {
       })
       return (<Panel style={{backgroundColor: '#efeff4'}}>
         {studentAnswerArray}
-        <style jsx>{`
-        .weui-panel{
-
-        }
-        `}</style>
       </Panel>)
     } else {
       return <div>Loading...</div>

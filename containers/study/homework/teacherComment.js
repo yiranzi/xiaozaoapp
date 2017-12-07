@@ -3,12 +3,14 @@ import AxiosUtil from '../../../util/axios'
 import {
   Cell,
   CellHeader,
+  CellFooter,
   CellBody,
   MediaBox,
   MediaBoxTitle,
   MediaBoxDescription
 } from 'react-weui'
 import DateUtil from '/util/date'
+import GiveScore from '/containers/study/homework/giveScore'
 
 export default class extends React.Component {
   constructor (props) {
@@ -55,12 +57,26 @@ export default class extends React.Component {
     }
   }
 
+  renderEvaluateScore () {
+    let {score, id: evaluateId} = this.state.teacherComment
+    if (evaluateId) {
+      return (<cell>
+        <CellFooter>
+          <Cell>
+            <GiveScore evaluateId={evaluateId} score={score} />
+          </Cell>
+        </CellFooter>
+      </cell>)
+    }
+  }
+
   render () {
     let {teacherComment} = this.state
     if (teacherComment) {
       return (<MediaBox style={{textAlign: 'left'}}>
         {this.renderTitle()}
         {this.renderDescription()}
+        {this.props.canEvaluateScore && this.renderEvaluateScore()}
       </MediaBox>)
     } else {
       return <div>Loading...</div>

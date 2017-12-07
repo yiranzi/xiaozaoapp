@@ -22,7 +22,7 @@ export default class extends React.Component {
       answerList: undefined
     }
     this.onTabClick = this.onTabClick.bind(this)
-    this.updataList = this.updataList.bind(this)
+    this.updataStudentAnswerList = this.updataStudentAnswerList.bind(this)
   }
 
   componentDidMount = async () => {
@@ -69,27 +69,38 @@ export default class extends React.Component {
     if (payStatus === undefined || payStatus === 'unbuyed') {
       return
     }
-    if (!overWork) {
+    if (this.state.currentSelect === index) {
+      this.setState({
+        currentSelect: -1
+      })
+      return
+    }
+    if (overWork) {
+      // 如果完成作业
       if (index === 0) {
-        console.log(this)
-        console.log(this.updataList)
-        this.updataList()
+        // 拉取作业列表
+        this.updataStudentAnswerList()
       } else if (index === 1) {
-        console.log('get my homework')
+        this.updataMyQuestionAndAnswer()
       }
       this.setState({
         currentSelect: index
       })
     } else {
+      // 拉取数据
+      this.updataMyQuestionAndAnswer()
       const doHomeWorkIndex = 1
+      if (index !== doHomeWorkIndex) {
+        alert('提交完作业才可以查看其他人答案哦')
+      }
       this.setState({
         currentSelect: doHomeWorkIndex
       })
     }
   }
 
-  updataList = async () => {
-    console.log('updataList')
+  updataStudentAnswerList = async () => {
+    console.log('updataStudentAnswerList')
     let {workId, endTime} = this.props.questionItem
     let {courseId} = this.props
     let answerListByPage = await AxiosUtil.get(`/api/work/answerList/${courseId}/${workId}/?pn=1`)
@@ -103,11 +114,31 @@ export default class extends React.Component {
     console.log(data)
   }
 
-  renderTabbar (questionItem) {
-    console.log(questionItem)
-    let {answerCount} = questionItem
-    let {workId} = questionItem
+  updataMyQuestionAndAnswer = async () => {
+    console.log('updataMyQuestionAndAnswer')
+    let {workId} = this.props.questionItem
     let {courseId} = this.props
+    let getQuestion = await AxiosUtil.get(`/api/private/work/${courseId}/${workId}`)
+    if (getQuestion.answer) {
+      // 如果已有答案。 或者直接读取overStatus。 或者有了答案 请求刷新
+      let getMyAnswer = await AxiosUtil.get(`/api/work/myAnswer/${courseId}/${workId}`)
+      await this.setState({
+        questionInfo: getQuestion,
+        myAnswer: getMyAnswer
+      })
+    } else {
+      console.log('not do homework')
+      this.setState({
+        questionInfo: getQuestion
+      })
+    }
+  }
+
+  renderTabbar () {
+    let {questionItem} = this.props
+    let {answerCount, workId} = questionItem
+    let {courseId} = this.props
+    let {questionInfo, myAnswer} = this.state
     answerCount = answerCount || 0
     let allAnswerIcon = <div>
       <p>全部回答</p>
@@ -126,14 +157,14 @@ export default class extends React.Component {
     return (
       <Tabbar style={{marginTop: '10px', marginBottom: '10px'}} currentSelect={this.state.currentSelect} onTabClick={this.onTabClick}>
         <TabItem title={allAnswerIcon} ><SeeOtherWork answerList={this.state.answerList} courseId={courseId} workId={workId} /></TabItem>
-        <TabItem title={myAnswerIcon} ><SeeMyWork courseId={courseId} workId={workId} /></TabItem>
+        <TabItem title={myAnswerIcon} ><SeeMyWork courseId={courseId} workId={workId} questionInfo={questionInfo} myAnswer={myAnswer} /></TabItem>
         <TabItem title={dateIcon} disabled>empty</TabItem>
       </Tabbar>)
   }
 
-  renderTitle (questionItem) {
-    let {title} = questionItem
-    let {overWork} = questionItem
+  renderTitle () {
+    let {questionItem} = this.props
+    let {title, overWork} = questionItem
     return (
       <div className='question-title-div'>
         <h3 className='question-title'>{title}</h3>
@@ -168,7 +199,8 @@ export default class extends React.Component {
     </div>)
   }
 
-  renderContent (questionItem) {
+  renderContent () {
+    let {questionItem} = this.props
     return (<div onClick={() => { this.clickContent() }}>
       <div dangerouslySetInnerHTML={{__html: questionItem.question}} />
     </div>)
@@ -179,21 +211,26 @@ export default class extends React.Component {
       display: 'block'
     }
     let {questionItem} = this.props
-    return (<MediaBox>
-      <MediaBoxTitle>
-        {this.renderTitle(questionItem)}
-      </MediaBoxTitle>
-      <MediaBoxDescription style={style}>
-        {this.renderContent(questionItem)}
-      </MediaBoxDescription>
-      <MediaBoxInfo>
-        跳转链接
-      </MediaBoxInfo>
-      {this.renderTabbar(questionItem)}
-      <style jsx>{`
+    if (questionItem) {
+      return (<MediaBox>
+        <div onClick = {this.props.updataFunc}>1onClick1123</div>
+        <MediaBoxTitle>
+          {this.renderTitle()}
+        </MediaBoxTitle>
+        <MediaBoxDescription style={style}>
+          {this.renderContent()}
+        </MediaBoxDescription>
+        <MediaBoxInfo>
+          跳转链接
+        </MediaBoxInfo>
+        {this.renderTabbar()}
+        <style jsx>{`
 
       `}</style>
-    </MediaBox>)
+      </MediaBox>)
+    } else {
+      return <div>Loading...</div>
+    }
   }
 }
 

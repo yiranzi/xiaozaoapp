@@ -34,6 +34,12 @@ export default function (WrappedComponent, getDataFunc) {
       }
     }
 
+    // 刷新
+    updataAll () {
+      console.log('updataAll')
+      this.getContentData(this.props.courseId)
+    }
+
     // 拉取实际上由hoc的参数完成。这里调用回调。获得需要的数据后
     getContentData = async (courseId) => {
       let data = await getDataFunc(courseId)
@@ -46,10 +52,10 @@ export default function (WrappedComponent, getDataFunc) {
       // 重组props。包括原有的和包裹后新增的。
       if (this.state.data) {
         // 这样也许保证 子组件的 did一定有数据
-        return <WrappedComponent data={this.state.data} {...this.props} />
+        return <WrappedComponent updataFunc={() => { this.updataAll() }} data={this.state.data} {...this.props} />
       } else {
         // 也可以使用loading
-        return null
+        return <div>Loading...</div>
       }
     }
   }

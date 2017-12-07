@@ -18,7 +18,11 @@ class innerComponent extends React.Component {
 
   renderLessonQuestions (lesson) {
     let questionDivList = lesson.childLearningCourseWorkDTOList.map((questionItem, index) => {
-      return (<QuestionItem key={questionItem.workId} courseId={this.props.courseId} questionItem={questionItem} payStatus={this.props.courseStatus} />)
+      return (<QuestionItem key={questionItem.workId}
+        courseId={this.props.courseId}
+        questionItem={questionItem}
+        updataFunc={this.props.updataFunc}
+        payStatus={this.props.courseStatus} />)
     })
     return (questionDivList)
   }
