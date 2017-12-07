@@ -98,15 +98,19 @@ export default class extends React.Component {
 
   renderTeacherComment () {
     let {score, id} = this.props.myAnswer
+    let contentDiv
     if (score !== null) {
       let title = <span style={{flex: 'auto'}}>导师点评{score}分</span>
-      let content = <TeacherComment studentAnswerId={id} canEvaluateScore={true} />
-      return (<cell>
-        <CellFooter>
-          <MoreLine title={title} content={content} />
-        </CellFooter>
-      </cell>)
+      let content = <TeacherComment studentAnswerId={id} canEvaluateScore />
+      contentDiv = <MoreLine title={title} content={content} />
+    } else {
+      contentDiv = <div onClick={this.props.onEditButtonClick}>修改答案</div>
     }
+    return (<cell>
+      <CellFooter>
+        {contentDiv}
+      </CellFooter>
+    </cell>)
   }
 
   render () {

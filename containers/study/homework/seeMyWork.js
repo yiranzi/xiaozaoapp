@@ -14,6 +14,7 @@ export default class extends React.Component {
     this.state = {
       editStatus: false
     }
+    this.onEditButtonClick = this.onEditButtonClick.bind(this)
   }
 
   componentDidMount = async () => {
@@ -59,6 +60,14 @@ export default class extends React.Component {
     }
   }
 
+  // 重新编辑的回调
+  onEditButtonClick () {
+    console.log(this)
+    this.setState({
+      editStatus: true
+    })
+  }
+
   render () {
     console.log('render mywork')
     let {courseId, workId, questionInfo, myAnswer} = this.props
@@ -66,13 +75,14 @@ export default class extends React.Component {
       return (<div>
         <p>{courseId}</p>
         <p>{workId}</p>
-        <p>{123123}</p>
-        <p>{this.state.editStatus}</p>
+        <p>{questionInfo.type}</p>
+        <p>endend123123</p>
+        <p>{this.state.editStatus ? 'true' : 'false'}</p>
         <Panel style={this.getVisibleStyle('edit')}>
-          <EditHomework {...this.props} />
+          <EditHomework {...this.props} updataFunc={this.props.updataFunc} />
         </Panel>
         <Panel style={this.getVisibleStyle('view')}>
-          <ViewHomework {...this.props} />
+          <ViewHomework {...this.props} onEditButtonClick={() => { this.onEditButtonClick() }} />
         </Panel>
       </div>)
     } else {

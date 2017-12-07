@@ -23,10 +23,19 @@ export default class extends React.Component {
     }
     this.onTabClick = this.onTabClick.bind(this)
     this.updataStudentAnswerList = this.updataStudentAnswerList.bind(this)
+    this.updataMyQuestionAndAnswer = this.updataMyQuestionAndAnswer.bind(this)
   }
 
   componentDidMount = async () => {
     console.log('question item componentDidMount')
+  }
+
+  // 在更新的时候，判定是否拉取。
+  componentWillReceiveProps = async (nextProps) => {
+    let {currentSelect} = this.state
+    if (currentSelect === 1) {
+      this.updataMyQuestionAndAnswer()
+    }
   }
 
   setOverStatus (endTime, commitTime) {
@@ -157,7 +166,14 @@ export default class extends React.Component {
     return (
       <Tabbar style={{marginTop: '10px', marginBottom: '10px'}} currentSelect={this.state.currentSelect} onTabClick={this.onTabClick}>
         <TabItem title={allAnswerIcon} ><SeeOtherWork answerList={this.state.answerList} courseId={courseId} workId={workId} /></TabItem>
-        <TabItem title={myAnswerIcon} ><SeeMyWork courseId={courseId} workId={workId} questionInfo={questionInfo} myAnswer={myAnswer} /></TabItem>
+        <TabItem title={myAnswerIcon} >
+          <SeeMyWork
+            courseId={courseId}
+            workId={workId}
+            questionInfo={questionInfo}
+            updataFunc={this.props.updataFunc}
+            myAnswer={myAnswer} />
+          </TabItem>
         <TabItem title={dateIcon} disabled>empty</TabItem>
       </Tabbar>)
   }
@@ -213,7 +229,6 @@ export default class extends React.Component {
     let {questionItem} = this.props
     if (questionItem) {
       return (<MediaBox>
-        <div onClick = {this.props.updataFunc}>1onClick1123</div>
         <MediaBoxTitle>
           {this.renderTitle()}
         </MediaBoxTitle>
