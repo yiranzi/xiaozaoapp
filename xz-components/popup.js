@@ -6,88 +6,78 @@ export default class extends React.Component {
   static propTypes = {
     close: PropTypes.bool,
     show: PropTypes.bool,
+    position: PropTypes.string,
     onRequestClose: PropTypes.func,
     crossIcon: PropTypes.object
   }
   static defaultProps = {
     close: true,
     show: false,
+    position: 'left',
     onRequestClose: () => {}
   }
   renderStyle () {
     const {position} = this.props
     if (position === 'left') {
-      return (
-        `
-          left: 0;
-          transform: translate(-100%, 0);
-        `
-      )
+      return {
+        'left': 0,
+        'transform': 'translate(-100%, 0)'
+      }
     }
-    // 显示正确
     if (position === 'right') {
-      return (
-        `
-          right: 0;
-          transform: translate(100%, 0);
-        `
-      )
+      return {
+        'right': 0,
+        'transform': 'translate(100%, 0)'
+      }
     }
     if (position === 'top') {
-      return (
-        `
-          transform: translate(0, -100%);
-        `
-      )
+      return {
+        'transform': 'translate(0, -100%)'
+      }
     }
-    // 显示正确
     if (position === 'bottom') {
-      return (
-        `
-          transform: translate(0, 100%);
-        `
-      )
+      return {
+        'transform': 'translate(0, 100%)'
+      }
     }
   }
   renderToggle () {
     const {position} = this.props
     if (position === 'left') {
-      return (
-        `
-          left: 0;
-          transform: translate(0, 0);
-        `
-      )
+      return {
+        'left': 0,
+        'transform': 'translate(0, 0)'
+      }
     }
-    // 显示正确
     if (position === 'right') {
-      return (
-        `
-          right: 0;
-          transform: translate(0, 0);
-        `
-      )
+      return {
+        'right': 0,
+        'transform': 'translate(0, 0)'
+      }
     }
     if (position === 'top') {
-      return (
-        `
-          transform: translate(0, -100%);
-        `
-      )
+      return {
+        'transform': 'translate(0, -100%)'
+      }
     }
-    // 显示正确
     if (position === 'bottom') {
-      return (
-        `
-          transform: translate(0, 100%);
-        `
-      )
+      return {
+        'transform': 'translate(0, 100%)'
+      }
     }
+  }
+  getStyle () {
+    let style = this.renderStyle()
+    if (this.props.show) {
+      Object.assign(style, this.renderToggle())
+    }
+    return style
   }
   render () {
     const {show, close, onRequestClose, crossIcon} = this.props
     return (
       <Popup
+        style={this.getStyle()}
         show={show}
         onRequestClose={(e) => onRequestClose()}
       >
@@ -111,14 +101,9 @@ export default class extends React.Component {
             overflow-y: scroll;
             position: fixed;
             bottom: 0;
-            ${this.renderStyle()}
             backface-visibility: hidden;
             z-index: 5000;
             transition: transform .3s;
-          }
-          .weui-popup_toggle {
-            ${this.renderToggle()}
-            // transform: translate(0, 0);
           }
           .close {
             width: 30px;

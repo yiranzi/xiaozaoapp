@@ -29,7 +29,7 @@ ToolsUtil.parseVideo = function (content, isH5) {
       playerId,
       src
     })
-    return `<video id="${playerId}" class="video-js" style="display:none;"></video>`;
+    return `<video id="${playerId}" class="video-js" style="display:none;"></video>`
   })
   return {
     string,

@@ -4,6 +4,7 @@ import AxiosUtil from '../../../util/axios'
 import DataUtil from '../../../util/data'
 import Layout from '../../../containers/learn/course/layout'
 import AliVideo from '../../../xz-components/aliVideo'
+import LoadingIcon from '../../../xz-components/loadingicon'
 
 export default class extends React.Component {
   constructor (props) {
@@ -14,10 +15,10 @@ export default class extends React.Component {
         menuId: '',
         sectionId: ''
       },
-      menuContent: {},
-      homeworkContent: {},
-      course: '',
-      homeWork: ''
+      menuContent: {}, // 左侧课程列表
+      homeworkContent: {}, // 右侧作业列表
+      showCourse: true, // 当前是课程详情, false显示的是homework
+      detail: {} // 需要展示的内容
     }
   }
 
@@ -25,23 +26,21 @@ export default class extends React.Component {
     let courseId = ToolsUtil.getQueryString('courseId')
     let menuId = ToolsUtil.getQueryString('menuId')
     let sectionId = ToolsUtil.getQueryString('sectionId')
-    /**
-     * 课程菜单
-     */
+
     let menuContent = await AxiosUtil.get(`/api/private/learning/course/${courseId}`)
     this.setState({menuContent: menuContent})
     /**
      * 获取课程详情
      * 如果链接没有sectionId, 默认显示第一节的内容
      */
-    let course
+    let detail
     if (sectionId) {
-      course = await AxiosUtil.get(`/api/private/learning/course/${courseId}/${sectionId}/1`)
-      this.setState({course: ToolsUtil.parseVideo(course, true)})
+      detail = await AxiosUtil.get(`/api/private/learning/course/${courseId}/${sectionId}/1`)
+      this.setState({detail: ToolsUtil.parseVideo(detail, true)})
     } else {
       sectionId = menuContent.menuDTOList[0].sectionMenuDTOList[0].id
-      course = await AxiosUtil.get(`/api/private/learning/course/${courseId}/${sectionId}/1`)
-      this.setState({course: ToolsUtil.parseVideo(course, true)})
+      detail = await AxiosUtil.get(`/api/private/learning/course/${courseId}/${sectionId}/1`)
+      this.setState({detail: ToolsUtil.parseVideo(detail, true)})
     }
     /**
      * 作业列表
@@ -93,13 +92,21 @@ export default class extends React.Component {
       </div>
     )
   }
+  renderContent () {
+    const {detail, showCourse} = this.state
+    if (DataUtil.isEmpty(detail)) return <LoadingIcon />
+    if (showCourse) {
+      console.log('展示course')
+      return this.renderCourse(detail)
+    } else {
+      return this.renderHomeWork(detail)
+    }
+  }
   render () {
     const {
       query,
       menuContent,
-      homeworkContent,
-      course,
-      homeWork
+      homeworkContent
     } = this.state
     return (
       <Layout
@@ -109,8 +116,9 @@ export default class extends React.Component {
         onChangeCourse={(sectionId) => { this.onChangeCourse(sectionId) }}
         onChangeHomeWork={(workId) => { this.onChangeHomeWork(workId) }}
       >
-        {!DataUtil.isEmpty(course) && this.renderCourse(course)}
-        {!DataUtil.isEmpty(homeWork) && this.renderHomeWork(homeWork)}
+        {this.renderContent()}
+        {/* {!DataUtil.isEmpty(course) && this.renderCourse(course)} */}
+        {/* {!DataUtil.isEmpty(homeWork) && this.renderHomeWork(homeWork)} */}
         <style global jsx>{`
           .course-detail {
             padding-bottom: 2rem;

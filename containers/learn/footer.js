@@ -38,12 +38,12 @@ export default class extends React.Component {
         <div
           className={ClassNames('item', {'current': this.state.source || type === 'source'})}
           onTouchStart={() => { this.setState({source: true}) }}
-          onTouchEnd={() => { this.setState({source: false}, () => { location.href = '/course/source' }) }}
+          onTouchEnd={() => { this.setState({source: false}, () => { location.href = '/learn/course/download?courseId=' + courseId }) }}
         >
           <div className='icon'>
             {(this.state.source || type === 'source') ? <img src='/static/img/learn/course/source_active.png' /> : <img src='/static/img/learn/course/source.png' />}
           </div>
-          <div className='text'>我的</div>
+          <div className='text'>资料</div>
         </div>
         <style jsx>{`
           .footer {
