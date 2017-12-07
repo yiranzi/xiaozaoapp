@@ -64,7 +64,6 @@ export default class extends React.Component {
     let {teacherComment} = this.props
     if (teacherComment) {
       return (<MediaBox>
-        {answerData.overStatus && <img style={{position: 'absolute', width: '50px', right: '0px', top: '0'}}src='/static/img/study/homework-late.png' />}
         {this.renderTitle()}
         {this.renderDescription()}
       </MediaBox>)
