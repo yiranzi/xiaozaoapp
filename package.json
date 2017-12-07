@@ -17,6 +17,7 @@
     "express": "4.15.4",
     "http-proxy-middleware": "0.17.4",
     "next": "3.0.6",
+    "nprogress": "^0.2.0",
     "react": "15.6.1",
     "react-dom": "15.6.1",
     "react-slick": "^0.15.4",

@@ -96,7 +96,6 @@ export default class extends React.Component {
     const {detail, showCourse} = this.state
     if (DataUtil.isEmpty(detail)) return <LoadingIcon />
     if (showCourse) {
-      console.log('展示course')
       return this.renderCourse(detail)
     } else {
       return this.renderHomeWork(detail)
@@ -145,6 +144,9 @@ export default class extends React.Component {
             list-style-type: none;
           }
         `}</style>
+        <link href='/static/js/video-js.css' rel='stylesheet' />
+        <script src='/static/js/video.js' />
+        <script src='/static/js/videojs-contrib-hls.js' />
       </Layout>
     )
   }
