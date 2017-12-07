@@ -14,13 +14,14 @@ export default class extends React.Component {
     const {type, courseId} = this.props
     return (
       <div className='footer'>
+        <div className='index'>课程<br />首页</div>
         <div
           className={ClassNames('item', {'current': this.state.learn || type === 'learn'})}
           onTouchStart={() => { this.setState({learn: true}) }}
           onTouchEnd={() => { this.setState({learn: false}, () => { location.href = '/learn/course/detail?courseId=' + courseId }) }}
         >
           <div className='icon'>
-            {(this.state.learn || type === 'learn') ? <img src='/static/img/abilitycollege/college_active.png' /> : <img src='/static/img/abilitycollege/college.png' />}
+            {(this.state.learn || type === 'learn') ? <img src='/static/img/learn/course/learn_active.png' /> : <img src='/static/img/learn/course/learn.png' />}
           </div>
           <div className='text'>学习</div>
         </div>
@@ -30,7 +31,7 @@ export default class extends React.Component {
           onTouchEnd={() => { this.setState({test: false}, () => { location.href = '/learn/course/testList?courseId=' + courseId }) }}
         >
           <div className='icon'>
-            {(this.state.test || type === 'test') ? <img src='/static/img/abilitycollege/hr_active.png' /> : <img src='/static/img/abilitycollege/hr.png' />}
+            {(this.state.test || type === 'test') ? <img src='/static/img/learn/course/test_active.png' /> : <img src='/static/img/learn/course/test.png' />}
           </div>
           <div className='text'>测试</div>
         </div>
@@ -40,7 +41,7 @@ export default class extends React.Component {
           onTouchEnd={() => { this.setState({source: false}, () => { location.href = '/course/source' }) }}
         >
           <div className='icon'>
-            {(this.state.source || type === 'source') ? <img src='/static/img/abilitycollege/me_active.png' /> : <img src='/static/img/abilitycollege/me.png' />}
+            {(this.state.source || type === 'source') ? <img src='/static/img/learn/course/source_active.png' /> : <img src='/static/img/learn/course/source.png' />}
           </div>
           <div className='text'>我的</div>
         </div>
@@ -48,21 +49,25 @@ export default class extends React.Component {
           .footer {
             font-size: 10pt;
             text-align: center;
-            background-color: #f0f2f6;
+            background-color: #fff;
             display: flex;
             justify-content: space-between;
             position: fixed;
             bottom: 0;
-            border-top: 1px solid #F9F9F9;
+            border-top: 1px solid #e5e5e5;
             width: 100%;
+          }
+          .footer .index {
+            line-height: 1rem;
+            background-color: #e5e5e5;
+            padding: 10px;
           }
           .footer .item {
             padding: 5px 0;
             flex: 1;
           }
           .footer .current {
-            background-color: #241d66;
-            color: #fff;
+            color: #3ea6f7;
           }
           .footer .icon {
             font-size: 0;

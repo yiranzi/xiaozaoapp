@@ -105,7 +105,7 @@ export default class extends React.Component {
           .weui-popup {
             width: 80%;
             height: 100%;
-            background-color: #f0f2f6;
+            background-color: #fff;
             padding: 15px 10px;
             box-sizing: border-box;
             overflow-y: scroll;

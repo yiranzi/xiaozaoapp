@@ -1,6 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
-import {Cell, CellHeader, CellBody, CellFooter} from 'react-weui'
+import {Cell, CellHeader, CellBody, CellFooter, Icon} from 'react-weui'
 import ThemeConfig from '../../../config/theme'
 import Layout from '../../../components/layout'
 import Footer from '../../../containers/learn/footer'
@@ -116,17 +116,18 @@ export default class extends React.Component {
         show={homeWorkShow}
         onRequestClose={() => { this.toggleHomeWorkPop() }}
         position='right'
+        close={false}
       >
         <div className='homework'>
           {homeworkContent.map((chapter, index) => {
             return (
-              <div key={`h_${index}`}>
-                <div className='header'>{chapter.chapterName}</div>
+              <div className='chapter' key={`h_${index}`}>
+                <div className='header'><img src='/static/img/learn/course/file.png' />{chapter.chapterName}</div>
                 {chapter.childLearningCourseWorkDTOList.map((work, index) => {
                   return (
                     <div className='work wx-space-center' onClick={() => { this.toggleHomeWorkPop(); onChangeHomeWork(work) }}>
-                      <div className='header'>{work.title}</div>
-                      <div className='over'>{work.overWork ? '已完成' : '未完成'}</div>
+                      <div className='sub-title'>{work.title}</div>
+                      <div className='over'>{work.overWork ? <Icon style={{color: '#3ea6f7', fontSize: '1rem'}} value='success-no-circle' /> : <Icon style={{color: ThemeConfig.color.content, fontSize: '1rem'}} value='success-no-circle' />}</div>
                     </div>
                   )
                 })}
@@ -134,6 +135,19 @@ export default class extends React.Component {
             )
           })}
           <style jsx>{`
+            .chapter {
+              margin-top: 20px;
+            }
+            .homework {
+              padding: 10px;
+            }
+            .header {
+              font-weight: bold;
+            }
+            .header img {
+              width: 20px;
+              height: 20px;
+            }
             .title {
               text-align: center;
             }

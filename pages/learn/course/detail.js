@@ -112,6 +112,9 @@ export default class extends React.Component {
         {!DataUtil.isEmpty(course) && this.renderCourse(course)}
         {!DataUtil.isEmpty(homeWork) && this.renderHomeWork(homeWork)}
         <style global jsx>{`
+          .course-detail {
+            padding-bottom: 2rem;
+          }
           .course-detail img,
           .course-detail span,
           .course-detail ol,
@@ -121,7 +124,9 @@ export default class extends React.Component {
           .course-detail li {
             list-style-type: none;
           }
-
+          .home-work {
+            padding-bottom: 2rem;
+          }
           .home-work img,
           .home-work span,
           .home-work ol,
