@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 
 export class TabItem extends React.Component {
   static propTypes = {
-    title: PropTypes.string,
+    title: PropTypes.object,
     style: PropTypes.object,
     disabled: PropTypes.bool
 
@@ -93,6 +93,9 @@ export class Tabbar extends React.Component {
         return <div className='tab-bar-item' key={index} style={finalStyle} onClick={() => { this.onTabClick(cProps.disabled, index) }}>
           {cProps.title}
           <style jsx>{`
+            .tab-bar-item {
+              position: relative;
+            }
             .tab-bar-item + div {
               border-left: 1px solid #dadada;
             }
@@ -201,14 +204,34 @@ export class Tabbar extends React.Component {
 
   renderContent () {
     const tabsData = this.getTabs()
-    if (tabsData[this.state.currentSelect] && tabsData[this.state.currentSelect].children) {
-      return (<div>
-        <div>{tabsData[this.state.currentSelect].children}</div>
+    let style
+    return tabsData.map((content, index) => {
+      if (index === this.state.currentSelect && tabsData[this.state.currentSelect] && tabsData[this.state.currentSelect].children) {
+        style = {
+          display: 'block'
+        }
+      } else {
+        style = {
+          display: 'none'
+        }
+      }
+      return (<div key={index} style={style}>
+        {content.children}
       </div>)
-    } else {
-      return (<div>
-        <div>{`kong`}</div>
-      </div>)
-    }
+    })
   }
+
+  // renderContent () {
+  //   console.log('disappear')
+  //   const tabsData = this.getTabs()
+  //   if (tabsData[this.state.currentSelect] && tabsData[this.state.currentSelect].children) {
+  //     return (<div>
+  //       <div>{tabsData[this.state.currentSelect].children}</div>
+  //     </div>)
+  //   } else {
+  //     return (<div>
+  //       <div>{`kong`}</div>
+  //     </div>)
+  //   }
+  // }
 }

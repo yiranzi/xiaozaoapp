@@ -2,7 +2,11 @@ import React from 'react'
 import AxiosUtil from '../../../util/axios'
 import HocRenderContent from '/containers/study/hocRenderContent'
 import QuestionItem from '/containers/study/homework/questionItem'
-
+import {
+  Panel,
+  PanelHeader,
+  PanelBody
+} from 'react-weui'
 // 原始组件
 class innerComponent extends React.Component {
   constructor (props) {
@@ -14,7 +18,7 @@ class innerComponent extends React.Component {
 
   renderLessonQuestions (lesson) {
     let questionDivList = lesson.childLearningCourseWorkDTOList.map((questionItem, index) => {
-      return (<QuestionItem questionItem={questionItem} payStatus={this.props.courseStatus} />)
+      return (<QuestionItem key={questionItem.workId} courseId={this.props.courseId} questionItem={questionItem} payStatus={this.props.courseStatus} />)
     })
     return (questionDivList)
   }
@@ -22,36 +26,42 @@ class innerComponent extends React.Component {
   render () {
     let {data: allHomeworkByLesson} = this.props
     if (allHomeworkByLesson && allHomeworkByLesson.length > 0) {
-      let lessonHomework = allHomeworkByLesson.map((lesson) => {
-        return (<div className='homework-page'>
-
-          <div className='lesson-title'>
-            <img src='/static/img/study/homework-icon.png' />
-            <h2>{lesson.chapterName}</h2>
-          </div>
-          {this.renderLessonQuestions(lesson)}
-          <style jsx>{`
-            .homework-page {
-
-            }
+      let lessonHomework = allHomeworkByLesson.map((lesson, index) => {
+        return (
+          <Panel key={index}>
+            <PanelHeader>
+              <div className='lesson-title'>
+                <img src='/static/img/study/homework-icon.png' />
+                <h2>{lesson.chapterName}</h2>
+              </div>
+            </PanelHeader>
+            <PanelBody>
+              {this.renderLessonQuestions(lesson)}
+            </PanelBody>
+            <style jsx>{`
             .lesson-title {
               display: flex;
               justify-content: center;
               align-items: center;
-              font-size: 20px;
+              color: black;
             }
             .lesson-title img {
               width: 30px;
             }
             .lesson-title h2 {
-              font-size: 20px;
+              font-size: 18px;
             }
           `}</style>
-        </div>)
+          </Panel>)
       })
-      return (<div>
-        <h1>{this.props.courseStatus}</h1>
+      return (<div className='homework-page'>
+        {this.props.courseStatus === 'unbuyed' && <h1>立即报名课程，解锁以下作业</h1>}
         {lessonHomework}
+        <style jsx>{`
+          .homework-page {
+            background-color: #efeff4
+          }
+        `}</style>
       </div>)
     } else {
       return null

@@ -1,30 +1,40 @@
 import React from 'react'
 import { Tabbar, TabItem } from '/xz-components/tabbar'
 import DateUtil from '/util/date'
+import SeeMyWork from '/containers/study/homework/seeMyWork'
+import SeeOtherWork from '/containers/study/homework/seeOtherWork'
+import {
+  MediaBox,
+  MediaBoxTitle,
+  MediaBoxDescription,
+  MediaBoxInfo
+} from 'react-weui'
 
+import AxiosUtil from '../../../util/axios'
 /**
- * 渲染团购的卡片
+ * 渲染每个问题
  */
 export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      currentSelect: -1
+      currentSelect: -1,
+      answerList: undefined
     }
     this.onTabClick = this.onTabClick.bind(this)
+    this.updataList = this.updataList.bind(this)
   }
 
   componentDidMount = async () => {
-    console.log('componentDidMount')
+    console.log('question item componentDidMount')
   }
 
-  setOverStatus (questionItem) {
-    let commitTime = questionItem.updateTime
+  setOverStatus (endTime, commitTime) {
     let delayDay
     if (commitTime) {
-      delayDay = DateUtil.diffTime(questionItem.endDate, commitTime)
+      delayDay = DateUtil.diffTime(endTime, commitTime)
     } else {
-      delayDay = DateUtil.diffDay(questionItem.endDate)
+      delayDay = DateUtil.diffDay(endTime)
     }
     if (delayDay <= 0) {
       // 已结束
@@ -50,36 +60,54 @@ export default class extends React.Component {
   // 2
 
   onTabClick (index) {
-    console.log('onTabClick')
+    if (index === 2) {
+      return
+    }
     let {payStatus, questionItem} = this.props
     let {overWork} = questionItem
-    if (payStatus !== undefined && payStatus !== 'unbuyed') {
-      // 已经付费
-      if (overWork) {
-        this.setState({
-          currentSelect: index
-        })
-      } else {
-        const doHomeWorkIndex = 1
-        this.setState({
-          currentSelect: doHomeWorkIndex
-        })
+    // 未付费
+    if (payStatus === undefined || payStatus === 'unbuyed') {
+      return
+    }
+    if (!overWork) {
+      if (index === 0) {
+        console.log(this)
+        console.log(this.updataList)
+        this.updataList()
+      } else if (index === 1) {
+        console.log('get my homework')
       }
+      this.setState({
+        currentSelect: index
+      })
+    } else {
+      const doHomeWorkIndex = 1
+      this.setState({
+        currentSelect: doHomeWorkIndex
+      })
     }
   }
 
-  getStatus () {
-    // 未付费
-
-    // 已付费 未完成 未过期 （可以做作业。点击任何都是做作业，不可查看其他人）
-
-    // 已付费 未完成 已过期 （可以做作业。点击任何都是做作业 ）
-
-    // 已付费 已完成
+  updataList = async () => {
+    console.log('updataList')
+    let {workId, endTime} = this.props.questionItem
+    let {courseId} = this.props
+    let answerListByPage = await AxiosUtil.get(`/api/work/answerList/${courseId}/${workId}/?pn=1`)
+    let data = answerListByPage.data
+    data.map((ele, index) => {
+      return (ele.overStatus = this.setOverStatus(endTime, ele.updateTime))
+    })
+    await this.setState({
+      answerList: data
+    })
+    console.log(data)
   }
 
   renderTabbar (questionItem) {
+    console.log(questionItem)
     let {answerCount} = questionItem
+    let {workId} = questionItem
+    let {courseId} = this.props
     answerCount = answerCount || 0
     let allAnswerIcon = <div>
       <p>全部回答</p>
@@ -91,49 +119,50 @@ export default class extends React.Component {
       <p>{score ? `已点评 ${score}分` : '--'}</p>
     </div>
     let dateIcon = <div>
+      {this.setOverStatus(questionItem.endTime, questionItem.updateTime) && <img style={{position: 'absolute', width: '50px', right: '0px', top: '0'}}src='/static/img/study/homework-late.png' />}
       <p>截止日期</p>
-      <p>？？？</p>
+      <p>{DateUtil.format(questionItem.endTime, 'yyyy-MM-dd')}</p>
     </div>
-    return (<div className='course-tab-bar'>
-      <Tabbar currentSelect={this.state.currentSelect} onTabClick={this.onTabClick}>
-        <TabItem title={allAnswerIcon} >SeeOther</TabItem>
-        <TabItem title={myAnswerIcon} >doHomeWork or seeMyHomework doStatus is prop</TabItem>
+    return (
+      <Tabbar style={{marginTop: '10px', marginBottom: '10px'}} currentSelect={this.state.currentSelect} onTabClick={this.onTabClick}>
+        <TabItem title={allAnswerIcon} ><SeeOtherWork answerList={this.state.answerList} courseId={courseId} workId={workId} /></TabItem>
+        <TabItem title={myAnswerIcon} ><SeeMyWork courseId={courseId} workId={workId} /></TabItem>
         <TabItem title={dateIcon} disabled>empty</TabItem>
-      </Tabbar>
-      <style jsx>{`
-        .course-tab-bar1 {
-          display: flex;
-          width: 100%;
-        }
-      `}</style>
-      <style jsx>{`
-        .course-tab-bar1 {
-          display: flex;
-          width: 100%;
-        }
-      `}</style>
-    </div>)
+      </Tabbar>)
   }
 
   renderTitle (questionItem) {
     let {title} = questionItem
     let {overWork} = questionItem
-    return (<div className='question-title-div'>
-      <h3 className='question-title'>{title}</h3>
-      <div className='question-icon'>
-        <i className={overWork ? 'weui-icon-success' : 'weui-icon-info'} />
-      </div>
-      <style jsx>{`
+    return (
+      <div className='question-title-div'>
+        <h3 className='question-title'>{title}</h3>
+        <div className='question-icon'>
+          <i className={overWork ? 'weui-icon-success' : 'weui-icon-info'} />
+        </div>
+        <style jsx>{`
         .question-title-div {
           display: flex;
           justify-content: space-between;
           flex-wrap: nowrap;
         }
         .question-title {
-          font-size: 20px;
+          font-size: 18px;
+          font-weight: normal;
         }
-        .question-icon {
-          {/*flex: 1;*/}
+      `}</style>
+      </div>
+
+    )
+  }
+
+  renderStar () {
+    return (<div className='test-style'>
+      <p>123</p>
+      <p>456</p>
+      <style jsx>{`
+        .test-style {
+          display: flex
         }
       `}</style>
     </div>)
@@ -141,17 +170,30 @@ export default class extends React.Component {
 
   renderContent (questionItem) {
     return (<div onClick={() => { this.clickContent() }}>
-      renderContentrenderContentrenderContent
+      <div dangerouslySetInnerHTML={{__html: questionItem.question}} />
     </div>)
   }
 
   render () {
+    let style = {
+      display: 'block'
+    }
     let {questionItem} = this.props
-    return (<div>
-      {this.renderTitle(questionItem)}
-      {this.renderContent(questionItem)}
+    return (<MediaBox>
+      <MediaBoxTitle>
+        {this.renderTitle(questionItem)}
+      </MediaBoxTitle>
+      <MediaBoxDescription style={style}>
+        {this.renderContent(questionItem)}
+      </MediaBoxDescription>
+      <MediaBoxInfo>
+        跳转链接
+      </MediaBoxInfo>
       {this.renderTabbar(questionItem)}
-    </div>)
+      <style jsx>{`
+
+      `}</style>
+    </MediaBox>)
   }
 }
 
