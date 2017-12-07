@@ -4,11 +4,13 @@ import {Popup} from 'react-weui'
 
 export default class extends React.Component {
   static propTypes = {
+    close: PropTypes.bool,
     show: PropTypes.bool,
     onRequestClose: PropTypes.func,
     crossIcon: PropTypes.object
   }
   static defaultProps = {
+    close: true,
     show: false,
     onRequestClose: () => {}
   }
@@ -83,15 +85,17 @@ export default class extends React.Component {
     }
   }
   render () {
-    const {show, onRequestClose, crossIcon} = this.props
+    const {show, close, onRequestClose, crossIcon} = this.props
     return (
       <Popup
         show={show}
         onRequestClose={(e) => onRequestClose()}
       >
-        <span className='crossIcon' onClick={() => onRequestClose()}>
-          {crossIcon ? <div dangerouslySetInnerHTML={{__html: crossIcon}} /> : <span className='close'/>}
-        </span>
+        {close && (
+          <span className='crossIcon' onClick={() => onRequestClose()}>
+            {crossIcon ? <div dangerouslySetInnerHTML={{__html: crossIcon}} /> : <span className='close'/>}
+          </span>
+        )}
         {this.props.children}
         <style global jsx>{`
           .react-weui-infiniteloader {
@@ -101,8 +105,8 @@ export default class extends React.Component {
           .weui-popup {
             width: 80%;
             height: 100%;
-            background-color: #fff;
-            padding: 2rem 1rem;
+            background-color: #f0f2f6;
+            padding: 15px 10px;
             box-sizing: border-box;
             overflow-y: scroll;
             position: fixed;

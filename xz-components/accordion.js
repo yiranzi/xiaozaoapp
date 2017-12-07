@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classNames from 'classnames'
+import {Cells} from 'react-weui'
 
-export default class extends React.Component {
+class Accordion extends React.Component {
   static propTypes = {
     show: PropTypes.bool
   }
@@ -23,12 +25,16 @@ export default class extends React.Component {
   }
 
   render () {
-    const { children, header } = this.props
-    let content = this.state.showContent ? children : ''
+    const { header, children } = this.props
+    const {showContent} = this.state
+    let content = showContent ? children : ''
     return (
       <div className='xz-accordion-item'>
-        <div className='xz-accordion-header' onClick={() => this.handleClick()}>{header}</div>
-        {content && <div className='xz-accordion-content'>{content}</div>}
+        <div
+          className={classNames('xz-accordion-header', {'show': showContent})}
+          onClick={() => this.handleClick()}
+        >{header}</div>
+        {content && <div className='xz-accordion-content'><Cells>{content}</Cells></div>}
         <style jsx>{`
           .xz-accordion-item {
             border-radius: 2px;
@@ -36,17 +42,51 @@ export default class extends React.Component {
           }
           .xz-accordion-header {
             background-color: #fff;
-            padding: 5px 8px;
+            box-shadow: 0 5px 5px rgba(240, 242, 246, 1);
+            padding: 10px 30px 10px 15px;
             align-items: center;
             transition: .3s;
+            position: relative;
           }
-          .xz-accordion-content {
-            padding: 5px 10px;
-            align-items: center;
-            background-color: #e5e5e5;
+          .xz-accordion-header::after {
+            content: " ";
+            display: inline-block;
+            height: 12px;
+            width: 12px;
+            border-width: 2px 2px 0 0;
+            border-color: #c8c8cd;
+            border-style: solid;
+            transform: matrix(.71,.71,-.71,.71,0,0);
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            margin-top: -4px;
+            transition: transform .3s;
+            transform: rotate(-45deg);
+          }
+          .xz-accordion-header.show::after {
+            transform: rotate(134deg);
+          }
+        `}</style>
+        <style global jsx>{`
+          .xz-accordion-content .weui-cells {
+            margin-top: 0 !important;
+          }
+          .xz-accordion-content .weui-cell:before {
+            border-top: none !important;
           }
         `}</style>
       </div>
     )
   }
 }
+
+class Panel extends React.Component {
+  render () {
+    return this.props.children
+  }
+}
+
+Accordion.Panel = Panel
+
+export default Accordion

@@ -1,12 +1,14 @@
 import React from 'react'
 import classNames from 'classnames'
-import {Flex, FlexItem} from 'react-weui'
-import DataUtil from '../../../util/data'
+import {Cell, CellHeader, CellBody, CellFooter} from 'react-weui'
+import ThemeConfig from '../../../config/theme'
 import Layout from '../../../components/layout'
 import Footer from '../../../containers/learn/footer'
 import Button from '../../../xz-components/button'
 import Popup from '../../../xz-components/popup'
 import Accordion from '../../../xz-components/accordion'
+
+const {Panel} = Accordion
 
 export default class extends React.Component {
   constructor (props) {
@@ -33,6 +35,7 @@ export default class extends React.Component {
         show={courseMenuShow}
         onRequestClose={() => { this.toggleCourseMenuPop() }}
         position='left'
+        close={false}
       >
         <div className='course-menu'>
           <div className='title'>{menuContent.courseName}</div>
@@ -42,24 +45,26 @@ export default class extends React.Component {
                 <Accordion
                   show={Number(menu.id) === Number(menuId)}
                   key={`accord_${index}`}
-                  header={menu.name}
+                  header={<div className='wrap'><span className='file' />{menu.name}</div>}
                 >
-                  {menu.sectionMenuDTOList && (
-                    <ul>
-                      {menu.sectionMenuDTOList.map((section, index) => {
-                        return (
-                          <li key={`section_${index}`} className={classNames({'active': Number(section.id) === Number(sectionId)})}>
+                  {menu.sectionMenuDTOList && menu.sectionMenuDTOList.map((section, index) => {
+                    return (
+                      <Panel key={`section_${index}`} className={classNames({'active': Number(section.id) === Number(sectionId)})}>
+                        <Cell access>
+                          <CellHeader><span className='icon' /></CellHeader>
+                          <CellBody>
                             <a
                               onClick={() => {
                                 this.toggleCourseMenuPop()
                                 location.href = `/learn/course/detail?courseId=${courseId}&menuId=${menu.id}&sectionId=${section.id}&pageNumber=1`
                               }}
                             >{section.name}</a>
-                          </li>
-                        )
-                      })}
-                    </ul>
-                  )}
+                          </CellBody>
+                          <CellFooter />
+                        </Cell>
+                      </Panel>
+                    )
+                  })}
                 </Accordion>
               )
             })}
@@ -67,12 +72,29 @@ export default class extends React.Component {
           <style jsx>{`
             .title {
               text-align: center;
+              font-weight: bold;
             }
             li {
               list-style-type: none;
             }
             li.active {
               color: red;
+            }
+            span.file {
+              display: inline-block;
+              width: 20px;
+              height: 20px;
+              margin-right: 10px;
+              background: url(/static/img/learn/course/file.png) no-repeat;
+              background-size: 100%;
+            }
+            span.icon {
+              display: inline-block;
+              width: 10px;
+              height: 10px;
+              margin-right: 10px;
+              background-color: #3ea6f7;
+              border-radius: 1rem;
             }
           `}</style>
         </div>
@@ -129,8 +151,12 @@ export default class extends React.Component {
       <Layout>
         <div className='course-page'>
           <div className='header wx-space-center'>
-            <Button key='btn-menu' type='mini' onClick={() => { this.toggleCourseMenuPop() }}>课程</Button>
-            <Button key='btn-home' type='mini' onClick={() => { this.toggleHomeWorkPop() }}>作业</Button>
+            <div className='course-menu' onClick={() => { this.toggleCourseMenuPop() }}>...</div>
+            <Button
+              type='normal'
+              style={{width: 'auto', borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}}
+              onClick={() => { this.toggleHomeWorkPop() }}
+            >作业</Button>
           </div>
           {this.props.children}
         </div>
@@ -148,6 +174,14 @@ export default class extends React.Component {
             padding: 1rem;
             background-color: #F8F8F8;
             min-height: 100vh;
+          }
+          .course-menu {
+            width: 1.5rem;
+            height: 1.5rem;
+            line-height: 1rem;
+            text-align: center;
+            border: 1px solid #646464;
+            border-radius: 1rem;
           }
         `}</style>
       </Layout>
