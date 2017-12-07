@@ -4,16 +4,11 @@ import {
   Cell,
   CellHeader,
   CellBody,
-  CellFooter,
   MediaBox,
   MediaBoxTitle,
   MediaBoxDescription
 } from 'react-weui'
-import MoreLine from '../../../xz-components/moreLine'
-import MoreContent from '../../../xz-components/moreContent'
-import TeacherComment from '/containers/study/homework/teacherComment'
 import DateUtil from '/util/date'
-
 
 export default class extends React.Component {
   constructor (props) {
@@ -27,7 +22,7 @@ export default class extends React.Component {
     let {studentAnswerId} = this.props
     console.log('componentDidMount teacherComment')
     if (studentAnswerId) {
-      let teacherComment = await AxiosUtil.get(`/api/workAnswerEvalute/${studentAnswerId}`)
+      let teacherComment = await AxiosUtil.get(`/api/workAnswerEvaluate/${studentAnswerId}`)
       this.setState({
         teacherComment: teacherComment
       })
@@ -36,24 +31,24 @@ export default class extends React.Component {
   }
 
   renderTitle () {
-    let {nickname, headimgurl, updateTime} = this.state.teacherComment
+    let {nickname, headimgurl, createTime} = this.state.teacherComment
     return (<MediaBoxTitle>
       <Cell style={{padding: '0'}}>
         <CellHeader>
           <img src={headimgurl} style={{display: `block`, width: `20px`, marginRight: `5px`}} />
         </CellHeader>
         <CellBody>
-          <span>{nickname} {DateUtil.format(updateTime, 'yyyy-MM-dd')}</span>
+          <span>{nickname} {createTime && DateUtil.format(createTime, 'yyyy-MM-dd')}</span>
         </CellBody>
       </Cell>
     </MediaBoxTitle>)
   }
 
   renderDescription () {
-    let {answer} = this.props.teacherComment
-    if (answer) {
-      return (<MediaBoxDescription>
-        <MoreContent height={2}><div dangerouslySetInnerHTML={{__html: answer}} /></MoreContent>
+    let {evaluate} = this.state.teacherComment
+    if (evaluate) {
+      return (<MediaBoxDescription style={{display: 'block'}}>
+        <div><div dangerouslySetInnerHTML={{__html: evaluate}} /></div>
       </MediaBoxDescription>)
     } else {
       return null
@@ -61,9 +56,9 @@ export default class extends React.Component {
   }
 
   render () {
-    let {teacherComment} = this.props
+    let {teacherComment} = this.state
     if (teacherComment) {
-      return (<MediaBox>
+      return (<MediaBox style={{textAlign: 'left'}}>
         {this.renderTitle()}
         {this.renderDescription()}
       </MediaBox>)

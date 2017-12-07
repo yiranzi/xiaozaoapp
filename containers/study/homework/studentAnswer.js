@@ -54,7 +54,7 @@ export default class extends React.Component {
 
   renderStar () {
     let {starCount, star, id} = this.props.answerData
-    let jsxStyle = <style jsx>{`
+    let jsxStyle = <style>{`
       .comment-title-good {
         display: flex;
         align-items: center;
