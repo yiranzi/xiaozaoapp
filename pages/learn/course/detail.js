@@ -146,7 +146,7 @@ export default class extends React.Component {
         `}</style>
         <link href='/static/js/video-js.css' rel='stylesheet' />
         <script src='/static/js/video.js' />
-        <script src='/static/js/videojs-contrib-hls.js' />
+        <script src='/static/js/videojs-contrib-hls.min.js' />
       </Layout>
     )
   }
