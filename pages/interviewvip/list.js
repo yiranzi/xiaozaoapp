@@ -255,6 +255,12 @@ export default class extends React.Component {
                   </a>
                   <p>密码：qmkc1106</p>
                 </div>
+                <div style={{ marginTop: '1rem' }}>
+                  <a href='https://m.qlchat.com/topic/details?topicId=2000000294180457'>
+                    小马哥教你过群面课程系列直播之快消--点击回看
+                  </a>
+                  <p>密码：qmkc1118</p>
+                </div>
               </div>
             </section>
           </div>
