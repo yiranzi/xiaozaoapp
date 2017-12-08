@@ -35,6 +35,7 @@ export default class Layout extends React.Component {
     return (
       <div>
         {/* <script src='/static/js/retcode.js' /> */}
+        <script async src='https://www.googletagmanager.com/gtag/js?id=UA-110942316-1'></script>
         <Header />
         <style dangerouslySetInnerHTML={{__html: weui}} />
         <style dangerouslySetInnerHTML={{__html: rweui}} />
