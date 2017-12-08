@@ -26,6 +26,7 @@ export default class MyTextArea extends React.Component {
         </FormCell>
         <style global jsx>{`
           .weui-cells {
+            border: 1px solid #c8c8cd !important;
             font-size: 14px !important;
           }
           .weui-textarea {

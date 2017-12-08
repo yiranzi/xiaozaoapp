@@ -93,6 +93,11 @@ export default class extends React.Component {
           justify-content: space-between;
           align-items: center;
         }
+        .wx-space-left {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+        }
       `}</style>
     )
   }

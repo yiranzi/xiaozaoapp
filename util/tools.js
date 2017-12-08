@@ -87,27 +87,27 @@ ToolsUtil.isString = function (str) {
 
 // 单选题
 ToolsUtil.isRadio = function (type) {
-  return type === 1
+  return parseInt(type) === 1
 }
 
 // 多选题
 ToolsUtil.isCheckBox = function (type) {
-  return type === 2
+  return parseInt(type) === 2
 }
 
 // 上传图片
 ToolsUtil.isUploader = function (type) {
-  return type === 3
+  return parseInt(type) === 3
 }
 
 // 文本题
 ToolsUtil.isTextarea = function (type) {
-  return type === 4
+  return parseInt(type) === 4
 }
 
 // 上传音频
 ToolsUtil.isRecord = function (type) {
-  return type === 5
+  return parseInt(type) === 5
 }
 
 // 是否空字符串

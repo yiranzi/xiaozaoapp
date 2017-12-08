@@ -27,13 +27,14 @@ export default class extends React.Component {
           this.setState({gallery: false})
         }}
       >
-
-        <GalleryDelete onClick={(e, id) => {
-          this.setState({
-            imgFiles: this.state.imgFiles.filter((e, i) => i !== id),
-            gallery: this.state.imgFiles.length <= 1
-          })
-        }} />
+        {!this.props.disabled && (
+          <GalleryDelete onClick={(e, id) => {
+            this.setState({
+              imgFiles: this.state.imgFiles.filter((e, i) => i !== id),
+              gallery: this.state.imgFiles.length <= 1
+            })
+          }} />
+        ) }
       </Gallery>
     )
   }

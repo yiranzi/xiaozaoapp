@@ -46,14 +46,20 @@ export default class extends React.Component {
                     <Link href={{pathname: '/learn/course/testDetail', query: {courseId: query.courseId, testId: item.testId}}}>
                       {_this.isFinish(item.answerDTOList) ? (
                         <div className='test-item wx-space-center'>
-                          <div className='icon'><img src='/static/img/learn/test/prise.png' /></div>
+                          <div className='left wx-space-left'>
+                            <div className='icon'><img src='/static/img/learn/test/prise.png' /></div>
+                            <div className='chapter-title'>{item.chapterTitle}</div>
+                          </div>
                           <div className='result'>
                             {`${item.answerTotalScore}分/${item.totalScore}分`}
                           </div>
                         </div>
                       ) : (
                         <div className='test-item wx-space-center'>
-                          <div className='icon'><img src='/static/img/learn/test/prise.png' /></div>
+                          <div className='left wx-space-left'>
+                            <div className='icon' />
+                            <div className='chapter-title'>{item.chapterTitle}</div>
+                          </div>
                           <div className='result'>未完成</div>
                         </div>
                       )}
@@ -66,8 +72,18 @@ export default class extends React.Component {
         </div>
         <Footer type='test' courseId={query.courseId} />
         <style jsx>{`
-          .test-page .test-detail .test-item .icon img {
+          .test-page {
+            padding-left: 1rem;
+            padding-right: 1rem;
+          }
+          .test-page .test-detail .test-item .left .chapter-title {
+            margin-left: 0.5rem;
+          }
+          .test-page .test-detail .test-item .icon {
             width: 2rem;
+          }
+          .test-page .test-detail .test-item .icon img {
+            width: 100%;
           }
         `}</style>
       </Layout>
