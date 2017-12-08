@@ -19,11 +19,13 @@ export default class extends React.Component {
     super(props)
     this.state = {
       currentSelect: -1,
-      answerList: undefined
+      answerList: undefined,
+      isUpdateActive: false
     }
     this.onTabClick = this.onTabClick.bind(this)
     this.updataStudentAnswerList = this.updataStudentAnswerList.bind(this)
     this.updataMyQuestionAndAnswer = this.updataMyQuestionAndAnswer.bind(this)
+    this.updataFunc = this.updataFunc.bind(this)
   }
 
   componentDidMount = async () => {
@@ -32,9 +34,12 @@ export default class extends React.Component {
 
   // 在更新的时候，判定是否拉取。
   componentWillReceiveProps = async (nextProps) => {
-    let {currentSelect} = this.state
-    if (currentSelect === 1) {
+    let {currentSelect, isUpdateActive} = this.state
+    if (currentSelect === 1 && isUpdateActive) {
       this.updataMyQuestionAndAnswer()
+      this.setState({
+        isUpdateActive: false
+      })
     }
   }
 
@@ -143,6 +148,14 @@ export default class extends React.Component {
     }
   }
 
+  updataFunc () {
+    // 拉取前标记可以更新
+    this.setState({
+      isUpdateActive: true
+    })
+    this.props.updataFunc()
+  }
+
   renderTabbar () {
     let {questionItem} = this.props
     let {answerCount, workId} = questionItem
@@ -171,9 +184,9 @@ export default class extends React.Component {
             courseId={courseId}
             workId={workId}
             questionInfo={questionInfo}
-            updataFunc={this.props.updataFunc}
+            updataFunc={this.updataFunc}
             myAnswer={myAnswer} />
-          </TabItem>
+        </TabItem>
         <TabItem title={dateIcon} disabled>empty</TabItem>
       </Tabbar>)
   }

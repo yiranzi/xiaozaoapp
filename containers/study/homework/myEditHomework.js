@@ -16,6 +16,7 @@ export default class extends React.Component {
     this.state = {
       textValue: '写上你的答案吧'
     }
+    this.onChange = this.onChange.bind(this)
   }
 
   componentDidMount = async () => {
@@ -39,17 +40,17 @@ export default class extends React.Component {
     }
   }
 
-  onChange (value) {
+  onChange (event) {
     this.setState({
-      textValue: value
+      textValue: event.target.value
     })
   }
 
   render () {
     return (<MediaBox>
       <div>
-        <input value={this.state.textValue} onChange={this.onChange} />
         my edit
+        <input value={this.state.textValue} onChange={this.onChange} />
         <div onClick={this.uploadHomework}>提交作业</div>
       </div>
     </MediaBox>)

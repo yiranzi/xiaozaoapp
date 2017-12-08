@@ -73,11 +73,10 @@ export default class extends React.Component {
     let {courseId, workId, questionInfo, myAnswer} = this.props
     if (questionInfo) {
       return (<div>
-        <p>{courseId}</p>
-        <p>{workId}</p>
-        <p>{questionInfo.type}</p>
-        <p>endend123123</p>
-        <p>{this.state.editStatus ? 'true' : 'false'}</p>
+        <p>courseId :{courseId}</p>
+        <p>workId :{workId}</p>
+        <p>type :{questionInfo.type}</p>
+        <p>editStatus :{this.state.editStatus ? 'true' : 'false'}</p>
         <Panel style={this.getVisibleStyle('edit')}>
           <EditHomework {...this.props} updataFunc={this.props.updataFunc} />
         </Panel>

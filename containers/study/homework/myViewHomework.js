@@ -25,6 +25,12 @@ export default class extends React.Component {
     console.log('componentDidMount seemywork')
   }
 
+  componentWillReceiveProps = async (nextProps) => {
+    this.setState({
+      starClick: false
+    })
+  }
+
   answerClickStar (workAnswerId) {
     // 发送请求。
     AxiosUtil.get(`/api/work/answerStar/${workAnswerId}`)

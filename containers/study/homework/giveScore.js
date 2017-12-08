@@ -32,6 +32,7 @@ export default class extends React.Component {
     let {evaluateId} = this.props
     let {score} = this.state
     await AxiosUtil.get(`/api/work/evaluateFeedback/${evaluateId}?score=${score}`)
+    this.setState({canEvaluate: false})
   }
 
   renderStar () {
