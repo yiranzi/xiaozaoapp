@@ -6,7 +6,7 @@ import wrapper from '/util/axiosCache/wrapper'
 let AxiosUtil = {}
 let AxiosWithCache = {}
 
-AxiosUtil.cacheInit = (regArr) => {
+AxiosUtil.cacheInit = (reg) => {
   if (!AxiosWithCache.init) {
     console.log('cache init!!!!!!!!!!')
     AxiosWithCache = wrapper(axios, {
@@ -14,12 +14,7 @@ AxiosUtil.cacheInit = (regArr) => {
     })
     AxiosWithCache.init = true
   }
-  console.log(regArr)
-  if (regArr && regArr.length > 0) {
-    regArr.map((reg, index) => {
-      AxiosWithCache.__addFilter(new RegExp(reg))
-    })
-  }
+  AxiosWithCache.__addFilter(new RegExp(reg))
 }
 
 AxiosUtil.deleteCache = function (url) {
@@ -59,7 +54,11 @@ function request (param) {
   })
 }
 
-AxiosUtil.get = function (url) {
+AxiosUtil.get = function (url, cache) {
+  if (cache) {
+    let afterFixUrl = url.replace(/\?/, `\\?`)
+    AxiosUtil.cacheInit(afterFixUrl)
+  }
   const param = {
     method: 'get',
     url: url

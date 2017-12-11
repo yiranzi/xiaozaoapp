@@ -216,18 +216,6 @@ export default class extends React.Component {
     )
   }
 
-  renderStar () {
-    return (<div className='test-style'>
-      <p>123</p>
-      <p>456</p>
-      <style jsx>{`
-        .test-style {
-          display: flex
-        }
-      `}</style>
-    </div>)
-  }
-
   renderContent () {
     let {questionItem} = this.props
     return (<div onClick={() => { this.clickContent() }}>

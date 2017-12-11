@@ -49,9 +49,7 @@ export default class extends React.Component {
     this.setState({
       myCourseList: courseListGroupByStatus
     })
-    let recommandUrl = '/api/private/learning/courseRecommend'
-    AxiosUtil.cacheInit([recommandUrl])
-    let courseRecommend = await AxiosUtil.get(recommandUrl)
+    let courseRecommend = await AxiosUtil.get('/api/private/learning/courseRecommend', true)
     let courseRecommendGroupByType = {}
     courseRecommend.forEach((ele, index) => {
       courseRecommendGroupByType[ele.type] = courseRecommendGroupByType[ele.type] || []
