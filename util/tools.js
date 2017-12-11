@@ -126,4 +126,17 @@ ToolsUtil.isMail = function (str) {
   return /^\b(^[_A-Za-z0-9-]+(\.[_A-Za-z0-9-]+)*@([A-Za-z0-9-])+(\.[A-Za-z0-9-]+)*((\.[A-Za-z0-9]{2,})|(\.[A-Za-z0-9]{2,}\.[A-Za-z0-9]{2,}))$)\b$/.test(str)
 }
 
+// 环境
+ToolsUtil.getEnv = function () {
+  return process.env.NODE_ENV
+}
+
+ToolsUtil.isDev = function () {
+  return ToolsUtil.getEnv() === 'development'
+}
+
+ToolsUtil.isProd = function () {
+  return ToolsUtil.getEnv() === 'production'
+}
+
 module.exports = ToolsUtil

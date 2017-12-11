@@ -1,4 +1,5 @@
 import Tips from '../xz-components/tips'
+import ToolsUtil from '../util/tools'
 import axios from 'axios'
 
 let AxiosUtil = {}
@@ -23,7 +24,9 @@ function request (param) {
       }
     }).catch((error) => {
       if (error.response.status === 401) {
-        location.reload(true)
+        if (!ToolsUtil.isDev()) {
+          location.reload(true)
+        }
       } else {
         reject(error.message)
       }
