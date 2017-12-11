@@ -1,7 +1,5 @@
 import React from 'react'
 import {
-  Panel,
-  PanelHeader,
   PanelBody,
   Cell,
   CellFooter
@@ -15,27 +13,43 @@ export default class extends React.Component {
   renderInner () {
     let {courseGroupList} = this.props
     if (courseGroupList) {
-      return courseGroupList.map((course, index) => {
-        let title = course.courseName
-        let content = `${course.buyCount}人已购买`
-        let info = course.endDate && DateUtil.format(course.endDate, 'yy-MM-dd')
-        switch (course.status) {
-          case 'doing':
-            info += '天后结束'
-            break
-          case 'done':
-            info = '已完成'
-            break
-          case 'over':
-            info = '已结束'
-            break
-        }
-        return <CourseInfoBar key={index}
-          courseId={course.courseId}
-          title={title}
-          des={content}
-          info={info} />
-      })
+      if (courseGroupList[0].start) {
+        return courseGroupList.map((course, index) => {
+          let title = course.title
+          let content = `${course.buyCount}人已购买`
+          let info = course.start && DateUtil.format(course.start, 'yy-MM-dd')
+          info += '开课'
+          return <CourseInfoBar key={index}
+            courseId={course.courseId}
+            bgImg={course.cover}
+            title={title}
+            des={content}
+            info={info} />
+        })
+      } else {
+        return courseGroupList.map((course, index) => {
+          let title = course.courseName
+          let content = `${course.buyCount}人已购买`
+          let info = course.endDate && DateUtil.format(course.endDate, 'yy-MM-dd')
+          switch (course.status) {
+            case 'doing':
+              info += '结束'
+              break
+            case 'done':
+              info = '已完成'
+              break
+            case 'over':
+              info = '已结束'
+              break
+          }
+          return <CourseInfoBar key={index}
+            courseId={course.courseId}
+            bgImg={'default'}
+            title={title}
+            des={content}
+            info={info} />
+        })
+      }
     }
   }
 

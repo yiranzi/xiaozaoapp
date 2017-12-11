@@ -14,8 +14,10 @@ export default class extends React.Component {
   }
 
   render () {
-    let {title, des, info} = this.props
-    return (<div className='course-info-bar'>
+    let {title, des, info, bgImg} = this.props
+    let imgUrl = bgImg !== 'default' ? bgImg : '/static/img/study/buyBg_1.jpeg'
+    console.log(imgUrl)
+    return (<div style={{background: `url(${imgUrl})`}} className='course-info-bar'>
       <MediaBox onClick={() => { this.goRouter() }}>
         <MediaBoxTitle style={{color: 'white'}}>{title}</MediaBoxTitle>
         <MediaBoxDescription style={{color: 'white'}}>{des}</MediaBoxDescription>
@@ -26,7 +28,6 @@ export default class extends React.Component {
         color: white !important;
         flex: 1;
         max-width: 33%;
-        background-image: url('/static/img/study/buyBg_1.jpeg')
       }
       `}</style>
     </div>)

@@ -20,6 +20,13 @@ export default class extends React.Component {
     'over': '已结束'
   }
 
+  courseRecommandName = {
+    '1': '职业核心',
+    '2': '个人能力',
+    '3': '技能培养',
+    '4': '再编一个吧'
+  }
+
   constructor (props) {
     super(props)
     this.state = {
@@ -46,8 +53,8 @@ export default class extends React.Component {
     let courseRecommend = await Axios.get('/api/private/learning/courseRecommend')
     let courseRecommendGroupByType = {}
     courseRecommend.forEach((ele, index) => {
-      courseRecommendGroupByType[ele.status] = courseRecommend[ele.type] || []
-      courseRecommendGroupByType[ele.status].push(ele)
+      courseRecommendGroupByType[ele.type] = courseRecommendGroupByType[ele.type] || []
+      courseRecommendGroupByType[ele.type].push(ele)
     })
     this.setState({
       courseRecommend: courseRecommendGroupByType
@@ -90,12 +97,25 @@ export default class extends React.Component {
     }
   }
 
+  renderRecommandByType () {
+    let {courseRecommend} = this.state
+    if (courseRecommend) {
+      let recommandKeyList = Object.keys(this.courseRecommandName)
+      return recommandKeyList.map((key, index) => {
+        return (<CourseSwipeContainer
+          courseGroupList={courseRecommend[key]}
+          routerUrl={`/study/recommand?type=${key}`}
+          title={this.courseRecommandName[key]} />)
+      })
+    }
+  }
+
   renderCourseRecommand () {
     return (<Panel>
       <PanelHeader>
         课程推荐
       </PanelHeader>
-      {/*{this.renderTest()}*/}
+      {this.renderRecommandByType()}
     </Panel>)
   }
 
