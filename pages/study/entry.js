@@ -9,7 +9,7 @@ import {
 } from 'react-weui'
 import Layout from '../../components/layout'
 import GetPayInfo from '../../util/getPayInfo'
-import Axios from '/util/axios'
+import AxiosUtil from '/util/axios'
 
 import CourseSwipeContainer from '/containers/study/entry/courseSwipeContainer'
 
@@ -49,8 +49,9 @@ export default class extends React.Component {
     this.setState({
       myCourseList: courseListGroupByStatus
     })
-
-    let courseRecommend = await Axios.get('/api/private/learning/courseRecommend')
+    let recommandUrl = '/api/private/learning/courseRecommend'
+    AxiosUtil.cacheInit([recommandUrl])
+    let courseRecommend = await AxiosUtil.get(recommandUrl)
     let courseRecommendGroupByType = {}
     courseRecommend.forEach((ele, index) => {
       courseRecommendGroupByType[ele.type] = courseRecommendGroupByType[ele.type] || []

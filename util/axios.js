@@ -1,12 +1,37 @@
 import Tips from '../xz-components/tips'
 import ToolsUtil from '../util/tools'
 import axios from 'axios'
+import wrapper from '/util/axiosCache/wrapper'
 
 let AxiosUtil = {}
+let AxiosWithCache = {}
+
+AxiosUtil.cacheInit = (regArr) => {
+  if (!AxiosWithCache.init) {
+    console.log('cache init!!!!!!!!!!')
+    AxiosWithCache = wrapper(axios, {
+      maxCacheSize: 15
+    })
+    AxiosWithCache.init = true
+  }
+  console.log(regArr)
+  if (regArr && regArr.length > 0) {
+    regArr.map((reg, index) => {
+      AxiosWithCache.__addFilter(new RegExp(reg))
+    })
+  }
+}
+
+AxiosUtil.deleteCache = function (url) {
+  if (AxiosWithCache) {
+    AxiosWithCache.__deleteCache(url)
+  }
+}
 
 function request (param) {
+  let http = AxiosWithCache.init ? AxiosWithCache : axios
   return new Promise((resolve, reject) => {
-    axios(param).then((res) => {
+    http(param).then((res) => {
       if (res.data.status === 200) {
         resolve(res.data.response)
       } else {
