@@ -9,7 +9,7 @@ import TextArea from '../../xz-components/textarea'
 import WxRecord from '../../xz-components/wxrecord'
 
 export default class extends React.Component {
-  renderAnswerOption (topic, disabled) {
+  renderAnswerOption (topic, myAnswer) {
     const {id, no, type, optionDTOList} = topic
     if (ToolsUtil.isRadio(type)) {
       const name = `answer_${no}`
@@ -18,7 +18,9 @@ export default class extends React.Component {
         const params = {
           name: name,
           value: tag,
-          label: tag + '、' + content
+          label: tag + '、' + content,
+          defaultValue: myAnswer,
+          disabled: true
         }
         const key = `answer_${no}_${i}`
         return (
@@ -35,17 +37,20 @@ export default class extends React.Component {
           key={name}
           placeholder='请输入您的答案'
           maxLength={200}
-          onChange={(value) => { this.props.onChange(id, value) }}
+          defaultValue={myAnswer}
+          disabled
         />
       )
     } else if (ToolsUtil.isUploader(type)) {
-      let defaultValue = []
+      let defaultValue = [{url: `http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/learning/testFile/${myAnswer}`}]
+      console.log('defaultValue:', defaultValue)
       return (
         <Uploader
           title='图片上传'
           defaultValue={defaultValue}
           maxCount={1}
-          onChange={(value) => this.props.onChange(id, value[0].url)} />
+          disabled
+        />
       )
     } else if (ToolsUtil.isCheckBox(type)) {
       const name = `answer_${no}`
@@ -73,12 +78,16 @@ export default class extends React.Component {
     }
   }
   render () {
-    const {topic} = this.props
+    const {topic, myAnswer} = this.props
     return (
       <div className='topic'>
         <div className='question'>{topic.no}、{topic.question} （{topic.score}分）</div>
         <div className='options'>
-          <div>{this.renderAnswerOption(topic)}</div>
+          <div>{this.renderAnswerOption(topic, myAnswer)}</div>
+          <div className='analysis'>
+            <div className='answer'>参考答案：{topic.answer}</div>
+            <div className='content' dangerouslySetInnerHTML={{__html: topic.analysis}} />
+          </div>
         </div>
         <style jsx>{`
           .topic {
