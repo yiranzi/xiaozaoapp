@@ -2,9 +2,12 @@ import React from 'react'
 import ToolsUtil from '../../../util/tools'
 import AxiosUtil from '../../../util/axios'
 import DataUtil from '../../../util/data'
+import DateUtil from '../../../util/date'
 import Layout from '../../../containers/learn/course/layout'
 import AliVideo from '../../../xz-components/aliVideo'
 import LoadingIcon from '../../../xz-components/loadingicon'
+import Option from '../../../containers/clock/option'
+import Button from '../../../xz-components/button'
 
 export default class extends React.Component {
   constructor (props) {
@@ -13,12 +16,17 @@ export default class extends React.Component {
       query: {
         courseId: '',
         menuId: '',
-        sectionId: ''
+        sectionId: '',
+        pageNumber: '',
+        workId: ''
       },
       menuContent: {}, // 左侧课程列表
       homeworkContent: {}, // 右侧作业列表
       showCourse: true, // 当前是课程详情, false显示的是homework
-      detail: {} // 需要展示的内容
+      detail: {}, // 需要展示的内容,
+      workDetail: {}, // 作业详情
+      myWork: '', // 我的作业
+      isEditmyWork: false
     }
   }
 
@@ -26,6 +34,7 @@ export default class extends React.Component {
     let courseId = ToolsUtil.getQueryString('courseId')
     let menuId = ToolsUtil.getQueryString('menuId')
     let sectionId = ToolsUtil.getQueryString('sectionId')
+    let pageNumber = ToolsUtil.getQueryString('pageNumber') || 1
 
     let menuContent = await AxiosUtil.get(`/api/private/learning/course/${courseId}`)
     this.setState({menuContent: menuContent})
@@ -35,12 +44,12 @@ export default class extends React.Component {
      */
     let detail
     if (sectionId) {
-      detail = await AxiosUtil.get(`/api/private/learning/course/${courseId}/${sectionId}/1`)
+      detail = await AxiosUtil.get(`/api/private/learning/course/${courseId}/${sectionId}/${pageNumber}`)
       this.setState({detail: ToolsUtil.parseVideo(detail, true)})
     } else {
       sectionId = menuContent.menuDTOList[0].sectionMenuDTOList[0].id
-      detail = await AxiosUtil.get(`/api/private/learning/course/${courseId}/${sectionId}/1`)
-      this.setState({detail: ToolsUtil.parseVideo(detail, true)})
+      detail = await AxiosUtil.get(`/api/private/learning/course/${courseId}/${sectionId}/${pageNumber}`)
+      this.setState({detail: ToolsUtil.parseVideo(detail, true), sectionId: sectionId})
     }
     /**
      * 作业列表
@@ -48,11 +57,29 @@ export default class extends React.Component {
     let homeworkContent = await AxiosUtil.get(`/api/private/work/workList/${courseId}`)
     this.setState({homeworkContent: homeworkContent})
 
+    let workId
+    const _this = this
+    homeworkContent.map((item, index) => {
+      item.childLearningCourseWorkDTOList.map((item, index) => {
+        if (item.sectionId === _this.state.sectionId && item.pageNumber === pageNumber) {
+          workId = item.workId
+          return false
+        }
+      })
+    })
+
+    if (workId) {
+      let workDetail = await AxiosUtil.get(`/api/private/work/${courseId}/${workId}`)
+      this.setState({workDetail: workDetail})
+    }
+
     this.setState({
       query: {
         courseId: courseId,
         menuId: menuId,
-        sectionId: sectionId
+        sectionId: sectionId,
+        pageNumber: pageNumber,
+        workId: workId
       }
     })
   }
@@ -64,21 +91,54 @@ export default class extends React.Component {
   renderCourse (course) {
     return (
       <div className='course-detail'>
-        <div className='course-detail' dangerouslySetInnerHTML={{__html: course.string}} />
+        <div className='text' dangerouslySetInnerHTML={{__html: course.string}} />
         <div className='video-list'>
           {course.videoList && course.videoList.map((item, index) => {
             return (
               <div key={index}>
-                src: {item.src}
-                <br />
-                playerId: {item.playerId}
                 <AliVideo key={index} playerId={item.playerId} type='m3u8' src={item.src} height='170px' />
               </div>
             )
           })}
         </div>
+        {this.renderWorkDetail()}
       </div>
     )
+  }
+  renderWorkDetail () {
+    const {workDetail, isEditmyWork} = this.state
+    const {answer} = workDetail
+    if (!DataUtil.isEmpty(workDetail)) {
+      return (
+        <div>
+          <div>课间思考作业</div>
+          <div>{workDetail.question}</div>
+          <div>截止时间：{DateUtil.format(workDetail.endTime, 'yyyy-MM-dd hh:mm')}</div>
+          <Option topic={workDetail} onChange={(id, value) => this.setState({myWork: value[0].url})} disabled={!(Boolean(answer) && isEditmyWork)} />
+          {DataUtil.isEmpty(answer) || isEditmyWork ? (
+            <Button onClick={() => { this.submitWork(workDetail.type) }}>上传作业</Button>
+          ) : (
+            <div>
+              <Button type='normal'>查看其他同学答案</Button>
+              <Button>查看导师点评</Button>
+              <Button onClick={() => { this.editMyWork() }}>修改答案</Button>
+            </div>
+          )}
+        </div>
+      )
+    }
+  }
+  editMyWork () {
+    this.setState({isEditmyWork: true})
+  }
+  submitWork = async (type) => {
+    const {query, myWork} = this.state
+    console.log('myWork:', myWork)
+    if (ToolsUtil.isUploader(type)) {
+      let uuid = DataUtil.uuid(11)
+      let formdata = DataUtil.imgFormat(myWork, uuid, 'jpg')
+      await AxiosUtil.post(`/api/work/workFileComplete/${query.courseId}/${query.workId}`, formdata)
+    }
   }
   onChangeHomeWork = async (homeWork) => {
     this.setState({course: '', homeWork: homeWork})
@@ -120,7 +180,8 @@ export default class extends React.Component {
         {/* {!DataUtil.isEmpty(homeWork) && this.renderHomeWork(homeWork)} */}
         <style global jsx>{`
           .course-detail {
-            padding-bottom: 2rem;
+            padding-top: 1rem;
+            padding-bottom: 4rem;
           }
           .course-detail img,
           .course-detail span,

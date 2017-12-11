@@ -1,6 +1,7 @@
 import React from 'react'
 import ThemeConfig from '../../config/theme'
 import ToolsUtil from '../../util/tools'
+import DataUtil from '../../util/data'
 import Uploader from '../../xz-components/uploader'
 import TextArea from '../../xz-components/textarea'
 import WxRecord from '../../xz-components/wxrecord'
@@ -23,8 +24,13 @@ export default class extends React.Component {
         />
       )
     } else if (ToolsUtil.isUploader(type)) {
-      let defaultValue = [{'url': answer}] // 图片默认值是数组
-      console.log(defaultValue)
+      let defaultValue
+      if (DataUtil.isEmpty(answer)) {
+        defaultValue = []
+      } else {
+        defaultValue = [{'url': `http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/learning/workFile/${answer}`}] // 图片默认值是数组
+      }
+
       return (
         <Uploader
           title='图片上传'
