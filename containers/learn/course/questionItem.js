@@ -22,34 +22,46 @@ export default class extends React.Component {
     super(props)
     this.state = {
       showEvaluate: false,
-      evaluate: null
+      evaluate: null,
+      error: null
     }
   }
 
   showEvaluateInfo = async () => {
     const { evaluate } = this.state
     if (!evaluate) {
-      let evaluate = await AxiosUtil.get(`/api/learning-question/questionEvaluate/${this.props.question.id}`)
-      this.setState({
-        evaluate: evaluate
-      })
+      try {
+        let evaluate = await AxiosUtil.get(`/api/learning-question/questionEvaluate/${this.props.question.id}`)
+        this.setState({
+          evaluate: evaluate
+        })
+      } catch (e) {
+        this.setState({
+          error: e.message
+        })
+      }
     }
     this.setState({showEvaluate: !this.state.showEvaluate})
   }
 
   addFeedback = async (feedback) => {
-    console.log(feedback)
     let { evaluate } = this.state
-    if (!evaluate) {
-      await AxiosUtil.get(`/api/learning-question/evaluateFeedback/${evaluate.id}/${feedback}`)
-      if (feedback) {
-        evaluate.nice += 1
-      } else {
-        evaluate.bad += 1
+    if (evaluate) {
+      try {
+        await AxiosUtil.get(`/api/learning-question/evaluateFeedback/${evaluate.id}/${feedback}`)
+        if (feedback) {
+          evaluate.nice += 1
+        } else {
+          evaluate.bad += 1
+        }
+        this.setState({
+          evaluate: evaluate
+        })
+      } catch (e) {
+        this.setState({
+          error: e.message
+        })
       }
-      this.setState({
-        evaluate: evaluate
-      })
     }
   }
 
