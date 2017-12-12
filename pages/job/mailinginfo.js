@@ -427,9 +427,7 @@ export default class extends React.Component {
   render () {
     const { job } = this.state
     const leftbar = {
-      onclick: function () {
-        history.go(-1)
-      },
+      onclick: history.go(-1),
       name: '返回'
     }
     const rightbar = {
