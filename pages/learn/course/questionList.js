@@ -29,7 +29,9 @@ export default class extends React.Component {
           data: null,
           totalSize: 0,
           ended: false
-        }
+        },
+        title: null,
+        totalSize: null
       },
       query: {
         sectionId: null,
@@ -57,11 +59,15 @@ export default class extends React.Component {
     const courseId = ToolsUtil.getQueryString('courseId')
     const sectionId = ToolsUtil.getQueryString('sectionId')
     const pageNumber = ToolsUtil.getQueryString('pageNumber')
+    const title = ToolsUtil.getQueryString('title')
+    const totalSize = ToolsUtil.getQueryString('totalSize')
     this.state.form.courseId = courseId
     this.state.form.sectionId = sectionId
     this.state.form.pageNumber = pageNumber
     this.state.query.sectionId = sectionId
     this.state.query.pageNumber = pageNumber
+    this.state.body.title = title
+    this.state.body.totalSize = totalSize
     this.setState({})
   }
 
@@ -169,7 +175,7 @@ export default class extends React.Component {
   renderTabbar () {
     return (
       <div>
-        <CoursePageTitle title='四大千人计划' pageNumber='2' totalSize='5' />
+        <CoursePageTitle title={this.state.body.title} pageNumber={this.state.query.pageNumber} totalSize={this.state.body.totalSize} />
         <ButtonArea direction='horizontal'>
           <Button size='small' type='default' className='' onClick={e => this.changeTabbar()}>
             {this.state.tab === 1 ? '我的提问' : '全部提问'}
