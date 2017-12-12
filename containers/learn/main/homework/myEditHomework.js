@@ -1,5 +1,5 @@
 import React from 'react'
-import AxiosUtil from '../../../util/axios'
+import AxiosUtil from '/util/axios'
 import {
   Cell,
   CellHeader,

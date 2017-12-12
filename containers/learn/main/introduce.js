@@ -1,6 +1,6 @@
 import React from 'react'
-import AxiosUtil from '../../util/axios'
-import HocRenderContent from '/containers/study/hocRenderContent'
+import AxiosUtil from '/util/axios'
+import HocRenderContent from '/containers/learn/main/hocRenderContent'
 // 原始组件
 class innerComponent extends React.Component {
   render () {

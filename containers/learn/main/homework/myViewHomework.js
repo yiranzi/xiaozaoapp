@@ -1,5 +1,5 @@
 import React from 'react'
-import AxiosUtil from '../../../util/axios'
+import AxiosUtil from '/util/axios'
 import {
   Cell,
   CellHeader,
@@ -9,9 +9,8 @@ import {
   MediaBoxTitle,
   MediaBoxDescription
 } from 'react-weui'
-import MoreLine from '../../../xz-components/moreLine'
-import MoreContent from '../../../xz-components/moreContent'
-import TeacherComment from '/containers/study/homework/teacherComment'
+import MoreLine from '/xz-components/moreLine'
+import TeacherComment from '/containers/learn/main/homework/teacherComment'
 import DateUtil from '/util/date'
 
 export default class extends React.Component {
@@ -42,7 +41,7 @@ export default class extends React.Component {
   }
 
   renderTitle () {
-    let {nickname, headimgurl, updateTime} = this.props.answerData
+    let {nickname, headimgurl, updateTime} = this.props.myAnswer
     return (<MediaBoxTitle>
       <Cell style={{padding: '0'}}>
         <CellHeader>
@@ -59,7 +58,7 @@ export default class extends React.Component {
   }
 
   renderStar () {
-    let {starCount, star, id} = this.props.answerData
+    let {starCount, star, id} = this.props.myAnswer
     let jsxStyle = <style>{`
       .comment-title-good {
         display: flex;
@@ -93,10 +92,10 @@ export default class extends React.Component {
   }
 
   renderDescription () {
-    let {answer} = this.props.answerData
+    let {answer} = this.props.myAnswer
     if (answer) {
-      return (<MediaBoxDescription>
-        <MoreContent height={2}><div dangerouslySetInnerHTML={{__html: answer}} /></MoreContent>
+      return (<MediaBoxDescription style={{display: 'block'}}>
+        <div height={2}><div dangerouslySetInnerHTML={{__html: answer}} /></div>
       </MediaBoxDescription>)
     } else {
       return null
@@ -104,23 +103,26 @@ export default class extends React.Component {
   }
 
   renderTeacherComment () {
-    let {score, id} = this.props.answerData
+    let {score, id} = this.props.myAnswer
+    let contentDiv
     if (score !== null) {
       let title = <span style={{flex: 'auto'}}>导师点评{score}分</span>
-      let content = <TeacherComment studentAnswerId={id} />
-      return (<cell>
-        <CellFooter>
-          <MoreLine title={title} content={content} />
-        </CellFooter>
-      </cell>)
+      let content = <TeacherComment studentAnswerId={id} canEvaluateScore />
+      contentDiv = <MoreLine title={title} content={content} />
+    } else {
+      contentDiv = <div onClick={this.props.onEditButtonClick}>修改答案</div>
     }
+    return (<cell>
+      <CellFooter>
+        {contentDiv}
+      </CellFooter>
+    </cell>)
   }
 
   render () {
-    let {answerData} = this.props
-    if (answerData) {
+    let {myAnswer} = this.props
+    if (myAnswer) {
       return (<MediaBox>
-        {answerData.overStatus && <img style={{position: 'absolute', width: '50px', right: '0px', top: '0'}}src='/static/img/study/homework-late.png' />}
         {this.renderTitle()}
         {this.renderDescription()}
         {this.renderTeacherComment()}

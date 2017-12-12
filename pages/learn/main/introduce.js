@@ -1,5 +1,5 @@
 import React from 'react'
-import Introduce from '/containers/study/introduce'
+import Introduce from '/containers/learn/main/introduce'
 import Button from '/xz-components/button'
 import Loading from '/xz-components/loadingicon'
 import Layout from '/components/layout'

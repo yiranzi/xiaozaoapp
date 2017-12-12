@@ -1,5 +1,5 @@
 import React from 'react'
-import AxiosUtil from '../../../util/axios'
+import AxiosUtil from '/util/axios'
 import {
   Cell,
   CellHeader,
@@ -10,7 +10,7 @@ import {
   MediaBoxDescription
 } from 'react-weui'
 import DateUtil from '/util/date'
-import GiveScore from '/containers/study/homework/giveScore'
+import GiveScore from '/containers/learn/main/homework/giveScore'
 
 export default class extends React.Component {
   constructor (props) {

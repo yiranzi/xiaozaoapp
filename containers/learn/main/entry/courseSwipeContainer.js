@@ -5,8 +5,8 @@ import {
   CellFooter
 } from 'react-weui'
 
-import SwipeContainer from '/containers/study/entry/swipeContainer'
-import CourseInfoBar from '/containers/study/entry/courseInfoBar'
+import SwipeContainer from '/containers/learn/main/entry/swipeContainer'
+import CourseInfoBar from '/containers/learn/main/entry/courseInfoBar'
 import DateUtil from '/util/date'
 
 export default class extends React.Component {

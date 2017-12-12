@@ -1,5 +1,5 @@
 import React from 'react'
-import StudentAnswer from '../../../containers/study/homework/studentAnswer'
+import StudentAnswer from '/containers/learn/main/homework/studentAnswer'
 import {
   Panel
 } from 'react-weui'

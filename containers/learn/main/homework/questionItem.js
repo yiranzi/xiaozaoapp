@@ -1,8 +1,8 @@
 import React from 'react'
 import { Tabbar, TabItem } from '/xz-components/tabbar'
 import DateUtil from '/util/date'
-import SeeMyWork from '/containers/study/homework/seeMyWork'
-import SeeOtherWork from '/containers/study/homework/seeOtherWork'
+import SeeMyWork from '/containers/learn/main/homework/seeMyWork'
+import SeeOtherWork from '/containers/learn/main/homework/seeOtherWork'
 import {
   MediaBox,
   MediaBoxTitle,
@@ -10,7 +10,7 @@ import {
   MediaBoxInfo
 } from 'react-weui'
 
-import AxiosUtil from '../../../util/axios'
+import AxiosUtil from '/util/axios'
 /**
  * 渲染每个问题
  */

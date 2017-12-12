@@ -1,6 +1,6 @@
 import React from 'react'
-import EditHomework from '/containers/study/homework/myEditHomework'
-import ViewHomework from '/containers/study/homework/myViewHomework'
+import EditHomework from '/containers/learn/main/homework/myEditHomework'
+import ViewHomework from '/containers/learn/main/homework/myViewHomework'
 import {
   Panel
 } from 'react-weui'

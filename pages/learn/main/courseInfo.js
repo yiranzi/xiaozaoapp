@@ -1,15 +1,15 @@
 import React from 'react'
-import Notice from '/containers/study/notice'
-import Homework from '/containers/study/homework/homework'
-import Discuss from '/containers/study/discuss'
-import Achieve from '/containers/study/achieve'
-import Introduce from '/containers/study/introduce'
+import Notice from '/containers/learn/main/notice'
+import Homework from '/containers/learn/main/homework/homework'
+import Discuss from '/containers/learn/main/discuss'
+import Achieve from '/containers/learn/main/achieve'
+import Introduce from '/containers/learn/main/introduce'
 import { Tab, NavBarItem, Progress } from 'react-weui'
-import Layout from '../../components/layout'
-import AxiosUtil from '../../util/axios'
+import Layout from '/components/layout'
+import AxiosUtil from '/util/axios'
 
-import ToolsUtil from '../../util/tools'
-import GetPayInfo from '../../util/getPayInfo'
+import ToolsUtil from '/util/tools'
+import GetPayInfo from '/util/getPayInfo'
 import Button from '/xz-components/button'
 
 export default class extends React.Component {
@@ -99,7 +99,7 @@ export default class extends React.Component {
       if (courseStatus === 'undefined' || courseStatus === 'unbuyed') {
         // 未付费
         {/*content = <a href={`/payment/buygether`}>报名课程</a>*/}
-        content = <a href={`/study/introduce`}>立即报名</a>
+        content = <a href={`/learn/main/introduce`}>立即报名</a>
       } else {
         // 已付费
         if (courseStatus === 'over') {
@@ -113,7 +113,7 @@ export default class extends React.Component {
             <a className='study-button' href={`/learn/course/detail?courseId=${courseId}`}>
               <Button>开始学习</Button>
             </a>
-            <a style={{width: '100%'}}href={`/study/introduce?courseId=${courseId}`}>概述>></a>
+            <a style={{width: '100%'}}href={`/learn/main/introduce?courseId=${courseId}`}>概述>></a>
             <style jsx>{`
               .content {
                 display: flex;

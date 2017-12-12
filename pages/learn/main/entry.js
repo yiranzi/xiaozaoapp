@@ -7,11 +7,11 @@ import {
   Panel,
   PanelHeader
 } from 'react-weui'
-import Layout from '../../components/layout'
-import GetPayInfo from '../../util/getPayInfo'
+import Layout from '/components/layout'
+import GetPayInfo from '/util/getPayInfo'
 import AxiosUtil from '/util/axios'
 
-import CourseSwipeContainer from '/containers/study/entry/courseSwipeContainer'
+import CourseSwipeContainer from '/containers/learn/main/entry/courseSwipeContainer'
 
 export default class extends React.Component {
   courseStautsName = {
@@ -91,7 +91,7 @@ export default class extends React.Component {
       let courseGroupList = myCourseList[this.state.tab]
       return (<CourseSwipeContainer
         courseGroupList={courseGroupList}
-        routerUrl={'/study/myCourseList'}
+        routerUrl={'/learn/main/myCourseList'}
         title='查看全部' />)
     }
   }
@@ -103,7 +103,7 @@ export default class extends React.Component {
       return recommandKeyList.map((key, index) => {
         return (<CourseSwipeContainer
           courseGroupList={courseRecommend[key]}
-          routerUrl={`/study/recommand?type=${key}`}
+          routerUrl={`/learn/main/recommand?type=${key}`}
           title={this.courseRecommandName[key]} />)
       })
     }

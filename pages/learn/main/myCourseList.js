@@ -1,9 +1,9 @@
 import React from 'react'
 
 import { Progress } from 'react-weui'
-import Layout from '../../components/layout'
-import GetPayInfo from '../../util/getPayInfo'
-import DateUtil from '../../util/date'
+import Layout from '/components/layout'
+import GetPayInfo from '/util/getPayInfo'
+import DateUtil from '/util/date'
 
 export default class extends React.Component {
   constructor (props) {
@@ -41,7 +41,7 @@ export default class extends React.Component {
     if (ele) {
       let {buyCount, courseId, courseName, overSection, totalSection, endDate} = ele
       console.log(ele)
-      return (<div className='course-view-line' onClick={() => { this.goRouter(`/study/courseInfo?courseId=${courseId}`) }}>
+      return (<div className='course-view-line' onClick={() => { this.goRouter(`/learn/main/courseInfo?courseId=${courseId}`) }}>
         <div style={{flex: '1'}} className='course-img' >
           <img src='/static/img/study/buyBg_1.jpeg' />
         </div>

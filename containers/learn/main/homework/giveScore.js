@@ -1,5 +1,5 @@
 import React from 'react'
-import AxiosUtil from '../../../util/axios'
+import AxiosUtil from '/util/axios'
 
 // 这是一个不知道怎么抽象的抽象。先终止。
 export default class extends React.Component {
