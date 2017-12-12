@@ -8,6 +8,7 @@ import AliVideo from '../../../xz-components/aliVideo'
 import LoadingIcon from '../../../xz-components/loadingicon'
 import Option from '../../../containers/clock/option'
 import Button from '../../../xz-components/button'
+import Traning from '../../../containers/learn/course/traning'
 
 export default class extends React.Component {
   constructor (props) {
@@ -22,7 +23,6 @@ export default class extends React.Component {
       },
       menuContent: {}, // 左侧课程列表
       homeworkContent: {}, // 右侧作业列表
-      showCourse: true, // 当前是课程详情, false显示的是homework
       detail: {}, // 需要展示的内容,
       workDetail: {}, // 作业详情
       myWork: '', // 我的作业
@@ -31,12 +31,13 @@ export default class extends React.Component {
   }
 
   componentDidMount = async () => {
+
     let courseId = ToolsUtil.getQueryString('courseId')
     let menuId = ToolsUtil.getQueryString('menuId')
     let sectionId = ToolsUtil.getQueryString('sectionId')
     let pageNumber = ToolsUtil.getQueryString('pageNumber') || 1
 
-    let menuContent = await AxiosUtil.get(`/api/private/learning/course/${courseId}`)
+    let menuContent = await AxiosUtil.get(`/api/learning/course/${courseId}`)
     this.setState({menuContent: menuContent})
     /**
      * 获取课程详情
@@ -44,17 +45,38 @@ export default class extends React.Component {
      */
     let detail
     if (sectionId) {
-      detail = await AxiosUtil.get(`/api/private/learning/course/${courseId}/${sectionId}/${pageNumber}`)
-      this.setState({detail: ToolsUtil.parseVideo(detail, true)})
+      detail = await AxiosUtil.get(`/api/learning/course/${courseId}/${sectionId}/${pageNumber}`)
+      this.setState({detail: ToolsUtil.parseHtml(detail, true)})
     } else {
       sectionId = menuContent.menuDTOList[0].sectionMenuDTOList[0].id
-      detail = await AxiosUtil.get(`/api/private/learning/course/${courseId}/${sectionId}/${pageNumber}`)
-      this.setState({detail: ToolsUtil.parseVideo(detail, true), sectionId: sectionId})
+      detail = await AxiosUtil.get(`/api/learning/course/${courseId}/${sectionId}/${pageNumber}`)
+      this.setState({detail: ToolsUtil.parseHtml(detail, true), sectionId: sectionId})
     }
+
+    // 为了设置上一页下一页的值
+
+    let m1 = 0 // 滚动的值
+    let m2 = 0 // 对比时间的值
+    let timer = null
+
+    document.addEventListener('scroll', () => {
+      document.getElementById('prev').style.backgroundColor = 'rgba(62,166,247,0.2)'
+      document.getElementById('next').style.backgroundColor = 'rgba(62,166,247,0.2)'
+      clearTimeout(timer) // 每次滚动前 清除一次
+      timer = setTimeout(() => {
+        m2 = document.documentElement.scrollTop || document.body.scrollTop
+        if (m2 === m1) {
+          document.getElementById('prev').style.backgroundColor = '#3ea6f7'
+          document.getElementById('next').style.backgroundColor = '#3ea6f7'
+        }
+      }, 500)
+      m1 = document.documentElement.scrollTop || document.body.scrollTop
+    })
+
     /**
      * 作业列表
      */
-    let homeworkContent = await AxiosUtil.get(`/api/private/work/workList/${courseId}`)
+    let homeworkContent = await AxiosUtil.get(`/api/work/workList/${courseId}`)
     this.setState({homeworkContent: homeworkContent})
 
     let workId
@@ -69,7 +91,7 @@ export default class extends React.Component {
     })
 
     if (workId) {
-      let workDetail = await AxiosUtil.get(`/api/private/work/${courseId}/${workId}`)
+      let workDetail = await AxiosUtil.get(`/api/work/${courseId}/${workId}`)
       this.setState({workDetail: workDetail})
     }
 
@@ -82,26 +104,41 @@ export default class extends React.Component {
         workId: workId
       }
     })
+    // document.addEventListener('touchstart', function () {
+    //   document.getElementById('prev').style.backgroundColor = 'black'
+    //   document.getElementById('next').style.backgroundColor = 'black'
+    // })
+    // document.addEventListener('touchend', function () {
+    //   document.getElementById('prev').style.backgroundColor = '#117ee9'
+    //   document.getElementById('next').style.backgroundColor = '#117ee9'
+    // })
   }
   onChangeCourse = async (sectionId) => {
     this.setState({course: '', homeWork: ''})
-    let course = await AxiosUtil.get(`/api/private/learning/course/${this.state.courseId}/${sectionId}/1`)
+    let course = await AxiosUtil.get(`/api/learning/course/${this.state.courseId}/${sectionId}/1`)
     this.setState({course: course})
   }
   renderCourse (course) {
     return (
       <div className='course-detail'>
         <div className='text' dangerouslySetInnerHTML={{__html: course.string}} />
-        <div className='video-list'>
-          {course.videoList && course.videoList.map((item, index) => {
-            return (
-              <div key={index}>
-                <AliVideo key={index} playerId={item.playerId} type='m3u8' src={item.src} height='170px' />
-              </div>
-            )
-          })}
-        </div>
+        {this.renderCourseDetail(course)}
         {this.renderWorkDetail()}
+      </div>
+    )
+  }
+  renderCourseDetail (course) {
+    return (
+      <div className='detail'>
+        {course.map((item, index) => {
+          return (
+            <div key={`course_${index}`}>
+              {item.hasOwnProperty('html') && <div dangerouslySetInnerHTML={{__html: item.html.content}} />}
+              {item.hasOwnProperty('traning') && <Traning id={item.traning.id} />}
+              {item.hasOwnProperty('video') && <AliVideo key={index} playerId={item.video.playerId} type='m3u8' src={item.video.src} height='170px' />}
+            </div>
+          )
+        })}
       </div>
     )
   }
@@ -133,7 +170,6 @@ export default class extends React.Component {
   }
   submitWork = async (type) => {
     const {query, myWork} = this.state
-    console.log('myWork:', myWork)
     if (ToolsUtil.isUploader(type)) {
       let uuid = DataUtil.uuid(11)
       let formdata = DataUtil.imgFormat(myWork, uuid, 'jpg')
@@ -142,7 +178,7 @@ export default class extends React.Component {
   }
   onChangeHomeWork = async (homeWork) => {
     this.setState({course: '', homeWork: homeWork})
-    // let homeWork = await AxiosUtil.get(`/api/private/work/${this.state.courseId}/${workId}`)
+    // let homeWork = await AxiosUtil.get(`/api/work/${this.state.courseId}/${workId}`)
     // this.setState({homeWork: homeWork})
   }
   renderHomeWork (homeWork) {
@@ -153,13 +189,15 @@ export default class extends React.Component {
     )
   }
   renderContent () {
-    const {detail, showCourse} = this.state
+    const {detail} = this.state
     if (DataUtil.isEmpty(detail)) return <LoadingIcon />
-    if (showCourse) {
-      return this.renderCourse(detail)
-    } else {
-      return this.renderHomeWork(detail)
-    }
+    return this.renderCourse(detail)
+  }
+  renderPrev () {
+    return <Button id='prev' className='prev' type='mini'>上一页</Button>
+  }
+  renderNext () {
+    return <Button id='next' className='next' type='mini'>下一页</Button>
   }
   render () {
     const {
@@ -175,9 +213,9 @@ export default class extends React.Component {
         onChangeCourse={(sectionId) => { this.onChangeCourse(sectionId) }}
         onChangeHomeWork={(workId) => { this.onChangeHomeWork(workId) }}
       >
+        {this.renderPrev()}
+        {this.renderNext()}
         {this.renderContent()}
-        {/* {!DataUtil.isEmpty(course) && this.renderCourse(course)} */}
-        {/* {!DataUtil.isEmpty(homeWork) && this.renderHomeWork(homeWork)} */}
         <style global jsx>{`
           .course-detail {
             padding-top: 1rem;
@@ -203,6 +241,18 @@ export default class extends React.Component {
           }
           .home-work li {
             list-style-type: none;
+          }
+          button.prev {
+            position: fixed;
+            left: 5px;
+            top: 50%;
+            z-index: 999;
+          }
+          button.next {
+            position: fixed;
+            right: 5px;
+            top: 50%;
+            z-index: 999;
           }
         `}</style>
         <link href='/static/js/video-js.css' rel='stylesheet' />

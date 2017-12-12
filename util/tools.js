@@ -1,5 +1,6 @@
 const DataUtils = require('./data')
 const fs = require('fs')
+const cheerio = require('cheerio')
 const path = require('path')
 
 let ToolsUtil = {}
@@ -12,30 +13,73 @@ ToolsUtil.getQueryString = function (name) {
   return null
 }
 
-ToolsUtil.parseVideo = function (content, isH5) {
-  const videoList = []
-  const regexpVideo = /<(video) [^>]*>.*?<\/\1>/g
-  const regexpSrc = /src="([^"]*)"/
-  if (!content) {
-    content = ''
-  }
-  const string = content.replace(regexpVideo, function (str) {
-    const playerId = `player_${DataUtils.uuid()}`
-    let src = str.match(regexpSrc)[1]
-    if (isH5) {
-      src = src.replace(/https:/, 'http:')
-    }
-    videoList.push({
-      playerId,
-      src
-    })
-    return `<video id="${playerId}" class="video-js" style="display:none;"></video>`
+ToolsUtil.parseHtml = function (content) {
+  const $ = cheerio.load(content, {
+    decodeEntities: false
   })
-  return {
-    string,
-    videoList
-  }
+  let pContent = $('p')
+
+  let array = []
+
+  pContent.map((index, item) => {
+    let wrap = $(item).html()
+    // 有视频
+    let src = wrap.match(/src="([^"]*)"/)
+    let training = wrap.match(/traning/)
+
+    if (src) {
+      let playerId = 'player_' + DataUtils.uuid(11)
+      array.push({
+        'html': {
+          content: `<video id="${playerId}" class="video-js" style="display:none;"></video>`
+        }
+      })
+      array.push({
+        'video': {
+          playerId: playerId,
+          src: src[1].replace(/https:/, 'http:')
+        }
+      })
+      // 有练习
+    } else if (training) {
+      let id = wrap.match(/id="([^"]*)"/)
+      array.push({
+        'traning': {
+          id: id[1]
+        }
+      })
+    } else {
+      array.push({
+        'html': {
+          content: wrap
+        }
+      })
+    }
+  })
+  return array
 }
+// ToolsUtil.parseHtml = function (content) {
+//   const videoList = [];
+//   const regexpVideo = /<(video) [^>]*>.*?<\/\1>/g;
+//   const regexpSrc = /src="([^"]*)"/;
+//   if (!content) {
+//     content = '';
+//   }
+//   const string = content.replace(regexpVideo, function (str) {
+//     const playerId = `player_${DataUtils.uuid()}`;
+//     let src = str.match(regexpSrc)[1];
+//       src = src.replace(/https:/, 'http:');
+//     videoList.push({
+//       playerId,
+//       src
+//     });
+//     return `<video id="${playerId}" class="video-js" style="display:none;"></video>`;
+//   });
+//   return {
+//     string,
+//     videoList
+//   };
+// }
 
 // 遍历文件夹
 ToolsUtil.walkDir = function (dir, files) {
