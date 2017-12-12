@@ -132,7 +132,7 @@ export default class extends React.Component {
     console.log('updataMyQuestionAndAnswer')
     let {workId} = this.props.questionItem
     let {courseId} = this.props
-    let getQuestion = await AxiosUtil.get(`/api/private/work/${courseId}/${workId}`)
+    let getQuestion = await AxiosUtil.get(`/api/work/${courseId}/${workId}`)
     if (getQuestion.answer) {
       // 如果已有答案。 或者直接读取overStatus。 或者有了答案 请求刷新
       let getMyAnswer = await AxiosUtil.get(`/api/work/myAnswer/${courseId}/${workId}`)

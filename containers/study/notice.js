@@ -1,24 +1,26 @@
 import React from 'react'
 import AxiosUtil from '../../util/axios'
 import HocRenderContent from '/containers/study/hocRenderContent'
+import {
+  Panel,
+  MediaBox,
+  MediaBoxTitle,
+  MediaBoxDescription
+} from 'react-weui'
 // 原始组件
 class innerComponent extends React.Component {
   render () {
     let {data, courseId} = this.props
     if (data && data.length > 0) {
-      return (<div className='notice'>
+      return (<Panel className='introduce'>
         课程id{courseId}
         {data.map((ele, index) => {
-          return (<div key={index}>
-            <h1>{ele.title}</h1>
-            <p>{ele.content}</p>
-          </div>)
+          return (<MediaBox key={index}>
+            <MediaBoxTitle>{ele.title}</MediaBoxTitle>
+            <MediaBoxDescription>{ele.content}</MediaBoxDescription>
+          </MediaBox>)
         })}
-        <style jsx>{`
-        .{
-        }
-      `}</style>
-      </div>)
+      </Panel>)
     } else {
       return null
     }
@@ -26,7 +28,7 @@ class innerComponent extends React.Component {
 }
 // 自定义拉取数据的方法
 const getData = async function (courseId) {
-  let courseSummaryJson = await AxiosUtil.get(`/api/private/learning/courseNotice/${courseId}`)
+  let courseSummaryJson = await AxiosUtil.get(`/api/learning/courseNotice/${courseId}`)
   return courseSummaryJson
 }
 

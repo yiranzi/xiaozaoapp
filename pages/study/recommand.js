@@ -32,7 +32,7 @@ export default class extends React.Component {
   componentDidMount = async () => {
     // 1 获取课程id
     let type = ToolsUtil.getQueryString('type')
-    let courseRecommend = await Axios.get('/api/private/learning/courseRecommend')
+    let courseRecommend = await Axios.get('/api/learning/courseRecommend')
     let courseRecommendList = []
     courseRecommend.forEach((ele, index) => {
       if (ele.type === type) {

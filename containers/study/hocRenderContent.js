@@ -1,4 +1,5 @@
 import React from 'react'
+import LoadingIcon from '/xz-components/loadingicon'
 
 /**
  *
@@ -55,7 +56,7 @@ export default function (WrappedComponent, getDataFunc) {
         return <WrappedComponent updataFunc={() => { this.updataAll() }} data={this.state.data} {...this.props} />
       } else {
         // 也可以使用loading
-        return <div>Loading...</div>
+        return <LoadingIcon />
       }
     }
   }

@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-  MediaBox,
-  MediaBoxTitle,
-  MediaBoxDescription,
-  MediaBoxInfo
-} from 'react-weui'
+
 
 // 滑动基础组件
 
