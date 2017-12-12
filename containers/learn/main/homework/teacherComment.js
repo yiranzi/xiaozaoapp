@@ -1,5 +1,6 @@
 import React from 'react'
 import AxiosUtil from '/util/axios'
+import LoadingIcon from '/xz-components/loadingicon'
 import {
   Cell,
   CellHeader,
@@ -24,7 +25,7 @@ export default class extends React.Component {
     let {studentAnswerId} = this.props
     console.log('componentDidMount teacherComment')
     if (studentAnswerId) {
-      let teacherComment = await AxiosUtil.get(`/api/workAnswerEvaluate/${studentAnswerId}`)
+      let teacherComment = await AxiosUtil.get(`/api/work/workAnswerEvaluate/${studentAnswerId}`)
       this.setState({
         teacherComment: teacherComment
       })
@@ -79,7 +80,7 @@ export default class extends React.Component {
         {this.props.canEvaluateScore && this.renderEvaluateScore()}
       </MediaBox>)
     } else {
-      return <div>Loading...</div>
+      return <LoadingIcon />
     }
   }
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import EditHomework from '/containers/learn/main/homework/myEditHomework'
 import ViewHomework from '/containers/learn/main/homework/myViewHomework'
+import LoadingIcon from '/xz-components/loadingicon'
 import {
   Panel
 } from 'react-weui'
@@ -85,9 +86,7 @@ export default class extends React.Component {
         </Panel>
       </div>)
     } else {
-      return (<div>
-        Loading...
-      </div>)
+      return (<LoadingIcon />)
     }
   }
 }

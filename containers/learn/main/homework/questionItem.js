@@ -11,6 +11,7 @@ import {
 } from 'react-weui'
 
 import AxiosUtil from '/util/axios'
+import LoadingIcon from '/xz-components/loadingicon'
 /**
  * 渲染每个问题
  */
@@ -245,7 +246,7 @@ export default class extends React.Component {
       `}</style>
       </MediaBox>)
     } else {
-      return <div>Loading...</div>
+      return <LoadingIcon />
     }
   }
 }

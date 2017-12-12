@@ -1,5 +1,6 @@
 import React from 'react'
 import StudentAnswer from '/containers/learn/main/homework/studentAnswer'
+import LoadingIcon from '/xz-components/loadingicon'
 import {
   Panel
 } from 'react-weui'
@@ -22,7 +23,7 @@ export default class extends React.Component {
         {studentAnswerArray}
       </Panel>)
     } else {
-      return <div>Loading...</div>
+      return <LoadingIcon />
     }
   }
 }
