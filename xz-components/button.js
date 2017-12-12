@@ -5,7 +5,8 @@ export default class Button extends React.Component {
   static propTypes = {
     type: PropTypes.string,
     onClick: PropTypes.func,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    className: PropTypes.string
   }
   static defaultProps = {
     type: 'primary',

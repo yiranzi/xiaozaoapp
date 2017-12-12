@@ -1,7 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import AxiosUtil from '../../../util/axios'
+import ThemeConfig from '../../../config/theme'
 import {
+  Button,
+  ButtonArea,
   Cell,
   CellHeader,
   CellBody,
@@ -86,38 +89,41 @@ export default class extends React.Component {
 
   renderFeedbackBar () {
     const { nice, bad } = this.state.evaluate
-    return (<div className='wx-text-right'>
-      <span onClick={e => this.addFeedback(true)}>有帮助{nice > 0 && '+'}{nice}</span>&emsp;
-      <span onClick={e => this.addFeedback(false)}>无帮助{bad > 0 && '-'}{bad}</span>
-    </div>)
+    return (<ButtonArea direction='horizontal'>
+      <Button size='small' type='default' className='' onClick={e => this.addFeedback(true)}>有帮助{nice > 0 && '+'}{nice}</Button>
+      <Button size='small' type='default' className='' onClick={e => this.addFeedback(false)}>无帮助{bad > 0 && '-'}{bad}</Button>
+    </ButtonArea>)
   }
 
   renderEvaluateInfo () {
     const { evaluate } = this.state
     return (<MediaBoxInfo>
-      <div className='wx-text-right' onClick={this.showEvaluateInfo}>导师点评</div>
+      <div className='wx-text-right' onClick={this.showEvaluateInfo} style={{margin: '5px 0'}}>导师点评</div>
       {evaluate && this.state.showEvaluate &&
-        (<MediaBox style={{textAlign: 'left'}} className='evaluate'>
-          {this.renderTitle(evaluate.headimgurl, evaluate.nickname, evaluate.createTime)}
-          {this.renderDescription(evaluate.evaluate)}
+        (<div>
+          <MediaBox className='evaluate feedback-item'>
+            {this.renderTitle(evaluate.headimgurl, evaluate.nickname, evaluate.createTime)}
+            {this.renderDescription(evaluate.evaluate)}
+          </MediaBox>
           {this.renderFeedbackBar()}
-        </MediaBox>)
+        </div>)
       }
+      <style global jsx>{`
+        .feedback-item {
+          background-color: ${ThemeConfig.color.gray};
+        }
+      `}</style>
     </MediaBoxInfo>)
   }
 
   render () {
     let { question } = this.props
     if (question) {
-      return (<MediaBox style={{textAlign: 'left'}}>
+      return (<MediaBox style={{textAlign: 'left', paddingTop: '30px'}}>
         {this.renderTitle(question.headimgurl, question.nickname, question.createTime)}
         {this.renderDescription(question.question)}
         {question.evaluate && this.renderEvaluateInfo()}
         <style global jsx>{`
-          .evaluate.weui-media-box {
-            padding-right: 0 !important;
-            padding-bottom: 0 !important;
-          }
           .weui-media-box:before {
             border: 0 !important;
           }
@@ -126,8 +132,6 @@ export default class extends React.Component {
           }
         `}</style>
       </MediaBox>)
-    } else {
-      return (<div className='wx-text-center' />)
     }
   }
 }
