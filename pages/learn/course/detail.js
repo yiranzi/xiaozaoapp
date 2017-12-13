@@ -33,9 +33,10 @@ export default class extends React.Component {
 
   componentDidMount = async () => {
     let courseId = ToolsUtil.getQueryString('courseId')
-    let menuId = ToolsUtil.getQueryString('menuId')
-    let sectionId = ToolsUtil.getQueryString('sectionId')
-    let pageNumber = ToolsUtil.getQueryString('pageNumber') || 1
+    let footerPrint = await AxiosUtil.get(`/api/learning/getLearningFootprint/${courseId}`)
+    let menuId = ToolsUtil.getQueryString('menuId') || footerPrint.chapterId
+    let sectionId = ToolsUtil.getQueryString('sectionId') || footerPrint.sectionId
+    let pageNumber = ToolsUtil.getQueryString('pageNumber') || footerPrint.pageNumber
 
     let menuContent = await AxiosUtil.get(`/api/learning/course/${courseId}`)
     let array = []
@@ -100,7 +101,9 @@ export default class extends React.Component {
     const _this = this
     homeworkContent.map((item, index) => {
       item.childLearningCourseWorkDTOList.map((item, index) => {
-        if (item.sectionId === _this.state.sectionId && item.pageNumber === pageNumber) {
+        console.log('sectionId:', sectionId)
+        console.log('_this.state.sectionId:', _this.state.sectionId)
+        if (item.sectionId === sectionId && item.pageNumber === pageNumber) {
           workId = item.workId
           return false
         }
@@ -120,6 +123,7 @@ export default class extends React.Component {
         workId: workId
       }
     })
+    AxiosUtil.post(`/api/learning/saveFootprint`, JSON.stringify({courseId: courseId, chapterId: menuId || menuContent.menuDTOList[0].id, pageNumber: pageNumber, sectionId: sectionId}))
   }
   onChangeCourse = async (sectionId) => {
     this.setState({course: '', homeWork: ''})
