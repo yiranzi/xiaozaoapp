@@ -10,7 +10,7 @@ import {
 
 export default class extends React.Component {
   goRouter () {
-    location.href = `/learn/main/courseInfo?courseId=${this.props.courseId}`
+    location.href = `/learn/course/info?courseId=${this.props.courseId}`
   }
 
   render () {

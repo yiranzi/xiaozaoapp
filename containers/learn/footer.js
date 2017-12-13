@@ -14,7 +14,7 @@ export default class extends React.Component {
     const {type, courseId} = this.props
     return (
       <div className='footer'>
-        <div className='index' onClick={() => { location.href = '/learn/main/courseInfo?courseId=' + courseId }}>课程<br />首页</div>
+        <div className='index' onClick={() => { location.href = '/learn/course/info?courseId=' + courseId }}>课程<br />首页</div>
         <div
           className={ClassNames('item', {'current': this.state.learn || type === 'learn'})}
           onTouchStart={() => { this.setState({learn: true}) }}
