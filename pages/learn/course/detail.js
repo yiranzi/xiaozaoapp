@@ -9,6 +9,7 @@ import LoadingIcon from '../../../xz-components/loadingicon'
 import Option from '../../../containers/clock/option'
 import Button from '../../../xz-components/button'
 import Traning from '../../../containers/learn/course/traning'
+import Material from '../../../containers/clock/material'
 
 export default class extends React.Component {
   constructor (props) {
@@ -104,14 +105,6 @@ export default class extends React.Component {
         workId: workId
       }
     })
-    // document.addEventListener('touchstart', function () {
-    //   document.getElementById('prev').style.backgroundColor = 'black'
-    //   document.getElementById('next').style.backgroundColor = 'black'
-    // })
-    // document.addEventListener('touchend', function () {
-    //   document.getElementById('prev').style.backgroundColor = '#117ee9'
-    //   document.getElementById('next').style.backgroundColor = '#117ee9'
-    // })
   }
   onChangeCourse = async (sectionId) => {
     this.setState({course: '', homeWork: ''})
@@ -122,7 +115,7 @@ export default class extends React.Component {
     return (
       <div className='course-detail'>
         <div className='text' dangerouslySetInnerHTML={{__html: course.string}} />
-        {this.renderCourseDetail(course)}
+        {/* {this.renderCourseDetail(course)} */}
         {this.renderWorkDetail()}
       </div>
     )
@@ -156,9 +149,9 @@ export default class extends React.Component {
             <Button onClick={() => { this.submitWork(workDetail.type) }}>上传作业</Button>
           ) : (
             <div>
-              <Button type='normal'>查看其他同学答案</Button>
-              <Button>查看导师点评</Button>
-              <Button onClick={() => { this.editMyWork() }}>修改答案</Button>
+              <Button type='normal' size='small'>查看其他同学答案</Button>
+              <Button size='small'>查看导师点评</Button>
+              <Button size='small' onClick={() => { this.editMyWork() }}>修改答案</Button>
             </div>
           )}
         </div>
@@ -176,11 +169,6 @@ export default class extends React.Component {
       await AxiosUtil.post(`/api/work/workFileComplete/${query.courseId}/${query.workId}`, formdata)
     }
   }
-  onChangeHomeWork = async (homeWork) => {
-    this.setState({course: '', homeWork: homeWork})
-    // let homeWork = await AxiosUtil.get(`/api/work/${this.state.courseId}/${workId}`)
-    // this.setState({homeWork: homeWork})
-  }
   renderHomeWork (homeWork) {
     return (
       <div className='home-work'>
@@ -194,10 +182,10 @@ export default class extends React.Component {
     return this.renderCourse(detail)
   }
   renderPrev () {
-    return <Button id='prev' className='prev' type='mini'>上一页</Button>
+    return <Button id='prev' size='small'>上一页</Button>
   }
   renderNext () {
-    return <Button id='next' className='next' type='mini'>下一页</Button>
+    return <Button id='next' size='small'>下一页</Button>
   }
   render () {
     const {
@@ -242,13 +230,13 @@ export default class extends React.Component {
           .home-work li {
             list-style-type: none;
           }
-          button.prev {
+          button#prev {
             position: fixed;
             left: 5px;
             top: 50%;
             z-index: 999;
           }
-          button.next {
+          button#next {
             position: fixed;
             right: 5px;
             top: 50%;

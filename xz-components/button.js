@@ -1,47 +1,59 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classNames from 'classnames'
 
 export default class Button extends React.Component {
   static propTypes = {
     type: PropTypes.string,
-    onClick: PropTypes.func,
+    size: PropTypes.string,
     disabled: PropTypes.bool,
-    className: PropTypes.string
+    onClick: PropTypes.func
   }
   static defaultProps = {
     type: 'primary',
-    onClick: function () {},
-    disabled: false
+    size: 'normal',
+    disabled: false,
+    onClick: function () {}
   }
 
   render () {
+    const {type, className, size, disabled} = this.props
+    const cls = classNames({
+      'xz-btn': true,
+      'xz-btn_primary': type === 'primary',
+      'xz-btn_small': size === 'small',
+      'xz-btn_disabled': disabled,
+      [className]: className
+    })
     return (
-      <button {...this.props} >
+      <button className={cls} {...this.props} >
         {this.props.children}
         <style jsx>{`
           /* button 全局样式 */
-          button {
-            font-size: 1rem;
+          .xz-btn {
             width: 100%;
-            color: #fff;
             padding: 4px 8px;
             border-radius: 4px;
             margin: 4px 0;
             border: 1px solid transparent;
           }
-          button,
-          button:active,
-          button:focus {
+          .xz-btn,
+          .xz-btn:active,
+          .xz-btn:focus {
             border: none;
             outline: none;
             border: 1px solid transparent;
           }
-
-          /* button type primary */
-          button[type='primary'] {
-            background-color: #117ee9;
+          /* 小号button */
+          .xz-btn_small {
+            width: auto;
           }
-          button[type='primary']:disabled {
+          /* button type primary */
+          .xz-btn_primary {
+            background-color: #117ee9;
+            color: #fff;
+          }
+          .xz-btn_primary:disabled {
             background-color: rgba(0, 0, 0, 0.2);
             border-radius: 1px solid rgba(0, 0, 0, 0.2);
           }
@@ -56,16 +68,6 @@ export default class Button extends React.Component {
             color: rgba(0, 0, 0, 0.2);
             background-color: transparent;
             border: 1px solid rgba(0, 0, 0, 0.2);
-          }
-
-          /* button type mini */
-          button[type='mini'] {
-            width: auto;
-            background-color: #117ee9;
-          }
-          button[type='mini']:disabled {
-            background-color: rgba(0, 0, 0, 0.2);
-            border-radius: 1px solid rgba(0, 0, 0, 0.2);
           }
         `}</style>
       </button>
