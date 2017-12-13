@@ -76,12 +76,19 @@ export default class extends React.Component {
   /**
    * 描述学生答案的条目
    */
+
+  /*
+    // 这边的给自己点赞的功能屏蔽掉了 因为开启点赞需要刷新 其他作业列表的点赞 价值较小 并且给自己点赞有点奇怪
+    // 如果要加回来 往title中添加额外的字段就可以
+   let {nickname, headimgurl, updateTime, starCount, star, id: studentAnswerId, answer, score} = answerData
+   <Title nickname={nickname} headimgurl={headimgurl} time={updateTime}
+   starCount={starCount} star={star} starId={studentAnswerId} />
+   */
   renderStudentAnswer (answerData) {
     if (answerData) {
-      let {nickname, headimgurl, updateTime, starCount, star, id: studentAnswerId, answer, score} = answerData
+      let {nickname, headimgurl, updateTime, id: studentAnswerId, answer, score} = answerData
       return (<MediaBox>
-        <Title nickname={nickname} headimgurl={headimgurl} time={updateTime}
-          starCount={starCount} star={star} starId={studentAnswerId} />
+        <Title nickname={nickname} headimgurl={headimgurl} time={updateTime} />
         <Description content={answer} />
         <MediaBoxInfo style={{textAlign: 'right'}}>
           {score ? <MoreLine title={<span style={{flex: 'auto'}}>导师点评{score}分</span>}

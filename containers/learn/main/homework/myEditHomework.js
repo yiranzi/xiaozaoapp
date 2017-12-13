@@ -27,7 +27,11 @@ export default class extends React.Component {
     let {courseId, workId} = this.props
     try {
       await AxiosUtil.post(`/api/work/workComplete/${courseId}/${workId}`, this.state.textValue)
-      // 提交作业。
+      // 并且为了重新拉取数据 这里需要delete
+      AxiosUtil.deleteCache(`/api/work/answerList/${courseId}/${workId}/?pn=1`)
+      AxiosUtil.deleteCache(`/api/work/${courseId}/${workId}`)
+      AxiosUtil.deleteCache(`/api/work/myAnswer/${courseId}/${workId}`)
+      // 提交作业。提交作业会让最上层的接口workList发生变化。所以需要传到最上层去更新。
       this.props.updataFunc()
     } catch (e) {
 

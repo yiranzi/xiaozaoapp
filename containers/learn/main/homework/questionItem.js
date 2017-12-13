@@ -11,7 +11,6 @@ import {
 } from 'react-weui'
 
 import AxiosUtil from '/util/axios'
-import LoadingIcon from '/xz-components/loadingicon'
 /**
  * 渲染每个问题
  */
@@ -64,16 +63,6 @@ export default class extends React.Component {
     this.onTabClick(seeMyHomeWork)
   }
 
-  // 作业是负责拉取数据的大模块。
-  // 点击小作业后，会让大模块拉取数据，进行
-  // 写作业，是内容的一部分。提交作业，也是上报到大模块 进行提交的。
-  // 包括点评 都是这样？
-
-  // 用户点击小模块的操作。是在模块内部进行处理的 模块内部有current数据。 模块内部进行控制。
-
-  // 1 数据。
-  // 2
-
   onTabClick (index) {
     // index == 2 不可点击
     if (index === 2) {
@@ -120,7 +109,7 @@ export default class extends React.Component {
   updataStudentAnswerList = async () => {
     let {workId, endTime} = this.props.questionItem
     let {courseId} = this.props
-    let answerListByPage = await AxiosUtil.get(`/api/work/answerList/${courseId}/${workId}/?pn=1`)
+    let answerListByPage = await AxiosUtil.get(`/api/work/answerList/${courseId}/${workId}/?pn=1`, true)
     let data = answerListByPage.data
     // 补充上每个的delay状态
     data.forEach((ele, index) => {
@@ -135,10 +124,10 @@ export default class extends React.Component {
     console.log('updataMyQuestionAndAnswer')
     let {workId} = this.props.questionItem
     let {courseId} = this.props
-    let getQuestion = await AxiosUtil.get(`/api/work/${courseId}/${workId}`)
+    let getQuestion = await AxiosUtil.get(`/api/work/${courseId}/${workId}`, true)
     if (getQuestion.answer) {
       // 如果已有答案。 或者直接读取overStatus。 或者有了答案 请求刷新
-      let getMyAnswer = await AxiosUtil.get(`/api/work/myAnswer/${courseId}/${workId}`)
+      let getMyAnswer = await AxiosUtil.get(`/api/work/myAnswer/${courseId}/${workId}`, true)
       await this.setState({
         questionInfo: getQuestion,
         myAnswer: getMyAnswer

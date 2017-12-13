@@ -13,7 +13,8 @@ export default function (WrappedComponent, getDataFunc) {
     constructor (props) {
       super(props)
       this.state = {
-        data: undefined // 这是被包裹组件希望的数据接口，通过这个来让组件渲染内容。
+        data: undefined, // 这是被包裹组件希望的数据接口，通过这个来让组件渲染内容。
+        error: undefined
       }
     }
 
@@ -36,27 +37,36 @@ export default function (WrappedComponent, getDataFunc) {
     }
 
     // 刷新
-    updataAll () {
-      console.log('updataAll')
+    updataFunc () {
+      console.log('updataFunc')
       this.getContentData(this.props.courseId)
     }
 
     // 拉取实际上由hoc的参数完成。这里调用回调。获得需要的数据后
     getContentData = async (courseId) => {
-      let data = await getDataFunc(courseId)
-      this.setState({
-        data: data
-      })
+      try {
+        let data = await getDataFunc(courseId)
+        this.setState({
+          data: data
+        })
+      } catch (e) {
+        this.setState({
+          error: e
+        })
+      }
     }
 
     render () {
       // 重组props。包括原有的和包裹后新增的。
       if (this.state.data) {
         // 这样也许保证 子组件的 did一定有数据
-        return <WrappedComponent updataFunc={() => { this.updataAll() }} data={this.state.data} {...this.props} />
+        return <WrappedComponent updataFunc={() => { this.updataFunc() }} data={this.state.data} {...this.props} />
       } else {
-        // 也可以使用loading
-        return <LoadingIcon />
+        if (this.state.error) {
+          return <div>null</div>
+        } else {
+          return <LoadingIcon />
+        }
       }
     }
   }

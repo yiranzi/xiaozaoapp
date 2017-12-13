@@ -10,19 +10,22 @@ export default class extends React.Component {
   }
 
   componentDidMount = async () => {
-    console.log('componentDidMount seemywork')
+    console.log('componentDidMount give agree')
   }
 
   componentWillReceiveProps = async (nextProps) => {
-    this.setState({
-      starClick: false
-    })
+    // 如果发生了变化 重置状态
+    if (this.props.star !== nextProps.star) {
+      this.setState({
+        starClick: false
+      })
+    }
   }
 
   answerClickStar (workAnswerId) {
     // 发送请求。
     AxiosUtil.get(`/api/work/answerStar/${workAnswerId}`)
-    // 如果成功则成功。还是直接成功？
+    // 无论成功否
     this.setState({
       starClick: true
     })
