@@ -3,6 +3,12 @@ let DateUtil = {}
 // 日期格式化
 DateUtil.format = function (date, fmt) {
   if (typeof date === 'string' || typeof date === 'number') {
+    if (typeof date === 'string') {
+      date = date.replace(/-/g, '/').replace(/T/g, ' ')
+      if (date.length > 19) {
+        date = date.substring(0, 19)
+      }
+    }
     date = new Date(date)
   }
   // yyyy-MM-dd hh:mm:ss
@@ -29,7 +35,7 @@ DateUtil.format = function (date, fmt) {
 }
 
 DateUtil.diffDay = function (endTime) {
-  let d1 = DateUtil.format(new Date(endTime.replace(/-/g, '/').replace(/T/g, ' ')), 'yyyy-MM-dd')
+  let d1 = DateUtil.format(endTime, 'yyyy-MM-dd')
   let d2 = DateUtil.format(new Date(), 'yyyy-MM-dd')
   d1 = new Date(d1)
   d2 = new Date(d2)
@@ -39,10 +45,10 @@ DateUtil.diffDay = function (endTime) {
 }
 
 DateUtil.diffTime = function (dateStr1, dateStr2) {
-  let d1 = this.format(new Date(dateStr1.replace(/-/g, '/').replace(/T/g, ' ')), 'yyyy-MM-dd hh:mm:ss')
-  let d2 = this.format(new Date(dateStr2.replace(/-/g, '/').replace(/T/g, ' ')), 'yyyy-MM-dd hh:mm:ss')
-  d1 = new Date(d1)
-  d2 = new Date(d2)
+  let d1 = DateUtil.format(dateStr1, 'yyyy-MM-dd hh:mm:ss')
+  let d2 = DateUtil.format(dateStr2, 'yyyy-MM-dd hh:mm:ss')
+  d1 = new Date(d1.replace(/-/g, '/'))
+  d2 = new Date(d2.replace(/-/g, '/'))
   var time = d1.getTime() - d2.getTime()
   return time
 }
