@@ -18,11 +18,7 @@ class innerComponent extends React.Component {
 
   renderLessonQuestions (lesson) {
     let questionDivList = lesson.childLearningCourseWorkDTOList.map((questionItem, index) => {
-      return (<QuestionItem key={questionItem.workId}
-        courseId={this.props.courseId}
-        questionItem={questionItem}
-        updataFunc={this.props.updataFunc}
-        payStatus={this.props.courseStatus} />)
+      return (<QuestionItem key={questionItem.workId} questionItem={questionItem} {...this.props} />)
     })
     return (questionDivList)
   }
@@ -35,7 +31,7 @@ class innerComponent extends React.Component {
           <Panel key={index}>
             <PanelHeader>
               <div className='lesson-title'>
-                <img src='/static/img/study/homework-icon.png' />
+                <img src='/static/img/icon/homework-icon.png' />
                 <h2>{lesson.chapterName}</h2>
               </div>
             </PanelHeader>
@@ -56,14 +52,27 @@ class innerComponent extends React.Component {
               font-size: 18px;
             }
           `}</style>
+            <style jsx global>{`
+             .weui-panel {
+                margin-top:30px !important;
+              }
+              .weui-panel:first-child {
+                margin-top: 0 !important;
+              }
+            `}</style>
           </Panel>)
       })
       return (<div className='homework-page'>
-        {this.props.courseStatus === 'unbuyed' && <h1>立即报名课程，解锁以下作业</h1>}
+        {this.props.courseStatus === 'unbuyed' && <h1 className='title'>立即报名课程，解锁以下作业</h1>}
         {lessonHomework}
         <style jsx>{`
           .homework-page {
             background-color: #efeff4
+          }
+          .title {
+            padding-top: 25px;
+            text-align: center;
+            font-size: 16px;
           }
         `}</style>
       </div>)

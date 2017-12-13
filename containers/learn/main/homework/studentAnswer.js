@@ -14,6 +14,10 @@ import MoreContent from '/xz-components/moreContent'
 import TeacherComment from '/containers/learn/main/homework/teacherComment'
 import DateUtil from '/util/date'
 
+/**
+ * 描述学生答案的条目
+ */
+
 export default class extends React.Component {
   constructor (props) {
     super(props)

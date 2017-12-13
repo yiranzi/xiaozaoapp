@@ -11,6 +11,7 @@ import AxiosUtil from '/util/axios'
 import ToolsUtil from '/util/tools'
 import GetPayInfo from '/util/getPayInfo'
 import Button from '/xz-components/button'
+import LoadingIcon from '/xz-components/loadingicon'
 
 export default class extends React.Component {
   constructor (props) {
@@ -28,49 +29,44 @@ export default class extends React.Component {
   componentDidMount = async () => {
     // 1 获取课程id
     let courseId = parseInt(ToolsUtil.getQueryString('courseId'))
-    // 2 根据id拉取数据
-    await this.setState({
+    this.setState({
       courseId: courseId
     })
-    this.set()
+    this.getPayStatus(courseId)
   }
 
-  set = async () => {
-    let {courseId} = this.state
-    let courseInfo = await GetPayInfo.getPayInfo(courseId)
-    this.setState({
-      courseStatus: courseInfo.status
-      // courseStatus: 'unbuyed'
-    })
-    this.getCourseInfo(courseInfo)
-  }
-
-  getCourseInfo = async (courseInfo) => {
-    let {status: courseStatus} = courseInfo
-    if (courseStatus === undefined || courseStatus === 'unbuyed') {
-      let {courseId} = this.state
-      // 拉取名字
-      let courseInfo = await AxiosUtil.get(`/api/learning/courseDetail/${courseId}`)
+  // 课程是否购买？
+  getPayStatus = async (courseId) => {
+    // 1 是否购买
+    let courseInfo = await AxiosUtil.get(`/api/learning/courseDetail/${courseId}`)
+    if (!courseInfo.buyed) {
       this.setState({
+        courseStatus: 'unbuyed',
         courseName: courseInfo.name
       })
     } else {
-      // 保存信息
-      this.setState({
-        courseName: courseInfo.courseName,
-        finishSection: courseInfo.overSection,
-        totalSection: courseInfo.totalSection,
-        totalChapter: courseInfo.totalChapter
-      })
+      this.getProcessInfo(courseId)
     }
   }
 
+  // 从我的课程列表中获取进度信息
+  getProcessInfo = async (courseId) => {
+    let courseInfo = await GetPayInfo.getPayInfo(courseId)
+    this.setState({
+      courseName: courseInfo.courseName,
+      finishSection: courseInfo.overSection,
+      totalSection: courseInfo.totalSection,
+      totalChapter: courseInfo.totalChapter,
+      courseStatus: courseInfo.status
+    })
+  }
+
   renderTabbar () {
-    let {courseId} = this.state
+    let {courseId, courseStatus} = this.state
     return (<div className='course-tab-bar'>
       <Tab type='navbar'>
         {this.renderByPayStatus()}
-        <NavBarItem label='作业'><Homework courseStatus={this.state.courseStatus} courseId={courseId} /></NavBarItem>
+        <NavBarItem label='作业'>{courseStatus !== undefined && <Homework courseStatus={this.state.courseStatus} courseId={courseId} />}</NavBarItem>
         <NavBarItem label='讨论'><Discuss courseId={courseId} /></NavBarItem>
         <NavBarItem label='成就'><Achieve courseId={courseId} /></NavBarItem>
       </Tab>
@@ -85,10 +81,15 @@ export default class extends React.Component {
 
   renderByPayStatus () {
     let {courseStatus, courseId} = this.state
-    if (courseStatus === undefined || courseStatus === 'unbuyed') {
-      return (<NavBarItem label='概述'><Introduce courseId={courseId} /></NavBarItem>)
+    // 拉到付费信息之后再去做后续逻辑
+    if (courseStatus === undefined) {
+      return (<NavBarItem label='概述'><LoadingIcon /></NavBarItem>)
     } else {
-      return (<NavBarItem label='公告'><Notice courseId={courseId} /></NavBarItem>)
+      if (courseStatus === undefined || courseStatus === 'unbuyed') {
+        return (<NavBarItem label='概述'><Introduce courseId={courseId} /></NavBarItem>)
+      } else {
+        return (<NavBarItem label='公告'><Notice courseId={courseId} /></NavBarItem>)
+      }
     }
   }
 
@@ -96,10 +97,9 @@ export default class extends React.Component {
     let {courseId, courseStatus, courseName, finishSection, totalSection, totalChapter} = this.state
     if (courseName) {
       let content
-      if (courseStatus === 'undefined' || courseStatus === 'unbuyed') {
+      if (courseStatus === 'unbuyed') {
         // 未付费
-        {/*content = <a href={`/payment/buygether`}>报名课程</a>*/}
-        content = <a href={`/learn/main/introduce`}>立即报名</a>
+        content = <a href={`/payment/buygether`}>立即报名</a>
       } else {
         // 已付费
         if (courseStatus === 'over') {
@@ -138,7 +138,7 @@ export default class extends React.Component {
         `}</style>
       </div>)
     } else {
-      return null
+      return <LoadingIcon />
     }
   }
 

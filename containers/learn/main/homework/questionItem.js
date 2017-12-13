@@ -75,6 +75,7 @@ export default class extends React.Component {
   // 2
 
   onTabClick (index) {
+    // index == 2 不可点击
     if (index === 2) {
       return
     }
@@ -84,6 +85,7 @@ export default class extends React.Component {
     if (payStatus === undefined || payStatus === 'unbuyed') {
       return
     }
+    // 重复点击 会取消选中
     if (this.state.currentSelect === index) {
       this.setState({
         currentSelect: -1
@@ -93,16 +95,17 @@ export default class extends React.Component {
     if (overWork) {
       // 如果完成作业
       if (index === 0) {
-        // 拉取作业列表
+        // 拉取其他人作业列表
         this.updataStudentAnswerList()
       } else if (index === 1) {
+        // 拉取作业数据 准备展示题目
         this.updataMyQuestionAndAnswer()
       }
       this.setState({
         currentSelect: index
       })
     } else {
-      // 拉取数据
+      // 拉取作业数据 准备展示题目
       this.updataMyQuestionAndAnswer()
       const doHomeWorkIndex = 1
       if (index !== doHomeWorkIndex) {
@@ -115,18 +118,17 @@ export default class extends React.Component {
   }
 
   updataStudentAnswerList = async () => {
-    console.log('updataStudentAnswerList')
     let {workId, endTime} = this.props.questionItem
     let {courseId} = this.props
     let answerListByPage = await AxiosUtil.get(`/api/work/answerList/${courseId}/${workId}/?pn=1`)
     let data = answerListByPage.data
-    data.map((ele, index) => {
-      return (ele.overStatus = this.setOverStatus(endTime, ele.updateTime))
+    // 补充上每个的delay状态
+    data.forEach((ele, index) => {
+      ele.overStatus = this.setOverStatus(endTime, ele.updateTime)
     })
-    await this.setState({
+    this.setState({
       answerList: data
     })
-    console.log(data)
   }
 
   updataMyQuestionAndAnswer = async () => {
@@ -173,13 +175,22 @@ export default class extends React.Component {
       <p>{score ? `已点评 ${score}分` : '--'}</p>
     </div>
     let dateIcon = <div>
-      {this.setOverStatus(questionItem.endTime, questionItem.updateTime) && <img style={{position: 'absolute', width: '50px', right: '0px', top: '0'}}src='/static/img/study/homework-late.png' />}
+      {this.setOverStatus(questionItem.endTime, questionItem.updateTime) && <img
+        style={{position: 'absolute', width: '50px', right: '0px', top: '0'}}
+        src='/static/img/study/homework-late.png' />}
       <p>截止日期</p>
       <p>{DateUtil.format(questionItem.endTime, 'yyyy-MM-dd')}</p>
     </div>
     return (
-      <Tabbar style={{marginTop: '10px', marginBottom: '10px'}} currentSelect={this.state.currentSelect} onTabClick={this.onTabClick}>
-        <TabItem title={allAnswerIcon} ><SeeOtherWork answerList={this.state.answerList} courseId={courseId} workId={workId} /></TabItem>
+      <Tabbar style={{marginTop: '10px', marginBottom: '10px'}}
+        currentSelect={this.state.currentSelect}
+        onTabClick={this.onTabClick}>
+        <TabItem title={allAnswerIcon} >
+          <SeeOtherWork
+            answerList={this.state.answerList}
+            courseId={courseId}
+            workId={workId} />
+        </TabItem>
         <TabItem title={myAnswerIcon} >
           <SeeMyWork
             courseId={courseId}
@@ -188,7 +199,7 @@ export default class extends React.Component {
             updataFunc={this.updataFunc}
             myAnswer={myAnswer} />
         </TabItem>
-        <TabItem title={dateIcon} disabled>empty</TabItem>
+        <TabItem title={dateIcon} disabled />
       </Tabbar>)
   }
 
@@ -241,12 +252,14 @@ export default class extends React.Component {
           跳转链接
         </MediaBoxInfo>
         {this.renderTabbar()}
-        <style jsx>{`
-
-      `}</style>
+        <style global jsx>{`
+          .weui-media-box {
+            margin-bottom: 30px !important;
+          }
+        `}</style>
       </MediaBox>)
     } else {
-      return <LoadingIcon />
+      return null
     }
   }
 }
