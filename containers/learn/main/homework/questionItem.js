@@ -23,9 +23,9 @@ export default class extends React.Component {
       isUpdateActive: false
     }
     this.onTabClick = this.onTabClick.bind(this)
-    this.updataStudentAnswerList = this.updataStudentAnswerList.bind(this)
-    this.updataMyQuestionAndAnswer = this.updataMyQuestionAndAnswer.bind(this)
-    this.updataFunc = this.updataFunc.bind(this)
+    this.updateStudentAnswerList = this.updateStudentAnswerList.bind(this)
+    this.updateMyQuestionAndAnswer = this.updateMyQuestionAndAnswer.bind(this)
+    this.updateFunc = this.updateFunc.bind(this)
   }
 
   componentDidMount = async () => {
@@ -36,7 +36,7 @@ export default class extends React.Component {
   componentWillReceiveProps = async (nextProps) => {
     let {currentSelect, isUpdateActive} = this.state
     if (currentSelect === 1 && isUpdateActive) {
-      this.updataMyQuestionAndAnswer()
+      this.updateMyQuestionAndAnswer()
       this.setState({
         isUpdateActive: false
       })
@@ -85,17 +85,17 @@ export default class extends React.Component {
       // 如果完成作业
       if (index === 0) {
         // 拉取其他人作业列表
-        this.updataStudentAnswerList()
+        this.updateStudentAnswerList()
       } else if (index === 1) {
         // 拉取作业数据 准备展示题目
-        this.updataMyQuestionAndAnswer()
+        this.updateMyQuestionAndAnswer()
       }
       this.setState({
         currentSelect: index
       })
     } else {
       // 拉取作业数据 准备展示题目
-      this.updataMyQuestionAndAnswer()
+      this.updateMyQuestionAndAnswer()
       const doHomeWorkIndex = 1
       if (index !== doHomeWorkIndex) {
         alert('提交完作业才可以查看其他人答案哦')
@@ -106,7 +106,7 @@ export default class extends React.Component {
     }
   }
 
-  updataStudentAnswerList = async () => {
+  updateStudentAnswerList = async () => {
     let {workId, endTime} = this.props.questionItem
     let {courseId} = this.props
     let answerListByPage = await AxiosUtil.get(`/api/work/answerList/${courseId}/${workId}/?pn=1`, true)
@@ -120,8 +120,8 @@ export default class extends React.Component {
     })
   }
 
-  updataMyQuestionAndAnswer = async () => {
-    console.log('updataMyQuestionAndAnswer')
+  updateMyQuestionAndAnswer = async () => {
+    console.log('updateMyQuestionAndAnswer')
     let {workId} = this.props.questionItem
     let {courseId} = this.props
     let getQuestion = await AxiosUtil.get(`/api/work/${courseId}/${workId}`, true)
@@ -140,12 +140,12 @@ export default class extends React.Component {
     }
   }
 
-  updataFunc () {
+  updateFunc () {
     // 拉取前标记可以更新
     this.setState({
       isUpdateActive: true
     })
-    this.props.updataFunc()
+    this.props.updateFunc()
   }
 
   renderTabbar () {
@@ -185,7 +185,7 @@ export default class extends React.Component {
             courseId={courseId}
             workId={workId}
             questionInfo={questionInfo}
-            updataFunc={this.updataFunc}
+            updateFunc={this.updateFunc}
             myAnswer={myAnswer} />
         </TabItem>
         <TabItem title={dateIcon} disabled />

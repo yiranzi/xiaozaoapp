@@ -83,7 +83,7 @@ class innerComponent extends React.Component {
 }
 
 // 自定义拉取数据的方法
-// updataFunc会刷新数据
+// updateFunc会刷新数据
 const getData = async function (courseId) {
   return (AxiosUtil.get(`/api/work/workList/${courseId}`))
 }

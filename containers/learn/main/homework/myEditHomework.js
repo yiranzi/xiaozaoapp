@@ -32,7 +32,7 @@ export default class extends React.Component {
       AxiosUtil.deleteCache(`/api/work/${courseId}/${workId}`)
       AxiosUtil.deleteCache(`/api/work/myAnswer/${courseId}/${workId}`)
       // 提交作业。提交作业会让最上层的接口workList发生变化。所以需要传到最上层去更新。
-      this.props.updataFunc()
+      this.props.updateFunc()
     } catch (e) {
 
     }

@@ -108,7 +108,7 @@ export default class extends React.Component {
         <p>type :{questionInfo.type}</p>
         <p>editStatus :{this.state.editStatus ? 'true' : 'false'}</p>
         <Panel style={this.getVisibleStyle('edit')}>
-          <EditHomework {...this.props} updataFunc={this.props.updataFunc} />
+          <EditHomework {...this.props} updateFunc={this.props.updateFunc} />
         </Panel>
         <Panel style={this.getVisibleStyle('view')}>
           {myAnswer ? this.renderStudentAnswer(myAnswer) : <LoadingIcon />}
