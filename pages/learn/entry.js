@@ -86,7 +86,6 @@ export default class extends React.Component {
 
   renderTest () {
     let {myCourseList} = this.state
-    console.log(myCourseList)
     if (myCourseList) {
       let courseGroupList = myCourseList[this.state.tab]
       return (<CourseSwipeContainer

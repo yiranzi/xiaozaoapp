@@ -38,7 +38,6 @@ export default function (WrappedComponent, getDataFunc) {
 
     // 刷新
     updateFunc () {
-      console.log('updateFunc')
       this.getContentData(this.props.courseId)
     }
 

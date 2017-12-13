@@ -39,7 +39,6 @@ export default class extends React.Component {
         courseRecommendList.push(ele)
       }
     })
-    console.log(courseRecommendList)
     this.setState({
       courseRecommend: courseRecommendList,
       type: type
@@ -64,7 +63,6 @@ export default class extends React.Component {
   renderLine (ele) {
     if (ele) {
       let {buyCount, courseId, title, start, cover} = ele
-      console.log(ele)
       return (<div className='course-view-line' onClick={() => { this.goRouter(`/learn/course/info?courseId=${courseId}`) }}>
         <div style={{flex: '1'}} className='course-img' >
           <img src={cover} />

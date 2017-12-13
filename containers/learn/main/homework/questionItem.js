@@ -29,7 +29,6 @@ export default class extends React.Component {
   }
 
   componentDidMount = async () => {
-    console.log('question item componentDidMount')
   }
 
   // 在更新的时候，判定是否拉取。
@@ -121,7 +120,6 @@ export default class extends React.Component {
   }
 
   updateMyQuestionAndAnswer = async () => {
-    console.log('updateMyQuestionAndAnswer')
     let {workId} = this.props.questionItem
     let {courseId} = this.props
     let getQuestion = await AxiosUtil.get(`/api/work/${courseId}/${workId}`, true)
@@ -133,7 +131,6 @@ export default class extends React.Component {
         myAnswer: getMyAnswer
       })
     } else {
-      console.log('not do homework')
       this.setState({
         questionInfo: getQuestion
       })

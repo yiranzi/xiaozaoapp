@@ -16,7 +16,6 @@ export default class extends React.Component {
   render () {
     let {title, des, info, bgImg} = this.props
     let imgUrl = bgImg !== 'default' ? bgImg : '/static/img/study/buyBg_1.jpeg'
-    console.log(imgUrl)
     return (<div style={{background: `url(${imgUrl})`}} className='course-info-bar'>
       <MediaBox onClick={() => { this.goRouter() }}>
         <MediaBoxTitle style={{color: 'white'}}>{title}</MediaBoxTitle>

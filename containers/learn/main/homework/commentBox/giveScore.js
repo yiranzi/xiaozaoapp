@@ -14,7 +14,6 @@ export default class extends React.Component {
 
   componentDidMount = async () => {
     let {score} = this.props
-    console.log('componentDidMount giveScore')
     if (score) {
       this.setState({
         score: score,

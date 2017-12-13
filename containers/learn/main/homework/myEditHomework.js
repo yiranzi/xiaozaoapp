@@ -14,7 +14,6 @@ export default class extends React.Component {
   }
 
   componentDidMount = async () => {
-    console.log('componentDidMount seemywork')
     let {myAnswer} = this.props
     if (myAnswer && myAnswer.answer) {
       this.setState({

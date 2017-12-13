@@ -15,7 +15,6 @@ import LoadingIcon from '/xz-components/loadingicon'
  */
 export default class extends React.Component {
   componentDidMount = async () => {
-    console.log('componentDidMount seeother')
   }
 
   /**
@@ -41,7 +40,6 @@ export default class extends React.Component {
 
   render () {
     let {answerList} = this.props
-    console.log('see other work render')
     if (answerList) {
       if (answerList.length > 0) {
         let studentAnswerArray = answerList.map((answerData, index) => {

@@ -10,7 +10,6 @@ export default class extends React.Component {
   }
 
   componentDidMount = async () => {
-    console.log('componentDidMount give agree')
   }
 
   componentWillReceiveProps = async (nextProps) => {

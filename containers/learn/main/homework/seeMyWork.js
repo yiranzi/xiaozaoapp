@@ -24,13 +24,11 @@ export default class extends React.Component {
   }
 
   componentDidMount = async () => {
-    console.log('componentDidMount seemywork')
     this.setEditStatus(this.props)
   }
 
   // 在更新的时候，判定是否拉取。
   componentWillReceiveProps = async (nextProps) => {
-    console.log('componentWillReceiveProps!!!!!')
     this.setEditStatus(nextProps)
   }
 
@@ -101,7 +99,6 @@ export default class extends React.Component {
   }
 
   render () {
-    console.log('render mywork')
     let {questionInfo, myAnswer} = this.props
     if (questionInfo) {
       return (<div>
