@@ -216,7 +216,8 @@ export default class extends React.Component {
                 background-color: #3ea6f7;
                 color: #fff;
                 font-style: italic;
-                width: 20px;
+                font-size: 12px;
+                width: 16px;
                 text-align: center;
                 padding-right: 2px;
               }
@@ -248,7 +249,6 @@ export default class extends React.Component {
         }
         .add-question-block .question-textarea {
           border: 1px solid ${ThemeConfig.color.border};
-          padding: 5px;
         }
       `}</style>
     </div>)
