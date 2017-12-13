@@ -55,7 +55,7 @@ export default class extends React.Component {
       jobId = location.pathname.replace('/jobs/', '')
     }
     try {
-      let job = await AxiosUtil.get(`/api/private/job/${jobId}`)
+      let job = await AxiosUtil.get(`/api/job/${jobId}`)
       this.setState({
         job: job,
         isRender: false
