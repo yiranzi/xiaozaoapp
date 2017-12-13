@@ -133,8 +133,7 @@ export default class extends React.Component {
   * */
   mailing () {
     let {toptips} = this.state
-    if (ToolsUtil.strIsEmpty(this.state.mailingObj.userPhone) ||
-      !ToolsUtil.isPhone(this.state.mailingObj.userPhone)) {
+    if (ToolsUtil.strIsEmpty(this.state.mailingObj.userPhone)) {
       toptips.type = 'warn'
       toptips.show = true
       toptips.msg = '请输入正确的手机号'
