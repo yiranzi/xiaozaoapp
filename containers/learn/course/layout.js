@@ -46,7 +46,7 @@ export default class extends React.Component {
               {menuDTOList.map((menu, index) => {
                 return (
                   <Accordion
-                    show={Number(menu.id) === Number(menuId)}
+                    show={menu.id.toString() === menuId.toString()}
                     key={`accord_${index}`}
                     header={<div className='wrap'><span className='file' />{menu.name}</div>}
                   >
@@ -112,7 +112,7 @@ export default class extends React.Component {
   }
   renderHomeWork () {
     const {homeWorkShow} = this.state
-    const {homeworkContent, onChangeHomeWork} = this.props
+    const {query, homeworkContent} = this.props
 
     return (
       <Popup
@@ -130,7 +130,7 @@ export default class extends React.Component {
                   <div className='header'><img src='/static/img/learn/course/file.png' />{chapter.chapterName}</div>
                   {chapter.childLearningCourseWorkDTOList.map((work, index) => {
                     return (
-                      <div key={`w_${index}`} className='work wx-space-center' onClick={() => { this.toggleHomeWorkPop(); onChangeHomeWork(work) }}>
+                      <div key={`w_${index}`} className='work wx-space-center' onClick={() => { location.href = `/learn/course/detail?courseId=${query.courseId}&menuId=${work.chapterId}&sectionId=${work.sectionId}&pageNumber=${work.pageNumber}` }}>
                         <div className='sub-title'>{work.title}</div>
                         <div className='over'>{work.overWork ? <Icon style={{color: '#3ea6f7', fontSize: '1rem'}} value='success-no-circle' /> : <Icon style={{color: ThemeConfig.color.content, fontSize: '1rem'}} value='success-no-circle' />}</div>
                       </div>

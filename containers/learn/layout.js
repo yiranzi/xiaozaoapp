@@ -9,7 +9,7 @@ export default class extends React.Component {
         <div className='learn-page'>
           {this.props.children}
         </div>
-        <Footer type={this.props.type} />
+        <Footer type={this.props.type} courseId={this.props.courseId} />
         <style jsx>{`
           .learn-page {
             min-height: 100vh;

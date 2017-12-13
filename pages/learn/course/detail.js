@@ -9,7 +9,6 @@ import LoadingIcon from '../../../xz-components/loadingicon'
 import Option from '../../../containers/clock/option'
 import Button from '../../../xz-components/button'
 import Traning from '../../../containers/learn/course/traning'
-import Material from '../../../containers/clock/material'
 
 export default class extends React.Component {
   constructor (props) {
@@ -22,6 +21,7 @@ export default class extends React.Component {
         pageNumber: '',
         workId: ''
       },
+      array: [],
       menuContent: {}, // 左侧课程列表
       homeworkContent: {}, // 右侧作业列表
       detail: {}, // 需要展示的内容,
@@ -32,13 +32,28 @@ export default class extends React.Component {
   }
 
   componentDidMount = async () => {
-
     let courseId = ToolsUtil.getQueryString('courseId')
     let menuId = ToolsUtil.getQueryString('menuId')
     let sectionId = ToolsUtil.getQueryString('sectionId')
     let pageNumber = ToolsUtil.getQueryString('pageNumber') || 1
 
     let menuContent = await AxiosUtil.get(`/api/learning/course/${courseId}`)
+    let array = []
+    menuContent.menuDTOList.map((menu) => {
+      let menuId = menu.id
+      menu.sectionMenuDTOList.map((section) => {
+        let sectionId = section.id
+        section.contentDTOList.map((content) => {
+          let pageNumber = content.pageNumber
+          array.push({
+            menuId: menuId.toString(),
+            sectionId: sectionId.toString(),
+            pageNumber: pageNumber.toString()
+          })
+        })
+      })
+    })
+    this.setState({array: array})
     this.setState({menuContent: menuContent})
     /**
      * 获取课程详情
@@ -47,6 +62,7 @@ export default class extends React.Component {
     let detail
     if (sectionId) {
       detail = await AxiosUtil.get(`/api/learning/course/${courseId}/${sectionId}/${pageNumber}`)
+      
       this.setState({detail: ToolsUtil.parseHtml(detail, true)})
     } else {
       sectionId = menuContent.menuDTOList[0].sectionMenuDTOList[0].id
@@ -95,11 +111,10 @@ export default class extends React.Component {
       let workDetail = await AxiosUtil.get(`/api/work/${courseId}/${workId}`)
       this.setState({workDetail: workDetail})
     }
-
     this.setState({
       query: {
         courseId: courseId,
-        menuId: menuId,
+        menuId: menuId || menuContent.menuDTOList[0].id,
         sectionId: sectionId,
         pageNumber: pageNumber,
         workId: workId
@@ -115,7 +130,7 @@ export default class extends React.Component {
     return (
       <div className='course-detail'>
         <div className='text' dangerouslySetInnerHTML={{__html: course.string}} />
-        {/* {this.renderCourseDetail(course)} */}
+        {this.renderCourseDetail(course)}
         {this.renderWorkDetail()}
       </div>
     )
@@ -136,7 +151,7 @@ export default class extends React.Component {
     )
   }
   renderWorkDetail () {
-    const {workDetail, isEditmyWork} = this.state
+    const {query, workDetail, isEditmyWork} = this.state
     const {answer} = workDetail
     if (!DataUtil.isEmpty(workDetail)) {
       return (
@@ -154,6 +169,7 @@ export default class extends React.Component {
               <Button size='small' onClick={() => { this.editMyWork() }}>修改答案</Button>
             </div>
           )}
+          <a href={`/learn/course/questionList?courseId=${query.courseId}&sectionId=${query.sectionId}&pageNumber=${query.pageNumber}`}><Button>对学习内容有疑问？点击查看导师答疑</Button></a>
         </div>
       )
     }
@@ -163,6 +179,7 @@ export default class extends React.Component {
   }
   submitWork = async (type) => {
     const {query, myWork} = this.state
+    this.setState({isEditmyWork: false})
     if (ToolsUtil.isUploader(type)) {
       let uuid = DataUtil.uuid(11)
       let formdata = DataUtil.imgFormat(myWork, uuid, 'jpg')
@@ -182,10 +199,40 @@ export default class extends React.Component {
     return this.renderCourse(detail)
   }
   renderPrev () {
-    return <Button id='prev' size='small'>上一页</Button>
+    return <Button id='prev' size='small' onClick={() => { this.loadPage('prev') }}>上一页</Button>
   }
   renderNext () {
-    return <Button id='next' size='small'>下一页</Button>
+    return <Button id='next' size='small' onClick={() => { this.loadPage('next') }} >下一页</Button>
+  }
+  loadPage (type) {
+    let {query, array} = this.state
+    
+    let {courseId, sectionId, menuId, pageNumber} = query
+    
+    let json = {
+      menuId: menuId,
+      sectionId: sectionId,
+      pageNumber: pageNumber
+    }
+
+    let pos
+    array.map((item, index) => {
+      if (json.menuId === item.menuId && json.sectionId === item.sectionId && json.pageNumber === item.pageNumber) {
+        pos = index
+      }
+    })
+
+    if (type === 'next') {
+      let next = array[pos + 1]
+      if (!DataUtil.isEmpty(next)) {
+        location.href = `/learn/course/detail?courseId=${courseId}&menuId=${next.menuId}&sectionId=${next.sectionId}&pageNumber=${next.pageNumber}`
+      }
+    } else if (type === 'prev') {
+      let prev = array[pos - 1]
+      if (!DataUtil.isEmpty(prev)) {
+        location.href = `/learn/course/detail?courseId=${courseId}&menuId=${prev.menuId}&sectionId=${prev.sectionId}&pageNumber=${prev.pageNumber}`
+      }
+    }
   }
   render () {
     const {

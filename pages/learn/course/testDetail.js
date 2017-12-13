@@ -11,7 +11,6 @@ import Loading from '../../../xz-components/loading'
 import Button from '../../../xz-components/button'
 import {Confirm} from '../../../xz-components/confirm'
 import {Alert} from '../../../xz-components/alert'
-import {Modal} from '../../../xz-components/modal'
 
 export default class extends React.Component {
   constructor (props) {
@@ -95,7 +94,7 @@ export default class extends React.Component {
         })
       }
     } else {
-      Alert({content: '没有做完，回去做'})
+      Alert({content: '没有做完，回去做', ok: () => { this.setState({isSubmit: false}) }})
     }
   }
   submit = async () => {
@@ -123,14 +122,13 @@ export default class extends React.Component {
           <div>助教会在n个工作日批改完成并给出分数</div>
         </div>
       ),
-      okText: '您可以先查看参考答案'
-      // ,
-      // ok: () => { location.reload() }
+      okText: '您可以先查看参考答案',
+      ok: () => { location.reload() }
     })
   }
   render () {
     const _this = this
-    const {testDetail} = this.state
+    const {testDetail, query} = this.state
     
     if (DataUtil.isEmpty(testDetail)) return <Layout><Loading /></Layout>
     const {answerDTOList} = testDetail
@@ -143,7 +141,7 @@ export default class extends React.Component {
     }
 
     return (
-      <Layout type='test'>
+      <Layout type='test' courseId={query.courseId}>
         {this.state.isSubmit && <Loading />}
         <div className='test-detail'>
           <div className='header wx-text-center'>
@@ -161,7 +159,7 @@ export default class extends React.Component {
                     <div>
                       <Topic topic={item} onChange={(id, value) => this.onChange(id, value)} disabled={showAnalysis} />
                       {(ToolsUtil.isUploader(item.type) || ToolsUtil.isRecord(item.type)) && (
-                        <div className='wx-text-right'><Button type='mini' onClick={() => { _this.uploadImg(item.id) }}>上传图片</Button></div>
+                        <div className='wx-text-right'><Button size='smaill' onClick={() => { _this.uploadImg(item.id) }}>上传图片</Button></div>
                       )}
                     </div>
                   )}
@@ -170,12 +168,14 @@ export default class extends React.Component {
               )
             })}
           </div>
-          <div className='submit wx-text-center'>
-            <Button
-              style={{width: 'auto', margin: 'auto', backgroundColor: ThemeConfig.color.red}}
-              onClick={() => this.submitConfirm()}
-            >提交测试</Button>
-          </div>
+          {!showAnalysis && (
+            <div className='submit wx-text-center'>
+              <Button
+                style={{width: 'auto', margin: 'auto', backgroundColor: ThemeConfig.color.red}}
+                onClick={() => this.submitConfirm()}
+              >提交测试</Button>
+            </div>
+          )}
         </div>
         <style jsx>{`
           .content {
@@ -184,6 +184,11 @@ export default class extends React.Component {
           }
           .submit {
             margin: 2rem 0;
+          }
+        `}</style>
+        <style global jsx>{`
+          .analysis img {
+            width: 100%;
           }
         `}</style>
       </Layout>

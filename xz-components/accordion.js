@@ -24,6 +24,12 @@ class Accordion extends React.Component {
     })
   }
 
+  componentWillReceiveProps (nextProps) {
+    this.setState({
+      showContent: nextProps.show
+    })
+  }
+
   render () {
     const { header, children } = this.props
     const {showContent} = this.state
