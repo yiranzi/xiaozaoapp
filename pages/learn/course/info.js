@@ -113,7 +113,7 @@ export default class extends React.Component {
             <a className='study-button' href={`/learn/course/detail?courseId=${courseId}`}>
               <Button>开始学习</Button>
             </a>
-            <a style={{width: '100%'}}href={`/learn/main/introduce?courseId=${courseId}`}>概述>></a>
+            <a style={{width: '100%'}}href={`/learn/course/introduce?courseId=${courseId}`}>概述>></a>
             <style jsx>{`
               .content {
                 display: flex;

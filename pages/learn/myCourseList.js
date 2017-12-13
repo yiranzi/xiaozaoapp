@@ -41,7 +41,7 @@ export default class extends React.Component {
     if (ele) {
       let {buyCount, courseId, courseName, overSection, totalSection, endDate} = ele
       console.log(ele)
-      return (<div className='course-view-line' onClick={() => { this.goRouter(`/learn/main/courseInfo?courseId=${courseId}`) }}>
+      return (<div className='course-view-line' onClick={() => { this.goRouter(`/learn/course/info?courseId=${courseId}`) }}>
         <div style={{flex: '1'}} className='course-img' >
           <img src='/static/img/study/buyBg_1.jpeg' />
         </div>

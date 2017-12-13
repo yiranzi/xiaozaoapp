@@ -91,7 +91,7 @@ export default class extends React.Component {
       let courseGroupList = myCourseList[this.state.tab]
       return (<CourseSwipeContainer
         courseGroupList={courseGroupList}
-        routerUrl={'/learn/main/myCourseList'}
+        routerUrl={'/learn/myCourseList'}
         title='查看全部' />)
     }
   }
@@ -103,7 +103,7 @@ export default class extends React.Component {
       return recommandKeyList.map((key, index) => {
         return (<CourseSwipeContainer
           courseGroupList={courseRecommend[key]}
-          routerUrl={`/learn/main/recommand?type=${key}`}
+          routerUrl={`/learn/recommand?type=${key}`}
           title={this.courseRecommandName[key]} />)
       })
     }
