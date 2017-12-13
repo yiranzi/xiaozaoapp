@@ -72,6 +72,7 @@ export default class extends React.Component {
           }
           .resource-content {
             background-color: #fff;
+            border: 1px solid ${ThemeConfig.color.border};
             padding: 15px;
           }
           .download-btn {

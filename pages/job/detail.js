@@ -338,7 +338,9 @@ export default class extends React.Component {
 
   render () {
     const leftbar = {
-      onclick: history.go(-1),
+      onclick: function () {
+        history.go(-1)
+      },
       name: '返回'
     }
     const rightbar = {

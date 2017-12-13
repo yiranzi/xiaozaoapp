@@ -205,6 +205,7 @@ export default class extends React.Component {
             <style global jsx>{`
               .question-item {
                 background-color: #fff;
+                border: 1px solid ${ThemeConfig.color.border};
                 margin-bottom: 15px;
                 position: relative;
               }
