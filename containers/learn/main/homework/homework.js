@@ -28,7 +28,7 @@ class innerComponent extends React.Component {
     if (allHomeworkByLesson && allHomeworkByLesson.length > 0) {
       let lessonHomework = allHomeworkByLesson.map((lesson, index) => {
         return (
-          <Panel key={index}>
+          <Panel style={{marginBottom: '30px'}} key={index}>
             <PanelHeader>
               <div className='lesson-title'>
                 <img src='/static/img/icon/homework-icon.png' />
@@ -53,12 +53,9 @@ class innerComponent extends React.Component {
             }
           `}</style>
             <style jsx global>{`
-             .weui-panel {
-                margin-top:30px !important;
-              }
-              .weui-panel:first-child {
-                margin-top: 0 !important;
-              }
+             .weui-media-box__info {
+                line-height: 20px !important;
+             }
             `}</style>
           </Panel>)
       })

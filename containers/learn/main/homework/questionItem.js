@@ -227,7 +227,7 @@ export default class extends React.Component {
     }
     let {questionItem} = this.props
     if (questionItem) {
-      return (<MediaBox>
+      return (<MediaBox style={{marginBottom: '30px'}}>
         <MediaBoxTitle>
           {this.renderTitle()}
         </MediaBoxTitle>
@@ -238,11 +238,6 @@ export default class extends React.Component {
           跳转链接
         </MediaBoxInfo>
         {this.renderTabbar()}
-        <style global jsx>{`
-          .weui-media-box {
-            margin-bottom: 30px !important;
-          }
-        `}</style>
       </MediaBox>)
     } else {
       return null
