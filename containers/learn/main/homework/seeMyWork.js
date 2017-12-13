@@ -1,10 +1,15 @@
 import React from 'react'
 import EditHomework from '/containers/learn/main/homework/myEditHomework'
-import ViewHomework from '/containers/learn/main/homework/myViewHomework'
 import LoadingIcon from '/xz-components/loadingicon'
 import {
-  Panel
+  Panel,
+  MediaBox,
+  MediaBoxInfo
 } from 'react-weui'
+import MoreLine from '/xz-components/moreLine'
+import TeacherComment from '/containers/learn/main/homework/teacherComment'
+import Description from '/containers/learn/main/homework/commentBox/description'
+import Title from '/containers/learn/main/homework/commentBox/title'
 
 /**
  * 准备渲染我的作业（编辑 or 查看）
@@ -63,26 +68,43 @@ export default class extends React.Component {
 
   // 重新编辑的回调
   onEditButtonClick () {
-    console.log(this)
     this.setState({
       editStatus: true
     })
   }
 
+  /**
+   * 描述学生答案的条目
+   */
+  renderStudentAnswer (answerData) {
+    if (answerData) {
+      let {nickname, headimgurl, updateTime, starCount, star, id: studentAnswerId, answer, score} = answerData
+      return (<MediaBox>
+        <Title nickname={nickname} headimgurl={headimgurl} time={updateTime}
+          starCount={starCount} star={star} starId={studentAnswerId} />
+        <Description content={answer} />
+        <MediaBoxInfo style={{textAlign: 'right'}}>
+          {score ? <MoreLine title={<span style={{flex: 'auto'}}>导师点评{score}分</span>}
+            content={<TeacherComment studentAnswerId={studentAnswerId} canEvaluateScore />} /> : <div onClick={this.onEditButtonClick}>修改答案</div>}
+        </MediaBoxInfo>
+      </MediaBox>)
+    } else {
+      return null
+    }
+  }
+
   render () {
     console.log('render mywork')
-    let {courseId, workId, questionInfo, myAnswer} = this.props
+    let {questionInfo, myAnswer} = this.props
     if (questionInfo) {
       return (<div>
-        <p>courseId :{courseId}</p>
-        <p>workId :{workId}</p>
         <p>type :{questionInfo.type}</p>
         <p>editStatus :{this.state.editStatus ? 'true' : 'false'}</p>
         <Panel style={this.getVisibleStyle('edit')}>
           <EditHomework {...this.props} updataFunc={this.props.updataFunc} />
         </Panel>
         <Panel style={this.getVisibleStyle('view')}>
-          <ViewHomework {...this.props} onEditButtonClick={() => { this.onEditButtonClick() }} />
+          {myAnswer ? this.renderStudentAnswer(myAnswer) : <LoadingIcon />}
         </Panel>
       </div>)
     } else {

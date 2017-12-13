@@ -79,10 +79,10 @@ export default class extends React.Component {
     if (index === 2) {
       return
     }
-    let {payStatus, questionItem} = this.props
+    let {courseStatus, questionItem} = this.props
     let {overWork} = questionItem
     // 未付费
-    if (payStatus === undefined || payStatus === 'unbuyed') {
+    if (courseStatus === undefined || courseStatus === 'unbuyed') {
       return
     }
     // 重复点击 会取消选中

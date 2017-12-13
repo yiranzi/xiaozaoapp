@@ -1,13 +1,7 @@
 import React from 'react'
 import AxiosUtil from '/util/axios'
 import {
-  Cell,
-  CellHeader,
-  CellBody,
-  CellFooter,
-  MediaBox,
-  MediaBoxTitle,
-  MediaBoxDescription
+  MediaBox
 } from 'react-weui'
 
 export default class extends React.Component {
