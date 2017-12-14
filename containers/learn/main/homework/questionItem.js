@@ -211,12 +211,10 @@ export default class extends React.Component {
         currentSelect={this.state.currentSelect}
         onTabClick={this.onTabClick}>
         <TabItem title={allAnswerIcon} >
-          <InfiniteLoader onLoadMore={this.loadMore}>
-            <SeeOtherWork
-              answerList={this.state.answerList}
-              courseId={courseId}
-              workId={workId} />
-          </InfiniteLoader>
+          <SeeOtherWork
+            answerList={this.state.answerList}
+            courseId={courseId}
+            workId={workId} />
         </TabItem>
         <TabItem title={myAnswerIcon} >
           <SeeMyWork
@@ -268,19 +266,21 @@ export default class extends React.Component {
     }
     let {questionItem} = this.props
     if (questionItem) {
-      return (<MediaBox style={{marginBottom: '30px'}}>
-        <MediaBoxTitle>
-          {this.renderTitle()}
-        </MediaBoxTitle>
-        <MediaBoxDescription style={style}>
-          {this.renderContent()}
-        </MediaBoxDescription>
-        <MediaBoxInfo>
-          跳转链接
-        </MediaBoxInfo>
-        {this.renderTabbar()}
-        {this.props.viewType && <Button onClick={() => { this.onTabClick(0) }}>查看其它章节作业</Button>}
-      </MediaBox>)
+      return (<InfiniteLoader onLoadMore={this.loadMore}>
+        <MediaBox style={{marginBottom: '30px'}}>
+          <MediaBoxTitle>
+            {this.renderTitle()}
+          </MediaBoxTitle>
+          <MediaBoxDescription style={style}>
+            {this.renderContent()}
+          </MediaBoxDescription>
+          <MediaBoxInfo>
+            跳转链接
+          </MediaBoxInfo>
+          {this.renderTabbar()}
+          {this.props.viewType && <Button onClick={() => { this.onTabClick(0) }}>查看其它章节作业</Button>}
+        </MediaBox>
+      </InfiniteLoader>)
     } else {
       return null
     }
