@@ -115,6 +115,7 @@ export default class extends React.Component {
   }
 
   loadMore = async (finish, resolve) => {
+    console.log('loadMore')
     // 判定页码是否是最后一页。
     if (this.state.currentPage >= this.totalSize) {
       finish()
@@ -152,6 +153,7 @@ export default class extends React.Component {
     data.forEach((ele, index) => {
       ele.overStatus = this.setOverStatus(endTime, ele.updateTime)
     })
+    data = data.concat(data)
     this.setState({
       currentPage: currentPage,
       answerList: data
@@ -266,7 +268,22 @@ export default class extends React.Component {
     }
     let {questionItem} = this.props
     if (questionItem) {
-      return (<InfiniteLoader onLoadMore={this.loadMore}>
+      return (<div>
+        <MediaBox style={{marginBottom: '30px'}}>
+          <MediaBoxTitle>
+            {this.renderTitle()}
+          </MediaBoxTitle>
+          <MediaBoxDescription style={style}>
+            {this.renderContent()}
+          </MediaBoxDescription>
+          <MediaBoxInfo>
+            跳转链接
+          </MediaBoxInfo>
+          {this.renderTabbar()}
+          {this.props.viewType && <Button onClick={() => { this.onTabClick(0) }}>查看其它章节作业</Button>}
+        </MediaBox>
+      </div>)
+      return (<InfiniteLoader style={{height: 'auto'}} onLoadMore={this.loadMore}>
         <MediaBox style={{marginBottom: '30px'}}>
           <MediaBoxTitle>
             {this.renderTitle()}
