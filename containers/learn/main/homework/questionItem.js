@@ -31,6 +31,7 @@ export default class extends React.Component {
     this.updateStudentAnswerList = this.updateStudentAnswerList.bind(this)
     this.updateMyQuestionAndAnswer = this.updateMyQuestionAndAnswer.bind(this)
     this.updateFunc = this.updateFunc.bind(this)
+    this.loadMore = this.loadMore.bind(this)
   }
 
   componentDidMount = async () => {
@@ -88,13 +89,13 @@ export default class extends React.Component {
       return
     }
     if (overWork) {
-      // 告知父组件 切换模式（单页 or list）
-      this.props.chooseChapterAndLesson(this.props.chapterIndex, this.props.lessonIndex, index)
       // 如果完成作业
       if (index === 0) {
         // 拉取其他人作业列表
         this.updateStudentAnswerList()
       } else if (index === 1) {
+        // 告知父组件 切换模式（单页 or list）
+        this.props.chooseChapterAndLesson(this.props.chapterIndex, this.props.lessonIndex, 1)
         // 拉取作业数据 准备展示题目
         this.updateMyQuestionAndAnswer()
       }
@@ -114,8 +115,7 @@ export default class extends React.Component {
     }
   }
 
-  loadMore = async (finish, resolve) => {
-    console.log('loadMore')
+  loadMore = async (resolve, finish) => {
     // 判定页码是否是最后一页。
     if (this.state.currentPage >= this.totalSize) {
       finish()
@@ -137,26 +137,28 @@ export default class extends React.Component {
       this.setState({
         currentPage: nextPageIndex,
         answerList: answerList
-      }, () => resolve())
+      })
+      resolve()
     }
   }
 
   updateStudentAnswerList = async () => {
     let {workId, endTime} = this.props.questionItem
     let {courseId} = this.props
-    let currentPage = 0
+    let currentPage = 1
     let answerListByPage = await AxiosUtil.get(`/api/work/answerList/${courseId}/${workId}/?pn=${currentPage}`, true)
     this.totalSize = parseInt(answerListByPage.totalSize / this.perPageSize)
-    console.log(this.totalSize)
     let data = answerListByPage.data
     // 补充上每个的delay状态
     data.forEach((ele, index) => {
       ele.overStatus = this.setOverStatus(endTime, ele.updateTime)
     })
-    data = data.concat(data)
     this.setState({
       currentPage: currentPage,
       answerList: data
+    }, () => {
+      // 告知父组件 切换模式（单页 or list）
+      this.props.chooseChapterAndLesson(this.props.chapterIndex, this.props.lessonIndex, 0)
     })
   }
 
@@ -268,36 +270,29 @@ export default class extends React.Component {
     }
     let {questionItem} = this.props
     if (questionItem) {
-      return (<div>
+      return (
         <MediaBox style={{marginBottom: '30px'}}>
-          <MediaBoxTitle>
-            {this.renderTitle()}
-          </MediaBoxTitle>
-          <MediaBoxDescription style={style}>
-            {this.renderContent()}
-          </MediaBoxDescription>
-          <MediaBoxInfo>
-            跳转链接
-          </MediaBoxInfo>
-          {this.renderTabbar()}
-          {this.props.viewType && <Button onClick={() => { this.onTabClick(0) }}>查看其它章节作业</Button>}
+          <InfiniteLoader style={this.state.currentSelect === 0 ? {height: '100vh'} : {height: 'auto'}} onLoadMore={this.loadMore}>
+            <MediaBoxTitle>
+              {this.renderTitle()}
+            </MediaBoxTitle>
+            <MediaBoxDescription style={style}>
+              {this.renderContent()}
+            </MediaBoxDescription>c
+            <MediaBoxInfo>
+              跳转链接
+            </MediaBoxInfo>
+            {this.renderTabbar()}
+            {this.props.viewType && <Button className='buttonStyle' onClick={() => { this.onTabClick(0) }}>查看其它章节作业</Button>}
+            <style>{`
+              .buttonStyle {
+                position: fixed;
+                bottom: 0;
+              }
+            `}</style>
+          </InfiniteLoader>
         </MediaBox>
-      </div>)
-      return (<InfiniteLoader style={{height: 'auto'}} onLoadMore={this.loadMore}>
-        <MediaBox style={{marginBottom: '30px'}}>
-          <MediaBoxTitle>
-            {this.renderTitle()}
-          </MediaBoxTitle>
-          <MediaBoxDescription style={style}>
-            {this.renderContent()}
-          </MediaBoxDescription>
-          <MediaBoxInfo>
-            跳转链接
-          </MediaBoxInfo>
-          {this.renderTabbar()}
-          {this.props.viewType && <Button onClick={() => { this.onTabClick(0) }}>查看其它章节作业</Button>}
-        </MediaBox>
-      </InfiniteLoader>)
+      )
     } else {
       return null
     }
