@@ -7,7 +7,8 @@ import {
   MediaBox,
   MediaBoxTitle,
   MediaBoxDescription,
-  MediaBoxInfo
+  MediaBoxInfo,
+  InfiniteLoader
 } from 'react-weui'
 
 import AxiosUtil from '/util/axios'
@@ -15,12 +16,15 @@ import AxiosUtil from '/util/axios'
  * 渲染每个问题
  */
 export default class extends React.Component {
+  totalSize
+  perPageSize = 10
   constructor (props) {
     super(props)
     this.state = {
       currentSelect: -1,
       answerList: undefined,
-      isUpdateActive: false
+      isUpdateActive: false,
+      currentPage: undefined
     }
     this.onTabClick = this.onTabClick.bind(this)
     this.updateStudentAnswerList = this.updateStudentAnswerList.bind(this)
@@ -75,11 +79,13 @@ export default class extends React.Component {
     }
     // 重复点击 会取消选中
     if (this.state.currentSelect === index) {
+      this.props.chooseChapterAndLesson(this.props.chapterIndex, this.props.lessonIndex, -1)
       this.setState({
         currentSelect: -1
       })
       return
     }
+    this.props.chooseChapterAndLesson(this.props.chapterIndex, this.props.lessonIndex, index)
     if (overWork) {
       // 如果完成作业
       if (index === 0) {
@@ -105,16 +111,46 @@ export default class extends React.Component {
     }
   }
 
+  loadMore = async (finish, resolve) => {
+    // 判定页码是否是最后一页。
+    if (this.state.currentPage >= this.totalSize) {
+      finish()
+    } else {
+      let {workId, endTime} = this.props.questionItem
+      let {courseId} = this.props
+      // 更新页码
+      let nextPageIndex = this.state.currentPage + 1
+      // axios
+      let answerListByPage = await AxiosUtil.get(`/api/work/answerList/${courseId}/${workId}/?pn=${nextPageIndex}`)
+      let data = answerListByPage.data
+      data.forEach((ele, index) => {
+        ele.overStatus = this.setOverStatus(endTime, ele.updateTime)
+      })
+      // 补充到后面
+      let answerList = this.state.answerList
+      answerList = answerList.concat(data)
+      // 保存页码
+      this.setState({
+        currentPage: nextPageIndex,
+        answerList: answerList
+      }, () => resolve())
+    }
+  }
+
   updateStudentAnswerList = async () => {
     let {workId, endTime} = this.props.questionItem
     let {courseId} = this.props
-    let answerListByPage = await AxiosUtil.get(`/api/work/answerList/${courseId}/${workId}/?pn=1`, true)
+    let currentPage = 0
+    let answerListByPage = await AxiosUtil.get(`/api/work/answerList/${courseId}/${workId}/?pn=${currentPage}`, true)
+    this.totalSize = parseInt(answerListByPage.totalSize / this.perPageSize)
+    console.log(this.totalSize)
     let data = answerListByPage.data
     // 补充上每个的delay状态
     data.forEach((ele, index) => {
       ele.overStatus = this.setOverStatus(endTime, ele.updateTime)
     })
     this.setState({
+      currentPage: currentPage,
       answerList: data
     })
   }
@@ -172,10 +208,12 @@ export default class extends React.Component {
         currentSelect={this.state.currentSelect}
         onTabClick={this.onTabClick}>
         <TabItem title={allAnswerIcon} >
-          <SeeOtherWork
-            answerList={this.state.answerList}
-            courseId={courseId}
-            workId={workId} />
+          <InfiniteLoader onLoadMore={this.loadMore}>
+            <SeeOtherWork
+              answerList={this.state.answerList}
+              courseId={courseId}
+              workId={workId} />
+          </InfiniteLoader>
         </TabItem>
         <TabItem title={myAnswerIcon} >
           <SeeMyWork

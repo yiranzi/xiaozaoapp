@@ -12,23 +12,52 @@ class innerComponent extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      currentQuestion: undefined
+      currentQuestion: undefined,
+      currentLessonIndex: undefined,
+      currentChapterIndex: undefined
     }
+    this.chooseChapterAndLesson = this.chooseChapterAndLesson.bind(this)
   }
 
-  renderLessonQuestions (lesson) {
-    let questionDivList = lesson.childLearningCourseWorkDTOList.map((questionItem, index) => {
-      return (<QuestionItem key={index} questionItem={questionItem} {...this.props} />)
+  renderLessonQuestions (lesson, chapterIndex) {
+    let questionDivList = lesson.childLearningCourseWorkDTOList.map((questionItem, lessonIndex) => {
+      if (this.state.currentLessonIndex !== undefined && this.state.currentLessonIndex !== lessonIndex) {
+        return null
+      } else {
+      }
+      return (<QuestionItem key={lessonIndex} {...this.props}
+        chooseChapterAndLesson={this.chooseChapterAndLesson}
+        chapterIndex={chapterIndex}
+        lessonIndex={lessonIndex}
+        questionItem={questionItem} />)
     })
     return (questionDivList)
+  }
+
+  chooseChapterAndLesson (currentChapterIndex, currentLessonIndex, tabChoose) {
+    if (tabChoose === 0) {
+      this.setState({
+        currentChapterIndex: currentChapterIndex,
+        currentLessonIndex: currentLessonIndex
+      })
+    } else {
+      this.setState({
+        currentChapterIndex: undefined,
+        currentLessonIndex: undefined
+      })
+    }
   }
 
   render () {
     let {data: allHomeworkByLesson} = this.props
     if (allHomeworkByLesson && allHomeworkByLesson.length > 0) {
-      let lessonHomework = allHomeworkByLesson.map((lesson, index) => {
+      let lessonHomework = allHomeworkByLesson.map((lesson, chapterIndex) => {
+        if (this.state.currentChapterIndex !== undefined && this.state.currentChapterIndex !== chapterIndex) {
+          return null
+        }
+
         return (
-          <Panel style={{marginBottom: '30px'}} key={index}>
+          <Panel style={{marginBottom: '30px'}} key={chapterIndex}>
             <PanelHeader>
               <div className='lesson-title'>
                 <img src='/static/img/icon/homework-icon.png' />
@@ -36,7 +65,7 @@ class innerComponent extends React.Component {
               </div>
             </PanelHeader>
             <PanelBody>
-              {this.renderLessonQuestions(lesson)}
+              {this.renderLessonQuestions(lesson, chapterIndex)}
             </PanelBody>
             <style jsx>{`
             .lesson-title {
