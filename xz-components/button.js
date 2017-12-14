@@ -17,16 +17,15 @@ export default class Button extends React.Component {
   }
 
   render () {
-    const {type, className, size, disabled} = this.props
-    const cls = classNames({
+    const {type, className, size, disabled, ...others} = this.props
+    const _xz = {
       'xz-btn': true,
       'xz-btn_primary': type === 'primary',
       'xz-btn_small': size === 'small',
-      'xz-btn_disabled': disabled,
-      [className]: className
-    })
+      'xz-btn_disabled': disabled
+    }
     return (
-      <button className={cls} {...this.props} >
+      <button {...others} className={classNames(_xz, className)} >
         {this.props.children}
         <style jsx>{`
           /* button 全局样式 */
