@@ -59,4 +59,23 @@ dataUtil.imgFormat = function (base64, name, type) {
   }
 }
 
+/**
+ * list => [{'name': 'w', 'age': 11}, {'name': 'x', 'age': 12}]
+ * name => 'name'
+ * return {'w': [{'name': 'w', 'age': 11}], 'x': [{'name': 'x', 'age': 12}]}
+ * @param {Array} list 
+ * @param {string} name 
+ */
+
+dataUtil.groupBy = function (list, name) {
+  if (dataUtil.isEmpty(list)) return []
+  if (dataUtil.isEmpty(name)) return list
+  let json = {}
+  list.forEach((item) => {
+    json[item[name]] = json[item[name]] || []
+    json[item[name]].push(item)
+  })
+  return json
+}
+
 module.exports = dataUtil

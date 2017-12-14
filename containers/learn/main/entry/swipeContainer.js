@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 // 滑动基础组件
 
 export default class extends React.Component {

@@ -5,13 +5,17 @@ import {
   NavBar,
   NavBarItem,
   Panel,
-  PanelHeader
+  PanelHeader,
+  Swiper
 } from 'react-weui'
-import Layout from '/components/layout'
+import DataUtil from '/util/data'
+import Layout from '../..//components/layout'
+import LoadingIcon from '../../xz-components/loadingicon'
 import GetPayInfo from '/util/getPayInfo'
 import AxiosUtil from '/util/axios'
+import ThemeConfig from '../../config/theme'
 
-import CourseSwipeContainer from '/containers/learn/main/entry/courseSwipeContainer'
+import CourseSwipeContainer from '../../containers/learn/main/entry/courseSwipeContainer'
 
 export default class extends React.Component {
   courseStautsName = {
@@ -23,15 +27,15 @@ export default class extends React.Component {
   courseRecommandName = {
     '1': '职业核心',
     '2': '个人能力',
-    '3': '技能培养',
-    '4': '再编一个吧'
+    '3': '技能培养'
   }
 
   constructor (props) {
     super(props)
     this.state = {
-      myCourseList: undefined,
-      courseRecommend: undefined
+      bannerList: [],
+      myCourseList: [],
+      courseRecommend: []
     }
     this.state = {
       tab: 'doing'
@@ -39,24 +43,18 @@ export default class extends React.Component {
   }
 
   componentDidMount = async () => {
-    let myCourseList = await GetPayInfo.getCourseList()
+    const _this = this
 
-    let courseListGroupByStatus = {}
-    myCourseList.forEach((ele, index) => {
-      courseListGroupByStatus[ele.status] = courseListGroupByStatus[ele.status] || []
-      courseListGroupByStatus[ele.status].push(ele)
+    AxiosUtil.get('/api/adv/getAdvByTypeAndObjId/9/1').then((bannerList) => {
+      _this.setState({bannerList: bannerList})
     })
-    this.setState({
-      myCourseList: courseListGroupByStatus
+
+    GetPayInfo.getCourseList().then((myCourseList) => {
+      _this.setState({myCourseList: DataUtil.groupBy(myCourseList, 'status')})
     })
-    let courseRecommend = await AxiosUtil.get('/api/learning/courseRecommend', true)
-    let courseRecommendGroupByType = {}
-    courseRecommend.forEach((ele, index) => {
-      courseRecommendGroupByType[ele.type] = courseRecommendGroupByType[ele.type] || []
-      courseRecommendGroupByType[ele.type].push(ele)
-    })
-    this.setState({
-      courseRecommend: courseRecommendGroupByType
+
+    AxiosUtil.get('/api/learning/courseRecommend', true).then((courseRecommend) => {
+      _this.setState({courseRecommend: DataUtil.groupBy(courseRecommend, 'type')})
     })
   }
 
@@ -64,9 +62,11 @@ export default class extends React.Component {
     let courseStautsName = this.courseStautsName
     let keyList = Object.keys(courseStautsName)
     return keyList.map((ele, index) => {
-      return <NavBarItem key={ele} active={this.state.tab === ele} onClick={() => { this.setState({tab: ele}) }}>
-        {courseStautsName[ele]}
-      </NavBarItem>
+      return (
+        <NavBarItem key={ele} active={this.state.tab === ele} onClick={() => { this.setState({tab: ele}) }}>
+          {courseStautsName[ele]}
+        </NavBarItem>
+      )
     })
   }
 
@@ -77,65 +77,85 @@ export default class extends React.Component {
           {this.renderBarItemList()}
         </NavBar>
         <TabBody>
-          <Panel>
-            {this.renderTest()}
-          </Panel>
+          {this.renderContent()}
         </TabBody>
+        <style global jsx>{`
+          .weui-navbar__item {
+            padding: 0.5rem 0 !important;
+            font-size: 1rem !important;
+          }
+        `}</style>
       </Tab>)
   }
 
-  renderTest () {
+  renderContent () {
     let {myCourseList} = this.state
     if (myCourseList) {
       let courseGroupList = myCourseList[this.state.tab]
-      return (<CourseSwipeContainer
-        courseGroupList={courseGroupList}
-        routerUrl={'/learn/myCourseList'}
-        title='查看全部' />)
-    }
-  }
-
-  renderRecommandByType () {
-    let {courseRecommend} = this.state
-    if (courseRecommend) {
-      let recommandKeyList = Object.keys(this.courseRecommandName)
-      return recommandKeyList.map((key, index) => {
-        return (<CourseSwipeContainer
-          courseGroupList={courseRecommend[key]}
-          routerUrl={`/learn/recommand?type=${key}`}
-          title={this.courseRecommandName[key]} />)
-      })
+      return (
+        <CourseSwipeContainer
+          category='mine'
+          courseGroupList={courseGroupList}
+          routerUrl={'/learn/myCourseList'}
+          title='查看全部' />
+      )
     }
   }
 
   renderCourseRecommand () {
-    return (<Panel>
-      <PanelHeader>
-        课程推荐
-      </PanelHeader>
-      {this.renderRecommandByType()}
-    </Panel>)
+    let {courseRecommend} = this.state
+    if (courseRecommend) {
+      let recommandKeyList = Object.keys(this.courseRecommandName)
+      return (
+        <Panel>
+          <PanelHeader style={{textAlign: 'center'}}>
+            <img src='/static/img/icon/book.png' style={{width: '2rem'}} />课程推荐
+          </PanelHeader>
+          {recommandKeyList.map((key, index) => {
+            return (
+              <CourseSwipeContainer
+                category='recommand'
+                courseGroupList={courseRecommend[key]}
+                routerUrl={`/learn/recommand?type=${key}`}
+                title={this.courseRecommandName[key]} />
+            )
+          })}
+        </Panel>
+      )
+    }
+  }
+
+  renderBanner () {
+    const {bannerList} = this.state
+    if (DataUtil.isEmpty(bannerList)) return <LoadingIcon />
+    return (
+      <Swiper height={100}>
+        {bannerList.map((item, index) => {
+          return (
+            <div key={`banner-${index}`}>
+              <a href={item.url} style={{display: 'block'}}>
+                <img src={item.img} style={{width: '100%'}} />
+              </a>
+            </div>
+          )
+        })}
+      </Swiper>
+    )
   }
 
   render () {
     return (
       <Layout>
         <div className='learn-system-entry'>
-          <img className='ad-banner' src='/static/img/study/buyBg_1.jpeg' />
+          {this.renderBanner()}
           {this.renderTabbar()}
           {this.renderCourseRecommand()}
-          <style jsx>{`
-            .learn-system-entry {
-              width: 100%;
-            }
-            .ad-banner {
-              width: 100%;
-            }
-            .title {
-
-            }
-          `}</style>
         </div>
+        <style jsx>{`
+          .learn-system-entry {
+            background: #efeff4;
+          }
+        `}</style>
       </Layout>
     )
   }

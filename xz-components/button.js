@@ -40,7 +40,6 @@ export default class Button extends React.Component {
           .xz-btn,
           .xz-btn:active,
           .xz-btn:focus {
-            border: none;
             outline: none;
           }
           /* 小号button */

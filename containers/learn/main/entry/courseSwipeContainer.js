@@ -1,16 +1,10 @@
 import React from 'react'
-import {
-  PanelBody,
-  Cell,
-  CellFooter
-} from 'react-weui'
-
-import SwipeContainer from '/containers/learn/main/entry/swipeContainer'
-import CourseInfoBar from '/containers/learn/main/entry/courseInfoBar'
+import { MediaBox, MediaBoxTitle, MediaBoxBody } from 'react-weui'
+import CourseInfoBar from './courseInfoBar'
 import DateUtil from '/util/date'
 
 export default class extends React.Component {
-  renderInner () {
+  renderCourseList () {
     let {courseGroupList} = this.props
     if (courseGroupList) {
       if (courseGroupList[0].start) {
@@ -19,12 +13,17 @@ export default class extends React.Component {
           let content = `${course.buyCount}人已购买`
           let info = course.start && DateUtil.format(course.start, 'yy-MM-dd')
           info += '开课'
-          return <CourseInfoBar key={index}
-            courseId={course.courseId}
-            bgImg={course.cover}
-            title={title}
-            des={content}
-            info={info} />
+          return (
+            <CourseInfoBar
+              category={this.props.category}
+              key={index}
+              courseId={course.courseId}
+              bgImg={course.cover}
+              title={title}
+              des={content}
+              info={info}
+            />
+          )
         })
       } else {
         return courseGroupList.map((course, index) => {
@@ -42,36 +41,40 @@ export default class extends React.Component {
               info = '已结束'
               break
           }
-          return <CourseInfoBar key={index}
-            courseId={course.courseId}
-            bgImg={'default'}
-            title={title}
-            des={content}
-            info={info} />
+          return (
+            <CourseInfoBar
+              category={this.props.category}
+              key={index}
+              courseId={course.courseId}
+              bgImg={'default'}
+              title={title}
+              des={content}
+              info={info}
+            />
+          )
         })
       }
     }
   }
 
-  goRouter () {
-    let {routerUrl} = this.props
-    if (routerUrl) {
-      location.href = routerUrl
-    }
-  }
-
   render () {
     return (
-      <PanelBody>
-        <Cell style={{borderTop: 'none'}}>
-          <CellFooter style={{textAlign: 'left'}} onClick={() => { this.goRouter() }}>
-            <h3>{`${this.props.title} >`}</h3>
-          </CellFooter>
-        </Cell>
-        <Cell style={{borderTop: 'none'}}>
-          {this.props.courseGroupList ? <SwipeContainer divList={this.renderInner()} /> : <div>空的</div>}
-        </Cell>
-      </PanelBody>
+      <div>
+        <MediaBox>
+          <MediaBoxTitle>{this.props.title} ></MediaBoxTitle>
+          <MediaBoxBody style={{display: 'flex'}}>
+            {this.props.courseGroupList ? this.renderCourseList() : <div>空的</div>}
+          </MediaBoxBody>
+        </MediaBox>
+        <style global jsx>{`
+          .weui-media-box__title {
+            font-size: 1rem !important;
+          }
+          .course-info-bar .weui-media-box__title {
+            margin-bottom: 0 !important;
+          }
+        `}</style>
+      </div>
     )
   }
 }
