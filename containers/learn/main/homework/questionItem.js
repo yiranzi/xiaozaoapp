@@ -1,5 +1,6 @@
 import React from 'react'
 import { Tabbar, TabItem } from '/xz-components/tabbar'
+import Button from '/xz-components/button'
 import DateUtil from '/util/date'
 import SeeMyWork from '/containers/learn/main/homework/seeMyWork'
 import SeeOtherWork from '/containers/learn/main/homework/seeOtherWork'
@@ -79,14 +80,16 @@ export default class extends React.Component {
     }
     // 重复点击 会取消选中
     if (this.state.currentSelect === index) {
+      // 告知父组件 切换模式（单页 or list）
       this.props.chooseChapterAndLesson(this.props.chapterIndex, this.props.lessonIndex, -1)
       this.setState({
         currentSelect: -1
       })
       return
     }
-    this.props.chooseChapterAndLesson(this.props.chapterIndex, this.props.lessonIndex, index)
     if (overWork) {
+      // 告知父组件 切换模式（单页 or list）
+      this.props.chooseChapterAndLesson(this.props.chapterIndex, this.props.lessonIndex, index)
       // 如果完成作业
       if (index === 0) {
         // 拉取其他人作业列表
@@ -276,6 +279,7 @@ export default class extends React.Component {
           跳转链接
         </MediaBoxInfo>
         {this.renderTabbar()}
+        {this.props.viewType && <Button onClick={() => { this.onTabClick(0) }}>查看其它章节作业</Button>}
       </MediaBox>)
     } else {
       return null

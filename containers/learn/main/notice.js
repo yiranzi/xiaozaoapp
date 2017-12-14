@@ -35,11 +35,8 @@ const getData = async function (courseId) {
 // 返回包裹后的组件
 export default class extends React.Component {
   RenderComponent = HocRenderContent(innerComponent, getData)
-
   render () {
     let RenderComponent = this.RenderComponent
-    return (<div>
-      <RenderComponent courseId={this.props.courseId} />
-    </div>)
+    return (<RenderComponent {...this.props} />)
   }
 }

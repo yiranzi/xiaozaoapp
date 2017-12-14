@@ -42,6 +42,6 @@ export default class extends React.Component {
   RenderComponent = HocRenderContent(innerComponent, getData)
   render () {
     let RenderComponent = this.RenderComponent
-    return (<RenderComponent courseId={this.props.courseId} />)
+    return (<RenderComponent {...this.props} />)
   }
 }

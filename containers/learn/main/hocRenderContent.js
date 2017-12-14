@@ -1,6 +1,6 @@
 import React from 'react'
 import LoadingIcon from '/xz-components/loadingicon'
-
+import Layout from '/components/layout'
 /**
  *
  * @param inner组件（被包裹）
@@ -59,7 +59,9 @@ export default function (WrappedComponent, getDataFunc) {
       // 重组props。包括原有的和包裹后新增的。
       if (this.state.data) {
         // 这样也许保证 子组件的 did一定有数据
-        return <WrappedComponent updateFunc={() => { this.updateFunc() }} data={this.state.data} {...this.props} />
+        return <Layout>
+          <WrappedComponent updateFunc={() => { this.updateFunc() }} data={this.state.data} {...this.props} />
+        </Layout>
       } else {
         if (this.state.error) {
           return <div>null</div>
