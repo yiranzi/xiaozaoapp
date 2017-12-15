@@ -6,6 +6,7 @@ import {
   NavBarItem,
   Panel,
   PanelHeader,
+  PanelBody,
   Swiper
 } from 'react-weui'
 import DataUtil from '/util/data'
@@ -13,7 +14,6 @@ import Layout from '../..//components/layout'
 import LoadingIcon from '../../xz-components/loadingicon'
 import GetPayInfo from '/util/getPayInfo'
 import AxiosUtil from '/util/axios'
-import ThemeConfig from '../../config/theme'
 
 import CourseSwipeContainer from '../../containers/learn/main/entry/courseSwipeContainer'
 
@@ -27,7 +27,8 @@ export default class extends React.Component {
   courseRecommandName = {
     '1': '职业核心',
     '2': '个人能力',
-    '3': '技能培养'
+    '3': '技能培养',
+    '4': '技能培养2'
   }
 
   constructor (props) {
@@ -76,7 +77,7 @@ export default class extends React.Component {
         <NavBar>
           {this.renderBarItemList()}
         </NavBar>
-        <TabBody>
+        <TabBody style={{backgroundColor: '#FFFFFF'}}>
           {this.renderContent()}
         </TabBody>
         <style global jsx>{`
@@ -92,11 +93,14 @@ export default class extends React.Component {
     let {myCourseList} = this.state
     if (myCourseList) {
       let courseGroupList = myCourseList[this.state.tab]
+      let url = {
+        pathname: '/learn/myCourseList'
+      }
       return (
         <CourseSwipeContainer
           category='mine'
           courseGroupList={courseGroupList}
-          routerUrl={'/learn/myCourseList'}
+          routerUrl={url}
           title='查看全部' />
       )
     }
@@ -109,17 +113,33 @@ export default class extends React.Component {
       return (
         <Panel>
           <PanelHeader style={{textAlign: 'center'}}>
-            <img src='/static/img/icon/book.png' style={{width: '2rem'}} />课程推荐
+            <div className='title'>
+              <img src='/static/img/icon/homework-icon.png' style={{width: '2rem'}} />
+              <h3>课程推荐</h3>
+            </div>
           </PanelHeader>
-          {recommandKeyList.map((key, index) => {
-            return (
-              <CourseSwipeContainer
-                category='recommand'
-                courseGroupList={courseRecommend[key]}
-                routerUrl={`/learn/recommand?type=${key}`}
-                title={this.courseRecommandName[key]} />
-            )
-          })}
+          <PanelBody>
+            {recommandKeyList.map((key, index) => {
+              let url = {
+                pathname: '/learn/recommand',
+                query: { type: key }
+              }
+              return (
+                <CourseSwipeContainer key={index}
+                  category='recommand'
+                  courseGroupList={courseRecommend[key]}
+                  routerUrl={url}
+                  title={this.courseRecommandName[key]} />
+              )
+            })}
+          </PanelBody>
+          <style>{`
+            .title {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+          `}</style>
         </Panel>
       )
     }
@@ -153,7 +173,7 @@ export default class extends React.Component {
         </div>
         <style jsx>{`
           .learn-system-entry {
-            background: #efeff4;
+            background: #efeff4 !important;
           }
         `}</style>
       </Layout>

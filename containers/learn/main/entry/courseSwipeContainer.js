@@ -2,6 +2,7 @@ import React from 'react'
 import { MediaBox, MediaBoxTitle, MediaBoxBody } from 'react-weui'
 import CourseInfoBar from './courseInfoBar'
 import DateUtil from '/util/date'
+import Link from 'next/link'
 
 export default class extends React.Component {
   renderCourseList () {
@@ -59,31 +60,24 @@ export default class extends React.Component {
     }
   }
 
-  goRouter () {
-    let {routerUrl} = this.props
-    if (routerUrl) {
-      location.href = routerUrl
-    }
-  }
-
   render () {
     return (
-      <div>
-        <MediaBox>
-          <MediaBoxTitle onClick={this.goRouter}>{this.props.title} ></MediaBoxTitle>
-          <MediaBoxBody style={{display: 'flex', overflow: 'auto'}}>
-            {this.props.courseGroupList ? this.renderCourseList() : <div>空的</div>}
-          </MediaBoxBody>
-        </MediaBox>
+      <MediaBox style={{minHeight: '126px'}}>
+        <Link href={this.props.routerUrl}>
+          <a><MediaBoxTitle>{this.props.title}</MediaBoxTitle></a>
+        </Link>
+        <MediaBoxBody style={{display: 'flex', overflow: 'auto'}}>
+          {this.props.courseGroupList ? this.renderCourseList() : <div>空的</div>}
+        </MediaBoxBody>
         <style global jsx>{`
-          .weui-media-box__title {
-            font-size: 1rem !important;
-          }
-          .course-info-bar .weui-media-box__title {
-            margin-bottom: 0 !important;
-          }
-        `}</style>
-      </div>
+        .weui-media-box__title {
+          font-size: 1rem !important;
+        }
+        .course-info-bar .weui-media-box__title {
+          margin-bottom: 0 !important;
+        }
+      `}</style>
+      </MediaBox>
     )
   }
 }

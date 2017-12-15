@@ -5,6 +5,7 @@ import {
   MediaBoxDescription,
   MediaBoxInfo
 } from 'react-weui'
+import Link from 'next/link'
 
 // 渲染内容
 
@@ -15,38 +16,52 @@ export default class extends React.Component {
 
   render () {
     let {title, des, info, bgImg, category} = this.props
-    let style = {}
+    let boxStyle = {
+      flexBasis: '100px',
+      flexShrink: '0',
+      flexGrow: '0',
+      marginLeft: '5px',
+      width: '150px'
+    }
+    let fontStyle = {}
     if (category === 'mine') {
       // let bg = bgImg ? bgImg : '#EAEAEA'
       let bg = '/static/img/learn/cover.png'
-      style = {background: `url(${bg})`, color: 'white'}
+      boxStyle = Object.assign(boxStyle, {background: `url(${bg})`})
+      fontStyle = {color: 'white'}
     } else {
-      style = {backgroundColor: '#efeff4'}
+      boxStyle = Object.assign(boxStyle, {backgroundColor: '#efeff4'})
     }
-    
+
     return (
-      <div style={style} className='course-info-bar'>
-        <MediaBox onClick={() => { this.goRouter() }}>
-          <MediaBoxTitle>{title}</MediaBoxTitle>
-          <MediaBoxDescription>{des}</MediaBoxDescription>
-          <MediaBoxInfo>{info}</MediaBoxInfo>
-        </MediaBox>
-        <style jsx>{`
-        .course-info-bar {
-          flex: 1;
-          max-width: 33%;
-          margin-left: 5px;
-        }
-        `}</style>
-        <style global jsx>{`
-          .course-info-bar:first-child {
-            margin-left: 0;
+      <Link href={{ pathname: '/learn/course/info', query: { courseId: this.props.courseId } }}>
+        <a>
+          <div className='course-info-bar'>
+            <MediaBox style={boxStyle}>
+              <MediaBoxTitle style={fontStyle}>{title}</MediaBoxTitle>
+              <MediaBoxDescription style={fontStyle}>{des}</MediaBoxDescription>
+              <MediaBoxInfo style={fontStyle}>{info}</MediaBoxInfo>
+            </MediaBox>
+            <style jsx>{`
+          .course-info-bar {
+            flex-basis: 100px;
+            flex-shrink: 0;
+            flex-grow: 0;
+            margin-left: 5px;
           }
-          .weui-media-box {
-            padding: 10px !important;
-          }
-        `}</style>
-      </div>
+          `}</style>
+            <style global jsx>{`
+            .course-info-bar:first-child {
+              margin-left: 0;
+            }
+            .weui-media-box {
+              padding: 10px !important;
+            }
+          `}</style>
+          </div>
+        </a>
+      </Link>
+
     )
   }
 }
