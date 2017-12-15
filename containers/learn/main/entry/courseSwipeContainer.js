@@ -7,6 +7,7 @@ export default class extends React.Component {
   renderCourseList () {
     let {courseGroupList} = this.props
     if (courseGroupList) {
+      // 课程推荐的字段
       if (courseGroupList[0].start) {
         return courseGroupList.map((course, index) => {
           let title = course.title
@@ -27,6 +28,7 @@ export default class extends React.Component {
         })
       } else {
         return courseGroupList.map((course, index) => {
+          // 我的课程字段
           let title = course.courseName
           let content = `${course.buyCount}人已购买`
           let info = course.endDate && DateUtil.format(course.endDate, 'yy-MM-dd')
@@ -57,12 +59,19 @@ export default class extends React.Component {
     }
   }
 
+  goRouter () {
+    let {routerUrl} = this.props
+    if (routerUrl) {
+      location.href = routerUrl
+    }
+  }
+
   render () {
     return (
       <div>
         <MediaBox>
-          <MediaBoxTitle>{this.props.title} ></MediaBoxTitle>
-          <MediaBoxBody style={{display: 'flex'}}>
+          <MediaBoxTitle onClick={this.goRouter}>{this.props.title} ></MediaBoxTitle>
+          <MediaBoxBody style={{display: 'flex', overflow: 'auto'}}>
             {this.props.courseGroupList ? this.renderCourseList() : <div>空的</div>}
           </MediaBoxBody>
         </MediaBox>

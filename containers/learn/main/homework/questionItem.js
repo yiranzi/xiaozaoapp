@@ -278,7 +278,7 @@ export default class extends React.Component {
             </MediaBoxTitle>
             <MediaBoxDescription style={style}>
               {this.renderContent()}
-            </MediaBoxDescription>c
+            </MediaBoxDescription>
             <MediaBoxInfo>
               跳转链接
             </MediaBoxInfo>
