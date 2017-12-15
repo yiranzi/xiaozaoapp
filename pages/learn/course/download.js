@@ -10,7 +10,8 @@ import {
   PanelBody,
   MediaBox,
   MediaBoxTitle,
-  MediaBoxDescription
+  MediaBoxDescription,
+  LoadMore
 } from 'react-weui'
 import Button from '../../../xz-components/button'
 
@@ -55,7 +56,7 @@ export default class extends React.Component {
           <MediaBoxTitle>{item.title}</MediaBoxTitle>
           <MediaBoxDescription dangerouslySetInnerHTML={{__html: item.content}} className='resource-content' />
           <p className='wx-text-right'>
-            <a href={item.path}><Button type='primary' className='download-btn'>下载</Button></a>
+            <a href={item.path}><Button className='download-btn'>下载</Button></a>
           </p>
         </MediaBox>)
       })
@@ -64,7 +65,8 @@ export default class extends React.Component {
           资料下载
         </PanelHeader>
         <PanelBody>
-          {listElement}
+          {list.length > 0 && listElement}
+          {list.length === 0 && <LoadMore showLine>No Data</LoadMore>}
         </PanelBody>
         <style global jsx>{`
           .weui-media-box__desc {
@@ -77,7 +79,6 @@ export default class extends React.Component {
           }
           .download-btn {
             width: auto !important;
-            padding: 3px 15px !important;
           }
           .weui-panel {
             background-color: transparent !important;
@@ -92,6 +93,7 @@ export default class extends React.Component {
     return (
       <Layout className='main-style'>
         {this.renderList()}
+        <br /><br />
         <Footer type='source' courseId={query.courseId} />
         <style global jsx>{`
           .main-style {

@@ -11,9 +11,9 @@ import {
   ButtonArea,
   PanelBody,
   LoadMore,
-  InfiniteLoader,
-  TextArea
+  InfiniteLoader
 } from 'react-weui'
+import MyTextArea from '../../../xz-components/textarea'
 
 export default class extends React.Component {
   constructor (props) {
@@ -46,6 +46,7 @@ export default class extends React.Component {
         question: null
       },
       tab: 1,
+      textareaKey: 1,
       error: null
     }
   }
@@ -140,7 +141,7 @@ export default class extends React.Component {
         return
       }
       await AxiosUtil.post('/api/learning-question/newPageQuestion', this.state.form)
-      this.state.form.question = ''
+      this.state.textareaKey += 1
       this.loadMyPageQuestionList()
       Alert({
         content: '提交成功',
@@ -153,8 +154,8 @@ export default class extends React.Component {
     }
   }
 
-  handleChange (e) {
-    this.state.form.question = e.target.value
+  handleChange (value) {
+    this.state.form.question = value
   }
 
   changeTabbar () {
@@ -240,15 +241,12 @@ export default class extends React.Component {
 
   renderPutQuestion () {
     return (<div className='add-question-block'>
-      <TextArea className='question-textarea' onChange={(e) => this.handleChange(e)} defaultValue={this.state.form.question} placeholder='输入自己的问题，我们的导师看到后会来回答你哦' />
+      <MyTextArea className='question-textarea' onChange={(value) => this.handleChange(value)} key={'question-' + this.state.textareaKey} placeholder='输入自己的问题，我们的导师看到后会来回答你哦' />
       <Button size='small' type='warn' onClick={(e) => this.putQuestion()} className='wx-pull-right'>提问</Button>
-      <p className='tips'>每个课程页最多可提5个问题</p>
+      <p className='tips'><small>每个课程页最多可提5个问题</small></p>
       <style global jsx>{`
         .add-question-block {
           padding: 0 15px;
-        }
-        .add-question-block .question-textarea {
-          border: 1px solid ${ThemeConfig.color.border};
         }
       `}</style>
     </div>)
@@ -283,7 +281,6 @@ export default class extends React.Component {
           }
           .main-style {
             background-color: ${ThemeConfig.color.gray};
-            height: 100vh;
           }
         `}</style>
       </Layout>
