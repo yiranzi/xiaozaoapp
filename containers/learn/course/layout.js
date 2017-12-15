@@ -75,9 +75,13 @@ export default class extends React.Component {
           </div>
         )}
         <style jsx>{`
+          .course-menu {
+            padding: 0.5rem;
+          }
           .title {
             text-align: center;
             font-weight: bold;
+            padding: 0.5rem;
           }
           li {
             list-style-type: none;
@@ -112,7 +116,7 @@ export default class extends React.Component {
   }
   renderHomeWork () {
     const {homeWorkShow} = this.state
-    const {query, homeworkContent} = this.props
+    const {query, homeworkContent, menuContent} = this.props
 
     return (
       <Popup
@@ -124,10 +128,11 @@ export default class extends React.Component {
       >
         {DataUtil.isEmpty(homeworkContent) ? <LoadingIcon /> : (
           <div className='homework'>
+            <div className='title'><img src='/static/img/learn/cover1.png' /><h2 className='course-name'>{menuContent.courseName}</h2></div>
             {homeworkContent.map((chapter, index) => {
               return (
                 <div className='chapter' key={`h_${index}`}>
-                  <div className='header'><img src='/static/img/learn/course/file.png' />{chapter.chapterName}</div>
+                  <div className='header wx-space-left'><img src='/static/img/learn/course/file.png' /><span>{chapter.chapterName}</span></div>
                   {chapter.childLearningCourseWorkDTOList.map((work, index) => {
                     return (
                       <div key={`w_${index}`} className='work wx-space-center' onClick={() => { location.href = `/learn/course/detail?courseId=${query.courseId}&menuId=${work.chapterId}&sectionId=${work.sectionId}&pageNumber=${work.pageNumber}` }}>
@@ -142,24 +147,46 @@ export default class extends React.Component {
           </div>
         )}
         <style jsx>{`
-          .chapter {
-            margin-top: 20px;
-          }
           .homework {
-            padding: 10px;
+            min-height: 100vh;
+            background-color: #fff;
           }
+          .title {
+            position: relative;
+            color: #fff;
+          }
+          .title img{
+            width: 100%;
+          }
+          .title .course-name {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+          }
+          .chapter {
+            padding: 1rem 1.5rem;
+          }
+          .chapter img,
+          .chapter span {
+            display: block;
+          }
+          .homework 
           .header {
+            display: flex;
+            align-items: center;
             font-weight: bold;
           }
           .header img {
+            display: block;
             width: 20px;
             height: 20px;
           }
-          .title {
-            text-align: center;
+          .header span {
+            display: block;
           }
-          li {
-            list-style-type: none;
+          .work {
+            margin-top: 5px;
           }
         `}</style>
       </Popup>
@@ -171,10 +198,11 @@ export default class extends React.Component {
       <Layout>
         <div className='course-page'>
           <div className='header wx-space-center'>
-            <div className='course-menu' onClick={() => { this.toggleCourseMenuPop() }}>...</div>
+            <div className='course-menu-btn' onClick={() => { this.toggleCourseMenuPop() }}>...</div>
             <Button
               type='normal'
-              style={{width: 'auto', borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}}
+              size='small'
+              style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}}
               onClick={() => { this.toggleHomeWorkPop() }}
             >作业</Button>
           </div>
@@ -187,11 +215,13 @@ export default class extends React.Component {
         <Footer type='learn' courseId={this.props.query.courseId} />
         <style jsx>{`
           .course-page {
-            padding: 1rem;
             background-color: #F8F8F8;
             min-height: 100vh;
           }
-          .course-menu {
+          .header {
+            padding: 1rem;
+          }
+          .course-menu-btn {
             width: 1.5rem;
             height: 1.5rem;
             line-height: 1rem;

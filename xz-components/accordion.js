@@ -44,7 +44,7 @@ class Accordion extends React.Component {
         <style jsx>{`
           .xz-accordion-item {
             border-radius: 2px;
-            margin: 5px 0;
+            margin: 8px 0;
           }
           .xz-accordion-header {
             background-color: #fff;

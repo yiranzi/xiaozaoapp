@@ -21,23 +21,28 @@ export default class extends React.Component {
     if (position === 'left') {
       return {
         'left': 0,
-        'transform': 'translate(-100%, 0)'
+        'transform': 'translate(-100%, 0)',
+        'width': '80%'
       }
     }
     if (position === 'right') {
       return {
-        'right': 0,
-        'transform': 'translate(100%, 0)'
+        'left': 'auto',
+        'right': '0',
+        'transform': 'translate(100%, 0)',
+        'width': '80%'
       }
     }
     if (position === 'top') {
       return {
-        'transform': 'translate(0, -100%)'
+        'transform': 'translate(0, -100%)',
+        'width': '80%'
       }
     }
     if (position === 'bottom') {
       return {
-        'transform': 'translate(0, 100%)'
+        'transform': 'translate(0, 100%)',
+        'width': '80%'
       }
     }
   }
@@ -46,23 +51,28 @@ export default class extends React.Component {
     if (position === 'left') {
       return {
         'left': 0,
-        'transform': 'translate(0, 0)'
+        'transform': 'translate(0, 0)',
+        'width': '80%'
       }
     }
     if (position === 'right') {
       return {
+        'left': 'auto',
         'right': 0,
-        'transform': 'translate(0, 0)'
+        'transform': 'translate(0, 0)',
+        'width': '80%'
       }
     }
     if (position === 'top') {
       return {
-        'transform': 'translate(0, -100%)'
+        'transform': 'translate(0, -100%)',
+        'width': '80%'
       }
     }
     if (position === 'bottom') {
       return {
-        'transform': 'translate(0, 100%)'
+        'transform': 'translate(0, 100%)',
+        'width': '80%'
       }
     }
   }
@@ -88,22 +98,10 @@ export default class extends React.Component {
         )}
         {this.props.children}
         <style global jsx>{`
-          .react-weui-infiniteloader {
-            overflow: scroll;
-            -webkit-overflow-scrolling:touch;
-          }
           .weui-popup {
-            width: 80%;
             height: 100%;
-            background-color: #fff;
-            padding: 15px 10px;
-            box-sizing: border-box;
-            overflow-y: scroll;
-            position: fixed;
-            bottom: 0;
-            backface-visibility: hidden;
-            z-index: 5000;
-            transition: transform .3s;
+            overflow: scroll;
+            transition: transform 0.7s !important;
           }
           .close {
             width: 30px;

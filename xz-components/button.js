@@ -21,6 +21,7 @@ export default class Button extends React.Component {
     const _xz = {
       'xz-btn': true,
       'xz-btn_primary': type === 'primary',
+      'xz-btn_normal': type === 'normal',
       'xz-btn_small': size === 'small',
       'xz-btn_disabled': disabled
     }
@@ -56,12 +57,12 @@ export default class Button extends React.Component {
           }
 
           /* button type normal */
-          button[type='normal'] {
+          .xz-btn_normal {
             background-color: transparent;
             color: #117ee9;
             border: 1px solid #117ee9;
           }
-          button[type='normal']:disabled {
+          .xz-btn_normal:disabled {
             color: rgba(0, 0, 0, 0.2);
             background-color: transparent;
             border: 1px solid rgba(0, 0, 0, 0.2);

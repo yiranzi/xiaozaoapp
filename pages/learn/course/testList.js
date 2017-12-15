@@ -6,7 +6,7 @@ import DataUtil from '../../../util/data'
 import LoadingIcon from '../../../xz-components/loadingicon'
 import Card from '../../../xz-components/card'
 import Layout from '../../../containers/learn/layout'
-import Footer from '../../../containers/learn/footer'
+import FixFooter from '../../../xz-components/fixfooter'
 
 export default class extends React.Component {
   constructor (props) {
@@ -70,7 +70,7 @@ export default class extends React.Component {
             </div>
           )}
         </div>
-        <Footer type='test' courseId={query.courseId} />
+        <FixFooter>继续学习</FixFooter>
         <style jsx>{`
           .test-page {
             padding-left: 1rem;

@@ -1,7 +1,7 @@
 import React from 'react'
 import ToolsUtil from '../../../util/tools'
 import Layout from '../../../components/layout'
-import Footer from '../../../containers/learn/footer'
+import FixFooter from '../../../xz-components/fixfooter'
 import AxiosUtil from '../../../util/axios'
 import ThemeConfig from '../../../config/theme'
 import {
@@ -89,12 +89,10 @@ export default class extends React.Component {
   }
 
   render () {
-    const {query} = this.state
     return (
       <Layout className='main-style'>
         {this.renderList()}
-        <br /><br />
-        <Footer type='source' courseId={query.courseId} />
+        <FixFooter>继续学习</FixFooter>
         <style global jsx>{`
           .main-style {
             background-color: ${ThemeConfig.color.gray};

@@ -1,4 +1,5 @@
 import React from 'react'
+import ThemeConfig from '../../../config/theme'
 import ToolsUtil from '../../../util/tools'
 import AxiosUtil from '../../../util/axios'
 import DataUtil from '../../../util/data'
@@ -9,6 +10,7 @@ import LoadingIcon from '../../../xz-components/loadingicon'
 import Option from '../../../containers/clock/option'
 import Button from '../../../xz-components/button'
 import Traning from '../../../containers/learn/course/traning'
+import CoursePageTitle from '../../../containers/learn/course/coursePageTitle'
 
 export default class extends React.Component {
   constructor (props) {
@@ -21,6 +23,7 @@ export default class extends React.Component {
         pageNumber: '',
         workId: ''
       },
+      currentCourseDetail: {},
       array: [],
       menuContent: {}, // 左侧课程列表
       homeworkContent: {}, // 右侧作业列表
@@ -32,29 +35,34 @@ export default class extends React.Component {
   }
 
   componentDidMount = async () => {
+    let currentCourseDetail = {}
     let courseId = ToolsUtil.getQueryString('courseId')
     let footerPrint = await AxiosUtil.get(`/api/learning/getLearningFootprint/${courseId}`)
     let menuId = ToolsUtil.getQueryString('menuId') || footerPrint.chapterId
     let sectionId = ToolsUtil.getQueryString('sectionId') || footerPrint.sectionId
     let pageNumber = ToolsUtil.getQueryString('pageNumber') || footerPrint.pageNumber
-
     let menuContent = await AxiosUtil.get(`/api/learning/course/${courseId}`)
     let array = []
+    menuId = menuId ? menuId : menuContent.menuDTOList[0].id
     menuContent.menuDTOList.map((menu) => {
-      let menuId = menu.id
+      let _menuId = menu.id
+      if (menuId.toString() === menu.id.toString()) {
+        currentCourseDetail.courseName = menu.name
+        currentCourseDetail.pageCount = menu.sectionMenuDTOList.length
+      }
       menu.sectionMenuDTOList.map((section) => {
         let sectionId = section.id
         section.contentDTOList.map((content) => {
           let pageNumber = content.pageNumber
           array.push({
-            menuId: menuId.toString(),
+            menuId: _menuId.toString(),
             sectionId: sectionId.toString(),
             pageNumber: pageNumber.toString()
           })
         })
       })
     })
-    this.setState({array: array})
+    this.setState({array: array, currentCourseDetail: currentCourseDetail})
     this.setState({menuContent: menuContent})
     /**
      * 获取课程详情
@@ -63,7 +71,7 @@ export default class extends React.Component {
     let detail
     if (sectionId) {
       detail = await AxiosUtil.get(`/api/learning/course/${courseId}/${sectionId}/${pageNumber}`)
-      
+
       this.setState({detail: ToolsUtil.parseHtml(detail, true)})
     } else {
       sectionId = menuContent.menuDTOList[0].sectionMenuDTOList[0].id
@@ -98,12 +106,9 @@ export default class extends React.Component {
     this.setState({homeworkContent: homeworkContent})
 
     let workId
-    const _this = this
     homeworkContent.map((item, index) => {
       item.childLearningCourseWorkDTOList.map((item, index) => {
-        console.log('sectionId:', sectionId)
-        console.log('_this.state.sectionId:', _this.state.sectionId)
-        if (item.sectionId === sectionId && item.pageNumber === pageNumber) {
+        if (item.sectionId.toString() === sectionId.toString() && item.pageNumber.toString() === pageNumber.toString()) {
           workId = item.workId
           return false
         }
@@ -151,6 +156,12 @@ export default class extends React.Component {
             </div>
           )
         })}
+        <style jsx>{`
+          .detail {
+            background-color: #efeff4;
+            padding: 2rem 1rem;
+          }
+        `}</style>
       </div>
     )
   }
@@ -159,21 +170,33 @@ export default class extends React.Component {
     const {answer} = workDetail
     if (!DataUtil.isEmpty(workDetail)) {
       return (
-        <div>
-          <div>课间思考作业</div>
-          <div>{workDetail.question}</div>
-          <div>截止时间：{DateUtil.format(workDetail.endTime, 'yyyy-MM-dd hh:mm')}</div>
+        <div className='homework'>
+          <div className='header'><img style={{width: '1rem'}} src='/static/img/icon/file.png' />课间思考作业</div>
+          <div style={{marginTop: '1rem'}}>{workDetail.question}</div>
+          <div style={{marginTop: '1rem'}}>截止时间：{DateUtil.format(workDetail.endTime, 'yyyy-MM-dd hh:mm')}</div>
           <Option topic={workDetail} onChange={(id, value) => this.setState({myWork: value[0].url})} disabled={!(Boolean(answer) && isEditmyWork)} />
           {DataUtil.isEmpty(answer) || isEditmyWork ? (
-            <Button onClick={() => { this.submitWork(workDetail.type) }}>上传作业</Button>
+            <div className='wx-text-center'>
+              <Button size='small' onClick={() => { this.submitWork(workDetail.type) }}>上传作业</Button>
+            </div>
           ) : (
             <div>
-              <Button type='normal' size='small'>查看其他同学答案</Button>
-              <Button size='small'>查看导师点评</Button>
-              <Button size='small' onClick={() => { this.editMyWork() }}>修改答案</Button>
+              <div className='wx-space-center'>
+                <Button style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>查看其他同学答案</Button>
+                <Button style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>查看导师点评</Button>
+                <Button style={{borderColor: ThemeConfig.color.red, color: ThemeConfig.color.red}} type='normal' size='small' onClick={() => { this.editMyWork() }}>修改答案</Button>
+              </div>
+              <a href={`/learn/course/questionList?courseId=${query.courseId}&sectionId=${query.sectionId}&pageNumber=${query.pageNumber}`}><Button style={{marginTop: '2rem', backgroundColor: ThemeConfig.color.red}} >对学习内容有疑问？点击查看导师答疑</Button></a>
             </div>
           )}
-          <a href={`/learn/course/questionList?courseId=${query.courseId}&sectionId=${query.sectionId}&pageNumber=${query.pageNumber}`}><Button>对学习内容有疑问？点击查看导师答疑</Button></a>
+          <style jsx>{`
+            .homework {
+              padding: 2rem 1rem;
+            }
+            .header img {
+              width: 1rem;
+            }
+          `}</style>
         </div>
       )
     }
@@ -210,9 +233,9 @@ export default class extends React.Component {
   }
   loadPage (type) {
     let {query, array} = this.state
-    
+
     let {courseId, sectionId, menuId, pageNumber} = query
-    
+
     let json = {
       menuId: menuId,
       sectionId: sectionId,
@@ -242,7 +265,8 @@ export default class extends React.Component {
     const {
       query,
       menuContent,
-      homeworkContent
+      homeworkContent,
+      currentCourseDetail
     } = this.state
     return (
       <Layout
@@ -252,6 +276,7 @@ export default class extends React.Component {
         onChangeCourse={(sectionId) => { this.onChangeCourse(sectionId) }}
         onChangeHomeWork={(workId) => { this.onChangeHomeWork(workId) }}
       >
+        <CoursePageTitle title={currentCourseDetail.courseName} pageNumber={query.pageNumber} totalSize={currentCourseDetail.pageCount} />
         {this.renderPrev()}
         {this.renderNext()}
         {this.renderContent()}
@@ -260,10 +285,10 @@ export default class extends React.Component {
             padding-top: 1rem;
             padding-bottom: 4rem;
           }
-          .course-detail img,
-          .course-detail span,
-          .course-detail ol,
-          .course-detail ul {
+          .course-detail .detail img,
+          .course-detail .detail span,
+          .course-detail .detail ol,
+          .course-detail .detail ul {
             width: 100% !important;
           }
           .course-detail li {

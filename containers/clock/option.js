@@ -59,7 +59,6 @@ export default class extends React.Component {
         <style jsx>{`
           .topic {
             padding: 1.5rem 1rem;
-            border-bottom: 1px solid ${ThemeConfig.color.border};
           }
         `}</style>
       </div>

@@ -96,12 +96,12 @@ export default class Video extends React.Component {
   renderGlobalCss () {
     return (
       <style global jsx>{`
-          .video-js .vjs-current-time,
-          .vjs-time-control.vjs-time-divider,
-          .vjs-duration.vjs-time-control.vjs-control{
-            display: block !important;
-          }
-          `}</style>
+        .video-js .vjs-current-time,
+        .vjs-time-control.vjs-time-divider,
+        .vjs-duration.vjs-time-control.vjs-control{
+          display: block !important;
+        }
+      `}</style>
     )
   }
 
@@ -113,7 +113,16 @@ export default class Video extends React.Component {
         {!playerId &&
         <video id={id} className='video-js' style={{display: 'none'}} />
         }
-        {this.renderGlobalCss()}
+        <style global jsx>{`
+          .video-js {
+            margin: auto;
+          }
+          .video-js .vjs-current-time,
+          .vjs-time-control.vjs-time-divider,
+          .vjs-duration.vjs-time-control.vjs-control{
+            display: block !important;
+          }
+        `}</style>
       </div>
     )
   }
