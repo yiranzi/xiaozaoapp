@@ -182,7 +182,7 @@ export default class extends React.Component {
           ) : (
             <div>
               <div className='wx-space-center'>
-                <Button style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>查看其他同学答案</Button>
+                <Button onClick={() => { location.href = `/learn/course/otherAnswer${location.search}&workId=${query.workId}` }} style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>查看其他同学答案</Button>
                 <Button style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>查看导师点评</Button>
                 <Button style={{borderColor: ThemeConfig.color.red, color: ThemeConfig.color.red}} type='normal' size='small' onClick={() => { this.editMyWork() }}>修改答案</Button>
               </div>

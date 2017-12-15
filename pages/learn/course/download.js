@@ -92,7 +92,7 @@ export default class extends React.Component {
     return (
       <Layout className='main-style'>
         {this.renderList()}
-        <FixFooter>继续学习</FixFooter>
+        <FixFooter style={{textAlign: 'center'}} onClick={() => { location.href = `/learn/course/detail${location.search}` }}>继续学习</FixFooter>
         <style global jsx>{`
           .main-style {
             background-color: ${ThemeConfig.color.gray};

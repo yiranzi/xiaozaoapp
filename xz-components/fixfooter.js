@@ -3,7 +3,7 @@ import React from 'react'
 export default class extends React.Component {
   render () {
     return (
-      <div className='fixFooter'>
+      <div className='fixFooter' {...this.props}>
         <div className='content'>{this.props.children}</div>
         <style jsx>{`
           .fixFooter {

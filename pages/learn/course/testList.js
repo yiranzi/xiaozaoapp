@@ -70,7 +70,7 @@ export default class extends React.Component {
             </div>
           )}
         </div>
-        <FixFooter>继续学习</FixFooter>
+        <FixFooter style={{textAlign: 'center'}} onClick={() => { location.href = `/learn/course/detail${location.search}` }}>继续学习</FixFooter>
         <style jsx>{`
           .test-page {
             padding-left: 1rem;

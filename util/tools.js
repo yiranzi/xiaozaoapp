@@ -58,28 +58,6 @@ ToolsUtil.parseHtml = function (content) {
   })
   return array
 }
-// ToolsUtil.parseHtml = function (content) {
-//   const videoList = [];
-//   const regexpVideo = /<(video) [^>]*>.*?<\/\1>/g;
-//   const regexpSrc = /src="([^"]*)"/;
-//   if (!content) {
-//     content = '';
-//   }
-//   const string = content.replace(regexpVideo, function (str) {
-//     const playerId = `player_${DataUtils.uuid()}`;
-//     let src = str.match(regexpSrc)[1];
-//       src = src.replace(/https:/, 'http:');
-//     videoList.push({
-//       playerId,
-//       src
-//     });
-//     return `<video id="${playerId}" class="video-js" style="display:none;"></video>`;
-//   });
-//   return {
-//     string,
-//     videoList
-//   };
-// }
 
 // 遍历文件夹
 ToolsUtil.walkDir = function (dir, files) {
