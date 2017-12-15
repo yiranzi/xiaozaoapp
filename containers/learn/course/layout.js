@@ -1,7 +1,8 @@
 import React from 'react'
+import Link from 'next/link'
 import DataUtil from '../../../util/data'
 import classNames from 'classnames'
-import {Cell, CellHeader, CellBody, CellFooter, Icon} from 'react-weui'
+import {Cells, Cell, CellHeader, CellBody, CellFooter, Icon} from 'react-weui'
 import ThemeConfig from '../../../config/theme'
 import Layout from '../../../components/layout'
 import Footer from '../../../containers/learn/footer'
@@ -68,6 +69,15 @@ export default class extends React.Component {
                         </Panel>
                       )
                     })}
+                    {menu.afterTestId && (
+                      <Cells>
+                        <Cell access>
+                          <CellHeader><span className='blank' /></CellHeader>
+                          <CellBody><Link href={`/learn/course/testDetail?courseId=${query.courseId}&testId=${menu.afterTestId}`}><a className='wx-block'>测试</a></Link></CellBody>
+                          <CellFooter />
+                        </Cell>
+                      </Cells>
+                    )}
                   </Accordion>
                 )
               })}
@@ -96,6 +106,13 @@ export default class extends React.Component {
             margin-right: 10px;
             background: url(/static/img/learn/course/file.png) no-repeat;
             background-size: 100%;
+          }
+          span.blank {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin-right: 10px;
+            border-radius: 1rem;
           }
           span.icon {
             display: inline-block;

@@ -4,6 +4,10 @@ export default class extends React.Component {
   render () {
     return (
       <style global jsx>{`
+        /* 默认a标签样式*/
+        a {
+          color: #242223;
+        }
         /*文本位置*/
         .wx-text-left{
             text-align:left;
@@ -97,6 +101,10 @@ export default class extends React.Component {
           display: flex;
           justify-content: flex-start;
           align-items: center;
+        }
+        /* block */
+        .wx-block {
+          display: block;
         }
       `}</style>
     )

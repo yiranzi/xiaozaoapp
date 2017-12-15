@@ -1,27 +1,31 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {Form, FormCell, CellBody, TextArea} from 'react-weui'
 
 export default class MyTextArea extends React.Component {
+  static propTypes = {
+    placeholder: PropTypes.string,
+    defaultValue: PropTypes.string,
+    maxLength: PropTypes.number,
+    onChange: PropTypes.func,
+    disabled: PropTypes.bool
+  }
+  static defaultProps = {
+    onChange: function () {}
+  }
   render () {
     const {placeholder, defaultValue, maxLength, onChange, disabled} = this.props
     return (
       <Form className='textarea'>
         <FormCell>
           <CellBody>
-            {disabled && (
-              <TextArea
-                placeholder={placeholder}
-                defaultValue={defaultValue}
-                maxLength={maxLength}
-                disabled />
-            )}
-            {!disabled && (
-              <TextArea
-                placeholder={placeholder}
-                defaultValue={defaultValue}
-                maxLength={maxLength}
-                onChange={(e) => onChange(e.target.value)} />
-            )}
+            <TextArea
+              placeholder={placeholder}
+              defaultValue={defaultValue}
+              maxLength={maxLength}
+              onChange={(e) => onChange(e.target.value)}
+              disabled={disabled}
+            />
           </CellBody>
         </FormCell>
         <style global jsx>{`

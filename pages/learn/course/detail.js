@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import ThemeConfig from '../../../config/theme'
 import ToolsUtil from '../../../util/tools'
 import AxiosUtil from '../../../util/axios'
@@ -174,7 +175,7 @@ export default class extends React.Component {
           <div className='header'><img style={{width: '1rem'}} src='/static/img/icon/file.png' />课间思考作业</div>
           <div style={{marginTop: '1rem'}}>{workDetail.question}</div>
           <div style={{marginTop: '1rem'}}>截止时间：{DateUtil.format(workDetail.endTime, 'yyyy-MM-dd hh:mm')}</div>
-          <Option topic={workDetail} onChange={(id, value) => this.setState({myWork: value[0].url})} disabled={!(Boolean(answer) && isEditmyWork)} />
+          <Option topic={workDetail} onChange={(id, value) => this.workChange(value, workDetail.type) } disabled={!(Boolean(answer) && isEditmyWork)} />
           {DataUtil.isEmpty(answer) || isEditmyWork ? (
             <div className='wx-text-center'>
               <Button size='small' onClick={() => { this.submitWork(workDetail.type) }}>上传作业</Button>
@@ -182,7 +183,9 @@ export default class extends React.Component {
           ) : (
             <div>
               <div className='wx-space-center'>
-                <Button onClick={() => { location.href = `/learn/course/otherAnswer${location.search}&workId=${query.workId}` }} style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>查看其他同学答案</Button>
+                <Button style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>
+                  <Link href={`/learn/course/otherAnswer${location.search}&workId=${query.workId}`}>查看其他同学答案</Link>
+                </Button>
                 <Button style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>查看导师点评</Button>
                 <Button style={{borderColor: ThemeConfig.color.red, color: ThemeConfig.color.red}} type='normal' size='small' onClick={() => { this.editMyWork() }}>修改答案</Button>
               </div>
@@ -201,6 +204,15 @@ export default class extends React.Component {
       )
     }
   }
+  workChange (value, type) {
+    if (ToolsUtil.isUploader(type)) {
+      this.setState({myWork: value[0].url})
+    }
+    if (ToolsUtil.isTextarea(type)) {
+      console.log(value)
+      this.setState({myWork: value})
+    }
+  }
   editMyWork () {
     this.setState({isEditmyWork: true})
   }
@@ -211,6 +223,9 @@ export default class extends React.Component {
       let uuid = DataUtil.uuid(11)
       let formdata = DataUtil.imgFormat(myWork, uuid, 'jpg')
       await AxiosUtil.post(`/api/work/workFileComplete/${query.courseId}/${query.workId}`, formdata)
+    }
+    if (ToolsUtil.isTextarea(type)) {
+      await AxiosUtil.post(`/api/work/workComplete/${query.courseId}/${query.workId}`, myWork)
     }
   }
   renderHomeWork (homeWork) {
