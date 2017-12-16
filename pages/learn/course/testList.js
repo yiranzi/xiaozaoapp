@@ -30,8 +30,8 @@ export default class extends React.Component {
       testList: testList
     })
   }
-  isFinish (answerDTOList) {
-    return answerDTOList.length > 0
+  isFinish (answerTotalScore) {
+    return !DataUtil.isNull(answerTotalScore)
   }
   render () {
     const _this = this
@@ -45,7 +45,7 @@ export default class extends React.Component {
                 return (
                   <Card key={`test-item-${index}`}>
                     <Link href={{pathname: '/learn/course/testDetail', query: {courseId: query.courseId, testId: item.testId}}}>
-                      {_this.isFinish(item.answerDTOList) ? (
+                      {_this.isFinish(item.answerTotalScore) ? (
                         <div className='test-item wx-space-center'>
                           <div className='left wx-space-left'>
                             <div className='icon'><img src='/static/img/icon/prise.png' /></div>

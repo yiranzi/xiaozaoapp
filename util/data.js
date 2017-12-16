@@ -13,6 +13,10 @@ dataUtil.isEmpty = function (data) {
   return data.length === 0
 }
 
+dataUtil.isNull = function (data) {
+  return data === null
+}
+
 dataUtil.uuid = function (len, radix) {
   let chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('')
   let uuid = []

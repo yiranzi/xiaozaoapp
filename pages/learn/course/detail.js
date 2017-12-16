@@ -24,8 +24,6 @@ export default class extends React.Component {
         pageNumber: '',
         workId: ''
       },
-      showWorkAnser: false,
-      workAnser: {},
       currentCourseDetail: {},
       array: [],
       menuContent: {}, // 左侧课程列表
@@ -33,7 +31,9 @@ export default class extends React.Component {
       detail: {}, // 需要展示的内容,
       workDetail: {}, // 作业详情
       myWork: '', // 我的作业
-      isEditmyWork: false
+      isEditmyWork: false,
+      workAnswer: {},
+      showWorkAnser: false
     }
   }
 
@@ -119,10 +119,15 @@ export default class extends React.Component {
     })
 
     if (workId) {
-      let workDetail = await AxiosUtil.get(`/api/work/${courseId}/${workId}`)
-      this.setState({workDetail: workDetail})
-      let workAnser = await AxiosUtil.get(`/api/work/workAnswerEvaluate/${workDetail.id}`)
-      this.setState({workAnser: workAnser})
+      const _this = this
+      AxiosUtil.get(`/api/work/${courseId}/${workId}`).then((workDetail) => {
+        _this.setState({workDetail: workDetail})
+        return AxiosUtil.get(`/api/work/myAnswer/${courseId}/${workId}`) // 我的答案
+      }).then((myWork) => {
+        return AxiosUtil.get(`/api/work/workAnswerEvaluate/${myWork.id}`) // 我的答案
+      }).then((workAnswer) => {
+        _this.setState({workAnswer: workAnswer})
+      })
     }
     this.setState({
       query: {
@@ -171,7 +176,7 @@ export default class extends React.Component {
     )
   }
   renderWorkDetail () {
-    const {query, workDetail, isEditmyWork, workAnser, showWorkAnser} = this.state
+    const {query, workDetail, isEditmyWork} = this.state
     const {answer} = workDetail
     if (!DataUtil.isEmpty(workDetail)) {
       return (
@@ -191,11 +196,13 @@ export default class extends React.Component {
                   <Link href={`/learn/course/otherAnswer${location.search}&workId=${query.workId}`}><a>查看其他同学答案</a></Link>
                 </Button>
                 <Button onClick={() => { this.setState({showWorkAnser: !this.state.showWorkAnser}) }} style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>查看导师点评</Button>
-                {DataUtil.isEmpty(workAnser) && (
+                {DataUtil.isEmpty(this.state.workAnswer) && (
                   <Button style={{borderColor: ThemeConfig.color.red, color: ThemeConfig.color.red}} type='normal' size='small' onClick={() => { this.editMyWork() }}>修改答案</Button>
                 )}
               </div>
-              {showWorkAnser && <div>{workAnser}</div>}
+              {this.state.showWorkAnser && (
+                <div>导师点评：{this.state.workAnswer}</div>
+              )}
               <a href={`/learn/course/questionList?courseId=${query.courseId}&sectionId=${query.sectionId}&pageNumber=${query.pageNumber}`}><Button style={{marginTop: '2rem', backgroundColor: ThemeConfig.color.red}} >对学习内容有疑问？点击查看导师答疑</Button></a>
             </div>
           )}
