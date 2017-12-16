@@ -4,24 +4,27 @@ import HocRenderContent from '/containers/learn/main/hocRenderContent'
 // 原始组件
 class innerComponent extends React.Component {
   render () {
-    let {data, courseId} = this.props
+    let {data} = this.props
     if (data && data.length > 0) {
-      return (<div className='introduce'>
-        课程id{courseId}
+      return (<div className='introduce-div'>
         {data.map((ele, index) => {
-          return (<div key={index}>
-            <h1 className='title'>{ele.title}</h1>
+          return (<div className='introduce-section' key={index}>
+            <h1>{ele.title}</h1>
             <p className='content'>{ele.content}</p>
           </div>)
         })}
         <style jsx>{`
-        .introduce {
-          text-align: left
+        .introduce-div {
+          text-align: left;
+          padding: 10px;
         }
-        .introduce .title {
+        .introduce-section {
+          margin: 10px auto;
+        }
+        .introduce-section h1 {
           font-size: 16px;
         }
-        .introduce .content {
+        .introduce-section .content {
           font-size: 14px;
         }
       `}</style>
@@ -33,7 +36,7 @@ class innerComponent extends React.Component {
 }
 // 自定义拉取数据的方法
 const getData = async function (courseId) {
-  let courseSummaryJson = await AxiosUtil.get(`/api/learning/courseSummary/${courseId}`)
+  let courseSummaryJson = await AxiosUtil.get(`/api/learning/courseSummary/${courseId}`, true)
   return courseSummaryJson
 }
 

@@ -5,6 +5,7 @@ import Loading from '/xz-components/loadingicon'
 import Layout from '/components/layout'
 import ToolsUtil from '/util/tools'
 import AxiosUtil from '/util/axios'
+import Link from 'next/link'
 
 export default class extends React.Component {
   constructor (props) {
@@ -38,15 +39,21 @@ export default class extends React.Component {
         <div className='introduce'>
           <h1>{courseName}</h1>
           <Introduce courseId={this.state.courseId} />
-          {payStatus && <a href={`/learn/course/detail?courseId=${courseId}`}>
-            <Button>进入课程</Button>
-          </a>}
-          <style jsx>{`
+          {payStatus && <Link href={{pathname: '/learn/course/detail', query: {courseId: courseId}}}>
+            <a>
+              <Button className='start-button'>进入课程</Button>
+            </a>
+          </Link>}
+        </div>
+        <style jsx>{`
           .introduce {
             text-align: center;
+            padding: 10px;
+          }
+          .introduce h1 {
+            font-size: 20px;
           }
         `}</style>
-        </div>
       </Layout>)
     } else {
       return (<Layout>

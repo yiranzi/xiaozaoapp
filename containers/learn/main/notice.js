@@ -10,10 +10,9 @@ import {
 // 原始组件
 class innerComponent extends React.Component {
   render () {
-    let {data, courseId} = this.props
+    let {data} = this.props
     if (data && data.length > 0) {
       return (<Panel className='introduce'>
-        课程id{courseId}
         {data.map((ele, index) => {
           return (<MediaBox key={index}>
             <MediaBoxTitle>{ele.title}</MediaBoxTitle>
@@ -28,7 +27,7 @@ class innerComponent extends React.Component {
 }
 // 自定义拉取数据的方法
 const getData = async function (courseId) {
-  let courseSummaryJson = await AxiosUtil.get(`/api/learning/courseNotice/${courseId}`)
+  let courseSummaryJson = await AxiosUtil.get(`/api/learning/courseNotice/${courseId}`, true)
   return courseSummaryJson
 }
 

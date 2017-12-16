@@ -13,6 +13,8 @@ import GetPayInfo from '/util/getPayInfo'
 import Button from '/xz-components/button'
 import LoadingIcon from '/xz-components/loadingicon'
 
+import Link from 'next/link'
+
 export default class extends React.Component {
   constructor (props) {
     super(props)
@@ -38,11 +40,12 @@ export default class extends React.Component {
   // 课程是否购买？
   getPayStatus = async (courseId) => {
     // 1 是否购买
-    let courseInfo = await AxiosUtil.get(`/api/learning/courseDetail/${courseId}`)
+    let courseInfo = await AxiosUtil.get(`/api/learning/courseDetail/${courseId}`, true)
     if (!courseInfo.buyed) {
       this.setState({
         courseStatus: 'unbuyed',
-        courseName: courseInfo.name
+        courseName: courseInfo.name,
+        courseStartDate: courseInfo.startTime
       })
     } else {
       this.getProcessInfo(courseId)
@@ -76,6 +79,15 @@ export default class extends React.Component {
           width: 100%;
         }
       `}</style>
+      <style global jsx>{`
+      .course-tab-bar .weui-navbar__item {
+        padding: 0;
+        line-height: 50px;
+      }
+      .course-tab-bar .weui-navbar {
+        height: 50px;
+      }
+      `}</style>
     </div>)
   }
 
@@ -94,52 +106,111 @@ export default class extends React.Component {
   }
 
   renderTopImg () {
-    let {courseId, courseStatus, courseName, finishSection, totalSection, totalChapter} = this.state
+    let {courseStatus, courseName} = this.state
     if (courseName) {
-      let content
       if (courseStatus === 'unbuyed') {
         // 未付费
-        content = <a href={`/payment/buygether`}>立即报名</a>
+        return (this.renderCourseUnBuyed())
       } else {
-        // 已付费
         if (courseStatus === 'over') {
-          content = <a>已结束</a>
+          return (this.renderCourseOver())
         } else {
-          const prog = Math.ceil(finishSection / (totalSection ? totalSection : 1) * 100)
-          content = <div className='content'>
-            <p>{`进度（本课程共${totalChapter}章，${totalSection}节，已完成${finishSection}节`}</p>
-            <Progress style={{width: '50%'}} value={prog} showCancel={false}
-              className='wx-pull-left course-progress' />
-            <a className='study-button' href={`/learn/course/detail?courseId=${courseId}`}>
-              <Button>开始学习</Button>
-            </a>
-            <a style={{width: '100%'}}href={`/learn/course/introduce?courseId=${courseId}`}>概述>></a>
-            <style jsx>{`
-              .content {
-                display: flex;
-                width: 100%;
-                flex-wrap: wrap;
-                justify-content: center;
-              }
-              .study-button {
-                width: 60%;
-              }
-            `}</style>
-          </div>
+          return (this.renderCourseBuyed())
         }
       }
-      return (<div className='course-info'>
-        <h1>{courseName}</h1>
-        {content}
-        <style jsx>{`
+    } else {
+      return (<LoadingIcon />)
+    }
+  }
+
+  renderCourseUnBuyed () {
+    let {courseName, courseStartDate} = this.state
+    return (<div className='course-info'>
+      <h1>{courseName}</h1>
+      <Link href={`/payment/buygether`}>
+        <a style={{color: 'white'}}>立即报名</a>
+      </Link>
+      <style jsx>{`
           .course-info {
+            padding: 10px;
+            min-height: 150px;
             text-align: center;
+            color: white;
+            background: url('/static/img/learn/cover_long.jpeg')
+          }
+          .course-info h1 {
+            font-size: 22px;
           }
         `}</style>
-      </div>)
-    } else {
-      return <LoadingIcon />
-    }
+    </div>)
+  }
+
+  renderCourseOver () {
+    let {courseName} = this.state
+    return (<div className='course-info'>
+      <h1>{courseName}</h1>
+      <a>已结束</a>
+      <style jsx>{`
+          .course-info {
+            padding: 10px;
+            min-height: 150px;
+            text-align: center;
+            color: white;
+            background: url('/static/img/learn/cover_long.jpeg')
+          }
+          .course-info h1 {
+            font-size: 22px;
+          }
+      `}</style>
+    </div>)
+  }
+
+  renderCourseBuyed () {
+    let {courseId, courseName, finishSection, totalSection, totalChapter} = this.state
+    const prog = Math.ceil(finishSection / (totalSection ? totalSection : 1) * 100)
+    return (<div className='course-info'>
+      <h1>{courseName}</h1>
+      <div className='content'>
+        <p>{`进度（本课程共${totalChapter}章，${totalSection}节，已完成${finishSection}节`}</p>
+        <div className='process-bar-out'>
+          <Progress style={{width: '50%'}} value={prog} showCancel={false}
+            className='wx-pull-left course-progress' />
+        </div>
+        <p>{prog}%</p>
+        <Link href={{pathname: '/learn/course/detail', query: {courseId: courseId}}}>
+          <a>
+            <Button className='start-button'>开始学习</Button>
+          </a>
+        </Link>
+        <Link href={{pathname: '/learn/course/introduce', query: {courseId: courseId}}}>
+          <a style={{color: 'white'}}>概述>></a>
+        </Link>
+      </div>
+      <style jsx>{`
+        .course-info {
+            padding: 10px;
+            min-height: 150px;
+            text-align: center;
+            color: white;
+            background: url('/static/img/learn/cover_long.jpeg')
+          }
+          .course-info h1 {
+            font-size: 22px;
+          }
+          .course-info .content {
+            text-align: center;
+            width: 100%;
+            line-height: 30px;
+          }
+          .content .process-bar-out {
+            display: flex;
+            justify-content: center;
+          }
+          .content .start-button {
+            height: 200px;
+          }
+        `}</style>
+    </div>)
   }
 
   render () {
