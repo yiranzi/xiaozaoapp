@@ -22,7 +22,7 @@ class innerComponent extends React.Component {
     this.chooseChapterAndLesson = this.chooseChapterAndLesson.bind(this)
   }
 
-  componentDidMount () {
+  componentWillMount () {
     this.setChapterMode(this.props)
   }
 
@@ -31,7 +31,6 @@ class innerComponent extends React.Component {
   }
 
   setChapterMode (props) {
-    console.log(props)
     // 如果是从有设置章节
     let {workId, data: allHomeworkByLesson} = props
     if (workId && allHomeworkByLesson) {

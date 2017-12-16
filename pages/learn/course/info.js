@@ -171,17 +171,19 @@ export default class extends React.Component {
     return (<div className='course-info'>
       <h1>{courseName}</h1>
       <div className='content'>
-        <p>{`进度（本课程共${totalChapter}章，${totalSection}节，已完成${finishSection}节`}</p>
+        <p>{`进度（本课程共${totalChapter}章，${totalSection}节，已完成${finishSection}节）`}</p>
         <div className='process-bar-out'>
-          <Progress style={{width: '50%'}} value={prog} showCancel={false}
+          <Progress style={{width: '80%', height: '10px'}} value={prog} showCancel={false}
             className='wx-pull-left course-progress' />
         </div>
         <p>{prog}%</p>
-        <Link href={{pathname: '/learn/course/detail', query: {courseId: courseId}}}>
-          <a>
-            <Button className='start-button'>开始学习</Button>
-          </a>
-        </Link>
+        <div>
+          <Link href={{pathname: '/learn/course/detail', query: {courseId: courseId}}}>
+            <a>
+              <Button style={{fontSize: '18px', width: '240px', height: '50px'}} className='start-button'>开始学习</Button>
+            </a>
+          </Link>
+        </div>
         <Link href={{pathname: '/learn/course/introduce', query: {courseId: courseId}}}>
           <a style={{color: 'white'}}>概述>></a>
         </Link>

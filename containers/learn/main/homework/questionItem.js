@@ -34,7 +34,18 @@ export default class extends React.Component {
     this.loadMore = this.loadMore.bind(this)
   }
 
-  componentDidMount = async () => {
+  componentWillMount = async () => {
+    if (this.props.tabSelect === 0) {
+      this.setState({
+        currentSelect: 0
+      })
+      this.updateStudentAnswerList()
+    } else if (this.props.tabSelect === 1) {
+      this.setState({
+        currentSelect: 1
+      })
+      this.updateMyQuestionAndAnswer()
+    }
   }
 
   // 在更新的时候，判定是否拉取。
