@@ -66,6 +66,7 @@ export default class extends React.Component {
             bottom: 0;
             border-top: 1px solid #F9F9F9;
             width: 100%;
+            z-index: 9999;
           }
           .footer .item {
             padding: 5px 0;
