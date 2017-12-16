@@ -3,12 +3,13 @@ import Layout from '/components/layout'
 import Axios from '/util/axios'
 import DateUtil from '/util/date'
 import ToolsUtil from '/util/tools'
+import TitleWithIcon from '/xz-components/titleWithIcon'
 import {
   Panel,
   PanelHeader,
   PanelBody
 } from 'react-weui'
-
+import Link from 'next/link'
 export default class extends React.Component {
   courseRecommandName = {
     '1': '职业核心',
@@ -60,43 +61,76 @@ export default class extends React.Component {
     </Panel>)
   }
 
-  renderLine (ele) {
+  renderLine (ele, key) {
     if (ele) {
       let {buyCount, courseId, title, start, cover} = ele
-      return (<div className='course-view-line' onClick={() => { this.goRouter(`/learn/course/info?courseId=${courseId}`) }}>
-        <div style={{flex: '1'}} className='course-img' >
-          <img src={cover} />
-        </div>
-        <div style={{flex: '2'}} className='course-info' >
-          <h2 className=''>{title}</h2>
-          <p>介绍内容？</p>
-          <div>
-            <span>{buyCount}人已报名</span>
-            <span>{DateUtil.format(new Date(start), 'yyyy-MM-dd')}开课</span>
-          </div>
-        </div>
-        <style jsx>{`
-        .course-view-line {
-          display: flex;
-          width: 100%;
-          align-items: center;
-        }
-        .course-img img {
-          width: 100%;
-        }
-        .course-info {
-          flex: 1;
-        }
-      `}</style>
-      </div>)
+      return (
+        <Link key={key} href={{ pathname: '/learn/course/info', query: { courseId: courseId } }}>
+          <a>
+            <div className='course-view-line'>
+              <div className='course-img' >
+                <img src={cover ? cover : '/static/img/learn/cover_little.png'} />
+              </div>
+              <div className='course-info' >
+                <h2 className=''>{title}</h2>
+                <p>介绍内容？</p>
+                <div className='more-info'>
+                  <span>{buyCount}人已报名</span>
+                  <span>{DateUtil.format(new Date(start), 'yyyy-MM-dd')}开课</span>
+                </div>
+              </div>
+            </div>
+            <style jsx>{`
+              .course-view-line {
+                display: flex;
+                background-color: white;
+                margin: 10px auto;
+                font-size: 14px;
+                {/*height: 70px;*/}
+              }
+              .course-img {
+                {/*height: 100%;*/}
+                flex: 1;
+              }
+              .course-img img {
+                width: 100%;
+                height: 100%;
+              }
+              .course-info {
+                padding: 10px;
+                flex: 2;
+              }
+              .course-info h2 {
+                font-size: 18px;
+              }
+              .more-info {
+
+                display: flex;
+                justify-content: space-between;
+              }
+            `}</style>
+          </a>
+        </Link>
+      )
     }
   }
 
   render () {
+    let {courseRecommend, type} = this.state
     return (
       <Layout>
-        <div>
-          {this.renderRecommand()}
+        <div className='my-course-list'>
+          {type && <TitleWithIcon outStyle={{margin: '20px'}} title={this.courseRecommandName[type]} imgUrl={'/static/img/icon/icon_3.jpeg'} />}
+          {courseRecommend && courseRecommend.map((ele, index) => {
+            return (this.renderLine(ele, index))
+          })}
+          <style jsx>{`
+            .my-course-list {
+              min-height: 800px;
+              padding: 10px;
+              background-color: #efeff4;
+            }
+          `}</style>
         </div>
       </Layout>
     )

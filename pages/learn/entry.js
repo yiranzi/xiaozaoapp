@@ -14,7 +14,7 @@ import Layout from '../..//components/layout'
 import LoadingIcon from '../../xz-components/loadingicon'
 import GetPayInfo from '/util/getPayInfo'
 import AxiosUtil from '/util/axios'
-
+import TitleWithIcon from '/xz-components/titleWithIcon'
 import CourseSwipeContainer from '../../containers/learn/main/entry/courseSwipeContainer'
 
 export default class extends React.Component {
@@ -113,10 +113,7 @@ export default class extends React.Component {
       return (
         <Panel>
           <PanelHeader style={{textAlign: 'center'}}>
-            <div className='title'>
-              <img src='/static/img/icon/homework-icon.png' style={{width: '2rem'}} />
-              <h3>课程推荐</h3>
-            </div>
+            <TitleWithIcon title='课程推荐' imgUrl='/static/img/icon/homework-icon.png' />
           </PanelHeader>
           <PanelBody>
             {recommandKeyList.map((key, index) => {

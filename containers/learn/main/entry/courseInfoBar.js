@@ -26,7 +26,7 @@ export default class extends React.Component {
     let fontStyle = {}
     if (category === 'mine') {
       // let bg = bgImg ? bgImg : '#EAEAEA'
-      let bg = '/static/img/learn/cover.png'
+      let bg = '/static/img/learn/cover_little.png'
       boxStyle = Object.assign(boxStyle, {background: `url(${bg})`})
       fontStyle = {color: 'white'}
     } else {

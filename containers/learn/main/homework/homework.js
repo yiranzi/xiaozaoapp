@@ -7,7 +7,8 @@ import {
   PanelHeader,
   PanelBody
 } from 'react-weui'
-// 原始组件
+import TitleWithIcon from '/xz-components/titleWithIcon'
+
 class innerComponent extends React.Component {
   chapterMode
   scrollTop
@@ -120,28 +121,11 @@ class innerComponent extends React.Component {
         return (
           <Panel style={{marginBottom: '30px'}} key={chapterIndex}>
             <PanelHeader>
-              <div className='lesson-title'>
-                <img src='/static/img/icon/homework-icon.png' />
-                <h2>{lesson.chapterName}</h2>
-              </div>
+              <TitleWithIcon title={lesson.chapterName} imgUrl={'/static/img/icon/homework-icon.png'} />
             </PanelHeader>
             <PanelBody>
               {this.renderLessonQuestions(lesson, chapterIndex)}
             </PanelBody>
-            <style jsx>{`
-            .lesson-title {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              color: black;
-            }
-            .lesson-title img {
-              width: 30px;
-            }
-            .lesson-title h2 {
-              font-size: 18px;
-            }
-          `}</style>
             <style jsx global>{`
              .weui-media-box__info {
                 line-height: 20px !important;
