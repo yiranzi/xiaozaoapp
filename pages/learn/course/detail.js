@@ -1,17 +1,14 @@
 import React from 'react'
-import Link from 'next/link'
-import ThemeConfig from '../../../config/theme'
 import ToolsUtil from '../../../util/tools'
 import AxiosUtil from '../../../util/axios'
 import DataUtil from '../../../util/data'
-import DateUtil from '../../../util/date'
 import Layout from '../../../containers/learn/course/layout'
 import AliVideo from '../../../xz-components/aliVideo'
 import LoadingIcon from '../../../xz-components/loadingicon'
-import Option from '../../../containers/clock/option'
 import Button from '../../../xz-components/button'
 import Traning from '../../../containers/learn/course/traning'
 import CoursePageTitle from '../../../containers/learn/course/coursePageTitle'
+import MyWork from '../../../containers/learn/course/myWork'
 
 export default class extends React.Component {
   constructor (props) {
@@ -24,16 +21,11 @@ export default class extends React.Component {
         pageNumber: '',
         workId: ''
       },
-      currentCourseDetail: {},
-      array: [],
+      currentCourseDetail: {}, // 设置title
+      array: [], // 上一页下一页
       menuContent: {}, // 左侧课程列表
       homeworkContent: {}, // 右侧作业列表
-      detail: {}, // 需要展示的内容,
-      workDetail: {}, // 作业详情
-      myWork: '', // 我的作业
-      isEditmyWork: false,
-      workAnswer: {},
-      showWorkAnser: false
+      detail: {} // 需要展示的内容,
     }
   }
 
@@ -118,17 +110,6 @@ export default class extends React.Component {
       })
     })
 
-    if (workId) {
-      const _this = this
-      AxiosUtil.get(`/api/work/${courseId}/${workId}`).then((workDetail) => {
-        _this.setState({workDetail: workDetail})
-        return AxiosUtil.get(`/api/work/myAnswer/${courseId}/${workId}`) // 我的答案
-      }).then((myWork) => {
-        return AxiosUtil.get(`/api/work/workAnswerEvaluate/${myWork.id}`) // 我的答案
-      }).then((workAnswer) => {
-        _this.setState({workAnswer: workAnswer})
-      })
-    }
     this.setState({
       query: {
         courseId: courseId,
@@ -139,20 +120,6 @@ export default class extends React.Component {
       }
     })
     AxiosUtil.post(`/api/learning/saveFootprint`, JSON.stringify({courseId: courseId, chapterId: menuId || menuContent.menuDTOList[0].id, pageNumber: pageNumber, sectionId: sectionId}))
-  }
-  onChangeCourse = async (sectionId) => {
-    this.setState({course: '', homeWork: ''})
-    let course = await AxiosUtil.get(`/api/learning/course/${this.state.courseId}/${sectionId}/1`)
-    this.setState({course: course})
-  }
-  renderCourse (course) {
-    return (
-      <div className='course-detail'>
-        <div className='text' dangerouslySetInnerHTML={{__html: course.string}} />
-        {this.renderCourseDetail(course)}
-        {this.renderWorkDetail()}
-      </div>
-    )
   }
   renderCourseDetail (course) {
     return (
@@ -175,91 +142,9 @@ export default class extends React.Component {
       </div>
     )
   }
-  renderWorkDetail () {
-    const {query, workDetail, isEditmyWork} = this.state
-    const {answer} = workDetail
-    if (!DataUtil.isEmpty(workDetail)) {
-      return (
-        <div className='homework'>
-          <div className='header'><img style={{width: '1rem'}} src='/static/img/icon/file.png' />课间思考作业</div>
-          <div style={{marginTop: '1rem'}}>{workDetail.question}</div>
-          <div style={{marginTop: '1rem'}}>截止时间：{DateUtil.format(workDetail.endTime, 'yyyy-MM-dd hh:mm')}</div>
-          <Option topic={workDetail} onChange={(id, value) => this.workChange(value, workDetail.type)} disabled={!(Boolean(answer) && isEditmyWork)} />
-          {DataUtil.isEmpty(answer) || isEditmyWork ? (
-            <div className='wx-text-center'>
-              <Button size='small' onClick={() => { this.submitWork(workDetail.type) }}>上传作业</Button>
-            </div>
-          ) : (
-            <div>
-              <div className='wx-space-center'>
-                <Button style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>
-                  <Link href={`/learn/course/otherAnswer${location.search}&workId=${query.workId}`}><a>查看其他同学答案</a></Link>
-                </Button>
-                <Button onClick={() => { this.setState({showWorkAnser: !this.state.showWorkAnser}) }} style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>查看导师点评</Button>
-                {DataUtil.isEmpty(this.state.workAnswer) && (
-                  <Button style={{borderColor: ThemeConfig.color.red, color: ThemeConfig.color.red}} type='normal' size='small' onClick={() => { this.editMyWork() }}>修改答案</Button>
-                )}
-              </div>
-              {this.state.showWorkAnser && (
-                <div>导师点评：{this.state.workAnswer}</div>
-              )}
-              <a href={`/learn/course/questionList?courseId=${query.courseId}&sectionId=${query.sectionId}&pageNumber=${query.pageNumber}`}><Button style={{marginTop: '2rem', backgroundColor: ThemeConfig.color.red}} >对学习内容有疑问？点击查看导师答疑</Button></a>
-            </div>
-          )}
-          <style jsx>{`
-            .homework {
-              padding: 2rem 1rem;
-            }
-            .header img {
-              width: 1rem;
-            }
-          `}</style>
-        </div>
-      )
-    }
-  }
-  workChange (value, type) {
-    if (ToolsUtil.isUploader(type)) {
-      this.setState({myWork: value[0].url})
-    }
-    if (ToolsUtil.isTextarea(type)) {
-      console.log(value)
-      this.setState({myWork: value})
-    }
-  }
-  editMyWork () {
-    this.setState({isEditmyWork: true})
-  }
-  submitWork = async (type) => {
-    const {query, myWork} = this.state
-    this.setState({isEditmyWork: false})
-    try {
-      if (ToolsUtil.isUploader(type)) {
-        let uuid = DataUtil.uuid(11)
-        let formdata = DataUtil.imgFormat(myWork, uuid, 'jpg')
-        await AxiosUtil.post(`/api/work/workFileComplete/${query.courseId}/${query.workId}`, formdata)
-      }
-      if (ToolsUtil.isTextarea(type)) {
-        await AxiosUtil.post(`/api/work/workComplete/${query.courseId}/${query.workId}`, myWork)
-      }
-    } catch (err) {
-
-    }
-  }
-  renderHomeWork (homeWork) {
-    return (
-      <div className='home-work'>
-        <div className='question' dangerouslySetInnerHTML={{__html: homeWork.question}} />
-      </div>
-    )
-  }
-  renderContent () {
-    const {detail} = this.state
-    if (DataUtil.isEmpty(detail)) return <LoadingIcon />
-    return this.renderCourse(detail)
-  }
+  
   renderPrev () {
-    return <Button id='prev' size='small' onClick={() => { this.loadPage('prev') }}>上一页</Button>
+    return <Button id='prev' size='small' className='asdfasdf' onClick={() => { this.loadPage('prev') }}>上一页</Button>
   }
   renderNext () {
     return <Button id='next' size='small' onClick={() => { this.loadPage('next') }} >下一页</Button>
@@ -299,7 +184,8 @@ export default class extends React.Component {
       query,
       menuContent,
       homeworkContent,
-      currentCourseDetail
+      currentCourseDetail,
+      detail
     } = this.state
     return (
       <Layout
@@ -309,10 +195,20 @@ export default class extends React.Component {
         onChangeCourse={(sectionId) => { this.onChangeCourse(sectionId) }}
         onChangeHomeWork={(workId) => { this.onChangeHomeWork(workId) }}
       >
-        <CoursePageTitle title={currentCourseDetail.courseName} pageNumber={query.pageNumber} totalSize={currentCourseDetail.pageCount} />
-        {this.renderPrev()}
-        {this.renderNext()}
-        {this.renderContent()}
+        <CoursePageTitle
+          title={currentCourseDetail.courseName}
+          pageNumber={query.pageNumber}
+          totalSize={currentCourseDetail.pageCount}
+        />
+        {DataUtil.isEmpty(detail) && <LoadingIcon />}
+        {!DataUtil.isEmpty(detail) && (
+          <div className='course-detail'>
+            {this.renderPrev()} {/* 上一页 */}
+            {this.renderNext()} {/* 下一页 */}
+            {this.renderCourseDetail(detail)} {/* 解析课程内容 */}
+            <MyWork {...this.state} />
+          </div>
+        )}
         <style global jsx>{`
           .course-detail {
             padding-top: 1rem;

@@ -1,10 +1,11 @@
 import React from 'react'
+import DataUtil from '../../util/data'
 import ThemeConfig from '../../config/theme'
 import ToolsUtil from '../../util/tools'
-import DataUtil from '../../util/data'
 import Uploader from '../../xz-components/uploader'
 import TextArea from '../../xz-components/textarea'
 import WxRecord from '../../xz-components/wxrecord'
+import Audio from '../../xz-components/audio'
 
 export default class extends React.Component {
   renderAnswerOption (topic, disabled) {
@@ -41,12 +42,19 @@ export default class extends React.Component {
         />
       )
     } else if (ToolsUtil.isRecord(type)) {
-      return (
-        <WxRecord
-          ref='wxRecord'
-          key={name}
-          onChange={(value) => { this.props.onChange(id, value) }} />
-      )
+      if (disabled) {
+        return <Audio idTag={DataUtil.uuid(5)} audioUrl={answer} />
+      } else {
+        return (
+          <WxRecord
+            isRecording={this.props.isRecording}
+            isPlaying={this.props.isPlaying}
+            ref='wxRecord'
+            key={name}
+            updateRecording={(res) => this.props.updateRecording(res)}
+            onChange={(value) => { this.props.onChange(id, value) }} />
+        )
+      }
     }
   }
   render () {
