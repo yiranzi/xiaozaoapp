@@ -102,14 +102,12 @@ export default class extends React.Component {
     let {questionInfo, myAnswer} = this.props
     if (questionInfo) {
       return (<div>
-        <p>type :{questionInfo.type}</p>
-        <p>editStatus :{this.state.editStatus ? 'true' : 'false'}</p>
-        <Panel style={this.getVisibleStyle('edit')}>
+        <div style={this.getVisibleStyle('edit')}>
           <EditHomework {...this.props} updateFunc={this.props.updateFunc} />
-        </Panel>
-        <Panel style={this.getVisibleStyle('view')}>
+        </div>
+        <div style={this.getVisibleStyle('view')}>
           {myAnswer ? this.renderStudentAnswer(myAnswer) : <LoadingIcon />}
-        </Panel>
+        </div>
       </div>)
     } else {
       return (<LoadingIcon />)

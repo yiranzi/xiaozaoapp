@@ -24,13 +24,6 @@ export default class extends React.Component {
     'over': '已结束'
   }
 
-  courseRecommandName = {
-    '1': '职业核心',
-    '2': '个人能力',
-    '3': '技能培养',
-    '4': '技能培养2'
-  }
-
   constructor (props) {
     super(props)
     this.state = {
@@ -109,7 +102,7 @@ export default class extends React.Component {
   renderCourseRecommand () {
     let {courseRecommend} = this.state
     if (courseRecommend) {
-      let recommandKeyList = Object.keys(this.courseRecommandName)
+      let recommandKeyList = Object.keys(courseRecommend)
       return (
         <Panel>
           <PanelHeader style={{textAlign: 'center'}}>
@@ -126,7 +119,7 @@ export default class extends React.Component {
                   category='recommand'
                   courseGroupList={courseRecommend[key]}
                   routerUrl={url}
-                  title={this.courseRecommandName[key]} />
+                  title={key} />
               )
             })}
           </PanelBody>
