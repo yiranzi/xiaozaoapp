@@ -45,6 +45,9 @@ export default class Layout extends React.Component {
         {this.renderGlobalCss()}
         <script src='/static/js/jweixin.js' />
         {ToolsUtil.isProd() && <script src='/static/js/baidutongji.js' />}
+        <link href='/static/js/video-js.css' rel='stylesheet' />
+        <script src='/static/js/video.js' />
+        <script src='/static/js/videojs-contrib-hls.min.js' />
         <style global jsx>{`
           body {
             font-size: 12pt;

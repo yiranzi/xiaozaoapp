@@ -1,49 +1,60 @@
 import React from 'react'
+import Link from 'next/link'
 import ClassNames from 'classnames'
 
 export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+      search: '',
       learn: false,
       test: false,
       source: false
     }
   }
+  componentDidMount () {
+    this.setState({search: location.search})
+  }
   render () {
-    const {type, courseId} = this.props
+    const {type} = this.props
     return (
       <div className='footer'>
-        <div
-          className={ClassNames('item', {'current': this.state.learn || type === 'learn'})}
-          onTouchStart={() => { this.setState({learn: true}) }}
-          onTouchEnd={() => { this.setState({learn: false}, () => { location.href = '/learn/course/detail?courseId=' + courseId }) }}
-        >
-          <div className='icon'>
-            {(this.state.learn || type === 'learn') ? <img src='/static/img/learn/course/learn_active.png' /> : <img src='/static/img/learn/course/learn.png' />}
+        <Link href={`/learn/course/detail${this.state.search}`}>
+          <div
+            className={ClassNames('item', {'current': this.state.learn || type === 'learn'})}
+            onTouchStart={() => { this.setState({learn: true}) }}
+            onTouchEnd={() => { this.setState({learn: false}) }}
+          >
+            <div className='icon'>
+              {(this.state.learn || type === 'learn') ? <img src='/static/img/learn/course/learn_active.png' /> : <img src='/static/img/learn/course/learn.png' />}
+            </div>
+            <div className='text'>学习</div>
           </div>
-          <div className='text'>学习</div>
-        </div>
-        <div
-          className={ClassNames('item', {'current': this.state.test || type === 'test'})}
-          onTouchStart={() => { this.setState({test: true}) }}
-          onTouchEnd={() => { this.setState({test: false}, () => { location.href = '/learn/course/testList?courseId=' + courseId }) }}
-        >
-          <div className='icon'>
-            {(this.state.test || type === 'test') ? <img src='/static/img/learn/course/test_active.png' /> : <img src='/static/img/learn/course/test.png' />}
+        </Link>
+        <Link href={`/learn/course/testList${this.state.search}`}>
+          <div
+            className={ClassNames('item', {'current': this.state.test || type === 'test'})}
+            onTouchStart={() => { this.setState({test: true}) }}
+            onTouchEnd={() => { this.setState({test: false}) }}
+          >
+            <div className='icon'>
+              {(this.state.test || type === 'test') ? <img src='/static/img/learn/course/test_active.png' /> : <img src='/static/img/learn/course/test.png' />}
+            </div>
+            <div className='text'>测试</div>
           </div>
-          <div className='text'>测试</div>
-        </div>
-        <div
-          className={ClassNames('item', {'current': this.state.source || type === 'source'})}
-          onTouchStart={() => { this.setState({source: true}) }}
-          onTouchEnd={() => { this.setState({source: false}, () => { location.href = '/learn/course/download?courseId=' + courseId }) }}
-        >
-          <div className='icon'>
-            {(this.state.source || type === 'source') ? <img src='/static/img/learn/course/source_active.png' /> : <img src='/static/img/learn/course/source.png' />}
+        </Link>
+        <Link href={`/learn/course/download${this.state.search}`}>
+          <div
+            className={ClassNames('item', {'current': this.state.source || type === 'source'})}
+            onTouchStart={() => { this.setState({source: true}) }}
+            onTouchEnd={() => { this.setState({source: false}) }}
+          >
+            <div className='icon'>
+              {(this.state.source || type === 'source') ? <img src='/static/img/learn/course/source_active.png' /> : <img src='/static/img/learn/course/source.png' />}
+            </div>
+            <div className='text'>资料</div>
           </div>
-          <div className='text'>资料</div>
-        </div>
+        </Link>
         <style jsx>{`
           .footer {
             font-size: 10pt;

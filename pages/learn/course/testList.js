@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import Router from 'next/router'
 import ToolsUtil from '../../../util/tools'
 import AxiosUtil from '../../../util/axios'
 import DataUtil from '../../../util/data'
@@ -47,7 +48,7 @@ export default class extends React.Component {
                       {_this.isFinish(item.answerDTOList) ? (
                         <div className='test-item wx-space-center'>
                           <div className='left wx-space-left'>
-                            <div className='icon'><img src='/static/img/learn/test/prise.png' /></div>
+                            <div className='icon'><img src='/static/img/icon/prise.png' /></div>
                             <div className='chapter-title'>{item.chapterTitle}</div>
                           </div>
                           <div className='result'>
@@ -57,7 +58,7 @@ export default class extends React.Component {
                       ) : (
                         <div className='test-item wx-space-center'>
                           <div className='left wx-space-left'>
-                            <div className='icon' />
+                            <div className='icon'><img src='/static/img/icon/uprise.png' /></div>
                             <div className='chapter-title'>{item.chapterTitle}</div>
                           </div>
                           <div className='result'>未完成</div>
@@ -70,7 +71,7 @@ export default class extends React.Component {
             </div>
           )}
         </div>
-        <FixFooter style={{textAlign: 'center'}} onClick={() => { location.href = `/learn/course/detail${location.search}` }}>继续学习</FixFooter>
+        <FixFooter style={{textAlign: 'center'}} onClick={() => { Router.push(`/learn/course/detail${location.search}`) }}>继续学习</FixFooter>
         <style jsx>{`
           .test-page {
             padding-left: 1rem;

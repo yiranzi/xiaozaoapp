@@ -184,7 +184,7 @@ export default class extends React.Component {
             <div>
               <div className='wx-space-center'>
                 <Button style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>
-                  <Link href={`/learn/course/otherAnswer${location.search}&workId=${query.workId}`}>查看其他同学答案</Link>
+                  <Link href={`/learn/course/otherAnswer${location.search}&workId=${query.workId}`}><a>查看其他同学答案</a></Link>
                 </Button>
                 <Button style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>查看导师点评</Button>
                 <Button style={{borderColor: ThemeConfig.color.red, color: ThemeConfig.color.red}} type='normal' size='small' onClick={() => { this.editMyWork() }}>修改答案</Button>
@@ -334,9 +334,6 @@ export default class extends React.Component {
             z-index: 999;
           }
         `}</style>
-        <link href='/static/js/video-js.css' rel='stylesheet' />
-        <script src='/static/js/video.js' />
-        <script src='/static/js/videojs-contrib-hls.min.js' />
       </Layout>
     )
   }

@@ -1,5 +1,6 @@
 import React from 'react'
 import {Form} from 'react-weui'
+import Material from '../../containers/clock/material'
 import ThemeConfig from '../../config/theme'
 import ToolsUtil from '../../util/tools'
 import Radio from '../../xz-components/radio'
@@ -85,14 +86,37 @@ export default class extends React.Component {
         <div className='options'>
           <div>{this.renderAnswerOption(topic, myAnswer)}</div>
           <div className='analysis'>
-            <div className='answer'>参考答案：{topic.answer}</div>
-            <div className='content' dangerouslySetInnerHTML={{__html: topic.analysis}} />
+            <div className='answer'>
+              <span>参考答案：{topic.answer}</span>
+            </div>
+            <div className='content'>
+              <Material content={topic.analysis} />
+            </div>
           </div>
         </div>
         <style jsx>{`
           .topic {
             padding: 1.5rem 1rem;
             border-bottom: 1px solid ${ThemeConfig.color.border};
+          }
+          .analysis {
+            margin-top: 1rem;
+            background-color: #efeff4;
+            padding: 1rem;
+            position: relative;
+          }
+          .analysis::before {
+            content: '';
+            position: absolute;
+            width: 1rem;
+            height: 1rem;
+            top: -0.6rem;
+            left: 1rem;
+            background: #efeff4;
+            transform: rotate(-45deg);
+          }
+          .content {
+            margin-top: 1rem;
           }
         `}</style>
       </div>
