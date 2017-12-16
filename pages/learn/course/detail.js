@@ -24,6 +24,8 @@ export default class extends React.Component {
         pageNumber: '',
         workId: ''
       },
+      showWorkAnser: false,
+      workAnser: {},
       currentCourseDetail: {},
       array: [],
       menuContent: {}, // 左侧课程列表
@@ -119,6 +121,8 @@ export default class extends React.Component {
     if (workId) {
       let workDetail = await AxiosUtil.get(`/api/work/${courseId}/${workId}`)
       this.setState({workDetail: workDetail})
+      let workAnser = await AxiosUtil.get(`/api/work/workAnswerEvaluate/${workDetail.id}`)
+      this.setState({workAnser: workAnser})
     }
     this.setState({
       query: {
@@ -167,7 +171,7 @@ export default class extends React.Component {
     )
   }
   renderWorkDetail () {
-    const {query, workDetail, isEditmyWork} = this.state
+    const {query, workDetail, isEditmyWork, workAnser, showWorkAnser} = this.state
     const {answer} = workDetail
     if (!DataUtil.isEmpty(workDetail)) {
       return (
@@ -175,7 +179,7 @@ export default class extends React.Component {
           <div className='header'><img style={{width: '1rem'}} src='/static/img/icon/file.png' />课间思考作业</div>
           <div style={{marginTop: '1rem'}}>{workDetail.question}</div>
           <div style={{marginTop: '1rem'}}>截止时间：{DateUtil.format(workDetail.endTime, 'yyyy-MM-dd hh:mm')}</div>
-          <Option topic={workDetail} onChange={(id, value) => this.workChange(value, workDetail.type) } disabled={!(Boolean(answer) && isEditmyWork)} />
+          <Option topic={workDetail} onChange={(id, value) => this.workChange(value, workDetail.type)} disabled={!(Boolean(answer) && isEditmyWork)} />
           {DataUtil.isEmpty(answer) || isEditmyWork ? (
             <div className='wx-text-center'>
               <Button size='small' onClick={() => { this.submitWork(workDetail.type) }}>上传作业</Button>
@@ -186,9 +190,12 @@ export default class extends React.Component {
                 <Button style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>
                   <Link href={`/learn/course/otherAnswer${location.search}&workId=${query.workId}`}><a>查看其他同学答案</a></Link>
                 </Button>
-                <Button style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>查看导师点评</Button>
-                <Button style={{borderColor: ThemeConfig.color.red, color: ThemeConfig.color.red}} type='normal' size='small' onClick={() => { this.editMyWork() }}>修改答案</Button>
+                <Button onClick={() => { this.setState({showWorkAnser: !this.state.showWorkAnser}) }} style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>查看导师点评</Button>
+                {DataUtil.isEmpty(workAnser) && (
+                  <Button style={{borderColor: ThemeConfig.color.red, color: ThemeConfig.color.red}} type='normal' size='small' onClick={() => { this.editMyWork() }}>修改答案</Button>
+                )}
               </div>
+              {showWorkAnser && <div>{workAnser}</div>}
               <a href={`/learn/course/questionList?courseId=${query.courseId}&sectionId=${query.sectionId}&pageNumber=${query.pageNumber}`}><Button style={{marginTop: '2rem', backgroundColor: ThemeConfig.color.red}} >对学习内容有疑问？点击查看导师答疑</Button></a>
             </div>
           )}
@@ -219,13 +226,17 @@ export default class extends React.Component {
   submitWork = async (type) => {
     const {query, myWork} = this.state
     this.setState({isEditmyWork: false})
-    if (ToolsUtil.isUploader(type)) {
-      let uuid = DataUtil.uuid(11)
-      let formdata = DataUtil.imgFormat(myWork, uuid, 'jpg')
-      await AxiosUtil.post(`/api/work/workFileComplete/${query.courseId}/${query.workId}`, formdata)
-    }
-    if (ToolsUtil.isTextarea(type)) {
-      await AxiosUtil.post(`/api/work/workComplete/${query.courseId}/${query.workId}`, myWork)
+    try {
+      if (ToolsUtil.isUploader(type)) {
+        let uuid = DataUtil.uuid(11)
+        let formdata = DataUtil.imgFormat(myWork, uuid, 'jpg')
+        await AxiosUtil.post(`/api/work/workFileComplete/${query.courseId}/${query.workId}`, formdata)
+      }
+      if (ToolsUtil.isTextarea(type)) {
+        await AxiosUtil.post(`/api/work/workComplete/${query.courseId}/${query.workId}`, myWork)
+      }
+    } catch (err) {
+
     }
   }
   renderHomeWork (homeWork) {
