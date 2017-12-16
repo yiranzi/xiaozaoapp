@@ -10,6 +10,12 @@ import TextArea from '../../xz-components/textarea'
 import WxRecord from '../../xz-components/wxrecord'
 
 export default class extends React.Component {
+  formatOptions (optionDTOList) {
+    return optionDTOList.map((item, index) => {
+      const {tag, content} = item
+      return {value: tag, label: `${tag}、${content}`}
+    })
+  }
   renderAnswerOption (topic, myAnswer) {
     const {id, no, type, optionDTOList} = topic
     if (ToolsUtil.isRadio(type)) {
@@ -44,7 +50,6 @@ export default class extends React.Component {
       )
     } else if (ToolsUtil.isUploader(type)) {
       let defaultValue = [{url: `http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/learning/testFile/${myAnswer}`}]
-      console.log('defaultValue:', defaultValue)
       return (
         <Uploader
           title='图片上传'
@@ -61,7 +66,9 @@ export default class extends React.Component {
           key={name}
           name={name}
           options={options}
-          onChange={(value) => this.props.onChange(id, value)} />
+          defaultValue={myAnswer}
+          disabled
+        />
       )
     } else if (ToolsUtil.isRecord(type)) {
       const {isRecording, isPlaying} = this.state

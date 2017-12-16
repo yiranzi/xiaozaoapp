@@ -9,6 +9,12 @@ import TextArea from '../../xz-components/textarea'
 import WxRecord from '../../xz-components/wxrecord'
 
 export default class extends React.Component {
+  formatOptions (optionDTOList) {
+    return optionDTOList.map((item, index) => {
+      const {tag, content} = item
+      return {value: tag, label: `${tag}、${content}`}
+    })
+  }
   renderAnswerOption (topic, disabled) {
     const {id, no, type, optionDTOList} = topic
     if (ToolsUtil.isRadio(type)) {
