@@ -5,6 +5,7 @@ import ToolsUtil from '../../../util/tools'
 import AxiosUtil from '../../../util/axios'
 import DataUtil from '../../../util/data'
 import Option from '../../../containers/clock/option'
+import Alert from '../../../xz-components/alert'
 import Button from '../../../xz-components/button'
 
 export default class extends React.Component {
@@ -46,6 +47,30 @@ export default class extends React.Component {
       }
       if (ToolsUtil.isTextarea(type)) {
         await AxiosUtil.post(`/api/work/workComplete/${query.courseId}/${query.workId}`, myWork)
+      }
+      if (ToolsUtil.isRecord(type)) {
+        const {isPlaying, isRecording} = this.props
+        if (isRecording) {
+          Alert({content: '正在录音，请先结束录音'})
+          return false
+        }
+        if (isPlaying) {
+          alert({content: '正在播放录音，请先停止录音'})
+          return false
+        }
+        new Promise((resolve, reject) => {
+          // eslint-disable-next-line
+          wx.uploadVoice({
+            localId: myWork,
+            isShowProgressTips: 1,
+            success: function (res) {
+              let serverId = res.serverId
+              resolve(serverId)
+            }
+          })
+        }).then((severId) => {
+          AxiosUtil.post(`/api/work/workAudioComplete/${query.courseId}/${query.workId}`, myWork)
+        })
       }
     } catch (err) {
     }
