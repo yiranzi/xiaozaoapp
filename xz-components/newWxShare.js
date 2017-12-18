@@ -3,7 +3,7 @@ import AxiosUtil from '../util/axios'
 class WxShare {
   init () {
     return new Promise((resolve, reject) => {
-      AxiosUtil.get(`/api/interview/getWXConfig?url=${encodeURIComponent(location.href.split('#')[0])}`)
+      AxiosUtil.get(`/api/wxconfig/getWXConfig?url=${encodeURIComponent(location.href.split('#')[0])}`)
         .then((wxConfig) => {
           wxConfig.jsApiList = [
             'onMenuShareTimeline',

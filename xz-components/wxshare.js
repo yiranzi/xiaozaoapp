@@ -21,7 +21,7 @@ export default class WxShare extends React.PureComponent {
     }
   }
   componentDidMount = async () => {
-    const url = `/api/interview/getWXConfig?url=${encodeURIComponent(location.href.split('#')[0])}`
+    const url = `/api/wxconfig/getWXConfig?url=${encodeURIComponent(location.href.split('#')[0])}`
     let wxConfig = await AxiosUtil.get(url)
     wxConfig.jsApiList = [
       'onMenuShareTimeline',
