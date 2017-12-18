@@ -85,13 +85,7 @@ class innerComponent extends React.Component {
     if (tabChoose === 0) {
       // 记录滚动前的位置
       this.scrollTop = window.scrollY
-      const topDivtotalHeight = 263 + 79
-      // window.scrollTo(0, topDivtotalHeight)
-      // 保存状态
-      let a = document.body.clientWidth
-      document.body.style.position = 'fixed'
-      document.body.style.top = -topDivtotalHeight + 'px'
-      document.body.style.width = a + 'px'
+      this.screenMove('on')
       this.setState({
         currentChapterIndex: currentChapterIndex,
         currentLessonIndex: currentLessonIndex,
@@ -104,9 +98,7 @@ class innerComponent extends React.Component {
           currentChapterIndex: undefined,
           currentLessonIndex: undefined
         }, () => {
-          document.body.style.position = ''
-          document.body.style.top = ''
-          document.body.style.width = ''
+          this.screenMove('off')
           window.scrollTo(0, this.scrollTop)
         })
       } else {
@@ -115,6 +107,26 @@ class innerComponent extends React.Component {
           currentLessonIndex: undefined
         })
       }
+    }
+  }
+
+  componentWillUnmount () {
+    this.screenMove('off')
+  }
+
+  screenMove (type) {
+    if (type === 'on') {
+      const topDivtotalHeight = 263 + 79
+      // window.scrollTo(0, topDivtotalHeight)
+      // 保存状态
+      let a = document.body.clientWidth
+      document.body.style.position = 'fixed'
+      document.body.style.top = -topDivtotalHeight + 'px'
+      document.body.style.width = a + 'px'
+    } else if (type === 'off') {
+      document.body.style.position = ''
+      document.body.style.top = ''
+      document.body.style.width = ''
     }
   }
 

@@ -227,10 +227,12 @@ export default class extends React.Component {
         currentSelect={this.state.currentSelect}
         onTabClick={this.onTabClick}>
         <TabItem title={allAnswerIcon} >
-          <SeeOtherWork
-            answerList={this.state.answerList}
-            courseId={courseId}
-            workId={workId} />
+          <InfiniteLoader style={this.state.currentSelect === 0 ? {height: '100vh'} : {height: 'auto'}} onLoadMore={this.loadMore}>
+            <SeeOtherWork
+              answerList={this.state.answerList}
+              courseId={courseId}
+              workId={workId} />
+          </InfiniteLoader>
         </TabItem>
         <TabItem title={myAnswerIcon} >
           <SeeMyWork
@@ -287,6 +289,7 @@ export default class extends React.Component {
   }
 
   render () {
+    // 显示全部文字
     let style = {
       display: 'block'
     }
@@ -294,8 +297,7 @@ export default class extends React.Component {
     if (questionItem) {
       return (
         <MediaBox style={{marginBottom: '30px'}}>
-          <InfiniteLoader style={this.state.currentSelect === 0 ? {height: '100vh'} : {height: 'auto'}} onLoadMore={this.loadMore}>
-            <MediaBoxTitle>
+             <MediaBoxTitle>
               {this.renderTitle()}
             </MediaBoxTitle>
             <MediaBoxDescription style={style}>
@@ -306,13 +308,7 @@ export default class extends React.Component {
             </MediaBoxInfo>}
             {this.renderTabbar()}
             {this.props.viewType && <Fixfooter style={{height: '40px', padding: '5px 10px'}}><Button className='buttonStyle' onClick={() => { this.onTabClick(0) }}>查看其它章节作业</Button></Fixfooter>}
-            <style>{`
-              .buttonStyle {
-                {/*position: fixed;*/}
-                {/*bottom: 0;*/}
-              }
-            `}</style>
-          </InfiniteLoader>
+
         </MediaBox>
       )
     } else {
