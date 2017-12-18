@@ -43,7 +43,7 @@ export default class extends React.Component {
       )
     } else if (ToolsUtil.isRecord(type)) {
       if (disabled) {
-        return <Audio idTag={DataUtil.uuid(5)} audioUrl={answer} />
+        return <Audio idTag={'audio_' + DataUtil.uuid(5)} audioUrl={answer} />
       } else {
         return (
           <WxRecord
