@@ -85,8 +85,13 @@ class innerComponent extends React.Component {
     if (tabChoose === 0) {
       // 记录滚动前的位置
       this.scrollTop = window.scrollY
-      const topOfTitle = 263
-      window.scrollTo(0, topOfTitle)
+      const topDivtotalHeight = 263 + 79
+      // window.scrollTo(0, topDivtotalHeight)
+      // 保存状态
+      let a = document.body.clientWidth
+      document.body.style.position = 'fixed'
+      document.body.style.top = -topDivtotalHeight + 'px'
+      document.body.style.width = a + 'px'
       this.setState({
         currentChapterIndex: currentChapterIndex,
         currentLessonIndex: currentLessonIndex,
@@ -99,6 +104,9 @@ class innerComponent extends React.Component {
           currentChapterIndex: undefined,
           currentLessonIndex: undefined
         }, () => {
+          document.body.style.position = ''
+          document.body.style.top = ''
+          document.body.style.width = ''
           window.scrollTo(0, this.scrollTop)
         })
       } else {

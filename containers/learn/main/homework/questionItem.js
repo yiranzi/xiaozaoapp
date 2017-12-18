@@ -11,7 +11,7 @@ import {
   MediaBoxInfo,
   InfiniteLoader
 } from 'react-weui'
-
+import Link from 'next/link'
 import Fixfooter from '/xz-components/fixfooter'
 import AxiosUtil from '/util/axios'
 /**
@@ -276,11 +276,21 @@ export default class extends React.Component {
     </div>)
   }
 
+  renderGoDetailLink () {
+    let {questionItem, courseId} = this.props
+    let {chapterId: menuId, pageNumber, sectionId, workId} = questionItem
+    return (
+      <Link href={{pathname: '/learn/course/detail', query: { courseId: courseId, menuId: menuId, pageNumber: pageNumber, sectionId: sectionId, workId: workId }}}>
+        <a style={{color: '#CECECE'}}>跳转链接</a>
+      </Link>
+    )
+  }
+
   render () {
     let style = {
       display: 'block'
     }
-    let {questionItem} = this.props
+    let {questionItem, courseStatus} = this.props
     if (questionItem) {
       return (
         <MediaBox style={{marginBottom: '30px'}}>
@@ -291,9 +301,9 @@ export default class extends React.Component {
             <MediaBoxDescription style={style}>
               {this.renderContent()}
             </MediaBoxDescription>
-            <MediaBoxInfo>
-              跳转链接
-            </MediaBoxInfo>
+            {courseStatus && <MediaBoxInfo>
+              {this.renderGoDetailLink()}
+            </MediaBoxInfo>}
             {this.renderTabbar()}
             {this.props.viewType && <Fixfooter style={{height: '40px', padding: '5px 10px'}}><Button className='buttonStyle' onClick={() => { this.onTabClick(0) }}>查看其它章节作业</Button></Fixfooter>}
             <style>{`
