@@ -12,6 +12,7 @@ import {
   InfiniteLoader
 } from 'react-weui'
 
+import Fixfooter from '/xz-components/fixfooter'
 import AxiosUtil from '/util/axios'
 /**
  * 渲染每个问题
@@ -294,11 +295,11 @@ export default class extends React.Component {
               跳转链接
             </MediaBoxInfo>
             {this.renderTabbar()}
-            {this.props.viewType && <Button className='buttonStyle' onClick={() => { this.onTabClick(0) }}>查看其它章节作业</Button>}
+            {this.props.viewType && <Fixfooter style={{height: '40px', padding: '5px 10px'}}><Button className='buttonStyle' onClick={() => { this.onTabClick(0) }}>查看其它章节作业</Button></Fixfooter>}
             <style>{`
               .buttonStyle {
-                position: fixed;
-                bottom: 0;
+                {/*position: fixed;*/}
+                {/*bottom: 0;*/}
               }
             `}</style>
           </InfiniteLoader>
