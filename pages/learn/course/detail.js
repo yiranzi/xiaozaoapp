@@ -36,6 +36,12 @@ export default class extends React.Component {
     let menuId = ToolsUtil.getQueryString('menuId') || footerPrint.chapterId
     let sectionId = ToolsUtil.getQueryString('sectionId') || footerPrint.sectionId
     let pageNumber = ToolsUtil.getQueryString('pageNumber') || footerPrint.pageNumber
+
+    if (!DataUtil.isEmpty(footerPrint)) {
+      menuId = menuId || footerPrint.chapterId
+      sectionId = sectionId || footerPrint.sectionId
+      pageNumber = pageNumber || footerPrint.pageNumber
+    }
     let menuContent = await AxiosUtil.get(`/api/learning/course/${courseId}`)
     let array = []
     menuId = menuId ? menuId : menuContent.menuDTOList[0].id
