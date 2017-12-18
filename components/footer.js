@@ -15,16 +15,16 @@ export default class extends React.Component {
     const {type} = this.props
     return (
       <div className='footer'>
-        {/* <div
-          className={ClassNames('item', {'current': this.state.college || type === 'college'})} 
+        <div
+          className={ClassNames('item', {'current': this.state.college || type === 'college'})}
           onTouchStart={() => { this.setState({college: true}) }}
-          onTouchEnd={() => { this.setState({college: false}, () => { location.href = '/abilitycollege/main' }) }}
+          onTouchEnd={() => { this.setState({college: false}, () => { location.href = '/college/portal' }) }}
         >
           <div className='icon'>
             {(this.state.college || type === 'college') ? <img src='/static/img/abilitycollege/college_active.png' /> : <img src='/static/img/abilitycollege/college.png' />}
           </div>
           <div className='text'>能力学院</div>
-        </div> */}
+        </div>
         {/* <div
           className={ClassNames('item', {'current': this.state.pai || type === 'pai'})}
           onTouchStart={() => { this.setState({pai: true}) }}
