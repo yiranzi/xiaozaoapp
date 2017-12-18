@@ -33,6 +33,7 @@ export default class extends React.Component {
   componentDidMount = async () => {
     // 1 获取课程id
     let type = ToolsUtil.getQueryString('type')
+    type = decodeURI(type)
     let courseRecommend = await Axios.get('/api/learning/courseRecommend')
     let courseRecommendList = []
     courseRecommend.forEach((ele, index) => {
@@ -48,10 +49,9 @@ export default class extends React.Component {
 
   renderRecommand () {
     let {courseRecommend, type} = this.state
-
     return (<Panel>
       <PanelHeader>
-        {type && this.courseRecommandName[type]}
+        {type}
       </PanelHeader>
       <PanelBody>
         {courseRecommend && courseRecommend.map((ele, index) => {
@@ -120,7 +120,7 @@ export default class extends React.Component {
     return (
       <Layout>
         <div className='my-course-list'>
-          {type && <TitleWithIcon outStyle={{margin: '20px'}} title={this.courseRecommandName[type]} imgUrl={'/static/img/icon/icon_3.jpeg'} />}
+          {type && <TitleWithIcon outStyle={{margin: '20px'}} title={type} imgUrl={'/static/img/icon/icon_3.jpeg'} />}
           {courseRecommend && courseRecommend.map((ele, index) => {
             return (this.renderLine(ele, index))
           })}

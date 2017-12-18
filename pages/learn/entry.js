@@ -112,7 +112,7 @@ export default class extends React.Component {
             {recommandKeyList.map((key, index) => {
               let url = {
                 pathname: '/learn/recommand',
-                query: { type: key }
+                query: { type: encodeURI(key) }
               }
               return (
                 <CourseSwipeContainer key={index}

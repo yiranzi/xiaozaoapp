@@ -10,16 +10,9 @@ import Link from 'next/link'
 // 渲染内容
 
 export default class extends React.Component {
-  goRouter () {
-    location.href = `/learn/course/info?courseId=${this.props.courseId}`
-  }
-
   render () {
     let {title, des, info, bgImg, category} = this.props
     let boxStyle = {
-      flexBasis: '100px',
-      flexShrink: '0',
-      flexGrow: '0',
       marginLeft: '5px',
       width: '150px'
     }
@@ -43,21 +36,20 @@ export default class extends React.Component {
               <MediaBoxInfo style={fontStyle}>{info}</MediaBoxInfo>
             </MediaBox>
             <style jsx>{`
-          .course-info-bar {
-            flex-basis: 100px;
-            flex-shrink: 0;
-            flex-grow: 0;
-            margin-left: 5px;
-          }
-          `}</style>
+              .course-info-bar {
+                flex-basis: 100px;
+                flex-shrink: 0;
+                flex-grow: 0;
+              }
+            `}</style>
             <style global jsx>{`
-            .course-info-bar:first-child {
-              margin-left: 0;
-            }
-            .weui-media-box {
-              padding: 10px !important;
-            }
-          `}</style>
+              .course-info-bar:first-child {
+                margin-left: 0;
+              }
+              .weui-media-box {
+                padding: 10px !important;
+              }
+            `}</style>
           </div>
         </a>
       </Link>
