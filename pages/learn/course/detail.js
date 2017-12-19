@@ -21,7 +21,7 @@ export default class extends React.Component {
         pageNumber: '',
         workId: ''
       },
-      currentCourseDetail: {}, // 设置title
+      currentCourseDetail: {}, // 设置title所需要的字段
       array: [], // 上一页下一页
       menuContent: {}, // 左侧课程列表
       homeworkContent: {}, // 右侧作业列表
@@ -62,13 +62,11 @@ export default class extends React.Component {
 
     menuContent.menuDTOList.map((menu) => {
       let _menuId = menu.id
-      if (menuId.toString() === menu.id.toString()) {
-        currentCourseDetail.pageCount = menu.sectionMenuDTOList.length
-      }
 
       menu.sectionMenuDTOList.map((section) => {
         if (sectionId.toString() === section.id.toString()) {
           currentCourseDetail.courseName = section.name
+          currentCourseDetail.pageCount = section.contentDTOList.length
         }
         section.contentDTOList.map((content) => {
           let pageNumber = content.pageNumber
@@ -82,7 +80,6 @@ export default class extends React.Component {
     })
     this.setState({array: array, currentCourseDetail: currentCourseDetail})
     this.setState({menuContent: menuContent})
-    
 
     // 为了设置上一页下一页的值
 
@@ -91,14 +88,25 @@ export default class extends React.Component {
     let timer = null
 
     document.addEventListener('scroll', () => {
-      document.getElementById('prev').style.backgroundColor = 'rgba(62,166,247,0.2)'
-      document.getElementById('next').style.backgroundColor = 'rgba(62,166,247,0.2)'
+      let prev = document.getElementById('prev')
+      let next = document.getElementById('next')
+      if (prev.className.indexOf('xz-btn_disabled') < 0) {
+        document.getElementById('prev').style.backgroundColor = '#3ea6f7'
+      }
+      if (next.className.indexOf('xz-btn_disabled') < 0) {
+        document.getElementById('next').style.backgroundColor = '#3ea6f7'
+      }
+
       clearTimeout(timer) // 每次滚动前 清除一次
       timer = setTimeout(() => {
         m2 = document.documentElement.scrollTop || document.body.scrollTop
         if (m2 === m1) {
-          document.getElementById('prev').style.backgroundColor = '#3ea6f7'
-          document.getElementById('next').style.backgroundColor = '#3ea6f7'
+          if (prev.className.indexOf('xz-btn_disabled') < 0) {
+            document.getElementById('prev').style.backgroundColor = 'rgba(62,166,247,0.2)'
+          }
+          if (next.className.indexOf('xz-btn_disabled') < 0) {
+            document.getElementById('next').style.backgroundColor = 'rgba(62,166,247,0.2)'
+          }
         }
       }, 500)
       m1 = document.documentElement.scrollTop || document.body.scrollTop
@@ -152,12 +160,68 @@ export default class extends React.Component {
       </div>
     )
   }
-  
+
   renderPrev () {
-    return <Button id='prev' size='small' className='asdfasdf' onClick={() => { this.loadPage('prev') }}>上一页</Button>
+    const {query, array} = this.state
+    let json = {
+      menuId: query.menuId,
+      sectionId: query.sectionId,
+      pageNumber: query.pageNumber
+    }
+    let pos
+    array.map((item, index) => {
+      if (json.menuId === item.menuId && json.sectionId === item.sectionId && json.pageNumber === item.pageNumber) {
+        pos = index
+      }
+    })
+    let prev = array[pos - 1]
+    let noPrev = DataUtil.isEmpty(prev)
+    let text
+    if (json && prev && json.sectionId === prev.sectionId) {
+      text = '上一页'
+    } else {
+      text = '上一节'
+    }
+    return (
+      <Button
+        id='prev'
+        size='small'
+        disabled={noPrev}
+        onClick={() => { this.loadPage('prev') }}>
+        {noPrev ? '上一节' : text}
+      </Button>
+    )
   }
   renderNext () {
-    return <Button id='next' size='small' onClick={() => { this.loadPage('next') }} >下一页</Button>
+    const {query, array} = this.state
+    let json = {
+      menuId: query.menuId,
+      sectionId: query.sectionId,
+      pageNumber: query.pageNumber
+    }
+    let pos
+    array.map((item, index) => {
+      if (json.menuId === item.menuId && json.sectionId === item.sectionId && json.pageNumber === item.pageNumber) {
+        pos = index
+      }
+    })
+    let next = array[pos + 1]
+    let noNext = DataUtil.isEmpty(next)
+    let text
+    if (json && next && json.sectionId === next.sectionId) {
+      text = '下一页'
+    } else {
+      text = '下一节'
+    }
+    return (
+      <Button
+        id='next'
+        size='small'
+        disabled={noNext}
+        onClick={() => { this.loadPage('next') }}>
+        {noNext ? '下一节' : text}
+      </Button>
+    )
   }
   loadPage (type) {
     let {query, array} = this.state

@@ -51,7 +51,7 @@ export default class Button extends React.Component {
             background-color: #117ee9;
             color: #fff;
           }
-          .xz-btn_primary:disabled {
+          .xz-btn_primary.xz-btn_disabled {
             background-color: rgba(0, 0, 0, 0.2);
             border-radius: 1px solid rgba(0, 0, 0, 0.2);
           }
@@ -62,7 +62,7 @@ export default class Button extends React.Component {
             color: #117ee9;
             border: 1px solid #117ee9;
           }
-          .xz-btn_normal:disabled {
+          .xz-btn_normal.xz-btn_disabled {
             color: rgba(0, 0, 0, 0.2);
             background-color: transparent;
             border: 1px solid rgba(0, 0, 0, 0.2);
