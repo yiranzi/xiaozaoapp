@@ -7,6 +7,7 @@ export default class extends React.Component {
         /* 默认a标签样式*/
         a {
           color: #242223;
+          display: inline-block;
         }
         /*文本位置*/
         .wx-text-left{

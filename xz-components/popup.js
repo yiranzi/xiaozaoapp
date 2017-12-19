@@ -76,6 +76,13 @@ export default class extends React.Component {
       }
     }
   }
+  componentWillReceiveProps (nextProps) {
+    if (this.props.show !== nextProps.show && nextProps.show === true) {
+      document.body.style.position = 'fixed'
+    } else if (this.props.show !== nextProps.show && nextProps.show === false) {
+      document.body.style.position = 'relative'
+    }
+  }
   getStyle () {
     let style = this.renderStyle()
     if (this.props.show) {
@@ -83,13 +90,17 @@ export default class extends React.Component {
     }
     return style
   }
+  close () {
+    console.log('调用')
+    document.body.style.position = 'relative'
+  }
   render () {
     const {show, close, onRequestClose, crossIcon} = this.props
     return (
       <Popup
         style={this.getStyle()}
         show={show}
-        onRequestClose={(e) => onRequestClose()}
+        onRequestClose={(e) => { this.close(); onRequestClose() }}
       >
         {close && (
           <span className='crossIcon' onClick={() => onRequestClose()}>

@@ -58,6 +58,7 @@ export default class extends React.Component {
                             <CellHeader><span className='icon' /></CellHeader>
                             <CellBody>
                               <a
+                                className='section'
                                 onClick={() => {
                                   this.toggleCourseMenuPop()
                                   location.href = `/learn/course/detail?courseId=${courseId}&menuId=${menu.id}&sectionId=${section.id}&pageNumber=1`
@@ -121,6 +122,9 @@ export default class extends React.Component {
             margin-right: 10px;
             background-color: #3ea6f7;
             border-radius: 1rem;
+          }
+          a.section {
+            font-size: 0.85rem;
           }
         `}</style>
       </Popup>

@@ -83,23 +83,6 @@ export default class extends React.Component {
       this.setState({myWork: value})
     }
   }
-  renderUnAnswer (workDetail, myAnswer, evaluate) {
-    return (
-      <div>
-        <Option
-          isPlaying={this.state.isPlaying}
-          isRecording={this.state.isRecording}
-          topic={workDetail}
-          defaultValue={this.state.myWork}
-          onChange={(id, value) => this.workChange(value, workDetail.type)}
-          updateRecording={(res) => this.updateRecording(res)}
-        />
-        <div className='wx-text-center'>
-          <Button size='small' onClick={() => { this.submitWork(workDetail.type) }}>上传作业</Button>
-        </div>
-      </div>
-    )
-  }
   updateRecording (res) {
     this.setState({isRecording: res})
   }
@@ -113,48 +96,74 @@ export default class extends React.Component {
    * @param {*} evaluate 
    */
   renderAnswer (workDetail, myAnswer, evaluate) {
-    const {query} = this.props
+    const {isEditMyWork} = this.state
     return (
       <div>
-        <Option topic={workDetail} defaultValue={this.state.myWork} disabled />
-        <div>
-          <div className='wx-space-center'>
-            <Button style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>
-              <Link href={`/learn/course/otherAnswer${location.search}&workId=${query.workId}`}><a>查看其他同学答案</a></Link>
-            </Button>
-            <Button onClick={() => { this.setState({showWorkAnser: !this.state.showWorkAnser}) }} style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>查看导师点评</Button>
-            {DataUtil.isEmpty(this.state.workAnswer) && (
-              <Button
-                style={{borderColor: ThemeConfig.color.red, color: ThemeConfig.color.red}}
-                type='normal'
-                size='small'
-                onClick={() => { this.editMyWork() }}
-              >修改答案</Button>
-            )}
-          </div>
-          {this.state.showWorkAnser && (
-            <div>导师点评：{this.state.workAnswer}</div>
-          )}
-          <Link href={`/learn/course/questionList?courseId=${query.courseId}&sectionId=${query.sectionId}&pageNumber=${query.pageNumber}`}>
-            <Button style={{marginTop: '2rem', backgroundColor: ThemeConfig.color.red}} >对学习内容有疑问？点击查看导师答疑</Button>
-          </Link>
-        </div>
+        <Option
+          isPlaying={this.state.isPlaying}
+          isRecording={this.state.isRecording}
+          topic={workDetail}
+          defaultValue={this.state.myWork}
+          onChange={(id, value) => this.workChange(value, workDetail.type)}
+          updateRecording={(res) => this.updateRecording(res)}
+          disabled={!isEditMyWork}
+        />
+        {!DataUtil.isEmpty(workDetail) && this.renderAction(workDetail, myAnswer, evaluate, isEditMyWork)}
       </div>
     )
   }
-  renderWork (workDetail, myAnswer, evaluate) {
+  renderAction (workDetail, myAnswer, evaluate, isEditMyWork) {
     if (DataUtil.isEmpty(myAnswer)) {
-      return this.renderUnAnswer(workDetail, myAnswer, evaluate)
+      return this.renderUploadWork(workDetail, myAnswer, evaluate)
     } else {
-      return this.renderAnswer(workDetail, myAnswer, evaluate)
+      if (isEditMyWork) {
+        return this.renderUploadWork(workDetail, myAnswer, evaluate)
+      } else {
+        return this.renderEditWork(workDetail, myAnswer, evaluate)
+      }
     }
   }
-  render () {
-    const {workDetail, myAnswer, evaluate, isEditMyWork} = this.state
+  renderUploadWork (workDetail, myAnswer, evaluate, flag) {
+    return (
+      <div className='wx-text-center'>
+        <Button size='small' onClick={() => { this.submitWork(workDetail.type) }}>上传作业</Button>
+      </div>
+    )
+  }
+  renderEditWork (workDetail, myAnswer, evaluate, flag) {
+    const {query} = this.props
     return (
       <div>
-        {(isEditMyWork && !DataUtil.isEmpty(workDetail)) && this.renderUnAnswer(workDetail, myAnswer, evaluate)}
-        {!isEditMyWork && this.renderWork(workDetail, myAnswer, evaluate)}
+        <div className='wx-space-center' style={{paddingBottom: '2rem'}}>
+          <Button style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>
+            <Link href={`/learn/course/otherAnswer${location.search}&workId=${query.workId}`}><a>查看其他同学答案</a></Link>
+          </Button>
+          <Button onClick={() => { this.setState({showWorkAnser: !this.state.showWorkAnser}) }} style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>查看导师点评</Button>
+          {DataUtil.isEmpty(this.state.workAnswer) && (
+            <Button
+              style={{borderColor: ThemeConfig.color.red, color: ThemeConfig.color.red}}
+              type='normal'
+              size='small'
+              onClick={() => { this.editMyWork() }}
+            >修改答案</Button>
+          )}
+        </div>
+        {this.state.showWorkAnser && (
+          <div>导师点评：{this.state.workAnswer}</div>
+        )}
+        <Link href={`/learn/course/questionList?courseId=${query.courseId}&sectionId=${query.sectionId}&pageNumber=${query.pageNumber}`}>
+          <Button
+            style={{marginTop: '2rem', backgroundColor: ThemeConfig.color.red, position: 'fixed', bottom: '58px'}}
+          >对学习内容有疑问？点击查看导师答疑</Button>
+        </Link>
+      </div>
+    )
+  }
+  render () {
+    const {workDetail, myAnswer, evaluate} = this.state
+    return (
+      <div className='my-work'>
+        {!DataUtil.isEmpty(workDetail) && this.renderAnswer(workDetail, myAnswer, evaluate)}
       </div>
     )
   }

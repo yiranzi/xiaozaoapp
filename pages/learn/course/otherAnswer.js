@@ -1,5 +1,4 @@
 import React from 'react'
-import Link from 'next/link'
 import Homework from '../../../containers/learn/main/homework/homework'
 import ToolsUtil from '../../../util/tools'
 import Layout from '../../../components/layout'
@@ -24,18 +23,17 @@ export default class extends React.Component {
       query: {
         courseId: courseId,
         workId: workId
-      },
-      search: location.search
+      }
     })
   }
 
   render () {
-    const {query, search} = this.state
+    const {query} = this.state
     const {courseId, workId} = query
     return (
       <Layout>
         {courseId && workId && <Homework courseStatus={'doing'} courseId={parseInt(courseId)} workId={parseInt(workId)} />}
-        <FixFooter style={{textAlign: 'center'}}><Link href={`/learn/course/detail${search}`}><a>继续学习</a></Link></FixFooter>
+        <FixFooter style={{textAlign: 'center'}} onClick={() => { history.go(-1) }}>继续学习</FixFooter>
       </Layout>
     )
   }

@@ -40,7 +40,7 @@ class Accordion extends React.Component {
           className={classNames('xz-accordion-header', {'show': showContent})}
           onClick={() => this.handleClick()}
         >{header}</div>
-        {content && <div className='xz-accordion-content'><Cells>{content}</Cells></div>}
+        {content && <div className='xz-accordion-content'><Cells style={{fontSize: '1rem'}}>{content}</Cells></div>}
         <style jsx>{`
           .xz-accordion-item {
             border-radius: 2px;
@@ -68,10 +68,10 @@ class Accordion extends React.Component {
             right: 15px;
             margin-top: -4px;
             transition: transform .3s;
-            transform: rotate(-45deg);
+            transform: rotate(134deg);
           }
           .xz-accordion-header.show::after {
-            transform: rotate(134deg);
+            transform: rotate(-45deg);
           }
         `}</style>
         <style global jsx>{`

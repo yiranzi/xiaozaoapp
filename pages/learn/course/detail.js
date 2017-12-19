@@ -45,26 +45,6 @@ export default class extends React.Component {
     let menuContent = await AxiosUtil.get(`/api/learning/course/${courseId}`)
     let array = []
     menuId = menuId ? menuId : menuContent.menuDTOList[0].id
-    menuContent.menuDTOList.map((menu) => {
-      let _menuId = menu.id
-      if (menuId.toString() === menu.id.toString()) {
-        currentCourseDetail.courseName = menu.name
-        currentCourseDetail.pageCount = menu.sectionMenuDTOList.length
-      }
-      menu.sectionMenuDTOList.map((section) => {
-        let sectionId = section.id
-        section.contentDTOList.map((content) => {
-          let pageNumber = content.pageNumber
-          array.push({
-            menuId: _menuId.toString(),
-            sectionId: sectionId.toString(),
-            pageNumber: pageNumber.toString()
-          })
-        })
-      })
-    })
-    this.setState({array: array, currentCourseDetail: currentCourseDetail})
-    this.setState({menuContent: menuContent})
     /**
      * 获取课程详情
      * 如果链接没有sectionId, 默认显示第一节的内容
@@ -79,6 +59,30 @@ export default class extends React.Component {
       detail = await AxiosUtil.get(`/api/learning/course/${courseId}/${sectionId}/${pageNumber}`)
       this.setState({detail: ToolsUtil.parseHtml(detail, true), sectionId: sectionId})
     }
+
+    menuContent.menuDTOList.map((menu) => {
+      let _menuId = menu.id
+      if (menuId.toString() === menu.id.toString()) {
+        currentCourseDetail.pageCount = menu.sectionMenuDTOList.length
+      }
+
+      menu.sectionMenuDTOList.map((section) => {
+        if (sectionId.toString() === section.id.toString()) {
+          currentCourseDetail.courseName = section.name
+        }
+        section.contentDTOList.map((content) => {
+          let pageNumber = content.pageNumber
+          array.push({
+            menuId: _menuId.toString(),
+            sectionId: section.id.toString(),
+            pageNumber: pageNumber.toString()
+          })
+        })
+      })
+    })
+    this.setState({array: array, currentCourseDetail: currentCourseDetail})
+    this.setState({menuContent: menuContent})
+    
 
     // 为了设置上一页下一页的值
 
