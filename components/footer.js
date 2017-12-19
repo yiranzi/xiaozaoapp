@@ -21,7 +21,7 @@ export default class extends React.Component {
           onTouchEnd={() => { this.setState({college: false}, () => { location.href = '/college/portal' }) }}
         >
           <div className='icon'>
-            {(this.state.college || type === 'college') ? <img src='/static/img/abilitycollege/college_active.png' /> : <img src='/static/img/abilitycollege/college.png' />}
+            {(this.state.college || type === 'college') ? <img src='/static/img/common/college_active.png' /> : <img src='/static/img/common/college.png' />}
           </div>
           <div className='text'>能力学院</div>
         </div>
@@ -41,7 +41,7 @@ export default class extends React.Component {
           onTouchEnd={() => { this.setState({hr: false}, () => { location.href = '/job/internship' }) }}
         >
           <div className='icon'>
-            {(this.state.hr || type === 'hr') ? <img src='/static/img/abilitycollege/hr_active.png' /> : <img src='/static/img/abilitycollege/hr.png' />}
+            {(this.state.hr || type === 'hr') ? <img src='/static/img/common/hr_active.png' /> : <img src='/static/img/common/hr.png' />}
           </div>
           <div className='text'>HR直聘</div>
         </div>
@@ -51,7 +51,7 @@ export default class extends React.Component {
           onTouchEnd={() => { this.setState({me: false}, () => { location.href = '/ucenter/portal' }) }}
         >
           <div className='icon'>
-            {(this.state.me || type === 'me') ? <img src='/static/img/abilitycollege/me_active.png' /> : <img src='/static/img/abilitycollege/me.png' />}
+            {(this.state.me || type === 'me') ? <img src='/static/img/common/me_active.png' /> : <img src='/static/img/common/me.png' />}
           </div>
           <div className='text'>我的</div>
         </div>
@@ -59,12 +59,12 @@ export default class extends React.Component {
           .footer {
             font-size: 10pt;
             text-align: center;
-            background-color: #f0f2f6;
+            background-color: #fff;
             display: flex;
             justify-content: space-between;
             position: fixed;
             bottom: 0;
-            border-top: 1px solid #F9F9F9;
+            border-top: 1px solid #f0f2f6;
             width: 100%;
             z-index: 9999;
           }
@@ -73,14 +73,16 @@ export default class extends React.Component {
             flex: 1;
           }
           .footer .current {
-            background-color: #241d66;
-            color: #fff;
+            color: #3e84e0;
           }
           .footer .icon {
             font-size: 0;
           }
           .footer .icon img {
             width: 16pt;
+          }
+          .footer .text {
+            font-size: 0.7rem;
           }
         `}</style>
       </div>

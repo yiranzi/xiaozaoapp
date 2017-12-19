@@ -113,7 +113,7 @@ export default class extends React.Component {
     if (topBanner) {
       const bannerElements = topBanner.map(function (item, index) {
         return (<div key={index}>
-          <a href={item.url}>
+          <a href={item.url ? item.url : 'javascript:;'}>
             <img className='banner-img' src={item.img} /></a>
         </div>)
       })
@@ -125,13 +125,11 @@ export default class extends React.Component {
         <style global jsx>{`
           .top-banner {
             overflow: hidden;
+            box-shadow: 2px 2px 54px 10px #f0f0f0;
           }
           .top-banner .banner-img {
             height: 100%;
             width: 100%;
-          }
-          .top-banner .react-weui-swiper__item {
-            text-align: center;
           }
         `}</style>
       </div>)
@@ -209,10 +207,10 @@ export default class extends React.Component {
             item.map(function (item2, index2) {
               return (<FlexItem key={index2}>
                 {item2.cover && <div className='item block-radius'>
-                  <a href={item2.path}>
+                  <a href={item2.path ? item2.path : 'javascript:;'}>
                     <div className='img-block'><img className='img' src={item2.cover} /></div>
                     <div className='info-block'>
-                      <h4 className='name wx-line-clamp'>{item2.name}</h4>
+                      <p className='name wx-line-clamp2'>{item2.name}</p>
                       <p className='info wx-clearfix'><span className='buy-count wx-pull-left'>{item2.buyCount}人学习</span><span className='course-tag wx-pull-right'>限时免费</span></p>
                     </div>
                   </a>
@@ -243,7 +241,6 @@ export default class extends React.Component {
             max-height: 140px;
             overflow: hidden;
             line-height: 1px;
-            height: 100px;
           }
           .course-type2 .item .img {
             width: 100%;                  
@@ -251,12 +248,16 @@ export default class extends React.Component {
           .course-type2 .item .info-block {
             padding: 5px 0;
           }
+          .course-type2 .item .name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            height: 44px;
+          }
           .course-type2 .item .name,
           .course-type2 .item .info {
             padding: 0 12px;
             margin: 3px 0;
-            line-height: 20px;
-            height: 20px;
+            line-height: 22px;
           }
           .course-type2 .buy-count {
             font-size: 0.7rem;
@@ -264,7 +265,7 @@ export default class extends React.Component {
           }
           .course-type2 .course-tag {
             font-size: 0.7rem;
-            color: ${ThemeConfig.color.red};
+            color: #fa7f5c;
           }
         `}</style>
       </div>)
@@ -280,13 +281,11 @@ export default class extends React.Component {
         return (<Flex key={index}>
           <FlexItem>
             <div className='item block-radius'>
-              <a href={item.path}>
+              <a href={item.path ? item.path : 'javascript:;'}>
                 <div className='img-block'><img className='img' src={item.cover} /></div>
                 <div className='info-block'>
-                  <h4 className='name wx-line-clamp'>{item.name}</h4>
-                  <br /><br /><br />
-                  <p className='info wx-clearfix'><span className='buy-count wx-pull-left'>{item.buyCount}人学习</span>
-                    <span className='course-tag wx-pull-right'><small>&yen;</small> {item.price}</span></p>
+                  <p className='info'><span className='buy-count'>{item.buyCount} 人学习</span>
+                    <span className='course-price'><small>&yen;</small> {item.price}</span></p>
                 </div>
               </a>
             </div>
@@ -307,8 +306,7 @@ export default class extends React.Component {
             position: relative;
           }
           .course-type3 .item .img-block {
-            max-height: 180px;
-            height: 180px;
+
           }
           .course-type3 .item .img {
             width: 100%;
@@ -316,7 +314,7 @@ export default class extends React.Component {
           .course-type3 .item .info-block {
             padding: 15px 0;
             position: absolute;
-            top: 0;
+            bottom: 0;
             width: 100%;
           }
           .course-type3 .item .name,
@@ -326,6 +324,12 @@ export default class extends React.Component {
             line-height: 20px;
             height: 20px;
             color: #fff;
+          }
+          .course-type3 .buy-count {
+            font-size: 0.8rem;
+          }
+          .course-type3 .course-price {
+            margin-left: 30px;
           }
         `}</style>
       </div>)
@@ -341,11 +345,13 @@ export default class extends React.Component {
         return (<Flex key={index}>
           <FlexItem>
             <div className='item'>
-              <a href={item.path}>
+              <a href={item.path ? item.path : 'javascript:;'}>
                 <div className='img-block block-radius'><img className='img' src={item.cover} /></div>
-                <div className='info-block'>
-                  <h4 className='name wx-line-clamp'>{item.name}</h4>
-                </div>
+                {item.name &&
+                  <div className='info-block'>
+                    <h4 className='name wx-line-clamp'>{item.name}</h4>
+                  </div>
+                }
               </a>
             </div>
           </FlexItem>
@@ -357,7 +363,9 @@ export default class extends React.Component {
         <div className='course-type4 block-radius'>
           {courseElements}
         </div>
-        <p className='wx-text-center block-tips'><small>更多课程持续更新中</small></p>
+        {courseType4List[0].name &&
+          <p className='wx-text-center block-tips'><small>更多课程持续更新中</small></p>
+        }
         <style global jsx>{`
           .course-type4 {
             background-color: #f0f0f0;
@@ -367,8 +375,7 @@ export default class extends React.Component {
 
           }
           .course-type4 .item .img-block {
-            max-height: 200px;
-            height: 200px;
+            line-height: 1px;
             overflow: hidden;
           }
           .course-type4 .item .img {
@@ -395,7 +402,7 @@ export default class extends React.Component {
     if (feedbackBanner) {
       const bannerElements = feedbackBanner.map(function (item, index) {
         return (<div key={index}>
-          <a className='block-a' href={item.url}>
+          <a className='block-a' href={item.url ? item.url : 'javascript:;'}>
             <img className='banner-img' src={item.img} /></a>
         </div>)
       })
@@ -428,21 +435,20 @@ export default class extends React.Component {
     if (advBanner) {
       const bannerElements = advBanner.map(function (item, index) {
         return (<div key={index}>
-          <a className='block-a' href={item.url}>
+          <a className='block-a' href={item.url ? item.url : 'javascript:;'}>
             <img className='banner-img' src={item.img} /></a>
         </div>)
       })
 
       return (<div className='block'>
         <h3 className='block-title'>小灶优势</h3>
-        <img className='pic' src='/static/img/college/pic1.png' style={{height: '32px', marginBottom: '10px'}} />
+        <img className='pic' src='/static/img/college/pic1.png' style={{height: '40px', marginBottom: '5px'}} />
         <Slider {...this.settings}>
           {bannerElements}
         </Slider>
-        <img className='pic' src='/static/img/college/pic22.png' style={{width: '100%', margin: '15px 0'}} />
-        <h3 className='block-title'>小灶与学校、企业的合作（部分）</h3>
-        <img className='pic' src='/static/img/college/pic33.png' style={{width: '100%', margin: '0'}} /><br /><br />
-        <img className='pic' src='/static/img/college/pic44.png' style={{width: '100%', margin: '0'}} />
+        <div style={{margin: '0 -12px'}}>
+          <img className='pic' src='/static/img/college/pic22.png' style={{width: '100%', margin: '25px 0'}} />
+        </div>
         <style global jsx>{`
           .slider-banner {
             margin: 0 -15px;
@@ -474,8 +480,8 @@ export default class extends React.Component {
         }
         <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css' />
         <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css' />
-        <div className='main'>
-          {topBanner && courseType2List &&
+        {topBanner && courseType2List &&
+          <div className='main'>
             <div className='content'>
               {this.renderTopBanner()}
               {this.reneerNavbar()}
@@ -485,24 +491,25 @@ export default class extends React.Component {
               {this.renderFeedbackBanner()}
               {this.renderAdvBanner()}
             </div>
-          }
-          <Footer type='college' />
-        </div>
+            <Footer type='college' />
+          </div>
+        }
         <style jsx>{`
           .content {
-            padding: 0 15px 5rem 15px;
+            padding: 0 15px 2rem 15px;
           }
           .wrapper {
             display: table;
-            height: 90vh;
+            height: 100vh;
             width: 100%;
           }
           .loading {
             display: table-cell;
             vertical-align: middle;
+            text-align: center;
           }
           .loading-img {
-            width: 100%;
+            width: 100px;
           }
         `}</style>
         <style global jsx>{`
@@ -520,6 +527,9 @@ export default class extends React.Component {
           }
           a {
             color: initial;
+          }
+          body {
+            
           }
         `}</style>
       </Layout>
