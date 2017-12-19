@@ -43,10 +43,9 @@ export default class extends React.Component {
           <p>您还没有课程，赶紧去选课吧~</p>
           <style jsx>{`
             .course-bar-empty {
-            height: 100%;
-              display: flex;
-              justify-content: center;
-              align-items: cneter;
+              width: 100%;
+              text-align: center;
+              margin-top: 20px;
             }
           `}</style>
         </div>

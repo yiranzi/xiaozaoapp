@@ -49,7 +49,7 @@ export default class extends React.Component {
           {studentAnswerArray}
         </Panel>)
       } else {
-        return <div>null</div>
+        return <div>你来第一个提交作业吧</div>
       }
     } else {
       return <LoadingIcon />

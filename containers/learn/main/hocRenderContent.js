@@ -64,7 +64,7 @@ export default function (WrappedComponent, getDataFunc) {
         </Layout>
       } else {
         if (this.state.error) {
-          return <div>null</div>
+          return <div></div>
         } else {
           return <LoadingIcon />
         }
