@@ -6,8 +6,7 @@ import {
   MediaBoxInfo
 } from 'react-weui'
 import Link from 'next/link'
-
-// 渲染内容
+import ToolsUtil from '/util/tools'
 
 export default class extends React.Component {
   render () {
@@ -17,17 +16,28 @@ export default class extends React.Component {
       width: '150px'
     }
     let fontStyle = {}
-    if (category === 'mine') {
-      // let bg = bgImg ? bgImg : '#EAEAEA'
-      let bg = '/static/img/learn/cover_little.png'
-      boxStyle = Object.assign(boxStyle, {background: `url(${bg})`})
-      fontStyle = {color: 'white'}
+    // if (category === 'mine') {
+    //   let bg = '/static/img/learn/cover_little.png'
+    //   boxStyle = Object.assign(boxStyle, {background: `url(${bg})`, backgroundSize: 'cover'})
+    //   fontStyle = {color: 'white'}
+    // } else {
+    //   // bgImg = null
+    //   let bg = bgImg ? `url(${bgImg})` : '#efeff4'
+    //   boxStyle = Object.assign(boxStyle, {background: bg, backgroundSize: 'cover'})
+    // }
+    let bg
+    if (bgImg) {
+      // 1 传入完成拼接
+      bgImg = ToolsUtil.addByType(bgImg, 'native')
+      // 2 设置
+      bg = bgImg
     } else {
-      boxStyle = Object.assign(boxStyle, {backgroundColor: '#efeff4'})
+      bg = '/static/img/learn/cover_little.png'
     }
-
+    // 3 复制到属性中
+    boxStyle = Object.assign(boxStyle, {background: `url(${bg})`, backgroundSize: 'cover'})
     return (
-      <Link href={{ pathname: '/learn/course/info', query: { courseId: this.props.courseId } }}>
+      <Link key={title} href={{ pathname: '/learn/course/info', query: { courseId: this.props.courseId } }}>
         <a>
           <div className='course-info-bar'>
             <MediaBox style={boxStyle}>
@@ -53,7 +63,6 @@ export default class extends React.Component {
           </div>
         </a>
       </Link>
-
     )
   }
 }

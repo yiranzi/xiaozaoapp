@@ -64,16 +64,25 @@ export default class extends React.Component {
   renderLine (ele, key) {
     if (ele) {
       let {buyCount, courseId, title, start, cover} = ele
+      let imgUrl
+      if (cover) {
+        // 1 传入完成拼接
+        cover = ToolsUtil.addByType(cover, 'show')
+        // 2 设置
+        imgUrl = cover
+      } else {
+        imgUrl = '/static/img/learn/cover_little.png'
+      }
       return (
-        <Link key={key} href={{ pathname: '/learn/course/info', query: { courseId: courseId } }}>
+        <Link replace key={key} href={{ pathname: '/learn/course/info', query: { courseId: courseId } }}>
           <a>
             <div className='course-view-line'>
               <div className='course-img' >
-                <img src={cover ? cover : '/static/img/learn/cover_little.png'} />
+                <img src={imgUrl} />
               </div>
               <div className='course-info' >
                 <h2 className=''>{title}</h2>
-                <p>介绍内容？</p>
+                <br />
                 <div className='more-info'>
                   <span>{buyCount}人已报名</span>
                   <span>{DateUtil.format(new Date(start), 'yyyy-MM-dd')}开课</span>

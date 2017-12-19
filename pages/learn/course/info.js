@@ -41,11 +41,22 @@ export default class extends React.Component {
   getPayStatus = async (courseId) => {
     // 1 是否购买
     let courseInfo = await AxiosUtil.get(`/api/learning/courseDetail/${courseId}`, true)
+    let courseBg = courseInfo.cover
+    let imgUrl
+    if (courseBg) {
+      // 1 传入完成拼接
+      courseBg = ToolsUtil.addByType(courseBg, 'native')
+      // 2 设置
+      imgUrl = courseBg
+    } else {
+      imgUrl = '/static/img/learn/cover_long.png'
+    }
     if (!courseInfo.buyed) {
       this.setState({
         courseStatus: 'unbuyed',
         courseName: courseInfo.name,
-        courseStartDate: courseInfo.startTime
+        courseStartDate: courseInfo.startTime,
+        courseBg: imgUrl
       })
     } else {
       this.getProcessInfo(courseId)
@@ -55,12 +66,23 @@ export default class extends React.Component {
   // 从我的课程列表中获取进度信息
   getProcessInfo = async (courseId) => {
     let courseInfo = await GetPayInfo.getPayInfo(courseId)
+    let courseBg = courseInfo.cover
+    let imgUrl
+    if (courseBg) {
+      // 1 传入完成拼接
+      courseBg = ToolsUtil.addByType(courseBg, 'native')
+      // 2 设置
+      imgUrl = courseBg
+    } else {
+      imgUrl = '/static/img/learn/cover_long.png'
+    }
     this.setState({
       courseName: courseInfo.courseName,
       finishSection: courseInfo.overSection,
       totalSection: courseInfo.totalSection,
       totalChapter: courseInfo.totalChapter,
-      courseStatus: courseInfo.status
+      courseStatus: courseInfo.status,
+      courseBg: imgUrl
     })
   }
 
@@ -105,7 +127,7 @@ export default class extends React.Component {
     }
   }
 
-  renderTopImg () {
+  renderTopDiv () {
     let {courseStatus, courseName} = this.state
     if (courseName) {
       if (courseStatus === 'unbuyed') {
@@ -124,8 +146,8 @@ export default class extends React.Component {
   }
 
   renderCourseUnBuyed () {
-    let {courseName, courseStartDate} = this.state
-    return (<div className='course-info'>
+    let {courseName, courseBg} = this.state
+    return (<div style={{background: `url(${courseBg})`, backgroundSize: 'cover'}} className='course-info'>
       <h1>{courseName}</h1>
       <Link href={`/payment/buygether`}>
         <a style={{color: 'white'}}>立即报名</a>
@@ -136,7 +158,6 @@ export default class extends React.Component {
             min-height: 150px;
             text-align: center;
             color: white;
-            background: url('/static/img/learn/cover_long.jpeg')
           }
           .course-info h1 {
             font-size: 22px;
@@ -146,8 +167,8 @@ export default class extends React.Component {
   }
 
   renderCourseOver () {
-    let {courseName} = this.state
-    return (<div className='course-info'>
+    let {courseName, courseBg} = this.state
+    return (<div style={{background: `url(${courseBg})`, backgroundSize: 'cover'}} className='course-info'>
       <h1>{courseName}</h1>
       <a>已结束</a>
       <style jsx>{`
@@ -156,7 +177,6 @@ export default class extends React.Component {
             min-height: 150px;
             text-align: center;
             color: white;
-            background: url('/static/img/learn/cover_long.jpeg')
           }
           .course-info h1 {
             font-size: 22px;
@@ -166,9 +186,13 @@ export default class extends React.Component {
   }
 
   renderCourseBuyed () {
-    let {courseId, courseName, finishSection, totalSection, totalChapter} = this.state
+    let {courseId, courseName, finishSection, totalSection, totalChapter, courseBg} = this.state
     const prog = Math.ceil(finishSection / (totalSection ? totalSection : 1) * 100)
-    return (<div className='course-info'>
+    // 为null
+    totalChapter = Number(totalChapter)
+    totalSection = Number(totalSection)
+    finishSection = Number(finishSection)
+    return (<div style={{background: `url(${courseBg})`, backgroundSize: 'cover'}} className='course-info'>
       <h1>{courseName}</h1>
       <div className='content'>
         <p>{`进度（本课程共${totalChapter}章，${totalSection}节，已完成${finishSection}节）`}</p>
@@ -194,7 +218,6 @@ export default class extends React.Component {
             min-height: 150px;
             text-align: center;
             color: white;
-            background: url('/static/img/learn/cover_long.jpeg')
           }
           .course-info h1 {
             font-size: 22px;
@@ -218,7 +241,7 @@ export default class extends React.Component {
   render () {
     return (<div>
       <Layout>
-        {this.renderTopImg()}
+        {this.renderTopDiv()}
         {this.renderTabbar()}
       </Layout>
     </div>)

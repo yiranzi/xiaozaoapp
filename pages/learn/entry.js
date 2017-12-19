@@ -94,7 +94,7 @@ export default class extends React.Component {
           category='mine'
           courseGroupList={courseGroupList}
           routerUrl={url}
-          title='查看全部' />
+          title='我的课程' />
       )
     }
   }
@@ -144,7 +144,7 @@ export default class extends React.Component {
           return (
             <div key={`banner-${index}`}>
               <a href={item.url} style={{display: 'block'}}>
-                <img src={item.img} style={{width: '100%'}} />
+                <img src={item.img} style={{width: '100%', height: '100%'}} />
               </a>
             </div>
           )

@@ -4,6 +4,30 @@ const cheerio = require('cheerio')
 const path = require('path')
 
 let ToolsUtil = {}
+// 添加图片类型后缀
+ToolsUtil.addByType = function (imgUrl, type) {
+  let name
+  switch (type) {
+    case 'native':
+      name = '_1'
+      break
+    case 'show':
+      name = '_0'
+      break
+  }
+  let stringArr = ['.jpg', '.png', '.jpeg']
+  let resultUrl
+  let result = stringArr.find((reg, index) => {
+    return (imgUrl.search(new RegExp(reg)) !== -1)
+  })
+  if (result !== -1) {
+    resultUrl = imgUrl.replace(result, name) + result
+  } else {
+    resultUrl =  imgUrl
+  }
+  return resultUrl
+
+}
 
 // 获取url参数
 ToolsUtil.getQueryString = function (name) {

@@ -7,6 +7,7 @@ import {
   MediaBoxTitle,
   MediaBoxDescription
 } from 'react-weui'
+import DateUtil from '/util/date'
 // 原始组件
 class innerComponent extends React.Component {
   render () {
@@ -14,9 +15,13 @@ class innerComponent extends React.Component {
     if (data && data.length > 0) {
       return (<Panel className='introduce'>
         {data.map((ele, index) => {
+          let createTime = DateUtil.format(ele.createTime, 'yyyy-MM-dd')
           return (<MediaBox key={index}>
             <MediaBoxTitle>{ele.title}</MediaBoxTitle>
-            <MediaBoxDescription>{ele.content}</MediaBoxDescription>
+            <MediaBoxDescription style={{display: 'block'}}>
+              <p className='create-time'>{createTime}</p>
+              <p dangerouslySetInnerHTML={{__html: ele.content}} />
+            </MediaBoxDescription>
           </MediaBox>)
         })}
       </Panel>)
