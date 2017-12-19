@@ -48,6 +48,9 @@ function request (param) {
           location.reload(true)
         }
       } else {
+        Tips.info({
+          children: error
+        })
         reject(error.message)
       }
     })
