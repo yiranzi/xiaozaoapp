@@ -278,19 +278,15 @@ export default class extends React.Component {
     const {courseType3List} = this.state
     if (courseType3List) {
       let courseElements = courseType3List.map(function (item, index) {
-        return (<Flex key={index}>
-          <FlexItem>
-            <div className='item block-radius'>
-              <a href={item.path ? item.path : 'javascript:;'}>
-                <div className='img-block'><img className='img' src={item.cover} /></div>
-                <div className='info-block'>
-                  <p className='info'><span className='buy-count'>{item.buyCount} 人学习</span>
-                    <span className='course-price'><small>&yen;</small> {item.price}</span></p>
-                </div>
-              </a>
+        return (<div className='item block-radius' key={index}>
+          <a href={item.path ? item.path : 'javascript:;'}>
+            <div className='img-block'><img className='img' src={item.cover} /></div>
+            <div className='info-block'>
+              <p className='info'><span className='buy-count'>{item.buyCount} 人学习</span>
+                <span className='course-price'><small>&yen;</small> {item.price}</span></p>
             </div>
-          </FlexItem>
-        </Flex>)
+          </a>
+        </div>)
       })
 
       return (<div className='course-type3 block'>
@@ -342,20 +338,16 @@ export default class extends React.Component {
     const {courseType4List} = this.state
     if (courseType4List) {
       let courseElements = courseType4List.map(function (item, index) {
-        return (<Flex key={index}>
-          <FlexItem>
-            <div className='item'>
-              <a href={item.path ? item.path : 'javascript:;'}>
-                <div className='img-block block-radius'><img className='img' src={item.cover} /></div>
-                {item.name &&
-                  <div className='info-block'>
-                    <h4 className='name wx-line-clamp'>{item.name}</h4>
-                  </div>
-                }
-              </a>
-            </div>
-          </FlexItem>
-        </Flex>)
+        return (<div className='item' key={index}>
+          <a href={item.path ? item.path : 'javascript:;'}>
+            <div className='img-block block-radius'><img className='img' src={item.cover} /></div>
+            {item.name &&
+              <div className='info-block'>
+                <h4 className='name wx-line-clamp'>{item.name}</h4>
+              </div>
+            }
+          </a>
+        </div>)
       })
 
       return (<div className='block'>
