@@ -9,6 +9,7 @@ import {
 } from 'react-weui'
 import AxiosUtil from '../../util/axios'
 import ThemeConfig from '../../config/theme'
+import Slider from 'react-slick'
 
 export default class extends React.Component {
   constructor (props) {
@@ -24,6 +25,19 @@ export default class extends React.Component {
     }
   }
 
+  settings = {
+    className: 'center slider-banner',
+    mobileFirst: true,
+    arrows: false,
+    centerMode: true,
+    infinite: true,
+    centerPadding: '15px',
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    speed: 500,
+    adaptiveHeight: false
+  }
+
   componentDidMount = async () => {
     this.loadTopBannerData()
     this.loadCourseTypeList()
@@ -31,13 +45,21 @@ export default class extends React.Component {
 
   loadTopBannerData = async () => {
     try {
-      let topBanner = await AxiosUtil.get(`/api/adv/getAdvByTypeAndObjId/10/1`)
-      let feedbackBanner = await AxiosUtil.get(`/api/adv/getAdvByTypeAndObjId/11/1`)
-      let advBanner = await AxiosUtil.get(`/api/adv/getAdvByTypeAndObjId/12/1`)
-      this.setState({
-        topBanner: topBanner,
-        feedbackBanner: feedbackBanner,
-        advBanner: advBanner
+      const _this = this
+      AxiosUtil.get(`/api/adv/getAdvByTypeAndObjId/10/1`).then(function (res) {
+        _this.setState({
+          topBanner: res
+        })
+      })
+      AxiosUtil.get(`/api/adv/getAdvByTypeAndObjId/11/1`).then(function (res) {
+        _this.setState({
+          feedbackBanner: res
+        })
+      })
+      AxiosUtil.get(`/api/adv/getAdvByTypeAndObjId/12/1`).then(function (res) {
+        _this.setState({
+          advBanner: res
+        })
       })
     } catch (e) {
       console.error(e)
@@ -46,13 +68,21 @@ export default class extends React.Component {
 
   loadCourseTypeList = async () => {
     try {
-      let courseType2List = await AxiosUtil.get(`/api/learning/courseList/2`)
-      let courseType3List = await AxiosUtil.get(`/api/learning/courseList/3`)
-      let courseType4List = await AxiosUtil.get(`/api/learning/courseList/4`)
-      this.setState({
-        courseType2List: courseType2List,
-        courseType3List: courseType3List,
-        courseType4List: courseType4List
+      const _this = this
+      AxiosUtil.get(`/api/learning/courseList/2`).then(function (res) {
+        _this.setState({
+          courseType2List: res
+        })
+      })
+      await AxiosUtil.get(`/api/learning/courseList/3`).then(function (res) {
+        _this.setState({
+          courseType3List: res
+        })
+      })
+      await AxiosUtil.get(`/api/learning/courseList/4`).then(function (res) {
+        _this.setState({
+          courseType4List: res
+        })
       })
     } catch (e) {
       console.error(e)
@@ -96,22 +126,28 @@ export default class extends React.Component {
       <Flex>
         <FlexItem>
           <div className='item'>
-            <img src='/static/img/icon/course_type2.png' /><br />限时免费
+            <img src='/static/img/icon/course_type2.png' /><br /><label>限时免费</label>
           </div>
         </FlexItem>
         <FlexItem>
           <div className='item'>
-            <img src='/static/img/icon/course_type3.png' /><br />精品课程
+            <a href='#course3'>
+              <img src='/static/img/icon/course_type3.png' /><br /><label>精品课程</label>
+            </a>
           </div>
         </FlexItem>
         <FlexItem>
           <div className='item'>
-            <img src='/static/img/icon/course_type4.png' /><br />线上训练营
+            <a href='#course4'>
+              <img src='/static/img/icon/course_type4.png' /><br /><label>线上训练营</label>
+            </a>
           </div>
         </FlexItem>
         <FlexItem>
           <div className='item'>
-            <img src='/static/img/icon/course_contact.png' /><br />在线咨询
+            <a href='javascript:;' onClick={() => { location.href = 'https://static.meiqia.com/dist/standalone.html?_=t&eid=63917&agentid=ed8f6b7c96fc339a6fcd6f8985624f82)' }}>
+              <img src='/static/img/icon/course_contact.png' /><br /><label>在线咨询</label>
+            </a>
           </div>
         </FlexItem>
         <style global jsx>{`
@@ -127,6 +163,9 @@ export default class extends React.Component {
           .college-nav-bar .item {
             text-align: center;
             font-size: 0.7rem;
+          }
+          .college-nav-bar .item label {
+            color: gray;
           }
         `}</style>
       </Flex>
@@ -152,11 +191,13 @@ export default class extends React.Component {
               console.log(item2)
               return (<FlexItem key={index2}>
                 {item2.cover && <div className='item block-radius'>
-                  <div className='img-block'><img className='img' src={item2.cover} /></div>
-                  <div className='info-block'>
-                    <h4 className='name wx-line-clamp'>{item2.name}</h4>
-                    <p className='info wx-clearfix'><span className='buy-count wx-pull-left'>{item2.buyCount}人学习</span><span className='course-tag wx-pull-right'>限时免费</span></p>
-                  </div>
+                  <a href={item2.path}>
+                    <div className='img-block'><img className='img' src={item2.cover} /></div>
+                    <div className='info-block'>
+                      <h4 className='name wx-line-clamp'>{item2.name}</h4>
+                      <p className='info wx-clearfix'><span className='buy-count wx-pull-left'>{item2.buyCount}人学习</span><span className='course-tag wx-pull-right'>限时免费</span></p>
+                    </div>
+                  </a>
                 </div>}
               </FlexItem>)
             })
@@ -165,7 +206,7 @@ export default class extends React.Component {
       })
 
       return (<div className='course-type2 block'>
-        <h3 className='block-title'>限时免费</h3>
+        <h3 id='course2' className='block-title'>限时免费</h3>
         {courseElements}
         <style global jsx>{`
           .course-type2 {
@@ -221,20 +262,22 @@ export default class extends React.Component {
         return (<Flex key={index}>
           <FlexItem>
             <div className='item block-radius'>
-              <div className='img-block'><img className='img' src={item.cover} /></div>
-              <div className='info-block'>
-                <h4 className='name wx-line-clamp'>{item.name}</h4>
-                <br /><br /><br />
-                <p className='info wx-clearfix'><span className='buy-count wx-pull-left'>{item.buyCount}人学习</span>
-                  <span className='course-tag wx-pull-right'><small>&yen;</small> {item.price}</span></p>
-              </div>
+              <a href={item.path}>
+                <div className='img-block'><img className='img' src={item.cover} /></div>
+                <div className='info-block'>
+                  <h4 className='name wx-line-clamp'>{item.name}</h4>
+                  <br /><br /><br />
+                  <p className='info wx-clearfix'><span className='buy-count wx-pull-left'>{item.buyCount}人学习</span>
+                    <span className='course-tag wx-pull-right'><small>&yen;</small> {item.price}</span></p>
+                </div>
+              </a>
             </div>
           </FlexItem>
         </Flex>)
       })
 
       return (<div className='course-type3 block'>
-        <h3 className='block-title'>精品课程</h3>
+        <h3 id='course3' className='block-title'>精品课程</h3>
         {courseElements}
         <p className='wx-text-center block-tips'><small>更多课程持续更新中</small></p>
         <style global jsx>{`
@@ -280,19 +323,19 @@ export default class extends React.Component {
         return (<Flex key={index}>
           <FlexItem>
             <div className='item'>
-              <div className='img-block block-radius'><img className='img' src={item.cover} /></div>
-              <div className='info-block'>
-                <h4 className='name wx-line-clamp'>{item.name}</h4>
-                <p className='info wx-clearfix'><span className='buy-count wx-pull-left'>{item.buyCount}人学习</span>
-                  <span className='course-tag wx-pull-right'><small>&yen;</small> {item.price}</span></p>
-              </div>
+              <a href={item.path}>
+                <div className='img-block block-radius'><img className='img' src={item.cover} /></div>
+                <div className='info-block'>
+                  <h4 className='name wx-line-clamp'>{item.name}</h4>
+                </div>
+              </a>
             </div>
           </FlexItem>
         </Flex>)
       })
 
       return (<div className='block'>
-        <h3 className='block-title'>线上训练营</h3>
+        <h3 id='course4' className='block-title'>线上训练营</h3>
         <div className='course-type4 block-radius'>
           {courseElements}
         </div>
@@ -314,7 +357,7 @@ export default class extends React.Component {
             width: 100%;
           }
           .course-type4 .item .info-block {
-            padding: 15px 0 0;
+
           }
           .course-type4 .item .name,
           .course-type4 .item .info {
@@ -334,26 +377,26 @@ export default class extends React.Component {
     if (feedbackBanner) {
       const bannerElements = feedbackBanner.map(function (item, index) {
         return (<div key={index}>
-          <a href={item.url}>
+          <a className='block-a' href={item.url}>
             <img className='banner-img' src={item.img} /></a>
         </div>)
       })
 
       return (<div className='block'>
         <h3 className='block-title'>学员反馈</h3>
-        <Swiper className='top-banner block-radius' height={150} onChange={(prev, next) => this.setState({demoIndex: next})} >
+        <Slider {...this.settings}>
           {bannerElements}
-        </Swiper>
+        </Slider>
         <style global jsx>{`
-          .top-banner {
-            overflow: hidden;
+          .slider-banner {
+            margin: 0 -15px;
           }
-          .top-banner .banner-img {
-            height: 100%;
+          .slider-banner .block-a {
+            display: inline-block;
+            padding: 0 5px;
+          }
+          .slider-banner .banner-img {
             width: 100%;
-          }
-          .top-banner .react-weui-swiper__item {
-            text-align: center;
           }
         `}</style>
       </div>)
@@ -367,26 +410,31 @@ export default class extends React.Component {
     if (advBanner) {
       const bannerElements = advBanner.map(function (item, index) {
         return (<div key={index}>
-          <a href={item.url}>
+          <a className='block-a' href={item.url}>
             <img className='banner-img' src={item.img} /></a>
         </div>)
       })
 
       return (<div className='block'>
         <h3 className='block-title'>小灶优势</h3>
-        <Swiper className='top-banner block-radius' height={150} onChange={(prev, next) => this.setState({demoIndex: next})} >
+        <img className='pic' src='/static/img/college/pic1.png' style={{height: '32px', marginBottom: '10px'}} />
+        <Slider {...this.settings}>
           {bannerElements}
-        </Swiper>
+        </Slider>
+        <img className='pic' src='/static/img/college/pic22.png' style={{width: '100%', margin: '15px 0'}} />
+        <h3 className='block-title'>小灶与学校、企业的合作（部分）</h3>
+        <img className='pic' src='/static/img/college/pic33.png' style={{width: '100%', margin: '0'}} /><br /><br />
+        <img className='pic' src='/static/img/college/pic44.png' style={{width: '100%', margin: '0'}} />
         <style global jsx>{`
-          .top-banner {
-            overflow: hidden;
+          .slider-banner {
+            margin: 0 -15px;
           }
-          .top-banner .banner-img {
-            height: 100%;
+          .slider-banner .block-a {
+            display: inline-block;
+            padding: 0 5px;
+          }
+          .slider-banner .banner-img {
             width: 100%;
-          }
-          .top-banner .react-weui-swiper__item {
-            text-align: center;
           }
         `}</style>
       </div>)
@@ -398,6 +446,8 @@ export default class extends React.Component {
   render () {
     return (
       <Layout>
+        <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css' />
+        <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css' />
         <div className='main'>
           <div className='content'>
             {this.renderTopBanner()}
@@ -412,7 +462,7 @@ export default class extends React.Component {
         </div>
         <style jsx>{`
           .content {
-            padding: 0 15px 7rem 15px;
+            padding: 0 15px 5rem 15px;
           }
         `}</style>
         <style global jsx>{`
@@ -427,6 +477,9 @@ export default class extends React.Component {
           }
           .block-tips {
             margin: 5px 0;
+          }
+          a {
+            color: initial;
           }
         `}</style>
       </Layout>
