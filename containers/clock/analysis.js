@@ -90,6 +90,7 @@ export default class extends React.Component {
     const {topic, myAnswer} = this.props
     return (
       <div className='topic'>
+        {!DataUtil.isEmpty(topic.material) && <div className='material'><strong>材料：</strong><Material content={topic.material} /></div>}
         <div className='question'>{topic.no}、{topic.question} （{topic.score}分）</div>
         <div className='options'>
           <div>{this.renderAnswerOption(topic, myAnswer.answer)}</div>
