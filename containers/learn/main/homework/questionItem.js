@@ -59,7 +59,6 @@ export default class extends React.Component {
         isUpdateActive: false
       })
     }
-    console.log(nextProps)
     if (nextProps.viewType === 'close') {
       this.backButtonClick()
     }
@@ -303,13 +302,11 @@ export default class extends React.Component {
   }
 
   backButtonClick () {
-    console.log('backButtonClick')
     this.props.chooseChapterAndLesson(this.props.chapterIndex, this.props.lessonIndex, -1)
     this.onTabClick(-1)
   }
 
   render () {
-    console.log(this.props)
     // 显示全部文字
     let style = {
       display: 'block'

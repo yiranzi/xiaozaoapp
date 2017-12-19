@@ -25,6 +25,7 @@ export default class extends React.Component {
   uploadHomework = (courseId, workId) => {
     console.log('uploadHomework')
     // 并且为了重新拉取数据 这里需要delete
+    AxiosUtil.deleteCache(`/api/work/workList/${courseId}`)
     AxiosUtil.deleteCache(`/api/work/answerList/${courseId}/${workId}/?pn=1`)
     AxiosUtil.deleteCache(`/api/work/${courseId}/${workId}`)
     AxiosUtil.deleteCache(`/api/work/myAnswer/${courseId}/${workId}`)

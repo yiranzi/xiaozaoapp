@@ -8,17 +8,19 @@ let AxiosWithCache = {}
 
 AxiosUtil.cacheInit = (reg) => {
   if (!AxiosWithCache.init) {
-    console.log('cache init!!!!!!!!!!')
+    console.log('cache init!')
     AxiosWithCache = wrapper(axios, {
       maxCacheSize: 15
     })
     AxiosWithCache.init = true
   }
+  // console.log('保存了缓存：' + reg)
   AxiosWithCache.__addFilter(new RegExp(reg))
 }
 
 AxiosUtil.deleteCache = function (url) {
   if (AxiosWithCache) {
+    console.log('删除了缓存：' + url)
     AxiosWithCache.__deleteCache(url)
   }
 }
