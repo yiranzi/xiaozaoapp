@@ -131,7 +131,12 @@ export default class extends React.Component {
     )
   }
   renderEditWork (workDetail, myAnswer, evaluate, flag) {
-    const {query} = this.props
+    const {query, currentCourseDetail} = this.props
+    let questionListAfterFix = 'courseId=' + query.courseId + '&' +
+                               'sectionId=' + query.sectionId + '&' +
+                               'title=' + encodeURI(encodeURI(currentCourseDetail.courseName)) + '&' +
+                               'totalSize=' + currentCourseDetail.pageCount + '&' +
+                               'pageNumber=' + query.pageNumber
     return (
       <div>
         <div className='wx-space-center' style={{paddingBottom: '2rem'}}>
@@ -151,7 +156,9 @@ export default class extends React.Component {
         {this.state.showWorkAnser && (
           <div>导师点评：{this.state.workAnswer}</div>
         )}
-        <Link href={`/learn/course/questionList?courseId=${query.courseId}&sectionId=${query.sectionId}&pageNumber=${query.pageNumber}`}>
+        {`/learn/course/questionList?${questionListAfterFix}`}
+        <Link
+          href={`/learn/course/questionList?${questionListAfterFix}`}>
           <Button
             style={{marginTop: '2rem', backgroundColor: ThemeConfig.color.red, position: 'fixed', bottom: '58px'}}
           >对学习内容有疑问？点击查看导师答疑</Button>
