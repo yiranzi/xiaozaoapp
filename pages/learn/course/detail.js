@@ -38,9 +38,9 @@ export default class extends React.Component {
     let pageNumber = ToolsUtil.getQueryString('pageNumber') || 1
 
     if (!DataUtil.isEmpty(footerPrint)) {
-      menuId = footerPrint.chapterId || menuId
-      sectionId = footerPrint.sectionId || sectionId
-      pageNumber = footerPrint.pageNumber || pageNumber
+      menuId = menuId || footerPrint.chapterId
+      sectionId = sectionId || footerPrint.sectionId
+      pageNumber = pageNumber || footerPrint.pageNumber
     }
     let menuContent = await AxiosUtil.get(`/api/learning/course/${courseId}`)
     let array = []
