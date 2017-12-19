@@ -35,7 +35,9 @@ export default class extends React.Component {
     slidesToShow: 1,
     slidesToScroll: 1,
     speed: 500,
-    adaptiveHeight: false
+    adaptiveHeight: false,
+    touchMove: true,
+    touchThreshold: 999999999
   }
 
   componentDidMount = async () => {
