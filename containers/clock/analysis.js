@@ -3,6 +3,7 @@ import {Form} from 'react-weui'
 import Material from '../../containers/clock/material'
 import ThemeConfig from '../../config/theme'
 import ToolsUtil from '../../util/tools'
+import DataUtil from '../../util/data'
 import Radio from '../../xz-components/radio'
 import CheckBox from '../../xz-components/checkbox'
 import Uploader from '../../xz-components/uploader'
@@ -91,7 +92,7 @@ export default class extends React.Component {
       <div className='topic'>
         <div className='question'>{topic.no}、{topic.question} （{topic.score}分）</div>
         <div className='options'>
-          <div>{this.renderAnswerOption(topic, myAnswer)}</div>
+          <div>{this.renderAnswerOption(topic, myAnswer.answer)}</div>
           <div className='analysis'>
             <div className='answer'>
               <span>参考答案：{topic.answer}</span>
@@ -99,6 +100,11 @@ export default class extends React.Component {
             <div className='content'>
               <Material content={topic.analysis} />
             </div>
+            {!DataUtil.isEmpty(myAnswer.evaluate) && (
+              <div className='evaluate'>
+              导师点评： {myAnswer.evaluate}
+              </div>
+            )}
           </div>
         </div>
         <style jsx>{`

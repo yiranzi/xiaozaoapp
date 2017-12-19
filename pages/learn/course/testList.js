@@ -74,6 +74,7 @@ export default class extends React.Component {
         <FixFooter style={{textAlign: 'center'}} onClick={() => { Router.push(`/learn/course/detail${location.search}`) }}>继续学习</FixFooter>
         <style jsx>{`
           .test-page {
+            font-size: 1rem;
             padding-left: 1rem;
             padding-right: 1rem;
           }

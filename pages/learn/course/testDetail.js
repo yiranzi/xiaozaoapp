@@ -41,7 +41,7 @@ export default class extends React.Component {
   formatAnswer (answerDTOList) {
     let json = {}
     answerDTOList.map((item, index) => {
-      json[item.id] = item.answer
+      json[item.id] = {answer: item.answer, evaluate: item.evaluate}
     })
     return json
   }
@@ -62,7 +62,7 @@ export default class extends React.Component {
         answerList: answerList
       })
     } else {
-      Alert({content: '还没有上传图片'})
+      Alert({content: '还没有上传图片', ok: () => { this.setState({isSubmit: false}) }})
       return false
     }
   }
@@ -145,9 +145,9 @@ export default class extends React.Component {
         {this.state.isSubmit && <Loading />}
         <div className='test-detail'>
           <div className='header wx-text-center'>
-            <div className='name'>{testDetail.chapterTitle}--</div>
+            <div className='name'>{testDetail.chapterTitle}</div>
             <div className='end-date'>
-              本章测试截止时间为<span style={{color: ThemeConfig.color.red}}>{DateUtil.format(testDetail.endTime, 'yyyy-MM-dd hh:mm')}</span>
+              本章测试截止时间为<span style={{color: ThemeConfig.color.red, fontSize: '1rem', marginLeft: '0.5rem'}}>{DateUtil.format(testDetail.endTime, 'yyyy-MM-dd hh:mm')}</span>
             </div>
             <div className='tips'>超过截止时间完成的测试将不会被助教点评</div>
           </div>
@@ -178,6 +178,21 @@ export default class extends React.Component {
           )}
         </div>
         <style jsx>{`
+          .header {
+            background: url('/static/img/learn/cover_long.jpeg');
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            color: #fff;
+          }
+          .header .name {
+            font-weight: bold;
+          }
+          .header .end-date {
+            font-size: 0.85rem;
+          }
+          .header .tips {
+            font-size: 0.85rem;
+          }
           .content {
             margin-top: 0.5rem;
             background-color: #fff;
@@ -187,6 +202,9 @@ export default class extends React.Component {
           }
         `}</style>
         <style global jsx>{`
+          .learn-page {
+            padding-top: 0 !important;
+          }
           .analysis img {
             width: 100%;
           }
