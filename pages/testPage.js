@@ -1,14 +1,14 @@
 import React from 'react'
-import Layout from '../../components/layout'
-import Footer from '../../components/footer'
+import Layout from '/components/layout'
+import Footer from '/components/footer'
 import {
   Swiper,
   Flex,
   FlexItem,
   LoadMore
 } from 'react-weui'
-import AxiosUtil from '../../util/axios'
-import ThemeConfig from '../../config/theme'
+import AxiosUtil from '/util/axios'
+import ThemeConfig from '/config/theme'
 import Slider from 'react-slick'
 
 export default class extends React.Component {
