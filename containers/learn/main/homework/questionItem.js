@@ -59,9 +59,6 @@ export default class extends React.Component {
         isUpdateActive: false
       })
     }
-    if (nextProps.viewType === 'close') {
-      this.backButtonClick()
-    }
   }
 
   setOverStatus (endTime, commitTime) {
@@ -240,12 +237,10 @@ export default class extends React.Component {
         currentSelect={this.state.currentSelect}
         onTabClick={this.onTabClick}>
         <TabItem title={allAnswerIcon} >
-          <InfiniteLoader style={this.props.viewType === undefined ? {height: '100vh'} : {height: 'auto'}} onLoadMore={this.loadMore}>
-            <SeeOtherWork
-              answerList={this.state.answerList}
-              courseId={courseId}
-              workId={workId} />
-          </InfiniteLoader>
+          <SeeOtherWork
+            answerList={this.state.answerList}
+            courseId={courseId}
+            workId={workId} />
         </TabItem>
         <TabItem title={myAnswerIcon} >
           <SeeMyWork
@@ -315,17 +310,19 @@ export default class extends React.Component {
     if (questionItem) {
       return (
         <MediaBox style={{marginBottom: '30px'}}>
-          <MediaBoxTitle>
-            {this.renderTitle()}
-          </MediaBoxTitle>
-          <MediaBoxDescription style={style}>
-            {this.renderContent()}
-          </MediaBoxDescription>
-          {courseStatus && <MediaBoxInfo>
-            {this.renderGoDetailLink()}
-          </MediaBoxInfo>}
-          {this.renderTabbar()}
-          {/*{this.props.viewType === 'open' && <Fixfooter style={{height: '40px', padding: '5px 10px'}}><Button className='buttonStyle' onClick={() => { this.backButtonClick() }}>查看其它章节作业</Button></Fixfooter>}*/}
+          <InfiniteLoader style={this.props.viewType === undefined ? {height: 'auto'} : {height: '100vh'} } onLoadMore={this.loadMore}>
+            <MediaBoxTitle>
+              {this.renderTitle()}
+            </MediaBoxTitle>
+            <MediaBoxDescription style={style}>
+              {this.renderContent()}
+            </MediaBoxDescription>
+            {courseStatus && <MediaBoxInfo>
+              {this.renderGoDetailLink()}
+            </MediaBoxInfo>}
+            {this.renderTabbar()}
+            {this.props.viewType === 'open' && <Fixfooter style={{height: '40px', padding: '5px 10px'}}><Button className='buttonStyle' onClick={() => { this.backButtonClick() }}>查看其它章节作业</Button></Fixfooter>}
+          </InfiniteLoader>
         </MediaBox>
       )
     } else {

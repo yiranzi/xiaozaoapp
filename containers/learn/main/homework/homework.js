@@ -8,8 +8,6 @@ import {
   PanelBody
 } from 'react-weui'
 import TitleWithIcon from '/xz-components/titleWithIcon'
-import Router from 'next/router'
-import ToolsUtil from '/util/tools'
 class innerComponent extends React.Component {
   chapterMode
   scrollTop
@@ -30,13 +28,6 @@ class innerComponent extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     this.setChapterMode(nextProps)
-    // 计算路由
-    let type = ToolsUtil.getQueryString('shallow')
-    if (!type && this.state.viewType === 'open') {
-      this.setState({
-        viewType: 'close'
-      })
-    }
   }
 
   setChapterMode (props) {
@@ -85,6 +76,7 @@ class innerComponent extends React.Component {
 
   // 点击后的回调
   chooseChapterAndLesson (currentChapterIndex, currentLessonIndex, tabChoose) {
+    console.log(tabChoose)
     // 如果不是章节设固定（可切换章节）
     if (this.chapterMode) {
       return
@@ -99,14 +91,6 @@ class innerComponent extends React.Component {
         currentLessonIndex: currentLessonIndex,
         viewType: 'open'
       })
-      // 记录路由变化。
-      const href = `/learn/course/info?courseId=${this.props.courseId}?shallow=true`
-      const as = href
-      alert(window.history.state.as)
-      alert(window.history.state.url)
-      Router.push(href, as, { shallow: true })
-      alert(window.history.state.as)
-      alert(window.history.state.url)
     } else {
       this.setState({
         viewType: undefined,
