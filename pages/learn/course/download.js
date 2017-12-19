@@ -53,7 +53,7 @@ export default class extends React.Component {
     if (list) {
       const listElement = list.map(function (item, index) {
         return (<MediaBox type='text' key={index}>
-          <MediaBoxTitle>{item.title}</MediaBoxTitle>
+          <MediaBoxTitle>{item.seq}、{item.title}</MediaBoxTitle>
           <MediaBoxDescription dangerouslySetInnerHTML={{__html: item.content}} className='resource-content' />
           <p className='wx-text-right'>
             <a href={item.path}><Button className='download-btn'>下载</Button></a>
