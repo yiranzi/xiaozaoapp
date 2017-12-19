@@ -102,8 +102,11 @@ class innerComponent extends React.Component {
       // 记录路由变化。
       const href = `/learn/course/info?courseId=${this.props.courseId}?shallow=true`
       const as = href
-      alert(href)
+      alert(window.history.state.as)
+      alert(window.history.state.url)
       Router.push(href, as, { shallow: true })
+      alert(window.history.state.as)
+      alert(window.history.state.url)
     } else {
       this.setState({
         viewType: undefined,
