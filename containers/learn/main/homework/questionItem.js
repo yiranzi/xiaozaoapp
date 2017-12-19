@@ -1,6 +1,7 @@
 import React from 'react'
 import { Tabbar, TabItem } from '/xz-components/tabbar'
 import Button from '/xz-components/button'
+import {Alert} from '/xz-components/alert'
 import DateUtil from '/util/date'
 import SeeMyWork from '/containers/learn/main/homework/seeMyWork'
 import SeeOtherWork from '/containers/learn/main/homework/seeOtherWork'
@@ -58,6 +59,10 @@ export default class extends React.Component {
         isUpdateActive: false
       })
     }
+    console.log(nextProps)
+    if (nextProps.viewType === 'close') {
+      this.backButtonClick()
+    }
   }
 
   setOverStatus (endTime, commitTime) {
@@ -94,7 +99,7 @@ export default class extends React.Component {
     // 重复点击 会取消选中
     if (this.state.currentSelect === index) {
       // 告知父组件 切换模式（单页 or list）
-      this.props.chooseChapterAndLesson(this.props.chapterIndex, this.props.lessonIndex, -1)
+      // this.props.chooseChapterAndLesson(this.props.chapterIndex, this.props.lessonIndex, -1)
       this.setState({
         currentSelect: -1
       })
@@ -107,7 +112,7 @@ export default class extends React.Component {
         this.updateStudentAnswerList()
       } else if (index === 1) {
         // 告知父组件 切换模式（单页 or list）
-        this.props.chooseChapterAndLesson(this.props.chapterIndex, this.props.lessonIndex, 1)
+        // this.props.chooseChapterAndLesson(this.props.chapterIndex, this.props.lessonIndex, 1)
         // 拉取作业数据 准备展示题目
         this.updateMyQuestionAndAnswer()
       }
@@ -119,12 +124,19 @@ export default class extends React.Component {
       this.updateMyQuestionAndAnswer()
       const doHomeWorkIndex = 1
       if (index !== doHomeWorkIndex) {
-        alert('提交完作业才可以查看其他人答案哦')
+        this.openAlert()
       }
       this.setState({
         currentSelect: doHomeWorkIndex
       })
     }
+  }
+
+  openAlert () {
+    Alert({
+      content: '提交完作业才可以查看其他人答案哦',
+      okText: '确定'
+    })
   }
 
   loadMore = async (resolve, finish) => {
@@ -170,7 +182,9 @@ export default class extends React.Component {
       answerList: data
     }, () => {
       // 告知父组件 切换模式（单页 or list）
-      this.props.chooseChapterAndLesson(this.props.chapterIndex, this.props.lessonIndex, 0)
+      if (!this.props.viewType) {
+        this.props.chooseChapterAndLesson(this.props.chapterIndex, this.props.lessonIndex, 0)
+      }
     })
   }
 
@@ -227,7 +241,7 @@ export default class extends React.Component {
         currentSelect={this.state.currentSelect}
         onTabClick={this.onTabClick}>
         <TabItem title={allAnswerIcon} >
-          <InfiniteLoader style={this.state.currentSelect === 0 ? {height: '100vh'} : {height: 'auto'}} onLoadMore={this.loadMore}>
+          <InfiniteLoader style={this.props.viewType === undefined ? {height: '100vh'} : {height: 'auto'}} onLoadMore={this.loadMore}>
             <SeeOtherWork
               answerList={this.state.answerList}
               courseId={courseId}
@@ -283,12 +297,19 @@ export default class extends React.Component {
     let {chapterId: menuId, pageNumber, sectionId, workId} = questionItem
     return (
       <Link href={{pathname: '/learn/course/detail', query: { courseId: courseId, menuId: menuId, pageNumber: pageNumber, sectionId: sectionId, workId: workId }}}>
-        <a style={{color: '#CECECE'}}>跳转链接</a>
+        <a style={{color: '#CECECE'}}>查看相关知识点</a>
       </Link>
     )
   }
 
+  backButtonClick () {
+    console.log('backButtonClick')
+    this.props.chooseChapterAndLesson(this.props.chapterIndex, this.props.lessonIndex, -1)
+    this.onTabClick(-1)
+  }
+
   render () {
+    console.log(this.props)
     // 显示全部文字
     let style = {
       display: 'block'
@@ -297,18 +318,17 @@ export default class extends React.Component {
     if (questionItem) {
       return (
         <MediaBox style={{marginBottom: '30px'}}>
-             <MediaBoxTitle>
-              {this.renderTitle()}
-            </MediaBoxTitle>
-            <MediaBoxDescription style={style}>
-              {this.renderContent()}
-            </MediaBoxDescription>
-            {courseStatus && <MediaBoxInfo>
-              {this.renderGoDetailLink()}
-            </MediaBoxInfo>}
-            {this.renderTabbar()}
-            {this.props.viewType && <Fixfooter style={{height: '40px', padding: '5px 10px'}}><Button className='buttonStyle' onClick={() => { this.onTabClick(0) }}>查看其它章节作业</Button></Fixfooter>}
-
+          <MediaBoxTitle>
+            {this.renderTitle()}
+          </MediaBoxTitle>
+          <MediaBoxDescription style={style}>
+            {this.renderContent()}
+          </MediaBoxDescription>
+          {courseStatus && <MediaBoxInfo>
+            {this.renderGoDetailLink()}
+          </MediaBoxInfo>}
+          {this.renderTabbar()}
+          {/*{this.props.viewType === 'open' && <Fixfooter style={{height: '40px', padding: '5px 10px'}}><Button className='buttonStyle' onClick={() => { this.backButtonClick() }}>查看其它章节作业</Button></Fixfooter>}*/}
         </MediaBox>
       )
     } else {

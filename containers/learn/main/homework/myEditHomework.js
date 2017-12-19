@@ -64,7 +64,6 @@ export default class extends React.Component {
 
   render () {
     let {questionInfo} = this.props
-    console.log(this.props)
     return (<div>
       <div>
         <p>请输入答案：</p>

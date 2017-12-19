@@ -41,7 +41,7 @@ export default class extends React.Component {
           <h1>{courseName}</h1>
           <Introduce courseId={this.state.courseId} />
           {payStatus && <Fixfooter>
-            <Link href={{pathname: '/learn/course/detail', query: {courseId: courseId}}}>
+            <Link replace href={{pathname: '/learn/course/detail', query: {courseId: courseId}}}>
               <a>
                 <Button style={{width: '300px'}} className='start-button'>进入课程</Button>
               </a>

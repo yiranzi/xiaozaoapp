@@ -8,7 +8,8 @@ import {
   PanelBody
 } from 'react-weui'
 import TitleWithIcon from '/xz-components/titleWithIcon'
-
+import Router from 'next/router'
+import ToolsUtil from '/util/tools'
 class innerComponent extends React.Component {
   chapterMode
   scrollTop
@@ -29,6 +30,13 @@ class innerComponent extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     this.setChapterMode(nextProps)
+    // 计算路由
+    let type = ToolsUtil.getQueryString('shallow')
+    if (!type && this.state.viewType === 'open') {
+      this.setState({
+        viewType: 'close'
+      })
+    }
   }
 
   setChapterMode (props) {
@@ -89,24 +97,21 @@ class innerComponent extends React.Component {
       this.setState({
         currentChapterIndex: currentChapterIndex,
         currentLessonIndex: currentLessonIndex,
-        viewType: 'onlyOneChapter'
+        viewType: 'open'
       })
+      // 记录路由变化。
+      const href = `/learn/course/info?courseId=${this.props.courseId}?shallow=true`
+      const as = href
+      Router.push(href, as, { shallow: true })
     } else {
-      if (this.state.viewType === 'onlyOneChapter') {
-        this.setState({
-          viewType: undefined,
-          currentChapterIndex: undefined,
-          currentLessonIndex: undefined
-        }, () => {
-          this.screenMove('off')
-          window.scrollTo(0, this.scrollTop)
-        })
-      } else {
-        this.setState({
-          currentChapterIndex: undefined,
-          currentLessonIndex: undefined
-        })
-      }
+      this.setState({
+        viewType: undefined,
+        currentChapterIndex: undefined,
+        currentLessonIndex: undefined
+      }, () => {
+        this.screenMove('off')
+        window.scrollTo(0, this.scrollTop)
+      })
     }
   }
 
