@@ -149,7 +149,7 @@ export default class extends React.Component {
       >
         {DataUtil.isEmpty(homeworkContent) ? <LoadingIcon /> : (
           <div className='homework'>
-            <div className='title'><img src='/static/img/learn/cover1.png' /><h2 className='course-name'>{menuContent.courseName}</h2></div>
+            <div className='title'><img src='/static/img/learn/cover_long.jpeg' /><h2 className='course-name'>{menuContent.courseName}</h2></div>
             {homeworkContent.map((chapter, index) => {
               return (
                 <div className='chapter' key={`h_${index}`}>
@@ -169,7 +169,7 @@ export default class extends React.Component {
         )}
         <style jsx>{`
           .homework {
-            min-height: 100vh;
+            min-height: 100%;
             background-color: #fff;
           }
           .title {
@@ -227,7 +227,9 @@ export default class extends React.Component {
               onClick={() => { this.toggleHomeWorkPop() }}
             >作业</Button>
           </div>
-          {this.props.children}
+          <div style={{paddingTop: '4rem'}}>
+            {this.props.children}
+          </div>
         </div>
         <div className='popup'>
           {this.renderCourseMenu()}
@@ -240,7 +242,12 @@ export default class extends React.Component {
             min-height: 100vh;
           }
           .header {
-            padding: 1rem;
+            padding: 0.5rem 1rem;
+            position: fixed;
+            z-index: 1;
+            width: 100%;
+            box-sizing: border-box;
+            background-color: #fff;
           }
           .course-menu-btn {
             width: 1.5rem;
