@@ -27,7 +27,10 @@ export default class extends React.Component {
       let workDetail = AxiosUtil.get(`/api/work/${courseId}/${workId}`)
       let myAnswer = AxiosUtil.get(`/api/work/myAnswer/${courseId}/${workId}`)
       let [workAnsweRes, myAnswerRes] = await Promise.all([workDetail, myAnswer])
-      let evaluate = await AxiosUtil.get(`/api/work/workAnswerEvaluate/${myAnswerRes.id}`)
+      let evaluate
+      if (!DataUtil.isEmpty(myAnswerRes)) {
+        evaluate = await AxiosUtil.get(`/api/work/workAnswerEvaluate/${myAnswerRes.id}`)
+      }
       this.setState({
         workDetail: workAnsweRes,
         myAnswer: myAnswerRes,
@@ -156,7 +159,6 @@ export default class extends React.Component {
         {this.state.showWorkAnser && (
           <div>导师点评：{this.state.workAnswer}</div>
         )}
-        {`/learn/course/questionList?${questionListAfterFix}`}
         <Link
           href={`/learn/course/questionList?${questionListAfterFix}`}>
           <Button

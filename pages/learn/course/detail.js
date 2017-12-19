@@ -33,14 +33,14 @@ export default class extends React.Component {
     let currentCourseDetail = {}
     let courseId = ToolsUtil.getQueryString('courseId')
     let footerPrint = await AxiosUtil.get(`/api/learning/getLearningFootprint/${courseId}`)
-    let menuId = ToolsUtil.getQueryString('menuId') || footerPrint.chapterId
-    let sectionId = ToolsUtil.getQueryString('sectionId') || footerPrint.sectionId
-    let pageNumber = ToolsUtil.getQueryString('pageNumber') || footerPrint.pageNumber
+    let menuId = ToolsUtil.getQueryString('menuId')
+    let sectionId = ToolsUtil.getQueryString('sectionId')
+    let pageNumber = ToolsUtil.getQueryString('pageNumber') || 1
 
     if (!DataUtil.isEmpty(footerPrint)) {
-      menuId = menuId || footerPrint.chapterId
-      sectionId = sectionId || footerPrint.sectionId
-      pageNumber = pageNumber || footerPrint.pageNumber
+      menuId = footerPrint.chapterId || menuId
+      sectionId = footerPrint.sectionId || sectionId
+      pageNumber = footerPrint.pageNumber || pageNumber
     }
     let menuContent = await AxiosUtil.get(`/api/learning/course/${courseId}`)
     let array = []
@@ -170,7 +170,9 @@ export default class extends React.Component {
     }
     let pos
     array.map((item, index) => {
-      if (json.menuId === item.menuId && json.sectionId === item.sectionId && json.pageNumber === item.pageNumber) {
+      if (json.menuId.toString() === item.menuId.toString() &&
+          json.sectionId.toString() === item.sectionId.toString() &&
+          json.pageNumber.toString() === item.pageNumber.toString()) {
         pos = index
       }
     })
@@ -201,7 +203,9 @@ export default class extends React.Component {
     }
     let pos
     array.map((item, index) => {
-      if (json.menuId === item.menuId && json.sectionId === item.sectionId && json.pageNumber === item.pageNumber) {
+      if (json.menuId.toString() === item.menuId.toString() &&
+          json.sectionId.toString() === item.sectionId.toString() &&
+          json.pageNumber.toString() === item.pageNumber.toString()) {
         pos = index
       }
     })
@@ -236,7 +240,9 @@ export default class extends React.Component {
 
     let pos
     array.map((item, index) => {
-      if (json.menuId === item.menuId && json.sectionId === item.sectionId && json.pageNumber === item.pageNumber) {
+      if (json.menuId.toString() === item.menuId.toString() &&
+        json.sectionId.toString() === item.sectionId.toString() &&
+        json.pageNumber.toString() === item.pageNumber.toString()) {
         pos = index
       }
     })
