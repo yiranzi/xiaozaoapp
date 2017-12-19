@@ -50,7 +50,17 @@ export default class extends React.Component {
         _this.setState({
           topBanner: res
         })
+
+        _this.loadOtherBannerData()
       })
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  loadOtherBannerData = async () => {
+    try {
+      const _this = this
       AxiosUtil.get(`/api/adv/getAdvByTypeAndObjId/11/1`).then(function (res) {
         _this.setState({
           feedbackBanner: res
@@ -73,7 +83,16 @@ export default class extends React.Component {
         _this.setState({
           courseType2List: res
         })
+        _this.loadOtherCourseTypeList()
       })
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  loadOtherCourseTypeList = async () => {
+    try {
+      const _this = this
       await AxiosUtil.get(`/api/learning/courseList/3`).then(function (res) {
         _this.setState({
           courseType3List: res
@@ -126,27 +145,27 @@ export default class extends React.Component {
       <Flex>
         <FlexItem>
           <div className='item'>
-            <img src='/static/img/icon/course_type2.png' /><br /><label>限时免费</label>
+            <img src='/static/img/icon/course_type22.png' /><br /><label>限时免费</label>
           </div>
         </FlexItem>
         <FlexItem>
           <div className='item'>
             <a href='#course3'>
-              <img src='/static/img/icon/course_type3.png' /><br /><label>精品课程</label>
+              <img src='/static/img/icon/course_type33.png' /><br /><label>精品课程</label>
             </a>
           </div>
         </FlexItem>
         <FlexItem>
           <div className='item'>
             <a href='#course4'>
-              <img src='/static/img/icon/course_type4.png' /><br /><label>线上训练营</label>
+              <img src='/static/img/icon/course_type44.png' /><br /><label>线上训练营</label>
             </a>
           </div>
         </FlexItem>
         <FlexItem>
           <div className='item'>
             <a href='javascript:;' onClick={() => { location.href = 'https://static.meiqia.com/dist/standalone.html?_=t&eid=63917&agentid=ed8f6b7c96fc339a6fcd6f8985624f82)' }}>
-              <img src='/static/img/icon/course_contact.png' /><br /><label>在线咨询</label>
+              <img src='/static/img/icon/course_contact11.png' /><br /><label>在线咨询</label>
             </a>
           </div>
         </FlexItem>
@@ -188,7 +207,6 @@ export default class extends React.Component {
         return (<Flex key={index}>
           {
             item.map(function (item2, index2) {
-              console.log(item2)
               return (<FlexItem key={index2}>
                 {item2.cover && <div className='item block-radius'>
                   <a href={item2.path}>
@@ -444,25 +462,47 @@ export default class extends React.Component {
   }
 
   render () {
+    const {topBanner, courseType2List} = this.state
     return (
       <Layout>
+        {(!topBanner || !courseType2List) &&
+          <div className='wrapper'>
+            <div className='loading'>
+              <img className='loading-img' src='/static/img/icon/loading.gif' />
+            </div>
+          </div>
+        }
         <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css' />
         <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css' />
         <div className='main'>
-          <div className='content'>
-            {this.renderTopBanner()}
-            {this.reneerNavbar()}
-            {this.renderCourseType2()}
-            {this.renderCourseType3()}
-            {this.renderCourseType4()}
-            {this.renderFeedbackBanner()}
-            {this.renderAdvBanner()}
-          </div>
+          {topBanner && courseType2List &&
+            <div className='content'>
+              {this.renderTopBanner()}
+              {this.reneerNavbar()}
+              {this.renderCourseType2()}
+              {this.renderCourseType3()}
+              {this.renderCourseType4()}
+              {this.renderFeedbackBanner()}
+              {this.renderAdvBanner()}
+            </div>
+          }
           <Footer type='college' />
         </div>
         <style jsx>{`
           .content {
             padding: 0 15px 5rem 15px;
+          }
+          .wrapper {
+            display: table;
+            height: 90vh;
+            width: 100%;
+          }
+          .loading {
+            display: table-cell;
+            vertical-align: middle;
+          }
+          .loading-img {
+            width: 100%;
           }
         `}</style>
         <style global jsx>{`
