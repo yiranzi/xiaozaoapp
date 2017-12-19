@@ -15,7 +15,7 @@ export default class extends React.Component {
       marginLeft: '5px',
       width: '150px'
     }
-    let fontStyle = {}
+    let fontStyle = {color: 'white'}
     // if (category === 'mine') {
     //   let bg = '/static/img/learn/cover_little.png'
     //   boxStyle = Object.assign(boxStyle, {background: `url(${bg})`, backgroundSize: 'cover'})
