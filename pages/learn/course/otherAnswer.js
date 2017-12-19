@@ -32,7 +32,7 @@ export default class extends React.Component {
     const {courseId, workId} = query
     return (
       <Layout>
-        {courseId && workId && <Homework courseStatus={'doing'} courseId={parseInt(courseId)} workId={parseInt(workId)} />}
+        {courseId && workId && <Homework tabSelect={0} courseStatus={'doing'} courseId={parseInt(courseId)} workId={parseInt(workId)} />}
         <FixFooter style={{textAlign: 'center'}} onClick={() => { history.go(-1) }}>继续学习</FixFooter>
       </Layout>
     )
