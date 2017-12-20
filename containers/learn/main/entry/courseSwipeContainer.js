@@ -80,7 +80,7 @@ export default class extends React.Component {
       // 我的课程字段
       let title = course.courseName
       let content = `${course.buyCount}人正在学习`
-      let info = course.endDate && DateUtil.format(course.endDate, 'yy-MM-dd')
+      let info = course.endDate && DateUtil.format(course.endDate, 'yyyy-MM-dd')
       //
       let finishPercent = 0.55
       let afterCalcCount
