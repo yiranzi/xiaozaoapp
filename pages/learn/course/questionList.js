@@ -83,6 +83,7 @@ export default class extends React.Component {
           myPageQuestionList.data = list
           myPageQuestionList.ended = list.length === 5
           this.state.body.myPageQuestionList = myPageQuestionList
+          this.state.form.question = ''
           this.setState({})
         }
       }
@@ -241,15 +242,20 @@ export default class extends React.Component {
   }
 
   renderPutQuestion () {
-    return (<div className='add-question-block'>
-      <MyTextArea className='question-textarea' onChange={(value) => this.handleChange(value)} key={'question-' + this.state.textareaKey} placeholder='输入自己的问题，我们的导师看到后会来回答你哦' />
-      <Button size='small' type='warn' onClick={(e) => this.putQuestion()} className='wx-pull-right'>提问</Button>
-      <p className='tips'><small>每个课程页最多可提5个问题</small></p>
-      <style global jsx>{`
-        .add-question-block {
-          padding: 0 15px;
-        }
-      `}</style>
+    return (<div className='wx-bottom-fixed'>
+      <div className='add-question-block'>
+        <MyTextArea className='question-textarea' rows={2} onChange={(value) => this.handleChange(value)} key={'question-' + this.state.textareaKey} placeholder='输入自己的问题，我们的导师看到后会来回答你哦' />
+        <Button size='small' type='warn' onClick={(e) => this.putQuestion()} className='wx-pull-right'>提问</Button>
+        <p className='tips'><small>每个课程页最多可提5个问题</small></p>
+        <style global jsx>{`
+          .add-question-block {
+            border-top: 1px solid ${ThemeConfig.color.border};
+          }
+          .question-textarea {
+            height: auto !important;
+          }
+        `}</style>
+      </div>
     </div>)
   }
 
@@ -257,9 +263,8 @@ export default class extends React.Component {
     return (
       <Layout className='main-style'>
         {this.state.tab === 0 &&
-          <div>
+          <div className='wx-navbar-margin'>
             {this.renderTabbar()}
-            {this.renderPutQuestion()}
           </div>
         }
         {this.state.tab === 1 &&
@@ -271,8 +276,10 @@ export default class extends React.Component {
             </div>
           </InfiniteLoader>
         }
+        {this.renderPutQuestion()}
         <style global jsx>{`
           .wx-navbar-margin {
+            padding-bottom: 120px;
           }
           .data-list {
           }
@@ -282,6 +289,7 @@ export default class extends React.Component {
           }
           .main-style {
             background-color: ${ThemeConfig.color.gray};
+            height: 100vh;
           }
         `}</style>
       </Layout>

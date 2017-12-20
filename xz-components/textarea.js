@@ -8,13 +8,16 @@ export default class MyTextArea extends React.Component {
     defaultValue: PropTypes.string,
     maxLength: PropTypes.number,
     onChange: PropTypes.func,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    rows: PropTypes.number,
+    style: PropTypes.string,
+    className: PropTypes.string
   }
   static defaultProps = {
     onChange: function () {}
   }
   render () {
-    const {placeholder, defaultValue, maxLength, onChange, disabled} = this.props
+    const {placeholder, defaultValue, maxLength, onChange, disabled, rows, style, className} = this.props
     return (
       <Form className='textarea'>
         <FormCell>
@@ -25,6 +28,9 @@ export default class MyTextArea extends React.Component {
               maxLength={maxLength}
               onChange={(e) => onChange(e.target.value)}
               disabled={disabled}
+              rows={rows}
+              style={style}
+              className={className}
             />
           </CellBody>
         </FormCell>
