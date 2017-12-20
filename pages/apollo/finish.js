@@ -6,6 +6,7 @@ import Button from '../../xz-components/button'
 import DataUtil from '../../util/data'
 import Loading from '../../xz-components/loading'
 import {Alert} from '../../xz-components/alert'
+import {Confirm} from '../../xz-components/confirm'
 
 export default class extends React.Component {
   offerPostDate = {}
@@ -36,9 +37,18 @@ export default class extends React.Component {
           this.setState({isSubmit: true})
           await AxiosUtil.post(`/api/apollo/uploadOffer?title=${this.offerPostDate.name}`, formdata)
           this.setState({isSubmit: false})
-          Alert({content: (<div style={{textAlign: 'left'}}>恭喜小伙伴，获得实习offer，赢回押金哦！欢迎添加小助手 Joan（微信：Joan629-v5）分享你的实习求职经验，即可获得【成为优秀实习生攻略】！<br />温馨提示：入群押金会在（2018年1月8日-2018年1月12日）期间原路退还。</div>), okText: '确认'})
+          let content = <div style={{textAlign: 'left'}}>我就知道你能行！这一次小灶为你打Call！点击按钮领奖品吧。 奖品密码: k5r4
+            加微信“xiaozao233”，备注“小灶offer”，进入小灶offer群，offer达人聚集地！</div>
+          // Alert({content: content, okText: '去领奖', ok: () => { location.href = 'https://pan.baidu.com/s/1o7VXfg2' })
         } catch (e) {
-          Alert({content: e.message, okText: '确认'})
+          // Alert({content: e.message, okText: '确认'})
+          let content = <div style={{textAlign: 'left'}}>
+            <p>我就知道你能行！这一次小灶为你打Call！点击按钮领奖品吧。 </p>
+            <p>奖品密码: <strong style={{color: 'red'}}>k5r4</strong></p>
+            <p>加微信“xiaozao233”，备注“小灶offer”，进入小灶offer群，offer达人聚集地！</p>
+          </div>
+          Alert({content: content, okText: '去领奖', ok: () => { location.href = 'https://pan.baidu.com/s/1o7VXfg2' }})
+
           this.setState({isSubmit: false})
         }
       } else {
