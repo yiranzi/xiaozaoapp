@@ -1,16 +1,19 @@
 import React from 'react'
+import Router from 'next/router'
 import ThemeConfig from '../../../config/theme'
 import ToolsUtil from '../../../util/tools'
 import AxiosUtil from '../../../util/axios'
 import DataUtil from '../../../util/data'
 import DateUtil from '../../../util/date'
-import Layout from '../../../containers/learn/layout'
+import Layout from '../../../components/layout'
 import Topic from '../../../containers/clock/topic'
 import Analysis from '../../../containers/clock/analysis'
 import Loading from '../../../xz-components/loading'
 import Button from '../../../xz-components/button'
 import {Confirm} from '../../../xz-components/confirm'
 import {Alert} from '../../../xz-components/alert'
+import FixFooter from '../../../xz-components/fixfooter'
+
 
 export default class extends React.Component {
   constructor (props) {
@@ -177,6 +180,7 @@ export default class extends React.Component {
             </div>
           )}
         </div>
+        <FixFooter style={{textAlign: 'center'}} onClick={() => { Router.push(`/learn/course/detail${location.search}`) }}>继续学习</FixFooter>
         <style jsx>{`
           .header {
             background: url('/static/img/learn/cover_long.jpeg');
