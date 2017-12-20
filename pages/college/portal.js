@@ -116,7 +116,7 @@ export default class extends React.Component {
       const bannerElements = topBanner.map(function (item, index) {
         return (<div key={index}>
           <a href={item.url ? item.url : 'javascript:;'}>
-            <img className='banner-img' src={item.img} /></a>
+            <img className='banner-img block-radius' src={item.img} /></a>
         </div>)
       })
 
@@ -129,8 +129,12 @@ export default class extends React.Component {
             overflow: hidden;
             box-shadow: 2px 2px 54px 10px #f0f0f0;
           }
+          .top-banner .react-weui-swiper__item {
+            border-radius: 8px;
+            overflow: hidden;
+          }
           .top-banner .banner-img {
-            height: 100%;
+            height: auto;
             width: 100%;
           }
         `}</style>
@@ -468,7 +472,7 @@ export default class extends React.Component {
         {(!topBanner || !courseType2List) &&
           <div className='wrapper'>
             <div className='loading'>
-              <img className='loading-img' src='/static/img/icon/loading.gif' />
+              <LoadMore loading> 加载中...</LoadMore>
             </div>
           </div>
         }
@@ -522,8 +526,9 @@ export default class extends React.Component {
           a {
             color: initial;
           }
-          body {
-            
+          .weui-loading {
+            width: 25px !important;
+            height: 25px !important;
           }
         `}</style>
       </Layout>
