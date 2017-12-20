@@ -67,7 +67,7 @@ export default class extends React.Component {
     this.state.form.pageNumber = pageNumber
     this.state.query.sectionId = sectionId
     this.state.query.pageNumber = pageNumber
-    this.state.body.title = title
+    this.state.body.title = decodeURI(decodeURI(title))
     this.state.body.totalSize = totalSize
     this.setState({})
   }
