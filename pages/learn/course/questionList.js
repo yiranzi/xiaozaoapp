@@ -169,8 +169,9 @@ export default class extends React.Component {
   }
 
   keepOnCourse () {
-    location.href = '/learn/course/detail?courseId=' + this.state.form.courseId + '&sectionId=' +
-      this.state.query.sectionId + '&pageNumber=' + this.state.query.pageNumber
+    history.go(-1)
+    // location.href = '/learn/course/detail?courseId=' + this.state.form.courseId + '&sectionId=' +
+    //   this.state.query.sectionId + '&pageNumber=' + this.state.query.pageNumber
   }
 
   renderTabbar () {

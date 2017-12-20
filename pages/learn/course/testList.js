@@ -115,7 +115,7 @@ export default class extends React.Component {
           {done && this.renderList()}
           {!done && <LoadingIcon />}
         </div>
-        <FixFooter style={{textAlign: 'center'}} onClick={() => { Router.push(`/learn/course/detail${location.search}`) }}>继续学习</FixFooter>
+        <FixFooter style={{textAlign: 'center'}} onClick={() => { history.go(-1) }}>继续学习</FixFooter>
         <style jsx>{`
           .test-page {
             font-size: 1rem;

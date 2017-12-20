@@ -82,7 +82,6 @@ export default class extends React.Component {
     return res
   }
   submitConfirm () {
-    this.submit()
     const _this = this
     let {testDetail, answerList} = this.state
     if (Object.keys(answerList).length === testDetail.topicDTOList.length) {
@@ -180,8 +179,11 @@ export default class extends React.Component {
             </div>
           )}
         </div>
-        <FixFooter style={{textAlign: 'center'}} onClick={() => { Router.push(`/learn/course/detail${location.search}`) }}>继续学习</FixFooter>
+        <FixFooter style={{textAlign: 'center'}} onClick={() => { history.go(-1) }}>继续学习</FixFooter>
         <style jsx>{`
+          .test-detail {
+            padding-bottom: 3rem;
+          }
           .header {
             background: url('/static/img/learn/cover_long.jpeg');
             padding-top: 1rem;
