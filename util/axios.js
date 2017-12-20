@@ -51,7 +51,7 @@ function request (param) {
         }
       } else {
         Tips.info({
-          children: error
+          children: error.message
         })
         reject(error.message)
       }

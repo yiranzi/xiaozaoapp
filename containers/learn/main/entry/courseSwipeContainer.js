@@ -57,7 +57,7 @@ export default class extends React.Component {
     let arr = courseGroupList.map((course, index) => {
       let title = course.title
       let content = `${course.buyCount}人正在学习`
-      let info = course.start && DateUtil.format(course.start, 'yy-MM-dd')
+      let info = course.start && DateUtil.format(course.start, 'yyyy-MM-dd')
       info += '开课'
       return (
         <CourseInfoBar

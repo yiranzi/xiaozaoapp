@@ -1,11 +1,10 @@
 import React from 'react'
 import Introduce from '/containers/learn/main/introduce'
-import Button from '/xz-components/button'
 import Loading from '/xz-components/loadingicon'
 import Layout from '/components/layout'
 import ToolsUtil from '/util/tools'
 import AxiosUtil from '/util/axios'
-import Link from 'next/link'
+import Router from 'next/router'
 import Fixfooter from '/xz-components/fixfooter'
 
 export default class extends React.Component {
@@ -40,13 +39,12 @@ export default class extends React.Component {
         <div className='introduce'>
           <h1>{courseName}</h1>
           <Introduce courseId={this.state.courseId} />
-          {payStatus && <Fixfooter>
-            <Link replace href={{pathname: '/learn/course/detail', query: {courseId: courseId}}}>
-              <a>
-                <Button style={{width: '300px'}} className='start-button'>进入课程</Button>
-              </a>
-            </Link>
-          </Fixfooter>}
+          {payStatus && (
+            <Fixfooter
+              style={{textAlign: 'center'}}
+              onClick={() => { Router.push(`/learn/course/info${location.search}`) }}
+            >返回课程</Fixfooter>
+          )}
         </div>
         <style jsx>{`
           .introduce {

@@ -15,61 +15,69 @@ export default class extends React.Component {
     this.state = {
       query: {
         courseId: ''
-      }
+      },
+      testList: [],
+      done: false
     }
   }
 
   componentDidMount = async () => {
     let courseId = ToolsUtil.getQueryString('courseId')
     let testList = await AxiosUtil.get(`/api/learning-test/getByCourseId/${courseId}`)
-
     this.setState({
       query: {
         courseId: courseId
       },
-      testList: testList
+      testList: testList,
+      done: true
     })
   }
   isFinish (answerTotalScore) {
     return !DataUtil.isNull(answerTotalScore)
   }
-  render () {
+  renderList () {
     const _this = this
     const {query, testList} = this.state
+    if (DataUtil.isEmpty(testList)) return <div className='test-detail'>本课程暂无测试</div>
+    return (
+      <div className='test-detail'>
+        {testList.map((item, index) => {
+          return (
+            <Card key={`test-item-${index}`}>
+              <Link href={{pathname: '/learn/course/testDetail', query: {courseId: query.courseId, testId: item.testId}}}>
+                {_this.isFinish(item.answerTotalScore) ? (
+                  <div className='test-item wx-space-center'>
+                    <div className='left wx-space-left'>
+                      <div className='icon'><img src='/static/img/icon/prise.png' /></div>
+                      <div className='chapter-title'>{item.chapterTitle}</div>
+                    </div>
+                    <div className='result'>
+                      {`${item.answerTotalScore}分/${item.totalScore}分`}
+                    </div>
+                  </div>
+                ) : (
+                  <div className='test-item wx-space-center'>
+                    <div className='left wx-space-left'>
+                      <div className='icon'><img src='/static/img/icon/uprise.png' /></div>
+                      <div className='chapter-title'>{item.chapterTitle}</div>
+                    </div>
+                    <div className='result'>未完成</div>
+                  </div>
+                )}
+              </Link>
+            </Card>
+          )
+        })}
+      </div>
+    )
+  }
+  render () {
+    const {done} = this.state
     return (
       <Layout>
         <div className='test-page'>
-          {DataUtil.isEmpty(testList) ? <LoadingIcon /> : (
-            <div className='test-detail'>
-              {testList.map((item, index) => {
-                return (
-                  <Card key={`test-item-${index}`}>
-                    <Link href={{pathname: '/learn/course/testDetail', query: {courseId: query.courseId, testId: item.testId}}}>
-                      {_this.isFinish(item.answerTotalScore) ? (
-                        <div className='test-item wx-space-center'>
-                          <div className='left wx-space-left'>
-                            <div className='icon'><img src='/static/img/icon/prise.png' /></div>
-                            <div className='chapter-title'>{item.chapterTitle}</div>
-                          </div>
-                          <div className='result'>
-                            {`${item.answerTotalScore}分/${item.totalScore}分`}
-                          </div>
-                        </div>
-                      ) : (
-                        <div className='test-item wx-space-center'>
-                          <div className='left wx-space-left'>
-                            <div className='icon'><img src='/static/img/icon/uprise.png' /></div>
-                            <div className='chapter-title'>{item.chapterTitle}</div>
-                          </div>
-                          <div className='result'>未完成</div>
-                        </div>
-                      )}
-                    </Link>
-                  </Card>
-                )
-              })}
-            </div>
-          )}
+          {done && this.renderList()}
+          {!done && <LoadingIcon />}
         </div>
         <FixFooter style={{textAlign: 'center'}} onClick={() => { Router.push(`/learn/course/detail${location.search}`) }}>继续学习</FixFooter>
         <style jsx>{`

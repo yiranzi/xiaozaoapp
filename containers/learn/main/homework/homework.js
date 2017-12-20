@@ -161,7 +161,13 @@ class innerComponent extends React.Component {
         `}</style>
       </div>)
     } else {
-      return null
+      return (
+        <Panel style={{marginBottom: '30px'}}>
+          <PanelBody>
+            暂无作业
+          </PanelBody>
+        </Panel>
+      )
     }
   }
 }

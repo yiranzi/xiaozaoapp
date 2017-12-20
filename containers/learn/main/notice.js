@@ -26,7 +26,16 @@ class innerComponent extends React.Component {
         })}
       </Panel>)
     } else {
-      return null
+      return (
+        <Panel className='introduce'>
+          <MediaBox>
+            <MediaBoxTitle />
+            <MediaBoxDescription style={{display: 'block'}}>
+            暂无公告
+            </MediaBoxDescription>
+          </MediaBox>
+        </Panel>
+      )
     }
   }
 }
