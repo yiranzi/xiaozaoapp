@@ -59,6 +59,9 @@ export default class extends React.Component {
               .weui-media-box {
                 padding: 10px !important;
               }
+              .course-info-bar .weui-media-box__title {
+                margin-bottom: 0 !important;
+              }
             `}</style>
           </div>
         </a>

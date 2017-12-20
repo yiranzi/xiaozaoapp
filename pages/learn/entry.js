@@ -78,6 +78,9 @@ export default class extends React.Component {
             padding: 0.5rem 0 !important;
             font-size: 1rem !important;
           }
+          .weui-tab__panel {
+            padding-bottom: 10px !important;
+          }
         `}</style>
       </Tab>)
   }

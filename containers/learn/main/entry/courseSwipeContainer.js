@@ -136,7 +136,7 @@ export default class extends React.Component {
     return (
       <MediaBox style={{minHeight: '126px'}}>
         <Link href={this.props.routerUrl}>
-          <a><MediaBoxTitle style={{margin: 'auto auto -5px 6px'}}>{this.props.title} ></MediaBoxTitle></a>
+          <a><MediaBoxTitle style={{margin: 'auto auto 0px 6px'}}>{this.props.title} ></MediaBoxTitle></a>
         </Link>
         <MediaBoxBody style={{display: 'flex', overflow: 'auto'}}>
           {this.renderCourseList()}
@@ -144,6 +144,9 @@ export default class extends React.Component {
         <style global jsx>{`
         .weui-media-box__title {
           font-size: 1rem !important;
+        }
+        .weui-media-box:before {
+          border: none !important;
         }
       `}</style>
       </MediaBox>
