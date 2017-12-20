@@ -98,7 +98,7 @@ export default class extends React.Component {
                 font-size: 14px;
                 display: flex;
                 background-color: white;
-                margin: 10px auto;
+                margin: 5px auto;
               }
               .course-img {
                 flex: 1;
@@ -108,15 +108,17 @@ export default class extends React.Component {
                 height: 100%;
               }
               .course-info {
-                padding: 10px;
+                padding: 5px;
                 flex: 2;
               }
               .course-info h2 {
-                font-size: 18px;
+                font-size: 16px;
+                font-weight: normal;
               }
               .more-info {
                 display: flex;
                 justify-content: space-between;
+                font-size: 12px;
               }
             `}</style>
           </a>

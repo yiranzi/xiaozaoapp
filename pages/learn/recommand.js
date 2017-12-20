@@ -82,7 +82,7 @@ export default class extends React.Component {
               </div>
               <div className='course-info' >
                 <h2 className=''>{title}</h2>
-                <br />
+                {/*<br />*/}
                 <div className='more-info'>
                   <span>{buyCount}人已报名</span>
                   <span>{DateUtil.format(new Date(start), 'yyyy-MM-dd')}开课</span>
@@ -93,7 +93,7 @@ export default class extends React.Component {
               .course-view-line {
                 display: flex;
                 background-color: white;
-                margin: 10px auto;
+                margin: 5px auto;
                 font-size: 14px;
                 {/*height: 70px;*/}
               }
@@ -106,16 +106,17 @@ export default class extends React.Component {
                 height: 100%;
               }
               .course-info {
-                padding: 10px;
+                padding: 5px;
                 flex: 2;
               }
               .course-info h2 {
-                font-size: 18px;
+                font-size: 16px;
+                font-weight: normal;
               }
               .more-info {
-
                 display: flex;
                 justify-content: space-between;
+                font-size: 12px;
               }
             `}</style>
           </a>
