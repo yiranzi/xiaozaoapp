@@ -68,7 +68,9 @@ export default class extends React.Component {
     return (<div>
       <div>
         <p>请输入答案：</p>
-        <Option topic={questionInfo} onChange={(id, value) => this.workChange(value, questionInfo.type)} />
+        <Option
+          topic={questionInfo}
+          onChange={(id, value) => this.workChange(value, questionInfo.type)} />
         <div className='wx-text-center'>
           <Button size='small' onClick={() => { this.submitWork(questionInfo.type) }}>上传作业</Button>
         </div>

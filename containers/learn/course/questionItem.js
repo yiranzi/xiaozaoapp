@@ -98,7 +98,7 @@ export default class extends React.Component {
   renderEvaluateInfo () {
     const { evaluate } = this.state
     return (<MediaBoxInfo>
-      <div className='wx-text-right' onClick={this.showEvaluateInfo} style={{margin: '5px 0'}}>导师点评</div>
+      <div className='wx-text-right' onClick={this.showEvaluateInfo} style={{margin: '5px 0'}}>导师已评价</div>
       {evaluate && this.state.showEvaluate &&
         (<div>
           <MediaBox className='evaluate feedback-item'>

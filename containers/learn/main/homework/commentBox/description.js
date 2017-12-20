@@ -1,6 +1,7 @@
 import React from 'react'
 import MoreContent from '/xz-components/moreContent'
 import {MediaBoxDescription} from 'react-weui'
+import DataUtil from '/util/data'
 
 /**
  * 内容。
@@ -8,7 +9,32 @@ import {MediaBoxDescription} from 'react-weui'
  */
 
 export default class extends React.Component {
-  render () {
+  renderByType () {
+    let {type} = this.props
+    type = 3
+    switch (type) {
+      case 3:
+        return (this.renderImg())
+      case 5:
+
+      default:
+        return (this.renderTxt())
+    }
+  }
+
+  renderAudio () {
+
+  }
+
+  renderImg () {
+    let {content: imgUrl} = this.props
+    imgUrl = `http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/learning/workFile/${imgUrl}`
+    return (
+      <img style={{width: '100%'}} src={imgUrl} />
+    )
+  }
+
+  renderTxt () {
     let {content, canFold} = this.props
     if (content) {
       if (canFold) {
@@ -20,6 +46,15 @@ export default class extends React.Component {
           <div><div dangerouslySetInnerHTML={{__html: content}} /></div>
         </MediaBoxDescription>)
       }
+    } else {
+      return null
+    }
+  }
+
+  render () {
+    let {content} = this.props
+    if (content) {
+      return (this.renderByType())
     } else {
       return null
     }
