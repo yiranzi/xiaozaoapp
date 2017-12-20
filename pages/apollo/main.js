@@ -1,13 +1,13 @@
 import React from 'react'// 库
 import Button from '../../xz-components/button'
 import {ModalBoxPopFunc} from '../../xz-components/modalbox'
-import DateSelector from '../../containers/apollo/DateSelector'// 自定义组件
+import DateSelector from '../../containers/apollo/dateSelector'// 自定义组件
 import Layout from '../../components/layout'// container
 import ThemeConfig from '../../config/theme'
 import { Confirm } from '../../xz-components/confirm'
 import WxShare from '../../xz-components/wxshare'
 import AxiosUtil from '../../util/axios'
-
+import Link from 'next/link'
 // 介绍页
 export default class extends React.Component {
   todayDayKey
@@ -101,7 +101,7 @@ export default class extends React.Component {
         content: content,
         okText: '去投递',
         cancelText: '残忍拒绝',
-        ok: () => { this.goRouter('https://wx.xiaozao.org') }
+        ok: () => { this.goRouter('http://wx.xiaozao.org') }
       })
     }
     // 刷新
@@ -113,10 +113,10 @@ export default class extends React.Component {
     let prop = {
       title: '我正在参加 - 找实习有投必反馈的【阿波罗实习计划】...',
       desc: '立即申请加入阿波罗实习计划',
-      link: 'https://wx.xiaozao.org/redirect?url=https://detail.youzan.com/show/goods?alias=26winu6syk8pd&v2/goods/26winu6syk8pd',
-      imgUrl: 'https://wx.xiaozao.org/static/img/apollo/share-icon.jpg',
+      link: 'http://wx.xiaozao.org/redirect?url=https://detail.youzan.com/show/goods?alias=26winu6syk8pd&v2/goods/26winu6syk8pd',
+      imgUrl: 'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg',
       success: function () {
-        AxiosUtil.get(`/api/interview/getWXConfig?url=onApolloMain`)
+        AxiosUtil.get(`/api/wxconfig/getWXConfig?url=onApolloMain`)
       }
     }
     return (<WxShare {...prop} />)
@@ -316,7 +316,11 @@ export default class extends React.Component {
       <h1 className='content'>今日有<span className='count'> {this.state.todayFinishCount} </span>人完成打卡</h1>
       <div className='flex'>
         <div>{this.renderAvatar()}</div>
-        <div className='content' onClick={() => { this.goRouter('/apollo/rank') }}>查看总排行榜 ></div>
+        <Link href={{pathname: '/apollo/rank'}}>
+          <a>
+            <div className='content'>查看总排行榜 ></div>
+          </a>
+        </Link>
       </div>
       <style jsx>{`
         .flex {
@@ -372,12 +376,15 @@ export default class extends React.Component {
         <span>点击获取实习干货</span>
         <span>{'>'}</span>
       </div>
-      {this.todayDayKey > 318 && <div className='colume-inner has-border-div' onClick={() => { this.goRouter('/apollo/finish') }}>
-        <span>我已找到实习，结束打卡</span>
-        <span>{'>'}</span>
-      </div>}
-      <style>{
-        `
+      {this.todayDayKey > 318 && <Link href={{pathname: '/apollo/finish'}}>
+        <a style={{width: '100%'}}>
+          <div className='colume-inner has-border-div'>
+            <span>我已找到实习，结束打卡</span>
+            <span>{'>'}</span>
+          </div>
+        </a>
+      </Link>}
+      <style>{`
         .column {
           font-size: 16px;
           margin: -1rem auto -1rem auto;
@@ -391,8 +398,7 @@ export default class extends React.Component {
         .has-border-div {
           border-top: 1px solid ${ThemeConfig.color.deepBorder};
         }
-        `
-      }</style>
+      `}</style>
     </div>)
   }
 
