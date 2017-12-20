@@ -140,17 +140,25 @@ export default class extends React.Component {
     const {bannerList} = this.state
     if (DataUtil.isEmpty(bannerList)) return <LoadingIcon />
     return (
-      <Swiper height={100}>
-        {bannerList.map((item, index) => {
-          return (
-            <div key={`banner-${index}`}>
-              <a href={item.url} style={{display: 'block'}}>
-                <img src={item.img} style={{width: '100%', height: '100%'}} />
-              </a>
-            </div>
-          )
-        })}
-      </Swiper>
+      <div className='top-banner'>
+        <Swiper>
+          {bannerList.map((item, index) => {
+            return (
+              <div key={`banner-${index}`}>
+                <a href={item.url} style={{display: 'block', width: '100%', height: '100%'}}>
+                  <img src={item.img} style={{width: '100%', height: '100%'}} />
+                </a>
+              </div>
+            )
+          })}
+        </Swiper>
+        <style jsx>{`
+          .top-banner {
+            width: 100%;
+            height: 200px;
+          }
+        `}</style>
+      </div>
     )
   }
 

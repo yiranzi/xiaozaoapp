@@ -17,9 +17,19 @@ class innerComponent extends React.Component {
         {data.map((ele, index) => {
           let createTime = DateUtil.format(ele.createTime, 'yyyy-MM-dd')
           return (<MediaBox key={index}>
-            <MediaBoxTitle>{ele.title}</MediaBoxTitle>
+            <MediaBoxTitle>
+              <div className='introduce-title'>
+                <p>{ele.title}</p>
+                <p className='create-time'>{createTime}</p>
+                <style jsx>{`
+                  .introduce-title {
+                    display: felx;
+                    justify-content: space-between;
+                  }
+                `}</style>
+              </div>
+            </MediaBoxTitle>
             <MediaBoxDescription style={{display: 'block'}}>
-              <p className='create-time'>{createTime}</p>
               <p dangerouslySetInnerHTML={{__html: ele.content}} />
             </MediaBoxDescription>
           </MediaBox>)
