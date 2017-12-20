@@ -95,12 +95,6 @@ export default class extends React.Component {
         <NavBarItem label='讨论'><Discuss courseId={courseId} /></NavBarItem>
         <NavBarItem label='成就'><Achieve courseId={courseId} /></NavBarItem>
       </Tab>
-      <style jsx>{`
-        .course-tab-bar1 {
-          display: flex;
-          width: 100%;
-        }
-      `}</style>
       <style global jsx>{`
       .course-tab-bar .weui-navbar__item {
         padding: 0;
