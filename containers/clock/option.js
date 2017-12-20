@@ -59,6 +59,7 @@ export default class extends React.Component {
             key={name}
             defaultValue={defaultValue}
             updateRecording={(res) => this.props.updateRecording(res)}
+            updatePlaying={(res) => this.props.updatePlaying(res)}
             onChange={(value) => { this.props.onChange(id, value) }} />
         )
       }

@@ -93,6 +93,9 @@ export default class extends React.Component {
   updateRecording (res) {
     this.setState({isRecording: res})
   }
+  updatePlaying (res) {
+    this.setState({isPlaying: res})
+  }
   editMyWork () {
     this.setState({disabled: !this.state.disabled})
   }
