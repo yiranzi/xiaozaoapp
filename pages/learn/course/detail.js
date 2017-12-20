@@ -9,6 +9,7 @@ import Button from '../../../xz-components/button'
 import Traning from '../../../containers/learn/course/traning'
 import CoursePageTitle from '../../../containers/learn/course/coursePageTitle'
 import MyWork from '../../../containers/learn/course/myWork'
+import Router from 'next/router'
 
 export default class extends React.Component {
   constructor (props) {
@@ -27,6 +28,10 @@ export default class extends React.Component {
       homeworkContent: {}, // 右侧作业列表
       detail: {} // 需要展示的内容,
     }
+  }
+
+  getInitialProps () {
+    console.log('getInitialProps11231231')
   }
 
   componentDidMount = async () => {
@@ -232,6 +237,7 @@ export default class extends React.Component {
     )
   }
   loadPage (type) {
+    console.log(type)
     let {query, array} = this.state
 
     let {courseId, sectionId, menuId, pageNumber} = query
@@ -254,12 +260,16 @@ export default class extends React.Component {
     if (type === 'next') {
       let next = array[pos + 1]
       if (!DataUtil.isEmpty(next)) {
-        location.href = `/learn/course/detail?courseId=${courseId}&menuId=${next.menuId}&sectionId=${next.sectionId}&pageNumber=${next.pageNumber}`
+        let url = `/learn/course/detail?courseId=${courseId}&menuId=${next.menuId}&sectionId=${next.sectionId}&pageNumber=${next.pageNumber}`
+        Router.replace(url)
+        window.history.go(0)
       }
     } else if (type === 'prev') {
       let prev = array[pos - 1]
       if (!DataUtil.isEmpty(prev)) {
-        location.href = `/learn/course/detail?courseId=${courseId}&menuId=${prev.menuId}&sectionId=${prev.sectionId}&pageNumber=${prev.pageNumber}`
+        let url = `/learn/course/detail?courseId=${courseId}&menuId=${prev.menuId}&sectionId=${prev.sectionId}&pageNumber=${prev.pageNumber}`
+        Router.replace(url)
+        window.history.go(0)
       }
     }
   }

@@ -10,6 +10,7 @@ import Button from '../../../xz-components/button'
 import Popup from '../../../xz-components/popup'
 import LoadingIcon from '../../../xz-components/loadingicon'
 import Accordion from '../../../xz-components/accordion'
+import Router from 'next/router'
 
 const {Panel} = Accordion
 
@@ -61,7 +62,9 @@ export default class extends React.Component {
                                 className='section'
                                 onClick={() => {
                                   this.toggleCourseMenuPop()
-                                  location.href = `/learn/course/detail?courseId=${courseId}&menuId=${menu.id}&sectionId=${section.id}&pageNumber=1`
+                                  let url = `/learn/course/detail?courseId=${courseId}&menuId=${menu.id}&sectionId=${section.id}&pageNumber=1`
+                                  Router.replace(url)
+                                  window.history.go(0)
                                 }}
                               >{section.name}</a>
                             </CellBody>
@@ -156,7 +159,11 @@ export default class extends React.Component {
                   <div className='header wx-space-left'><img src='/static/img/learn/course/file.png' /><span>{chapter.chapterName}</span></div>
                   {chapter.childLearningCourseWorkDTOList.map((work, index) => {
                     return (
-                      <div key={`w_${index}`} className='work wx-space-center' onClick={() => { location.href = `/learn/course/detail?courseId=${query.courseId}&menuId=${work.chapterId}&sectionId=${work.sectionId}&pageNumber=${work.pageNumber}` }}>
+                      <div key={`w_${index}`} className='work wx-space-center' onClick={() => {
+                        let url = `/learn/course/detail?courseId=${query.courseId}&menuId=${work.chapterId}&sectionId=${work.sectionId}&pageNumber=${work.pageNumber}`
+                        Router.replace(url)
+                        window.history.go(0)
+                      }}>
                         <div className='sub-title'>{work.title}</div>
                         <div className='over'>{work.overWork ? <Icon style={{color: '#3ea6f7', fontSize: '1rem'}} value='success-no-circle' /> : <Icon style={{color: ThemeConfig.color.content, fontSize: '1rem'}} value='success-no-circle' />}</div>
                       </div>
