@@ -5,7 +5,9 @@ export default class extends React.Component {
     return (
       <div className='wx-text-center page-hd'>
         <h3>{this.props.title}</h3>
-        <p><small>第{this.props.pageNumber}页/共{this.props.totalSize}页</small></p>
+        {this.props.totalSize &&
+          <p><small>第{this.props.pageNumber}页/共{this.props.totalSize}页</small></p>
+        }
       </div>
     )
   }
