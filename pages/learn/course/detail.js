@@ -90,26 +90,28 @@ export default class extends React.Component {
     document.addEventListener('scroll', () => {
       let prev = document.getElementById('prev')
       let next = document.getElementById('next')
-      if (prev.className.indexOf('xz-btn_disabled') < 0) {
-        document.getElementById('prev').style.backgroundColor = '#3ea6f7'
-      }
-      if (next.className.indexOf('xz-btn_disabled') < 0) {
-        document.getElementById('next').style.backgroundColor = '#3ea6f7'
-      }
-
-      clearTimeout(timer) // 每次滚动前 清除一次
-      timer = setTimeout(() => {
-        m2 = document.documentElement.scrollTop || document.body.scrollTop
-        if (m2 === m1) {
-          if (prev.className.indexOf('xz-btn_disabled') < 0) {
-            document.getElementById('prev').style.backgroundColor = 'rgba(62,166,247,0.2)'
-          }
-          if (next.className.indexOf('xz-btn_disabled') < 0) {
-            document.getElementById('next').style.backgroundColor = 'rgba(62,166,247,0.2)'
-          }
+      if (DataUtil.isEmpty(prev) && DataUtil.isEmpty(next)) {
+        if (prev.className.indexOf('xz-btn_disabled') < 0) {
+          document.getElementById('prev').style.backgroundColor = '#3ea6f7'
         }
-      }, 500)
-      m1 = document.documentElement.scrollTop || document.body.scrollTop
+        if (next.className.indexOf('xz-btn_disabled') < 0) {
+          document.getElementById('next').style.backgroundColor = '#3ea6f7'
+        }
+
+        clearTimeout(timer) // 每次滚动前 清除一次
+        timer = setTimeout(() => {
+          m2 = document.documentElement.scrollTop || document.body.scrollTop
+          if (m2 === m1) {
+            if (prev.className.indexOf('xz-btn_disabled') < 0) {
+              document.getElementById('prev').style.backgroundColor = 'rgba(62,166,247,0.2)'
+            }
+            if (next.className.indexOf('xz-btn_disabled') < 0) {
+              document.getElementById('next').style.backgroundColor = 'rgba(62,166,247,0.2)'
+            }
+          }
+        }, 500)
+        m1 = document.documentElement.scrollTop || document.body.scrollTop
+      }
     })
 
     /**

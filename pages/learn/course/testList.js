@@ -35,6 +35,27 @@ export default class extends React.Component {
   isFinish (answerTotalScore) {
     return !DataUtil.isNull(answerTotalScore)
   }
+  renderTestType (type) {
+    let nextStyle = {
+      'backgroundColor': '#3ea6f7',
+      'color': '#fff',
+      'fontSize': '0.75rem',
+      'padding': '2px 8px',
+      'borderRadius': '10px'
+    }
+    let prevStyle = {
+      'backgroundColor': '#646464',
+      'color': '#fff',
+      'fontSize': '0.75rem',
+      'padding': '2px 8px',
+      'borderRadius': '10px'
+    }
+    if (type === 1) {
+      return <span className='prev' style={prevStyle}>课前</span>
+    } else if (type === 2) {
+      return <span className='next' style={nextStyle}>课后</span>
+    }
+  }
   renderList () {
     const _this = this
     const {query, testList} = this.state
@@ -49,7 +70,7 @@ export default class extends React.Component {
                   <div className='test-item wx-space-center'>
                     <div className='left wx-space-left'>
                       <div className='icon'><img src='/static/img/icon/prise.png' /></div>
-                      <div className='chapter-title'>{item.chapterTitle}</div>
+                      <div className='chapter-title'><div>{this.renderTestType(1)}</div>{item.chapterTitle}</div>
                     </div>
                     <div className='result'>
                       {`${item.answerTotalScore}分/${item.totalScore}分`}
@@ -59,7 +80,7 @@ export default class extends React.Component {
                   <div className='test-item wx-space-center'>
                     <div className='left wx-space-left'>
                       <div className='icon'><img src='/static/img/icon/uprise.png' /></div>
-                      <div className='chapter-title'>{item.chapterTitle}</div>
+                      <div className='chapter-title'><div>{this.renderTestType(2)}</div>{item.chapterTitle}</div>
                     </div>
                     <div className='result'>未完成</div>
                   </div>
@@ -68,6 +89,21 @@ export default class extends React.Component {
             </Card>
           )
         })}
+        <style jsx>{`
+          .icon img {
+            width: 1.5rem;
+          }
+          .left {
+            flex: 3;
+            white-space: nowrap;
+            overflow: hidden;
+            min-width: 0;
+          }
+          .result {
+            flex: 1;
+            text-align: right;
+          }
+        `}</style>
       </div>
     )
   }
