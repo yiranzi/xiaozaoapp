@@ -38,9 +38,26 @@ export default class extends React.Component {
         return (this.renderMy(courseGroupList))
       }
     } else {
+      let emptyTips
+      console.log(this.props.emptyTips)
+      switch (this.props.emptyTips) {
+        case 'doing':
+          emptyTips = <Link href={'/?'}>
+            <a>还没有正在进行的课程，赶紧去选课吧~</a>
+          </Link>
+          break
+        case 'finish':
+          emptyTips = <p>还没有已完成的课程~</p>
+          break
+        case 'over':
+          emptyTips = <p>还没有已结束的课程~</p>
+          break
+        default:
+          emptyTips = <p>暂时没有信息哦</p>
+      }
       return (
         <div className='course-bar-empty'>
-          <p>您还没有课程，赶紧去选课吧~</p>
+          <p>{emptyTips}</p>
           <style jsx>{`
             .course-bar-empty {
               width: 100%;

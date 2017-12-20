@@ -94,6 +94,7 @@ export default class extends React.Component {
           category='mine'
           courseGroupList={courseGroupList}
           routerUrl={url}
+          emptyTips={this.state.tab}
           title='我的课程' />
       )
     }
