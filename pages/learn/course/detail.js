@@ -90,7 +90,7 @@ export default class extends React.Component {
     document.addEventListener('scroll', () => {
       let prev = document.getElementById('prev')
       let next = document.getElementById('next')
-      if (DataUtil.isEmpty(prev) && DataUtil.isEmpty(next)) {
+      if (!DataUtil.isEmpty(prev) && !DataUtil.isEmpty(next)) {
         if (prev.className.indexOf('xz-btn_disabled') < 0) {
           document.getElementById('prev').style.backgroundColor = '#3ea6f7'
         }

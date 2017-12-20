@@ -17,8 +17,7 @@ export default class extends React.Component {
       workDetail: {},
       myAnswer: {},
       evaluate: {},
-      isEditMyWork: false,
-      myWork: '' // 我的答案,
+      disabled: true
     }
   }
   componentWillUpdate = async (nextProps, nextState) => {
@@ -34,7 +33,8 @@ export default class extends React.Component {
       this.setState({
         workDetail: workAnsweRes,
         myAnswer: myAnswerRes,
-        evaluate: evaluate
+        evaluate: evaluate,
+        disabled: !DataUtil.isEmpty(myAnswerRes)
       })
     }
   }
@@ -44,9 +44,7 @@ export default class extends React.Component {
     this.editMyWork()
     try {
       if (ToolsUtil.isUploader(type)) {
-        let uuid = DataUtil.uuid(11)
-        let formdata = DataUtil.imgFormat(myWork, uuid, 'jpg')
-        await AxiosUtil.post(`/api/work/workFileComplete/${query.courseId}/${query.workId}`, formdata)
+        await AxiosUtil.post(`/api/work/workFileComplete/${query.courseId}/${query.workId}`, myWork)
       }
       if (ToolsUtil.isTextarea(type)) {
         await AxiosUtil.post(`/api/work/workComplete/${query.courseId}/${query.workId}`, myWork)
@@ -75,33 +73,33 @@ export default class extends React.Component {
           AxiosUtil.post(`/api/work/workAudioComplete/${query.courseId}/${query.workId}`, myWork)
         })
       }
+      const {courseId, workId} = this.props.query
+      let myAnswer = AxiosUtil.get(`/api/work/myAnswer/${courseId}/${workId}`)
+      this.setState({myAnswer: myAnswer, disabled: true})
     } catch (err) {
     }
   }
   workChange (value, type) {
+    let { myAnswer } = this.state
+    myAnswer.answer = value
     if (ToolsUtil.isUploader(type)) {
-      this.setState({myWork: value[0].url})
+      this.setState({myWork: value, myAnswer: myAnswer})
     }
     if (ToolsUtil.isTextarea(type)) {
-      this.setState({myWork: value})
+      this.setState({myWork: value, myAnswer: myAnswer})
     }
   }
   updateRecording (res) {
     this.setState({isRecording: res})
   }
   editMyWork () {
-    this.setState({isEditMyWork: !this.state.isEditMyWork})
+    this.setState({disabled: !this.state.disabled})
   }
-  /**
-   * 已经答过题
-   * @param {*} workDetail 
-   * @param {*} myAnswer 
-   * @param {*} evaluate 
-   */
+
   renderAnswer (workDetail, myAnswer, evaluate) {
-    const {isEditMyWork} = this.state
+    const {disabled} = this.state
     return (
-      <div>
+      <div style={{paddingBottom: '2rem'}}>
         <Option
           isPlaying={this.state.isPlaying}
           isRecording={this.state.isRecording}
@@ -109,21 +107,17 @@ export default class extends React.Component {
           defaultValue={this.state.myWork}
           onChange={(id, value) => this.workChange(value, workDetail.type)}
           updateRecording={(res) => this.updateRecording(res)}
-          disabled={!isEditMyWork}
+          disabled={disabled}
         />
-        {!DataUtil.isEmpty(workDetail) && this.renderAction(workDetail, myAnswer, evaluate, isEditMyWork)}
+        {!DataUtil.isEmpty(workDetail) && this.renderAction(workDetail, myAnswer, evaluate, disabled)}
       </div>
     )
   }
-  renderAction (workDetail, myAnswer, evaluate, isEditMyWork) {
-    if (DataUtil.isEmpty(myAnswer)) {
-      return this.renderUploadWork(workDetail, myAnswer, evaluate)
+  renderAction (workDetail, myAnswer, evaluate, disabled) {
+    if (disabled) {
+      return this.renderEditWork(workDetail, myAnswer, evaluate)
     } else {
-      if (isEditMyWork) {
-        return this.renderUploadWork(workDetail, myAnswer, evaluate)
-      } else {
-        return this.renderEditWork(workDetail, myAnswer, evaluate)
-      }
+      return this.renderUploadWork(workDetail, myAnswer, evaluate)
     }
   }
   renderUploadWork (workDetail, myAnswer, evaluate, flag) {
@@ -134,12 +128,7 @@ export default class extends React.Component {
     )
   }
   renderEditWork (workDetail, myAnswer, evaluate, flag) {
-    const {query, currentCourseDetail} = this.props
-    let questionListAfterFix = 'courseId=' + query.courseId + '&' +
-                               'sectionId=' + query.sectionId + '&' +
-                               'title=' + encodeURI(encodeURI(currentCourseDetail.courseName)) + '&' +
-                               'totalSize=' + currentCourseDetail.pageCount + '&' +
-                               'pageNumber=' + query.pageNumber
+    const {query} = this.props
     return (
       <div>
         <div className='wx-space-center' style={{paddingBottom: '2rem'}}>
@@ -159,20 +148,26 @@ export default class extends React.Component {
         {this.state.showWorkAnser && (
           <div>导师点评：{this.state.workAnswer}</div>
         )}
+      </div>
+    )
+  }
+  render () {
+    const {workDetail, evaluate} = this.state
+    const {query, currentCourseDetail} = this.props
+    let questionListAfterFix = 'courseId=' + query.courseId + '&' +
+                               'sectionId=' + query.sectionId + '&' +
+                               'title=' + encodeURI(encodeURI(currentCourseDetail.courseName)) + '&' +
+                               'totalSize=' + currentCourseDetail.pageCount + '&' +
+                               'pageNumber=' + query.pageNumber
+    return (
+      <div className='my-work'>
+        {!DataUtil.isEmpty(workDetail) && this.renderAnswer(workDetail, this.state.myAnswer, evaluate)}
         <Link
           href={`/learn/course/questionList?${questionListAfterFix}`}>
           <Button
             style={{marginTop: '2rem', backgroundColor: ThemeConfig.color.red, position: 'fixed', bottom: '58px'}}
           >对学习内容有疑问？点击查看导师答疑</Button>
         </Link>
-      </div>
-    )
-  }
-  render () {
-    const {workDetail, myAnswer, evaluate} = this.state
-    return (
-      <div className='my-work'>
-        {!DataUtil.isEmpty(workDetail) && this.renderAnswer(workDetail, myAnswer, evaluate)}
       </div>
     )
   }

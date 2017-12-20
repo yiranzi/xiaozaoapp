@@ -1,8 +1,7 @@
 import React from 'react'
 import DataUtil from '../../util/data'
-import ThemeConfig from '../../config/theme'
 import ToolsUtil from '../../util/tools'
-import Uploader from '../../xz-components/uploader'
+import UploaderFile from '../../xz-components/uploaderFile'
 import TextArea from '../../xz-components/textarea'
 import WxRecord from '../../xz-components/wxrecord'
 import Audio from '../../xz-components/audio'
@@ -25,22 +24,27 @@ export default class extends React.Component {
         />
       )
     } else if (ToolsUtil.isUploader(type)) {
-      let defaultValue
-      if (DataUtil.isEmpty(answer)) {
-        defaultValue = []
-      } else {
-        defaultValue = [{'url': `http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/learning/workFile/${answer}`}] // 图片默认值是数组
-      }
+      if (disabled) {
+        let {defaultValue} = this.props
+        let _answer
+        if (defaultValue) {
+          _answer = defaultValue.get('file').name
+        }
 
-      return (
-        <Uploader
-          title='图片上传'
-          defaultValue={defaultValue}
-          maxCount={1}
-          onChange={(value) => this.props.onChange(id, value)}
-          disabled={disabled}
-        />
-      )
+        if (_answer) {
+          return <div>{_answer}</div>
+        } else {
+          return <div>{answer}</div>
+        }
+      } else {
+        return (
+          <UploaderFile
+            defaultValue={answer}
+            onChange={(value) => { this.props.onChange(id, value) }}
+            disabled={disabled}
+          />
+        )
+      }
     } else if (ToolsUtil.isRecord(type)) {
       if (disabled) {
         return <Audio idTag={'audio_' + DataUtil.uuid(5)} audioUrl={answer} />
