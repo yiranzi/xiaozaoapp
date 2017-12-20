@@ -175,7 +175,7 @@ export default class extends React.Component {
         <Link
           href={`/learn/course/questionList?${questionListAfterFix}`}>
           <Button
-            style={{marginTop: '2rem', backgroundColor: ThemeConfig.color.red, position: 'fixed', bottom: '58px'}}
+            style={{marginTop: '2rem', backgroundColor: ThemeConfig.color.red, position: 'fixed', bottom: '48px'}}
           >对学习内容有疑问？点击查看导师答疑</Button>
         </Link>
       </div>
