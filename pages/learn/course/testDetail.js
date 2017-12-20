@@ -1,5 +1,4 @@
 import React from 'react'
-import Router from 'next/router'
 import ThemeConfig from '../../../config/theme'
 import ToolsUtil from '../../../util/tools'
 import AxiosUtil from '../../../util/axios'
@@ -13,7 +12,6 @@ import Button from '../../../xz-components/button'
 import {Confirm} from '../../../xz-components/confirm'
 import {Alert} from '../../../xz-components/alert'
 import FixFooter from '../../../xz-components/fixfooter'
-
 
 export default class extends React.Component {
   constructor (props) {
@@ -172,7 +170,7 @@ export default class extends React.Component {
     }
 
     return (
-      <Layout type='test' courseId={query.courseId}>
+      <Layout type='test'>
         {this.state.isSubmit && <Loading />}
         <div className='test-detail'>
           <div className='header wx-text-center'>

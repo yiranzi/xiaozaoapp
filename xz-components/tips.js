@@ -27,8 +27,7 @@ class Tips extends React.Component {
             width: 1rem;
             height: 1rem;
             right: 5px;
-            top: 50%;
-            transform: translateY(-50%);
+            margin-top: 5px;
           }
           .close::before {
             content: '';
