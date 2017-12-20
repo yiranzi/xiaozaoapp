@@ -3,7 +3,7 @@ import DataUtil from '../../util/data'
 import ToolsUtil from '../../util/tools'
 import UploaderFile from '../../xz-components/uploaderFile'
 import TextArea from '../../xz-components/textarea'
-import WxRecord from '../../xz-components/wxrecord'
+import WxRecord from '../../xz-components/newWxRecord'
 import Audio from '../../xz-components/audio'
 
 export default class extends React.Component {
@@ -46,8 +46,10 @@ export default class extends React.Component {
         )
       }
     } else if (ToolsUtil.isRecord(type)) {
+      let {defaultValue} = this.props
+
       if (disabled) {
-        return <Audio idTag={'audio_' + DataUtil.uuid(5)} audioUrl={answer} />
+        return <Audio idTag={'audio_' + DataUtil.uuid(5)} audioUrl={defaultValue} />
       } else {
         return (
           <WxRecord
@@ -55,6 +57,7 @@ export default class extends React.Component {
             isPlaying={this.props.isPlaying}
             ref='wxRecord'
             key={name}
+            defaultValue={defaultValue}
             updateRecording={(res) => this.props.updateRecording(res)}
             onChange={(value) => { this.props.onChange(id, value) }} />
         )
