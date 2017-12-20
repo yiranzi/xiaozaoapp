@@ -78,7 +78,7 @@ export default class extends React.Component {
       }
       return (
         <Link replace key={key} href={{ pathname: '/learn/course/info', query: { courseId: courseId } }}>
-          <a>
+          <a style={{width: '100%', height: '100%'}}>
             <div className='course-view-line'>
               <div className='course-img' >
                 <img src={imgUrl} />

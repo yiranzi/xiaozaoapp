@@ -35,10 +35,10 @@ export default class extends React.Component {
       bg = '/static/img/learn/cover_little.png'
     }
     // 3 复制到属性中
-    boxStyle = Object.assign(boxStyle, {background: `url(${bg})`, backgroundSize: 'cover'})
+    boxStyle = Object.assign(boxStyle, {background: `url(${bg})`, backgroundSize: '100% 100%'})
     return (
       <Link key={title} href={{ pathname: '/learn/course/info', query: { courseId: this.props.courseId } }}>
-        <a>
+        <a style={{width: '100%', height: '100%'}}>
           <div className='course-info-bar'>
             <MediaBox style={boxStyle}>
               <MediaBoxTitle style={fontStyle}>{title}</MediaBoxTitle>

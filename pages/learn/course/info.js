@@ -147,7 +147,7 @@ export default class extends React.Component {
 
   renderCourseUnBuyed () {
     let {courseName, courseBg} = this.state
-    return (<div style={{background: `url(${courseBg})`, backgroundSize: 'cover'}} className='course-info'>
+    return (<div style={{background: `url(${courseBg})`, backgroundSize: '100% 100%'}} className='course-info'>
       <h1>{courseName}</h1>
       <Link href={`/payment/buygether`}>
         <a style={{color: 'white'}}>立即报名</a>
@@ -168,7 +168,7 @@ export default class extends React.Component {
 
   renderCourseOver () {
     let {courseName, courseBg} = this.state
-    return (<div style={{background: `url(${courseBg})`, backgroundSize: 'cover'}} className='course-info'>
+    return (<div style={{background: `url(${courseBg})`, backgroundSize: '100% 100%'}} className='course-info'>
       <h1>{courseName}</h1>
       <a>已结束</a>
       <style jsx>{`
@@ -192,7 +192,7 @@ export default class extends React.Component {
     totalChapter = Number(totalChapter)
     totalSection = Number(totalSection)
     finishSection = Number(finishSection)
-    return (<div style={{background: `url(${courseBg})`, backgroundSize: 'cover'}} className='course-info'>
+    return (<div style={{background: `url(${courseBg})`, backgroundSize: '100% 100%'}} className='course-info'>
       <h1>{courseName}</h1>
       <div className='content'>
         <p>{`进度（本课程共${totalChapter}章，${totalSection}节，已完成${finishSection}节）`}</p>
