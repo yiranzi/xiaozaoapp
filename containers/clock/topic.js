@@ -9,6 +9,12 @@ import TextArea from '../../xz-components/textarea'
 import WxRecord from '../../xz-components/wxrecord'
 
 export default class extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      defaultValue: ''
+    }
+  }
   formatOptions (optionDTOList) {
     return optionDTOList.map((item, index) => {
       const {tag, content} = item
@@ -64,17 +70,18 @@ export default class extends React.Component {
           onChange={(value) => this.props.onChange(id, value)} />
       )
     } else if (ToolsUtil.isRecord(type)) {
-      const {isRecording, isPlaying} = this.state
+      const {isRecording, isPlaying} = this.props
       const name = `answer_${no}`
       return (
         <WxRecord
           ref='wxRecord'
           key={name}
+          defaultValue={this.state.defaultValue}
           isRecording={isRecording}
           isPlaying={isPlaying}
-          updateRecording={(state) => this.updateRecording(state)}
-          updatePlaying={(state) => this.updatePlaying(state)}
-          onChange={(value) => { this.props.onChange(id, value) }} />
+          updateRecording={(state) => this.props.updateRecording(state)}
+          updatePlaying={(state) => this.props.updatePlaying(state)}
+          onChange={(value) => { this.setState({defaultValue: value}); this.props.onChange(id, value) }} />
       )
     }
   }

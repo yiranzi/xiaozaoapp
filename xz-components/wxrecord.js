@@ -3,7 +3,7 @@ import AxiosUtil from '../util/axios'
 
 export default class WxRecord extends React.Component {
   componentDidMount = async () => {
-    const url = `/api/wxconfig/getWXConfig?url=${location.href.split('#')[0]}`
+    const url = `/api/wxconfig/getWXConfig?url=${encodeURIComponent(location.href.split('#')[0])}`
     let wxConfig = await AxiosUtil.get(url)
     // wxConfig.debug = true
     wxConfig.jsApiList = [

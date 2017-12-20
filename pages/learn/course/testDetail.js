@@ -23,6 +23,8 @@ export default class extends React.Component {
         courseId: '',
         testId: ''
       },
+      isRecording: false,
+      isPlaying: false,
       testDetail: {},
       answerList: {},
       isSubmit: false
@@ -40,6 +42,12 @@ export default class extends React.Component {
       },
       testDetail: testDetail
     })
+  }
+  updateRecording (res) {
+    this.setState({isRecording: res})
+  }
+  updatePlaying (res) {
+    this.setState({isPlaying: res})
   }
   formatAnswer (answerDTOList) {
     let json = {}
@@ -66,6 +74,29 @@ export default class extends React.Component {
       })
     } else {
       Alert({content: '还没有上传图片', ok: () => { this.setState({isSubmit: false}) }})
+      return false
+    }
+  }
+  uploadRecord = async (id) => {
+    const {query, answerList} = this.state
+    let answer = answerList[id]
+    if (answer) {
+      Alert({content: answer})
+      wx.uploadVoice({
+        localId: answer,
+        isShowProgressTips: 1,
+        success: function (res) {
+          let serverId = res.serverId
+          AxiosUtil.post(`/api/learning-test/testFileComplete/${query.courseId}/${query.testId}`, serverId).then((res) => {
+            answerList[id] = serverId
+            this.setState({
+              answerList: answerList
+            })
+          })
+        }
+      })
+    } else {
+      Alert({content: '还没有上传语音', ok: () => { this.setState({isSubmit: false}) }})
       return false
     }
   }
@@ -112,8 +143,6 @@ export default class extends React.Component {
       time: ''
     })
 
-    console.log(data)
-
     await AxiosUtil.post('/api/learning-test/complete', data)
     this.setState({isSubmit: false})
     Alert({
@@ -159,9 +188,19 @@ export default class extends React.Component {
                 <div key={`topic_${index}`} className='wrap'>
                   {showAnalysis ? <Analysis topic={item} myAnswer={answerList[item.id]} /> : (
                     <div>
-                      <Topic topic={item} onChange={(id, value) => this.onChange(id, value)} disabled={showAnalysis} />
-                      {(ToolsUtil.isUploader(item.type) || ToolsUtil.isRecord(item.type)) && (
-                        <div className='wx-text-right'><Button size='smaill' onClick={() => { _this.uploadImg(item.id) }}>上传图片</Button></div>
+                      <Topic
+                        isPlaying={this.state.isPlaying}
+                        isRecording={this.state.isRecording}
+                        topic={item}
+                        updateRecording={(res) => this.updateRecording(res)}
+                        onChange={(id, value) => this.onChange(id, value)}
+                        disabled={showAnalysis}
+                      />
+                      {ToolsUtil.isUploader(item.type) && (
+                        <div className='wx-text-center'><Button size='small' onClick={() => { _this.uploadImg(item.id) }}>上传图片</Button></div>
+                      )}
+                      {ToolsUtil.isRecord(item.type) && (
+                        <div className='wx-text-center'><Button size='small' onClick={() => { _this.uploadRecord(item.id) }}>上传音频</Button></div>
                       )}
                     </div>
                   )}
