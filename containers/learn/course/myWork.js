@@ -5,6 +5,7 @@ import ToolsUtil from '../../../util/tools'
 import AxiosUtil from '../../../util/axios'
 import DataUtil from '../../../util/data'
 import Option from '../../../containers/clock/option'
+import Material from '../../../containers/clock/material'
 import Alert from '../../../xz-components/alert'
 import Button from '../../../xz-components/button'
 
@@ -100,6 +101,7 @@ export default class extends React.Component {
     const {disabled} = this.state
     return (
       <div style={{paddingBottom: '2rem'}}>
+        <div className='material'><strong>问题：</strong><Material content={workDetail.question} /></div>
         <Option
           isPlaying={this.state.isPlaying}
           isRecording={this.state.isRecording}
@@ -110,6 +112,11 @@ export default class extends React.Component {
           disabled={disabled}
         />
         {!DataUtil.isEmpty(workDetail) && this.renderAction(workDetail, myAnswer, evaluate, disabled)}
+        <style jsx>{`
+          .material {
+            padding: 1rem;
+          }
+        `}</style>
       </div>
     )
   }
