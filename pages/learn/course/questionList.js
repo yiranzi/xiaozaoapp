@@ -36,7 +36,7 @@ export default class extends React.Component {
       query: {
         sectionId: null,
         pageNumber: null,
-        pn: 1
+        pn: 0
       },
       form: {
         courseId: null,
@@ -96,10 +96,10 @@ export default class extends React.Component {
 
   loadPageQuestionList = async (isConcat) => {
     try {
-      const {sectionId, pageNumber, pn} = this.state.query
-      if (sectionId && !this.state.body.pageQuestionList.ended) {
-        const list = await AxiosUtil.get(`/api/learning-question/pageQuestionList/${sectionId}/${pageNumber}?pn=${pn}`)
-        this.state.query.pn = this.state.query.pn + 1
+      const {sectionId, pageNumber} = this.state.query
+      if (sectionId && (!this.state.body.pageQuestionList.ended || !isConcat)) {
+        this.state.query.pn = (isConcat ? this.state.query.pn + 1 : 1)
+        const list = await AxiosUtil.get(`/api/learning-question/pageQuestionList/${sectionId}/${pageNumber}?pn=${this.state.query.pn}`)
         if (list.data) {
           let { pageQuestionList } = this.state.body
           pageQuestionList.totalSize = list.totalSize
@@ -144,6 +144,7 @@ export default class extends React.Component {
       await AxiosUtil.post('/api/learning-question/newPageQuestion', this.state.form)
       this.state.textareaKey += 1
       this.loadMyPageQuestionList()
+      this.loadPageQuestionList(false)
       Alert({
         content: '提交成功',
         okText: '确定'
@@ -162,23 +163,19 @@ export default class extends React.Component {
   changeTabbar () {
     this.state.tab = 1 - this.state.tab
     this.setState({tab: this.state.tab})
-    if (this.state.tab === 0) {
+    if (this.state.tab === 0 && this.state.body.myPageQuestionList.totalSize === 0) {
       this.loadMyPageQuestionList()
-    } else if (this.state.tab === 1) {
-      this.loadPageQuestionList(true)
     }
   }
 
   keepOnCourse () {
     history.go(-1)
-    // location.href = '/learn/course/detail?courseId=' + this.state.form.courseId + '&sectionId=' +
-    //   this.state.query.sectionId + '&pageNumber=' + this.state.query.pageNumber
   }
 
   renderTabbar () {
     return (
       <div>
-        <CoursePageTitle title={this.state.body.title} pageNumber={this.state.query.pageNumber} totalSize={this.state.body.totalSize} />
+        <CoursePageTitle title={this.state.body.title} pageNumber={this.state.query.pageNumber} />
         <ButtonArea direction='horizontal'>
           <Button size='small' type='default' className='' onClick={e => this.changeTabbar()}>
             {this.state.tab === 1 ? '我的提问' : '全部提问'}
@@ -232,8 +229,9 @@ export default class extends React.Component {
         <PanelBody style={{padding: '15px'}}>
           {listElement}
           {this.state.body.pageQuestionList.ended === false}
-          {(this.state.tab === 0 && this.state.body.myPageQuestionList.totalSize === 0) && (
-            <LoadMore showLine>No Data</LoadMore>)}
+          {((this.state.tab === 0 && this.state.body.myPageQuestionList.totalSize === 0) ||
+            (this.state.tab === 1 && this.state.body.pageQuestionList.totalSize === 0)) && (
+              <LoadMore showLine>No Data</LoadMore>)}
         </PanelBody>
       )
     } else {
@@ -268,7 +266,7 @@ export default class extends React.Component {
           </div>
         }
         {this.state.tab === 1 &&
-          <InfiniteLoader className='wx-navbar-margin'
+          <InfiniteLoader height='80vh'
             onLoadMore={(resolve, finish) => this.onLoadMore(resolve, finish)}
           >
             <div className='data-list'>
@@ -282,14 +280,14 @@ export default class extends React.Component {
             padding-bottom: 120px;
           }
           .data-list {
+
           }
           .react-weui-infiniteloader {
             overflow: scroll;
             -webkit-overflow-scrolling:touch;
           }
-          .main-style {
+          body {
             background-color: ${ThemeConfig.color.gray};
-            height: 100vh;
           }
         `}</style>
       </Layout>
