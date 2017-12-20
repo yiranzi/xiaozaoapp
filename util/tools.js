@@ -9,10 +9,10 @@ ToolsUtil.addByType = function (imgUrl, type) {
   let name
   switch (type) {
     case 'native':
-      name = '_0'
+      name = '_1'
       break
     case 'show':
-      name = '_1'
+      name = '_0'
       break
   }
   let stringArr = ['.jpg', '.png', '.jpeg']
