@@ -1,367 +1,537 @@
 import React from 'react'
-import CollegeLayout from '../../containers/college/layout'
+import Layout from '../../components/layout'
+import Footer from '../../components/footer'
+import {
+  Swiper,
+  Flex,
+  FlexItem,
+  LoadMore
+} from 'react-weui'
+import AxiosUtil from '../../util/axios'
+import ThemeConfig from '../../config/theme'
+import Slider from 'react-slick'
 
 export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+      demoIndex: 0,
+      topBanner: null,
+      courseType2List: null,
+      courseType3List: null,
+      courseType4List: null,
+      feedbackBanner: null,
+      advBanner: null
     }
   }
 
-  tolink () {
-    location.href = '/interviewvip/introPage'
+  settings = {
+    className: 'center slider-banner',
+    mobileFirst: true,
+    arrows: false,
+    centerMode: true,
+    infinite: true,
+    centerPadding: '15px',
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    speed: 500,
+    adaptiveHeight: false,
+    touchMove: true,
+    touchThreshold: 999999999
+  }
+
+  componentDidMount = async () => {
+    this.loadTopBannerData()
+    this.loadCourseTypeList()
+  }
+
+  loadTopBannerData = async () => {
+    try {
+      const _this = this
+      AxiosUtil.get(`/api/adv/getAdvByTypeAndObjId/10/1`).then(function (res) {
+        _this.setState({
+          topBanner: res
+        })
+
+        _this.loadOtherBannerData()
+      })
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  loadOtherBannerData = async () => {
+    try {
+      const _this = this
+      AxiosUtil.get(`/api/adv/getAdvByTypeAndObjId/11/1`).then(function (res) {
+        _this.setState({
+          feedbackBanner: res
+        })
+      })
+      AxiosUtil.get(`/api/adv/getAdvByTypeAndObjId/12/1`).then(function (res) {
+        _this.setState({
+          advBanner: res
+        })
+      })
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  loadCourseTypeList = async () => {
+    try {
+      const _this = this
+      AxiosUtil.get(`/api/learning/courseList/2`).then(function (res) {
+        _this.setState({
+          courseType2List: res
+        })
+        _this.loadOtherCourseTypeList()
+      })
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  loadOtherCourseTypeList = async () => {
+    try {
+      const _this = this
+      await AxiosUtil.get(`/api/learning/courseList/3`).then(function (res) {
+        _this.setState({
+          courseType3List: res
+        })
+      })
+      await AxiosUtil.get(`/api/learning/courseList/4`).then(function (res) {
+        _this.setState({
+          courseType4List: res
+        })
+      })
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  renderTopBanner () {
+    const {topBanner} = this.state
+    if (topBanner) {
+      const bannerElements = topBanner.map(function (item, index) {
+        return (<div key={index}>
+          <a href={item.url ? item.url : 'javascript:;'}>
+            <img className='banner-img block-radius' src={item.img} /></a>
+        </div>)
+      })
+
+      return (<div className='block'>
+        <Swiper className='top-banner block-radius' height={150} onChange={(prev, next) => this.setState({demoIndex: next})} >
+          {bannerElements}
+        </Swiper>
+        <style global jsx>{`
+          .top-banner {
+            overflow: hidden;
+            box-shadow: 2px 2px 54px 10px #f0f0f0;
+          }
+          .top-banner .react-weui-swiper__item {
+            border-radius: 8px;
+            overflow: hidden;
+          }
+          .top-banner .banner-img {
+            height: auto;
+            width: 100%;
+          }
+        `}</style>
+      </div>)
+    } else {
+      return (<div className='block' style={{height: '150px'}}><LoadMore loading>Loading</LoadMore></div>)
+    }
+  }
+
+  reneerNavbar () {
+    return (<div className='college-nav-bar block'>
+      <Flex>
+        <FlexItem>
+          <div className='item'>
+            <img src='/static/img/icon/course_type22.png' /><br /><label>限时免费</label>
+          </div>
+        </FlexItem>
+        <FlexItem>
+          <div className='item'>
+            <a href='#course3'>
+              <img src='/static/img/icon/course_type33.png' /><br /><label>精品课程</label>
+            </a>
+          </div>
+        </FlexItem>
+        <FlexItem>
+          <div className='item'>
+            <a href='#course4'>
+              <img src='/static/img/icon/course_type44.png' /><br /><label>线上训练营</label>
+            </a>
+          </div>
+        </FlexItem>
+        <FlexItem>
+          <div className='item'>
+            <a href='javascript:;' onClick={() => { location.href = 'https://static.meiqia.com/dist/standalone.html?_=t&eid=63917&agentid=ed8f6b7c96fc339a6fcd6f8985624f82)' }}>
+              <img src='/static/img/icon/course_contact11.png' /><br /><label>在线咨询</label>
+            </a>
+          </div>
+        </FlexItem>
+        <style global jsx>{`
+          .college-nav-bar {
+
+          }
+          .college-nav-bar .weui-flex {
+            margin: auto -15px;
+          }
+          .college-nav-bar img {
+            width: 50px;
+          }
+          .college-nav-bar .item {
+            text-align: center;
+            font-size: 0.7rem;
+          }
+          .college-nav-bar .item label {
+            color: gray;
+          }
+        `}</style>
+      </Flex>
+    </div>)
+  }
+
+  renderCourseType2 () {
+    const {courseType2List} = this.state
+    if (courseType2List) {
+      const col = 2
+      let courseLineArray = []
+      for (let i = 0; i < courseType2List.length; i += col) {
+        let lineArray = courseType2List.slice(i, i + col)
+        if (lineArray.length < col) {
+          lineArray = lineArray.concat([col - lineArray.length])
+        }
+        courseLineArray.push(lineArray)
+      }
+      let courseElements = courseLineArray.map(function (item, index) {
+        return (<Flex key={index}>
+          {
+            item.map(function (item2, index2) {
+              return (<FlexItem key={index2}>
+                {item2.cover && <div className='item block-radius'>
+                  <a href={item2.path ? item2.path : 'javascript:;'}>
+                    <div className='img-block'><img className='img' src={item2.cover} /></div>
+                    <div className='info-block'>
+                      <p className='name wx-line-clamp2'>{item2.name}</p>
+                      <p className='info wx-clearfix'><span className='buy-count wx-pull-left'>{item2.buyCount}人学习</span><span className='course-tag wx-pull-right'>限时免费</span></p>
+                    </div>
+                  </a>
+                </div>}
+              </FlexItem>)
+            })
+          }
+        </Flex>)
+      })
+
+      return (<div className='course-type2 block'>
+        <h3 id='course2' className='block-title'>限时免费</h3>
+        {courseElements}
+        <style global jsx>{`
+          .course-type2 {
+
+          }
+          .course-type2 .weui-flex {
+            margin: 0 -8px;
+          }
+          .course-type2 .item {
+            box-shadow: 2px 2px 54px 10px #f0f0f0;
+            background-color: #fff;
+            overflow: hidden;
+            margin: 8px;
+          }
+          .course-type2 .item .img-block {
+            max-height: 140px;
+            overflow: hidden;
+            line-height: 1px;
+          }
+          .course-type2 .item .img {
+            width: 100%;                  
+          }
+          .course-type2 .item .info-block {
+            padding: 5px 0;
+          }
+          .course-type2 .item .name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            height: 44px;
+          }
+          .course-type2 .item .name,
+          .course-type2 .item .info {
+            padding: 0 12px;
+            margin: 3px 0;
+            line-height: 22px;
+          }
+          .course-type2 .buy-count {
+            font-size: 0.7rem;
+            color: gray;
+          }
+          .course-type2 .course-tag {
+            font-size: 0.7rem;
+            color: #fa7f5c;
+          }
+        `}</style>
+      </div>)
+    } else {
+      return (<div className='block' style={{height: '150px'}}><LoadMore loading>Loading</LoadMore></div>)
+    }
+  }
+
+  renderCourseType3 () {
+    const {courseType3List} = this.state
+    if (courseType3List) {
+      let courseElements = courseType3List.map(function (item, index) {
+        return (<div className='item block-radius' key={index}>
+          <a href={item.path ? item.path : 'javascript:;'}>
+            <div className='img-block'><img className='img' src={item.cover} /></div>
+            <div className='info-block'>
+              <p className='info'><span className='buy-count'>{item.buyCount} 人学习</span>
+                <span className='course-price'><small>&yen;</small> {item.price}</span></p>
+            </div>
+          </a>
+        </div>)
+      })
+
+      return (<div className='course-type3 block'>
+        <h3 id='course3' className='block-title'>精品课程</h3>
+        {courseElements}
+        <p className='wx-text-center block-tips'><small>更多课程持续更新中</small></p>
+        <style global jsx>{`
+          .course-type3 {
+
+          }
+          .course-type3 .item {
+            overflow: hidden;
+            position: relative;
+          }
+          .course-type3 .item .img-block {
+
+          }
+          .course-type3 .item .img {
+            width: 100%;
+          }
+          .course-type3 .item .info-block {
+            padding: 15px 0;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+          }
+          .course-type3 .item .name,
+          .course-type3 .item .info {
+            padding: 0 20px;
+            margin: 5px 0;
+            line-height: 20px;
+            height: 20px;
+            color: #fff;
+          }
+          .course-type3 .buy-count {
+            font-size: 0.8rem;
+          }
+          .course-type3 .course-price {
+            margin-left: 30px;
+          }
+        `}</style>
+      </div>)
+    } else {
+      return (<div className='block' style={{height: '150px'}}><LoadMore loading>Loading</LoadMore></div>)
+    }
+  }
+
+  renderCourseType4 () {
+    const {courseType4List} = this.state
+    if (courseType4List) {
+      let courseElements = courseType4List.map(function (item, index) {
+        return (<div className='item' key={index}>
+          <a href={item.path ? item.path : 'javascript:;'}>
+            <div className='img-block block-radius'><img className='img' src={item.cover} /></div>
+            {item.name &&
+              <div className='info-block'>
+                <h4 className='name wx-line-clamp'>{item.name}</h4>
+              </div>
+            }
+          </a>
+        </div>)
+      })
+
+      return (<div className='block'>
+        <h3 id='course4' className='block-title'>线上训练营</h3>
+        <div className='course-type4 block-radius'>
+          {courseElements}
+        </div>
+        {courseType4List[0].name &&
+          <p className='wx-text-center block-tips'><small>更多课程持续更新中</small></p>
+        }
+        <style global jsx>{`
+          .course-type4 {
+            background-color: #f0f0f0;
+            padding: 15px;
+          }
+          .course-type4 .item {
+
+          }
+          .course-type4 .item .img-block {
+            line-height: 1px;
+            overflow: hidden;
+          }
+          .course-type4 .item .img {
+            width: 100%;
+          }
+          .course-type4 .item .info-block {
+
+          }
+          .course-type4 .item .name,
+          .course-type4 .item .info {
+            margin: 5px 0;
+            line-height: 20px;
+            height: 20px;
+          }
+        `}</style>
+      </div>)
+    } else {
+      return (<div className='block' style={{height: '150px'}}><LoadMore loading>Loading</LoadMore></div>)
+    }
+  }
+
+  renderFeedbackBanner () {
+    const {feedbackBanner} = this.state
+    if (feedbackBanner) {
+      const bannerElements = feedbackBanner.map(function (item, index) {
+        return (<div key={index}>
+          <a className='block-a' href={item.url ? item.url : 'javascript:;'}>
+            <img className='banner-img' src={item.img} /></a>
+        </div>)
+      })
+
+      return (<div className='block'>
+        <h3 className='block-title'>学员反馈</h3>
+        <Slider {...this.settings}>
+          {bannerElements}
+        </Slider>
+        <style global jsx>{`
+          .slider-banner {
+            margin: 0 -15px;
+          }
+          .slider-banner .block-a {
+            display: inline-block;
+            padding: 0 5px;
+          }
+          .slider-banner .banner-img {
+            width: 100%;
+          }
+        `}</style>
+      </div>)
+    } else {
+      return (<div className='block' style={{height: '150px'}}><LoadMore loading>Loading</LoadMore></div>)
+    }
+  }
+
+  renderAdvBanner () {
+    const {advBanner} = this.state
+    if (advBanner) {
+      const bannerElements = advBanner.map(function (item, index) {
+        return (<div key={index}>
+          <a className='block-a' href={item.url ? item.url : 'javascript:;'}>
+            <img className='banner-img' src={item.img} /></a>
+        </div>)
+      })
+
+      return (<div className='block'>
+        <h3 className='block-title'>小灶优势</h3>
+        <img className='pic' src='/static/img/college/pic1.png' style={{height: '40px', marginBottom: '5px'}} />
+        <Slider {...this.settings}>
+          {bannerElements}
+        </Slider>
+        <div style={{margin: '0 -12px'}}>
+          <img className='pic' src='/static/img/college/pic22.png' style={{width: '100%', margin: '25px 0'}} />
+        </div>
+        <style global jsx>{`
+          .slider-banner {
+            margin: 0 -15px;
+          }
+          .slider-banner .block-a {
+            display: inline-block;
+            padding: 0 5px;
+          }
+          .slider-banner .banner-img {
+            width: 100%;
+          }
+        `}</style>
+      </div>)
+    } else {
+      return (<div className='block' style={{height: '150px'}}><LoadMore loading>Loading</LoadMore></div>)
+    }
   }
 
   render () {
-    return <CollegeLayout tabbar={0}>
-      <section className='header'>
-        <a href='/learncard/detail'>
-          <img src='/static/img/college/banner1.jpg' className='header__image' />
-        </a>
-      </section>
-      <section className='main-content'>
-        <section className='interview-plan'>
-          <h2 className='fixMargin'>小灶能力学院2018年课表新鲜出炉</h2>
-          <img src='/static/img/college/courselist.jpg'
-            className='header__image' />
-          <h2 className='fixMargin wx-text-center'
-            style={{borderBottom: '1px solid #efefef', lineHeight: 0}}>
-            <span style={{padding: '0 10px', backgroundColor: '#fff'}}>
-              <span style={{color: '#F5CC46'}}>限时福利</span>&nbsp;
-              能力卡可兑换2018课表所有课程</span></h2>
-          <a href='/learncard/detail'>
-            <img src='/static/img/ucenter/banner2.jpg'
-              className='header__image' />
-          </a>
-          <a href='/learncard/detail?tab=2'>
-            <img src='/static/img/college/courselink.jpg'
-              className='header__image' />
-          </a>
-        </section>
-        <section className='signUp'
-          onClick={e => this.tolink(e)}>
-          <h2 className='fixMargin'>打卡专区</h2>
-          <img src='/static/imgs/test-bg.png?v=1' className='header__image' />
-          <div className='subContent'>
-            <p className='subTitle'>小马哥教你过群面 </p>
-            <a className='more'
-              href='/interviewvip/introPage'>点击报名</a>
-          </div>
-        </section>
-        <section className='interview-plan'>
-          <h2 className='fixMargin'>面试课程</h2>
-          <a href='https://mp.weixin.qq.com/s/T8SsDkKDZXr6_leFM3Z8jg'>
-            <img src='/static/img/interview/interview_adv.jpg'
-              className='header__image' />
-          </a>
-        </section>
-        <section className='recommend'>
-          <h2>课程推荐</h2>
-          <a className='more'
-            href='https://h5.youzan.com/v2/showcase/homepage?alias=ph3y0wi'>更多</a>
+    const {topBanner, courseType2List} = this.state
+    return (
+      <Layout>
+        {(!topBanner || !courseType2List) &&
           <div className='wrapper'>
-            <a className='course__block' href='https://kdt.im/i053_h'>
-              <img src='/static/imgs/course/course-1.png' />
-              <div className='title'>三三原则-90%面试题都适用</div>
-            </a>
-            <a className='course__block'
-              href='https://h5.youzan.com/v2/showcase/homepage?alias=ph3y0wi'>
-              <img src='/static/imgs/course/course-2.png' />
-              <div className='title'>四大行业一路通关</div>
-            </a>
-            <a className='course__block' href='https://kdt.im/Xju3_h'>
-              <img src='/static/imgs/course/course-3.png' />
-              <div className='title'>咨询行业秋招一路通关</div>
-            </a>
-            <a className='course__block' href='https://kdt.im/cVu3_h'>
-              <img src='/static/imgs/course/course-4.png' />
-              <div className='title'>快消行业秋招一路通关</div>
-            </a>
+            <div className='loading'>
+              <LoadMore loading> 加载中...</LoadMore>
+            </div>
           </div>
-        </section>
-        <section className='nav__block'>
-          <a className='item'
-            href='https://mp.weixin.qq.com/mp/homepage?__biz=MzIyNjAwMDc3Mg==&hid=15&sn=9ded9df774fcdb4ee570dec7e15387dc&uin=&key=&devicetype=Windows+10&version=6204014f&lang=zh_CN&winzoom=1'>
-            <div className='image-wrapper'>
-              <img src='/static/imgs/course/assistant_09.png' />
+        }
+        <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css' />
+        <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css' />
+        {topBanner && courseType2List &&
+          <div className='main'>
+            <div className='content'>
+              {this.renderTopBanner()}
+              {this.reneerNavbar()}
+              {this.renderCourseType2()}
+              {this.renderCourseType3()}
+              {this.renderCourseType4()}
+              {this.renderFeedbackBanner()}
+              {this.renderAdvBanner()}
             </div>
-            <div className='container'>
-              <div className='title'>求职干货</div>
-              <div className='sub'>简历、面试、视频指导</div>
-            </div>
-          </a>
-          <a className='item'
-            href='https://m.qlchat.com/wechat/page/live/540000007060032'>
-            <div className='image-wrapper'>
-              <img src='/static/imgs/course/assistant_11.png' />
-            </div>
-            <div className='container'>
-              <div className='title'>在线直播</div>
-              <div className='sub'>40余场直播，可回看</div>
-            </div>
-          </a>
-          <a className='item'
-            href='http://mp.weixin.qq.com/s/s4fpMoTQeGqB0c3rM2V59Q'>
-            <div className='image-wrapper'>
-              <img src='/static/imgs/course/assistant_15.png' />
-            </div>
-            <div className='container'>
-              <div className='title'>简历工具</div>
-              <div className='sub'>10分钟收获专业简历</div>
-            </div>
-          </a>
-          <a className='item'
-            href='http://mp.weixin.qq.com/s?__biz=MzA4ODU5NTY1Mw==&mid=501160894&idx=1&sn=9862c7af997f7394de43ebdd64267e3f&chksm=080c76143f7bff02c1a6e03b6f0c26ac89bef63d9794424db45e7fd08b9753d9570dbfe72bb5#rd'>
-            <div className='image-wrapper'>
-              <img src='/static/imgs/course/assistant_16.png' />
-            </div>
-            <div className='container'>
-              <div className='title'>笔试题库</div>
-              <div className='sub'>模拟真实做题环境</div>
-            </div>
-          </a>
-          <a className='item'
-            href='https://mp.weixin.qq.com/s/3wWHU0F2NBdwaCFGcwRLqg'>
-            <div className='image-wrapper'>
-              <img src='/static/imgs/course/assistant_20.png' />
-            </div>
-            <div className='container'>
-              <div className='title'>四大红宝书</div>
-              <div className='sub'>人手一本，持续更新</div>
-            </div>
-          </a>
-          <a className='item' href='http://cn.mikecrm.com/xaflF9L'>
-            <div className='image-wrapper'>
-              <img src='/static/imgs/course/assistant_22.png' />
-            </div>
-            <div className='container'>
-              <div className='title'>心愿树洞</div>
-              <div className='sub'>烦恼的和小灶说说</div>
-            </div>
-          </a>
-        </section>
-      </section>
-      <style global jsx>{`
-        html, body, div, span, applet, object, iframe,
-        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-        a, abbr, acronym, address, big, cite, code,
-        del, dfn, em, img, ins, kbd, q, s, samp,
-        small, strike, strong, sub, sup, tt, var,
-        b, u, i, center,
-        dl, dt, dd, ol, ul, li,
-        fieldset, form, label, legend,
-        table, caption, tbody, tfoot, thead, tr, th, td,
-        article, aside, canvas, details, embed,
-        figure, figcaption, footer, header, hgroup,
-        menu, nav, output, ruby, section, summary,
-        time, mark, audio, video {
-          margin: 0;
-          padding: 0;
-          border: 0;
-          font-size: 100%;
-          font: inherit;
-          vertical-align: baseline;
+            <Footer type='college' />
+          </div>
         }
-        article, aside, details, figcaption, figure,
-        footer, header, hgroup, menu, nav, section {
-          display: block;
-        }
-        body {
-          line-height: 1;
-          font-family: 'Helvetica Neue For Number',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Hiragino Sans GB','Microsoft YaHei','Helvetica Neue',Helvetica,Arial,sans-serif;
-        }
-        ol, ul {
-          list-style: none;
-        }
-        blockquote, q {
-          quotes: none;
-        }
-        blockquote:before, blockquote:after,
-        q:before, q:after {
-          content: '';
-          content: none;
-        }
-        table {
-          border-collapse: collapse;
-          border-spacing: 0;
-        }
-        .header__image {
-          width:100%;
-        }
-        .header {
-          border-bottom: 10px solid #EEEEEE;
-        }
-        .exam img {
-          width:100%;
-          display: block;
-          margin:5px auto;
-        }
-        .exam {
-          border-top: 1px solid #F2F3F3;
-          margin-bottom: 20px;
-        }
-        .nav__block {
-          display:flex;
-          flex-wrap: wrap;
-          justify-content: flex-start;
-          border-top: 1px solid #F2F3F3;
-          padding-top: 20px;
-          margin-left: 2%;
-        }
-        .wrapper {
-          display: flex;
-          justify-content: center;
-        }
-        .course__block{
-          display: inline-block;
-          width: 22%;
-          margin: 0 4px;
-          font-size: 10px;
-          text-decoration: none;
-          color: black;
-        }
-        .course__block .price {
-          color:red;
-          font-size: 12px;
-          display: inline-block;
-          width: 40px;
-          height: 14px;
-        }
-        .course__block .price + span {
-          padding-left: 5px;
-          color:#D8D9DA;
-          position: relative;
-        }
-        .course__block .price + span::after {
-          content: '';
-          height: 1px;
-          background:#D8D9DA;
-          width: 25px;
-          position: absolute;
-          display: block;
-          left:3px;
-          transform: rotate(16deg);
-          bottom: 5px;
-        }
-        .course__block .price::before,
-        .course__block .price + span::before {
-          content: '¥';
-          font-size: 7px;
-        }
-        .course__block img {
-          width: 100%;
-          box-shadow: 0px 5px 8px 2px #c7c7c7;
-          margin-bottom: 10px;
-          display: block;
-        }
-        .course__block .title {
-          height:20px;
-          margin-bottom: 5px;
-          line-height: 1.3;
-        }
-        h2 {
-          font-weight: bolder;
-          margin-top: 20px;
-          margin-bottom: 20px;
-          margin-left: 10px;
-        }
-        .exam h2::after {
-          content: '进行中';
-          font-size: 10px;
-          margin-left: 10px;
-          background: #DA3F38;
-          color:white;
-          padding: 5px;
-          border-radius: 10px;
-        }
-        .main-content {
-          width: 95%;
-          margin: 0 auto;
-        }
-        .goinfor a {
-          float: right;
-          margin-right: 10px;
-          padding: 3px 7px;
-          display: inline-block;
-          color:blue;
-          text-decoration: none;
-          font-size: 12px;
-          border-radius: 8px;
-          background: #E7E9EA;
-        }
-        .goinfor span {
-          padding-left: 6px;
-        }
-        .nav__block .item {
-          display: flex;
-          margin-bottom: 25px;
-          text-decoration: none;
-          width: 50%;
-        }
-        .nav__block .container {
-          margin-left: 5px;
-          display: flex;
-          flex-direction: column;
-        }
-        .nav__block .container .title {
-          margin: 5px 0;
-          color: black;
-          font-size: 14px;
-        }
-        .nav__block .container .sub {
-          color:#B5B6B7;
-          padding-bottom: 8px;
-          border-bottom: 1px solid #F2F3F3;
-        }
-        .nav__block .item img {
-          width:100%
-        }
-        .image-wrapper {
-          width:25%;
-        }
-        .sub {
-          font-size: 10px;
-        }
-        .signUp{
-          border-bottom: 1px solid #EEEEEE;
-          margin-left: 10px;
-          margin-right: 10px;
-        }
-        .fixMargin{
-          margin-left: 0px;
-        }
-        .subContent{
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-top: 10px;
-          margin-bottom: 20px;
-        }
-        .subTitle{
-          margin: auto 0 auto 0px;
-        }
-        .interview-plan{
-          border-bottom: 1px solid #EEEEEE;
-          margin-left: 10px;
-          margin-right: 10px;
-          padding-bottom: 20px;
-        }
-        .recommend {
-          margin-bottom: 20px;
-        }
-        .recommend h2 {
-          display: inline-block;
-        }
-        .more {
-          font-size: 10px;
-          margin-left: 10px;
-          padding: 5px;
-          border-radius: 8px;
-          color:white;
-          background: #B6B7B8;
-          text-decoration: none;
-        }
-      `}</style>
-    </CollegeLayout>
+        <style jsx>{`
+          .content {
+            padding: 0 15px 2rem 15px;
+          }
+          .wrapper {
+            display: table;
+            height: 100vh;
+            width: 100%;
+          }
+          .loading {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+          }
+          .loading-img {
+            width: 100px;
+          }
+        `}</style>
+        <style global jsx>{`
+          .block {
+            padding: 15px 0;
+          }
+          .block-title {
+            margin: 0 0 15px 0;
+          }
+          .block-radius {
+            border-radius: 8px;
+          }
+          .block-tips {
+            margin: 5px 0;
+          }
+          a {
+            color: initial;
+          }
+          .weui-loading {
+            width: 25px !important;
+            height: 25px !important;
+          }
+        `}</style>
+      </Layout>
+    )
   }
 }
