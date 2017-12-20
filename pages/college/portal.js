@@ -121,7 +121,7 @@ export default class extends React.Component {
       })
 
       return (<div className='block'>
-        <Swiper className='top-banner block-radius' height={150} onChange={(prev, next) => this.setState({demoIndex: next})} >
+        <Swiper className='top-banner block-radius' onChange={(prev, next) => this.setState({demoIndex: next})} >
           {bannerElements}
         </Swiper>
         <style global jsx>{`
@@ -129,9 +129,14 @@ export default class extends React.Component {
             overflow: hidden;
             box-shadow: 2px 2px 54px 10px #f0f0f0;
           }
+          .top-banner .react-weui-swiper__wrapper {
+            height: auto !important;
+          }
           .top-banner .react-weui-swiper__item {
             border-radius: 8px;
             overflow: hidden;
+            height: auto !important;
+            line-height: 1px;
           }
           .top-banner .banner-img {
             height: auto;
@@ -149,7 +154,9 @@ export default class extends React.Component {
       <Flex>
         <FlexItem>
           <div className='item'>
-            <img src='/static/img/icon/course_type22.png' /><br /><label>限时免费</label>
+            <a href='#course2'>
+              <img src='/static/img/icon/course_type22.png' /><br /><label>限时免费</label>
+            </a>
           </div>
         </FlexItem>
         <FlexItem>
@@ -249,7 +256,7 @@ export default class extends React.Component {
             line-height: 1px;
           }
           .course-type2 .item .img {
-            width: 100%;                  
+            width: 100%;
           }
           .course-type2 .item .info-block {
             padding: 5px 0;
@@ -289,7 +296,7 @@ export default class extends React.Component {
             <div className='img-block'><img className='img' src={item.cover} /></div>
             <div className='info-block'>
               <p className='info'><span className='buy-count'>{item.buyCount} 人学习</span>
-                <span className='course-price'><small>&yen;</small> {item.price}</span></p>
+                <span className='course-price'><small>&yen;</small> {item.price / 100}</span></p>
             </div>
           </a>
         </div>)
