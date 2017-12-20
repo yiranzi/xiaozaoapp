@@ -188,6 +188,7 @@ export default class extends React.Component {
     }
     return (
       <Button
+        style={{backgroundColor: 'rgba(62,166,247,0.2)'}}
         id='prev'
         size='small'
         disabled={noPrev}
@@ -221,6 +222,7 @@ export default class extends React.Component {
     }
     return (
       <Button
+        style={{backgroundColor: 'rgba(62,166,247,0.2)'}}
         id='next'
         size='small'
         disabled={noNext}
