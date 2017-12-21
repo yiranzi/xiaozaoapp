@@ -57,7 +57,9 @@ export default class extends React.Component {
       let {defaultValue} = this.props
 
       if (disabled) {
-        return <Audio idTag={'audio_' + DataUtil.uuid(5)} audioUrl={defaultValue} />
+        let _audio = defaultValue ? defaultValue : answer
+        let audioUrl = `http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/learning/audio/${_audio}.mp3`
+        return <Audio idTag={'audio_' + DataUtil.uuid(5)} audioUrl={audioUrl} />
       } else {
         return (
           <WxRecord

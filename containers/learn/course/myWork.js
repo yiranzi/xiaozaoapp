@@ -52,29 +52,27 @@ export default class extends React.Component {
         this.editMyWork()
       }
       if (ToolsUtil.isRecord(type)) {
-        const {isPlaying, isRecording} = this.props
+        const {isPlaying, isRecording} = this.state
         if (isRecording) {
           Alert({content: '正在录音，请先结束录音'})
           return false
         }
         if (isPlaying) {
-          alert({content: '正在播放录音，请先停止录音'})
+          Alert({content: '正在播放录音，请先停止录音'})
           return false
         }
-        new Promise((resolve, reject) => {
-          // eslint-disable-next-line
-          wx.uploadVoice({
-            localId: myWork,
-            isShowProgressTips: 1,
-            success: function (res) {
-              let serverId = res.serverId
-              resolve(serverId)
-            }
-          })
-        }).then((severId) => {
-          AxiosUtil.post(`/api/work/workAudioComplete/${query.courseId}/${query.workId}`, serverId).then(() => {
-            this.editMyWork()
-          })
+        const _this = this
+        // eslint-disable-next-line
+        wx.uploadVoice({
+          localId: myWork,
+          isShowProgressTips: 1,
+          success: function (res) {
+            let serverId = res.serverId
+            AxiosUtil.get(`/api/work/workAudioComplete/${query.courseId}/${query.workId}?serverId=${serverId}`).then(() => {
+              _this.setState({myWork: serverId})
+              _this.editMyWork()
+            })
+          }
         })
       }
     } catch (err) {
