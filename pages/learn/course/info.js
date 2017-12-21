@@ -49,7 +49,7 @@ export default class extends React.Component {
       // 2 设置
       imgUrl = courseBg
     } else {
-      imgUrl = '/static/img/learn/cover_long.png'
+      imgUrl = '/static/img/learn/cover_long.jpeg'
     }
     if (!courseInfo.buyed) {
       this.setState({
@@ -74,7 +74,7 @@ export default class extends React.Component {
       // 2 设置
       imgUrl = courseBg
     } else {
-      imgUrl = '/static/img/learn/cover_long.png'
+      imgUrl = '/static/img/learn/cover_long.jpeg'
     }
     this.setState({
       courseName: courseInfo.courseName,
