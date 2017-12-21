@@ -28,7 +28,7 @@ export default class Uploader extends Component {
   }
   renderFileList (file) {
     if (ToolUtil.isImg(file)) {
-      return <img src={this.state.dataURL} />
+      return <img style={{maxWidth: '100%'}} src={this.state.dataURL} />
     } else {
       return <div>{file}</div>
     }

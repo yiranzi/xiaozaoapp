@@ -87,10 +87,6 @@ export default class extends React.Component {
   }
   showLoading () {
     this.setState({showLoading: true})
-
-    this.state.loadingTimer = setTimeout(() => {
-      this.setState({showLoading: false})
-    }, 1500)
   }
   showToast () {
     this.setState({showToast: true, showLoading: false})

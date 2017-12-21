@@ -87,6 +87,7 @@ export default class extends React.Component {
     let answer = answerList[id]
     try {
       if (answer) {
+        // eslint-disable-next-line
         wx.uploadVoice({
           localId: answer,
           success: function (res) {
@@ -167,10 +168,6 @@ export default class extends React.Component {
   }
   showLoading () {
     this.setState({showLoading: true})
-
-    this.state.loadingTimer = setTimeout(() => {
-      this.setState({showLoading: false})
-    }, 1500)
   }
   showToast () {
     this.setState({showToast: true, showLoading: false})
@@ -181,8 +178,8 @@ export default class extends React.Component {
   }
   render () {
     const _this = this
-    const {testDetail, query} = this.state
-    
+    const {testDetail} = this.state
+
     if (DataUtil.isEmpty(testDetail)) return <Layout><Loading /></Layout>
     const {answerDTOList} = testDetail
     let showAnalysis = answerDTOList.length > 0
@@ -220,7 +217,6 @@ export default class extends React.Component {
                         onChange={(id, value) => this.onChange(id, value)}
                         disabled={showAnalysis}
                       />
-                      
                       {ToolsUtil.isUploader(item.type) && (
                         <div className='upload'>
                           <div className='wx-text-right'><Button size='small' onClick={() => { _this.uploadImg(item.id) }}>上传图片</Button></div>
@@ -233,7 +229,6 @@ export default class extends React.Component {
                       )}
                     </div>
                   )}
-                  
                 </div>
               )
             })}
