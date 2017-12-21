@@ -23,7 +23,7 @@ class innerComponent extends React.Component {
                 <p className='create-time'>{createTime}</p>
                 <style jsx>{`
                   .introduce-title {
-                    display: felx;
+                    display: flex;
                     justify-content: space-between;
                   }
                 `}</style>

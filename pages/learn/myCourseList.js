@@ -36,11 +36,13 @@ export default class extends React.Component {
       <div className='parocess-div'>
         <Progress style={{width: '80%'}} value={prog} showCancel={false}
           className='wx-pull-left course-progress' />
+        <span>{prog}%</span>
         <style jsx>{`
           .parocess-div {
-            height: 25px;
+            width: 100%;
             display: flex;
             align-items: center;
+            justify-content: space-between;
           }
         `}</style>
       </div>
@@ -78,13 +80,13 @@ export default class extends React.Component {
       }
       return (
         <Link replace key={key} href={{ pathname: '/learn/course/info', query: { courseId: courseId } }}>
-          <a style={{width: '100%', height: '100%'}}>
+          <a style={{width: '100%'}}>
             <div className='course-view-line'>
               <div className='course-img' >
                 <img src={imgUrl} />
               </div>
               <div className='course-info' >
-                <h2 className=''>{courseName}</h2>
+                <div className='course-info-title'>{courseName}</div>
                 {this.renderProgressBar(overSection, totalSection)}
                 <div className='more-info'>
                   <span>{content}</span>
@@ -95,6 +97,7 @@ export default class extends React.Component {
             </div>
             <style jsx>{`
               .course-view-line {
+                height: 80px;
                 font-size: 14px;
                 display: flex;
                 background-color: white;
@@ -110,8 +113,14 @@ export default class extends React.Component {
               .course-info {
                 padding: 5px;
                 flex: 2;
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
               }
-              .course-info h2 {
+              .course-info > div {
+                width: 100%;
+              }
+              .course-info-title {
                 font-size: 16px;
                 font-weight: normal;
               }

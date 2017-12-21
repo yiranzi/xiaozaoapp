@@ -81,10 +81,10 @@ export default class extends React.Component {
                 <img src={imgUrl} />
               </div>
               <div className='course-info' >
-                <h2 className=''>{title}</h2>
+                <div className='course-info-title'>{title}</div>
                 {/*<br />*/}
                 <div className='more-info'>
-                  <span>{buyCount}人已报名</span>
+                  <span>{buyCount}人正在学习</span>
                   <span>{DateUtil.format(new Date(start), 'yyyy-MM-dd')}开课</span>
                 </div>
               </div>
@@ -95,10 +95,9 @@ export default class extends React.Component {
                 background-color: white;
                 margin: 5px auto;
                 font-size: 14px;
-                {/*height: 70px;*/}
+                height: 80px;
               }
               .course-img {
-                {/*height: 100%;*/}
                 flex: 1;
               }
               .course-img img {
@@ -108,6 +107,9 @@ export default class extends React.Component {
               .course-info {
                 padding: 5px;
                 flex: 2;
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
               }
               .course-info h2 {
                 font-size: 16px;
@@ -117,6 +119,13 @@ export default class extends React.Component {
                 display: flex;
                 justify-content: space-between;
                 font-size: 12px;
+              }
+              .course-info-title {
+                font-size: 16px;
+                font-weight: normal;
+              }
+              .course-info > div {
+                width: 100%;
               }
             `}</style>
           </a>

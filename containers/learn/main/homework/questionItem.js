@@ -260,9 +260,9 @@ export default class extends React.Component {
     return (
       <div className='question-title-div'>
         <h3 className='question-title'>{title}</h3>
-        <div className='question-icon'>
-          <i className={overWork ? 'weui-icon-success' : 'weui-icon-info'} />
-        </div>
+        {overWork && <div className='question-icon'>
+          <i className={'weui-icon-success'} />
+        </div>}
         <style jsx>{`
         .question-title-div {
           display: flex;
