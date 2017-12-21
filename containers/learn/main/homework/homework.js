@@ -5,7 +5,10 @@ import QuestionItem from '/containers/learn/main/homework/questionItem'
 import {
   Panel,
   PanelHeader,
-  PanelBody
+  PanelBody,
+  MediaBox,
+  MediaBoxTitle,
+  MediaBoxDescription
 } from 'react-weui'
 import TitleWithIcon from '/xz-components/titleWithIcon'
 class innerComponent extends React.Component {
@@ -162,10 +165,13 @@ class innerComponent extends React.Component {
       </div>)
     } else {
       return (
-        <Panel style={{marginBottom: '30px'}}>
-          <PanelBody>
-            暂无作业
-          </PanelBody>
+        <Panel className='introduce'>
+          <MediaBox>
+            <MediaBoxTitle />
+            <MediaBoxDescription style={{display: 'block'}}>
+              暂无作业
+            </MediaBoxDescription>
+          </MediaBox>
         </Panel>
       )
     }
