@@ -270,14 +270,14 @@ export default class extends React.Component {
     if (type === 'next') {
       let next = array[pos + 1]
       if (!DataUtil.isEmpty(next)) {
-        let url = `/learn/course/detail?courseId=${courseId}&menuId=${next.menuId}&sectionId=${next.sectionId}&pageNumber=${next.pageNumber}`
+        let url = `/learn/course/detail?courseId=${courseId}&chapterId=${next.menuId}&sectionId=${next.sectionId}&pageNumber=${next.pageNumber}`
         Router.replace(url)
         window.history.go(0)
       }
     } else if (type === 'prev') {
       let prev = array[pos - 1]
       if (!DataUtil.isEmpty(prev)) {
-        let url = `/learn/course/detail?courseId=${courseId}&menuId=${prev.menuId}&sectionId=${prev.sectionId}&pageNumber=${prev.pageNumber}`
+        let url = `/learn/course/detail?courseId=${courseId}&chapterId=${prev.menuId}&sectionId=${prev.sectionId}&pageNumber=${prev.pageNumber}`
         Router.replace(url)
         window.history.go(0)
       }

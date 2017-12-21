@@ -42,13 +42,14 @@ export default class extends React.Component {
   submitWork = async (type) => {
     const {query} = this.props
     const {myWork} = this.state
-    this.editMyWork()
     try {
       if (ToolsUtil.isUploader(type)) {
-        await AxiosUtil.post(`/api/work/workFileComplete/${query.courseId}/${query.workId}`, myWork)
+        await AxiosUtil.post(`/api/work/workFileComplete/${query.courseId}/${query.workId}`, myWork.formdata)
+        this.editMyWork()
       }
       if (ToolsUtil.isTextarea(type)) {
         await AxiosUtil.post(`/api/work/workComplete/${query.courseId}/${query.workId}`, myWork)
+        this.editMyWork()
       }
       if (ToolsUtil.isRecord(type)) {
         const {isPlaying, isRecording} = this.props
@@ -71,23 +72,25 @@ export default class extends React.Component {
             }
           })
         }).then((severId) => {
-          AxiosUtil.post(`/api/work/workAudioComplete/${query.courseId}/${query.workId}`, myWork)
+          AxiosUtil.post(`/api/work/workAudioComplete/${query.courseId}/${query.workId}`, serverId).then(() => {
+            this.editMyWork()
+          })
         })
       }
-      const {courseId, workId} = this.props.query
-      let myAnswer = AxiosUtil.get(`/api/work/myAnswer/${courseId}/${workId}`)
-      this.setState({myAnswer: myAnswer, disabled: true})
     } catch (err) {
     }
   }
   workChange (value, type) {
-    let { myAnswer } = this.state
-    myAnswer.answer = value
+    // let { myAnswer } = this.state
+    // myAnswer.answer = value
     if (ToolsUtil.isUploader(type)) {
-      this.setState({myWork: value, myAnswer: myAnswer})
+      this.setState({myWork: value})
     }
     if (ToolsUtil.isTextarea(type)) {
-      this.setState({myWork: value, myAnswer: myAnswer})
+      this.setState({myWork: value})
+    }
+    if (ToolsUtil.isRecord(type)) {
+      this.setState({myWork: value})
     }
   }
   updateRecording (res) {

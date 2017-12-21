@@ -27,14 +27,22 @@ export default class extends React.Component {
       if (disabled) {
         let {defaultValue} = this.props
         let _answer
-        if (defaultValue) {
-          _answer = defaultValue.get('file').name
+        if (!DataUtil.isEmpty(defaultValue)) {
+          _answer = defaultValue.name
         }
 
         if (_answer) {
-          return <div>{_answer}</div>
+          if (ToolsUtil.isImg(_answer)) {
+            return <img style={{width: '100%'}} src={`http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/learning/workFile/${_answer}`} />
+          } else {
+            return <div>{_answer}</div>
+          }
         } else {
-          return <div>{answer}</div>
+          if (ToolsUtil.isImg(answer)) {
+            return <img style={{width: '100%'}} src={`http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/learning/workFile/${answer}`} />
+          } else {
+            return <div>{answer}</div>
+          }
         }
       } else {
         return (

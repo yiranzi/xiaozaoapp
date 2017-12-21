@@ -11,15 +11,17 @@ export default class Uploader extends Component {
   }
   handleFile (e) {
     let _files = e.target.files
+    let file
 
     let formdata = new FormData()
+
     for (let key in _files) {
       if (!_files.hasOwnProperty(key)) continue
-      let file = _files[key]
+      file = _files[key]
       this.setState({file: file.name})
       formdata.append('file', file)
     }
-    this.props.onChange(formdata)
+    this.props.onChange({name: file.name, formdata: formdata})
   }
   renderFileList (file) {
     return <div>{file}</div>
