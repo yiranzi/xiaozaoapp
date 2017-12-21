@@ -77,7 +77,7 @@ export default class extends React.Component {
           isShowProgressTips: 1,
           success: function (res) {
             let serverId = res.serverId
-            AxiosUtil.get(`/api/work/workAudioComplete/${query.courseId}/${query.workId}?serverId=${serverId}`).then(() => {
+            AxiosUtil.get(`/api/work/workAudioComplete/${courseId}/${workId}?serverId=${serverId}`).then(() => {
               _this.setState({myWork: serverId})
               // _this.editMyWork()
             })
