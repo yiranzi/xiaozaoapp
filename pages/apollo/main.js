@@ -95,7 +95,7 @@ export default class extends React.Component {
     </div>
     try {
       await AxiosUtil.get('/api/apollo/complete')
-      this.onSignSuccess()
+      this.successFirstTime()
     } catch (e) {
       Confirm({
         content: content,
@@ -132,9 +132,16 @@ export default class extends React.Component {
       okText = '去领奖'
       okFunc = () => { this.goRouter(result.url) }
     } else {
-      content = '坚持打卡每逢1，3，5，7可以获得小灶给您礼物'
-      okText = '知道了'
-      okFunc = () => {}
+      let havePop = localStorage.getItem('apollo_over_ten')
+      if (havePop) {
+        content = '很棒！完成今日打卡，你获得了1次推荐机会，分享链接邀请你的朋友加入【阿波罗实习计划】吧！(当日有效)'
+        okText = '知道了'
+        okFunc = () => {}
+      } else {
+        content = '坚持打卡每逢1，3，5，7可以获得小灶给您礼物'
+        okText = '知道了'
+        okFunc = () => {}
+      }
     }
     Confirm({
       content: content,
@@ -167,7 +174,6 @@ export default class extends React.Component {
     let content
     content = '很棒！完成今日打卡，你获得了1次推荐机会，分享链接邀请你的朋友加入【阿波罗实习计划】吧！(当日有效)'
     Confirm({
-      title: '恭喜你完成打卡',
       content: content,
       okText: '分享',
       cancelText: '返回',
