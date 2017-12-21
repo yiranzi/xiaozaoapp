@@ -107,7 +107,6 @@ export default class extends React.Component {
     } catch (err) {
       alert(err)
     }
-    
   }
   verifyAnwerList (testDetail, answerList) {
     let res = ''
@@ -229,7 +228,7 @@ export default class extends React.Component {
                       )}
                       {ToolsUtil.isRecord(item.type) && (
                         <div className='upload'>
-                          <div className='wx-text-center'><Button size='small' onClick={() => { _this.uploadRecord(item.id) }}>上传音频</Button></div>
+                          <div className='wx-text-right'><Button size='small' onClick={() => { _this.uploadRecord(item.id) }}>上传音频</Button></div>
                         </div>
                       )}
                     </div>

@@ -13,6 +13,7 @@ import {
   LoadMore,
   InfiniteLoader
 } from 'react-weui'
+import FixFooter from '../../../xz-components/fixfooter'
 import MyTextArea from '../../../xz-components/textarea'
 
 export default class extends React.Component {
@@ -240,21 +241,24 @@ export default class extends React.Component {
   }
 
   renderPutQuestion () {
-    return (<div className='wx-bottom-fixed'>
-      <div className='add-question-block'>
-        <MyTextArea className='question-textarea' rows={2} onChange={(value) => this.handleChange(value)} key={'question-' + this.state.textareaKey} placeholder='输入自己的问题，我们的导师看到后会来回答你哦' />
-        <Button size='small' type='warn' onClick={(e) => this.putQuestion()} className='wx-pull-right'>提问</Button>
-        <p className='tips'><small>每个课程页最多可提5个问题</small></p>
-        <style global jsx>{`
-          .add-question-block {
-            border-top: 1px solid ${ThemeConfig.color.border};
-          }
-          .question-textarea {
-            height: auto !important;
-          }
-        `}</style>
-      </div>
-    </div>)
+    return (
+      <FixFooter style={{paddingTop: '0'}}>
+        <div className='add-question-block'>
+          <MyTextArea maxLength={140} className='question-textarea' rows={2} onChange={(value) => this.handleChange(value)} key={'question-' + this.state.textareaKey} placeholder='输入自己的问题，我们的导师看到后会来回答你哦' />
+          <Button style={{marginTop: '0.5rem'}} size='small' type='warn' onClick={(e) => this.putQuestion()} className='wx-pull-right'>提问</Button>
+          <p className='tips'><small>每个课程页最多可提5个问题</small></p>
+          <style global jsx>{`
+            .question-textarea {
+              height: auto !important;
+            }
+            .tips {
+              color: #999999;
+              margin-top: 0.5rem;
+            }
+          `}</style>
+        </div>
+      </FixFooter>
+    )
   }
 
   render () {
@@ -279,15 +283,16 @@ export default class extends React.Component {
           .wx-navbar-margin {
             padding-bottom: 120px;
           }
-          .data-list {
-
-          }
           .react-weui-infiniteloader {
             overflow: scroll;
             -webkit-overflow-scrolling:touch;
           }
           body {
             background-color: ${ThemeConfig.color.gray};
+          }
+          .main-style {
+            padding: 1rem 0;
+            box-sizing: border-box;
           }
         `}</style>
       </Layout>
