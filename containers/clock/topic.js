@@ -1,7 +1,9 @@
 import React from 'react'
 import {Form} from 'react-weui'
+import Material from '../../containers/clock/material'
 import ThemeConfig from '../../config/theme'
 import ToolsUtil from '../../util/tools'
+import DataUtil from '../../util/data'
 import Radio from '../../xz-components/radio'
 import CheckBox from '../../xz-components/checkbox'
 import Uploader from '../../xz-components/uploader'
@@ -89,6 +91,7 @@ export default class extends React.Component {
     const {topic} = this.props
     return (
       <div className='topic'>
+        {!DataUtil.isEmpty(topic.material) && <div className='material'><strong>材料：</strong><Material content={topic.material} /></div>}
         <div className='question'>{topic.no}、{topic.question} （{topic.score}分）</div>
         <div className='options'>
           <div>{this.renderAnswerOption(topic)}</div>
@@ -97,6 +100,11 @@ export default class extends React.Component {
           .topic {
             padding: 1.5rem 1rem;
             border-bottom: 1px solid ${ThemeConfig.color.border};
+          }
+        `}</style>
+        <style global jsx>{`
+          .material img {
+            width: 100%;
           }
         `}</style>
       </div>

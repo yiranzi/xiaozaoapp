@@ -8,7 +8,7 @@ import Radio from '../../xz-components/radio'
 import CheckBox from '../../xz-components/checkbox'
 import Uploader from '../../xz-components/uploader'
 import TextArea from '../../xz-components/textarea'
-import WxRecord from '../../xz-components/wxrecord'
+import Audio from '../../xz-components/audio'
 
 export default class extends React.Component {
   formatOptions (optionDTOList) {
@@ -72,18 +72,8 @@ export default class extends React.Component {
         />
       )
     } else if (ToolsUtil.isRecord(type)) {
-      const {isRecording, isPlaying} = this.state
-      const name = `answer_${no}`
-      return (
-        <WxRecord
-          ref='wxRecord'
-          key={name}
-          isRecording={isRecording}
-          isPlaying={isPlaying}
-          updateRecording={(state) => this.updateRecording(state)}
-          updatePlaying={(state) => this.updatePlaying(state)}
-          onChange={(value) => { this.props.onChange(id, value) }} />
-      )
+      let audioUrl = `http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/learning/testAudio/${myAnswer}.mp3`
+      return <Audio idTag={'audio_' + DataUtil.uuid(5)} audioUrl={audioUrl} />
     }
   }
   render () {
@@ -131,6 +121,11 @@ export default class extends React.Component {
           }
           .content {
             margin-top: 1rem;
+          }
+        `}</style>
+        <style global jsx>{`
+          .material img {
+            width: 100%;
           }
         `}</style>
       </div>

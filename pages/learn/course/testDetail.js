@@ -12,6 +12,7 @@ import Button from '../../../xz-components/button'
 import {Confirm} from '../../../xz-components/confirm'
 import {Alert} from '../../../xz-components/alert'
 import FixFooter from '../../../xz-components/fixfooter'
+import { Toast } from 'react-weui'
 
 export default class extends React.Component {
   constructor (props) {
@@ -25,7 +26,9 @@ export default class extends React.Component {
       isPlaying: false,
       testDetail: {},
       answerList: {},
-      isSubmit: false
+      isSubmit: false,
+      showToast: false,
+      showLoading: false
     }
   }
   componentDidMount = async () => {
@@ -60,12 +63,14 @@ export default class extends React.Component {
     this.setState({answerList: answerList})
   }
   uploadImg = async (id) => {
+    this.showLoading()
     const {query, answerList} = this.state
     let answer = answerList[id]
     if (answer) {
       let uuid = DataUtil.uuid(11)
       let formdata = DataUtil.imgFormat(answer, uuid, 'jpg')
       await AxiosUtil.post(`/api/learning-test/testFileComplete/${query.courseId}/${query.testId}`, formdata)
+      this.showToast()
       answerList[id] = uuid + '.jpg'
       this.setState({
         answerList: answerList
@@ -76,27 +81,33 @@ export default class extends React.Component {
     }
   }
   uploadRecord = async (id) => {
+    this.showLoading()
+    const _this = this
     const {query, answerList} = this.state
     let answer = answerList[id]
-    if (answer) {
-      Alert({content: answer})
-      wx.uploadVoice({
-        localId: answer,
-        isShowProgressTips: 1,
-        success: function (res) {
-          let serverId = res.serverId
-          AxiosUtil.post(`/api/learning-test/testFileComplete/${query.courseId}/${query.testId}`, serverId).then((res) => {
-            answerList[id] = serverId
-            this.setState({
-              answerList: answerList
+    try {
+      if (answer) {
+        wx.uploadVoice({
+          localId: answer,
+          success: function (res) {
+            let serverId = res.serverId
+            AxiosUtil.get(`/api/learning-test/testAudioComplete/${query.courseId}/${query.testId}?serverId=${serverId}`).then((res) => {
+              _this.showToast()
+              answerList[id] = serverId
+              _this.setState({
+                answerList: answerList
+              })
             })
-          })
-        }
-      })
-    } else {
-      Alert({content: '还没有上传语音', ok: () => { this.setState({isSubmit: false}) }})
-      return false
+          }
+        })
+      } else {
+        Alert({content: '还没有录音', ok: () => { this.setState({isSubmit: false}) }})
+        return false
+      }
+    } catch (err) {
+      alert(err)
     }
+    
   }
   verifyAnwerList (testDetail, answerList) {
     let res = ''
@@ -155,6 +166,20 @@ export default class extends React.Component {
       ok: () => { location.reload() }
     })
   }
+  showLoading () {
+    this.setState({showLoading: true})
+
+    this.state.loadingTimer = setTimeout(() => {
+      this.setState({showLoading: false})
+    }, 1500)
+  }
+  showToast () {
+    this.setState({showToast: true, showLoading: false})
+
+    this.state.loadingTimer = setTimeout(() => {
+      this.setState({showToast: false})
+    }, 1500)
+  }
   render () {
     const _this = this
     const {testDetail, query} = this.state
@@ -172,6 +197,8 @@ export default class extends React.Component {
     return (
       <Layout type='test'>
         {this.state.isSubmit && <Loading />}
+        <Toast icon='success-no-circle' show={this.state.showToast}>Done</Toast>
+        <Toast icon='loading' show={this.state.showLoading}>Loading...</Toast>
         <div className='test-detail'>
           <div className='header wx-text-center'>
             <div className='name'>{testDetail.chapterTitle}</div>
@@ -194,11 +221,16 @@ export default class extends React.Component {
                         onChange={(id, value) => this.onChange(id, value)}
                         disabled={showAnalysis}
                       />
+                      
                       {ToolsUtil.isUploader(item.type) && (
-                        <div className='wx-text-center'><Button size='small' onClick={() => { _this.uploadImg(item.id) }}>上传图片</Button></div>
+                        <div className='upload'>
+                          <div className='wx-text-right'><Button size='small' onClick={() => { _this.uploadImg(item.id) }}>上传图片</Button></div>
+                        </div>
                       )}
                       {ToolsUtil.isRecord(item.type) && (
-                        <div className='wx-text-center'><Button size='small' onClick={() => { _this.uploadRecord(item.id) }}>上传音频</Button></div>
+                        <div className='upload'>
+                          <div className='wx-text-center'><Button size='small' onClick={() => { _this.uploadRecord(item.id) }}>上传音频</Button></div>
+                        </div>
                       )}
                     </div>
                   )}
@@ -242,6 +274,10 @@ export default class extends React.Component {
           }
           .submit {
             margin: 2rem 0;
+          }
+          .upload {
+            padding-top: 1rem;
+            padding-right: 1rem;
           }
         `}</style>
         <style global jsx>{`
