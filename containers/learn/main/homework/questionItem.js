@@ -59,6 +59,9 @@ export default class extends React.Component {
         isUpdateActive: false
       })
     }
+    if (nextProps.viewType === 'close') {
+      this.backButtonClick()
+    }
   }
 
   setOverStatus (endTime, commitTime) {

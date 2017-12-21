@@ -11,6 +11,8 @@ import {
   MediaBoxDescription
 } from 'react-weui'
 import TitleWithIcon from '/xz-components/titleWithIcon'
+import Router from 'next/router'
+import ToolsUtil from '/util/tools'
 class innerComponent extends React.Component {
   chapterMode
   scrollTop
@@ -31,6 +33,14 @@ class innerComponent extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     this.setChapterMode(nextProps)
+    // 计算路由
+    let type = ToolsUtil.getQueryString('test')
+    if (!type && this.state.viewType === 'open') {
+      console.log('set close')
+      this.setState({
+        viewType: 'close'
+      })
+    }
   }
 
   setChapterMode (props) {
@@ -94,6 +104,9 @@ class innerComponent extends React.Component {
         currentLessonIndex: currentLessonIndex,
         viewType: 'open'
       })
+      let url = window.history.state.url
+      url = url + '&test=true'
+      Router.push(url)
     } else {
       this.setState({
         viewType: undefined,
