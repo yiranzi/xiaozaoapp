@@ -57,8 +57,8 @@ class Accordion extends React.Component {
           .xz-accordion-header::after {
             content: " ";
             display: inline-block;
-            height: 12px;
-            width: 12px;
+            height: 6px;
+            width: 6px;
             border-width: 2px 2px 0 0;
             border-color: #c8c8cd;
             border-style: solid;
