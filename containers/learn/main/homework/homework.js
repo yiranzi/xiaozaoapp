@@ -104,7 +104,9 @@ class innerComponent extends React.Component {
         viewType: 'open'
       })
       let url = window.history.state.url
+
       url = url + '&test=true'
+      alert(url)
       Router.push(url)
     } else {
       this.setState({
