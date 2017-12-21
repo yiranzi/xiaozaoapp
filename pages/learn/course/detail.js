@@ -30,10 +30,6 @@ export default class extends React.Component {
     }
   }
 
-  getInitialProps () {
-    console.log('getInitialProps11231231')
-  }
-
   componentDidMount = async () => {
     let currentCourseDetail = {}
     let courseId = ToolsUtil.getQueryString('courseId')
@@ -247,7 +243,6 @@ export default class extends React.Component {
     }
   }
   loadPage (type) {
-    console.log(type)
     let {query, array} = this.state
 
     let {courseId, sectionId, chapterId, pageNumber} = query
@@ -270,14 +265,14 @@ export default class extends React.Component {
     if (type === 'next') {
       let next = array[pos + 1]
       if (!DataUtil.isEmpty(next)) {
-        let url = `/learn/course/detail?courseId=${courseId}&chapterId=${next.menuId}&sectionId=${next.sectionId}&pageNumber=${next.pageNumber}`
+        let url = `/learn/course/detail?courseId=${courseId}&chapterId=${next.chapterId}&sectionId=${next.sectionId}&pageNumber=${next.pageNumber}`
         Router.replace(url)
         window.history.go(0)
       }
     } else if (type === 'prev') {
       let prev = array[pos - 1]
       if (!DataUtil.isEmpty(prev)) {
-        let url = `/learn/course/detail?courseId=${courseId}&chapterId=${prev.menuId}&sectionId=${prev.sectionId}&pageNumber=${prev.pageNumber}`
+        let url = `/learn/course/detail?courseId=${courseId}&chapterId=${prev.chapterId}&sectionId=${prev.sectionId}&pageNumber=${prev.pageNumber}`
         Router.replace(url)
         window.history.go(0)
       }

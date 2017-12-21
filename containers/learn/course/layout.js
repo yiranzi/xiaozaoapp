@@ -62,7 +62,7 @@ export default class extends React.Component {
                                 className='section'
                                 onClick={() => {
                                   this.toggleCourseMenuPop()
-                                  let url = `/learn/course/detail?courseId=${courseId}&menuId=${menu.id}&sectionId=${section.id}&pageNumber=1`
+                                  let url = `/learn/course/detail?courseId=${courseId}&chapterId=${menu.id}&sectionId=${section.id}&pageNumber=1`
                                   Router.replace(url)
                                   window.history.go(0)
                                 }}
@@ -160,7 +160,7 @@ export default class extends React.Component {
                   {chapter.childLearningCourseWorkDTOList.map((work, index) => {
                     return (
                       <div key={`w_${index}`} className='work wx-space-center' onClick={() => {
-                        let url = `/learn/course/detail?courseId=${query.courseId}&menuId=${work.chapterId}&sectionId=${work.sectionId}&pageNumber=${work.pageNumber}`
+                        let url = `/learn/course/detail?courseId=${query.courseId}&chapterId=${work.chapterId}&sectionId=${work.sectionId}&pageNumber=${work.pageNumber}`
                         Router.replace(url)
                         window.history.go(0)
                       }}>
