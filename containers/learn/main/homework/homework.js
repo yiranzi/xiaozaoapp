@@ -16,6 +16,7 @@ import ToolsUtil from '/util/tools'
 class innerComponent extends React.Component {
   chapterMode
   scrollTop
+  pageTag = 'test'
   constructor (props) {
     super(props)
     this.state = {
@@ -29,6 +30,12 @@ class innerComponent extends React.Component {
 
   componentWillMount () {
     this.setChapterMode(this.props)
+    // 1 获取当前显示的是什么
+    // 2 清空多于路由
+    let a = ToolsUtil.getQueryString('test')
+    if (a) {
+      history.go(-1)
+    }
   }
 
   componentWillReceiveProps (nextProps) {
@@ -103,11 +110,11 @@ class innerComponent extends React.Component {
         currentLessonIndex: currentLessonIndex,
         viewType: 'open'
       })
-      let url = window.history.state.url
+      let url = window.history.state.as
 
       url = url + '&test=true'
-      alert(url)
       Router.push(url)
+      // window.location.reload()
     } else {
       this.setState({
         viewType: undefined,
