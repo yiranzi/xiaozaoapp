@@ -10,13 +10,13 @@ import DataUtil from '/util/data'
 
 export default class extends React.Component {
   renderByType () {
-    let {type} = this.props
-    type = 3
-    switch (type) {
+    let {answerDataType} = this.props
+    // type = 3
+    switch (answerDataType) {
       case 3:
         return (this.renderImg())
       case 5:
-
+        return (this.renderImg())
       default:
         return (this.renderTxt())
     }

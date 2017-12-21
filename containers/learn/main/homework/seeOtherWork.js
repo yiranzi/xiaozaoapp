@@ -27,7 +27,7 @@ export default class extends React.Component {
         {answerData.overStatus && <img style={{position: 'absolute', width: '50px', right: '0px', top: '0'}}src='/static/img/study/homework-late.png' />}
         <Title nickname={nickname} headimgurl={headimgurl} time={updateTime}
           starCount={starCount} star={star} starId={studentAnswerId} />
-        <Description content={answer} canFold />
+        <Description answerDataType={this.props.answerDataType} content={answer} canFold />
         <MediaBoxInfo style={{textAlign: 'right'}}>
           {score && <MoreLine title={<span style={{flex: 'auto'}}>导师点评{score}分</span>}
             content={<TeacherComment studentAnswerId={studentAnswerId} />} />}

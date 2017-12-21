@@ -241,6 +241,7 @@ export default class extends React.Component {
         onTabClick={this.onTabClick}>
         <TabItem title={allAnswerIcon} >
           <SeeOtherWork
+            answerDataType={questionItem.type}
             answerList={this.state.answerList}
             courseId={courseId}
             workId={workId} />
@@ -324,7 +325,7 @@ export default class extends React.Component {
               {this.renderGoDetailLink()}
             </MediaBoxInfo>}
             {this.renderTabbar()}
-            {this.props.viewType === 'open' && <Fixfooter style={{height: '40px', padding: '5px 10px'}}><Button className='buttonStyle' onClick={() => { this.backButtonClick() }}>查看其它章节作业</Button></Fixfooter>}
+            {/*{this.props.viewType === 'open' && <Fixfooter style={{height: '40px', padding: '5px 10px'}}><Button className='buttonStyle' onClick={() => { this.backButtonClick() }}>查看其它章节作业</Button></Fixfooter>}*/}
           </InfiniteLoader>
         </MediaBox>
       )

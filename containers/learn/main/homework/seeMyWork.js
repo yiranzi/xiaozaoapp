@@ -87,7 +87,7 @@ export default class extends React.Component {
       let {nickname, headimgurl, updateTime, id: studentAnswerId, answer, score} = answerData
       return (<MediaBox>
         <Title nickname={nickname} headimgurl={headimgurl} time={updateTime} />
-        <Description content={answer} />
+        <Description answerDataType={this.props.questionInfo.type} content={answer} />
         <MediaBoxInfo style={{textAlign: 'right'}}>
           {score ? <MoreLine title={<span style={{flex: 'auto'}}>导师点评{score}分</span>}
             content={<TeacherComment studentAnswerId={studentAnswerId} canEvaluateScore />} /> : <div onClick={this.onEditButtonClick}>修改答案</div>}

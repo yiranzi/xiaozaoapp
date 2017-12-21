@@ -89,7 +89,6 @@ class innerComponent extends React.Component {
 
   // 点击后的回调
   chooseChapterAndLesson (currentChapterIndex, currentLessonIndex, tabChoose) {
-    console.log(tabChoose)
     // 如果不是章节设固定（可切换章节）
     if (this.chapterMode) {
       return
