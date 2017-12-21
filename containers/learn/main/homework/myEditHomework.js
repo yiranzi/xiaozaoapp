@@ -36,30 +36,55 @@ export default class extends React.Component {
 
   workChange (value, type) {
     if (ToolsUtil.isUploader(type)) {
-      this.setState({myWork: value[0].url})
+      this.setState({myWork: value})
     }
     if (ToolsUtil.isTextarea(type)) {
+      this.setState({myWork: value})
+    }
+    if (ToolsUtil.isRecord(type)) {
       this.setState({myWork: value})
     }
   }
 
   submitWork = async (type) => {
+    const {myWork} = this.state
     let {courseId, workId} = this.props
-    let {myWork} = this.state
-    console.log('post')
     try {
       if (ToolsUtil.isUploader(type)) {
-        let uuid = DataUtil.uuid(11)
-        let formdata = DataUtil.imgFormat(myWork, uuid, 'jpg')
-        await AxiosUtil.post(`/api/work/workFileComplete/${courseId}/${workId}`, formdata)
+        await AxiosUtil.post(`/api/work/workFileComplete/${courseId}/${workId}`, myWork.formdata)
+        // this.editMyWork()
         this.uploadHomework(courseId, workId)
       }
       if (ToolsUtil.isTextarea(type)) {
         await AxiosUtil.post(`/api/work/workComplete/${courseId}/${workId}`, myWork)
+        // this.editMyWork()
         this.uploadHomework(courseId, workId)
       }
+      if (ToolsUtil.isRecord(type)) {
+        // const {isPlaying, isRecording} = this.state
+        // if (isRecording) {
+        //   Alert({content: '正在录音，请先结束录音'})
+        //   return false
+        // }
+        // if (isPlaying) {
+        //   Alert({content: '正在播放录音，请先停止录音'})
+        //   return false
+        // }
+        const _this = this
+        // eslint-disable-next-line
+        wx.uploadVoice({
+          localId: myWork,
+          isShowProgressTips: 1,
+          success: function (res) {
+            let serverId = res.serverId
+            AxiosUtil.get(`/api/work/workAudioComplete/${query.courseId}/${query.workId}?serverId=${serverId}`).then(() => {
+              _this.setState({myWork: serverId})
+              // _this.editMyWork()
+            })
+          }
+        })
+      }
     } catch (err) {
-
     }
   }
 
