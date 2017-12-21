@@ -8,6 +8,7 @@ import Option from '../../../containers/clock/option'
 import Material from '../../../containers/clock/material'
 import Alert from '../../../xz-components/alert'
 import Button from '../../../xz-components/button'
+import { Toast } from 'react-weui'
 
 export default class extends React.Component {
   constructor (props) {
@@ -18,7 +19,9 @@ export default class extends React.Component {
       workDetail: {},
       myAnswer: {},
       evaluate: {},
-      disabled: true
+      disabled: true,
+      showToast: false,
+      showLoading: false
     }
   }
   componentWillUpdate = async (nextProps, nextState) => {
@@ -42,14 +45,17 @@ export default class extends React.Component {
   submitWork = async (type) => {
     const {query} = this.props
     const {myWork} = this.state
+    this.showLoading()
     try {
       if (ToolsUtil.isUploader(type)) {
         await AxiosUtil.post(`/api/work/workFileComplete/${query.courseId}/${query.workId}`, myWork.formdata)
         this.editMyWork()
+        this.showToast()
       }
       if (ToolsUtil.isTextarea(type)) {
         await AxiosUtil.post(`/api/work/workComplete/${query.courseId}/${query.workId}`, myWork)
         this.editMyWork()
+        this.showToast()
       }
       if (ToolsUtil.isRecord(type)) {
         const {isPlaying, isRecording} = this.state
@@ -71,12 +77,27 @@ export default class extends React.Component {
             AxiosUtil.get(`/api/work/workAudioComplete/${query.courseId}/${query.workId}?serverId=${serverId}`).then(() => {
               _this.setState({myWork: serverId})
               _this.editMyWork()
+              _this.showToast()
             })
           }
         })
       }
     } catch (err) {
     }
+  }
+  showLoading () {
+    this.setState({showLoading: true})
+
+    this.state.loadingTimer = setTimeout(() => {
+      this.setState({showLoading: false})
+    }, 1500)
+  }
+  showToast () {
+    this.setState({showToast: true, showLoading: false})
+
+    this.state.loadingTimer = setTimeout(() => {
+      this.setState({showToast: false})
+    }, 1500)
   }
   workChange (value, type) {
     // let { myAnswer } = this.state
@@ -141,7 +162,7 @@ export default class extends React.Component {
   renderEditWork (workDetail, myAnswer, evaluate, flag) {
     const {query} = this.props
     return (
-      <div>
+      <div style={{padding: '0 1rem'}}>
         <div className='wx-space-center' style={{paddingBottom: '2rem'}}>
           <Button style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>
             <Link href={`/learn/course/otherAnswer${location.search}&workId=${query.workId}`}><a>查看其他同学答案</a></Link>
@@ -172,6 +193,8 @@ export default class extends React.Component {
                                'pageNumber=' + query.pageNumber
     return (
       <div className='my-work'>
+        <Toast icon='success-no-circle' show={this.state.showToast}>Done</Toast>
+        <Toast icon='loading' show={this.state.showLoading}>Loading...</Toast>
         {!DataUtil.isEmpty(workDetail) && this.renderAnswer(workDetail, this.state.myAnswer, evaluate)}
         <Link
           href={`/learn/course/questionList?${questionListAfterFix}`}>

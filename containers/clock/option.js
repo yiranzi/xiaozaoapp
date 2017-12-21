@@ -33,13 +33,13 @@ export default class extends React.Component {
 
         if (_answer) {
           if (ToolsUtil.isImg(_answer)) {
-            return <img style={{width: '100%'}} src={`http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/learning/workFile/${_answer}`} />
+            return <img style={{maxWidth: '100%'}} src={`http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/learning/workFile/${_answer}`} />
           } else {
             return <div>{_answer}</div>
           }
         } else {
           if (ToolsUtil.isImg(answer)) {
-            return <img style={{width: '100%'}} src={`http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/learning/workFile/${answer}`} />
+            return <img style={{maxWidth: '100%'}} src={`http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/learning/workFile/${answer}`} />
           } else {
             return <div>{answer}</div>
           }
