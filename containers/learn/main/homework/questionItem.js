@@ -289,9 +289,7 @@ export default class extends React.Component {
 
   renderContent () {
     let {questionItem} = this.props
-    return (<div onClick={() => { this.clickContent() }}>
-      <div dangerouslySetInnerHTML={{__html: questionItem.question}} />
-    </div>)
+    return (<span onClick={() => { this.clickContent() }} dangerouslySetInnerHTML={{__html: questionItem.question}} />)
   }
 
   renderGoDetailLink () {

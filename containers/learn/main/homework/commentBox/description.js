@@ -38,12 +38,21 @@ export default class extends React.Component {
     let {content, canFold} = this.props
     if (content) {
       if (canFold) {
-        return (<MediaBoxDescription>
-          <MoreContent height={2}><div dangerouslySetInnerHTML={{__html: content}} /></MoreContent>
-        </MediaBoxDescription>)
+        return (<div>
+          <span className='desc'>
+            <MoreContent height={3}><div dangerouslySetInnerHTML={{__html: content}} /></MoreContent>
+          </span>
+          <style jsx>{`
+            .desc {
+              font-size: 13px;
+              color: #999999;
+              overflow: hidden;
+            }
+          `}</style>
+        </div>)
       } else {
         return (<MediaBoxDescription style={{display: 'block'}}>
-          <div><div dangerouslySetInnerHTML={{__html: content}} /></div>
+          <span dangerouslySetInnerHTML={{__html: content}} />
         </MediaBoxDescription>)
       }
     } else {

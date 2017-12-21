@@ -30,7 +30,7 @@ class innerComponent extends React.Component {
               </div>
             </MediaBoxTitle>
             <MediaBoxDescription style={{display: 'block'}}>
-              <p dangerouslySetInnerHTML={{__html: ele.content}} />
+              <span dangerouslySetInnerHTML={{__html: ele.content}} />
             </MediaBoxDescription>
           </MediaBox>)
         })}

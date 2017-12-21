@@ -43,8 +43,10 @@ export default class extends React.Component {
           <GiveScore evaluateId={evaluateId} score={score} />
         </MediaBoxInfo>}
       </MediaBox>)
-    } else {
+    } else if (teacherComment === undefined) {
       return <LoadingIcon />
+    } else {
+      return <div>没有评价数据</div>
     }
   }
 }
