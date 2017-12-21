@@ -105,15 +105,15 @@ export default class extends React.Component {
         case 'doing':
           info += '结束'
           break
-        case 'done':
+        case 'finish':
           afterCalcCount = Math.ceil(finishPercent * course.buyCount)
           content = `${afterCalcCount}人已完成`
-          info += '已完成'
+          info += '结束'
           break
         case 'over':
           afterCalcCount = finishPercent * course.buyCount
           content = `${afterCalcCount}人已完成`
-          info += '已结束'
+          info += '结束'
           break
       }
       return (
