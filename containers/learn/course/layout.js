@@ -29,7 +29,7 @@ export default class extends React.Component {
   }
   renderCourseMenu () {
     const {query, menuContent} = this.props
-    const {courseId, menuId, sectionId} = query
+    const {courseId, chapterId, sectionId} = query
     const {menuDTOList} = menuContent
     const {courseMenuShow} = this.state
 
@@ -48,7 +48,7 @@ export default class extends React.Component {
               {menuDTOList.map((menu, index) => {
                 return (
                   <Accordion
-                    show={menu.id.toString() === menuId.toString()}
+                    show={menu.id.toString() === chapterId.toString()}
                     key={`accord_${index}`}
                     header={<div className='wrap'><span className='file' />{menu.name}</div>}
                   >

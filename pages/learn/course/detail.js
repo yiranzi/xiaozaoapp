@@ -17,7 +17,7 @@ export default class extends React.Component {
     this.state = {
       query: {
         courseId: '',
-        menuId: '',
+        chapterId: '',
         sectionId: '',
         pageNumber: '',
         workId: ''
@@ -38,18 +38,18 @@ export default class extends React.Component {
     let currentCourseDetail = {}
     let courseId = ToolsUtil.getQueryString('courseId')
     let footerPrint = await AxiosUtil.get(`/api/learning/getLearningFootprint/${courseId}`)
-    let menuId = ToolsUtil.getQueryString('menuId')
+    let chapterId = ToolsUtil.getQueryString('chapterId')
     let sectionId = ToolsUtil.getQueryString('sectionId')
     let pageNumber = ToolsUtil.getQueryString('pageNumber') || 1
 
     if (!DataUtil.isEmpty(footerPrint)) {
-      menuId = menuId || footerPrint.chapterId
+      chapterId = chapterId || footerPrint.chapterId
       sectionId = sectionId || footerPrint.sectionId
       pageNumber = pageNumber || footerPrint.pageNumber
     }
     let menuContent = await AxiosUtil.get(`/api/learning/course/${courseId}`)
     let array = []
-    menuId = menuId ? menuId : menuContent.menuDTOList[0].id
+    chapterId = chapterId ? chapterId : menuContent.menuDTOList[0].id
     /**
      * 获取课程详情
      * 如果链接没有sectionId, 默认显示第一节的内容
@@ -66,7 +66,7 @@ export default class extends React.Component {
     }
 
     menuContent.menuDTOList.map((menu) => {
-      let _menuId = menu.id
+      let chapterId = menu.id
 
       menu.sectionMenuDTOList.map((section) => {
         if (sectionId.toString() === section.id.toString()) {
@@ -76,7 +76,7 @@ export default class extends React.Component {
         section.contentDTOList.map((content) => {
           let pageNumber = content.pageNumber
           array.push({
-            menuId: _menuId.toString(),
+            chapterId: chapterId.toString(),
             sectionId: section.id.toString(),
             pageNumber: pageNumber.toString()
           })
@@ -138,13 +138,19 @@ export default class extends React.Component {
     this.setState({
       query: {
         courseId: courseId,
-        menuId: menuId || menuContent.menuDTOList[0].id,
+        chapterId: chapterId,
         sectionId: sectionId,
         pageNumber: pageNumber,
         workId: workId
       }
     })
-    AxiosUtil.post(`/api/learning/saveFootprint`, JSON.stringify({courseId: courseId, chapterId: menuId || menuContent.menuDTOList[0].id, pageNumber: pageNumber, sectionId: sectionId}))
+    // 保存足迹
+    AxiosUtil.post(`/api/learning/saveFootprint`, JSON.stringify({
+      courseId: courseId,
+      chapterId: chapterId,
+      pageNumber: pageNumber,
+      sectionId: sectionId
+    }))
   }
   renderCourseDetail (course) {
     return (
@@ -171,13 +177,13 @@ export default class extends React.Component {
   renderPrev () {
     const {query, array} = this.state
     let json = {
-      menuId: query.menuId,
+      chapterId: query.chapterId,
       sectionId: query.sectionId,
       pageNumber: query.pageNumber
     }
     let pos
     array.map((item, index) => {
-      if (json.menuId.toString() === item.menuId.toString() &&
+      if (json.chapterId.toString() === item.chapterId.toString() &&
           json.sectionId.toString() === item.sectionId.toString() &&
           json.pageNumber.toString() === item.pageNumber.toString()) {
         pos = index
@@ -191,27 +197,29 @@ export default class extends React.Component {
     } else {
       text = '上一节'
     }
-    return (
-      <Button
-        style={{backgroundColor: 'rgba(62,166,247,0.2)'}}
-        id='prev'
-        size='small'
-        disabled={noPrev}
-        onClick={() => { this.loadPage('prev') }}>
-        {noPrev ? '上一节' : text}
-      </Button>
-    )
+    if (query.chapterId) {
+      return (
+        <Button
+          style={{backgroundColor: 'rgba(62,166,247,0.2)'}}
+          id='prev'
+          size='small'
+          disabled={noPrev}
+          onClick={() => { this.loadPage('prev') }}>
+          {noPrev ? '上一节' : text}
+        </Button>
+      )
+    }
   }
   renderNext () {
     const {query, array} = this.state
     let json = {
-      menuId: query.menuId,
+      chapterId: query.chapterId,
       sectionId: query.sectionId,
       pageNumber: query.pageNumber
     }
     let pos
     array.map((item, index) => {
-      if (json.menuId.toString() === item.menuId.toString() &&
+      if (json.chapterId.toString() === item.chapterId.toString() &&
           json.sectionId.toString() === item.sectionId.toString() &&
           json.pageNumber.toString() === item.pageNumber.toString()) {
         pos = index
@@ -225,32 +233,34 @@ export default class extends React.Component {
     } else {
       text = '下一节'
     }
-    return (
-      <Button
-        style={{backgroundColor: 'rgba(62,166,247,0.2)'}}
-        id='next'
-        size='small'
-        disabled={noNext}
-        onClick={() => { this.loadPage('next') }}>
-        {noNext ? '下一节' : text}
-      </Button>
-    )
+    if (query.chapterId) {
+      return (
+        <Button
+          style={{backgroundColor: 'rgba(62,166,247,0.2)'}}
+          id='next'
+          size='small'
+          disabled={noNext}
+          onClick={() => { this.loadPage('next') }}>
+          {noNext ? '下一节' : text}
+        </Button>
+      )
+    }
   }
   loadPage (type) {
     console.log(type)
     let {query, array} = this.state
 
-    let {courseId, sectionId, menuId, pageNumber} = query
+    let {courseId, sectionId, chapterId, pageNumber} = query
 
     let json = {
-      menuId: menuId,
+      chapterId: chapterId,
       sectionId: sectionId,
       pageNumber: pageNumber
     }
 
     let pos
     array.map((item, index) => {
-      if (json.menuId.toString() === item.menuId.toString() &&
+      if (json.chapterId.toString() === item.chapterId.toString() &&
         json.sectionId.toString() === item.sectionId.toString() &&
         json.pageNumber.toString() === item.pageNumber.toString()) {
         pos = index
