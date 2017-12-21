@@ -15,6 +15,7 @@ import {
 import Link from 'next/link'
 import Fixfooter from '/xz-components/fixfooter'
 import AxiosUtil from '/util/axios'
+import ThemeConfig from '/config/theme'
 /**
  * 渲染每个问题
  */
@@ -264,8 +265,11 @@ export default class extends React.Component {
     return (
       <div className='question-title-div'>
         <h3 className='question-title'>{title}</h3>
+        {/*<div className='question-icon'>*/}
+          {/*{overWork ? <i className={'weui-icon-success-no-circle'} /> : <i style={{color: ThemeConfig.color.content}} className={'weui-icon-cancel'} />}*/}
+        {/*</div>*/}
         {overWork && <div className='question-icon'>
-          <i className={'weui-icon-success'} />
+          <i className={'weui-icon-success-no-circle'} />
         </div>}
         <style jsx>{`
         .question-title-div {
