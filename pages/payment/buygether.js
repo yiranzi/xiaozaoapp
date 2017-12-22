@@ -473,6 +473,7 @@ export default class extends React.Component {
   wxBuy = async (typeId, groupId, payInfo) => {
     let _this = this
     wxPayController.payInit(payInfo).then(async function () {
+      alert('then')
       // 关闭弹窗
       _this.setState({
         showPop: false
