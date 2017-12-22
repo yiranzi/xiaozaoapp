@@ -3,7 +3,7 @@ import Button from '../../xz-components/button'
 import Layout from '../../components/layout'// container
 import AxiosUtil from '../../util/axios'
 import WxShare from '../../xz-components/newWxShare'
-import wxPayController from '../../util/wxPayController2'// 工具类
+import wxPayController from '../../util/wxPay'// 工具类
 import BuyPop from '../../containers/buygether/buypop'
 import Triangle from '../../containers/buygether/poptag'
 import Scrolling from '../../containers/buygether/scrolling'
