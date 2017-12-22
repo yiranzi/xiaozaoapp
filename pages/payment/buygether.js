@@ -59,7 +59,7 @@ export default class extends React.Component {
     this.joinGroupFromShare()
   }
 
-  updateInfo = async () => {
+  updateInfo = async (type) => {
     let buyDetail = await AxiosUtil.get('/api/study-card/buyDetail')
     let {myGroup, otherGroup, studyCardPackageList, studyCardCouponInvite} = buyDetail
     this.setState({
@@ -72,9 +72,15 @@ export default class extends React.Component {
     await this.setGroupStatus(myGroup)
     // 调用分享函数
     let _this = this
-    this.state.wxConfig.init().then(() => {
-      _this.setShare()
-    })
+    if (type) {
+      await this.state.wxConfig.init()
+      await _this.setShare()
+    } else {
+      this.state.wxConfig.init().then(() => {
+        _this.setShare()
+      })
+    }
+
   }
 
   // 根据信息设置开团状态
@@ -448,7 +454,7 @@ export default class extends React.Component {
     })
     let currentGroupStatus = this.state.myGroupingId
     // 刷新数据
-    await this.updateInfo()
+    await this.updateInfo(true)
     // 判定是否需要跳转
     if (groupId) {
       alert('小程序拼团成功')
