@@ -9,6 +9,8 @@ wxPayController.payInit = (payInfo) => {
   if (window.__wxjs_environment === 'miniprogram') {
     alert('小程序获取订单')
     let { nonceStr, paySign, timeStamp, prepayId } = payInfo
+    alert(wx)
+    alert(wx.miniProgram.navigateTo)
     wx.miniProgram.navigateTo({ url: `/pages/target/target?timeStamp=${timeStamp}&nonceStr=${nonceStr}&prepayId=${prepayId}&signType=MD5&paySign=${paySign}` })
   } else {
     return wxPayController.pay()

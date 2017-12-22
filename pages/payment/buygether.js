@@ -13,6 +13,8 @@ import {Alert} from '../../xz-components/alert'
 import {Confirm} from '/xz-components/confirm'
 import {ModalBoxPopFunc} from '../../xz-components/modalbox'
 import GroupCard from '../../containers/buygether/groupcard'
+import Router from 'next/router'
+import Link from 'next/link'
 
 // 介绍页
 export default class extends React.Component {
@@ -286,7 +288,6 @@ export default class extends React.Component {
     location.href = router
   }
 
-
   renderPopAssistant (ele) {
     let defaultStyle = {
       backgroundColor: 'rgba(0, 10, 49, 0.5)'
@@ -295,7 +296,7 @@ export default class extends React.Component {
       <p className='title'>参团成功！</p>
       <p className='title'>请务必添加小助手，关注课程进度</p>
       <p className='title'>添加小助手</p>
-      <img className='img-style' src='/static/img/buygether/share-arrow.png' />
+      <img className='img-style' src='/static/img/buygether/codeImg.jpg' />
       <style jsx>{`
       .title {
         font-size:20px;
@@ -430,7 +431,10 @@ export default class extends React.Component {
       content: '付款成功？',
       okText: '成功',
       cancelText: '失败',
-      ok: () => { _this.afterLittlePay(typeId, groupId) }
+      ok: () => { _this.afterLittlePay(typeId, groupId) },
+      cancel: () => {
+        Alert({ content: '微信添加小助手xiaozao906获得帮助' })
+      }
     })
   }
 
@@ -517,6 +521,10 @@ export default class extends React.Component {
         this.wxBuy(typeId, groupId, payInfo)
       }
     } catch (e) {
+      let littleShareUrl = this.littleShareUrl
+      if (littleShareUrl) {
+        Router.replace(location.href + this.littleShareUrl)
+      }
       this.openConfirm(typeId, groupId, {})
       Alert({
         content: e.message
@@ -569,24 +577,50 @@ export default class extends React.Component {
         </div>
         <div className='right' onClick={() => { this.buyMyGroup() }}>
           <div className='single-price'>
-            <p>4999</p>
-            <p>单独购买</p>
+            <span>￥4999</span>
+            <p>原价购买</p>
           </div>
           <div className='group-price'>
-            {/*<img src='/static/img/buygether/buy.png' />*/}
-            <p>3999</p>
-            <p>发起拼单</p>
+            <img style={{height: '70%'}}src='/static/img/buygether/buy.png' />
+            <div className='price-inner'>
+              <span>￥3999</span>
+              <p>特惠开团</p>
+            </div>
           </div>
         </div>
       </div>
       <style jsx>{`
+        .price-inner {
+          display: flex;
+          width: 100%;
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+        .right span {
+          font-size: 16px;
+        }
+        .right p {
+          font-size: 14px;
+        }
         .single-price {
+          flex: 1;
           height: 100%;
           line-height: 25px;
+          background-color: green;
+        }
+        .single-price span {
+          text-decoration:line-through
         }
         .group-price {
+          background-color: #c41616;
+          flex: 1;
           height: 100%;
           line-height: 25px;
+          display: flex;
+
+        }
+        .group-price span{
+          width: 100%;
         }
         .fix-foot {
           margin: -16px;
@@ -597,7 +631,7 @@ export default class extends React.Component {
           line-height: 50px;
         }
         .left {
-          flex: 2;
+          flex: 1;
           background-color: #4146aa;
           display: flex;
           justify-content: center;
@@ -605,7 +639,6 @@ export default class extends React.Component {
         }
         .right {
           flex: 3;
-          background-color: #c41616;
           display: flex;
           justify-content: space-around;
         }
@@ -620,27 +653,43 @@ export default class extends React.Component {
   renderCourseInfo () {
     return (<div className='div-with-bottom'>
       {this.renderTitle('课程详情')}
-      <p>静态图</p>
+      <img src={'/static/img/buygether/intro_1.png'} />
+      <img src={'/static/img/buygether/intro_2.png'} />
       <style jsx>{`
         .div-with-bottom {
           padding-bottom: 10px;
           border-bottom: 1px solid #e5e5e5;
+        }
+        .div-with-bottom img {
+          width: 100%;
         }
       `}</style>
     </div>)
   }
 
   renderMoreCourse () {
-    return (<div className='div-with-bottom'>
-      {this.renderTitle('更多课程')}
-      <a>跳转链接</a>
-      <style jsx>{`
-        .div-with-bottom {
-          padding-bottom: 10px;
-          border-bottom: 1px solid #e5e5e5;
+    return (
+      <div className='fix-link'>
+        <Link href={'/abilitycollege/main'}>
+          <a className='content'>更多课程</a>
+        </Link>
+        <style jsx>{`
+        .fix-link{
+          position: fixed;
+          bottom: 70px;
+          left: 0;
+          width: 100px;
+          height: 20px;
+          line-height: 20px;
+          background-color: blue;
+        }
+        .content {
+          font-size: 14px;
+          color: white;
         }
       `}</style>
-    </div>)
+      </div>
+    )
   }
 
   render () {
