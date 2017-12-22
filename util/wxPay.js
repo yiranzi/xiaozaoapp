@@ -6,12 +6,19 @@ let wxPayController = {}
 wxPayController.payInit = (payInfo) => {
   payData = payInfo
   // 2 调用微信
-  return wxPayController.pay()
+  if (window.__wxjs_environment === 'miniprogram') {
+    alert('小程序获取订单')
+    let { nonceStr, paySign, timeStamp, prepayId } = payInfo
+    wx.miniProgram.navigateTo({ url: `/pages/target/target?timeStamp=${timeStamp}&nonceStr=${nonceStr}&prepayId=${prepayId}&signType=MD5&paySign=${paySign}` })
+  } else {
+    return wxPayController.pay()
+  }
 }
 
 wxPayController.pay = () => {
   console.log('wxPayController.pay')
   if (typeof WeixinJSBridge === 'undefined') {
+    // 这段代码似乎没跑过。如果跑会影响到回调。
     if (document.addEventListener) {
       document.addEventListener('WeixinJSBridgeReady', wxPayController.pay, false)
     } else if (document.attachEvent) {

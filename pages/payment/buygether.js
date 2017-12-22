@@ -10,6 +10,7 @@ import Scrolling from '../../containers/buygether/scrolling'
 import Fixfooter from '../../xz-components/fixfooter'
 import ToolsUtil from '../../util/tools'
 import {Alert} from '../../xz-components/alert'
+import {Confirm} from '/xz-components/confirm'
 import {ModalBoxPopFunc} from '../../xz-components/modalbox'
 import GroupCard from '../../containers/buygether/groupcard'
 
@@ -19,6 +20,7 @@ export default class extends React.Component {
   changeInterval = 4000 // 切换间隔
   nickname // 分享昵称
   headimgurl // 分享头像
+  littleShareUrl
 
   buttonStyle = {
     backgroundColor: '#c41616',
@@ -107,7 +109,9 @@ export default class extends React.Component {
       let nickname = encodeURI(encodeURI(this.nickname))
       let headimgurl = encodeURI(this.headimgurl)
       shareProp.title = this.nickname + shareProp.title
-      shareProp.link += `?groupId=${this.state.myGroupingId}&headimgurl=${headimgurl}&nickname=${nickname}&category=invite`
+      let addParam = `?groupId=${this.state.myGroupingId}&headimgurl=${headimgurl}&nickname=${nickname}&category=invite`
+      shareProp.link += addParam
+      this.littleShareUrl = addParam
     }
     this.state.wxConfig.setShareConfig(shareProp)
   }
@@ -412,43 +416,108 @@ export default class extends React.Component {
     }
   }
 
-  buyButtonCallBack = async (typeId, groupId) => {
-    try {
-      let _this = this
-      let payInfo
-      if (groupId) {
-        payInfo = await AxiosUtil.get(`/api/study-card/buyTogether/${groupId}/${typeId}`)
-      } else {
-        payInfo = await AxiosUtil.get(`/api/study-card/buy/${typeId}`)
+  littleBuy = async (typeId, groupId, payInfo) => {
+    // 1 调用小程序支付
+    wxPayController.payInit(payInfo)
+    // 2 显示弹窗 等待完成 确保这个弹窗还有
+    this.openConfirm(typeId, groupId, payInfo)
+  }
+
+  // 小程序打开弹窗
+  openConfirm (typeId, groupId, payInfo) {
+    const _this = this
+    Confirm({
+      content: '付款成功？',
+      okText: '成功',
+      cancelText: '失败',
+      ok: () => { _this.afterLittlePay(typeId, groupId) }
+    })
+  }
+
+  afterLittlePay = async (typeId, groupId) => {
+    // 关闭弹窗
+    this.setState({
+      showPop: false
+    })
+    let currentGroupStatus = this.state.myGroupingId
+    // 刷新数据
+    await this.updateInfo()
+    // 判定是否需要跳转
+    if (groupId) {
+      alert('小程序拼团成功')
+      try {
+        await AxiosUtil.get(`/api/study-card/buyTogether/${groupId}/${typeId}/true`)
+      } catch (e) {
+        // 如果订单已经消失。跳转
+        if (e.status === 10001 || e.status === 10002) {
+          this.renderPopAssistant()
+        }
       }
-      wxPayController.payInit(payInfo).then(async function () {
-        // 关闭弹窗
-        _this.setState({
-          showPop: false
-        })
-        let currentGroupStatus = _this.state.myGroupingId
-        // 刷新数据
-        await _this.updateInfo()
-        // 判定是否需要跳转
-        if (groupId) {
-          try {
-            await AxiosUtil.get(`/api/study-card/buyTogether/${groupId}/${typeId}`)
-          } catch (e) {
-            // 如果订单已经消失。跳转
-            if (e.status === 10001 || e.status === 10002) {
-              alert('弹小助手了吗？')
-              _this.renderPopAssistant()
-            }
-          }
-        } else if (currentGroupStatus === null) {
-          // 如果之前没有团。
-          if (_this.state.myGroupingId) {
-            // 弹窗
-            _this.renderPop()
+    } else if (currentGroupStatus === null) {
+      alert('小程序开团成功')
+      // 如果之前没有团。
+      if (this.state.myGroupingId) {
+        // 弹窗
+        this.renderPop()
+        // 如果是小程序 的上线分享 请修改掉url？ 下线不处理
+        // 如果小程序上线开团成功。修改url
+        alert(this.littleShareUrl)
+      }
+    }
+  }
+
+  wxBuy = async (typeId, groupId, payInfo) => {
+    let _this = this
+    wxPayController.payInit(payInfo).then(async function () {
+      // 关闭弹窗
+      _this.setState({
+        showPop: false
+      })
+      let currentGroupStatus = _this.state.myGroupingId
+      // 刷新数据
+      await _this.updateInfo()
+      // 判定是否需要跳转
+      if (groupId) {
+        try {
+          await AxiosUtil.get(`/api/study-card/buyTogether/${groupId}/${typeId}/false`)
+        } catch (e) {
+          // 如果订单已经消失。跳转
+          if (e.status === 10001 || e.status === 10002) {
+            _this.renderPopAssistant()
           }
         }
-      })
+      } else if (currentGroupStatus === null) {
+        // 如果之前没有团。
+        if (_this.state.myGroupingId) {
+          // 弹窗
+          _this.renderPop()
+        }
+      }
+    })
+  }
+
+  buyButtonCallBack = async (typeId, groupId) => {
+    try {
+      let payInfo
+      // 判断是否是小程序
+      let isMiniProgram = true
+      if (window.__wxjs_environment === 'miniprogram') {
+        isMiniProgram = true
+      } else {
+        isMiniProgram = false
+      }
+      if (groupId) {
+        payInfo = await AxiosUtil.get(`/api/study-card/buyTogether/${groupId}/${typeId}/${isMiniProgram}`)
+      } else {
+        payInfo = await AxiosUtil.get(`/api/study-card/buy/${typeId}/${isMiniProgram}`)
+      }
+      if (window.__wxjs_environment === 'miniprogram') {
+        this.littleBuy(typeId, groupId, payInfo)
+      } else {
+        this.wxBuy(typeId, groupId, payInfo)
+      }
     } catch (e) {
+      this.openConfirm(typeId, groupId, {})
       Alert({
         content: e.message
       })
