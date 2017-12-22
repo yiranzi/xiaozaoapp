@@ -80,6 +80,7 @@ export default class extends React.Component {
   // 根据信息设置开团状态
   setGroupStatus = async (myGroup) => {
     let myGroupingId = null
+
     if (myGroup && myGroup.length > 0) {
       // 查找 正在开团？
       let result = myGroup.find((ele, index) => {
@@ -101,6 +102,7 @@ export default class extends React.Component {
   }
 
   setShare () {
+    alert('set')
     let shareProp = {
       title: '邀你一起拼团能力课程，低至3折',
       desc: '小灶能力学院限时拼团特惠，PPT课、商业英语课、结构化逻辑课、四大求职通关课等26大课程3大类能力等你拥有。',
@@ -114,6 +116,7 @@ export default class extends React.Component {
       let addParam = `?groupId=${this.state.myGroupingId}&headimgurl=${headimgurl}&nickname=${nickname}&category=invite`
       shareProp.link += addParam
       this.littleShareUrl = addParam
+      alert(this.littleShareUrl)
     }
     this.state.wxConfig.setShareConfig(shareProp)
   }
@@ -459,10 +462,14 @@ export default class extends React.Component {
       }
     } else if (currentGroupStatus === null) {
       alert('小程序开团成功')
-      // 如果之前没有团。
+      // 如果之前没有团。现在有团了
       if (this.state.myGroupingId) {
         // 弹窗
         this.renderPop()
+        let littleShareUrl = this.littleShareUrl
+        if (littleShareUrl) {
+          Router.replace(location.href + this.littleShareUrl)
+        }
         // 如果是小程序 的上线分享 请修改掉url？ 下线不处理
         // 如果小程序上线开团成功。修改url
         alert(this.littleShareUrl)
@@ -522,11 +529,6 @@ export default class extends React.Component {
         this.wxBuy(typeId, groupId, payInfo)
       }
     } catch (e) {
-      let littleShareUrl = this.littleShareUrl
-      if (littleShareUrl) {
-        Router.replace(location.href + this.littleShareUrl)
-      }
-      this.openConfirm(typeId, groupId, {})
       Alert({
         content: e.message
       })

@@ -7,10 +7,7 @@ wxPayController.payInit = (payInfo) => {
   payData = payInfo
   // 2 调用微信
   if (window.__wxjs_environment === 'miniprogram') {
-    alert('小程序获取订单')
     let { nonceStr, paySign, timeStamp, prepayId } = payInfo
-    alert(wx)
-    alert(wx.miniProgram.navigateTo)
     wx.miniProgram.navigateTo({ url: `/pages/target/target?timeStamp=${timeStamp}&nonceStr=${nonceStr}&prepayId=${prepayId}&signType=MD5&paySign=${paySign}` })
   } else {
     return wxPayController.pay()
@@ -47,7 +44,6 @@ wxPayController.onBridgeReady = () => {
         'paySign': paySign
       },
       function (res) {
-        alert(res.err_msg)
         let json = {state: 'unknown', message: '未知错误'}
         if (res.err_msg === 'get_brand_wcpay_request:ok') {
           json.state = 'ok'
@@ -59,7 +55,6 @@ wxPayController.onBridgeReady = () => {
           json.state = 'fail'
           json.message = '支付失败'
         }
-        alert('支付回调')
         resolve(json)
       }
     )
