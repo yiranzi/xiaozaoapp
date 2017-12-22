@@ -47,6 +47,7 @@ wxPayController.onBridgeReady = () => {
         'paySign': paySign
       },
       function (res) {
+        alert(res.err_msg)
         let json = {state: 'unknown', message: '未知错误'}
         if (res.err_msg === 'get_brand_wcpay_request:ok') {
           json.state = 'ok'
