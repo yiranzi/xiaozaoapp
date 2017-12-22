@@ -162,8 +162,7 @@ export default class extends React.Component {
     let style = (index === this.state.currentSelect) ? choose : normal
     return (
       <div className='line'>
-        <img className='icon' src={'/static/img/buygether/card_icon.png'} />
-        <div className='card-name'>能力卡<span className='card' style={style}>{`${ele.id}`}</span>张</div>
+        <div className='card-name'>商业分析实战训练营</div>
         <span className='price'>{`拼团价 ￥`}<strong>{`${this.calcPrice(ele, 'now')}`}</strong></span>
         <style jsx>{`
             .line {
@@ -172,28 +171,14 @@ export default class extends React.Component {
               align-items: center;
               width: 100%;
             }
-            .icon {
-              margin-right: 10px;
-              flex: 1；
-              width: 30px;
-            }
             .card-name {
               flex: 4;
               margin-right: 10px;
               display: flex;
               align-items: center;
             }
-            .card {
-              margin: auto 10px;
-              display: inline-block;
-              border-radius: 50%;
-              height: 30px;
-              line-height: 30px;
-              width: 30px;
-              text-align: center;
-              font-size: 16px;
-            }
             .price {
+              text-align: right;
               flex: 3
             }
             .price strong {
@@ -319,7 +304,7 @@ export default class extends React.Component {
           <div className='buy-pop-div' onClick={(e) => { e.stopPropagation() }}>
             {this.renderTitle()}
             {this.renderList()}
-            {this.renderCoupon()}
+            {/*{this.renderCoupon()}*/}
             {this.renderBottom()}
           </div>
           <style jsx>{`

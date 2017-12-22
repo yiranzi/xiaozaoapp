@@ -11,8 +11,6 @@ import Fixfooter from '../../xz-components/fixfooter'
 import ToolsUtil from '../../util/tools'
 import {Alert} from '../../xz-components/alert'
 import {ModalBoxPopFunc} from '../../xz-components/modalbox'
-import MoreLine from '../../xz-components/moreLine'
-import staticContent from '../../containers/buygether/staticContent'
 import GroupCard from '../../containers/buygether/groupcard'
 
 // 介绍页
@@ -102,7 +100,7 @@ export default class extends React.Component {
     let shareProp = {
       title: '邀你一起拼团能力课程，低至3折',
       desc: '小灶能力学院限时拼团特惠，PPT课、商业英语课、结构化逻辑课、四大求职通关课等26大课程3大类能力等你拥有。',
-      link: 'https://wx.xiaozao.org/abilitycollege/main',
+      link: 'https://rcwx.review.xiaozao.org/payment/buygether',
       imgUrl: 'https://wx.xiaozao.org/static/img/abilitycollege/shareicon.png'
     }
     if (this.state.myGroupingId) {
@@ -220,7 +218,7 @@ export default class extends React.Component {
         if (ele.status === 1) {
           // 历史团
           return (<GroupCard key={ele.groupId} groupInfo={ele}
-            button={<Button style={this.buttonStyle} onClick={() => { this.goRouter('/abilitycollege/coupon') }}>邀好友，得能力卡</Button>} />)
+            button={<Button style={this.buttonStyle} onClick={() => { this.renderPopAssistant() }}>添加小助手</Button>} />)
         } else {
           return (<GroupCard key={ele.groupId} groupInfo={ele}
             button={<Button style={this.buttonStyle} onClick={() => { this.renderPop(ele) }}>立即邀请好友</Button>} />)
@@ -284,42 +282,40 @@ export default class extends React.Component {
     location.href = router
   }
 
-  renderCoupon () {
-    let {couponInfo} = this.state
-    if (couponInfo) {
-      let couponType
-      switch (couponInfo.name) {
-        case '通用券':
-          couponType = 0
-          break
-        case '闺蜜券':
-          couponType = 1
-          break
-        case '基友券':
-          couponType = 2
-          break
-        case '校友券':
-          couponType = 3
-          break
-      }
-      let {nickname} = couponInfo
-      return (<div className='div-with-bottom'>
-        {this.renderTitle('我获得的优惠券')}
-        <img onClick={() => { this.buyMyGroup() }} src={`/static/img/buygether/coupon_card_${couponType}.png`} />
-        <p>* {nickname} 赠送，报名后你的好友 {nickname} 将免费获得一张能力卡</p>
-        <style jsx>{`
-          .div-with-bottom {
-            padding-bottom: 10px;
-            border-bottom: 1px solid #e5e5e5;
-            font-size: 14px;
-            text-align: left
-          }
-          img {
-            width: 100%;
-          }
-        `}</style>
-      </div>)
+
+  renderPopAssistant (ele) {
+    let defaultStyle = {
+      backgroundColor: 'rgba(0, 10, 49, 0.5)'
     }
+    let dom = <div>
+      <p className='title'>参团成功！</p>
+      <p className='title'>请务必添加小助手，关注课程进度</p>
+      <p className='title'>添加小助手</p>
+      <img className='img-style' src='/static/img/buygether/share-arrow.png' />
+      <style jsx>{`
+      .title {
+        font-size:20px;
+        font-weight: bold;
+      }
+      .strong {
+        font-size:28px;
+        font-weight: bold;
+        color: red;
+      }
+      .img-style {
+        // position: absolute;
+        // top: 0;
+        // right: 0;
+        // width: 150px;
+        // height: 300px;
+      }
+    `}</style>
+    </div>
+    let prop = {
+      innerDiv: dom,
+      style: defaultStyle
+    }
+    ModalBoxPopFunc({...prop})
   }
 
   renderOtherGroup () {
@@ -440,11 +436,8 @@ export default class extends React.Component {
           } catch (e) {
             // 如果订单已经消失。跳转
             if (e.status === 10001 || e.status === 10002) {
-              Alert({
-                content: '您已拼团成功！现在每成功分享一位好友，都能免费得到成就卡！',
-                okText: '去看看',
-                ok: () => location.href = '/abilitycollege/coupon'
-              })
+              alert('弹小助手了吗？')
+              _this.renderPopAssistant()
             }
           }
         } else if (currentGroupStatus === null) {
@@ -506,11 +499,26 @@ export default class extends React.Component {
           <span>在线咨询</span>
         </div>
         <div className='right' onClick={() => { this.buyMyGroup() }}>
-          <img src='/static/img/buygether/buy.png' />
-          <span>获得能力卡 开团享3折</span>
+          <div className='single-price'>
+            <p>4999</p>
+            <p>单独购买</p>
+          </div>
+          <div className='group-price'>
+            {/*<img src='/static/img/buygether/buy.png' />*/}
+            <p>3999</p>
+            <p>发起拼单</p>
+          </div>
         </div>
       </div>
       <style jsx>{`
+        .single-price {
+          height: 100%;
+          line-height: 25px;
+        }
+        .group-price {
+          height: 100%;
+          line-height: 25px;
+        }
         .fix-foot {
           margin: -16px;
           display: flex;
@@ -520,17 +528,17 @@ export default class extends React.Component {
           line-height: 50px;
         }
         .left {
-          flex: 1;
-          background-color: #4146aa;
-        }
-        .right {
           flex: 2;
-          background-color: #c41616;
-        }
-        .fix-foot > div{
+          background-color: #4146aa;
           display: flex;
           justify-content: center;
           align-items: center;
+        }
+        .right {
+          flex: 3;
+          background-color: #c41616;
+          display: flex;
+          justify-content: space-around;
         }
         .fix-foot img{
           width: 25px;
@@ -540,67 +548,47 @@ export default class extends React.Component {
     </Fixfooter>)
   }
 
-  renderMoreQA () {
-    if (this.state.otherGroup !== undefined) {
-      let moreStyle = {
-        marginTop: '10px'
-      }
-      let arr = staticContent.map((ele, index) => {
-        return (<div key={index} className='question'>
-          <MoreLine style={moreStyle} title={ele.question} content={ele.content} />
-          <style jsx>{`
-            .question {
-              color: #646464;
-              text-align: left;
-              margin: 10px auto 15px auto;
-            }
-          `}</style>
-        </div>)
-      })
-      return (<div className='more-div'>
-        <div className='more-info-title'>
-          <span>小灶能力学院Q&A</span>
-        </div>
-        {arr}
-        <style jsx>{`
-        .more-div {
-          font-size: 14px;
-          padding: 4px;
+  renderCourseInfo () {
+    return (<div className='div-with-bottom'>
+      {this.renderTitle('课程详情')}
+      <p>静态图</p>
+      <style jsx>{`
+        .div-with-bottom {
+          padding-bottom: 10px;
+          border-bottom: 1px solid #e5e5e5;
         }
-         .more-info-title{
-            height: 1px;
-            border-top: 3px dotted #e1e4f0;
-            text-align: center;
-            margin: 40px 0px 18px 0px !important;
-          }
-          .more-info-title span{
-            background-color: #f0f2f6;
-            font-size: 18px;
-            position: relative;
-            top: -18px;
-            padding: 0 10px;
-          }
       `}</style>
-      </div>)
-    }
+    </div>)
+  }
+
+  renderMoreCourse () {
+    return (<div className='div-with-bottom'>
+      {this.renderTitle('更多课程')}
+      <a>跳转链接</a>
+      <style jsx>{`
+        .div-with-bottom {
+          padding-bottom: 10px;
+          border-bottom: 1px solid #e5e5e5;
+        }
+      `}</style>
+    </div>)
   }
 
   render () {
     return (
       <Layout>
         <div className='buy-card-page'>
-          <img className='bg-img1' src={'/static/img/buygether/buyBg_1.jpeg'} />
-          <div>{this.renderAllGroupView()}</div>
+          <div className='top-banner'>
+            <img className='bg-img1' src={'/static/img/buygether/buyBg_1.jpeg'} />
+            <div className='text-line'>
+              <Scrolling interval={6000} />
+            </div>
+          </div>
           <div className='card-div'>
             {this.renderMyGroup()}
-            {this.renderCoupon()}
             {this.renderOtherGroup()}
-          </div>
-          <div className='buy-button'>
-            {this.renderBuyButton()}
-          </div>
-          <div className='more-info'>
-            {this.renderMoreQA()}
+            {this.renderCourseInfo()}
+            {this.renderMoreCourse()}
           </div>
           {this.renderFooter()}
         </div>
@@ -624,8 +612,20 @@ export default class extends React.Component {
             margin: 0px;
             padidng: 0;
           }
+          .top-banner {
+            position: relative;
+          }
           .bg-img1 {
             width: 100%;
+          }
+          .text-line {
+            position: absolute;
+            bottom: 0px;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            background-color: white;
+            color: black;
           }
           .buy-button {
             padding: 5px;
