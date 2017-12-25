@@ -58,7 +58,8 @@ export default class extends React.Component {
     // 分享跳转进入的时候 判定弹出购买框
     this.joinGroupFromShare()
     alert(location.href)
-    Router.replace(location.href + '/abc')
+    // Router.replace(location.href + '/abc')
+    window.history.replaceState(null, '', '/abc')
     alert('1')
   }
 
@@ -475,7 +476,7 @@ export default class extends React.Component {
         this.renderPop()
         let littleShareUrl = this.littleShareUrl
         if (littleShareUrl) {
-          History.replaceState(location.href + this.littleShareUrl)
+          window.history.replaceState(null, '', location.href + this.littleShareUrl)
           // Router.replace()
         }
         // 如果是小程序 的上线分享 请修改掉url？ 下线不处理
