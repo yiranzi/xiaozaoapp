@@ -617,10 +617,13 @@ export default class extends React.Component {
         }
         .left {
           flex: 1;
-          background-color: #4146aa;
+          background-color: #ffffff;
           display: flex;
           justify-content: center;
           align-items: center;
+        }
+        .left span {
+          color: black;
         }
         .right {
           flex: 3;
@@ -661,13 +664,14 @@ export default class extends React.Component {
         <style jsx>{`
         .fix-link{
           position: fixed;
-          bottom: 70px;
-          left: 0;
+          bottom: 50px;
+          left: -10px;
           width: 100px;
-          height: 20px;
-          line-height: 20px;
-          background-color: blue;
-           z-index: 100;
+          height: 25px;
+          line-height: 25px;
+          background-color: #3e84e0;
+          z-index: 100;
+          border-radius: 30px;
         }
         .content {
           font-size: 14px;
