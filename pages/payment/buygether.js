@@ -118,6 +118,10 @@ export default class extends React.Component {
       // let addParam = `?groupId=${this.state.myGroupingId}`
       shareProp.link += addParam
       this.littleShareUrl = addParam
+      // 如果小程序上线开团成功。修改url
+      if (this.littleShareUrl) {
+        window.history.replaceState(null, '', location.href + this.littleShareUrl)
+      }
     }
     this.state.wxConfig.setShareConfig(shareProp)
   }
@@ -461,11 +465,6 @@ export default class extends React.Component {
       if (this.state.myGroupingId) {
         // 弹窗
         this.renderPop()
-        let littleShareUrl = this.littleShareUrl
-        // 如果小程序上线开团成功。修改url
-        if (littleShareUrl) {
-          window.history.replaceState(null, '', location.href + this.littleShareUrl)
-        }
       }
     }
   }
