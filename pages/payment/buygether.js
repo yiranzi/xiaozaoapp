@@ -57,6 +57,7 @@ export default class extends React.Component {
     await this.updateInfo()
     // 分享跳转进入的时候 判定弹出购买框
     this.joinGroupFromShare()
+    alert(location.href)
   }
 
   updateInfo = async (type) => {
@@ -481,8 +482,6 @@ export default class extends React.Component {
         // 如果是小程序 的上线分享 请修改掉url？ 下线不处理
         // 如果小程序上线开团成功。修改url
         alert(this.littleShareUrl)
-        alert(location.href)
-        location.href = this.littleShareUrl
       }
     }
   }
