@@ -689,7 +689,7 @@ export default class extends React.Component {
   renderMoreCourse () {
     return (
       <div className='fix-link'>
-        <Link href={'/abilitycollege/main'}>
+        <Link href={'/abilitycollege/main?test=true'}>
           <a className='content'>更多课程</a>
         </Link>
         <style jsx>{`
