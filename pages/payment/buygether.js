@@ -456,8 +456,10 @@ export default class extends React.Component {
     // 刷新数据
     await this.updateInfo(true)
     // 判定是否需要跳转
+    alert(groupId)
+    alert(currentGroupStatus)
     if (groupId) {
-      alert('小程序拼团成功')
+      alert('小程序参团成功')
       try {
         await AxiosUtil.get(`/api/study-card/buyTogether/${groupId}/${typeId}/true`)
       } catch (e) {
