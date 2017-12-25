@@ -348,6 +348,12 @@ export default class extends React.Component {
             width: 100%;
           }
         `}</style>
+          <style global jsx>{`
+            .out a {
+              color: #001453;
+              display: inline-block;
+            }
+          `}</style>
         </Layout>
       )
     } else {
