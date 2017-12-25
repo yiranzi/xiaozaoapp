@@ -59,8 +59,8 @@ export default class extends React.Component {
     this.joinGroupFromShare()
     alert(location.href)
     // Router.replace(location.href + '/abc')
-    window.history.replaceState(null, '', '/abc')
-    alert('1')
+    // window.history.replaceState(null, '', '/abc')
+    // alert('1')
   }
 
   updateInfo = async (type) => {
