@@ -437,6 +437,7 @@ export default class extends React.Component {
       cancelText: '失败',
       ok: () => { _this.afterLittlePay(typeId, groupId) },
       cancel: () => {
+        this.updateInfo(true)
         Alert({ content: '微信添加小助手xiaozao906获得帮助' })
       }
     })
