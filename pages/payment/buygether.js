@@ -477,6 +477,7 @@ export default class extends React.Component {
         let littleShareUrl = this.littleShareUrl
         if (littleShareUrl) {
           window.history.replaceState(null, '', location.href + this.littleShareUrl)
+          alert(location.href)
           // Router.replace()
         }
         // 如果是小程序 的上线分享 请修改掉url？ 下线不处理
