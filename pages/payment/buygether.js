@@ -553,6 +553,9 @@ export default class extends React.Component {
         showPop: true
       })
     } else {
+      this.littleShareUrl = '?abc=1&cde=f'
+      window.history.replaceState(null, '', location.href + this.littleShareUrl)
+      alert(location.href)
       Alert({
         content: '您正在拼团，无法同时参加2个团哦，快邀请好友帮你完成拼团吧！'
       })
@@ -567,6 +570,9 @@ export default class extends React.Component {
         showPop: true
       })
     } else {
+      alert(this.littleShareUrl)
+      window.history.replaceState(null, '', location.href + this.littleShareUrl)
+      alert(location.href)
       Alert({
         content: '您正在拼团，无法同时参加2个团哦，快邀请好友帮你完成拼团吧！'
       })
