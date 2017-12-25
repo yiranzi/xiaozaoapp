@@ -63,10 +63,10 @@ export default class extends React.Component {
     this.setState({answerList: answerList})
   }
   uploadImg = async (id) => {
-    this.showLoading()
     const {query, answerList} = this.state
     let answer = answerList[id]
     if (answer) {
+      this.showLoading()
       let uuid = DataUtil.uuid(11)
       let formdata = DataUtil.imgFormat(answer, uuid, 'jpg')
       await AxiosUtil.post(`/api/learning-test/testFileComplete/${query.courseId}/${query.testId}`, formdata)
@@ -81,12 +81,12 @@ export default class extends React.Component {
     }
   }
   uploadRecord = async (id) => {
-    this.showLoading()
     const _this = this
     const {query, answerList} = this.state
     let answer = answerList[id]
     try {
       if (answer) {
+        this.showLoading()
         // eslint-disable-next-line
         wx.uploadVoice({
           localId: answer,
