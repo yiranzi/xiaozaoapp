@@ -312,11 +312,7 @@ export default class extends React.Component {
         color: red;
       }
       .img-style {
-        // position: absolute;
-        // top: 0;
-        // right: 0;
-        // width: 150px;
-        // height: 300px;
+        width: 200px;
       }
     `}</style>
     </div>
