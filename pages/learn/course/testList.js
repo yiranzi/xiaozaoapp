@@ -1,6 +1,6 @@
 import React from 'react'
+import classNames from 'classnames'
 import Link from 'next/link'
-import Router from 'next/router'
 import ToolsUtil from '../../../util/tools'
 import AxiosUtil from '../../../util/axios'
 import DataUtil from '../../../util/data'
@@ -64,13 +64,13 @@ export default class extends React.Component {
       <div className='test-detail'>
         {testList.map((item, index) => {
           return (
-            <Card key={`test-item-${index}`}>
+            <Card key={`test-item-${index}`} className={classNames({'next': item.type === 2})}>
               <Link href={{pathname: '/learn/course/testDetail', query: {courseId: query.courseId, testId: item.testId}}}>
                 {_this.isFinish(item.answerTotalScore) ? (
                   <div className='test-item wx-space-center'>
                     <div className='left wx-space-left'>
                       <div className='icon'><img src='/static/img/icon/prise.png' /></div>
-                      <div className='chapter-title'><div>{this.renderTestType(1)}</div>{item.chapterTitle}</div>
+                      <div className='chapter-title'><div>{this.renderTestType(item.type)}</div>{item.chapterTitle}</div>
                     </div>
                     <div className='result'>
                       {`${item.answerTotalScore}分/${item.totalScore}分`}
@@ -80,7 +80,7 @@ export default class extends React.Component {
                   <div className='test-item wx-space-center'>
                     <div className='left wx-space-left'>
                       <div className='icon'><img src='/static/img/icon/uprise.png' /></div>
-                      <div className='chapter-title'><div>{this.renderTestType(2)}</div>{item.chapterTitle}</div>
+                      <div className='chapter-title'><div>{this.renderTestType(item.type)}</div>{item.chapterTitle}</div>
                     </div>
                     <div className='result'>未完成</div>
                   </div>
@@ -102,6 +102,11 @@ export default class extends React.Component {
           .result {
             flex: 1;
             text-align: right;
+          }
+        `}</style>
+        <style global jsx>{`
+          .card.next {
+            margin-bottom: 2rem;
           }
         `}</style>
       </div>

@@ -1,10 +1,11 @@
 import React from 'react'
+import classNames from 'classnames'
 
 export default class extends React.Component {
   render () {
-    const { title, children } = this.props
+    const { title, className, children } = this.props
     return (
-      <div className='card'>
+      <div className={classNames('card', className)}>
         <div className='title'>{title}</div>
         <div className='content'>{children}</div>
         <style jsx>{`
