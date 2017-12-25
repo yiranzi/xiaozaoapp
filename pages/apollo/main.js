@@ -126,7 +126,7 @@ export default class extends React.Component {
     let content
     let okText
     let okFunc
-    let result = this.ifTodayGift(this.state.todayFinishCount + 1)
+    let result = this.ifTodayGift(this.state.signTotalDay + 1)
     if (result) {
       content = result.content
       okText = '去领奖'
