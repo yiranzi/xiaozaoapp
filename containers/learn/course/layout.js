@@ -27,6 +27,12 @@ export default class extends React.Component {
       courseMenuShow: !this.state.courseMenuShow
     })
   }
+  jumpTo (courseId, menuId, sectionId, pageNumber) {
+    this.toggleCourseMenuPop()
+    let url = `/learn/course/detail?courseId=${courseId}&chapterId=${menuId}&sectionId=${sectionId}&pageNumber=${pageNumber}`
+    Router.replace(url)
+    window.history.go(0)
+  }
   renderCourseMenu () {
     const {query, menuContent} = this.props
     const {courseId, chapterId, sectionId} = query
@@ -54,23 +60,15 @@ export default class extends React.Component {
                   >
                     {menu.sectionMenuDTOList && menu.sectionMenuDTOList.map((section, index) => {
                       return (
-                        <Panel key={`section_${index}`} className={classNames({'active': Number(section.id) === Number(sectionId)})}>
-                          <Cell access>
-                            <CellHeader><span className='icon' /></CellHeader>
-                            <CellBody>
-                              <a
-                                className='section'
-                                onClick={() => {
-                                  this.toggleCourseMenuPop()
-                                  let url = `/learn/course/detail?courseId=${courseId}&chapterId=${menu.id}&sectionId=${section.id}&pageNumber=1`
-                                  Router.replace(url)
-                                  window.history.go(0)
-                                }}
-                              >{section.name}</a>
-                            </CellBody>
-                            <CellFooter />
-                          </Cell>
-                        </Panel>
+                        <a key={`section_${index}`} onClick={() => { this.jumpTo(courseId, menu.id, section.id, 1) }}>
+                          <Panel className={classNames({'active': Number(section.id) === Number(sectionId)})}>
+                            <Cell access>
+                              <CellHeader><span className='icon' /></CellHeader>
+                              <CellBody>{section.name}</CellBody>
+                              <CellFooter />
+                            </Cell>
+                          </Panel>
+                        </a>
                       )
                     })}
                     {menu.afterTestId && (
@@ -126,8 +124,8 @@ export default class extends React.Component {
             background-color: #3ea6f7;
             border-radius: 1rem;
           }
-          a.section {
-            font-size: 0.85rem;
+          a {
+            width: 100%;
           }
         `}</style>
       </Popup>
@@ -156,16 +154,12 @@ export default class extends React.Component {
             {homeworkContent.map((chapter, index) => {
               return (
                 <div className='chapter' key={`h_${index}`}>
-                  <div className='header wx-space-left'><img src='/static/img/learn/course/file.png' /><span>{chapter.chapterName}</span></div>
+                  <div className='header wx-space-left'><img src='/static/img/learn/course/file.png' /><span style={{marginLeft: '0.5rem'}}>{chapter.chapterName}</span></div>
                   {chapter.childLearningCourseWorkDTOList.map((work, index) => {
                     return (
-                      <div key={`w_${index}`} className='work wx-space-center' onClick={() => {
-                        let url = `/learn/course/detail?courseId=${query.courseId}&chapterId=${work.chapterId}&sectionId=${work.sectionId}&pageNumber=${work.pageNumber}`
-                        Router.replace(url)
-                        window.history.go(0)
-                      }}>
+                      <div key={`w_${index}`} className='work wx-space-center' onClick={() => { this.jumpTo(query.courseId, work.chapterId, work.sectionId, work.pageNumber) }} >
                         <div className='sub-title'>{work.title}</div>
-                        <div className='over'>{work.overWork ? <Icon style={{color: '#3ea6f7', fontSize: '1rem'}} value='success-no-circle' /> : <Icon style={{color: ThemeConfig.color.content, fontSize: '1rem'}} value='success-no-circle' />}</div>
+                        <div className='over'>{work.overWork && <Icon style={{color: '#3ea6f7', fontSize: '1rem'}} value='success-no-circle' />}</div>
                       </div>
                     )
                   })}
@@ -202,8 +196,10 @@ export default class extends React.Component {
           .homework 
           .header {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
           }
           .header img {
             display: block;
