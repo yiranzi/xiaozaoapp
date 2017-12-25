@@ -48,7 +48,6 @@ export default class extends React.Component {
     this.buyButtonCallBack = this.buyButtonCallBack.bind(this)
     this.cancelCallBack = this.cancelCallBack.bind(this)
     this.updateInfo = this.updateInfo.bind(this)
-    this.goRouter = this.goRouter.bind(this)
     this.renderPop = this.renderPop.bind(this)
     this.refreshGroup = this.refreshGroup.bind(this)
   }
@@ -58,9 +57,6 @@ export default class extends React.Component {
     // 分享跳转进入的时候 判定弹出购买框
     this.joinGroupFromShare()
     alert(location.href)
-    // Router.replace(location.href + '/abc')
-    // window.history.replaceState(null, '', '/abc')
-    // alert('1')
   }
 
   updateInfo = async (type) => {
@@ -84,13 +80,11 @@ export default class extends React.Component {
         _this.setShare()
       })
     }
-
   }
 
   // 根据信息设置开团状态
   setGroupStatus = async (myGroup) => {
     let myGroupingId = null
-    console.log('ok')
     if (myGroup && myGroup.length > 0) {
       // 查找 正在开团？
       let result = myGroup.find((ele, index) => {
@@ -123,6 +117,7 @@ export default class extends React.Component {
       let headimgurl = encodeURI(this.headimgurl)
       shareProp.title = this.nickname + shareProp.title
       let addParam = `?groupId=${this.state.myGroupingId}&headimgurl=${headimgurl}&nickname=${nickname}&category=invite`
+      // let addParam = `?groupId=${this.state.myGroupingId}`
       shareProp.link += addParam
       this.littleShareUrl = addParam
     }
@@ -293,10 +288,6 @@ export default class extends React.Component {
       style: defaultStyle
     }
     ModalBoxPopFunc({...prop})
-  }
-
-  goRouter (router) {
-    location.href = router
   }
 
   renderPopAssistant (ele) {
@@ -475,14 +466,10 @@ export default class extends React.Component {
         // 弹窗
         this.renderPop()
         let littleShareUrl = this.littleShareUrl
-        if (littleShareUrl) {
-          this.littleShareUrl = '?abc=1'
-          window.history.replaceState(null, '', location.href + this.littleShareUrl)
-          alert(location.href)
-          // Router.replace()
-        }
-        // 如果是小程序 的上线分享 请修改掉url？ 下线不处理
         // 如果小程序上线开团成功。修改url
+        if (littleShareUrl) {
+          window.history.replaceState(null, '', location.href + this.littleShareUrl)
+        }
       }
     }
   }
@@ -553,10 +540,6 @@ export default class extends React.Component {
         showPop: true
       })
     } else {
-      this.littleShareUrl = '?abc=1&cde=f'
-      window.history.replaceState(null, '', location.href + this.littleShareUrl)
-      window.history.go(0)
-      alert(location.href)
       Alert({
         content: '您正在拼团，无法同时参加2个团哦，快邀请好友帮你完成拼团吧！'
       })
@@ -571,9 +554,6 @@ export default class extends React.Component {
         showPop: true
       })
     } else {
-      alert(this.littleShareUrl)
-      window.history.replaceState(null, '', location.href + this.littleShareUrl)
-      alert(location.href)
       Alert({
         content: '您正在拼团，无法同时参加2个团哦，快邀请好友帮你完成拼团吧！'
       })
@@ -590,7 +570,7 @@ export default class extends React.Component {
     return (<Fixfooter>
       <div className='fix-foot'>
         <div className='left'
-          onClick={() => { this.goRouter('https://static.meiqia.com/dist/standalone.html?_=t&eid=63917&agentid=ed8f6b7c96fc339a6fcd6f8985624f82)') }}>
+          onClick={() => { location.href('https://static.meiqia.com/dist/standalone.html?_=t&eid=63917&agentid=ed8f6b7c96fc339a6fcd6f8985624f82)') }}>
           <img src='/static/img/buygether/ask.png' />
           <span>在线咨询</span>
         </div>
@@ -689,7 +669,7 @@ export default class extends React.Component {
   renderMoreCourse () {
     return (
       <div className='fix-link'>
-        <Link href={'/abilitycollege/main?test=true'}>
+        <Link href={'/abilitycollege/main'}>
           <a className='content'>更多课程</a>
         </Link>
         <style jsx>{`
