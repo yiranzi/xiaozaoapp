@@ -59,7 +59,7 @@ export default class extends React.Component {
     this.joinGroupFromShare()
     alert(location.href)
     Router.replace(location.href + '/abc')
-
+    alert('1')
   }
 
   updateInfo = async (type) => {
@@ -475,7 +475,8 @@ export default class extends React.Component {
         this.renderPop()
         let littleShareUrl = this.littleShareUrl
         if (littleShareUrl) {
-          Router.replace(location.href + this.littleShareUrl)
+          History.replaceState(location.href + this.littleShareUrl)
+          // Router.replace()
         }
         // 如果是小程序 的上线分享 请修改掉url？ 下线不处理
         // 如果小程序上线开团成功。修改url
