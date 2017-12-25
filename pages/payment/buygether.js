@@ -300,7 +300,7 @@ export default class extends React.Component {
       <p className='title'>参团成功！</p>
       <p className='title'>请务必添加小助手，关注课程进度</p>
       <p className='title'>添加小助手</p>
-      <img className='img-style' src='/static/img/buygether/codeImg.jpg' />
+      <img className='img-style' src='/static/img/buygether/qrcode.png' />
       <style jsx>{`
       .title {
         font-size:20px;
@@ -385,18 +385,6 @@ export default class extends React.Component {
             color: #2f3138;
             display: inline-block;
             position: relative;
-            padding-left: 1rem;
-          }
-          h1::before {
-            font-size: 14px;
-            content: '';
-            position: absolute;
-            left: 8px;
-            top: 6px;
-            width: 6px;
-            height: 24px;
-            border-radius: 15px;
-            background-color: #241d66;
           }
         `}</style>
       </div>
@@ -438,7 +426,7 @@ export default class extends React.Component {
       ok: () => { _this.afterLittlePay(typeId, groupId) },
       cancel: () => {
         this.updateInfo(true)
-        Alert({ content: '微信添加小助手xiaozao906获得帮助' })
+        Alert({ content: '如果付款失败，微信添加小助手xiaozao906获得帮助' })
       }
     })
   }
@@ -601,18 +589,24 @@ export default class extends React.Component {
           flex: 1;
           height: 100%;
           line-height: 25px;
-          background-color: green;
+          background-color: #ffc581;
+          text-align: center;
         }
         .single-price span {
           text-decoration:line-through
         }
         .group-price {
-          background-color: #c41616;
+          background-color: #ef4645;
           flex: 1;
           height: 100%;
           line-height: 25px;
           display: flex;
-
+          align-items: center;
+          justify-content: center;
+        }
+        .group-price div {
+          // flex-basis: 0;
+          width: 70px;
         }
         .group-price span{
           width: 100%;
@@ -692,7 +686,7 @@ export default class extends React.Component {
       <Layout>
         <div className='buy-card-page'>
           <div className='top-banner'>
-            <img className='bg-img1' src={'/static/img/buygether/buyBg_1.jpeg'} />
+            <img className='bg-img1' src={'/static/img/buygether/buyBg_1.png'} />
             <div className='text-line'>
               <Scrolling interval={6000} />
             </div>
@@ -732,13 +726,15 @@ export default class extends React.Component {
             width: 100%;
           }
           .text-line {
-            position: absolute;
+            position: relative;
             bottom: 0px;
             left: 0;
             width: 100%;
             z-index: 10;
             background-color: white;
             color: black;
+            height: 30px;
+            line-height: 30px;
           }
           .buy-button {
             padding: 5px;

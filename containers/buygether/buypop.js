@@ -130,8 +130,8 @@ export default class extends React.Component {
     }
     let chooseStyle = {
       color: 'white',
-      backgroundColor: '#c41616',
-      borderColor: '#c41616'
+      backgroundColor: '#ef4645',
+      borderColor: '#ef4645'
     }
     let barStyle = {
       padding: '5px 10px 5px 20px'
@@ -153,7 +153,7 @@ export default class extends React.Component {
   renderInnerContent (ele, index) {
     let choose = {
       backgroundColor: 'white',
-      color: '#c41616'
+      color: '#ef4645'
     }
     let normal = {
       backgroundColor: '#241d66',
@@ -239,7 +239,7 @@ export default class extends React.Component {
           <style jsx>{`
           .bottom-line{
             position: relative;
-            border-top: 1px solid #c41616;
+            border-top: 1px solid #ef4645;
             display: flex;
             height: 50px;
             line-height: 50px;
@@ -261,11 +261,11 @@ export default class extends React.Component {
           }
           .left-button {
             background-color: white;
-            color: #c41616;
+            color: #ef4645;
             flex: 3;
           }
           .rigth-button {
-            background-color: #c41616;
+            background-color: #ef4645;
             color: white;
             flex: 5;
           }
