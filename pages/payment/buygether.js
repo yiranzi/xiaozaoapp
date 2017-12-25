@@ -86,7 +86,7 @@ export default class extends React.Component {
   // 根据信息设置开团状态
   setGroupStatus = async (myGroup) => {
     let myGroupingId = null
-
+    console.log('ok')
     if (myGroup && myGroup.length > 0) {
       // 查找 正在开团？
       let result = myGroup.find((ele, index) => {
