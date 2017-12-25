@@ -30,7 +30,6 @@ export default class extends React.Component {
     }
   }
   componentDidMount = async () => {
-    alert(window.location.href)
     let groupId = ToolsUtil.getQueryString('groupId') // 拼团id
     let headimg = ToolsUtil.getQueryString('headimg') // 邀请人头像
     let nickname = ToolsUtil.getQueryString('nickname') // 邀请人昵称

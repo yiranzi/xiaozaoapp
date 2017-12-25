@@ -13,7 +13,6 @@ import {Alert} from '../../xz-components/alert'
 import {Confirm} from '/xz-components/confirm'
 import {ModalBoxPopFunc} from '../../xz-components/modalbox'
 import GroupCard from '../../containers/buygether/groupcard'
-import Router from 'next/router'
 import Link from 'next/link'
 
 // 介绍页
@@ -56,7 +55,6 @@ export default class extends React.Component {
     await this.updateInfo()
     // 分享跳转进入的时候 判定弹出购买框
     this.joinGroupFromShare()
-    alert(location.href)
   }
 
   updateInfo = async (type) => {
@@ -450,7 +448,6 @@ export default class extends React.Component {
     await this.updateInfo(true)
     // 判定是否需要跳转
     if (groupId) {
-      alert('小程序参团成功')
       try {
         await AxiosUtil.get(`/api/study-card/buyTogether/${groupId}/${typeId}/true`)
       } catch (e) {
@@ -460,7 +457,6 @@ export default class extends React.Component {
         }
       }
     } else if (currentGroupStatus === null) {
-      alert('小程序开团成功')
       // 如果之前没有团。现在有团了
       if (this.state.myGroupingId) {
         // 弹窗
