@@ -119,7 +119,7 @@ export default class extends React.Component {
       shareProp.link += addParam
       this.littleShareUrl = addParam
       // 如果小程序上线开团成功。修改url
-      if (this.littleShareUrl) {
+      if (this.littleShareUrl && window.__wxjs_environment === 'miniprogram') {
         window.history.replaceState(null, '', location.href + this.littleShareUrl)
       }
     }
