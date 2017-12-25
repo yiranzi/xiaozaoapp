@@ -122,11 +122,16 @@ export default class extends React.Component {
     return (<WxShare {...prop} />)
   }
 
-  successFirstTime () {
+  successFirstTime (status) {
     let content
     let okText
     let okFunc
-    let result = this.ifTodayGift(this.state.signTotalDay + 1)
+    let result
+    if (status === 'havefinish') {
+      result = this.ifTodayGift(this.state.signTotalDay)
+    } else {
+      result = this.ifTodayGift(this.state.signTotalDay + 1)
+    }
     if (result) {
       content = result.content
       okText = '去领奖'
@@ -468,9 +473,10 @@ export default class extends React.Component {
     let week = this.state.allWeek[this.state.currentSelectWeek].apolloWeekDayDTOList
     let day = week[this.state.currentSelectDay]
     // 如果是当日
+    console.log(day.today)
     if (day.today) {
       if (day.over) {
-        return <Button style={{width: '50%', backgroundColor: ThemeConfig.color.yellow, color: ThemeConfig.color.deepBlue}} onClick={() => this.onSignSuccess()} >今日已完成</Button>
+        return <Button style={{width: '50%', backgroundColor: ThemeConfig.color.yellow, color: ThemeConfig.color.deepBlue}} onClick={() => this.successFirstTime('havefinish')} >今日已完成</Button>
       } else {
         return <Button style={{width: '50%', backgroundColor: ThemeConfig.color.yellow, color: ThemeConfig.color.deepBlue}} onClick={this.signUp} >完成今日打卡</Button>
       }
