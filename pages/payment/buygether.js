@@ -555,6 +555,7 @@ export default class extends React.Component {
     } else {
       this.littleShareUrl = '?abc=1&cde=f'
       window.history.replaceState(null, '', location.href + this.littleShareUrl)
+      window.history.go(0)
       alert(location.href)
       Alert({
         content: '您正在拼团，无法同时参加2个团哦，快邀请好友帮你完成拼团吧！'
