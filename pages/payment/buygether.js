@@ -546,11 +546,16 @@ export default class extends React.Component {
     })
   }
 
+  // 点击咨询按钮弹窗
+  renderAskPop () {
+    location.href = 'https://static.meiqia.com/dist/standalone.html?_=t&eid=63917&agentid=ed8f6b7c96fc339a6fcd6f8985624f82)'
+  }
+
   renderFooter () {
     return (<Fixfooter>
       <div className='fix-foot'>
         <div className='left'
-          onClick={() => { location.href('https://static.meiqia.com/dist/standalone.html?_=t&eid=63917&agentid=ed8f6b7c96fc339a6fcd6f8985624f82)') }}>
+          onClick={() => { this.renderAskPop() }}>
           <img src='/static/img/buygether/ask.png' />
           <span>在线咨询</span>
         </div>

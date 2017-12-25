@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {ChooseBar, ChooseItem} from '../../xz-components/choosebar'
-import Triangle from '../../containers/buygether/poptag'
+// import Triangle from '../../containers/buygether/poptag'
 
 export default class extends React.Component {
   newGroupDiscount = 10 // 开团立减
@@ -191,21 +191,21 @@ export default class extends React.Component {
 
   calcPrice (priceInfo, type) {
     let value = 100
-    let isNewGroup
-    if (this.props.joinInfo && this.props.joinInfo.groupId) {
-      isNewGroup = false
-    } else {
-      isNewGroup = true
-    }
+    // let isNewGroup
+    // if (this.props.joinInfo && this.props.joinInfo.groupId) {
+    //   isNewGroup = false
+    // } else {
+    //   isNewGroup = true
+    // }
     let isCoupon = this.props.couponInfo
     let {showPrice, price} = priceInfo
     let couponPrice = price
     if (isCoupon) {
       couponPrice = couponPrice * this.coupon
     }
-    if (isNewGroup) {
-      couponPrice -= this.newGroupDiscount * value
-    }
+    // if (isNewGroup) {
+    //   couponPrice -= this.newGroupDiscount * value
+    // }
     let calcPrice
     switch (type) {
       case 'origin':
@@ -231,11 +231,6 @@ export default class extends React.Component {
         <div className='bottom-line'>
           <div className='button left-button'><s>{`原价￥${this.calcPrice(priceInfo, 'origin')}`}</s></div>
           <div onClick={this.buyButtonClick} className='button rigth-button'>支付{`￥${this.calcPrice(priceInfo, 'finalPrice')}`}</div>
-          {!this.props.joinInfo.groupId && <div
-            onClick={this.buyButtonClick}>
-            <Triangle style={{right: '60px', bottom: '40px'}}>团长开团立减10元</Triangle>
-          </div>
-          }
           <style jsx>{`
           .bottom-line{
             position: relative;
