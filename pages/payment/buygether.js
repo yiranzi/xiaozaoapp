@@ -667,6 +667,7 @@ export default class extends React.Component {
           height: 20px;
           line-height: 20px;
           background-color: blue;
+           z-index: 100;
         }
         .content {
           font-size: 14px;
