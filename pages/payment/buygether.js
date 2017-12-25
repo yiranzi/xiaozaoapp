@@ -476,6 +476,7 @@ export default class extends React.Component {
         this.renderPop()
         let littleShareUrl = this.littleShareUrl
         if (littleShareUrl) {
+          this.littleShareUrl = '?abc=1'
           window.history.replaceState(null, '', location.href + this.littleShareUrl)
           alert(location.href)
           // Router.replace()
