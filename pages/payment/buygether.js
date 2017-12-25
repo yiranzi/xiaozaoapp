@@ -58,6 +58,8 @@ export default class extends React.Component {
     // 分享跳转进入的时候 判定弹出购买框
     this.joinGroupFromShare()
     alert(location.href)
+    Router.replace(location.href + '/abc')
+
   }
 
   updateInfo = async (type) => {
@@ -109,7 +111,6 @@ export default class extends React.Component {
   }
 
   setShare () {
-    alert('set')
     let shareProp = {
       title: '邀你一起拼团能力课程，低至3折',
       desc: '小灶能力学院限时拼团特惠，PPT课、商业英语课、结构化逻辑课、四大求职通关课等26大课程3大类能力等你拥有。',
@@ -123,7 +124,6 @@ export default class extends React.Component {
       let addParam = `?groupId=${this.state.myGroupingId}&headimgurl=${headimgurl}&nickname=${nickname}&category=invite`
       shareProp.link += addParam
       this.littleShareUrl = addParam
-      alert(this.littleShareUrl)
     }
     this.state.wxConfig.setShareConfig(shareProp)
   }
@@ -457,8 +457,6 @@ export default class extends React.Component {
     // 刷新数据
     await this.updateInfo(true)
     // 判定是否需要跳转
-    alert(groupId)
-    alert(currentGroupStatus)
     if (groupId) {
       alert('小程序参团成功')
       try {
@@ -481,7 +479,6 @@ export default class extends React.Component {
         }
         // 如果是小程序 的上线分享 请修改掉url？ 下线不处理
         // 如果小程序上线开团成功。修改url
-        alert(this.littleShareUrl)
       }
     }
   }
@@ -489,7 +486,6 @@ export default class extends React.Component {
   wxBuy = async (typeId, groupId, payInfo) => {
     let _this = this
     wxPayController.payInit(payInfo).then(async function () {
-      alert('then')
       // 关闭弹窗
       _this.setState({
         showPop: false
