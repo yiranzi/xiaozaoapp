@@ -31,6 +31,7 @@ class WxShare {
   }
   setShareConfig (props) {
     let { title, desc, link, imgUrl, success, cancel } = props
+    alert(link)
     // eslint-disable-next-line
     wx.onMenuShareTimeline({
       title: title,
