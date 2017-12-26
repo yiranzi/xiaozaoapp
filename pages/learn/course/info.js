@@ -1,13 +1,14 @@
 import React from 'react'
 import Notice from '/containers/learn/main/notice'
 import Homework from '/containers/learn/main/homework/homework'
-import Discuss from '/containers/learn/main/discuss'
+// import Discuss from '/containers/learn/main/discuss'
 import Achieve from '/containers/learn/main/achieve'
 import Introduce from '/containers/learn/main/introduce'
 import { Tab, NavBarItem, Progress } from 'react-weui'
 import Layout from '/components/layout'
 import AxiosUtil from '/util/axios'
-
+import DateUtil from '../../../util/date'
+import DataUtil from '../../../util/data'
 import ToolsUtil from '/util/tools'
 import GetPayInfo from '/util/getPayInfo'
 import Button from '/xz-components/button'
@@ -19,6 +20,7 @@ export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+      courseStartDate: '',
       courseStatus: undefined,
       courseId: undefined,
       courseName: undefined,
@@ -110,7 +112,7 @@ export default class extends React.Component {
   renderByPayStatus () {
     let {courseStatus, courseId} = this.state
     // 拉到付费信息之后再去做后续逻辑
-    if (courseStatus === undefined) {
+    if (courseStatus === undefined || courseStatus === null || courseStatus === 0) {
       return (<NavBarItem label='概述'><LoadingIcon /></NavBarItem>)
     } else {
       if (courseStatus === undefined || courseStatus === 'unbuyed') {
@@ -140,24 +142,35 @@ export default class extends React.Component {
   }
 
   renderCourseUnBuyed () {
-    let {courseName, courseBg} = this.state
-    return (<div style={{background: `url(${courseBg})`, backgroundSize: '100% 100%'}} className='course-info'>
-      <h1>{courseName}</h1>
-      <Link href={`/payment/buygether`}>
-        <a style={{color: 'white'}}>立即报名</a>
-      </Link>
-      <style jsx>{`
-          .course-info {
-            padding: 10px;
-            min-height: 150px;
-            text-align: center;
-            color: white;
-          }
-          .course-info h1 {
-            font-size: 22px;
-          }
-        `}</style>
-    </div>)
+    let {courseName, courseStartDate, courseBg} = this.state
+    let style = {
+      background: `url(${courseBg})`,
+      backgroundSize: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }
+    return (
+      <div style={style} className='course-info'>
+        <h1>{courseName}</h1>
+        <div>{DataUtil.isEmpty(courseStartDate) ? '开始时间待定' : DateUtil.format(courseStartDate, 'yyyy-MM-dd')}</div>
+        <Link href={`/payment/buygether`}>
+          <Button size='small'>立即报名</Button>
+        </Link>
+        <style jsx>{`
+            .course-info {
+              padding: 10px;
+              min-height: 150px;
+              text-align: center;
+              color: white;
+            }
+            .course-info h1 {
+              font-size: 22px;
+            }
+          `}</style>
+      </div>
+    )
   }
 
   renderCourseOver () {
