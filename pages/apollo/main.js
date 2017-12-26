@@ -122,11 +122,16 @@ export default class extends React.Component {
     return (<WxShare {...prop} />)
   }
 
-  successFirstTime () {
+  successFirstTime (status) {
     let content
     let okText
     let okFunc
-    let result = this.ifTodayGift(this.state.todayFinishCount + 1)
+    let result
+    if (status === 'havefinish') {
+      result = this.ifTodayGift(this.state.signTotalDay)
+    } else {
+      result = this.ifTodayGift(this.state.signTotalDay + 1)
+    }
     if (result) {
       content = result.content
       okText = '去领奖'
@@ -138,7 +143,7 @@ export default class extends React.Component {
         okText = '知道了'
         okFunc = () => {}
       } else {
-        content = '坚持打卡每逢1，3，5，7可以获得小灶给您礼物'
+        content = '坚持打卡每逢累计1，3，5，7，10天，都可以获得小灶给您准备的礼物！'
         okText = '知道了'
         okFunc = () => {}
       }
@@ -343,6 +348,12 @@ export default class extends React.Component {
             width: 100%;
           }
         `}</style>
+          <style global jsx>{`
+            .out a {
+              color: #001453;
+              display: inline-block;
+            }
+          `}</style>
         </Layout>
       )
     } else {
@@ -468,9 +479,10 @@ export default class extends React.Component {
     let week = this.state.allWeek[this.state.currentSelectWeek].apolloWeekDayDTOList
     let day = week[this.state.currentSelectDay]
     // 如果是当日
+    console.log(day.today)
     if (day.today) {
       if (day.over) {
-        return <Button style={{width: '50%', backgroundColor: ThemeConfig.color.yellow, color: ThemeConfig.color.deepBlue}} onClick={() => this.onSignSuccess()} >今日已完成</Button>
+        return <Button style={{width: '50%', backgroundColor: ThemeConfig.color.yellow, color: ThemeConfig.color.deepBlue}} onClick={() => this.successFirstTime('havefinish')} >今日已完成</Button>
       } else {
         return <Button style={{width: '50%', backgroundColor: ThemeConfig.color.yellow, color: ThemeConfig.color.deepBlue}} onClick={this.signUp} >完成今日打卡</Button>
       }
