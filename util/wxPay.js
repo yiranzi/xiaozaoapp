@@ -24,6 +24,9 @@ wxPayController.pay = () => {
       document.attachEvent('WeixinJSBridgeReady', wxPayController.pay)
       document.attachEvent('onWeixinJSBridgeReady', wxPayController.pay)
     }
+    return new Promise((resolve, reject) => {
+      resolve()
+    })
   } else {
     console.log('wxPayController.onBridgeReady')
     return wxPayController.onBridgeReady()

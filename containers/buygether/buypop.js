@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {ChooseBar, ChooseItem} from '../../xz-components/choosebar'
-import Triangle from '../../containers/buygether/poptag'
+// import Triangle from '../../containers/buygether/poptag'
 
 export default class extends React.Component {
   newGroupDiscount = 10 // 开团立减
@@ -130,8 +130,8 @@ export default class extends React.Component {
     }
     let chooseStyle = {
       color: 'white',
-      backgroundColor: '#c41616',
-      borderColor: '#c41616'
+      backgroundColor: '#ef4645',
+      borderColor: '#ef4645'
     }
     let barStyle = {
       padding: '5px 10px 5px 20px'
@@ -153,7 +153,7 @@ export default class extends React.Component {
   renderInnerContent (ele, index) {
     let choose = {
       backgroundColor: 'white',
-      color: '#c41616'
+      color: '#ef4645'
     }
     let normal = {
       backgroundColor: '#241d66',
@@ -162,8 +162,7 @@ export default class extends React.Component {
     let style = (index === this.state.currentSelect) ? choose : normal
     return (
       <div className='line'>
-        <img className='icon' src={'/static/img/buygether/card_icon.png'} />
-        <div className='card-name'>能力卡<span className='card' style={style}>{`${ele.id}`}</span>张</div>
+        <div className='card-name'>商业分析实战训练营</div>
         <span className='price'>{`拼团价 ￥`}<strong>{`${this.calcPrice(ele, 'now')}`}</strong></span>
         <style jsx>{`
             .line {
@@ -172,28 +171,14 @@ export default class extends React.Component {
               align-items: center;
               width: 100%;
             }
-            .icon {
-              margin-right: 10px;
-              flex: 1；
-              width: 30px;
-            }
             .card-name {
               flex: 4;
               margin-right: 10px;
               display: flex;
               align-items: center;
             }
-            .card {
-              margin: auto 10px;
-              display: inline-block;
-              border-radius: 50%;
-              height: 30px;
-              line-height: 30px;
-              width: 30px;
-              text-align: center;
-              font-size: 16px;
-            }
             .price {
+              text-align: right;
               flex: 3
             }
             .price strong {
@@ -206,21 +191,21 @@ export default class extends React.Component {
 
   calcPrice (priceInfo, type) {
     let value = 100
-    let isNewGroup
-    if (this.props.joinInfo && this.props.joinInfo.groupId) {
-      isNewGroup = false
-    } else {
-      isNewGroup = true
-    }
+    // let isNewGroup
+    // if (this.props.joinInfo && this.props.joinInfo.groupId) {
+    //   isNewGroup = false
+    // } else {
+    //   isNewGroup = true
+    // }
     let isCoupon = this.props.couponInfo
     let {showPrice, price} = priceInfo
     let couponPrice = price
     if (isCoupon) {
       couponPrice = couponPrice * this.coupon
     }
-    if (isNewGroup) {
-      couponPrice -= this.newGroupDiscount * value
-    }
+    // if (isNewGroup) {
+    //   couponPrice -= this.newGroupDiscount * value
+    // }
     let calcPrice
     switch (type) {
       case 'origin':
@@ -246,15 +231,10 @@ export default class extends React.Component {
         <div className='bottom-line'>
           <div className='button left-button'><s>{`原价￥${this.calcPrice(priceInfo, 'origin')}`}</s></div>
           <div onClick={this.buyButtonClick} className='button rigth-button'>支付{`￥${this.calcPrice(priceInfo, 'finalPrice')}`}</div>
-          {!this.props.joinInfo.groupId && <div
-            onClick={this.buyButtonClick}>
-            <Triangle style={{right: '60px', bottom: '40px'}}>团长开团立减10元</Triangle>
-          </div>
-          }
           <style jsx>{`
           .bottom-line{
             position: relative;
-            border-top: 1px solid #c41616;
+            border-top: 1px solid #ef4645;
             display: flex;
             height: 50px;
             line-height: 50px;
@@ -276,11 +256,11 @@ export default class extends React.Component {
           }
           .left-button {
             background-color: white;
-            color: #c41616;
+            color: #ef4645;
             flex: 3;
           }
           .rigth-button {
-            background-color: #c41616;
+            background-color: #ef4645;
             color: white;
             flex: 5;
           }
@@ -319,7 +299,7 @@ export default class extends React.Component {
           <div className='buy-pop-div' onClick={(e) => { e.stopPropagation() }}>
             {this.renderTitle()}
             {this.renderList()}
-            {this.renderCoupon()}
+            {/*{this.renderCoupon()}*/}
             {this.renderBottom()}
           </div>
           <style jsx>{`

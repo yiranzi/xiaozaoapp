@@ -1,13 +1,14 @@
 import React from 'react'// 库
 import Button from '../../xz-components/button'
 import {ModalBoxPopFunc} from '../../xz-components/modalbox'
-import DateSelector from '../../containers/apollo/DateSelector'// 自定义组件
+import DateSelector from '/containers/apollo/dateSelector'// 自定义组件
 import Layout from '../../components/layout'// container
 import ThemeConfig from '../../config/theme'
 import { Confirm } from '../../xz-components/confirm'
 import WxShare from '../../xz-components/wxshare'
 import AxiosUtil from '../../util/axios'
-
+import Link from 'next/link'
+import GiftContent from '/containers/apollo/giftContent'
 // 介绍页
 export default class extends React.Component {
   todayDayKey
@@ -94,10 +95,9 @@ export default class extends React.Component {
     </div>
     try {
       await AxiosUtil.get('/api/apollo/complete')
-      this.onSignSuccess()
+      this.successFirstTime()
     } catch (e) {
       Confirm({
-        title: '小伙伴，您今日尚未投递职位哦~',
         content: content,
         okText: '去投递',
         cancelText: '残忍拒绝',
@@ -113,25 +113,72 @@ export default class extends React.Component {
     let prop = {
       title: '我正在参加 - 找实习有投必反馈的【阿波罗实习计划】...',
       desc: '立即申请加入阿波罗实习计划',
-      link: 'https://wx.xiaozao.org/redirect?url=https://detail.youzan.com/show/goods?alias=26winu6syk8pd&v2/goods/26winu6syk8pd',
-      imgUrl: 'https://wx.xiaozao.org/static/img/apollo/share-icon.jpg',
+      link: 'http://wx.xiaozao.org/redirect?url=https://detail.youzan.com/show/goods?alias=26winu6syk8pd&v2/goods/26winu6syk8pd',
+      imgUrl: 'http://wx.xiaozao.org/static/img/apollo/share-icon.jpg',
       success: function () {
-        AxiosUtil.get(`/api/interview/getWXConfig?url=onApolloMain`)
+        AxiosUtil.get(`/api/wxconfig/getWXConfig?url=onApolloMain`)
       }
     }
     return (<WxShare {...prop} />)
   }
 
-  // 成功弹窗弹窗
-  onSignSuccess (type) {
+  successFirstTime (status) {
     let content
-    if (type === 1) {
-      content = '很棒！完成今日打卡，你获得了1次推荐机会，分享链接邀请你的朋友加入【阿波罗实习计划】吧！(当日有效)'
+    let okText
+    let okFunc
+    let result
+    if (status === 'havefinish') {
+      result = this.ifTodayGift(this.state.signTotalDay)
     } else {
-      content = '很棒！完成今日打卡，你获得了1次推荐机会，分享链接邀请你的朋友加入【阿波罗实习计划】吧！(当日有效)'
+      result = this.ifTodayGift(this.state.signTotalDay + 1)
+    }
+    if (result) {
+      content = result.content
+      okText = '去领奖'
+      okFunc = () => { this.goRouter(result.url) }
+    } else {
+      let havePop = localStorage.getItem('apollo_over_ten')
+      if (havePop) {
+        content = '很棒！完成今日打卡，你获得了1次推荐机会，分享链接邀请你的朋友加入【阿波罗实习计划】吧！(当日有效)'
+        okText = '知道了'
+        okFunc = () => {}
+      } else {
+        content = '坚持打卡每逢累计1，3，5，7，10天，都可以获得小灶给您准备的礼物！'
+        okText = '知道了'
+        okFunc = () => {}
+      }
     }
     Confirm({
-      title: '恭喜你完成打卡',
+      content: content,
+      okText: okText,
+      cancelText: '返回',
+      ok: okFunc
+    })
+  }
+
+  // 判定是否可以领奖
+  ifTodayGift (dayIndex) {
+    if (dayIndex >= 10) {
+      let havePop = localStorage.getItem('apollo_over_ten')
+      if (!havePop) {
+        localStorage.setItem('apollo_over_ten', true)
+        dayIndex = 10
+        return GiftContent.find((ele, index) => {
+          return (ele.count === dayIndex)
+        })
+      }
+    } else {
+      return GiftContent.find((ele, index) => {
+        return (ele.count === dayIndex)
+      })
+    }
+  }
+
+  // 成功弹窗弹窗
+  onSignSuccess () {
+    let content
+    content = '很棒！完成今日打卡，你获得了1次推荐机会，分享链接邀请你的朋友加入【阿波罗实习计划】吧！(当日有效)'
+    Confirm({
       content: content,
       okText: '分享',
       cancelText: '返回',
@@ -301,6 +348,12 @@ export default class extends React.Component {
             width: 100%;
           }
         `}</style>
+          <style global jsx>{`
+            .out a {
+              color: #001453;
+              display: inline-block;
+            }
+          `}</style>
         </Layout>
       )
     } else {
@@ -316,7 +369,11 @@ export default class extends React.Component {
       <h1 className='content'>今日有<span className='count'> {this.state.todayFinishCount} </span>人完成打卡</h1>
       <div className='flex'>
         <div>{this.renderAvatar()}</div>
-        <div className='content' onClick={() => { this.goRouter('/apollo/rank') }}>查看总排行榜 ></div>
+        <Link href={{pathname: '/apollo/rank'}}>
+          <a>
+            <div className='content'>查看总排行榜 ></div>
+          </a>
+        </Link>
       </div>
       <style jsx>{`
         .flex {
@@ -372,12 +429,15 @@ export default class extends React.Component {
         <span>点击获取实习干货</span>
         <span>{'>'}</span>
       </div>
-      {this.todayDayKey > 318 && <div className='colume-inner has-border-div' onClick={() => { this.goRouter('/apollo/finish') }}>
-        <span>我已找到实习，结束打卡</span>
-        <span>{'>'}</span>
-      </div>}
-      <style>{
-        `
+      {this.todayDayKey > 318 && <Link href={{pathname: '/apollo/finish'}}>
+        <a style={{width: '100%'}}>
+          <div className='colume-inner has-border-div'>
+            <span>我已找到实习，结束打卡</span>
+            <span>{'>'}</span>
+          </div>
+        </a>
+      </Link>}
+      <style>{`
         .column {
           font-size: 16px;
           margin: -1rem auto -1rem auto;
@@ -391,8 +451,7 @@ export default class extends React.Component {
         .has-border-div {
           border-top: 1px solid ${ThemeConfig.color.deepBorder};
         }
-        `
-      }</style>
+      `}</style>
     </div>)
   }
 
@@ -420,16 +479,17 @@ export default class extends React.Component {
     let week = this.state.allWeek[this.state.currentSelectWeek].apolloWeekDayDTOList
     let day = week[this.state.currentSelectDay]
     // 如果是当日
+    console.log(day.today)
     if (day.today) {
       if (day.over) {
-        return <Button style={{width: '50%', backgroundColor: ThemeConfig.color.yellow, color: ThemeConfig.color.deepBlue}} onClick={() => this.onSignSuccess(1)} >今日已完成</Button>
+        return <Button style={{width: '50%', backgroundColor: ThemeConfig.color.yellow, color: ThemeConfig.color.deepBlue}} onClick={() => this.successFirstTime('havefinish')} >今日已完成</Button>
       } else {
         return <Button style={{width: '50%', backgroundColor: ThemeConfig.color.yellow, color: ThemeConfig.color.deepBlue}} onClick={this.signUp} >完成今日打卡</Button>
       }
     } else {
       if (day.start) {
         if (day.over) {
-          return <Button style={{width: '50%', backgroundColor: ThemeConfig.color.yellow, color: ThemeConfig.color.deepBlue}} onClick={() => this.onSignSuccess(0)} >已完成打卡</Button>
+          return <Button style={{width: '50%', backgroundColor: ThemeConfig.color.yellow, color: ThemeConfig.color.deepBlue}} onClick={() => this.onSignSuccess()} >已完成打卡</Button>
         } else {
           return <Button style={{width: '50%', backgroundColor: ThemeConfig.color.deepBorder, color: ThemeConfig.color.deepBlue}} >未完成打卡</Button>
         }

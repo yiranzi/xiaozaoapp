@@ -50,7 +50,7 @@ export default class extends React.Component {
           display: flex;
           font-size: 12px;
           align-items: center;
-          margin: 5px 0px;
+          margin: 5px 5px;
           height: 50px;
         }
         .head-list {
@@ -74,7 +74,7 @@ export default class extends React.Component {
         }
         .head-list div+div {
           z-index: 15;
-          margin-left: -25px;
+          margin-left: -30px;
         }
         .content {
           text-align: left;
