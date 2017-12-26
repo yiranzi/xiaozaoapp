@@ -3,7 +3,6 @@ import {Button} from 'react-weui'// 组件库
 import Card from '../xz-components/card'// 组件库
 import InterviewLayout from '../containers/interviewvip/layout'
 import GetPayInfo from '../util/getPayInfo'
-import wxPayController from '../util/wxPayController'// 工具类
 
 // 报名付费页
 
@@ -314,6 +313,5 @@ export default class extends React.Component {
   }
 
   payController = () => {
-    wxPayController.payInit()
   }
 }

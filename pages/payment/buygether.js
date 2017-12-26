@@ -3,7 +3,7 @@ import Button from '../../xz-components/button'
 import Layout from '../../components/layout'// container
 import AxiosUtil from '../../util/axios'
 import WxShare from '../../xz-components/newWxShare'
-import wxPayController from '../../util/wxPay'// 工具类
+import wxPay from '../../util/wxPay'// 工具类
 import BuyPop from '../../containers/buygether/buypop'
 import Triangle from '../../containers/buygether/poptag'
 import Scrolling from '../../containers/buygether/scrolling'
@@ -407,7 +407,7 @@ export default class extends React.Component {
 
   littleBuy = async (typeId, groupId, payInfo) => {
     // 1 调用小程序支付
-    wxPayController.payInit(payInfo)
+    wxPay.payInit(payInfo)
     // 2 显示弹窗 等待完成 确保这个弹窗还有
     this.openConfirm(typeId, groupId, payInfo)
   }
@@ -456,7 +456,7 @@ export default class extends React.Component {
 
   wxBuy = async (typeId, groupId, payInfo) => {
     let _this = this
-    wxPayController.payInit(payInfo).then(async function () {
+    wxPay.payInit(payInfo).then(async function () {
       // 关闭弹窗
       _this.setState({
         showPop: false
