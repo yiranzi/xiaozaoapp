@@ -89,17 +89,17 @@ export default class extends React.Component {
               </a>
               <CellFooter />
             </Cell>
-            <Cell access>
-              <a href='/ucenter/studycard' style={{width: '100%'}}>
-                <CellBody>
-                  我的能力卡
-                  <span className='wx-pull-right'>共
-                    {this.state.studyCard ? (this.state.studyCard.buyCount +
-                      this.state.studyCard.inviteCount) : 0}张</span>
-                </CellBody>
-              </a>
-              <CellFooter />
-            </Cell>
+            {/*<Cell access>*/}
+              {/*<a href='/ucenter/studycard' style={{width: '100%'}}>*/}
+                {/*<CellBody>*/}
+                  {/*我的能力卡*/}
+                  {/*<span className='wx-pull-right'>共*/}
+                    {/*{this.state.studyCard ? (this.state.studyCard.buyCount +*/}
+                      {/*this.state.studyCard.inviteCount) : 0}张</span>*/}
+                {/*</CellBody>*/}
+              {/*</a>*/}
+              {/*<CellFooter />*/}
+            {/*</Cell>*/}
           </Cells>
         </Page>
         <style global jsx>{`
