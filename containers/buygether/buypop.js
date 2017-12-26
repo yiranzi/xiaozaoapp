@@ -80,13 +80,14 @@ export default class extends React.Component {
       return (<div className='title'>
         <p style={{textAlign: 'center'}} className='title-font'>拼团流程</p>
         <div className='content'>
-          <span className='content-color'>1.选择能力卡</span>
+          <span className='content-color'>1.购买开团</span>
           <hr className='my-line' />
-          <span className='content-color'>2.邀请好友</span>
+          <span className='content-color'>2.邀请参团</span>
           <hr className='my-line' />
           <span className='content-color'>3.人满成团</span>
         </div>
-        <span style={{textAlign: 'left'}}>选择套餐</span>
+        <br />
+        {/*<span style={{textAlign: 'left'}}> </span>*/}
         <style jsx>{`
           .title {
             text-align: left;
@@ -311,7 +312,7 @@ export default class extends React.Component {
             left: 0;
             top: 0;
             font-size: 14px;
-            z-index: 100;
+            z-index: 1000;
           }
           .buy-pop-div {
             background-color: white;

@@ -194,7 +194,7 @@ export default class extends React.Component {
         if (ele.status === 1) {
           // 历史团
           return (<GroupCard key={ele.groupId} groupInfo={ele}
-            button={<Button style={this.buttonStyle} onClick={() => { this.renderPopAssistant() }}>添加小助手</Button>} />)
+            button={<Button style={this.buttonStyle} onClick={() => { this.renderHelp() }}>添加小助手</Button>} />)
         } else {
           return (<GroupCard key={ele.groupId} groupInfo={ele}
             button={<Button style={this.buttonStyle} onClick={() => { this.renderPop(ele) }}>立即邀请好友</Button>} />)
@@ -254,54 +254,29 @@ export default class extends React.Component {
     ModalBoxPopFunc({...prop})
   }
 
-  renderPopAssistant (ele) {
-    let defaultStyle = {
-      backgroundColor: 'rgba(0, 10, 49, 0.5)'
-    }
-    let dom = <div>
-      <p className='title'>参团成功！</p>
-      <p className='title'>请务必添加小助手，关注课程进度</p>
-      <p className='title'>添加小助手</p>
-      <img className='img-style' src='/static/img/buygether/qrcode.png' />
-      <style jsx>{`
-      .title {
-        font-size:20px;
-        font-weight: bold;
-      }
-      .strong {
-        font-size:28px;
-        font-weight: bold;
-        color: red;
-      }
-      .img-style {
-        width: 200px;
-      }
-    `}</style>
-    </div>
-    let prop = {
-      innerDiv: dom,
-      style: defaultStyle
-    }
-    ModalBoxPopFunc({...prop})
-  }
-
   renderHelp () {
     let defaultStyle = {
       backgroundColor: 'rgba(0, 10, 49, 0.5)'
     }
+    let content = this.state.environment ? '长按扫码，加我微信' : '保存相册后，扫码加我好友'
     let dom = <div className='pop-bg'>
       <div className='pop-top'>
         <img src='/static/img/buygether/headImg_help.png' />
         <div>
           <p className='title'>小灶能力顾问Harry</p>
-          <p className='title'>有什么我可以帮助你的？</p>
-          <p className='title'>扫码或通过微信ID加我好友！</p>
+          <p className='title'>我可以为你解答课程、分期等疑问哦</p>
         </div>
       </div>
       <div className='pop-bottom'>
-        <h2 style={{color: 'black'}}>微信：xiaozao906</h2>
+        <h2 style={{color: 'black'}}>搜索微信ID：xiaozao906</h2>
+        <p style={{color: 'black'}}>{content}</p>
         <img className='img-style' src='/static/img/buygether/qrcode.png' />
-        <p style={{color: '#8c8c8c'}}>长按或保存图片到相册后扫码</p>
+        <div className='pay-ad-div'>
+          <p style={{color: '#8c8c8c'}}>小灶支持</p>
+          <img src={'/static/img/buygether/payIcon_1.png'} />
+          <img src={'/static/img/buygether/payIcon_2.png'} />
+          <img src={'/static/img/buygether/payIcon_3.png'} />
+        </div>
       </div>
       <style jsx>{`
         .pop-bg {
@@ -311,7 +286,7 @@ export default class extends React.Component {
         }
         .pop-top {
           padding: 20px;
-          background-color: #4e4e4e;
+          background-color: #3e84e0;
           border-radius: 15px 15px 0px 0px;
           display: flex;
           justify-content: center;
@@ -321,6 +296,7 @@ export default class extends React.Component {
           width: 80px;
           height: 80px;
           margin: 15px;
+          border-radius: 50%;
         }
         .pop-bottom {
           padding: 10px 30px;
@@ -335,6 +311,17 @@ export default class extends React.Component {
         }
         .img-style {
           width: 200px;
+        }
+        .pay-ad-div {
+          border-top: 1px solid #8c8c8c;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding-top: 10px;
+          margin: auto -10px;
+        }
+        .pay-ad-div img {
+          height: 24px;
         }
     `}</style>
     </div>
@@ -464,7 +451,7 @@ export default class extends React.Component {
       } catch (e) {
         // 如果订单已经消失。跳转
         if (e.status === 10001 || e.status === 10002) {
-          this.renderPopAssistant()
+          this.renderHelp()
         }
       }
     } else if (currentGroupStatus === null) {
@@ -493,7 +480,7 @@ export default class extends React.Component {
         } catch (e) {
           // 如果订单已经消失。跳转
           if (e.status === 10001 || e.status === 10002) {
-            _this.renderPopAssistant()
+            _this.renderHelp()
           }
         }
       } else if (currentGroupStatus === null) {
@@ -570,11 +557,7 @@ export default class extends React.Component {
 
   // 点击咨询按钮弹窗
   renderAskPop () {
-    this.setState({
-      hideTest: !this.state.hideTest
-    })
     this.renderHelp()
-    // location.href = 'https://static.meiqia.com/dist/standalone.html?_=t&eid=63917&agentid=ed8f6b7c96fc339a6fcd6f8985624f82)'
   }
 
   renderFooter () {
@@ -719,7 +702,7 @@ export default class extends React.Component {
         <div className='top-banner'>
           <img className='bg-img1' src={'/static/img/buygether/buyBg_1.png'} />
           <div className='text-line'>
-            <Scrolling interval={6000} />
+            <Scrolling interval={10000} />
           </div>
           <style>{`
             .top-banner {
