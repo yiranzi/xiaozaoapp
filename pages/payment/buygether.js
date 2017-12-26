@@ -40,7 +40,8 @@ export default class extends React.Component {
       couponInfo: undefined, // 优惠券信息（我自己持有的）
       myGroupingId: undefined, // 我正在开团的id
       currentJoinInfo: {}, // 参团信息
-      currentTypeSelect: 0 // // 当前选择的拼团套餐。用于购买
+      currentTypeSelect: 0, // // 当前选择的拼团套餐。用于购买
+      hideTest: true
     }
     this.buyMyGroup = this.buyMyGroup.bind(this)
     this.buyOtherGroup = this.buyOtherGroup.bind(this)
@@ -161,67 +162,6 @@ export default class extends React.Component {
     })
   }
 
-  renderAllGroupView () {
-    let {studyCardPackageList} = this.state
-    let count = 0
-    studyCardPackageList.forEach((ele, index) => {
-      count += ele.buyCount
-    })
-    return (<div className='show-card'>
-      <div className='line'>
-        <p>能力卡用于兑换2018课表课程</p>
-        <p>已有{count}人获得</p>
-      </div>
-      <div className='card-line'>
-        {studyCardPackageList.map((ele, index) => {
-          return (
-            <div key={index} onClick={() => { this.buyMyGroup(index) }}>
-              <img src={`/static/img/buygether/card_${index + 1}0.png`} />
-            </div>)
-        })}
-        {(studyCardPackageList && studyCardPackageList.length > 0) && <div><img src={`/static/img/buygether/card_00.png`} /></div>}
-      </div>
-      <div className='text-line'>
-        <Scrolling interval={6000} />
-      </div>
-      <style jsx>{`
-        .show-card {
-          position: relative;
-          height: 200px;
-          background-image: url('/static/img/buygether/buyBg_2.jpeg');
-          background-size: 100% 100%;
-          padding: 8px;
-          font-size: 14px;
-          color: white;
-        }
-        .line {
-          display: flex;
-          justify-content: space-between;
-          flex-wrap: wrap;
-        }
-        .card-line {
-          position: absolute;
-          bottom: 60px;
-          left: 0;
-          width: 100%;
-          display: flex;
-          justify-content: space-between;
-          margin-top: 15px;
-        }
-        .card-line img {
-          width: 100%;
-          max-width: 80px;
-        }
-        .text-line {
-          position: absolute;
-          bottom: 10px;
-          left: 0;
-          width: 100%;
-        }
-      `}</style>
-    </div>)
-  }
-
   // 立即邀请好友 弹窗 正在开团的line
   // 邀请好友，再得卡 跳转 已成团的line
   renderMyGroup () {
@@ -314,6 +254,66 @@ export default class extends React.Component {
       .img-style {
         width: 200px;
       }
+    `}</style>
+    </div>
+    let prop = {
+      innerDiv: dom,
+      style: defaultStyle
+    }
+    ModalBoxPopFunc({...prop})
+  }
+
+  renderHelp () {
+    let defaultStyle = {
+      backgroundColor: 'rgba(0, 10, 49, 0.5)'
+    }
+    let dom = <div className='pop-bg'>
+      <div className='pop-top'>
+        <img src='/static/img/buygether/headImg_help.png' />
+        <div>
+          <p className='title'>小灶能力顾问Harry</p>
+          <p className='title'>有什么我可以帮助你的？</p>
+          <p className='title'>扫码或通过微信ID加我好友！</p>
+        </div>
+      </div>
+      <div className='pop-bottom'>
+        <h2 style={{color: 'black'}}>微信：xiaozao906</h2>
+        <img className='img-style' src='/static/img/buygether/qrcode.png' />
+        <p style={{color: '#8c8c8c'}}>长按或保存图片到相册后扫码</p>
+      </div>
+      <style jsx>{`
+        .pop-bg {
+          background-color: #ffffff;
+          border-radius: 15px;
+          font-size: 16px;
+        }
+        .pop-top {
+          padding: 20px;
+          background-color: #4e4e4e;
+          border-radius: 15px 15px 0px 0px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .pop-top img {
+          width: 80px;
+          height: 80px;
+          margin: 15px;
+        }
+        .pop-bottom {
+          padding: 10px 30px;
+        }
+        .title {
+          font-weight: bold;
+        }
+        .strong {
+          font-size:28px;
+          font-weight: bold;
+          color: red;
+        }
+        .img-style {
+          width: 200px;
+        }
     `}</style>
     </div>
     let prop = {
@@ -548,7 +548,11 @@ export default class extends React.Component {
 
   // 点击咨询按钮弹窗
   renderAskPop () {
-    location.href = 'https://static.meiqia.com/dist/standalone.html?_=t&eid=63917&agentid=ed8f6b7c96fc339a6fcd6f8985624f82)'
+    this.setState({
+      hideTest: !this.state.hideTest
+    })
+    this.renderHelp()
+    // location.href = 'https://static.meiqia.com/dist/standalone.html?_=t&eid=63917&agentid=ed8f6b7c96fc339a6fcd6f8985624f82)'
   }
 
   renderFooter () {
@@ -687,19 +691,61 @@ export default class extends React.Component {
     )
   }
 
+  renderTop () {
+    if (this.state.hideTest) {
+      return (
+        <div className='top-banner'>
+          <img className='bg-img1' src={'/static/img/buygether/buyBg_1.png'} />
+          <div className='text-line'>
+            <Scrolling interval={6000} />
+          </div>
+          <style>{`
+            .top-banner {
+              position: relative;
+            }
+            .bg-img1 {
+              width: 100%;
+            }
+            .text-line {
+              position: relative;
+              bottom: 0px;
+              left: 0;
+              width: 100%;
+              z-index: 10;
+              background-color: white;
+              color: black;
+              height: 30px;
+              line-height: 30px;
+            }
+          `}
+          </style>
+        </div>
+      )
+    } else {
+      return (
+        <div className='top-banner'>
+          <video width='100%' height='300px' controls>
+            <source src='/static/img/buygether/movie.mp4' type='video/mp4' />
+          </video>
+          <style>{`
+            .top-banner {
+              position: relative;
+            }
+          `}
+          </style>
+        </div>
+      )
+    }
+  }
+
   render () {
     return (
       <Layout>
         <div className='buy-card-page'>
-          <div className='top-banner'>
-            <img className='bg-img1' src={'/static/img/buygether/buyBg_1.png'} />
-            <div className='text-line'>
-              <Scrolling interval={6000} />
-            </div>
-          </div>
+          {this.renderTop()}
           <div className='card-div'>
-            {this.renderMyGroup()}
-            {this.renderOtherGroup()}
+            {this.state.hideTest && this.renderMyGroup()}
+            {this.state.hideTest && this.renderOtherGroup()}
             {this.renderCourseInfo()}
             {this.renderMoreCourse()}
           </div>
@@ -725,23 +771,7 @@ export default class extends React.Component {
             margin: 0px;
             padidng: 0;
           }
-          .top-banner {
-            position: relative;
-          }
-          .bg-img1 {
-            width: 100%;
-          }
-          .text-line {
-            position: relative;
-            bottom: 0px;
-            left: 0;
-            width: 100%;
-            z-index: 10;
-            background-color: white;
-            color: black;
-            height: 30px;
-            line-height: 30px;
-          }
+
           .buy-button {
             padding: 5px;
           }
