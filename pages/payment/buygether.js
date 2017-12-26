@@ -41,7 +41,9 @@ export default class extends React.Component {
       myGroupingId: undefined, // 我正在开团的id
       currentJoinInfo: {}, // 参团信息
       currentTypeSelect: 0, // // 当前选择的拼团套餐。用于购买
-      hideTest: true
+      hideTest: true,
+      showHelpButtonPop: false,
+      environment: 'little'
     }
     this.buyMyGroup = this.buyMyGroup.bind(this)
     this.buyOtherGroup = this.buyOtherGroup.bind(this)
@@ -50,12 +52,32 @@ export default class extends React.Component {
     this.updateInfo = this.updateInfo.bind(this)
     this.renderPop = this.renderPop.bind(this)
     this.refreshGroup = this.refreshGroup.bind(this)
+    this.setHelpButtonPop = this.setHelpButtonPop.bind(this)
   }
 
   componentDidMount = async () => {
     await this.updateInfo()
     // 分享跳转进入的时候 判定弹出购买框
     this.joinGroupFromShare()
+    this.setLittle()
+    this.setHelpButtonPop()
+  }
+
+  setLittle () {
+    if (window.__wxjs_environment === 'miniprogram') {
+      this.setState({
+        environment: 'little'
+      })
+    }
+  }
+
+  setHelpButtonPop () {
+    const popWaitTime = 3000
+    window.setTimeout(() => {
+      this.setState({
+        showHelpButtonPop: true
+      })
+    }, popWaitTime)
   }
 
   updateInfo = async (type) => {
@@ -120,7 +142,7 @@ export default class extends React.Component {
       shareProp.link += addParam
       this.littleShareUrl = addParam
       // 如果小程序上线开团成功。修改url
-      if (this.littleShareUrl && window.__wxjs_environment === 'miniprogram') {
+      if (this.littleShareUrl && this.state.environment === 'little') {
         window.history.replaceState(null, '', location.href + this.littleShareUrl)
       }
     }
@@ -391,7 +413,7 @@ export default class extends React.Component {
     if (this.state.myGroupingId === null) {
       return (<div className='button'>
         <Triangle
-          borderStyle={{top: '-8px', borderColor: 'transparent transparent #cba46b #cba46b'}}
+          TriangleStyle={{top: '-8px', borderColor: 'transparent transparent #cba46b #cba46b'}}
           style={{right: '60px', bottom: '-10px'}}>
           团长开团立减10元
         </Triangle>}
@@ -489,7 +511,7 @@ export default class extends React.Component {
       let payInfo
       // 判断是否是小程序
       let isMiniProgram = true
-      if (window.__wxjs_environment === 'miniprogram') {
+      if (this.state.environment === 'little') {
         isMiniProgram = true
       } else {
         isMiniProgram = false
@@ -499,7 +521,7 @@ export default class extends React.Component {
       } else {
         payInfo = await AxiosUtil.get(`/api/study-card/buy/${typeId}/${isMiniProgram}`)
       }
-      if (window.__wxjs_environment === 'miniprogram') {
+      if (this.state.environment === 'little') {
         this.littleBuy(typeId, groupId, payInfo)
       } else {
         this.wxBuy(typeId, groupId, payInfo)
@@ -667,13 +689,13 @@ export default class extends React.Component {
   renderMoreCourse () {
     return (
       <div className='fix-link'>
-        <Link href={window.__wxjs_environment === 'miniprogram' ? '/abilitycollege/mainx' : '/abilitycollege/main'}>
+        <Link href={this.state.environment === 'little' ? '/abilitycollege/mainx' : '/abilitycollege/main'}>
           <a className='content'>更多课程</a>
         </Link>
         <style jsx>{`
         .fix-link{
           position: fixed;
-          bottom: 50px;
+          bottom: 100px;
           left: -10px;
           width: 100px;
           height: 25px;
@@ -738,6 +760,70 @@ export default class extends React.Component {
     }
   }
 
+  renderShowHelpButtonPop () {
+    let {showHelpButtonPop} = this.state
+    console.log(showHelpButtonPop)
+    let borderStyle = {
+      height: '30px',
+      lineHeight: '30px',
+      borderRadius: '30px',
+      left: '0px',
+      bottom: '0px',
+      backgroundColor: '#3e84e0'
+    }
+    // let triangle = {
+    //   height: '50px',
+    //   lineHeight: '50px',
+    //   borderRadius: '50px'
+    // }
+    let style = {}
+    if (showHelpButtonPop) {
+      style = {
+        transform: 'translateX(0px)'
+      }
+    } else {
+      style = {
+        transform: 'translateX(-300px)'
+      }
+    }
+    return (
+      <div style={style} className='pop-out-div'>
+        <Triangle
+          TriangleStyle={{borderColor: '#3e84e0  transparent transparent #3e84e0'}}
+          style={borderStyle}>
+          <div className='inner-content'>
+            <img src='/static/img/buygether/headImg_help.png'/>
+            <p>关于课程和分期的问题，我可以帮你解答哦</p>
+          </div>
+        </Triangle>
+        <style>{`
+          .pop-out-div {
+            position: fixed;
+            bottom: 50px;
+            left: 0px;
+            width: 500px;
+            transition: transform 1s;
+            z-index: 200;
+          }
+          .out-container {
+            font-size: 16px;
+            position: relative;
+          }
+          .inner-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          .inner-content img {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+          }
+        `}</style>
+      </div>
+    )
+  }
+
   render () {
     return (
       <Layout>
@@ -748,6 +834,7 @@ export default class extends React.Component {
             {this.state.hideTest && this.renderOtherGroup()}
             {this.renderCourseInfo()}
             {this.renderMoreCourse()}
+            {this.renderShowHelpButtonPop()}
           </div>
           {this.renderFooter()}
         </div>
