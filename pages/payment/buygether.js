@@ -43,7 +43,7 @@ export default class extends React.Component {
       currentTypeSelect: 0, // // 当前选择的拼团套餐。用于购买
       hideTest: true,
       showHelpButtonPop: false,
-      environment: 'little'
+      environment: undefined
     }
     this.buyMyGroup = this.buyMyGroup.bind(this)
     this.buyOtherGroup = this.buyOtherGroup.bind(this)
@@ -258,7 +258,7 @@ export default class extends React.Component {
     let defaultStyle = {
       backgroundColor: 'rgba(0, 10, 49, 0.5)'
     }
-    let content = this.state.environment ? '长按扫码，加我微信' : '保存相册后，扫码加我好友'
+    let content = this.state.environment ? '保存相册后，扫码加我好友' : '长按扫码，加我微信'
     let dom = <div className='pop-bg'>
       <div className='pop-top'>
         <img src='/static/img/buygether/headImg_help.png' />
