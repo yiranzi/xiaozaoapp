@@ -128,8 +128,8 @@ export default class extends React.Component {
 
   setShare () {
     let shareProp = {
-      title: '邀你一起拼团能力课程，低至3折',
-      desc: '小灶能力学院限时拼团特惠，PPT课、商业英语课、结构化逻辑课、四大求职通关课等26大课程3大类能力等你拥有。',
+      title: '和我一起参加线上学徒项目',
+      desc: '6周全搞定：掌握实战技能+远程实习经历+探索职业兴趣+助教反馈指导',
       link: 'https://rcwx.review.xiaozao.org/payment/buygether',
       imgUrl: 'https://wx.xiaozao.org/static/img/abilitycollege/shareicon.png'
     }
@@ -223,15 +223,23 @@ export default class extends React.Component {
       backgroundColor: 'rgba(0, 10, 49, 0.5)'
     }
     let randomSecond = parseInt(60 * Math.random())
-    let dom = <div>
-      <img className='img-style' src='/static/img/buygether/share-arrow.png' />
-      <p className='title'>离成团只剩{leftHour}时{leftMinute}分{randomSecond}秒</p>
+    let dom = <div className='main-content'>
+      <img className='img-style' src='/static/img/buygether/shareArrow.png' />
+      <h2 className='course-title'>《线上学徒项目-商业分析方向》</h2>
+      <p className='title'>只需6周！带你获得能进滴滴、阿里、百度、四大的能力！</p>
+      <p className='time-div'>剩余<span className='time-content'>{leftHour}时{leftMinute}分{randomSecond}秒</span>结束</p>
       <p className='title'>还差<strong className='strong'> 1 </strong>人，赶紧邀请好友来拼团吧~</p>
-      <p className='title'>拼团人满后可拿成就卡</p>
       <style jsx>{`
+      .main-content {
+        position: relative;
+        top: -150px;
+      }
       .title {
-        font-size:20px;
+        font-size: 16px;
         font-weight: bold;
+      }
+      .course-title {
+        font-size: 20px;
       }
       .strong {
         font-size:28px;
@@ -240,10 +248,22 @@ export default class extends React.Component {
       }
       .img-style {
         position: absolute;
-        top: 0;
-        right: 0;
-        width: 150px;
-        height: 300px;
+        top: -100px;
+        right: 50px;
+        width: 100px;
+        height: 100px;
+      }
+      .time-div {
+        margin: 10px auto;
+      }
+      .time-content{
+        margin: auto 5px;
+        border-radius: 30px;
+        height: 30px;
+        line-height: 30px;
+        background-color: white;
+        color: red;
+        padding: 5px 15px;
       }
     `}</style>
     </div>
