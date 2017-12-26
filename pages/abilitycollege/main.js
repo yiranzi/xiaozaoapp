@@ -1,243 +1,541 @@
 import React from 'react'
 import Layout from '../../components/layout'
-import LoadingIcon from '../../xz-components/loadingicon'
-import AxiosUtil from '../../util/axios'
-import DataUtils from '../../util/data'
-import Header from '../../containers/abilitycollege/header'
 import Footer from '../../components/footer'
-import Schedule from '../../containers/abilitycollege/main/schedule'
-import Plan from '../../containers/abilitycollege/main/plan'
-import Course from '../../containers/abilitycollege/main/course'
-import Teacher from '../../containers/abilitycollege/main/teacher'
-import Study from '../../containers/abilitycollege/main/study'
-import Comment from '../../containers/abilitycollege/main/comment'
-import ToolsUtil from '../../util/tools'
+import {
+  Swiper,
+  Flex,
+  FlexItem,
+  LoadMore
+} from 'react-weui'
+import AxiosUtil from '../../util/axios'
+import ThemeConfig from '../../config/theme'
+import Slider from 'react-slick'
 
 export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      exchangeDetail: {},
-      coupon: [],
-      groupId: '',
-      headimg: '',
-      nickname: '',
-      category: '',
-      couponname: '',
-      couponid: '',
-      couponError: '',
-      canEnter: false
+      demoIndex: 0,
+      topBanner: null,
+      courseType2List: null,
+      courseType3List: null,
+      courseType4List: null,
+      feedbackBanner: null,
+      advBanner: null
     }
   }
+
+  settings = {
+    className: 'center slider-banner',
+    mobileFirst: true,
+    arrows: false,
+    centerMode: true,
+    infinite: true,
+    centerPadding: '15px',
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    speed: 500,
+    adaptiveHeight: false,
+    touchMove: true,
+    touchThreshold: 999999999
+  }
+
   componentDidMount = async () => {
-    let groupId = ToolsUtil.getQueryString('groupId') // 拼团id
-    let headimg = ToolsUtil.getQueryString('headimg') // 邀请人头像
-    let nickname = ToolsUtil.getQueryString('nickname') // 邀请人昵称
-    let category = ToolsUtil.getQueryString('category') // 区分是邀请参团还是分享优惠券, 参团值为invite, 优惠券是coupon
-    let couponname = ToolsUtil.getQueryString('couponname') // 通用券, 闺蜜券, 基友券, 校友券
-    let couponid = ToolsUtil.getQueryString('couponid') // 优惠券id
-    if (couponid) {
-      try {
-        await AxiosUtil.get('/api/study-card/receiveCoupon/' + couponid)
-      } catch (e) {
-        if (e.status === 10003) { this.setState({canEnter: true}) }
-        this.setState({couponError: e.message})
-      }
+    this.loadTopBannerData()
+    this.loadCourseTypeList()
+  }
+
+  loadTopBannerData = async () => {
+    try {
+      const _this = this
+      AxiosUtil.get(`/api/adv/getAdvByTypeAndObjId/10/1`).then(function (res) {
+        _this.setState({
+          topBanner: res
+        })
+
+        _this.loadOtherBannerData()
+      })
+    } catch (e) {
+      console.error(e)
     }
-    this.setState({
-      groupId: groupId,
-      headimg: headimg,
-      nickname: decodeURI(decodeURI(nickname)),
-      category: category,
-      couponname: decodeURI(decodeURI(couponname))
-    })
-
-    let exchangeDetail = await AxiosUtil.get('/api/study-card/exchangeDetail') // 获取schedule course文案
-    let coupon = await AxiosUtil.get('/api/study-card/coupon') // 获取已获得的优惠券
-    exchangeDetail = this.formData(exchangeDetail)
-    this.setState({exchangeDetail: exchangeDetail, coupon: coupon})
-
-    this.scrollFunction()
   }
-  formData (exchangeDetail) {
-    let json = {}
-    exchangeDetail.map((item) => {
-      let {title} = item
-      let category
 
-      if (title.match(/核心/)) {
-        category = 'currency'
-        json[category] = json[category] || {}
-        json[category].title = title
-
-        json[category].content = json[category].content || []
-        json[category].content.push(item)
-      }
-      if (title.match(/职场/)) {
-        category = 'work'
-        json[category] = json[category] || {}
-        json[category].title = title
-
-        json[category].content = json[category].content || []
-        json[category].content.push(item)
-      }
-      if (title.match(/求职/)) {
-        category = 'job'
-        json[category] = json[category] || {}
-        json[category].title = title
-
-        json[category].content = json[category].content || []
-        json[category].content.push(item)
-      }
-      if (title.match(/最新/)) {
-        category = '_new'
-        json[category] = json[category] || {}
-        json[category].title = title
-
-        json[category].content = json[category].content || []
-        json[category].content.push(item)
-      }
-      if (title.match(/最热/)) {
-        category = 'hot'
-        json[category] = json[category] || {}
-        json[category].title = title
-
-        json[category].content = json[category].content || []
-        json[category].content.push(item)
-      }
-    })
-    return json
+  loadOtherBannerData = async () => {
+    try {
+      const _this = this
+      AxiosUtil.get(`/api/adv/getAdvByTypeAndObjId/11/1`).then(function (res) {
+        _this.setState({
+          feedbackBanner: res
+        })
+      })
+      AxiosUtil.get(`/api/adv/getAdvByTypeAndObjId/12/1`).then(function (res) {
+        _this.setState({
+          advBanner: res
+        })
+      })
+    } catch (e) {
+      console.error(e)
+    }
   }
-  jumpTo () {
-    location.href = '/payment/buygether' + location.search
+
+  loadCourseTypeList = async () => {
+    try {
+      const _this = this
+      AxiosUtil.get(`/api/learning/courseList/2`).then(function (res) {
+        _this.setState({
+          courseType2List: res
+        })
+        _this.loadOtherCourseTypeList()
+      })
+    } catch (e) {
+      console.error(e)
+    }
   }
-  renderInviteBar (headimg, nickname) {
-    return (
-      <div className='share-tips' onClick={() => { this.jumpTo() }}>
-        <div><img src={headimg} /></div>
-        <div style={{marginLeft: '0.5rem'}}>参加{nickname}的团，低至3折获取能力卡</div>
-      </div>
-    )
+
+  loadOtherCourseTypeList = async () => {
+    try {
+      const _this = this
+      await AxiosUtil.get(`/api/learning/courseList/3`).then(function (res) {
+        _this.setState({
+          courseType3List: res
+        })
+      })
+      await AxiosUtil.get(`/api/learning/courseList/4`).then(function (res) {
+        _this.setState({
+          courseType4List: res
+        })
+      })
+    } catch (e) {
+      console.error(e)
+    }
   }
-  renderCouponBar (headimg, nickname) {
-    const {couponname, couponError, canEnter} = this.state
-    if (couponError && canEnter) return <div className='share-tips' onClick={() => { this.jumpTo() }}>{couponError}</div>
-    if (couponError) return <div className='share-tips'>{couponError}</div>
-    return (
-      <div className='share-tips' onClick={() => { this.jumpTo() }}>
-        <div><img src={headimg} /></div>
-        <div style={{marginLeft: '0.5rem'}}>
-          <p>已获得{nickname}赠送的{couponname}，购买能力卡，立享9折！</p>
-        </div>
-      </div>
-    )
+
+  renderTopBanner () {
+    const {topBanner} = this.state
+    if (topBanner) {
+      const bannerElements = topBanner.map(function (item, index) {
+        return (<div key={index}>
+          <a href={item.url ? item.url : 'javascript:;'}>
+            <img className='banner-img block-radius' src={item.img} /></a>
+        </div>)
+      })
+
+      return (<div className='block'>
+        <Swiper className='top-banner block-radius' onChange={(prev, next) => this.setState({demoIndex: next})} >
+          {bannerElements}
+        </Swiper>
+        <style global jsx>{`
+          .top-banner {
+            overflow: hidden;
+            box-shadow: 2px 2px 54px 10px #f0f0f0;
+          }
+          .top-banner .react-weui-swiper__wrapper {
+            height: auto !important;
+          }
+          .top-banner .react-weui-swiper__item {
+            border-radius: 8px;
+            overflow: hidden;
+            height: auto !important;
+            line-height: 1px;
+          }
+          .top-banner .banner-img {
+            height: auto;
+            width: 100%;
+          }
+        `}</style>
+      </div>)
+    } else {
+      return (<div className='block' style={{height: '150px'}}><LoadMore loading>Loading</LoadMore></div>)
+    }
   }
-  renderBar () {
-    return <div style={{backgroundColor: '#f0f2f6', height: '1rem'}} />
+
+  reneerNavbar () {
+    return (<div className='college-nav-bar block'>
+      <Flex>
+        <FlexItem>
+          <div className='item'>
+            <a href='#course2'>
+              <img src='/static/img/icon/course_type22.png' /><br /><label>限时免费</label>
+            </a>
+          </div>
+        </FlexItem>
+        <FlexItem>
+          <div className='item'>
+            <a href='#course3'>
+              <img src='/static/img/icon/course_type33.png' /><br /><label>精品课程</label>
+            </a>
+          </div>
+        </FlexItem>
+        <FlexItem>
+          <div className='item'>
+            <a href='#course4'>
+              <img src='/static/img/icon/course_type44.png' /><br /><label>线上训练营</label>
+            </a>
+          </div>
+        </FlexItem>
+        <FlexItem>
+          <div className='item'>
+            <a href='javascript:;' onClick={() => { location.href = 'https://static.meiqia.com/dist/standalone.html?_=t&eid=63917&agentid=ed8f6b7c96fc339a6fcd6f8985624f82)' }}>
+              <img src='/static/img/icon/course_contact11.png' /><br /><label>在线咨询</label>
+            </a>
+          </div>
+        </FlexItem>
+        <style global jsx>{`
+          .college-nav-bar {
+
+          }
+          .college-nav-bar .weui-flex {
+            margin: auto -15px;
+          }
+          .college-nav-bar img {
+            width: 50px;
+          }
+          .college-nav-bar .item {
+            text-align: center;
+            font-size: 0.7rem;
+          }
+          .college-nav-bar .item label {
+            color: gray;
+          }
+        `}</style>
+      </Flex>
+    </div>)
   }
-  scrollFunction () {
-    let tipsDom = document.getElementById('tips-wrapper')
-    if (tipsDom) {
-      window.onscroll = function () {
-        let tipsOffsetTop = tipsDom.offsetTop
-        let bodyScrollTop = document.body.scrollTop
-        if (bodyScrollTop > tipsOffsetTop) {
-          tipsDom.style.position = 'fixed'
-        } else {
-          tipsDom.style.position = 'relative'
+
+  renderCourseType2 () {
+    const {courseType2List} = this.state
+    if (courseType2List) {
+      const col = 2
+      let courseLineArray = []
+      for (let i = 0; i < courseType2List.length; i += col) {
+        let lineArray = courseType2List.slice(i, i + col)
+        if (lineArray.length < col) {
+          lineArray = lineArray.concat([col - lineArray.length])
         }
+        courseLineArray.push(lineArray)
       }
+      let courseElements = courseLineArray.map(function (item, index) {
+        return (<Flex key={index}>
+          {
+            item.map(function (item2, index2) {
+              return (<FlexItem key={index2}>
+                {item2.cover && <div className='item block-radius'>
+                  <a href={item2.path ? item2.path : 'javascript:;'}>
+                    <div className='img-block'><img className='img' src={item2.cover} /></div>
+                    <div className='info-block'>
+                      <p className='name wx-line-clamp2'>{item2.name}</p>
+                      <p className='info wx-clearfix'><span className='buy-count wx-pull-left'>{item2.buyCount}人学习</span><span className='course-tag wx-pull-right'>限时免费</span></p>
+                    </div>
+                  </a>
+                </div>}
+              </FlexItem>)
+            })
+          }
+        </Flex>)
+      })
+
+      return (<div className='course-type2 block'>
+        <h3 id='course2' className='block-title'>限时免费</h3>
+        {courseElements}
+        <style global jsx>{`
+          .course-type2 {
+
+          }
+          .course-type2 .weui-flex {
+            margin: 0 -8px;
+          }
+          .course-type2 .item {
+            box-shadow: 2px 2px 54px 10px #f0f0f0;
+            background-color: #fff;
+            overflow: hidden;
+            margin: 8px;
+          }
+          .course-type2 .item .img-block {
+            max-height: 140px;
+            overflow: hidden;
+            line-height: 1px;
+          }
+          .course-type2 .item .img {
+            width: 100%;
+          }
+          .course-type2 .item .info-block {
+            padding: 5px 0;
+          }
+          .course-type2 .item .name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            height: 44px;
+          }
+          .course-type2 .item .name,
+          .course-type2 .item .info {
+            padding: 0 12px;
+            margin: 3px 0;
+            line-height: 22px;
+          }
+          .course-type2 .buy-count {
+            font-size: 0.7rem;
+            color: gray;
+          }
+          .course-type2 .course-tag {
+            font-size: 0.7rem;
+            color: #fa7f5c;
+          }
+        `}</style>
+      </div>)
+    } else {
+      return (<div className='block' style={{height: '150px'}}><LoadMore loading>Loading</LoadMore></div>)
     }
   }
+
+  renderCourseType3 () {
+    const {courseType3List} = this.state
+    if (courseType3List) {
+      let courseElements = courseType3List.map(function (item, index) {
+        return (<div className='item block-radius' key={index}>
+          <a href={item.path ? item.path : 'javascript:;'}>
+            <div className='img-block'><img className='img' src={item.cover} /></div>
+            <div className='info-block'>
+              <p className='info'><span className='buy-count'>{item.buyCount} 人学习</span>
+                <span className='course-price'><small>&yen;</small> {item.price / 100}</span></p>
+            </div>
+          </a>
+        </div>)
+      })
+
+      return (<div className='course-type3 block'>
+        <h3 id='course3' className='block-title'>精品课程</h3>
+        {courseElements}
+        <p className='wx-text-center block-tips'><small>更多课程持续更新中</small></p>
+        <style global jsx>{`
+          .course-type3 {
+
+          }
+          .course-type3 .item {
+            overflow: hidden;
+            position: relative;
+          }
+          .course-type3 .item .img-block {
+
+          }
+          .course-type3 .item .img {
+            width: 100%;
+          }
+          .course-type3 .item .info-block {
+            padding: 15px 0;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+          }
+          .course-type3 .item .name,
+          .course-type3 .item .info {
+            padding: 0 20px;
+            margin: 5px 0;
+            line-height: 20px;
+            height: 20px;
+            color: #fff;
+          }
+          .course-type3 .buy-count {
+            font-size: 0.8rem;
+          }
+          .course-type3 .course-price {
+            margin-left: 30px;
+          }
+        `}</style>
+      </div>)
+    } else {
+      return (<div className='block' style={{height: '150px'}}><LoadMore loading>Loading</LoadMore></div>)
+    }
+  }
+
+  renderCourseType4 () {
+    const {courseType4List} = this.state
+    if (courseType4List) {
+      let courseElements = courseType4List.map(function (item, index) {
+        return (<div className='item' key={index}>
+          <a href={item.path ? item.path : 'javascript:;'}>
+            <div className='img-block block-radius'><img className='img' src={item.cover} /></div>
+            {item.name &&
+            <div className='info-block'>
+              <h4 className='name wx-line-clamp'>{item.name}</h4>
+            </div>
+            }
+          </a>
+        </div>)
+      })
+
+      return (<div className='block'>
+        <h3 id='course4' className='block-title'>线上训练营</h3>
+        <div className='course-type4 block-radius'>
+          {courseElements}
+        </div>
+        {courseType4List[0].name &&
+        <p className='wx-text-center block-tips'><small>更多课程持续更新中</small></p>
+        }
+        <style global jsx>{`
+          .course-type4 {
+            background-color: #f0f0f0;
+            padding: 15px;
+          }
+          .course-type4 .item {
+
+          }
+          .course-type4 .item .img-block {
+            line-height: 1px;
+            overflow: hidden;
+          }
+          .course-type4 .item .img {
+            width: 100%;
+          }
+          .course-type4 .item .info-block {
+
+          }
+          .course-type4 .item .name,
+          .course-type4 .item .info {
+            margin: 5px 0;
+            line-height: 20px;
+            height: 20px;
+          }
+        `}</style>
+      </div>)
+    } else {
+      return (<div className='block' style={{height: '150px'}}><LoadMore loading>Loading</LoadMore></div>)
+    }
+  }
+
+  renderFeedbackBanner () {
+    const {feedbackBanner} = this.state
+    if (feedbackBanner) {
+      const bannerElements = feedbackBanner.map(function (item, index) {
+        return (<div key={index}>
+          <a className='block-a' href={item.url ? item.url : 'javascript:;'}>
+            <img className='banner-img' src={item.img} /></a>
+        </div>)
+      })
+
+      return (<div className='block'>
+        <h3 className='block-title'>学员反馈</h3>
+        <Slider {...this.settings}>
+          {bannerElements}
+        </Slider>
+        <style global jsx>{`
+          .slider-banner {
+            margin: 0 -15px;
+          }
+          .slider-banner .block-a {
+            display: inline-block;
+            padding: 0 5px;
+          }
+          .slider-banner .banner-img {
+            width: 100%;
+          }
+        `}</style>
+      </div>)
+    } else {
+      return (<div className='block' style={{height: '150px'}}><LoadMore loading>Loading</LoadMore></div>)
+    }
+  }
+
+  renderAdvBanner () {
+    const {advBanner} = this.state
+    if (advBanner) {
+      const bannerElements = advBanner.map(function (item, index) {
+        return (<div key={index}>
+          <a className='block-a' href={item.url ? item.url : 'javascript:;'}>
+            <img className='banner-img' src={item.img} /></a>
+        </div>)
+      })
+
+      return (<div className='block'>
+        <h3 className='block-title'>小灶优势</h3>
+        <img className='pic' src='/static/img/college/pic1.png' style={{height: '40px', marginBottom: '5px'}} />
+        <Slider {...this.settings}>
+          {bannerElements}
+        </Slider>
+        <div style={{margin: '0 -12px'}}>
+          <img className='pic' src='/static/img/college/pic22.png' style={{width: '100%', margin: '25px 0'}} />
+        </div>
+        <style global jsx>{`
+          .slider-banner {
+            margin: 0 -15px;
+          }
+          .slider-banner .block-a {
+            display: inline-block;
+            padding: 0 5px;
+          }
+          .slider-banner .banner-img {
+            width: 100%;
+          }
+        `}</style>
+      </div>)
+    } else {
+      return (<div className='block' style={{height: '150px'}}><LoadMore loading>Loading</LoadMore></div>)
+    }
+  }
+
   render () {
-    const {exchangeDetail, coupon, headimg, nickname, category} = this.state
+    const {topBanner, courseType2List} = this.state
     return (
       <Layout>
+        {(!topBanner || !courseType2List) &&
+        <div className='wrapper'>
+          <div className='loading'>
+            <LoadMore loading> 加载中...</LoadMore>
+          </div>
+        </div>
+        }
         <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css' />
         <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css' />
+        {topBanner && courseType2List &&
         <div className='main'>
-          <Header coupon={coupon} />
-          <a href='/payment/buygether'>
-            <img className='bg-img1' src={'/static/img/abilitycollege/main-banner.png'} />
-          </a>
-          {/*{this.renderBar()}*/}
-          {category && (
-            <div id='tips-wrapper'>
-              {category === 'invite' && this.renderInviteBar(headimg, nickname)}
-              {category === 'coupon' && this.renderCouponBar(headimg, nickname)}
-            </div>
-          )}
           <div className='content'>
-            {DataUtils.isEmpty(exchangeDetail) ? <LoadingIcon /> : <Schedule exchangeDetail={this.state.exchangeDetail} />}
-            {this.renderBar()}
-            <Plan />
-            {this.renderBar()}
-            {DataUtils.isEmpty(exchangeDetail) ? <LoadingIcon /> : <Course exchangeDetail={this.state.exchangeDetail} />}
-            {this.renderBar()}
-            <Teacher />
-            {this.renderBar()}
-            <Study />
-            {this.renderBar()}
-            <Comment />
+            {this.renderTopBanner()}
+            {this.reneerNavbar()}
+            {this.renderCourseType2()}
+            {this.renderCourseType3()}
+            {this.renderCourseType4()}
+            {this.renderFeedbackBanner()}
+            {this.renderAdvBanner()}
           </div>
           <Footer type='college' />
         </div>
+        }
         <style jsx>{`
           .content {
-            padding-bottom: 7rem;
+            padding: 0 15px 2rem 15px;
+          }
+          .wrapper {
+            display: table;
+            height: 100vh;
+            width: 100%;
+          }
+          .loading {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+          }
+          .loading-img {
+            width: 100px;
           }
         `}</style>
         <style global jsx>{`
-          .bg-img1 {
-            width: 100%;
+          .block {
+            padding: 15px 0;
           }
-          h1 {
-            font-size: 1.25rem;
-            font-weight: normal;
-            color: #2f3138;
-            display: inline-block;
-            position: relative;
-            padding-left: 1.25rem;
-            margin-left: 1rem;
+          .block-title {
+            margin: 0 0 15px 0;
           }
-          h1::before {
-            content: '';
-            position: absolute;
-            left: 8px;
-            top: 6px;
-            width: 6px;
-            height: 1rem;
-            border-radius: 15px;
-            background-color: #241d66;
+          .block-radius {
+            border-radius: 8px;
           }
-          /**
-           * bar 样式
-           */
-          #tips-wrapper {
-            background-color: #fff;
-            width: 100%;
-            top: 0;
-            z-index: 9;
-            padding: 1rem 0;
+          .block-tips {
+            margin: 5px 0;
           }
-          .share-tips {
-            width: 100%;
-            background-color: #c41616;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 0.85rem;
-            color: #fff;
-            padding: 0.5rem 0;
+          a {
+            color: initial;
           }
-          .share-tips img {
-            width: 2rem;
-            border-radius: 2rem;
-            display: block;
-          }
-          .schedule .slick-slide,
-          .course .slick-slide {
-            height: 154px !important;
+          .weui-loading {
+            width: 25px !important;
+            height: 25px !important;
           }
         `}</style>
       </Layout>
