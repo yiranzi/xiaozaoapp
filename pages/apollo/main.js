@@ -143,7 +143,7 @@ export default class extends React.Component {
         okText = '知道了'
         okFunc = () => {}
       } else {
-        content = '坚持打卡每逢1，3，5，7可以获得小灶给您礼物'
+        content = '坚持打卡每逢累计1，3，5，7，10天，都可以获得小灶给您准备的礼物！'
         okText = '知道了'
         okFunc = () => {}
       }
