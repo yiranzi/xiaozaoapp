@@ -154,15 +154,15 @@ export default class extends React.Component {
       <Flex>
         <FlexItem>
           <div className='item'>
-            <a href='#course2'>
-              <img src='/static/img/icon/course_type22.png' /><br /><label>限时免费</label>
+            <a href='#course3'>
+              <img src='/static/img/icon/course_type33.png' /><br /><label>精品课程</label>
             </a>
           </div>
         </FlexItem>
         <FlexItem>
           <div className='item'>
-            <a href='#course3'>
-              <img src='/static/img/icon/course_type33.png' /><br /><label>精品课程</label>
+            <a href='#course2'>
+              <img src='/static/img/icon/course_type22.png' /><br /><label>限时免费</label>
             </a>
           </div>
         </FlexItem>
