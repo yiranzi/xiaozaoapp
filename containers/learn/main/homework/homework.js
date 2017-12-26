@@ -190,7 +190,7 @@ class innerComponent extends React.Component {
           <MediaBox>
             <MediaBoxTitle />
             <MediaBoxDescription style={{display: 'block'}}>
-              暂无作业
+              本课程暂无作业
             </MediaBoxDescription>
           </MediaBox>
         </Panel>

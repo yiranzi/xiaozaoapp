@@ -1,4 +1,5 @@
 import React from 'react'
+import {Panel, MediaBox, MediaBoxTitle, MediaBoxDescription} from 'react-weui'
 import AxiosUtil from '/util/axios'
 import HocRenderContent from '/containers/learn/main/hocRenderContent'
 // 原始组件
@@ -30,7 +31,16 @@ class innerComponent extends React.Component {
       `}</style>
       </div>)
     } else {
-      return null
+      return (
+        <Panel className='introduce'>
+          <MediaBox>
+            <MediaBoxTitle />
+            <MediaBoxDescription style={{display: 'block'}}>
+              本课程暂无概述
+            </MediaBoxDescription>
+          </MediaBox>
+        </Panel>
+      )
     }
   }
 }
