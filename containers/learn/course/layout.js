@@ -33,6 +33,11 @@ export default class extends React.Component {
     Router.replace(url)
     window.history.go(0)
   }
+  renderType (type) {
+    if (type === 'written-test') {
+      return '（请在电脑端完成笔试）'
+    }
+  }
   renderCourseMenu () {
     const {query, menuContent} = this.props
     const {courseId, chapterId, sectionId} = query
@@ -56,7 +61,7 @@ export default class extends React.Component {
                   <Accordion
                     show={menu.id === chapterId}
                     key={`accord_${index}`}
-                    header={<div className='wrap'><span className='file' />{menu.name}</div>}
+                    header={<div className='wrap'><span className='file' />{menu.name}{this.renderType(menu.type)}</div>}
                   >
                     {menu.sectionMenuDTOList && menu.sectionMenuDTOList.map((section, index) => {
                       return (
@@ -77,7 +82,7 @@ export default class extends React.Component {
                           <Panel className={classNames({'active': Number(section.id) === Number(sectionId)})}>
                             <Cell access>
                               <CellHeader><span className='icon' /></CellHeader>
-                              <CellBody>{section.name}(去pc端做笔试)</CellBody>
+                              <CellBody>{section.name}</CellBody>
                               <CellFooter />
                             </Cell>
                           </Panel>
