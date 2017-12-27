@@ -1,7 +1,7 @@
 import React from 'react'
-import AxiosUtil from '/util/axios'
-import HocRenderContent from '/containers/learn/main/hocRenderContent'
-import QuestionItem from '/containers/learn/main/homework/questionItem'
+import AxiosUtil from '../../../../util/axios'
+import HocRenderContent from '../../../../containers/learn/main/hocRenderContent'
+import QuestionItem from '../../../../containers/learn/main/homework/questionItem'
 import {
   Panel,
   PanelHeader,

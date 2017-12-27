@@ -8,7 +8,9 @@ import Option from '../../../containers/clock/option'
 import Material from '../../../containers/clock/material'
 import Button from '../../../xz-components/button'
 import { Alert } from '../../../xz-components/alert'
-import { Toast } from 'react-weui'
+import { Toast, MediaBox } from 'react-weui'
+import Title from '../../../containers/learn/main/homework/commentBox/title'
+import Description from '../../../containers/learn/main/homework/commentBox/description'
 
 export default class extends React.Component {
   constructor (props) {
@@ -156,29 +158,63 @@ export default class extends React.Component {
       </div>
     )
   }
-  renderEditWork (workDetail, myAnswer, evaluate, flag) {
-    const {query} = this.props
+  renderEvaluate (workDetail, myAnswer, evaluate, flag) {
+    let {query} = this.props
+    let {nickname, headimgurl, createTime} = evaluate
     return (
       <div style={{padding: '0 1rem'}}>
         <div className='wx-space-center' style={{paddingBottom: '2rem'}}>
           <Button style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>
             <Link href={`/learn/course/otherAnswer${location.search}&workId=${query.workId}`}><a>查看其他同学答案</a></Link>
           </Button>
-          <Button onClick={() => { this.setState({showWorkAnser: !this.state.showWorkAnser}) }} style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>查看导师点评</Button>
-          {DataUtil.isEmpty(this.state.workAnswer) && (
-            <Button
-              style={{borderColor: ThemeConfig.color.red, color: ThemeConfig.color.red}}
-              type='normal'
-              size='small'
-              onClick={() => { this.editMyWork() }}
-            >修改答案</Button>
-          )}
+          <Button
+            onClick={() => { this.setState({showWorkAnser: !this.state.showWorkAnser}) }} 
+            style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>查看导师点评</Button>
+          <Button
+            type='normal'
+            size='small'
+            disabled
+          >修改答案</Button>
+        </div>
+        {this.state.showWorkAnser && (
+          <MediaBox style={{textAlign: 'left'}}>
+            <Title nickname={nickname} headimgurl={headimgurl} time={createTime} />
+            <Description content={evaluate.evaluate} />
+          </MediaBox>
+        )}
+      </div>
+    )
+  }
+  renderNoEvaluate (workDetail, myAnswer, evaluate, flag) {
+    let {query} = this.props
+    return (
+      <div style={{padding: '0 1rem'}}>
+        <div className='wx-space-center' style={{paddingBottom: '2rem'}}>
+          <Button style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>
+            <Link href={`/learn/course/otherAnswer${location.search}&workId=${query.workId}`}><a>查看其他同学答案</a></Link>
+          </Button>
+          <Button type='normal' size='small' disabled>查看导师点评</Button>
+          <Button
+            style={{borderColor: ThemeConfig.color.red, color: ThemeConfig.color.red}}
+            type='normal'
+            size='small'
+            onClick={() => { this.editMyWork() }}
+          >修改答案</Button>
         </div>
         {this.state.showWorkAnser && (
           <div>导师点评：{this.state.workAnswer}</div>
         )}
       </div>
     )
+  }
+  renderEditWork (workDetail, myAnswer, evaluate, flag) {
+    if (DataUtil.isEmpty(evaluate)) {
+      // 导师没有点评
+      return this.renderNoEvaluate(workDetail, myAnswer, evaluate, flag)
+    } else {
+      // 导师点评后
+      return this.renderEvaluate(workDetail, myAnswer, evaluate, flag)
+    }
   }
   render () {
     const {workDetail, evaluate} = this.state
