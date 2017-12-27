@@ -10,7 +10,8 @@ import {
 import AxiosUtil from '../../util/axios'
 import ThemeConfig from '../../config/theme'
 import Slider from 'react-slick'
-import {HelpPopFunc} from "../../containers/buygether/helpPopFunc";
+import {HelpPopFunc} from '../../containers/buygether/helpPopFunc';
+import {Alert} from '../../xz-components/alert'
 
 export default class extends React.Component {
   constructor (props) {
@@ -291,7 +292,7 @@ export default class extends React.Component {
     if (courseType3List) {
       let courseElements = courseType3List.map(function (item, index) {
         return (<div className='item block-radius' key={index}>
-          <a href={item.path ? item.path : 'javascript:;'}>
+          <a onClick={() => { Alert({ content: 'PPT课程正在报名中！获取课程详情、报名课程请联系小助手Harry ( xiaozao906 )' }) }}>
             <div className='img-block'><img className='img' src={item.cover} /></div>
             <div className='info-block'>
               <p className='info'><span className='buy-count'>{item.buyCount} 人学习</span>
@@ -446,12 +447,12 @@ export default class extends React.Component {
 
       return (<div className='block'>
         <h3 className='block-title'>小灶优势</h3>
-        <img className='pic' src='/static/img/college/pic1.png' style={{height: '40px', marginBottom: '5px'}} />
+        <img className='pic' src='/upload/ueditor/image/20171227/946008909712330752.png' style={{height: '40px', marginBottom: '5px'}} />
         <Slider {...this.settings}>
           {bannerElements}
         </Slider>
         <div style={{margin: '0 -12px'}}>
-          <img className='pic' src='/static/img/college/pic22.png' style={{width: '100%', margin: '25px 0'}} />
+          <img className='pic' src=' /upload/ueditor/image/20171227/946009474399866880.png' style={{width: '100%', margin: '25px 0'}} />
         </div>
         <style global jsx>{`
           .slider-banner {
