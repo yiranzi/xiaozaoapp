@@ -125,7 +125,7 @@ export default class extends React.Component {
     const {disabled} = this.state
     return (
       <div style={{paddingBottom: '2rem'}}>
-        <div className='material'><strong>问题：</strong><Material content={workDetail.question} /></div>
+        <div className='material'><strong style={{color: '#3E84E0'}}>课间思考作业：</strong><Material content={workDetail.question} /></div>
         <Option
           isPlaying={this.state.isPlaying}
           isRecording={this.state.isRecording}
