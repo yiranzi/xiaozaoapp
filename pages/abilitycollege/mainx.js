@@ -447,12 +447,12 @@ export default class extends React.Component {
 
       return (<div className='block'>
         <h3 className='block-title'>小灶优势</h3>
-        <img className='pic' src='/static/img/college/pic1.png' style={{height: '40px', marginBottom: '5px'}} />
+        <img className='pic' src='/upload/ueditor/image/20171227/946008909712330752.png' style={{height: '40px', marginBottom: '5px'}} />
         <Slider {...this.settings}>
           {bannerElements}
         </Slider>
         <div style={{margin: '0 -12px'}}>
-          <img className='pic' src='/static/img/college/pic22.png' style={{width: '100%', margin: '25px 0'}} />
+          <img className='pic' src=' /upload/ueditor/image/20171227/946009474399866880.png' style={{width: '100%', margin: '25px 0'}} />
         </div>
         <style global jsx>{`
           .slider-banner {
