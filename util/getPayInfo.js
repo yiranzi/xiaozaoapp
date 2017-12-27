@@ -1,6 +1,6 @@
 import AxiosUtil from '../util/axios'
 
-// 付费信息 
+// 付费信息
 let canBuy = null
 let canEnter = null
 

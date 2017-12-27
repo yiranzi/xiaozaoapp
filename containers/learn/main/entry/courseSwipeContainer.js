@@ -7,23 +7,22 @@ import Link from 'next/link'
 export default class extends React.Component {
   renderViewAll (routerUrl) {
     return (<Link href={routerUrl} key={'total'}>
-      <a style={{background: 'url(/static/img/learn/cover_little.png)', marginLeft: '5px'}}>
-        <div className='view-all-div'>
+      <a className='view-all-div' style={{background: 'url(/static/img/learn/cover_little.png)', marginLeft: '5px'}}>
+        <div>
           <p>查看全部</p>
         </div>
         <style jsx>{`
           .view-all-div {
-            flex-basis: 100px;
+            height: auto;
+            flex-basis: 150px;
             flex-shrink: 0;
             flex-grow: 0;
-            padding: 10px;
             text-align: center;
-            margin-top: 20px;
             color: white;
+            margin-left: 5px;
           }
           .view-all-div p {
-            width: 150px;
-            margin-left: 5px;
+            padding: 20px;
           }
         `}</style>
       </a>
