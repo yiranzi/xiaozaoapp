@@ -157,9 +157,7 @@ export default class extends React.Component {
     Alert({
       content: (
         <div className='wx-text-center'>
-          <div>{this.state.testDetail.chapterTitle}</div>
-          <div>恭喜你完成{this.state.testDetail.chapterTitle}章节测试</div>
-          <div>助教会在n个工作日批改完成并给出分数</div>
+          <div>恭喜你完成<strong>{this.state.testDetail.chapterTitle}</strong>章节测试</div>
         </div>
       ),
       okText: '查看参考答案',
