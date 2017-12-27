@@ -312,7 +312,7 @@ export default class extends React.Component {
             left: 0;
             top: 0;
             font-size: 14px;
-            z-index: 1000;
+            z-index: 700;
           }
           .buy-pop-div {
             background-color: white;
