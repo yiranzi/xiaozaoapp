@@ -820,9 +820,9 @@ export default class extends React.Component {
       <div>
         <div className='top-banner'>
           <img className='bg-img1' src={'/static/img/buygether/buyBg_1.png'} />
-          <div className='text-line'>
-            <Scrolling interval={10000} />
-          </div>
+          {/*<div className='text-line'>*/}
+            {/*<Scrolling interval={10000} />*/}
+          {/*</div>*/}
         </div>
         {/*<video width='100%' controls>*/}
           {/*<source src='/static/img/buygether/movie.mp4' type='video/mp4' />*/}
