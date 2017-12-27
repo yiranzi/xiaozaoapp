@@ -10,13 +10,8 @@ export default class extends React.Component {
     Router.push(url)
   }
   render () {
-    let {questionInfo} = this.props
     return (
       <div>
-        <MediaBox>
-          <MediaBoxTitle />
-          <MediaBoxDescription style={{display: 'block'}} dangerouslySetInnerHTML={{__html: questionInfo.question}} />
-        </MediaBox>
         <div className='wx-text-center'>
           <Button size='small' onClick={() => { this.jumpTo() }}>提交作业</Button>
         </div>
