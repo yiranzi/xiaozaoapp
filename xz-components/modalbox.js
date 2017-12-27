@@ -67,6 +67,9 @@ function close () {
 
 export function ModalBoxPopFunc (props) {
   let divTarget = document.createElement('div')
+  divTarget.addEventListener('touchmove', e => {
+    e.preventDefault()
+  }, false)
   divTarget.id = 'modal-pop'
   document.body.appendChild(divTarget)
   render(<ModalBox {...props} />, divTarget)

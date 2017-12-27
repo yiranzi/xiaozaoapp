@@ -24,7 +24,7 @@ export function HelpPopFunc () {
     </div>
     <div className='pop-bottom'>
       <h2 style={{color: 'black', fontSize: '18px'}}>搜索微信ID：xiaozao906</h2>
-      <p style={{color: 'black'}}>{content}</p>
+      <h2 style={{color: 'black', fontSize: '18px'}}>{content}</h2>
       <img className='img-style' src='/static/img/buygether/qrcode.png' />
       <div className='pay-ad-div'>
         <p style={{color: '#8c8c8c'}}>小灶支持</p>
@@ -82,7 +82,8 @@ export function HelpPopFunc () {
   </div>
   let prop = {
     innerDiv: dom,
-    style: defaultStyle
+    style: defaultStyle,
+    cancelCallBack: () => {console.log('close')}
   }
   ModalBoxPopFunc({...prop})
 }

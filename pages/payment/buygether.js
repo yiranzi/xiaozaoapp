@@ -233,7 +233,11 @@ export default class extends React.Component {
       <style jsx>{`
       .main-content {
         position: relative;
-        top: -150px;
+        top: -90px;
+        background-color: #3e84e0;
+        border-radius: 30px;
+        padding: 10px;
+        width: 80%;
       }
       .title {
         font-size: 16px;
@@ -643,9 +647,9 @@ export default class extends React.Component {
             <Scrolling interval={10000} />
           </div>
         </div>
-        <video width='100%' controls>
-          <source src='/static/img/buygether/movie.mp4' type='video/mp4' />
-        </video>
+        {/*<video width='100%' controls>*/}
+          {/*<source src='/static/img/buygether/movie.mp4' type='video/mp4' />*/}
+        {/*</video>*/}
         <style>{`
           .top-banner {
             position: relative;
