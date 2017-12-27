@@ -49,7 +49,7 @@ export default class extends React.Component {
           <span>{nickname}的团</span>
         </div>
         <p className='title-font'>
-          选择你想参团的能力卡套餐
+          选择你想参团的课程
         </p>
         <style jsx>{`
           .title {
@@ -163,7 +163,7 @@ export default class extends React.Component {
     let style = (index === this.state.currentSelect) ? choose : normal
     return (
       <div className='line'>
-        <div className='card-name'>商业分析实战训练营</div>
+        <div className='card-name'>线上学徒项目-商务分析方向</div>
         <span className='price'>{`拼团价 ￥`}<strong>{`${this.calcPrice(ele, 'now')}`}</strong></span>
         <style jsx>{`
             .line {
