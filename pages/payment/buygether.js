@@ -64,7 +64,8 @@ export default class extends React.Component {
       hideTest: true,
       showHelpButtonPop: false,
       environment: undefined,
-      bannerArray: undefined
+      bannerArray: undefined,
+      topFixed: false
     }
     this.buyMyGroup = this.buyMyGroup.bind(this)
     this.buyOtherGroup = this.buyOtherGroup.bind(this)
@@ -74,6 +75,7 @@ export default class extends React.Component {
     this.renderPop = this.renderPop.bind(this)
     this.refreshGroup = this.refreshGroup.bind(this)
     this.setHelpButtonPop = this.setHelpButtonPop.bind(this)
+    this.setScroll = this.setScroll.bind(this)
   }
 
   componentDidMount = async () => {
@@ -83,6 +85,24 @@ export default class extends React.Component {
     this.setLittle()
     this.setHelpButtonPop()
     this.bannerAxios()
+    this.setScroll()
+  }
+
+  setScroll () {
+    let _this = this
+    window.addEventListener('scroll', function (e) {
+      let a = _this.refs.topFixedPos.offsetTop
+      if (window.scrollY > a && !_this.state.topFixed) {
+        _this.setState({
+          topFixed: true
+        })
+      }
+      if (window.scrollY < a && _this.state.topFixed) {
+        _this.setState({
+          topFixed: false
+        })
+      }
+    })
   }
 
   bannerAxios = async () => {
@@ -611,13 +631,34 @@ export default class extends React.Component {
   }
 
   renderNavBar () {
+    let fixed = {
+      position: 'fixed',
+      top: '0px',
+      left: '0px',
+      width: '100%',
+      zIndex: '9999',
+      paddingLeft: '15px',
+      paddingRight: '15px',
+      boxSizing: 'border-box'
+    }
+    let inTxt = {
+      position: 'absolute',
+      top: '0px',
+      left: '0px',
+      width: '100%',
+      zIndex: '9999',
+      boxSizing: 'border-box'
+    }
+    let style = this.state.topFixed ? fixed : inTxt
     return (
-      <div className='nav-bar'id='intro1' style={{fontSize: '20px'}}>
-        <a href='#intro1'>引言</a>
-        <a href='#intro2'>项目安排</a>
-        <a href='#get'>你的收获</a>
-        <a href='#team'>项目团队</a>
-        <a href='#feedback'>学院反馈</a>
+      <div style={style}>
+        <div className='nav-bar'>
+          <a href='#intro1'>引言</a>
+          <a href='#intro2'>项目安排</a>
+          <a href='#get'>你的收获</a>
+          <a href='#team'>项目团队</a>
+          <a href='#feedback'>学院反馈</a>
+        </div>
         <style>{`
           .nav-bar {
             display: flex;
@@ -626,6 +667,9 @@ export default class extends React.Component {
             background-color: white;
             padding: 3px;
             margin: 10px auto 10px auto;
+            height: 50px;
+            line-height: 50px;
+            margin: auto -15px;
           }
           a {
             color: black;
@@ -636,12 +680,14 @@ export default class extends React.Component {
     )
   }
 
-  renderDivBanner () {
+  renderDivBanner (index) {
     const {bannerArray} = this.state
-    console.log('!!!')
-    console.log(bannerArray)
-    if (bannerArray && bannerArray.length > 0) {
-      const bannerElements = bannerArray[0].map(function (item, index) {
+    if (!bannerArray || bannerArray.length === 0) {
+      return
+    }
+    let bannerImgArr = bannerArray[index]
+    if (bannerImgArr && bannerImgArr.length > 0) {
+      const bannerElements = bannerImgArr.map(function (item, index) {
         return (<div key={index}>
           <a className='block-a' href={item.url ? item.url : 'javascript:;'}>
             <img className='banner-img' src={item.img} /></a>
@@ -674,15 +720,26 @@ export default class extends React.Component {
   renderCourseInfo () {
     return (<div className='div-with-bottom'>
       {this.renderTitle('课程详情')}
-      {this.renderNavBar()}
+      <div id='intro1'>
+        <div ref='topFixedPos' style={{height: '56px', position: 'relative'}}>
+          {this.renderNavBar()}
+        </div>}
+        <img src={'/static/img/buygether/intro_1.jpg'} />
+        {this.renderDivBanner(0)}
+      </div>
       <div id='intro2'>
         <img src={'/static/img/buygether/intro_1.jpg'} />
       </div>
       <div id='get'>
         <img src={'/static/img/buygether/intro_1.jpg'} />
+        {this.renderDivBanner(1)}
+      </div>
+      <div id='team'>
+        <img src={'/static/img/buygether/intro_1.jpg'} />
       </div>
       <div id='feedback'>
-        {this.renderDivBanner()}
+        <img src={'/static/img/buygether/intro_1.jpg'} />
+        {this.renderDivBanner(2)}
       </div>
       <style jsx>{`
         .div-with-bottom {
@@ -761,7 +818,6 @@ export default class extends React.Component {
 
   renderShowHelpButtonPop () {
     let {showHelpButtonPop} = this.state
-    console.log(showHelpButtonPop)
     let borderStyle = {
       height: '30px',
       lineHeight: '30px',
