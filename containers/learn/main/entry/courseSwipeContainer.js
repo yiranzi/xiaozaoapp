@@ -138,7 +138,7 @@ export default class extends React.Component {
         <Link href={this.props.routerUrl}>
           <a><MediaBoxTitle style={{margin: 'auto auto 0px 6px'}}>{this.props.title} ></MediaBoxTitle></a>
         </Link>
-        <MediaBoxBody style={{display: 'flex', overflow: 'scroll', '-webkit-overflow-scrolling': 'touch'}}>
+        <MediaBoxBody style={{display: 'flex', overflow: 'scroll', WebkitOverflowScrolling: 'touch'}}>
           {this.renderCourseList()}
         </MediaBoxBody>
         <style global jsx>{`

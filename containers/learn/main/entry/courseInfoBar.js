@@ -5,7 +5,7 @@ import {
   MediaBoxDescription,
   MediaBoxInfo
 } from 'react-weui'
-import Link from 'next/link'
+import Router from 'next/router'
 import ToolsUtil from '/util/tools'
 
 export default class extends React.Component {
@@ -37,35 +37,33 @@ export default class extends React.Component {
     // 3 复制到属性中
     boxStyle = Object.assign(boxStyle, {background: `url(${bg})`, backgroundSize: '100% 100%'})
     return (
-      <Link key={title} href={{ pathname: '/learn/course/info', query: { courseId: this.props.courseId } }}>
-        <a style={{width: '100%', height: '100%'}}>
-          <div className='course-info-bar'>
-            <MediaBox style={boxStyle}>
-              <MediaBoxTitle style={fontStyle}>{title}</MediaBoxTitle>
-              <MediaBoxDescription style={fontStyle}>{des}</MediaBoxDescription>
-              <MediaBoxInfo style={fontStyle}>{info}</MediaBoxInfo>
-            </MediaBox>
-            <style jsx>{`
-              .course-info-bar {
-                flex-basis: 100px;
-                flex-shrink: 0;
-                flex-grow: 0;
-              }
-            `}</style>
-            <style global jsx>{`
-              .course-info-bar:first-child {
-                margin-left: 0;
-              }
-              .weui-media-box {
-                padding: 10px !important;
-              }
-              .course-info-bar .weui-media-box__title {
-                margin-bottom: 0 !important;
-              }
-            `}</style>
-          </div>
-        </a>
-      </Link>
+      <div onClick={() => { Router.push('/learn/course/info?courseId=' + this.props.courseId) }}>
+        <div className='course-info-bar'>
+          <MediaBox style={boxStyle}>
+            <MediaBoxTitle style={fontStyle}>{title}</MediaBoxTitle>
+            <MediaBoxDescription style={fontStyle}>{des}</MediaBoxDescription>
+            <MediaBoxInfo style={fontStyle}>{info}</MediaBoxInfo>
+          </MediaBox>
+          <style jsx>{`
+            .course-info-bar {
+              flex-basis: 100px;
+              flex-shrink: 0;
+              flex-grow: 0;
+            }
+          `}</style>
+          <style global jsx>{`
+            .course-info-bar:first-child {
+              margin-left: 0;
+            }
+            .weui-media-box {
+              padding: 10px !important;
+            }
+            .course-info-bar .weui-media-box__title {
+              margin-bottom: 0 !important;
+            }
+          `}</style>
+        </div>
+      </div>
     )
   }
 }
