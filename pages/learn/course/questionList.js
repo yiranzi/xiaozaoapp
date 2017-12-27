@@ -232,7 +232,7 @@ export default class extends React.Component {
           {this.state.body.pageQuestionList.ended === false}
           {((this.state.tab === 0 && this.state.body.myPageQuestionList.totalSize === 0) ||
             (this.state.tab === 1 && this.state.body.pageQuestionList.totalSize === 0)) && (
-              <LoadMore showLine>No Data</LoadMore>)}
+              <LoadMore showLine>暂时还没有提问哦</LoadMore>)}
         </PanelBody>
       )
     } else {
