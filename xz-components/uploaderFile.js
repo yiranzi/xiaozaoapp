@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import classNames from 'classnames'
 import DataUtil from '../util/data'
 import ToolUtil from '../util/tools'
+import Uploader from './uploader'
 
-export default class Uploader extends Component {
+export default class UploaderFile extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -28,7 +29,14 @@ export default class Uploader extends Component {
   }
   renderFileList (file) {
     if (ToolUtil.isImg(file)) {
-      return <img style={{maxWidth: '100%'}} src={this.state.dataURL} />
+      // 纯粹为了解决图片无法修改问题，直接引入weui-ui的uploader
+      return (
+        <Uploader
+          defaultValue={[{url: this.state.dataURL}]}
+          maxCount={1}
+          delete={(value) => { this.setState({file: '', dataURL: ''}) }}
+        />
+      )
     } else {
       return <div>{file}</div>
     }

@@ -1,8 +1,15 @@
 import React from 'react'
 import classNames from 'classnames'
 import { Gallery, GalleryDelete, Uploader, Form, Cell, CellBody } from 'react-weui'
+import PropTypes from 'prop-types'
 
 export default class extends React.Component {
+  static propTypes = {
+    delete: PropTypes.func
+  }
+  static defaultProps = {
+    delete: function () {}
+  }
   constructor (props) {
     super(props)
     this.state = {
@@ -33,6 +40,7 @@ export default class extends React.Component {
               imgFiles: this.state.imgFiles.filter((e, i) => i !== id),
               gallery: this.state.imgFiles.length <= 1
             })
+            this.props.delete()
           }} />
         ) }
       </Gallery>
