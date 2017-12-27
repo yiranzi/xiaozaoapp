@@ -215,7 +215,7 @@ export default class extends React.Component {
             </a>
           </Link>
         </div>
-        <Link href={{pathname: '/learn/course/introduce', query: {courseId: courseId}}}>
+        <Link href={{pathname: '/learn/course/introduce', query: {courseId: courseId}}} replace>
           <a style={{color: 'white'}}>概述>></a>
         </Link>
       </div>
