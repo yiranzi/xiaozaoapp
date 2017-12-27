@@ -53,7 +53,7 @@ export default class extends React.Component {
     if (list) {
       const listElement = list.map(function (item, index) {
         return (<MediaBox type='text' key={index}>
-          <MediaBoxTitle>{item.seq}、{item.title}</MediaBoxTitle>
+          <MediaBoxTitle>{index + 1}、{item.title}</MediaBoxTitle>
           <MediaBoxDescription dangerouslySetInnerHTML={{__html: item.content}} className='resource-content' />
           <p className='wx-text-right'>
             <a href={item.path}><Button className='download-btn'>下载</Button></a>
@@ -66,7 +66,7 @@ export default class extends React.Component {
         </PanelHeader>
         <PanelBody>
           {list.length > 0 && listElement}
-          {list.length === 0 && <LoadMore showLine>No Data</LoadMore>}
+          {list.length === 0 && <LoadMore showLine>本课程暂无资料</LoadMore>}
         </PanelBody>
         <style global jsx>{`
           .weui-media-box__desc {
