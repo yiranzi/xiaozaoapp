@@ -167,9 +167,9 @@ export default class extends React.Component {
           <Button style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>
             <Link href={`/learn/course/otherAnswer${location.search}&workId=${query.workId}`}><a>查看其他同学答案</a></Link>
           </Button>
-          <Button
-            onClick={() => { this.setState({showWorkAnser: !this.state.showWorkAnser}) }} 
-            style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>查看导师点评</Button>
+          <Button style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>
+            <Link href={`/learn/course/otherAnswer${location.search}&workId=${query.workId}&type=1`}><a>查看导师点评</a></Link>
+          </Button>
           <Button
             type='normal'
             size='small'
@@ -201,9 +201,6 @@ export default class extends React.Component {
             onClick={() => { this.editMyWork() }}
           >修改答案</Button>
         </div>
-        {this.state.showWorkAnser && (
-          <div>导师点评：{this.state.workAnswer}</div>
-        )}
       </div>
     )
   }

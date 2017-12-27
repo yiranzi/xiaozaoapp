@@ -42,18 +42,19 @@ export default class extends React.Component {
         <img src={i < score ? '/static/img/study/homework-score-on.png' : '/static/img/study/homework-score-off.png'} />
       </div>)
     }
-    return (<div className='star-line'>
-      {starsdiv}
-      <style>{`
-      .star-line {
-          display: flex;
-          flex-wrap: nowrap;
-          justify-content: flex-end;
-        }
-      .star-line img {
-        width: 30px;
-      }
-      `}</style>
+    return (
+      <div className='star-line'>
+        {starsdiv}
+        <style>{`
+          .star-line {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: flex-end;
+          }
+          .star-line img {
+            width: 1rem;
+          }
+        `}</style>
       </div>
     )
   }
@@ -94,8 +95,3 @@ export default class extends React.Component {
     }
   }
 }
-
-
-
-
-
