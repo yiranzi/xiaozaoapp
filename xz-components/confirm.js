@@ -58,6 +58,7 @@ class ConfirmDom extends React.Component {
           .confirm .dialog .content {
             color: #242223;
             padding: 0.5rem 1rem;
+            text-align: center;
           }
           .confirm .dialog .action {
             display: flex;
@@ -86,7 +87,6 @@ function close () {
 }
 
 export function Confirm (properties) {
-  console.log('Confirm')
   document.body.children[0].classList.add('xz-confirm-blur')
   let divTarget = document.createElement('div')
   divTarget.id = 'xz-confirm'

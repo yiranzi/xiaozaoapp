@@ -136,7 +136,7 @@ export default class extends React.Component {
         })
       }
     } else {
-      Alert({content: '没有做完，回去做', ok: () => { this.setState({isSubmit: false}) }})
+      Alert({content: '您尚未完成测试题目，请完成所有题目后提交', ok: () => { this.setState({isSubmit: false}) }})
     }
   }
   submit = async () => {
@@ -158,11 +158,11 @@ export default class extends React.Component {
       content: (
         <div className='wx-text-center'>
           <div>{this.state.testDetail.chapterTitle}</div>
-          <div>恭喜你完成测试</div>
-          <div>助教会在n个工作日批改完成并给出分数</div>
+          <div>恭喜你完成{this.state.testDetail.chapterTitle}章节测试</div>
+          <div>查看参考答案</div>
         </div>
       ),
-      okText: '您可以先查看参考答案',
+      okText: '查看参考答案',
       ok: () => { location.reload() }
     })
   }
