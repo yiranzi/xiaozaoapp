@@ -2,7 +2,7 @@ import React from 'react'
 import Homework from '../../../containers/learn/main/homework/homework'
 import ToolsUtil from '../../../util/tools'
 import Layout from '../../../components/layout'
-import FixFooter from '../../../xz-components/fixfooter'
+// import FixFooter from '../../../xz-components/fixfooter'
 
 export default class extends React.Component {
   constructor (props) {
@@ -36,7 +36,7 @@ export default class extends React.Component {
     return (
       <Layout>
         {courseId && workId && <Homework tabSelect={type} courseStatus={'doing'} courseId={parseInt(courseId)} workId={parseInt(workId)} />}
-        <FixFooter style={{textAlign: 'center'}} onClick={() => { history.go(-1) }}>继续学习</FixFooter>
+        {/* <FixFooter style={{textAlign: 'center'}} onClick={() => { history.go(-1) }}>继续学习</FixFooter> */}
       </Layout>
     )
   }

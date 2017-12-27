@@ -181,7 +181,7 @@ export default class extends React.Component {
           <Button size='small' type='default' className='' onClick={e => this.changeTabbar()}>
             {this.state.tab === 1 ? '我的提问' : '全部提问'}
           </Button>
-          <Button size='small' type='default' className='' onClick={e => this.keepOnCourse()}>继续学习</Button>
+          {/* <Button size='small' type='default' className='' onClick={e => this.keepOnCourse()}>继续学习</Button> */}
         </ButtonArea>
         {this.renderList()}
         <style global jsx>{`

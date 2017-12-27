@@ -11,7 +11,7 @@ import Loading from '../../../xz-components/loading'
 import Button from '../../../xz-components/button'
 import {Confirm} from '../../../xz-components/confirm'
 import {Alert} from '../../../xz-components/alert'
-import FixFooter from '../../../xz-components/fixfooter'
+// import FixFooter from '../../../xz-components/fixfooter'
 import { Toast } from 'react-weui'
 
 export default class extends React.Component {
@@ -240,7 +240,7 @@ export default class extends React.Component {
             </div>
           )}
         </div>
-        <FixFooter style={{textAlign: 'center'}} onClick={() => { history.go(-1) }}>继续学习</FixFooter>
+        {/* <FixFooter style={{textAlign: 'center'}} onClick={() => { history.go(-1) }}>继续学习</FixFooter> */}
         <style jsx>{`
           .test-detail {
             padding-bottom: 3rem;

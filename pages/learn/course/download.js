@@ -1,7 +1,7 @@
 import React from 'react'
 import ToolsUtil from '../../../util/tools'
 import Layout from '../../../components/layout'
-import FixFooter from '../../../xz-components/fixfooter'
+// import FixFooter from '../../../xz-components/fixfooter'
 import AxiosUtil from '../../../util/axios'
 import ThemeConfig from '../../../config/theme'
 import {
@@ -92,7 +92,7 @@ export default class extends React.Component {
     return (
       <Layout className='main-style'>
         {this.renderList()}
-        <FixFooter style={{textAlign: 'center'}} onClick={() => { history.go(-1) }}>继续学习</FixFooter>
+        {/* <FixFooter style={{textAlign: 'center'}} onClick={() => { history.go(-1) }}>继续学习</FixFooter> */}
         <style global jsx>{`
           .main-style {
             background-color: ${ThemeConfig.color.gray};
