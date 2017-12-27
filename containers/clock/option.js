@@ -17,7 +17,7 @@ export default class extends React.Component {
         <TextArea
           key={name}
           placeholder='请输入您的答案'
-          maxLength={200}
+          maxLength={5000}
           defaultValue={answer}
           onChange={(value) => { this.props.onChange(id, value) }}
           disabled={disabled}
