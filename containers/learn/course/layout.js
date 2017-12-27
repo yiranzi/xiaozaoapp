@@ -63,6 +63,15 @@ export default class extends React.Component {
                     key={`accord_${index}`}
                     header={<div className='wrap'><span className='file' />{menu.name}{this.renderType(menu.type)}</div>}
                   >
+                    {menu.preTestId && (
+                      <Cells>
+                        <Cell access>
+                          <CellHeader><span className='blank' /></CellHeader>
+                          <CellBody><Link href={`/learn/course/testDetail?courseId=${query.courseId}&testId=${menu.preTestId}`}><a className='wx-block'>课前测试</a></Link></CellBody>
+                          <CellFooter />
+                        </Cell>
+                      </Cells>
+                    )}
                     {menu.sectionMenuDTOList && menu.sectionMenuDTOList.map((section, index) => {
                       return (
                         <a key={`section_${index}`} onClick={() => { this.jumpTo(courseId, menu.id, section.id, 1) }}>
@@ -93,7 +102,7 @@ export default class extends React.Component {
                       <Cells>
                         <Cell access>
                           <CellHeader><span className='blank' /></CellHeader>
-                          <CellBody><Link href={`/learn/course/testDetail?courseId=${query.courseId}&testId=${menu.afterTestId}`}><a className='wx-block'>测试</a></Link></CellBody>
+                          <CellBody><Link href={`/learn/course/testDetail?courseId=${query.courseId}&testId=${menu.afterTestId}`}><a className='wx-block'>课后测试</a></Link></CellBody>
                           <CellFooter />
                         </Cell>
                       </Cells>
