@@ -107,11 +107,11 @@ export default class extends React.Component {
 
   bannerAxios = async () => {
     let bannerArray = []
-    let a = await AxiosUtil.get(`/api/adv/getAdvByTypeAndObjId/10/1`)
+    let a = await AxiosUtil.get(`/api/adv/getAdvByTypeAndObjId/13/1`)
     bannerArray.push(a)
-    let b = await AxiosUtil.get(`/api/adv/getAdvByTypeAndObjId/11/1`)
+    let b = await AxiosUtil.get(`/api/adv/getAdvByTypeAndObjId/14/1`)
     bannerArray.push(b)
-    let c = await AxiosUtil.get(`/api/adv/getAdvByTypeAndObjId/12/1`)
+    let c = await AxiosUtil.get(`/api/adv/getAdvByTypeAndObjId/15/1`)
     bannerArray.push(c)
     this.setState({
       bannerArray: bannerArray
@@ -637,8 +637,8 @@ export default class extends React.Component {
       left: '0px',
       width: '100%',
       zIndex: '99',
-      paddingLeft: '15px',
-      paddingRight: '15px',
+      // paddingLeft: '15px',
+      // paddingRight: '15px',
       boxSizing: 'border-box'
     }
     let inTxt = {
@@ -654,10 +654,12 @@ export default class extends React.Component {
       <div style={style}>
         <div className='nav-bar'>
           <a href='#intro1'>引言</a>
-          <a href='#intro2'>项目安排</a>
+          <a href='#intro2'>项目介绍</a>
+          <a href='#process'>项目安排</a>
           <a href='#get'>你的收获</a>
           <a href='#team'>项目团队</a>
           <a href='#feedback'>学院反馈</a>
+          <a href='#pay'>支付流程</a>
         </div>
         <style>{`
           .nav-bar {
@@ -666,10 +668,10 @@ export default class extends React.Component {
             justify-content: space-around;
             background-color: #F9F9F9;
             padding: 3px;
-            margin: 10px auto 10px auto;
+            // margin: 10px auto 10px auto;
             height: 50px;
             line-height: 50px;
-            margin: auto -15px;
+            // margin: auto -15px;
           }
           a {
             color: black;
@@ -694,7 +696,7 @@ export default class extends React.Component {
         </div>)
       })
       return (
-        <div>
+        <div style={{margin: 'auto 15px auto 15px'}}>
           <Slider {...this.settings}>
             {bannerElements}
           </Slider>
@@ -720,27 +722,59 @@ export default class extends React.Component {
   renderCourseInfo () {
     return (<div className='div-with-bottom'>
       {this.renderTitle('课程详情')}
-      <div id='intro1'>
-        <div ref='topFixedPos' style={{height: '56px', position: 'relative'}}>
-          {this.renderNavBar()}
-        </div>}
-        <img src={'/static/img/buygether/intro_1.jpg'} />
-        {this.renderDivBanner(0)}
+      <div className='intro-div-content'>
+        <div id='intro1'>
+          <div ref='topFixedPos' style={{height: '56px', position: 'relative'}}>
+            {this.renderNavBar()}
+          </div>}
+          <img src={'/static/img/buygether/intro/intro_0_0.png'} />
+          <img src={'/static/img/buygether/intro/intro_0_1.png'} />
+          <img src={'/static/img/buygether/intro/intro_0_2.png'} />
+          <div id='intro2' style={{height: '56px', backgroundColor: 'white'}} />
+        </div>
+        <div>
+          <img src={'/static/img/buygether/intro/intro_1_1.png'} />
+          <div id='process' style={{height: '56px', backgroundColor: 'white'}} />
+        </div>
+        <div>
+          <img src={'/static/img/buygether/intro/intro_2_1.png'} />
+          <img src={'/static/img/buygether/intro/intro_2_2.png'} />
+          {this.renderDivBanner(0)}
+          <div id='get' style={{height: '56px', backgroundColor: 'white'}} />
+        </div>
+        <div>
+          <img src={'/static/img/buygether/intro/intro_3_1.png'} />
+          <img src={'/static/img/buygether/intro/intro_3_2.png'} />
+          <img src={'/static/img/buygether/intro/intro_3_3.png'} />
+          <img src={'/static/img/buygether/intro/intro_3_4.png'} />
+          {this.renderDivBanner(1)}
+          <img src={'/static/img/buygether/intro/intro_3_5.png'} />
+          <div id='team' style={{height: '56px', backgroundColor: 'white'}} />
+        </div>
+        <div>
+          <img src={'/static/img/buygether/intro/intro_4_1.png'} />
+          <img src={'/static/img/buygether/intro/intro_4_2.png'} />
+          <img src={'/static/img/buygether/intro/intro_4_3.png'} />
+          <img src={'/static/img/buygether/intro/intro_4_4.png'} />
+          <img src={'/static/img/buygether/intro/intro_4_5.png'} />
+          <img src={'/static/img/buygether/intro/intro_4_6.png'} />
+          <img src={'/static/img/buygether/intro/intro_4_7.png'} />
+          <div id='feedback' style={{height: '56px', backgroundColor: 'white'}} />
+        </div>
+        <div>
+          <img src={'/static/img/buygether/intro/intro_5_1.png'} />
+          <div id='pay' style={{height: '56px', backgroundColor: 'white'}} />
+          {this.renderDivBanner(2)}
+        </div>
+        <div>
+          <img src={'/static/img/buygether/intro/intro_6_1.png'} />
+          <img src={'/static/img/buygether/intro/intro_6_2.png'} />
+          <img src={'/static/img/buygether/intro/intro_6_3.png'} />
+          <img src={'/static/img/buygether/intro/intro_6_4.png'} />
+          <img src={'/static/img/buygether/intro/intro_7_1.png'} />
+        </div>
       </div>
-      <div id='intro2'>
-        <img src={'/static/img/buygether/intro_1.jpg'} />
-      </div>
-      <div id='get'>
-        <img src={'/static/img/buygether/intro_1.jpg'} />
-        {this.renderDivBanner(1)}
-      </div>
-      <div id='team'>
-        <img src={'/static/img/buygether/intro_1.jpg'} />
-      </div>
-      <div id='feedback'>
-        <img src={'/static/img/buygether/intro_1.jpg'} />
-        {this.renderDivBanner(2)}
-      </div>
+
       <style jsx>{`
         .div-with-bottom {
           padding-bottom: 10px;
@@ -748,6 +782,9 @@ export default class extends React.Component {
         }
         .div-with-bottom img {
           width: 100%;
+        }
+        .intro-div-content {
+          margin: auto -15px;
         }
       `}</style>
     </div>)
@@ -899,7 +936,7 @@ export default class extends React.Component {
           dataInfo={this.state.studyCardPackageList} />}
         <style jsx>{`
           .buy-card-page {
-            padding-bottom: 80px;
+            padding-bottom: 60px;
             width: 100%;
             font-size: 0px;
             text-align: center;
