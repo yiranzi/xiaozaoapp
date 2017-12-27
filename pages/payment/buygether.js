@@ -131,8 +131,8 @@ export default class extends React.Component {
     let shareProp = {
       title: '邀请你和我一起参加线上学徒项目',
       desc: '6周全搞定：掌握实战技能+远程实习经历+探索职业兴趣+助教反馈指导',
-      link: 'https://rcwx.review.xiaozao.org/payment/buygether',
-      imgUrl: 'https://wx.xiaozao.org/static/img/abilitycollege/buyBg_1.png'
+      link: 'https://wx.xiaozao.org/payment/buygether',
+      imgUrl: 'https://wx.xiaozao.org/static/img/buygether/shareImg.png'
     }
     if (this.state.myGroupingId) {
       let nickname = encodeURI(encodeURI(this.nickname))
@@ -343,24 +343,6 @@ export default class extends React.Component {
     )
   }
 
-  renderBuyButton () {
-    if (this.state.myGroupingId === null) {
-      return (<div className='button'>
-        <Triangle
-          TriangleStyle={{top: '-8px', borderColor: 'transparent transparent #cba46b #cba46b'}}
-          style={{right: '60px', bottom: '-10px'}}>
-          团长开团立减10元
-        </Triangle>}
-        <Button style={this.buttonStyle} onClick={() => { this.buyMyGroup() }}>自己开团</Button>
-        <style jsx>{`
-        .button {
-          position: relative;
-        }
-      `}</style>
-      </div>)
-    }
-  }
-
   littleBuy = async (typeId, groupId, payInfo) => {
     // 1 调用小程序支付
     wxPay.payInit(payInfo)
@@ -557,7 +539,6 @@ export default class extends React.Component {
           justify-content: center;
         }
         .group-price div {
-          // flex-basis: 0;
           width: 70px;
         }
         .group-price span{
@@ -597,8 +578,8 @@ export default class extends React.Component {
   renderCourseInfo () {
     return (<div className='div-with-bottom'>
       {this.renderTitle('课程详情')}
-      <img src={'/static/img/buygether/intro_1.png'} />
-      <img src={'/static/img/buygether/intro_2.png'} />
+      <img src={'/static/img/buygether/intro_1.jpg'} />
+      <img src={'/static/img/buygether/intro_2.jpg'} />
       <style jsx>{`
         .div-with-bottom {
           padding-bottom: 10px;
@@ -685,11 +666,6 @@ export default class extends React.Component {
       bottom: '0px',
       backgroundColor: '#3e84e0'
     }
-    // let triangle = {
-    //   height: '50px',
-    //   lineHeight: '50px',
-    //   borderRadius: '50px'
-    // }
     let style = {}
     if (showHelpButtonPop) {
       style = {
@@ -697,13 +673,13 @@ export default class extends React.Component {
       }
     } else {
       style = {
-        transform: 'translateX(-300px)'
+        transform: 'ttranslateX(-300px)'
       }
     }
     return (
       <div style={style} className='pop-out-div' onClick={() => { HelpPopFunc() }}>
         <Triangle
-          TriangleStyle={{borderColor: '#3e84e0  transparent transparent #3e84e0'}}
+          triangleStyle={{borderColor: '#3e84e0  transparent transparent #3e84e0'}}
           style={borderStyle}>
           <div className='inner-content'>
             <img src='/static/img/buygether/headImg_help.png' />
