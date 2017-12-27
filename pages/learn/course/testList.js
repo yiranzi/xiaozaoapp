@@ -103,6 +103,9 @@ export default class extends React.Component {
             flex: 1;
             text-align: right;
           }
+          .chapter-title {
+            margin-left: 0.5rem;
+          }
         `}</style>
         <style global jsx>{`
           .card.next {
