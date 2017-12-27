@@ -112,6 +112,7 @@ export default class extends React.Component {
           .weui-popup {
             height: 100%;
             overflow: scroll;
+            -webkit-overflow-scrolling:touch;
             transition: transform 0.7s !important;
           }
           .close {
