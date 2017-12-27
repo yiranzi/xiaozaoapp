@@ -8,8 +8,8 @@ import {
   LoadMore
 } from 'react-weui'
 import AxiosUtil from '../../util/axios'
-import ThemeConfig from '../../config/theme'
 import Slider from 'react-slick'
+import {HelpPopFunc} from '../../containers/buygether/helpPopFunc'
 
 export default class extends React.Component {
   constructor (props) {
@@ -149,9 +149,16 @@ export default class extends React.Component {
     }
   }
 
-  reneerNavbar () {
+  renderNavbar () {
     return (<div className='college-nav-bar block'>
       <Flex>
+        <FlexItem>
+          <div className='item'>
+            <a href='#course4'>
+              <img src='/static/img/icon/course_type44.png' /><br /><label>线上训练营</label>
+            </a>
+          </div>
+        </FlexItem>
         <FlexItem>
           <div className='item'>
             <a href='#course3'>
@@ -167,17 +174,8 @@ export default class extends React.Component {
           </div>
         </FlexItem>
         <FlexItem>
-          <div className='item'>
-            <a href='#course4'>
-              <img src='/static/img/icon/course_type44.png' /><br /><label>线上训练营</label>
-            </a>
-          </div>
-        </FlexItem>
-        <FlexItem>
-          <div className='item'>
-            <a href='javascript:;' onClick={() => { location.href = 'https://static.meiqia.com/dist/standalone.html?_=t&eid=63917&agentid=ed8f6b7c96fc339a6fcd6f8985624f82)' }}>
-              <img src='/static/img/icon/course_contact11.png' /><br /><label>在线咨询</label>
-            </a>
+          <div className='item' onClick={() => { HelpPopFunc() }}>
+            <img src='/static/img/icon/course_contact11.png' /><br /><label>在线咨询</label>
           </div>
         </FlexItem>
         <style global jsx>{`
@@ -489,10 +487,10 @@ export default class extends React.Component {
         <div className='main'>
           <div className='content'>
             {this.renderTopBanner()}
-            {this.reneerNavbar()}
-            {this.renderCourseType2()}
-            {this.renderCourseType3()}
+            {this.renderNavbar()}
             {this.renderCourseType4()}
+            {this.renderCourseType3()}
+            {this.renderCourseType2()}
             {this.renderFeedbackBanner()}
             {this.renderAdvBanner()}
           </div>

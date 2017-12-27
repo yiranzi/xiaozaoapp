@@ -14,6 +14,7 @@ import {Confirm} from '/xz-components/confirm'
 import {ModalBoxPopFunc} from '../../xz-components/modalbox'
 import GroupCard from '../../containers/buygether/groupcard'
 import Link from 'next/link'
+import {HelpPopFunc} from '../../containers/buygether/helpPopFunc'
 
 // 介绍页
 export default class extends React.Component {
@@ -131,7 +132,7 @@ export default class extends React.Component {
       title: '和我一起参加线上学徒项目',
       desc: '6周全搞定：掌握实战技能+远程实习经历+探索职业兴趣+助教反馈指导',
       link: 'https://rcwx.review.xiaozao.org/payment/buygether',
-      imgUrl: 'https://wx.xiaozao.org/static/img/abilitycollege/shareicon.png'
+      imgUrl: 'https://wx.xiaozao.org/static/img/abilitycollege/buyBg_1.png'
     }
     if (this.state.myGroupingId) {
       let nickname = encodeURI(encodeURI(this.nickname))
@@ -194,7 +195,7 @@ export default class extends React.Component {
         if (ele.status === 1) {
           // 历史团
           return (<GroupCard key={ele.groupId} groupInfo={ele}
-            button={<Button style={this.buttonStyle} onClick={() => { this.renderHelp() }}>添加小助手</Button>} />)
+            button={<Button style={this.buttonStyle} onClick={() => { HelpPopFunc() }}>添加小助手</Button>} />)
         } else {
           return (<GroupCard key={ele.groupId} groupInfo={ele}
             button={<Button style={this.buttonStyle} onClick={() => { this.renderPop(ele) }}>立即邀请好友</Button>} />)
@@ -265,84 +266,6 @@ export default class extends React.Component {
         color: red;
         padding: 5px 15px;
       }
-    `}</style>
-    </div>
-    let prop = {
-      innerDiv: dom,
-      style: defaultStyle
-    }
-    ModalBoxPopFunc({...prop})
-  }
-
-  renderHelp () {
-    let defaultStyle = {
-      backgroundColor: 'rgba(0, 10, 49, 0.5)'
-    }
-    let content = this.state.environment ? '保存相册后，扫码加我好友' : '长按扫码，加我微信'
-    let dom = <div className='pop-bg'>
-      <div className='pop-top'>
-        <img src='/static/img/buygether/headImg_help.png' />
-        <div>
-          <p className='title'>小灶能力顾问Harry</p>
-          <p className='title'>我可以为你解答课程、分期等疑问哦</p>
-        </div>
-      </div>
-      <div className='pop-bottom'>
-        <h2 style={{color: 'black'}}>搜索微信ID：xiaozao906</h2>
-        <p style={{color: 'black'}}>{content}</p>
-        <img className='img-style' src='/static/img/buygether/qrcode.png' />
-        <div className='pay-ad-div'>
-          <p style={{color: '#8c8c8c'}}>小灶支持</p>
-          <img src={'/static/img/buygether/payIcon_1.png'} />
-          <img src={'/static/img/buygether/payIcon_2.png'} />
-          <img src={'/static/img/buygether/payIcon_3.png'} />
-        </div>
-      </div>
-      <style jsx>{`
-        .pop-bg {
-          background-color: #ffffff;
-          border-radius: 15px;
-          font-size: 16px;
-        }
-        .pop-top {
-          padding: 20px;
-          background-color: #3e84e0;
-          border-radius: 15px 15px 0px 0px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        .pop-top img {
-          width: 80px;
-          height: 80px;
-          margin: 15px;
-          border-radius: 50%;
-        }
-        .pop-bottom {
-          padding: 10px 30px;
-        }
-        .title {
-          font-weight: bold;
-        }
-        .strong {
-          font-size:28px;
-          font-weight: bold;
-          color: red;
-        }
-        .img-style {
-          width: 200px;
-        }
-        .pay-ad-div {
-          border-top: 1px solid #8c8c8c;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding-top: 10px;
-          margin: auto -10px;
-        }
-        .pay-ad-div img {
-          height: 24px;
-        }
     `}</style>
     </div>
     let prop = {
@@ -471,7 +394,7 @@ export default class extends React.Component {
       } catch (e) {
         // 如果订单已经消失。跳转
         if (e.status === 10001 || e.status === 10002) {
-          this.renderHelp()
+          HelpPopFunc()
         }
       }
     } else if (currentGroupStatus === null) {
@@ -500,7 +423,7 @@ export default class extends React.Component {
         } catch (e) {
           // 如果订单已经消失。跳转
           if (e.status === 10001 || e.status === 10002) {
-            _this.renderHelp()
+            HelpPopFunc()
           }
         }
       } else if (currentGroupStatus === null) {
@@ -575,16 +498,11 @@ export default class extends React.Component {
     })
   }
 
-  // 点击咨询按钮弹窗
-  renderAskPop () {
-    this.renderHelp()
-  }
-
   renderFooter () {
     return (<Fixfooter>
       <div className='fix-foot'>
         <div className='left'
-          onClick={() => { this.renderAskPop() }}>
+          onClick={() => { HelpPopFunc() }}>
           <img src='/static/img/buygether/ask.png' />
           <span>在线咨询</span>
         </div>
@@ -717,50 +635,39 @@ export default class extends React.Component {
   }
 
   renderTop () {
-    if (this.state.hideTest) {
-      return (
+    return (
+      <div>
         <div className='top-banner'>
           <img className='bg-img1' src={'/static/img/buygether/buyBg_1.png'} />
           <div className='text-line'>
             <Scrolling interval={10000} />
           </div>
-          <style>{`
-            .top-banner {
-              position: relative;
-            }
-            .bg-img1 {
-              width: 100%;
-            }
-            .text-line {
-              position: relative;
-              bottom: 0px;
-              left: 0;
-              width: 100%;
-              z-index: 10;
-              background-color: white;
-              color: black;
-              height: 30px;
-              line-height: 30px;
-            }
-          `}
-          </style>
         </div>
-      )
-    } else {
-      return (
-        <div className='top-banner'>
-          <video width='100%' height='300px' controls>
-            <source src='/static/img/buygether/movie.mp4' type='video/mp4' />
-          </video>
-          <style>{`
-            .top-banner {
-              position: relative;
-            }
-          `}
-          </style>
-        </div>
-      )
-    }
+        <video width='100%' controls>
+          <source src='/static/img/buygether/movie.mp4' type='video/mp4' />
+        </video>
+        <style>{`
+          .top-banner {
+            position: relative;
+          }
+          .bg-img1 {
+            width: 100%;
+          }
+          .text-line {
+            position: absolute;
+            bottom: 0px;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            background-color: white;
+            color: black;
+            height: 30px;
+            line-height: 30px;
+          }
+        `}
+        </style>
+      </div>
+    )
   }
 
   renderShowHelpButtonPop () {
@@ -790,12 +697,12 @@ export default class extends React.Component {
       }
     }
     return (
-      <div style={style} className='pop-out-div'>
+      <div style={style} className='pop-out-div' onClick={() => { HelpPopFunc() }}>
         <Triangle
           TriangleStyle={{borderColor: '#3e84e0  transparent transparent #3e84e0'}}
           style={borderStyle}>
           <div className='inner-content'>
-            <img src='/static/img/buygether/headImg_help.png'/>
+            <img src='/static/img/buygether/headImg_help.png' />
             <p>关于课程和分期的问题，我可以帮你解答哦</p>
           </div>
         </Triangle>
@@ -833,8 +740,8 @@ export default class extends React.Component {
         <div className='buy-card-page'>
           {this.renderTop()}
           <div className='card-div'>
-            {this.state.hideTest && this.renderMyGroup()}
-            {this.state.hideTest && this.renderOtherGroup()}
+            {this.renderMyGroup()}
+            {this.renderOtherGroup()}
             {this.renderCourseInfo()}
             {this.renderMoreCourse()}
             {this.renderShowHelpButtonPop()}
