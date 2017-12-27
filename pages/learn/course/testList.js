@@ -6,8 +6,8 @@ import AxiosUtil from '../../../util/axios'
 import DataUtil from '../../../util/data'
 import LoadingIcon from '../../../xz-components/loadingicon'
 import Card from '../../../xz-components/card'
-import Layout from '../../../containers/learn/layout'
-// import FixFooter from '../../../xz-components/fixfooter'
+import Layout from '../../../components/layout'
+import Footer from '../../../containers/learn/footer'
 
 export default class extends React.Component {
   constructor (props) {
@@ -123,7 +123,7 @@ export default class extends React.Component {
           {done && this.renderList()}
           {!done && <LoadingIcon />}
         </div>
-        {/* <FixFooter style={{textAlign: 'center'}} onClick={() => { history.go(-1) }}>继续学习</FixFooter> */}
+        <Footer type='test' />
         <style jsx>{`
           .test-page {
             font-size: 1rem;

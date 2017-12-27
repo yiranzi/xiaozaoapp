@@ -14,6 +14,7 @@ import {
   LoadMore
 } from 'react-weui'
 import Button from '../../../xz-components/button'
+import Footer from '../../../containers/learn/footer'
 
 export default class extends React.Component {
   constructor (props) {
@@ -92,7 +93,7 @@ export default class extends React.Component {
     return (
       <Layout className='main-style'>
         {this.renderList()}
-        {/* <FixFooter style={{textAlign: 'center'}} onClick={() => { history.go(-1) }}>继续学习</FixFooter> */}
+        <Footer type='source' />
         <style global jsx>{`
           .main-style {
             background-color: ${ThemeConfig.color.gray};
