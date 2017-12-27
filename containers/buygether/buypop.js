@@ -163,7 +163,7 @@ export default class extends React.Component {
     let style = (index === this.state.currentSelect) ? choose : normal
     return (
       <div className='line'>
-        <div className='card-name'>线上学徒项目-商务分析方向</div>
+        <div className='card-name'>线上学徒项目-商业分析方向</div>
         <span className='price'>{`拼团价 ￥`}<strong>{`${this.calcPrice(ele, 'now')}`}</strong></span>
         <style jsx>{`
             .line {
@@ -230,7 +230,7 @@ export default class extends React.Component {
       let priceInfo = this.props.dataInfo[this.state.currentSelect]
       return (
         <div className='bottom-line'>
-          <div className='button left-button'><s>{`原价￥${this.calcPrice(priceInfo, 'origin')}`}</s></div>
+          <div className='button left-button'>{`原价￥${this.calcPrice(priceInfo, 'origin')}`}</div>
           <div onClick={this.buyButtonClick} className='button rigth-button'>支付{`￥${this.calcPrice(priceInfo, 'finalPrice')}`}</div>
           <style jsx>{`
           .bottom-line{

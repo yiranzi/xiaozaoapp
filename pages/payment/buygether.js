@@ -581,9 +581,6 @@ export default class extends React.Component {
           background-color: #ffc581;
           text-align: center;
         }
-        .single-price span {
-          text-decoration:line-through
-        }
         .group-price {
           background-color: #ef4645;
           flex: 1;
@@ -654,12 +651,12 @@ export default class extends React.Component {
       <div style={style}>
         <div className='nav-bar'>
           <a href='#intro1'>引言</a>
-          <a href='#intro2'>项目介绍</a>
+          <a href='#intro2'>概述</a>
           <a href='#process'>项目安排</a>
-          <a href='#get'>你的收获</a>
+          <a href='#get'>收获</a>
           <a href='#team'>项目团队</a>
-          <a href='#feedback'>学院反馈</a>
-          <a href='#pay'>支付流程</a>
+          <a href='#feedback'>学员反馈</a>
+          <a href='#pay'>报名</a>
         </div>
         <style>{`
           .nav-bar {
@@ -672,10 +669,11 @@ export default class extends React.Component {
             height: 50px;
             line-height: 50px;
             // margin: auto -15px;
+            overflow: hidden;
           }
           a {
             color: black;
-            font-size: 14px;
+            font-size: 12px;
           }
         `}</style>
       </div>
@@ -763,8 +761,8 @@ export default class extends React.Component {
         </div>
         <div>
           <img src={'/static/img/buygether/intro/intro_5_1.png'} />
-          <div id='pay' style={{height: '56px', backgroundColor: 'white'}} />
           {this.renderDivBanner(2)}
+          <div id='pay' style={{height: '56px', backgroundColor: 'white'}} />
         </div>
         <div>
           <img src={'/static/img/buygether/intro/intro_6_1.png'} />
