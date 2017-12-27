@@ -5,7 +5,7 @@ import Navbar from '../../components/navbar'
 import DateUtil from '../../util/date'
 import { Panel, PanelBody, MediaBox, MediaBoxBody,
   Button, Progress, Flex, FlexItem } from 'react-weui'
-import wxPayController from '../../util/wxPayController2'
+import wxPay from '../../util/wxPay'
 import {Alert} from '../../xz-components/alert'
 import {Modal} from '../../xz-components/modal'
 
@@ -36,7 +36,7 @@ export default class extends React.Component {
 
   doCourseRenew = async (courseId, day) => {
     let payInfo = await AxiosUtil.get(`/api/payment/freeCourseRenew/${courseId}/${day}`)
-    wxPayController.payInit(payInfo).then(function (res) {
+    wxPay.payInit(payInfo).then(function (res) {
       if (res) {
         const state = res.state
         Alert({

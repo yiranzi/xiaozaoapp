@@ -1,5 +1,6 @@
 import React from 'react'
 import ClassNames from 'classnames'
+import Router from 'next/router'
 
 export default class extends React.Component {
   constructor (props) {
@@ -18,7 +19,7 @@ export default class extends React.Component {
         <div
           className={ClassNames('item', {'current': this.state.college || type === 'college'})}
           onTouchStart={() => { this.setState({college: true}) }}
-          onTouchEnd={() => { this.setState({college: false}, () => { location.href = '/college/portal' }) }}
+          onTouchEnd={() => { this.setState({college: false}, () => { Router.push('/abilitycollege/main') }) }}
         >
           <div className='icon'>
             {(this.state.college || type === 'college') ? <img src='/static/img/common/college_active.png' /> : <img src='/static/img/common/college.png' />}
@@ -38,7 +39,7 @@ export default class extends React.Component {
         <div
           className={ClassNames('item', {'current': this.state.hr || type === 'hr'})}
           onTouchStart={() => { this.setState({hr: true}) }}
-          onTouchEnd={() => { this.setState({hr: false}, () => { location.href = '/job/internship' }) }}
+          onTouchEnd={() => { this.setState({hr: false}, () => { Router.push('/job/internship') }) }}
         >
           <div className='icon'>
             {(this.state.hr || type === 'hr') ? <img src='/static/img/common/hr_active.png' /> : <img src='/static/img/common/hr.png' />}
@@ -48,7 +49,7 @@ export default class extends React.Component {
         <div
           className={ClassNames('item', {'current': this.state.me || type === 'me'})}
           onTouchStart={() => { this.setState({me: true}) }}
-          onTouchEnd={() => { this.setState({me: false}, () => { location.href = '/ucenter/portal' }) }}
+          onTouchEnd={() => { this.setState({me: false}, () => { Router.push('/ucenter/portal') }) }}
         >
           <div className='icon'>
             {(this.state.me || type === 'me') ? <img src='/static/img/common/me_active.png' /> : <img src='/static/img/common/me.png' />}

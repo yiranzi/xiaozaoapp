@@ -3,7 +3,7 @@ import Button from '../../xz-components/button'
 import Layout from '../../components/layout'// container
 import AxiosUtil from '../../util/axios'
 import WxShare from '../../xz-components/newWxShare'
-import wxPayController from '../../util/wxPay'// 工具类
+import wxPay from '../../util/wxPay'// 工具类
 import BuyPop from '../../containers/buygether/buypop'
 import Triangle from '../../containers/buygether/poptag'
 import Scrolling from '../../containers/buygether/scrolling'
@@ -14,6 +14,7 @@ import {Confirm} from '/xz-components/confirm'
 import {ModalBoxPopFunc} from '../../xz-components/modalbox'
 import GroupCard from '../../containers/buygether/groupcard'
 import Link from 'next/link'
+import {HelpPopFunc} from '../../containers/buygether/helpPopFunc'
 
 // 介绍页
 export default class extends React.Component {
@@ -40,7 +41,10 @@ export default class extends React.Component {
       couponInfo: undefined, // 优惠券信息（我自己持有的）
       myGroupingId: undefined, // 我正在开团的id
       currentJoinInfo: {}, // 参团信息
-      currentTypeSelect: 0 // // 当前选择的拼团套餐。用于购买
+      currentTypeSelect: 0, // // 当前选择的拼团套餐。用于购买
+      hideTest: true,
+      showHelpButtonPop: false,
+      environment: undefined
     }
     this.buyMyGroup = this.buyMyGroup.bind(this)
     this.buyOtherGroup = this.buyOtherGroup.bind(this)
@@ -49,12 +53,32 @@ export default class extends React.Component {
     this.updateInfo = this.updateInfo.bind(this)
     this.renderPop = this.renderPop.bind(this)
     this.refreshGroup = this.refreshGroup.bind(this)
+    this.setHelpButtonPop = this.setHelpButtonPop.bind(this)
   }
 
   componentDidMount = async () => {
     await this.updateInfo()
     // 分享跳转进入的时候 判定弹出购买框
     this.joinGroupFromShare()
+    this.setLittle()
+    this.setHelpButtonPop()
+  }
+
+  setLittle () {
+    if (window.__wxjs_environment === 'miniprogram') {
+      this.setState({
+        environment: 'little'
+      })
+    }
+  }
+
+  setHelpButtonPop () {
+    const popWaitTime = 3000
+    window.setTimeout(() => {
+      this.setState({
+        showHelpButtonPop: true
+      })
+    }, popWaitTime)
   }
 
   updateInfo = async (type) => {
@@ -105,10 +129,10 @@ export default class extends React.Component {
 
   setShare () {
     let shareProp = {
-      title: '邀你一起拼团能力课程，低至3折',
-      desc: '小灶能力学院限时拼团特惠，PPT课、商业英语课、结构化逻辑课、四大求职通关课等26大课程3大类能力等你拥有。',
-      link: 'https://rcwx.review.xiaozao.org/payment/buygether',
-      imgUrl: 'https://wx.xiaozao.org/static/img/abilitycollege/shareicon.png'
+      title: '邀请你和我一起参加线上学徒项目',
+      desc: '6周全搞定：掌握实战技能+远程实习经历+探索职业兴趣+助教反馈指导',
+      link: 'https://wx.xiaozao.org/payment/buygether',
+      imgUrl: 'https://wx.xiaozao.org/static/img/buygether/shareImg.png'
     }
     if (this.state.myGroupingId) {
       let nickname = encodeURI(encodeURI(this.nickname))
@@ -119,7 +143,7 @@ export default class extends React.Component {
       shareProp.link += addParam
       this.littleShareUrl = addParam
       // 如果小程序上线开团成功。修改url
-      if (this.littleShareUrl && window.__wxjs_environment === 'miniprogram') {
+      if (this.littleShareUrl && this.state.environment === 'little') {
         window.history.replaceState(null, '', location.href + this.littleShareUrl)
       }
     }
@@ -161,67 +185,6 @@ export default class extends React.Component {
     })
   }
 
-  renderAllGroupView () {
-    let {studyCardPackageList} = this.state
-    let count = 0
-    studyCardPackageList.forEach((ele, index) => {
-      count += ele.buyCount
-    })
-    return (<div className='show-card'>
-      <div className='line'>
-        <p>能力卡用于兑换2018课表课程</p>
-        <p>已有{count}人获得</p>
-      </div>
-      <div className='card-line'>
-        {studyCardPackageList.map((ele, index) => {
-          return (
-            <div key={index} onClick={() => { this.buyMyGroup(index) }}>
-              <img src={`/static/img/buygether/card_${index + 1}0.png`} />
-            </div>)
-        })}
-        {(studyCardPackageList && studyCardPackageList.length > 0) && <div><img src={`/static/img/buygether/card_00.png`} /></div>}
-      </div>
-      <div className='text-line'>
-        <Scrolling interval={6000} />
-      </div>
-      <style jsx>{`
-        .show-card {
-          position: relative;
-          height: 200px;
-          background-image: url('/static/img/buygether/buyBg_2.jpeg');
-          background-size: 100% 100%;
-          padding: 8px;
-          font-size: 14px;
-          color: white;
-        }
-        .line {
-          display: flex;
-          justify-content: space-between;
-          flex-wrap: wrap;
-        }
-        .card-line {
-          position: absolute;
-          bottom: 60px;
-          left: 0;
-          width: 100%;
-          display: flex;
-          justify-content: space-between;
-          margin-top: 15px;
-        }
-        .card-line img {
-          width: 100%;
-          max-width: 80px;
-        }
-        .text-line {
-          position: absolute;
-          bottom: 10px;
-          left: 0;
-          width: 100%;
-        }
-      `}</style>
-    </div>)
-  }
-
   // 立即邀请好友 弹窗 正在开团的line
   // 邀请好友，再得卡 跳转 已成团的line
   renderMyGroup () {
@@ -232,7 +195,7 @@ export default class extends React.Component {
         if (ele.status === 1) {
           // 历史团
           return (<GroupCard key={ele.groupId} groupInfo={ele}
-            button={<Button style={this.buttonStyle} onClick={() => { this.renderPopAssistant() }}>添加小助手</Button>} />)
+            button={<Button style={this.buttonStyle} onClick={() => { HelpPopFunc() }}>添加小助手</Button>} />)
         } else {
           return (<GroupCard key={ele.groupId} groupInfo={ele}
             button={<Button style={this.buttonStyle} onClick={() => { this.renderPop(ele) }}>立即邀请好友</Button>} />)
@@ -261,15 +224,27 @@ export default class extends React.Component {
       backgroundColor: 'rgba(0, 10, 49, 0.5)'
     }
     let randomSecond = parseInt(60 * Math.random())
-    let dom = <div>
-      <img className='img-style' src='/static/img/buygether/share-arrow.png' />
-      <p className='title'>离成团只剩{leftHour}时{leftMinute}分{randomSecond}秒</p>
+    let dom = <div className='main-content'>
+      <img className='img-style' src='/static/img/buygether/shareArrow.png' />
+      <h2 className='course-title'>《线上学徒项目-商业分析方向》</h2>
+      <p className='title'>只需6周！带你获得能进滴滴、阿里、百度、四大的能力！</p>
+      <p className='time-div'>剩余<span className='time-content'>{leftHour}时{leftMinute}分{randomSecond}秒</span>结束</p>
       <p className='title'>还差<strong className='strong'> 1 </strong>人，赶紧邀请好友来拼团吧~</p>
-      <p className='title'>拼团人满后可拿成就卡</p>
       <style jsx>{`
+      .main-content {
+        position: relative;
+        top: -90px;
+        background-color: #3e84e0;
+        border-radius: 30px;
+        padding: 10px;
+        width: 80%;
+      }
       .title {
-        font-size:20px;
+        font-size: 16px;
         font-weight: bold;
+      }
+      .course-title {
+        font-size: 20px;
       }
       .strong {
         font-size:28px;
@@ -278,41 +253,22 @@ export default class extends React.Component {
       }
       .img-style {
         position: absolute;
-        top: 0;
-        right: 0;
-        width: 150px;
-        height: 300px;
+        top: -100px;
+        right: 50px;
+        width: 100px;
+        height: 100px;
       }
-    `}</style>
-    </div>
-    let prop = {
-      innerDiv: dom,
-      style: defaultStyle
-    }
-    ModalBoxPopFunc({...prop})
-  }
-
-  renderPopAssistant (ele) {
-    let defaultStyle = {
-      backgroundColor: 'rgba(0, 10, 49, 0.5)'
-    }
-    let dom = <div>
-      <p className='title'>参团成功！</p>
-      <p className='title'>请务必添加小助手，关注课程进度</p>
-      <p className='title'>添加小助手</p>
-      <img className='img-style' src='/static/img/buygether/qrcode.png' />
-      <style jsx>{`
-      .title {
-        font-size:20px;
-        font-weight: bold;
+      .time-div {
+        margin: 10px auto;
       }
-      .strong {
-        font-size:28px;
-        font-weight: bold;
+      .time-content{
+        margin: auto 5px;
+        border-radius: 30px;
+        height: 30px;
+        line-height: 30px;
+        background-color: white;
         color: red;
-      }
-      .img-style {
-        width: 200px;
+        padding: 5px 15px;
       }
     `}</style>
     </div>
@@ -387,27 +343,9 @@ export default class extends React.Component {
     )
   }
 
-  renderBuyButton () {
-    if (this.state.myGroupingId === null) {
-      return (<div className='button'>
-        <Triangle
-          borderStyle={{top: '-8px', borderColor: 'transparent transparent #cba46b #cba46b'}}
-          style={{right: '60px', bottom: '-10px'}}>
-          团长开团立减10元
-        </Triangle>}
-        <Button style={this.buttonStyle} onClick={() => { this.buyMyGroup() }}>自己开团</Button>
-        <style jsx>{`
-        .button {
-          position: relative;
-        }
-      `}</style>
-      </div>)
-    }
-  }
-
   littleBuy = async (typeId, groupId, payInfo) => {
     // 1 调用小程序支付
-    wxPayController.payInit(payInfo)
+    wxPay.payInit(payInfo)
     // 2 显示弹窗 等待完成 确保这个弹窗还有
     this.openConfirm(typeId, groupId, payInfo)
   }
@@ -442,7 +380,7 @@ export default class extends React.Component {
       } catch (e) {
         // 如果订单已经消失。跳转
         if (e.status === 10001 || e.status === 10002) {
-          this.renderPopAssistant()
+          HelpPopFunc()
         }
       }
     } else if (currentGroupStatus === null) {
@@ -456,7 +394,7 @@ export default class extends React.Component {
 
   wxBuy = async (typeId, groupId, payInfo) => {
     let _this = this
-    wxPayController.payInit(payInfo).then(async function () {
+    wxPay.payInit(payInfo).then(async function () {
       // 关闭弹窗
       _this.setState({
         showPop: false
@@ -471,7 +409,7 @@ export default class extends React.Component {
         } catch (e) {
           // 如果订单已经消失。跳转
           if (e.status === 10001 || e.status === 10002) {
-            _this.renderPopAssistant()
+            HelpPopFunc()
           }
         }
       } else if (currentGroupStatus === null) {
@@ -489,7 +427,7 @@ export default class extends React.Component {
       let payInfo
       // 判断是否是小程序
       let isMiniProgram = true
-      if (window.__wxjs_environment === 'miniprogram') {
+      if (this.state.environment === 'little') {
         isMiniProgram = true
       } else {
         isMiniProgram = false
@@ -499,7 +437,7 @@ export default class extends React.Component {
       } else {
         payInfo = await AxiosUtil.get(`/api/study-card/buy/${typeId}/${isMiniProgram}`)
       }
-      if (window.__wxjs_environment === 'miniprogram') {
+      if (this.state.environment === 'little') {
         this.littleBuy(typeId, groupId, payInfo)
       } else {
         this.wxBuy(typeId, groupId, payInfo)
@@ -546,16 +484,11 @@ export default class extends React.Component {
     })
   }
 
-  // 点击咨询按钮弹窗
-  renderAskPop () {
-    location.href = 'https://static.meiqia.com/dist/standalone.html?_=t&eid=63917&agentid=ed8f6b7c96fc339a6fcd6f8985624f82)'
-  }
-
   renderFooter () {
     return (<Fixfooter>
       <div className='fix-foot'>
         <div className='left'
-          onClick={() => { this.renderAskPop() }}>
+          onClick={() => { HelpPopFunc() }}>
           <img src='/static/img/buygether/ask.png' />
           <span>在线咨询</span>
         </div>
@@ -606,7 +539,6 @@ export default class extends React.Component {
           justify-content: center;
         }
         .group-price div {
-          // flex-basis: 0;
           width: 70px;
         }
         .group-price span{
@@ -646,8 +578,8 @@ export default class extends React.Component {
   renderCourseInfo () {
     return (<div className='div-with-bottom'>
       {this.renderTitle('课程详情')}
-      <img src={'/static/img/buygether/intro_1.png'} />
-      <img src={'/static/img/buygether/intro_2.png'} />
+      <img src={'/static/img/buygether/intro_1.jpg'} />
+      <img src={'/static/img/buygether/intro_2.jpg'} />
       <style jsx>{`
         .div-with-bottom {
           padding-bottom: 10px;
@@ -663,13 +595,13 @@ export default class extends React.Component {
   renderMoreCourse () {
     return (
       <div className='fix-link'>
-        <Link href={'/abilitycollege/main'}>
+        <Link href={this.state.environment === 'little' ? '/abilitycollege/mainx' : '/abilitycollege/main'}>
           <a className='content'>更多课程</a>
         </Link>
         <style jsx>{`
         .fix-link{
           position: fixed;
-          bottom: 50px;
+          bottom: 100px;
           left: -10px;
           width: 100px;
           height: 25px;
@@ -687,21 +619,112 @@ export default class extends React.Component {
     )
   }
 
+  renderTop () {
+    return (
+      <div>
+        <div className='top-banner'>
+          <img className='bg-img1' src={'/static/img/buygether/buyBg_1.png'} />
+          <div className='text-line'>
+            <Scrolling interval={10000} />
+          </div>
+        </div>
+        {/*<video width='100%' controls>*/}
+          {/*<source src='/static/img/buygether/movie.mp4' type='video/mp4' />*/}
+        {/*</video>*/}
+        <style>{`
+          .top-banner {
+            position: relative;
+          }
+          .bg-img1 {
+            width: 100%;
+          }
+          .text-line {
+            position: absolute;
+            bottom: 0px;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            background-color: white;
+            color: black;
+            height: 30px;
+            line-height: 30px;
+          }
+        `}
+        </style>
+      </div>
+    )
+  }
+
+  renderShowHelpButtonPop () {
+    let {showHelpButtonPop} = this.state
+    console.log(showHelpButtonPop)
+    let borderStyle = {
+      height: '30px',
+      lineHeight: '30px',
+      borderRadius: '30px',
+      left: '0px',
+      bottom: '0px',
+      backgroundColor: '#3e84e0'
+    }
+    let style = {}
+    if (showHelpButtonPop) {
+      style = {
+        transform: 'translateX(0px)'
+      }
+    } else {
+      style = {
+        transform: 'ttranslateX(-300px)'
+      }
+    }
+    return (
+      <div style={style} className='pop-out-div' onClick={() => { HelpPopFunc() }}>
+        <Triangle
+          triangleStyle={{borderColor: '#3e84e0  transparent transparent #3e84e0'}}
+          style={borderStyle}>
+          <div className='inner-content'>
+            <img src='/static/img/buygether/headImg_help.png' />
+            <p>关于课程和分期的问题，我可以帮你解答哦</p>
+          </div>
+        </Triangle>
+        <style>{`
+          .pop-out-div {
+            position: fixed;
+            bottom: 50px;
+            left: 0px;
+            width: 500px;
+            transition: transform 1s;
+            z-index: 200;
+          }
+          .out-container {
+            font-size: 16px;
+            position: relative;
+          }
+          .inner-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          .inner-content img {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+          }
+        `}</style>
+      </div>
+    )
+  }
+
   render () {
     return (
       <Layout>
         <div className='buy-card-page'>
-          <div className='top-banner'>
-            <img className='bg-img1' src={'/static/img/buygether/buyBg_1.png'} />
-            <div className='text-line'>
-              <Scrolling interval={6000} />
-            </div>
-          </div>
+          {this.renderTop()}
           <div className='card-div'>
             {this.renderMyGroup()}
             {this.renderOtherGroup()}
             {this.renderCourseInfo()}
             {this.renderMoreCourse()}
+            {this.renderShowHelpButtonPop()}
           </div>
           {this.renderFooter()}
         </div>
@@ -725,23 +748,7 @@ export default class extends React.Component {
             margin: 0px;
             padidng: 0;
           }
-          .top-banner {
-            position: relative;
-          }
-          .bg-img1 {
-            width: 100%;
-          }
-          .text-line {
-            position: relative;
-            bottom: 0px;
-            left: 0;
-            width: 100%;
-            z-index: 10;
-            background-color: white;
-            color: black;
-            height: 30px;
-            line-height: 30px;
-          }
+
           .buy-button {
             padding: 5px;
           }

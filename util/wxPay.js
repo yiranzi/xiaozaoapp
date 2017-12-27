@@ -1,39 +1,39 @@
 // 订单页
 let payData = null
 
-let wxPayController = {}
+let wxPay = {}
 
-wxPayController.payInit = (payInfo) => {
+wxPay.payInit = (payInfo) => {
   payData = payInfo
   // 2 调用微信
   if (window.__wxjs_environment === 'miniprogram') {
     let { nonceStr, paySign, timeStamp, prepayId } = payInfo
     wx.miniProgram.navigateTo({ url: `/pages/target/target?timeStamp=${timeStamp}&nonceStr=${nonceStr}&prepayId=${prepayId}&signType=MD5&paySign=${paySign}` })
   } else {
-    return wxPayController.pay()
+    return wxPay.pay()
   }
 }
 
-wxPayController.pay = () => {
-  console.log('wxPayController.pay')
+wxPay.pay = () => {
+  console.log('wxPay.pay')
   if (typeof WeixinJSBridge === 'undefined') {
     // 这段代码似乎没跑过。如果跑会影响到回调。
     if (document.addEventListener) {
-      document.addEventListener('WeixinJSBridgeReady', wxPayController.pay, false)
+      document.addEventListener('WeixinJSBridgeReady', wxPay.pay, false)
     } else if (document.attachEvent) {
-      document.attachEvent('WeixinJSBridgeReady', wxPayController.pay)
-      document.attachEvent('onWeixinJSBridgeReady', wxPayController.pay)
+      document.attachEvent('WeixinJSBridgeReady', wxPay.pay)
+      document.attachEvent('onWeixinJSBridgeReady', wxPay.pay)
     }
     return new Promise((resolve, reject) => {
       resolve()
     })
   } else {
-    console.log('wxPayController.onBridgeReady')
-    return wxPayController.onBridgeReady()
+    console.log('wxPay.onBridgeReady')
+    return wxPay.onBridgeReady()
   }
 }
 
-wxPayController.onBridgeReady = () => {
+wxPay.onBridgeReady = () => {
   return new Promise((resolve, reject) => {
     let {appId, nonceStr, paySign, timeStamp, prepayId} = payData
     // eslint-disable-next-line
@@ -64,4 +64,4 @@ wxPayController.onBridgeReady = () => {
   })
 }
 
-module.exports = wxPayController
+module.exports = wxPay
