@@ -28,7 +28,12 @@ export default class extends React.Component {
     })
   }
   jumpTo (courseId, menuId, sectionId, pageNumber) {
-    this.toggleCourseMenuPop()
+    if (this.state.courseMenuShow) {
+      this.toggleCourseMenuPop()
+    }
+    if (this.state.homeWorkShow) {
+      this.toggleHomeWorkPop()
+    }
     let url = `/learn/course/detail?courseId=${courseId}&chapterId=${menuId}&sectionId=${sectionId}&pageNumber=${pageNumber}`
     Router.replace(url)
     window.history.go(0)
