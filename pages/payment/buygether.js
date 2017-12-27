@@ -636,7 +636,7 @@ export default class extends React.Component {
       top: '0px',
       left: '0px',
       width: '100%',
-      zIndex: '9999',
+      zIndex: '99',
       paddingLeft: '15px',
       paddingRight: '15px',
       boxSizing: 'border-box'
@@ -646,7 +646,7 @@ export default class extends React.Component {
       top: '0px',
       left: '0px',
       width: '100%',
-      zIndex: '9999',
+      zIndex: '99',
       boxSizing: 'border-box'
     }
     let style = this.state.topFixed ? fixed : inTxt
@@ -664,7 +664,7 @@ export default class extends React.Component {
             display: flex;
             flex-wrap: nowrap;
             justify-content: space-around;
-            background-color: white;
+            background-color: #F9F9F9;
             padding: 3px;
             margin: 10px auto 10px auto;
             height: 50px;
