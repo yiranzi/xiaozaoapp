@@ -1,10 +1,9 @@
 import React from 'react'
-import { Tabbar, TabItem } from '/xz-components/tabbar'
-import Button from '/xz-components/button'
-import {Alert} from '/xz-components/alert'
-import DateUtil from '/util/date'
-import SeeMyWork from '/containers/learn/main/homework/seeMyWork'
-import SeeOtherWork from '/containers/learn/main/homework/seeOtherWork'
+import { Tabbar, TabItem } from '../../../../xz-components/tabbar'
+import {Alert} from '../../../../xz-components/alert'
+import DateUtil from '../../../../util/date'
+import SeeMyWork from '../../../../containers/learn/main/homework/seeMyWork'
+import SeeOtherWork from '../../../../containers/learn/main/homework/seeOtherWork'
 import {
   MediaBox,
   MediaBoxTitle,
@@ -13,9 +12,7 @@ import {
   InfiniteLoader
 } from 'react-weui'
 import Link from 'next/link'
-import Fixfooter from '/xz-components/fixfooter'
 import AxiosUtil from '/util/axios'
-import ThemeConfig from '/config/theme'
 /**
  * 渲染每个问题
  */
@@ -250,9 +247,8 @@ export default class extends React.Component {
         <TabItem title={myAnswerIcon} >
           <SeeMyWork
             courseId={courseId}
-            workId={workId}
             questionInfo={questionInfo}
-            updateFunc={this.updateFunc}
+            questionItem={questionItem}
             myAnswer={myAnswer} />
         </TabItem>
         <TabItem title={dateIcon} disabled />
@@ -265,9 +261,9 @@ export default class extends React.Component {
     return (
       <div className='question-title-div'>
         <h3 className='question-title'>{title}</h3>
-        {/*<div className='question-icon'>*/}
-          {/*{overWork ? <i className={'weui-icon-success-no-circle'} /> : <i style={{color: ThemeConfig.color.content}} className={'weui-icon-cancel'} />}*/}
-        {/*</div>*/}
+        {/* <div className='question-icon'> */}
+        {/* {overWork ? <i className={'weui-icon-success-no-circle'} /> : <i style={{color: ThemeConfig.color.content}} className={'weui-icon-cancel'} />} */}
+        {/* </div> */}
         {overWork && <div className='question-icon'>
           <i className={'weui-icon-success-no-circle'} />
         </div>}
@@ -327,7 +323,7 @@ export default class extends React.Component {
               {this.renderGoDetailLink()}
             </MediaBoxInfo>}
             {this.renderTabbar()}
-            {/*{this.props.viewType === 'open' && <Fixfooter style={{height: '40px', padding: '5px 10px'}}><Button className='buttonStyle' onClick={() => { this.backButtonClick() }}>查看其它章节作业</Button></Fixfooter>}*/}
+            {/* {this.props.viewType === 'open' && <Fixfooter style={{height: '40px', padding: '5px 10px'}}><Button className='buttonStyle' onClick={() => { this.backButtonClick() }}>查看其它章节作业</Button></Fixfooter>} */}
           </InfiniteLoader>
         </MediaBox>
       )

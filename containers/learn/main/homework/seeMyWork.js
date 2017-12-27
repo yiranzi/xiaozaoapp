@@ -1,15 +1,15 @@
 import React from 'react'
-import EditHomework from '/containers/learn/main/homework/myEditHomework'
-import LoadingIcon from '/xz-components/loadingicon'
+import EditHomework from '../../../../containers/learn/main/homework/myEditHomework'
+import LoadingIcon from '../../../../xz-components/loadingicon'
+import Router from 'next/router'
 import {
-  Panel,
   MediaBox,
   MediaBoxInfo
 } from 'react-weui'
-import MoreLine from '/xz-components/moreLine'
-import TeacherComment from '/containers/learn/main/homework/teacherComment'
-import Description from '/containers/learn/main/homework/commentBox/description'
-import Title from '/containers/learn/main/homework/commentBox/title'
+import MoreLine from '../../../../xz-components/moreLine'
+import TeacherComment from '../../../../containers/learn/main/homework/teacherComment'
+import Description from '../../../../containers/learn/main/homework/commentBox/description'
+import Title from '../../../../containers/learn/main/homework/commentBox/title'
 
 /**
  * 准备渲染我的作业（编辑 or 查看）
@@ -66,9 +66,12 @@ export default class extends React.Component {
 
   // 重新编辑的回调
   onEditButtonClick () {
-    this.setState({
-      editStatus: true
-    })
+    // this.setState({
+    //   editStatus: true
+    // })
+    let {courseId, questionItem} = this.props
+    let url = `/learn/course/detail?courseId=${courseId}&chapterId=${questionItem.chapterId}&pageNumber=${questionItem.pageNumber}`
+    Router.push(url)
   }
 
   /**
@@ -101,17 +104,18 @@ export default class extends React.Component {
   render () {
     let {questionInfo, myAnswer} = this.props
     if (questionInfo) {
-      return (<div>
-        <div style={this.getVisibleStyle('edit')}>
-          <EditHomework {...this.props} updateFunc={this.props.updateFunc} />
+      return (
+        <div>
+          <div style={this.getVisibleStyle('edit')}>
+            <EditHomework {...this.props} />
+          </div>
+          <div style={this.getVisibleStyle('view')}>
+            {myAnswer ? this.renderStudentAnswer(myAnswer) : <LoadingIcon />}
+          </div>
         </div>
-        <div style={this.getVisibleStyle('view')}>
-          {myAnswer ? this.renderStudentAnswer(myAnswer) : <LoadingIcon />}
-        </div>
-      </div>)
+      )
     } else {
       return (<LoadingIcon />)
     }
   }
 }
-
