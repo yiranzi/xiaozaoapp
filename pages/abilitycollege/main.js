@@ -155,7 +155,7 @@ export default class extends React.Component {
         <FlexItem>
           <div className='item'>
             <a href='#course4'>
-              <img src='/static/img/icon/course_type44.png' /><br /><label>线上训练营</label>
+              <img src='/static/img/icon/course_type44.png' /><br /><label>线上学徒项目</label>
             </a>
           </div>
         </FlexItem>
@@ -362,7 +362,7 @@ export default class extends React.Component {
       })
 
       return (<div className='block'>
-        <h3 id='course4' className='block-title'>线上训练营</h3>
+        <h3 id='course4' className='block-title'>线上学徒项目</h3>
         <div className='course-type4 block-radius'>
           {courseElements}
         </div>
@@ -409,7 +409,6 @@ export default class extends React.Component {
             <img className='banner-img' src={item.img} /></a>
         </div>)
       })
-
       return (<div className='block'>
         <h3 className='block-title'>学员反馈</h3>
         <Slider {...this.settings}>

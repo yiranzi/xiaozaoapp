@@ -15,6 +15,10 @@ import {ModalBoxPopFunc} from '../../xz-components/modalbox'
 import GroupCard from '../../containers/buygether/groupcard'
 import Link from 'next/link'
 import {HelpPopFunc} from '../../containers/buygether/helpPopFunc'
+import Slider from 'react-slick'
+import {
+  LoadMore
+} from 'react-weui'
 
 // 介绍页
 export default class extends React.Component {
@@ -28,6 +32,21 @@ export default class extends React.Component {
     backgroundColor: '#c41616',
     color: 'white',
     fontSize: '14px'
+  }
+
+  settings = {
+    className: 'center slider-banner',
+    mobileFirst: true,
+    arrows: false,
+    centerMode: true,
+    infinite: true,
+    centerPadding: '15px',
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    speed: 500,
+    adaptiveHeight: false,
+    touchMove: true,
+    touchThreshold: 999999999
   }
 
   constructor (props) {
@@ -44,7 +63,9 @@ export default class extends React.Component {
       currentTypeSelect: 0, // // 当前选择的拼团套餐。用于购买
       hideTest: true,
       showHelpButtonPop: false,
-      environment: undefined
+      environment: undefined,
+      bannerArray: undefined,
+      topFixed: false
     }
     this.buyMyGroup = this.buyMyGroup.bind(this)
     this.buyOtherGroup = this.buyOtherGroup.bind(this)
@@ -54,6 +75,7 @@ export default class extends React.Component {
     this.renderPop = this.renderPop.bind(this)
     this.refreshGroup = this.refreshGroup.bind(this)
     this.setHelpButtonPop = this.setHelpButtonPop.bind(this)
+    this.setScroll = this.setScroll.bind(this)
   }
 
   componentDidMount = async () => {
@@ -62,6 +84,38 @@ export default class extends React.Component {
     this.joinGroupFromShare()
     this.setLittle()
     this.setHelpButtonPop()
+    this.bannerAxios()
+    this.setScroll()
+  }
+
+  setScroll () {
+    let _this = this
+    window.addEventListener('scroll', function (e) {
+      let a = _this.refs.topFixedPos.offsetTop
+      if (window.scrollY > a && !_this.state.topFixed) {
+        _this.setState({
+          topFixed: true
+        })
+      }
+      if (window.scrollY < a && _this.state.topFixed) {
+        _this.setState({
+          topFixed: false
+        })
+      }
+    })
+  }
+
+  bannerAxios = async () => {
+    let bannerArray = []
+    let a = await AxiosUtil.get(`/api/adv/getAdvByTypeAndObjId/13/1`)
+    bannerArray.push(a)
+    let b = await AxiosUtil.get(`/api/adv/getAdvByTypeAndObjId/14/1`)
+    bannerArray.push(b)
+    let c = await AxiosUtil.get(`/api/adv/getAdvByTypeAndObjId/15/1`)
+    bannerArray.push(c)
+    this.setState({
+      bannerArray: bannerArray
+    })
   }
 
   setLittle () {
@@ -130,7 +184,7 @@ export default class extends React.Component {
   setShare () {
     let shareProp = {
       title: '邀请你和我一起参加线上学徒项目',
-      desc: '6周全搞定：掌握实战技能+远程实习经历+探索职业兴趣+助教反馈指导',
+      desc: '一次性搞定探索职业兴趣、掌握企业必备实战技能、增加一次高含金量的实习',
       link: 'https://wx.xiaozao.org/payment/buygether',
       imgUrl: 'https://wx.xiaozao.org/static/img/buygether/shareImg.png'
     }
@@ -229,7 +283,8 @@ export default class extends React.Component {
       <h2 className='course-title'>《线上学徒项目-商业分析方向》</h2>
       <p className='title'>只需6周！带你获得能进滴滴、阿里、百度、四大的能力！</p>
       <p className='time-div'>剩余<span className='time-content'>{leftHour}时{leftMinute}分{randomSecond}秒</span>结束</p>
-      <p className='title'>还差<strong className='strong'> 1 </strong>人，赶紧邀请好友来拼团吧~</p>
+      <p className='title'>还差<strong className='strong'> 1 </strong>人，邀请好友拼团</p>
+      <p className='title'>每人可减1000元哦！</p>
       <style jsx>{`
       .main-content {
         position: relative;
@@ -526,9 +581,6 @@ export default class extends React.Component {
           background-color: #ffc581;
           text-align: center;
         }
-        .single-price span {
-          text-decoration:line-through
-        }
         .group-price {
           background-color: #ef4645;
           flex: 1;
@@ -575,11 +627,152 @@ export default class extends React.Component {
     </Fixfooter>)
   }
 
+  renderNavBar () {
+    let fixed = {
+      position: 'fixed',
+      top: '0px',
+      left: '0px',
+      width: '100%',
+      zIndex: '99',
+      // paddingLeft: '15px',
+      // paddingRight: '15px',
+      boxSizing: 'border-box'
+    }
+    let inTxt = {
+      position: 'absolute',
+      top: '0px',
+      left: '0px',
+      width: '100%',
+      zIndex: '99',
+      boxSizing: 'border-box'
+    }
+    let style = this.state.topFixed ? fixed : inTxt
+    return (
+      <div style={style}>
+        <div className='nav-bar'>
+          <a href='#intro1'>引言</a>
+          <a href='#intro2'>概述</a>
+          <a href='#process'>项目安排</a>
+          <a href='#get'>收获</a>
+          <a href='#team'>项目团队</a>
+          <a href='#feedback'>学员反馈</a>
+          <a href='#pay'>报名</a>
+        </div>
+        <style>{`
+          .nav-bar {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-around;
+            background-color: #F9F9F9;
+            padding: 3px;
+            // margin: 10px auto 10px auto;
+            height: 50px;
+            line-height: 50px;
+            // margin: auto -15px;
+            overflow: hidden;
+          }
+          a {
+            color: black;
+            font-size: 12px;
+          }
+        `}</style>
+      </div>
+    )
+  }
+
+  renderDivBanner (index) {
+    const {bannerArray} = this.state
+    if (!bannerArray || bannerArray.length === 0) {
+      return
+    }
+    let bannerImgArr = bannerArray[index]
+    if (bannerImgArr && bannerImgArr.length > 0) {
+      const bannerElements = bannerImgArr.map(function (item, index) {
+        return (<div key={index}>
+          <a className='block-a' href={item.url ? item.url : 'javascript:;'}>
+            <img className='banner-img' src={item.img} /></a>
+        </div>)
+      })
+      return (
+        <div style={{margin: 'auto 15px auto 15px'}}>
+          <Slider {...this.settings}>
+            {bannerElements}
+          </Slider>
+          <style global jsx>{`
+          .slider-banner {
+            margin: 0 -15px;
+          }
+          .slider-banner .block-a {
+            display: inline-block;
+            padding: 0 5px;
+          }
+          .slider-banner .banner-img {
+            width: 100%;
+          }
+        `}</style>
+        </div>
+      )
+    } else {
+      return (<div style={{height: '150px'}}><LoadMore loading>Loading</LoadMore></div>)
+    }
+  }
+
   renderCourseInfo () {
     return (<div className='div-with-bottom'>
       {this.renderTitle('课程详情')}
-      <img src={'/static/img/buygether/intro_1.jpg'} />
-      <img src={'/static/img/buygether/intro_2.jpg'} />
+      <div className='intro-div-content'>
+        <div id='intro1'>
+          <div ref='topFixedPos' style={{height: '56px', position: 'relative'}}>
+            {this.renderNavBar()}
+          </div>}
+          <img src={'/static/img/buygether/intro/intro_0_0.png'} />
+          <img src={'/static/img/buygether/intro/intro_0_1.png'} />
+          <img src={'/static/img/buygether/intro/intro_0_2.png'} />
+          <div id='intro2' style={{height: '56px', backgroundColor: 'white'}} />
+        </div>
+        <div>
+          <img src={'/static/img/buygether/intro/intro_1_1.png'} />
+          <div id='process' style={{height: '56px', backgroundColor: 'white'}} />
+        </div>
+        <div>
+          <img src={'/static/img/buygether/intro/intro_2_1.png'} />
+          <img src={'/static/img/buygether/intro/intro_2_2.png'} />
+          {this.renderDivBanner(0)}
+          <div id='get' style={{height: '56px', backgroundColor: 'white'}} />
+        </div>
+        <div>
+          <img src={'/static/img/buygether/intro/intro_3_1.png'} />
+          <img src={'/static/img/buygether/intro/intro_3_2.png'} />
+          <img src={'/static/img/buygether/intro/intro_3_3.png'} />
+          <img src={'/static/img/buygether/intro/intro_3_4.png'} />
+          {this.renderDivBanner(1)}
+          <img src={'/static/img/buygether/intro/intro_3_5.png'} />
+          <div id='team' style={{height: '56px', backgroundColor: 'white'}} />
+        </div>
+        <div>
+          <img src={'/static/img/buygether/intro/intro_4_1.png'} />
+          <img src={'/static/img/buygether/intro/intro_4_2.png'} />
+          <img src={'/static/img/buygether/intro/intro_4_3.png'} />
+          <img src={'/static/img/buygether/intro/intro_4_4.png'} />
+          <img src={'/static/img/buygether/intro/intro_4_5.png'} />
+          <img src={'/static/img/buygether/intro/intro_4_6.png'} />
+          <img src={'/static/img/buygether/intro/intro_4_7.png'} />
+          <div id='feedback' style={{height: '56px', backgroundColor: 'white'}} />
+        </div>
+        <div>
+          <img src={'/static/img/buygether/intro/intro_5_1.png'} />
+          {this.renderDivBanner(2)}
+          <div id='pay' style={{height: '56px', backgroundColor: 'white'}} />
+        </div>
+        <div>
+          <img src={'/static/img/buygether/intro/intro_6_1.png'} />
+          <img src={'/static/img/buygether/intro/intro_6_2.png'} />
+          <img src={'/static/img/buygether/intro/intro_6_3.png'} />
+          <img src={'/static/img/buygether/intro/intro_6_4.png'} />
+          <img src={'/static/img/buygether/intro/intro_7_1.png'} />
+        </div>
+      </div>
+
       <style jsx>{`
         .div-with-bottom {
           padding-bottom: 10px;
@@ -587,6 +780,9 @@ export default class extends React.Component {
         }
         .div-with-bottom img {
           width: 100%;
+        }
+        .intro-div-content {
+          margin: auto -15px;
         }
       `}</style>
     </div>)
@@ -657,7 +853,6 @@ export default class extends React.Component {
 
   renderShowHelpButtonPop () {
     let {showHelpButtonPop} = this.state
-    console.log(showHelpButtonPop)
     let borderStyle = {
       height: '30px',
       lineHeight: '30px',
@@ -717,6 +912,8 @@ export default class extends React.Component {
   render () {
     return (
       <Layout>
+        <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css' />
+        <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css' />
         <div className='buy-card-page'>
           {this.renderTop()}
           <div className='card-div'>
@@ -737,7 +934,7 @@ export default class extends React.Component {
           dataInfo={this.state.studyCardPackageList} />}
         <style jsx>{`
           .buy-card-page {
-            padding-bottom: 80px;
+            padding-bottom: 60px;
             width: 100%;
             font-size: 0px;
             text-align: center;
@@ -753,7 +950,7 @@ export default class extends React.Component {
             padding: 5px;
           }
           .card-div {
-            padding: 0 10px;
+            padding: 0 15px;
             background-color: #F9F9F9;
             {/*border-bottom: 1px solid #e5e5e5;*/}
             {/*margin-bottom: -2px;*/}
