@@ -276,7 +276,6 @@ export default class extends React.Component {
                   <div className='finish-button'>
                     {this.renderSignUpButton()}
                   </div>
-                  <div className='top-help-info'>入群开始2个月内进行10次打卡即可完成全部任务</div>
                 </div>
               </div>
               <div className='container rank'>{this.renderSignReview()}</div>
@@ -461,7 +460,6 @@ export default class extends React.Component {
       <h1 className='title'>活动注意事项</h1>
       <p>每天完成一次投递，并点击"完成今日打卡"</p>
       <p>即可完成今日打卡任务哦。</p>
-      <p>*入群开始2个月内进行10次打卡即可完成全部任务~*</p>
       <style jsx>{`
       .help-info {
         font-size: 14px;

@@ -129,7 +129,7 @@ export default class extends React.Component {
 
   setShare () {
     let shareProp = {
-      title: '和我一起参加线上学徒项目',
+      title: '邀请你和我一起参加线上学徒项目',
       desc: '6周全搞定：掌握实战技能+远程实习经历+探索职业兴趣+助教反馈指导',
       link: 'https://rcwx.review.xiaozao.org/payment/buygether',
       imgUrl: 'https://wx.xiaozao.org/static/img/abilitycollege/buyBg_1.png'
