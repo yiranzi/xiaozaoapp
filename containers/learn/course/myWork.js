@@ -6,8 +6,8 @@ import AxiosUtil from '../../../util/axios'
 import DataUtil from '../../../util/data'
 import Option from '../../../containers/clock/option'
 import Material from '../../../containers/clock/material'
-import Alert from '../../../xz-components/alert'
 import Button from '../../../xz-components/button'
+import { Alert } from '../../../xz-components/alert'
 import { Toast } from 'react-weui'
 
 export default class extends React.Component {
@@ -45,6 +45,7 @@ export default class extends React.Component {
   submitWork = async (type) => {
     const {query} = this.props
     const {myWork} = this.state
+    if (DataUtil.isEmpty(myWork)) { Alert({content: '请先完成作业然后提交'}); return false }
     this.showLoading()
     try {
       if (ToolsUtil.isUploader(type)) {
