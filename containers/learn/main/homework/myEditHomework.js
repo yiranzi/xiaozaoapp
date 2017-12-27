@@ -1,13 +1,12 @@
 import React from 'react'
 import Router from 'next/router'
-import { MediaBox, MediaBoxTitle, MediaBoxDescription } from 'react-weui'
 import Button from '../../../../xz-components/button'
 
 export default class extends React.Component {
   jumpTo () {
-    let {courseId, questionItem} = this.props
-    let url = `/learn/course/detail?courseId=${courseId}&chapterId=${questionItem.chapterId}&pageNumber=${questionItem.pageNumber}`
-    Router.push(url)
+    let {questionItem, courseId} = this.props
+    let {chapterId: menuId, pageNumber, sectionId, workId} = questionItem
+    Router.push(`/learn/course/detail?courseId=${courseId}&menuId=${menuId}&pageNumber=${pageNumber}&sectionId=${sectionId}&workId=${workId}`)
   }
   render () {
     return (
