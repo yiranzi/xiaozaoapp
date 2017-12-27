@@ -63,21 +63,23 @@ export default class extends React.Component {
 
     menuContent.menuDTOList.map((menu) => {
       let chapterId = menu.id
-
-      menu.sectionMenuDTOList.map((section) => {
-        if (sectionId.toString() === section.id.toString()) {
-          currentCourseDetail.courseName = section.name
-          currentCourseDetail.pageCount = section.contentDTOList.length
-        }
-        section.contentDTOList.map((content) => {
-          let pageNumber = content.pageNumber
-          array.push({
-            chapterId: chapterId.toString(),
-            sectionId: section.id.toString(),
-            pageNumber: pageNumber.toString()
+      let type = menu.type
+      if (type === 'chapter') {
+        menu.sectionMenuDTOList.map((section) => {
+          if (sectionId.toString() === section.id.toString()) {
+            currentCourseDetail.courseName = section.name
+            currentCourseDetail.pageCount = section.contentDTOList.length
+          }
+          section.contentDTOList.map((content) => {
+            let pageNumber = content.pageNumber
+            array.push({
+              chapterId: chapterId.toString(),
+              sectionId: section.id.toString(),
+              pageNumber: pageNumber.toString()
+            })
           })
         })
-      })
+      }
     })
     this.setState({array: array, currentCourseDetail: currentCourseDetail})
     this.setState({menuContent: menuContent})

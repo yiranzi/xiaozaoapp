@@ -54,7 +54,7 @@ export default class extends React.Component {
               {menuDTOList.map((menu, index) => {
                 return (
                   <Accordion
-                    show={menu.id.toString() === chapterId.toString()}
+                    show={menu.id === chapterId}
                     key={`accord_${index}`}
                     header={<div className='wrap'><span className='file' />{menu.name}</div>}
                   >
@@ -65,6 +65,19 @@ export default class extends React.Component {
                             <Cell access>
                               <CellHeader><span className='icon' /></CellHeader>
                               <CellBody>{section.name}</CellBody>
+                              <CellFooter />
+                            </Cell>
+                          </Panel>
+                        </a>
+                      )
+                    })}
+                    {menu.secondMenuDTOList && menu.secondMenuDTOList.map((section, index) => {
+                      return (
+                        <a key={`section_${index}`}>
+                          <Panel className={classNames({'active': Number(section.id) === Number(sectionId)})}>
+                            <Cell access>
+                              <CellHeader><span className='icon' /></CellHeader>
+                              <CellBody>{section.name}(去pc端做笔试)</CellBody>
                               <CellFooter />
                             </Cell>
                           </Panel>
