@@ -159,7 +159,7 @@ export default class extends React.Component {
         <div className='wx-text-center'>
           <div>{this.state.testDetail.chapterTitle}</div>
           <div>恭喜你完成{this.state.testDetail.chapterTitle}章节测试</div>
-          <div>查看参考答案</div>
+          <div>助教会在n个工作日批改完成并给出分数</div>
         </div>
       ),
       okText: '查看参考答案',
