@@ -48,10 +48,11 @@ ToolsUtil.parseHtml = function (content) {
   pContent.map((index, item) => {
     let wrap = $(item).html()
     // 有视频
-    let src = wrap.match(/src="([^"]*)"/)
+    let video = wrap.match(/video/)
     let training = wrap.match(/traning/)
 
-    if (src) {
+    if (video) {
+      let src = wrap.match(/src="([^"]*)"/)
       let playerId = 'player_' + DataUtils.uuid(11)
       array.push({
         'html': {
