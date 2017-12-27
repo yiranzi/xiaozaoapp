@@ -42,7 +42,7 @@ export default class extends React.Component {
           {payStatus && (
             <Fixfooter
               style={{textAlign: 'center'}}
-              onClick={() => { Router.push(`/learn/course/info${location.search}`); window.history.go(-1) }}
+              onClick={() => { Router.replace(`/learn/course/info${location.search}`) }}
             >返回课程</Fixfooter>
           )}
         </div>
