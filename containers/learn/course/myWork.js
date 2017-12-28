@@ -159,14 +159,14 @@ export default class extends React.Component {
     )
   }
   renderEvaluate (workDetail, myAnswer, evaluate, flag) {
-    let {query} = this.props
-    let {nickname, headimgurl, createTime} = evaluate
     return (
       <div style={{padding: '0 1rem'}}>
         <div className='wx-space-center' style={{paddingBottom: '2rem'}}>
-          <Button style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>
-            <Link href={`/learn/course/otherAnswer${location.search}&workId=${query.workId}`}><a>查看其他同学答案</a></Link>
-          </Button>
+          <Button
+            type='normal' size='small'
+            style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}}
+            onClick={() => { this.jumpTo() }}
+          >查看其他同学答案</Button>
           <Button style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>
             <Link href={`/learn/course/otherAnswer${location.search}&workId=${query.workId}&type=1`}><a>查看导师点评</a></Link>
           </Button>
@@ -176,23 +176,22 @@ export default class extends React.Component {
             disabled
           >修改答案</Button>
         </div>
-        {this.state.showWorkAnser && (
-          <MediaBox style={{textAlign: 'left'}}>
-            <Title nickname={nickname} headimgurl={headimgurl} time={createTime} />
-            <Description content={evaluate.evaluate} />
-          </MediaBox>
-        )}
       </div>
     )
   }
-  renderNoEvaluate (workDetail, myAnswer, evaluate, flag) {
+  jumpTo () {
     let {query} = this.props
+    location.href = `/learn/course/otherAnswer${location.search}&workId=${query.workId}`
+  }
+  renderNoEvaluate (workDetail, myAnswer, evaluate, flag) {
     return (
       <div style={{padding: '0 1rem'}}>
         <div className='wx-space-center' style={{paddingBottom: '2rem'}}>
-          <Button style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>
-            <Link href={`/learn/course/otherAnswer${location.search}&workId=${query.workId}`}><a>查看其他同学答案</a></Link>
-          </Button>
+          <Button
+            type='normal' size='small'
+            style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}}
+            onClick={() => { this.jumpTo() }}
+          >查看其他同学答案</Button>
           <Button type='normal' size='small' disabled>查看导师点评</Button>
           <Button
             style={{borderColor: ThemeConfig.color.red, color: ThemeConfig.color.red}}
