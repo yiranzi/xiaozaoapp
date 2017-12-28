@@ -218,23 +218,11 @@ export default class extends React.Component {
   }
   render () {
     const {workDetail, evaluate} = this.state
-    const {courseId, sectionId, pageNumber, currentCourseDetail} = this.props
-    let questionListAfterFix = 'courseId=' + courseId + '&' +
-                               'sectionId=' + sectionId + '&' +
-                               'title=' + encodeURI(encodeURI(currentCourseDetail.courseName)) + '&' +
-                               'totalSize=' + currentCourseDetail.pageCount + '&' +
-                               'pageNumber=' + pageNumber
     return (
       <div className='my-work'>
         <Toast icon='success-no-circle' show={this.state.showToast}>Done</Toast>
         <Toast icon='loading' show={this.state.showLoading}>Loading...</Toast>
         {!DataUtil.isEmpty(workDetail) && this.renderAnswer(workDetail, this.state.myAnswer, evaluate)}
-        <Link
-          href={`/learn/course/questionList?${questionListAfterFix}`}>
-          <Button
-            style={{marginTop: '2rem', backgroundColor: ThemeConfig.color.red, position: 'fixed', bottom: '48px'}}
-          >对学习内容有疑问？点击查看导师答疑</Button>
-        </Link>
       </div>
     )
   }

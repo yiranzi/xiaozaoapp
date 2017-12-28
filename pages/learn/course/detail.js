@@ -9,7 +9,9 @@ import Button from '../../../xz-components/button'
 import Traning from '../../../containers/learn/course/traning'
 import CoursePageTitle from '../../../containers/learn/course/coursePageTitle'
 import MyWork from '../../../containers/learn/course/myWork'
+import ThemeConfig from '../../../config/theme'
 import Router from 'next/router'
+import Link from 'next/link'
 
 export default class extends React.Component {
   constructor (props) {
@@ -288,6 +290,11 @@ export default class extends React.Component {
       currentCourseDetail,
       detail
     } = this.state
+    let questionListAfterFix = 'courseId=' + query.courseId + '&' +
+            'sectionId=' + query.sectionId + '&' +
+            'title=' + encodeURI(encodeURI(currentCourseDetail.courseName)) + '&' +
+            'totalSize=' + currentCourseDetail.pageCount + '&' +
+            'pageNumber=' + query.pageNumber
     return (
       <Layout
         query={query}
@@ -319,6 +326,12 @@ export default class extends React.Component {
                 />
               )
             })}
+            <Link
+              href={`/learn/course/questionList?${questionListAfterFix}`}>
+              <Button
+                style={{marginTop: '2rem', backgroundColor: ThemeConfig.color.red, position: 'fixed', bottom: '48px'}}
+              >对学习内容有疑问？点击查看导师答疑</Button>
+            </Link>
           </div>
         )}
         <style global jsx>{`
