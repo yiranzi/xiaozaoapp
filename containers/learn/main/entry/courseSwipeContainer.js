@@ -14,7 +14,7 @@ export default class extends React.Component {
         <style jsx>{`
           .view-all-div {
             height: auto;
-            flex-basis: 150px;
+            flex-basis: 180px;
             flex-shrink: 0;
             flex-grow: 0;
             text-align: center;
