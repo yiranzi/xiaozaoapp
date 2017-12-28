@@ -315,7 +315,6 @@ export default class extends React.Component {
             padding-top: 1rem;
             padding-bottom: 4rem;
           }
-          .course-detail .detail img,
           .course-detail .detail span,
           .course-detail .detail ol,
           .course-detail .detail ul {
@@ -327,11 +326,14 @@ export default class extends React.Component {
           .home-work {
             padding-bottom: 2rem;
           }
-          .home-work img,
           .home-work span,
           .home-work ol,
           .home-work ul {
             width: 100% !important;
+          }
+          .course-detail .detail img,
+          .home-work img {
+            max-width: 100% !important;
           }
           .home-work li {
             list-style-type: none;
