@@ -20,7 +20,7 @@ export default class extends React.Component {
         chapterId: '',
         sectionId: '',
         pageNumber: '',
-        workId: ''
+        workId: []
       },
       currentCourseDetail: {}, // 设置title所需要的字段
       array: [], // 上一页下一页
@@ -123,11 +123,11 @@ export default class extends React.Component {
     let homeworkContent = await AxiosUtil.get(`/api/work/workList/${courseId}`)
     this.setState({homeworkContent: homeworkContent})
 
-    let workId
+    let workId = []
     homeworkContent.map((item, index) => {
       item.childLearningCourseWorkDTOList.map((item, index) => {
         if (item.sectionId.toString() === sectionId.toString() && item.pageNumber.toString() === pageNumber.toString()) {
-          workId = item.workId
+          workId.push(item.workId)
           return false
         }
       })
@@ -307,7 +307,18 @@ export default class extends React.Component {
             {this.renderPrev()} {/* 上一页 */}
             {this.renderNext()} {/* 下一页 */}
             {this.renderCourseDetail(detail)} {/* 解析课程内容 */}
-            <MyWork {...this.state} />
+            {!DataUtil.isEmpty(query.workId) && query.workId.map((id, index) => {
+              return (
+                <MyWork
+                  key={`work_${index}`}
+                  courseId={query.courseId}
+                  sectionId={query.sectionId}
+                  workId={id}
+                  pageNumber={query.pageNumber}
+                  currentCourseDetail={currentCourseDetail}
+                />
+              )
+            })}
           </div>
         )}
         <style global jsx>{`

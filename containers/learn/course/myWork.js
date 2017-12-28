@@ -8,9 +8,7 @@ import Option from '../../../containers/clock/option'
 import Material from '../../../containers/clock/material'
 import Button from '../../../xz-components/button'
 import { Alert } from '../../../xz-components/alert'
-import { Toast, MediaBox } from 'react-weui'
-import Title from '../../../containers/learn/main/homework/commentBox/title'
-import Description from '../../../containers/learn/main/homework/commentBox/description'
+import { Toast } from 'react-weui'
 
 export default class extends React.Component {
   constructor (props) {
@@ -26,8 +24,8 @@ export default class extends React.Component {
       showLoading: false
     }
   }
-  componentWillUpdate = async (nextProps, nextState) => {
-    let {courseId, workId} = nextProps.query
+  componentDidMount = async (nextProps, nextState) => {
+    let {courseId, workId} = this.props
     if (courseId && workId && DataUtil.isEmpty(this.state.workDetail)) {
       let workDetail = AxiosUtil.get(`/api/work/${courseId}/${workId}`)
       let myAnswer = AxiosUtil.get(`/api/work/myAnswer/${courseId}/${workId}`)
@@ -45,18 +43,18 @@ export default class extends React.Component {
     }
   }
   submitWork = async (type) => {
-    const {query} = this.props
+    const {courseId, workId} = this.props
     const {myWork} = this.state
     if (DataUtil.isEmpty(myWork)) { Alert({content: '请先完成作业然后提交'}); return false }
     this.showLoading()
     try {
       if (ToolsUtil.isUploader(type)) {
-        await AxiosUtil.post(`/api/work/workFileComplete/${query.courseId}/${query.workId}`, myWork.formdata)
+        await AxiosUtil.post(`/api/work/workFileComplete/${courseId}/${workId}`, myWork.formdata)
         this.editMyWork()
         this.showToast()
       }
       if (ToolsUtil.isTextarea(type)) {
-        await AxiosUtil.post(`/api/work/workComplete/${query.courseId}/${query.workId}`, myWork)
+        await AxiosUtil.post(`/api/work/workComplete/${courseId}/${workId}`, myWork)
         this.editMyWork()
         this.showToast()
       }
@@ -77,7 +75,7 @@ export default class extends React.Component {
           isShowProgressTips: 1,
           success: function (res) {
             let serverId = res.serverId
-            AxiosUtil.get(`/api/work/workAudioComplete/${query.courseId}/${query.workId}?serverId=${serverId}`).then(() => {
+            AxiosUtil.get(`/api/work/workAudioComplete/${courseId}/${workId}?serverId=${serverId}`).then(() => {
               _this.setState({myWork: serverId})
               _this.editMyWork()
               _this.showToast()
@@ -86,10 +84,10 @@ export default class extends React.Component {
         })
       }
       // 并且为了重新拉取数据 这里需要清空axios缓存
-      AxiosUtil.deleteCache(`/api/work/workList/${query.courseId}`)
-      AxiosUtil.deleteCache(`/api/work/answerList/${query.courseId}/${query.workId}/?pn=1`)
-      AxiosUtil.deleteCache(`/api/work/${query.courseId}/${query.workId}`)
-      AxiosUtil.deleteCache(`/api/work/myAnswer/${query.courseId}/${query.workId}`)
+      AxiosUtil.deleteCache(`/api/work/workList/${courseId}`)
+      AxiosUtil.deleteCache(`/api/work/answerList/${courseId}/${workId}/?pn=1`)
+      AxiosUtil.deleteCache(`/api/work/${courseId}/${workId}`)
+      AxiosUtil.deleteCache(`/api/work/myAnswer/${courseId}/${workId}`)
     } catch (err) {
     }
   }
@@ -164,7 +162,7 @@ export default class extends React.Component {
     )
   }
   renderEvaluate (workDetail, myAnswer, evaluate, flag) {
-    let {query} = this.props
+    let {workId} = this.props
     return (
       <div style={{padding: '0 1rem'}}>
         <div className='wx-space-center' style={{paddingBottom: '2rem'}}>
@@ -174,7 +172,7 @@ export default class extends React.Component {
             onClick={() => { this.jumpTo() }}
           >查看其他同学答案</Button>
           <Button style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}} type='normal' size='small'>
-            <Link href={`/learn/course/otherAnswer${location.search}&workId=${query.workId}&type=1`}><a>查看导师点评</a></Link>
+            <Link href={`/learn/course/otherAnswer${location.search}&workId=${workId}&type=1`}><a>查看导师点评</a></Link>
           </Button>
           <Button
             type='normal'
@@ -186,8 +184,8 @@ export default class extends React.Component {
     )
   }
   jumpTo () {
-    let {query} = this.props
-    location.href = `/learn/course/otherAnswer${location.search}&workId=${query.workId}`
+    let {workId} = this.props
+    location.href = `/learn/course/otherAnswer${location.search}&workId=${workId}`
   }
   renderNoEvaluate (workDetail, myAnswer, evaluate, flag) {
     return (
@@ -220,12 +218,12 @@ export default class extends React.Component {
   }
   render () {
     const {workDetail, evaluate} = this.state
-    const {query, currentCourseDetail} = this.props
-    let questionListAfterFix = 'courseId=' + query.courseId + '&' +
-                               'sectionId=' + query.sectionId + '&' +
+    const {courseId, sectionId, pageNumber, currentCourseDetail} = this.props
+    let questionListAfterFix = 'courseId=' + courseId + '&' +
+                               'sectionId=' + sectionId + '&' +
                                'title=' + encodeURI(encodeURI(currentCourseDetail.courseName)) + '&' +
                                'totalSize=' + currentCourseDetail.pageCount + '&' +
-                               'pageNumber=' + query.pageNumber
+                               'pageNumber=' + pageNumber
     return (
       <div className='my-work'>
         <Toast icon='success-no-circle' show={this.state.showToast}>Done</Toast>
