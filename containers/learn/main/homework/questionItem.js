@@ -66,7 +66,7 @@ export default class extends React.Component {
     let delayDay
     if (commitTime) {
       delayDay = DateUtil.diffTime(endTime, commitTime)
-    } else {
+    } else if (endTime) {
       delayDay = DateUtil.diffDay(endTime)
     }
     if (delayDay <= 0) {
@@ -226,6 +226,7 @@ export default class extends React.Component {
       <p>我的回答</p>
       <p>{score ? `已点评 ${score}分` : '--'}</p>
     </div>
+
     let dateIcon = <div>
       {this.setOverStatus(questionItem.endTime, questionItem.updateTime) && <img
         style={{position: 'absolute', width: '50px', right: '0px', top: '0'}}

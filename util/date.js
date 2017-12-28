@@ -2,6 +2,10 @@ let DateUtil = {}
 
 // 日期格式化
 DateUtil.format = function (date, fmt) {
+  // date为null
+  if (!date) {
+    return
+  }
   if (typeof date === 'string' || typeof date === 'number') {
     if (typeof date === 'string') {
       date = date.replace(/-/g, '/').replace(/T/g, ' ')
