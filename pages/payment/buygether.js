@@ -728,26 +728,21 @@ export default class extends React.Component {
           <img src={'/static/img/buygether/intro/intro_0_0.png'} />
           <img src={'/static/img/buygether/intro/intro_0_1.png'} />
           <img src={'/static/img/buygether/intro/intro_0_2.png'} />
+          <img src={'/static/img/buygether/intro/intro_0_3.png'} />
           <div id='intro2' style={{height: '56px', backgroundColor: 'white'}} />
         </div>
         <div>
           <img src={'/static/img/buygether/intro/intro_1_1.png'} />
-          <div id='process' style={{height: '56px', backgroundColor: 'white'}} />
-        </div>
-        <div>
+          <img src={'/static/img/buygether/intro/intro_1_2.png'} />
           <img src={'/static/img/buygether/intro/intro_2_1.png'} />
-          <img src={'/static/img/buygether/intro/intro_2_2.png'} />
           {this.renderDivBanner(0)}
-          <div id='get' style={{height: '56px', backgroundColor: 'white'}} />
+          <div id='process' style={{height: '56px', backgroundColor: 'white'}} />
         </div>
         <div>
           <img src={'/static/img/buygether/intro/intro_3_1.png'} />
           <img src={'/static/img/buygether/intro/intro_3_2.png'} />
-          <img src={'/static/img/buygether/intro/intro_3_3.png'} />
-          <img src={'/static/img/buygether/intro/intro_3_4.png'} />
           {this.renderDivBanner(1)}
-          <img src={'/static/img/buygether/intro/intro_3_5.png'} />
-          <div id='team' style={{height: '56px', backgroundColor: 'white'}} />
+          <div id='get' style={{height: '56px', backgroundColor: 'white'}} />
         </div>
         <div>
           <img src={'/static/img/buygether/intro/intro_4_1.png'} />
@@ -755,21 +750,31 @@ export default class extends React.Component {
           <img src={'/static/img/buygether/intro/intro_4_3.png'} />
           <img src={'/static/img/buygether/intro/intro_4_4.png'} />
           <img src={'/static/img/buygether/intro/intro_4_5.png'} />
-          <img src={'/static/img/buygether/intro/intro_4_6.png'} />
-          <img src={'/static/img/buygether/intro/intro_4_7.png'} />
-          <div id='feedback' style={{height: '56px', backgroundColor: 'white'}} />
-        </div>
-        <div>
-          <img src={'/static/img/buygether/intro/intro_5_1.png'} />
-          {this.renderDivBanner(2)}
-          <div id='pay' style={{height: '56px', backgroundColor: 'white'}} />
+          <div id='team' style={{height: '56px', backgroundColor: 'white'}} />
         </div>
         <div>
           <img src={'/static/img/buygether/intro/intro_6_1.png'} />
           <img src={'/static/img/buygether/intro/intro_6_2.png'} />
           <img src={'/static/img/buygether/intro/intro_6_3.png'} />
           <img src={'/static/img/buygether/intro/intro_6_4.png'} />
+          <img src={'/static/img/buygether/intro/intro_6_5.png'} />
+          <img src={'/static/img/buygether/intro/intro_6_6.png'} />
+          <img src={'/static/img/buygether/intro/intro_6_7.png'} />
+          <div id='feedback' style={{height: '56px', backgroundColor: 'white'}} />
+        </div>
+        <div>
           <img src={'/static/img/buygether/intro/intro_7_1.png'} />
+          {this.renderDivBanner(2)}
+          <div id='pay' style={{height: '56px', backgroundColor: 'white'}} />
+        </div>
+        <div>
+          <img src={'/static/img/buygether/intro/intro_8_1.png'} />
+          <img src={'/static/img/buygether/intro/intro_8_2.png'} />
+          <img src={'/static/img/buygether/intro/intro_8_3.png'} />
+          <img src={'/static/img/buygether/intro/intro_8_4.png'} />
+          <img src={'/static/img/buygether/intro/intro_8_5.png'} />
+          <img src={'/static/img/buygether/intro/intro_8_6.png'} />
+          <img src={'/static/img/buygether/intro/intro_9_1.png'} />
         </div>
       </div>
 
