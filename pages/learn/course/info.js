@@ -60,16 +60,8 @@ export default class extends React.Component {
   // 从我的课程列表中获取进度信息
   getProcessInfo = async (courseId) => {
     let courseInfo = await GetPayInfo.getPayInfo(courseId)
-    let courseBg = courseInfo.cover
-    let imgUrl
-    if (courseBg) {
-      // 1 传入完成拼接
-      courseBg = ToolsUtil.addByType(courseBg, 'native')
-      // 2 设置
-      imgUrl = courseBg
-    } else {
-      imgUrl = '/static/img/learn/cover_long.jpeg'
-    }
+    let courseBg = courseInfo.background
+    let imgUrl = courseBg || '/static/img/learn/cover_long.jpeg'
     this.setState({
       courseName: courseInfo.courseName,
       finishSection: courseInfo.overSection,
