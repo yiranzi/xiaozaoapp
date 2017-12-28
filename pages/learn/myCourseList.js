@@ -69,15 +69,7 @@ export default class extends React.Component {
           content = afterCalcCount + '人已完成'
           break
       }
-      let imgUrl
-      if (cover) {
-        // 1 传入完成拼接
-        cover = ToolsUtil.addByType(cover, 'show')
-        // 2 设置
-        imgUrl = cover
-      } else {
-        imgUrl = '/static/img/learn/cover_little.png'
-      }
+      let imgUrl = cover || '/static/img/learn/cover_little.png'
       let pathname = path || '/learn/course/info'
       return (
         <Link replace key={key} href={{ pathname: pathname, query: { courseId: courseId } }}>
