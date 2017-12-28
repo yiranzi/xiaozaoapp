@@ -159,6 +159,7 @@ export default class extends React.Component {
     )
   }
   renderEvaluate (workDetail, myAnswer, evaluate, flag) {
+    let {query} = this.props
     return (
       <div style={{padding: '0 1rem'}}>
         <div className='wx-space-center' style={{paddingBottom: '2rem'}}>
