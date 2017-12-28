@@ -154,7 +154,7 @@ export default class extends React.Component {
   renderUploadWork (workDetail, myAnswer, evaluate, flag) {
     return (
       <div className='wx-text-center'>
-        <Button size='small' onClick={() => { this.submitWork(workDetail.type) }}>上传作业</Button>
+        <Button size='small' onClick={() => { this.submitWork(workDetail.type) }}>提交作业</Button>
       </div>
     )
   }
