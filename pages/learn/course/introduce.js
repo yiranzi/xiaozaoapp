@@ -4,7 +4,7 @@ import Loading from '/xz-components/loadingicon'
 import Layout from '/components/layout'
 import ToolsUtil from '/util/tools'
 import AxiosUtil from '/util/axios'
-import Router from 'next/router'
+import Link from 'next/link'
 import Fixfooter from '/xz-components/fixfooter'
 
 export default class extends React.Component {
@@ -40,10 +40,11 @@ export default class extends React.Component {
           <h1>{courseName}</h1>
           <Introduce courseId={this.state.courseId} />
           {payStatus && (
-            <Fixfooter
-              style={{textAlign: 'center'}}
-              onClick={() => { Router.replace(`/learn/course/info${location.search}`) }}
-            >返回课程</Fixfooter>
+            <Fixfooter style={{textAlign: 'center'}}>
+              <Link replace href={{pathname: '/learn/course/info', query: {courseId: courseId}}}>
+                <a>返回课程</a>
+              </Link>
+            </Fixfooter>
           )}
         </div>
         <style jsx>{`

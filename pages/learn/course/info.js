@@ -15,7 +15,6 @@ import Button from '../../../xz-components/button'
 import LoadingIcon from '../../../xz-components/loadingicon'
 
 import Link from 'next/link'
-import Router from 'next/router'
 
 export default class extends React.Component {
   constructor (props) {
@@ -44,16 +43,8 @@ export default class extends React.Component {
   getPayStatus = async (courseId) => {
     // 1 是否购买
     let courseInfo = await AxiosUtil.get(`/api/learning/courseDetail/${courseId}`, true)
-    let courseBg = courseInfo.cover
-    let imgUrl
-    if (courseBg) {
-      // 1 传入完成拼接
-      courseBg = ToolsUtil.addByType(courseBg, 'native')
-      // 2 设置
-      imgUrl = courseBg
-    } else {
-      imgUrl = '/static/img/learn/cover_long.jpeg'
-    }
+    let courseBg = courseInfo.background
+    let imgUrl = courseBg || '/static/img/learn/cover_long.jpeg'
     if (!courseInfo.buyed) {
       this.setState({
         courseStatus: 'unbuyed',
@@ -146,7 +137,7 @@ export default class extends React.Component {
     let {courseName, courseStartDate, courseBg} = this.state
     let style = {
       background: `url(${courseBg})`,
-      backgroundSize: '100%',
+      backgroundSize: '100% 100%',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -216,7 +207,9 @@ export default class extends React.Component {
             </a>
           </Link>
         </div>
-        <div onClick={() => { Router.replace('/learn/course/introduce?courseId=' + courseId) }}>概述</div>
+        <Link href={{pathname: '/learn/course/introduce', query: {courseId: courseId}}}>
+          <a style={{color: 'white'}}>概述>></a>
+        </Link>
       </div>
       <style jsx>{`
         .course-info {
