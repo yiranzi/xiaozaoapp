@@ -52,7 +52,7 @@ export default class extends React.Component {
             box-sizing: border-box;
           }
           .footer .current {
-            color: #3E84E0;
+            color: #1296db;
           }
           .footer .icon {
             font-size: 0;
