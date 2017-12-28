@@ -38,9 +38,11 @@ export default class extends React.Component {
     Router.replace(url)
     window.history.go(0)
   }
-  renderType (type) {
+  renderType (name, type) {
     if (type === 'written-test') {
-      return '（请在电脑端完成笔试）'
+      return <div className='wrap'><span className='written' />{name}（请在电脑端完成笔试）</div>
+    } else {
+      return <div className='wrap'><span className='file' />{name}</div>
     }
   }
   renderCourseMenu () {
@@ -66,7 +68,7 @@ export default class extends React.Component {
                   <Accordion
                     show={menu.id === chapterId}
                     key={`accord_${index}`}
-                    header={<div className='wrap'><span className='file' />{menu.name}{this.renderType(menu.type)}</div>}
+                    header={this.renderType(menu.name, menu.type)}
                   >
                     {menu.preTestId && (
                       <Cells>
@@ -133,14 +135,6 @@ export default class extends React.Component {
           li.active {
             color: red;
           }
-          span.file {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-            background: url(/static/img/learn/course/file.png) no-repeat;
-            background-size: 100%;
-          }
           span.blank {
             display: inline-block;
             width: 10px;
@@ -158,6 +152,24 @@ export default class extends React.Component {
           }
           a {
             width: 100%;
+          }
+        `}</style>
+        <style jsx global>{`
+          span.file {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            background: url(/static/img/learn/course/file.png) no-repeat;
+            background-size: 100%;
+          }
+          span.written {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            background: url(/static/img/icon/written.png) no-repeat;
+            background-size: contain;
           }
         `}</style>
       </Popup>
