@@ -48,7 +48,7 @@ export default class extends React.Component {
             bottom: 0;
             border-top: 1px solid #e5e5e5;
             width: 100%;
-            padding: 5px 20px;
+            padding: 5px 30px;
             box-sizing: border-box;
           }
           .footer .current {
