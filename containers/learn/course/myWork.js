@@ -85,6 +85,11 @@ export default class extends React.Component {
           }
         })
       }
+      // 并且为了重新拉取数据 这里需要清空axios缓存
+      AxiosUtil.deleteCache(`/api/work/workList/${query.courseId}`)
+      AxiosUtil.deleteCache(`/api/work/answerList/${query.courseId}/${query.workId}/?pn=1`)
+      AxiosUtil.deleteCache(`/api/work/${query.courseId}/${query.workId}`)
+      AxiosUtil.deleteCache(`/api/work/myAnswer/${query.courseId}/${query.workId}`)
     } catch (err) {
     }
   }
