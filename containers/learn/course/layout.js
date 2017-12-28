@@ -266,7 +266,12 @@ export default class extends React.Component {
       <Layout>
         <div className='course-page'>
           <div className='header wx-space-center'>
-            <div className='course-menu-btn' onClick={() => { this.toggleCourseMenuPop() }}>...</div>
+            <Button
+              type='normal'
+              size='small'
+              style={{borderColor: ThemeConfig.color.content, color: ThemeConfig.color.content}}
+              onClick={() => { this.toggleCourseMenuPop() }}
+            >目录</Button>
             <Button
               type='normal'
               size='small'
