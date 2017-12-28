@@ -10,28 +10,22 @@ import ToolsUtil from '/util/tools'
 
 export default class extends React.Component {
   render () {
-    let {title, des, info, bgImg} = this.props
+    let {title, des, info, bgImg, path} = this.props
     let boxStyle = {
       marginLeft: '5px',
-      flexBasis: '180px',
+      width: '170px',
+      flexBasis: '170px',
       flexShrink: '0',
       flexGrow: '0'
     }
     let fontStyle = {color: 'white'}
-    let bg
-    if (bgImg) {
-      // 1 传入完成拼接
-      bgImg = ToolsUtil.addByType(bgImg, 'native')
-      // 2 设置
-      bg = bgImg
-    } else {
-      bg = '/static/img/learn/cover_little.png'
-    }
+    let bg = bgImg || '/static/img/learn/cover_little.png'
     // 3 复制到属性中
     boxStyle = Object.assign(boxStyle, {background: `url(${bg})`, backgroundSize: '100% 100%'})
     // 这里面考虑到seo还是用a标签的方式进入课程。不会有循环跳转的问题
+    let pathname = path || '/learn/course/info'
     return (
-      <Link key={title} href={{ pathname: '/learn/course/info', query: { courseId: this.props.courseId } }}>
+      <Link key={title} href={{ pathname: pathname, query: { courseId: this.props.courseId } }}>
         <a style={boxStyle}>
           <div>
             <MediaBox>

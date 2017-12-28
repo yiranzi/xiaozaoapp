@@ -14,7 +14,8 @@ export default class extends React.Component {
         <style jsx>{`
           .view-all-div {
             height: auto;
-            flex-basis: 180px;
+            width: 170px;
+            flex-basis: 170px;
             flex-shrink: 0;
             flex-grow: 0;
             text-align: center;
@@ -80,10 +81,11 @@ export default class extends React.Component {
           category={this.props.category}
           key={index}
           courseId={course.courseId}
-          bgImg={course.cover}
+          bgImg={course.background}
           title={title}
           des={content}
           info={info}
+          path={course.path}
         />
       )
     })
@@ -120,10 +122,11 @@ export default class extends React.Component {
           category={this.props.category}
           key={index}
           courseId={course.courseId}
-          bgImg={course.cover}
+          bgImg={course.background}
           title={title}
           des={content}
           info={info}
+          path={course.path}
         />
       )
     })

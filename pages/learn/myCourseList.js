@@ -51,7 +51,7 @@ export default class extends React.Component {
 
   renderLine (ele, key, statusIndex) {
     if (ele) {
-      let {buyCount, courseId, courseName, overSection, totalSection, endDate, cover} = ele
+      let {buyCount, courseId, courseName, overSection, totalSection, endDate, cover, path} = ele
       let content
       console.log(key)
       let finishPercent = 0.55
@@ -78,8 +78,9 @@ export default class extends React.Component {
       } else {
         imgUrl = '/static/img/learn/cover_little.png'
       }
+      let pathname = path || '/learn/course/info'
       return (
-        <Link replace key={key} href={{ pathname: '/learn/course/info', query: { courseId: courseId } }}>
+        <Link replace key={key} href={{ pathname: pathname, query: { courseId: courseId } }}>
           <a style={{width: '100%'}}>
             <div className='course-view-line'>
               <div className='course-img' >

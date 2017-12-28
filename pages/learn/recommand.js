@@ -63,7 +63,7 @@ export default class extends React.Component {
 
   renderLine (ele, key) {
     if (ele) {
-      let {buyCount, courseId, title, start, cover} = ele
+      let {buyCount, courseId, title, start, cover, path} = ele
       let imgUrl
       if (cover) {
         // 1 传入完成拼接
@@ -73,8 +73,9 @@ export default class extends React.Component {
       } else {
         imgUrl = '/static/img/learn/cover_little.png'
       }
+      let pathname = path || '/learn/course/info'
       return (
-        <Link replace key={key} href={{ pathname: '/learn/course/info', query: { courseId: courseId } }}>
+        <Link replace key={key} href={{ pathname: pathname, query: { courseId: courseId } }}>
           <a style={{width: '100%', height: '100%'}}>
             <div className='course-view-line'>
               <div className='course-img' >
