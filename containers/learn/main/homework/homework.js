@@ -15,12 +15,26 @@ import Router from 'next/router'
 import ToolsUtil from '/util/tools'
 
 /**
+ * --must--
+ * courseStatus: 'doing' 课程进度
+ * courseId: 课程编号
+ * --userSet--
+ * tabSelect: 0, 1 默认打开的tab
+ * workId: 默认打开的workId
+ * --hoc--
+ * data
+ * updateFunc
  *
+ * --self
+ * needChangeWhenTab 是否根据点击控制fixed
+ *
+ * --正常情况下
+ * 点击back。
  */
 
 
 class innerComponent extends React.Component {
-  chapterMode
+  needChangeWhenTab = true
   scrollTop
   pageTag = 'test'
   constructor (props) {
@@ -34,6 +48,8 @@ class innerComponent extends React.Component {
     this.chooseChapterAndLesson = this.chooseChapterAndLesson.bind(this)
   }
 
+  // 监听用户刷新。
+  // 如果窗口打开。那么手动back。
   componentWillMount () {
     this.setChapterMode(this.props)
     // 1 获取当前显示的是什么
@@ -44,6 +60,11 @@ class innerComponent extends React.Component {
     }
   }
 
+  // 监听history.back
+  // 如果当前没有 并且 窗口还在打卡。
+  // 关闭窗口
+  // 如果这里面能控制tab。那么直接在这里初始化 并且将index设置undefin。
+  // 但是没办法，只能通过viewType多跑一层。
   componentWillReceiveProps (nextProps) {
     this.setChapterMode(nextProps)
     // 计算路由
@@ -60,7 +81,7 @@ class innerComponent extends React.Component {
     // 如果是从有设置章节
     let {workId, data: allHomeworkByLesson} = props
     if (workId && allHomeworkByLesson) {
-      this.chapterMode = true
+      this.needChangeWhenTab = false
       // 遍历对应上index
       let findLessonIndex = -1
       let findChapterIndex = allHomeworkByLesson.findIndex((lesson, chapterIndex) => {
@@ -80,41 +101,28 @@ class innerComponent extends React.Component {
         console.error('not found')
       }
     } else {
-      this.chapterMode = false
+      this.needChangeWhenTab = true
     }
   }
 
-  renderLessonQuestions (lesson, chapterIndex) {
-    let questionDivList = lesson.childLearningCourseWorkDTOList.map((questionItem, lessonIndex) => {
-      // 如果当前有选中 并且 当前选中的不是这个 就不能展示
-      if (this.state.currentLessonIndex !== undefined && this.state.currentLessonIndex !== lessonIndex) {
-        return null
-      }
-      return (<QuestionItem key={lessonIndex} {...this.props}
-        chooseChapterAndLesson={this.chooseChapterAndLesson}
-        chapterIndex={chapterIndex}
-        lessonIndex={lessonIndex}
-        viewType={this.state.viewType}
-        questionItem={questionItem} />)
-    })
-    return (questionDivList)
-  }
-
-  // 点击后的回调
+  // 点击后的回调。控制滚动。
   chooseChapterAndLesson (currentChapterIndex, currentLessonIndex, tabChoose) {
-    // 如果不是章节设固定（可切换章节）
-    if (this.chapterMode) {
+    // 如果不是章节设固定（可切换章节）,则返回
+    if (!this.needChangeWhenTab) {
       return
     }
     // 如果选中状态
     if (tabChoose === 0) {
+      if (this.state.viewType !== 'close') {
+        return
+      }
       // 记录滚动前的位置
       this.scrollTop = window.scrollY
       this.screenMove('on')
       this.setState({
+        viewType: 'open',
         currentChapterIndex: currentChapterIndex,
-        currentLessonIndex: currentLessonIndex,
-        viewType: 'open'
+        currentLessonIndex: currentLessonIndex
       })
       let url = window.history.state.as
 
@@ -153,32 +161,61 @@ class innerComponent extends React.Component {
     }
   }
 
+  renderChapterLessons (chapter, chapterIndex) {
+    return (
+      chapter.childLearningCourseWorkDTOList.map((questionItem, lessonIndex) => {
+        // 如果当前有选中 并且 当前选中的不是这个 就不能展示
+        if (this.state.currentLessonIndex !== undefined && this.state.currentLessonIndex !== lessonIndex) {
+          return null
+        } else {
+          return (
+            <QuestionItem key={lessonIndex} {...this.props}
+              chooseChapterAndLesson={this.chooseChapterAndLesson}
+              chapterIndex={chapterIndex}
+              lessonIndex={lessonIndex}
+              viewType={this.state.viewType}
+              questionItem={questionItem} />
+          )
+        }
+      })
+    )
+  }
+
+  renderAllChapter () {
+    let {data: allHomeworkData} = this.props
+    if (allHomeworkData && allHomeworkData.length > 0) {
+      return (
+        allHomeworkData.map((chapter, chapterIndex) => {
+          // 如果当前有选中 并且 当前选中的不是这个 就不能展示
+          if (this.state.currentChapterIndex !== undefined && this.state.currentChapterIndex !== chapterIndex) {
+            return null
+          } else {
+            return (
+              <Panel style={{marginBottom: '30px'}} key={chapterIndex}>
+                <PanelHeader>
+                  <TitleWithIcon title={chapter.chapterName} imgUrl={'/static/img/icon/homework-icon.png'} />
+                </PanelHeader>
+                <PanelBody>
+                  {this.renderChapterLessons(chapter, chapterIndex)}
+                </PanelBody>
+                <style jsx global>{`
+                  .weui-media-box__info {
+                    line-height: 20px !important;
+                  }
+                `}</style>
+              </Panel>)
+          }
+        })
+      )
+    }
+  }
+
   render () {
     let {data: allHomeworkByLesson} = this.props
     if (allHomeworkByLesson && allHomeworkByLesson.length > 0) {
-      let lessonHomework = allHomeworkByLesson.map((lesson, chapterIndex) => {
-        // 如果当前有选中 并且 当前选中的不是这个 就不能展示
-        if (this.state.currentChapterIndex !== undefined && this.state.currentChapterIndex !== chapterIndex) {
-          return null
-        }
-        return (
-          <Panel style={{marginBottom: '30px'}} key={chapterIndex}>
-            <PanelHeader>
-              <TitleWithIcon title={lesson.chapterName} imgUrl={'/static/img/icon/homework-icon.png'} />
-            </PanelHeader>
-            <PanelBody>
-              {this.renderLessonQuestions(lesson, chapterIndex)}
-            </PanelBody>
-            <style jsx global>{`
-             .weui-media-box__info {
-                line-height: 20px !important;
-             }
-            `}</style>
-          </Panel>)
-      })
       return (<div className='homework-page'>
         {this.props.courseStatus === 'unbuyed' && <h1 className='title'>立即报名课程，解锁以下作业</h1>}
-        {lessonHomework}
+        {this.renderAllChapter()}
         <style jsx>{`
           .homework-page {
             background-color: #efeff4

@@ -58,6 +58,7 @@ export default class extends React.Component {
         isUpdateActive: false
       })
     }
+    // 监听关闭窗口的指令
     if (nextProps.viewType === 'close') {
       this.backButtonClick()
     }
@@ -180,9 +181,7 @@ export default class extends React.Component {
       answerList: data
     }, () => {
       // 告知父组件 切换模式（单页 or list）
-      if (!this.props.viewType) {
-        this.props.chooseChapterAndLesson(this.props.chapterIndex, this.props.lessonIndex, 0)
-      }
+      this.props.chooseChapterAndLesson(this.props.chapterIndex, this.props.lessonIndex, 0)
     })
   }
 
@@ -311,6 +310,7 @@ export default class extends React.Component {
       display: 'block'
     }
     let {questionItem, courseStatus} = this.props
+    console.log(this.props)
     if (questionItem) {
       return (
         <MediaBox style={{marginBottom: '30px'}}>
@@ -321,7 +321,7 @@ export default class extends React.Component {
             <MediaBoxDescription style={style}>
               {this.renderContent()}
             </MediaBoxDescription>
-            {courseStatus && <MediaBoxInfo>
+            {courseStatus === 'doing' && <MediaBoxInfo>
               {this.renderGoDetailLink()}
             </MediaBoxInfo>}
             {this.renderTabbar()}

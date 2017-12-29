@@ -78,7 +78,7 @@ export default class extends React.Component {
     return (<div className='course-tab-bar'>
       <Tab type='navbar'>
         {this.renderByPayStatus()}
-        <NavBarItem label='作业'>{courseStatus !== undefined && <Homework courseStatus={this.state.courseStatus} courseId={courseId} />}</NavBarItem>
+        <NavBarItem label='作业'><Homework courseStatus={this.state.courseStatus} courseId={courseId} /></NavBarItem>
         {/* <NavBarItem label='讨论'><Discuss courseId={courseId} /></NavBarItem> */}
         <NavBarItem label='成就'><Achieve courseId={courseId} /></NavBarItem>
       </Tab>
