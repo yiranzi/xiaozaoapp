@@ -23,8 +23,8 @@ export function HelpPopFunc (path) {
     <div className='pop-top'>
       <img src='/static/img/buygether/headImg_help.png' />
       <div>
-        <p className='title'>小灶能力顾问Harry</p>
-        <p className='title'>我可以为你解答课程、分期等疑问哦</p>
+        <p className='pop-title'>小灶能力顾问Harry</p>
+        <p className='pop-title'>我可以为你解答课程、分期等疑问哦</p>
       </div>
     </div>
     <div className='pop-bottom'>
@@ -61,7 +61,7 @@ export function HelpPopFunc (path) {
         .pop-bottom {
           padding: 10px 10px;
         }
-        .title {
+        .pop-title {
           font-weight: bold;
         }
         .strong {
