@@ -13,6 +13,12 @@ import {
 import TitleWithIcon from '/xz-components/titleWithIcon'
 import Router from 'next/router'
 import ToolsUtil from '/util/tools'
+
+/**
+ *
+ */
+
+
 class innerComponent extends React.Component {
   chapterMode
   scrollTop

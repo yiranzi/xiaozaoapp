@@ -1,9 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 export default class ScrollLoader extends React.Component {
   scrollTimer = true
-  finish = false
+  finishBool = false
   constructor (props) {
     super(props)
     this.state = {
@@ -11,10 +10,11 @@ export default class ScrollLoader extends React.Component {
     }
     this.scrollHandler = this.scrollHandler.bind(this)
     this.finish = this.finish.bind(this)
+    this.resolveLoading = this.resolveLoading.bind(this)
   }
 
   finish () {
-    this.finish = true
+    this.finishBool = true
   }
 
   resolveLoading () {
@@ -25,11 +25,12 @@ export default class ScrollLoader extends React.Component {
 
   scrollHandler (e) {
     // 没在timer 没已完成 没loading
-    if (this.scrollTimer && !this.finish && !this.state.loading) {
+    if (this.scrollTimer && !this.finishBool && !this.state.loading) {
       let target = e.target
       let scrollPercent = Math.floor(( (target.scrollTop + target.clientHeight) / target.scrollHeight) * 100)
       console.log(scrollPercent)
-      if (scrollPercent > 0.85) {
+      if (scrollPercent > 85) {
+        console.log('get')
         this.setState({
           loading: true
         })

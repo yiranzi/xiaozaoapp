@@ -4,6 +4,7 @@ import {Alert} from '../../../../xz-components/alert'
 import DateUtil from '../../../../util/date'
 import SeeMyWork from '../../../../containers/learn/main/homework/seeMyWork'
 import SeeOtherWork from '../../../../containers/learn/main/homework/seeOtherWork'
+import ScrollLoader from '../../../../xz-components/scrollLoader'
 import {
   MediaBox,
   MediaBoxTitle,
@@ -313,7 +314,7 @@ export default class extends React.Component {
     if (questionItem) {
       return (
         <MediaBox style={{marginBottom: '30px'}}>
-          <InfiniteLoader style={this.props.viewType === undefined ? {height: 'auto'} : {height: '100vh'} } onLoadMore={this.loadMore}>
+          <ScrollLoader onLoadMore={this.loadMore}>
             <MediaBoxTitle>
               {this.renderTitle()}
             </MediaBoxTitle>
@@ -325,7 +326,7 @@ export default class extends React.Component {
             </MediaBoxInfo>}
             {this.renderTabbar()}
             {/* {this.props.viewType === 'open' && <Fixfooter style={{height: '40px', padding: '5px 10px'}}><Button className='buttonStyle' onClick={() => { this.backButtonClick() }}>查看其它章节作业</Button></Fixfooter>} */}
-          </InfiniteLoader>
+          </ScrollLoader>
         </MediaBox>
       )
     } else {
