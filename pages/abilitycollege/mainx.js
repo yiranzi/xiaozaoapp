@@ -8,10 +8,9 @@ import {
   LoadMore
 } from 'react-weui'
 import AxiosUtil from '../../util/axios'
-import ThemeConfig from '../../config/theme'
+import Tools from '../../util/tools'
 import Slider from 'react-slick'
-import {HelpPopFunc} from '../../containers/buygether/helpPopFunc';
-import {Alert} from '../../xz-components/alert'
+import {HelpPopFunc} from '../../containers/buygether/helpPopFunc'
 
 export default class extends React.Component {
   constructor (props) {
@@ -292,7 +291,7 @@ export default class extends React.Component {
     if (courseType3List) {
       let courseElements = courseType3List.map(function (item, index) {
         return (<div className='item block-radius' key={index}>
-          <a onClick={() => { Alert({ content: 'PPT课程正在报名中！获取课程详情、报名课程请联系小助手Harry ( xiaozao906 )' }) }}>
+          <a onClick={() => { Tools.goRouter(item.path) }}>
             <div className='img-block'><img className='img' src={item.cover} /></div>
             <div className='info-block'>
               <p className='info'><span className='buy-count'>{item.buyCount} 人学习</span>

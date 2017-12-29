@@ -1,6 +1,7 @@
 import React from 'react'
 import Button from '../../xz-components/button'
-import ThemeConfig from '../../config/theme'
+import {HelpPopFunc} from '../../containers/buygether/helpPopFunc'
+import Tools from '../../util/tools'
 
 /*
 props
@@ -116,7 +117,7 @@ export default class extends React.Component {
   renderAskInfo () {
     return (
       <Button
-        onClick={() => { this.goPath('https://shimo.im/doc/hMWImuwPj4Q1ZEYj?r=NZOD95') }}
+        onClick={() => { HelpPopFunc('https://shimo.im/doc/hMWImuwPj4Q1ZEYj?r=NZOD95') }}
       >立即咨询</Button>
     )
   }
@@ -141,18 +142,18 @@ export default class extends React.Component {
     </div>
     return (
       <Button style={{backgroundColor: '#fe0000'}}
-        onClick={() => { this.goPath('https://kdt.im/Rqyg0h') }} >{content}</Button>
+        onClick={() => { Tools.goRouter('https://kdt.im/Rqyg0h') }} >{content}</Button>
     )
   }
   renderCut2 () {
     return (
       <Button style={{backgroundColor: '#ff5d5d'}}
-        onClick={() => { this.goPath('https://kdt.im/p8yg0h') }} >2人团349</Button>
+        onClick={() => { Tools.goRouter('https://kdt.im/p8yg0h') }} >2人团349</Button>
     )
   }
   renderCut1 () {
     return (
-      <Button onClick={() => { this.goPath('https://kdt.im/r1Ig0h') }} >单人399</Button>
+      <Button onClick={() => { Tools.goRouter('https://kdt.im/r1Ig0h') }} >单人399</Button>
     )
   }
 

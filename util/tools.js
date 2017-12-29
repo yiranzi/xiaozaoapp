@@ -1,3 +1,5 @@
+import Router from "next/router";
+import {Alert} from '../xz-components/alert'
 const fs = require('fs')
 const path = require('path')
 
@@ -9,6 +11,20 @@ ToolsUtil.getQueryString = function (name) {
   var r = window.location.search.substr(1).match(reg)
   if (r != null) return unescape(r[2])
   return null
+}
+
+ToolsUtil.goRouter = function (pathUrl) {
+  if (window.__wxjs_environment === 'miniprogram') {
+    // 判断链接是否对小程序有效
+    let result = pathUrl.search(/xiaozao.org/)
+    if (result && result !== '-1') {
+      Router.push(pathUrl)
+    } else {
+      Alert({ content: '课程正在报名中！获取课程详情、报名课程请联系小助手Harry ( xiaozao906 )' })
+    }
+  } else {
+    location.href = pathUrl
+  }
 }
 
 // 遍历文件夹

@@ -1,7 +1,7 @@
 import React from 'react'
 import {ModalBoxPopFunc} from '../../xz-components/modalbox'
 
-export function HelpPopFunc () {
+export function HelpPopFunc (path) {
   let defaultStyle = {
     backgroundColor: 'rgba(0, 10, 49, 0.5)'
   }
@@ -11,6 +11,11 @@ export function HelpPopFunc () {
       wxType = 'little'
     } else {
       wxType = 'wx'
+      // 如果当前微信环境 并且有跳转链接
+      if (path) {
+        location.href = path
+        return
+      }
     }
   }
   let content = wxType === 'little' ? '保存相册后，扫码加我好友' : '长按扫码，加我微信'
