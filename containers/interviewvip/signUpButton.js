@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from '../../xz-components/button'
 import {HelpPopFunc} from '../../containers/buygether/helpPopFunc'
-import Tools from '../../util/tools'
+import {goRouterFunc} from '../../xz-components/xcxRouter'
 
 /*
 props
@@ -142,18 +142,18 @@ export default class extends React.Component {
     </div>
     return (
       <Button style={{backgroundColor: '#fe0000'}}
-        onClick={() => { Tools.goRouter('https://kdt.im/Rqyg0h') }} >{content}</Button>
+        onClick={() => { goRouterFunc('https://kdt.im/Rqyg0h') }} >{content}</Button>
     )
   }
   renderCut2 () {
     return (
       <Button style={{backgroundColor: '#ff5d5d'}}
-        onClick={() => { Tools.goRouter('https://kdt.im/p8yg0h') }} >2人团349</Button>
+        onClick={() => { goRouterFunc('https://kdt.im/p8yg0h') }} >2人团349</Button>
     )
   }
   renderCut1 () {
     return (
-      <Button onClick={() => { Tools.goRouter('https://kdt.im/r1Ig0h') }} >单人399</Button>
+      <Button onClick={() => { goRouterFunc('https://kdt.im/r1Ig0h') }} >单人399</Button>
     )
   }
 
