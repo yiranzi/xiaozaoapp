@@ -36,6 +36,14 @@ payInfo.getPriceInfo = () => {
   return priceInfo
 }
 
+payInfo.getCanEnter = function () {
+  return canEnter
+}
+
+payInfo.getCanBuy = function () {
+  return canBuy
+}
+
 payInfo.getPayStatus = () => {
   let payStatus = localStorage.getItem('payStatus')
   if (payStatus === 'true') {
@@ -44,14 +52,6 @@ payInfo.getPayStatus = () => {
     payStatus = false
   }
   return payStatus
-}
-
-payInfo.getCanEnter = function () {
-  return canEnter
-}
-
-payInfo.getCanBuy = function () {
-  return canBuy
 }
 
 module.exports = payInfo

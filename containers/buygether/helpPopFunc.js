@@ -1,7 +1,7 @@
 import React from 'react'
 import {ModalBoxPopFunc} from '../../xz-components/modalbox'
 
-export function HelpPopFunc () {
+export function HelpPopFunc (path) {
   let defaultStyle = {
     backgroundColor: 'rgba(0, 10, 49, 0.5)'
   }
@@ -11,6 +11,11 @@ export function HelpPopFunc () {
       wxType = 'little'
     } else {
       wxType = 'wx'
+      // 如果当前微信环境 并且有跳转链接
+      if (path) {
+        location.href = path
+        return
+      }
     }
   }
   let content = wxType === 'little' ? '保存相册后，扫码加我好友' : '长按扫码，加我微信'
@@ -18,8 +23,8 @@ export function HelpPopFunc () {
     <div className='pop-top'>
       <img src='/static/img/buygether/headImg_help.png' />
       <div>
-        <p className='title'>小灶能力顾问Harry</p>
-        <p className='title'>我可以为你解答课程、分期等疑问哦</p>
+        <p className='pop-title'>小灶能力顾问Harry</p>
+        <p className='pop-title'>我可以为你解答课程、分期等疑问哦</p>
       </div>
     </div>
     <div className='pop-bottom'>
@@ -56,7 +61,7 @@ export function HelpPopFunc () {
         .pop-bottom {
           padding: 10px 10px;
         }
-        .title {
+        .pop-title {
           font-weight: bold;
         }
         .strong {
