@@ -31,7 +31,7 @@ export default class extends React.Component {
     }
   }
 
-  componentDidMount = async () => {
+  componentWillMount = async () => {
     // 1 获取课程id
     let courseId = parseInt(ToolsUtil.getQueryString('courseId'))
     this.setState({
@@ -78,7 +78,7 @@ export default class extends React.Component {
     return (<div className='course-tab-bar'>
       <Tab type='navbar'>
         {this.renderByPayStatus()}
-        <NavBarItem label='作业'><Homework courseStatus={this.state.courseStatus} courseId={courseId} /></NavBarItem>
+        <NavBarItem label='作业'><Homework courseStatus={courseStatus} courseId={courseId} /></NavBarItem>
         {/* <NavBarItem label='讨论'><Discuss courseId={courseId} /></NavBarItem> */}
         <NavBarItem label='成就'><Achieve courseId={courseId} /></NavBarItem>
       </Tab>
@@ -97,10 +97,10 @@ export default class extends React.Component {
   renderByPayStatus () {
     let {courseStatus, courseId} = this.state
     // 拉到付费信息之后再去做后续逻辑
-    if (courseStatus === undefined || courseStatus === null || courseStatus === 0) {
+    if (!courseStatus) {
       return (<NavBarItem label='概述'><LoadingIcon /></NavBarItem>)
     } else {
-      if (courseStatus === undefined || courseStatus === 'unbuyed') {
+      if (courseStatus === 'unbuyed') {
         return (<NavBarItem label='概述'><Introduce courseId={courseId} /></NavBarItem>)
       } else {
         return (<NavBarItem label='公告'><Notice courseId={courseId} /></NavBarItem>)
@@ -229,11 +229,11 @@ export default class extends React.Component {
   }
 
   render () {
-    return (<div>
+    return (
       <Layout>
         {this.renderTopDiv()}
-        {this.renderTabbar()}
+        {this.state.courseStatus && this.renderTabbar()}
       </Layout>
-    </div>)
+    )
   }
 }

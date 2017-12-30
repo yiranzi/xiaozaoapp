@@ -22,21 +22,22 @@ import ToolsUtil from '/util/tools'
  * tabSelect: 0, 1 默认打开的tab
  * workId: 默认打开的workId
  * --hoc--
- * data
- * updateFunc
- *
+ * data 传入数据
+ * updateFunc 拉取数据
  * --self
  * needChangeWhenTab 是否根据点击控制fixed
- *
- * --正常情况下
- * 点击back。
+ * pageOpenTag 标记是否是单独的页面
+ * scrollTop 记录离开的时候的滚动位置
+ * --
+ * 点击back 清空pageOpenTag
+ * 重新加载 清空pageOpenTag
  */
 
 
 class innerComponent extends React.Component {
   needChangeWhenTab = true
   scrollTop
-  pageTag = 'test'
+  pageOpenTag = 'windowstatus'
   constructor (props) {
     super(props)
     this.state = {
@@ -52,9 +53,8 @@ class innerComponent extends React.Component {
   // 如果窗口打开。那么手动back。
   componentWillMount () {
     this.setChapterMode(this.props)
-    // 1 获取当前显示的是什么
-    // 2 清空多于路由
-    let a = ToolsUtil.getQueryString('test')
+    //
+    let a = ToolsUtil.getQueryString(this.pageOpenTag)
     if (a) {
       history.go(-1)
     }
@@ -68,9 +68,8 @@ class innerComponent extends React.Component {
   componentWillReceiveProps (nextProps) {
     this.setChapterMode(nextProps)
     // 计算路由
-    let type = ToolsUtil.getQueryString('test')
+    let type = ToolsUtil.getQueryString(this.pageOpenTag)
     if (!type && this.state.viewType === 'open') {
-      console.log('set close')
       this.setState({
         viewType: 'close'
       })
@@ -113,7 +112,8 @@ class innerComponent extends React.Component {
     }
     // 如果选中状态
     if (tabChoose === 0) {
-      if (this.state.viewType !== 'close') {
+      // 如果已经开启
+      if (this.state.viewType === 'open') {
         return
       }
       // 记录滚动前的位置
@@ -126,7 +126,7 @@ class innerComponent extends React.Component {
       })
       let url = window.history.state.as
 
-      url = url + '&test=true'
+      url = url + `&${this.pageOpenTag}=true`
       Router.push(url)
       // window.location.reload()
     } else {
@@ -213,20 +213,22 @@ class innerComponent extends React.Component {
   render () {
     let {data: allHomeworkByLesson} = this.props
     if (allHomeworkByLesson && allHomeworkByLesson.length > 0) {
-      return (<div className='homework-page'>
-        {this.props.courseStatus === 'unbuyed' && <h1 className='title'>立即报名课程，解锁以下作业</h1>}
-        {this.renderAllChapter()}
-        <style jsx>{`
-          .homework-page {
-            background-color: #efeff4
-          }
-          .title {
-            padding-top: 25px;
-            text-align: center;
-            font-size: 16px;
-          }
-        `}</style>
-      </div>)
+      return (
+        <div className='homework-page'>
+          {this.props.courseStatus === 'unbuyed' && <h1 className='title'>立即报名课程，解锁以下作业</h1>}
+          {this.renderAllChapter()}
+          <style jsx>{`
+            .homework-page {
+              background-color: #efeff4
+            }
+            .title {
+              padding-top: 25px;
+              text-align: center;
+              font-size: 16px;
+            }
+          `}</style>
+        </div>
+      )
     } else {
       return (
         <Panel className='introduce'>

@@ -29,7 +29,7 @@ export default function (WrappedComponent, getDataFunc) {
     }
 
     // 在第一次渲染结束的时候，判定是否拉取。
-    componentDidMount = async () => {
+    componentWillMount = async () => {
       let courseId = this.props.courseId
       if (courseId) {
         this.getContentData(courseId)

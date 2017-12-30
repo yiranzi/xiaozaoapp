@@ -25,13 +25,11 @@ export default class extends React.Component {
     this.state = {
       currentSelect: -1,
       answerList: undefined,
-      isUpdateActive: false,
       currentPage: undefined
     }
     this.onTabClick = this.onTabClick.bind(this)
     this.updateStudentAnswerList = this.updateStudentAnswerList.bind(this)
     this.updateMyQuestionAndAnswer = this.updateMyQuestionAndAnswer.bind(this)
-    this.updateFunc = this.updateFunc.bind(this)
     this.loadMore = this.loadMore.bind(this)
   }
 
@@ -51,13 +49,6 @@ export default class extends React.Component {
 
   // 在更新的时候，判定是否拉取。
   componentWillReceiveProps = async (nextProps) => {
-    let {currentSelect, isUpdateActive} = this.state
-    if (currentSelect === 1 && isUpdateActive) {
-      this.updateMyQuestionAndAnswer()
-      this.setState({
-        isUpdateActive: false
-      })
-    }
     // 监听关闭窗口的指令
     if (nextProps.viewType === 'close') {
       this.backButtonClick()
@@ -203,14 +194,6 @@ export default class extends React.Component {
     }
   }
 
-  updateFunc () {
-    // 拉取前标记可以更新
-    this.setState({
-      isUpdateActive: true
-    })
-    this.props.updateFunc()
-  }
-
   renderTabbar () {
     let {questionItem} = this.props
     let {answerCount, workId} = questionItem
@@ -310,7 +293,6 @@ export default class extends React.Component {
       display: 'block'
     }
     let {questionItem, courseStatus} = this.props
-    console.log(this.props)
     if (questionItem) {
       return (
         <MediaBox style={{marginBottom: '30px'}}>
