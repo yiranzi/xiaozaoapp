@@ -45,6 +45,50 @@ export default class extends React.Component {
       return <div className='wrap'><span className='file' />{name}</div>
     }
   }
+  renderMenuStatus (overSection, querySectionId, sectionId) {
+    let unFinishStyle = {
+      'display': 'inline-block',
+      'width': '10px',
+      'height': '10px',
+      'marginRight': '10px',
+      'borderRadius': '1rem',
+      'backgroundColor': '#646464'
+    }
+    let finishStyle = {
+      'display': 'inline-block',
+      'width': '10px',
+      'height': '10px',
+      'marginRight': '10px',
+      'borderRadius': '1rem',
+      'backgroundColor': '#3ea6f7'
+    }
+    let currentStyle = {
+      'display': 'inline-block',
+      'width': '10px',
+      'height': '10px',
+      'marginRight': '10px',
+      'borderRadius': '1rem',
+      'backgroundColor': 'red'
+    }
+
+    if (querySectionId.toString() === sectionId.toString()) {
+      return <span className='current' style={currentStyle} />
+    } else {
+      if (overSection) {
+        return <span className='finish-icon' style={finishStyle} />
+      } else {
+        return <span className='unfinish-icon' style={unFinishStyle} />
+      }
+    }
+  }
+  accordionIsShow (menuId, chapterId) {
+    if (menuId && chapterId) {
+      if (menuId.toString() === chapterId.toString()) {
+        return true
+      }
+    }
+    return false
+  }
   renderCourseMenu () {
     const {query, menuContent} = this.props
     const {courseId, chapterId, sectionId} = query
@@ -66,7 +110,7 @@ export default class extends React.Component {
               {menuDTOList.map((menu, index) => {
                 return (
                   <Accordion
-                    show={menu.id === chapterId}
+                    show={this.accordionIsShow(menu.id, chapterId)}
                     key={`accord_${index}`}
                     header={this.renderType(menu.name, menu.type)}
                   >
@@ -84,7 +128,7 @@ export default class extends React.Component {
                         <a key={`section_${index}`} onClick={() => { this.jumpTo(courseId, menu.id, section.id, 1) }}>
                           <Panel className={classNames({'active': Number(section.id) === Number(sectionId)})}>
                             <Cell access>
-                              <CellHeader><span className='icon' /></CellHeader>
+                              <CellHeader>{this.renderMenuStatus(section.overSection, query.sectionId, section.id)}</CellHeader>
                               <CellBody>{section.name}</CellBody>
                               <CellFooter />
                             </Cell>
@@ -142,14 +186,6 @@ export default class extends React.Component {
             margin-right: 10px;
             border-radius: 1rem;
           }
-          span.icon {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            margin-right: 10px;
-            background-color: #3ea6f7;
-            border-radius: 1rem;
-          }
           a {
             width: 100%;
           }
@@ -180,6 +216,19 @@ export default class extends React.Component {
       homeWorkShow: !this.state.homeWorkShow
     })
   }
+  renderHomeWorkShow (chapter, query) {
+    let { workId } = query
+    if (DataUtil.isEmpty(workId)) {
+      return false
+    }
+    let res = false
+    chapter.childLearningCourseWorkDTOList.map((item, index) => {
+      if (workId.indexOf(item.workId) >= 0) {
+        res = true
+      }
+    })
+    return res
+  }
   renderHomeWork () {
     const {homeWorkShow} = this.state
     const {query, homeworkContent, menuContent} = this.props
@@ -198,7 +247,7 @@ export default class extends React.Component {
             {homeworkContent.map((chapter, index) => {
               return (
                 <Accordion
-                  show={false}
+                  show={this.renderHomeWorkShow(chapter, query)}
                   key={`homework_${index}`}
                   header={(<div className='header wx-space-left'><img src='/static/img/learn/course/file.png' /><span style={{marginLeft: '0.5rem'}}>{chapter.chapterName}</span></div>)}
                 >
