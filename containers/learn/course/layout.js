@@ -197,17 +197,28 @@ export default class extends React.Component {
             <div className='title'><img src='/static/img/learn/cover_long.jpeg' /><h2 className='course-name'>{menuContent.courseName}</h2></div>
             {homeworkContent.map((chapter, index) => {
               return (
-                <div className='chapter' key={`h_${index}`}>
-                  <div className='header wx-space-left'><img src='/static/img/learn/course/file.png' /><span style={{marginLeft: '0.5rem'}}>{chapter.chapterName}</span></div>
+                <Accordion
+                  show={false}
+                  key={`homework_${index}`}
+                  header={(<div className='header wx-space-left'><img src='/static/img/learn/course/file.png' /><span style={{marginLeft: '0.5rem'}}>{chapter.chapterName}</span></div>)}
+                >
                   {chapter.childLearningCourseWorkDTOList.map((work, index) => {
                     return (
-                      <div key={`w_${index}`} className='work wx-space-center' onClick={() => { this.jumpTo(query.courseId, work.chapterId, work.sectionId, work.pageNumber) }} >
-                        <div className='sub-title'>{work.title}</div>
-                        <div className='over'>{work.overWork && <Icon style={{color: '#3ea6f7', fontSize: '1rem'}} value='success-no-circle' />}</div>
-                      </div>
+                      <a
+                        key={`section_homework_${index}`}
+                        style={{width: '100%'}}
+                        onClick={() => { this.jumpTo(query.courseId, work.chapterId, work.sectionId, work.pageNumber) }}>
+                        <Panel>
+                          <Cell>
+                            <CellHeader><span className='icon' /></CellHeader>
+                            <CellBody>{work.title} <span className='over' style={{float: 'right'}}>{work.overWork && <Icon style={{color: '#3ea6f7', fontSize: '1rem'}} value='success-no-circle' />}</span></CellBody>
+                            <CellFooter />
+                          </Cell>
+                        </Panel>
+                      </a>
                     )
                   })}
-                </div>
+                </Accordion>
               )
             })}
           </div>
