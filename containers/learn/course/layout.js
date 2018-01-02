@@ -117,8 +117,10 @@ export default class extends React.Component {
                     {menu.preTestId && (
                       <Cells>
                         <Cell access>
-                          <CellHeader><span className='blank' /></CellHeader>
-                          <CellBody><Link href={`/learn/course/testDetail?courseId=${query.courseId}&testId=${menu.preTestId}`}><a className='wx-block'>课前测试</a></Link></CellBody>
+                          <CellBody>
+                            <Link
+                              href={`/learn/course/testDetail?courseId=${query.courseId}&testId=${menu.preTestId}`}
+                            ><a className='wx-block' style={{fontSize: '1rem'}}><span className='written' />课前测试</a></Link></CellBody>
                           <CellFooter />
                         </Cell>
                       </Cells>
@@ -152,8 +154,10 @@ export default class extends React.Component {
                     {menu.afterTestId && (
                       <Cells>
                         <Cell access>
-                          <CellHeader><span className='blank' /></CellHeader>
-                          <CellBody><Link href={`/learn/course/testDetail?courseId=${query.courseId}&testId=${menu.afterTestId}`}><a className='wx-block'>课后测试</a></Link></CellBody>
+                          <CellBody>
+                            <Link
+                              href={`/learn/course/testDetail?courseId=${query.courseId}&testId=${menu.afterTestId}`}
+                            ><a className='wx-block' style={{fontSize: '1rem'}}><span className='written' />课后测试</a></Link></CellBody>
                           <CellFooter />
                         </Cell>
                       </Cells>
@@ -178,13 +182,6 @@ export default class extends React.Component {
           }
           li.active {
             color: red;
-          }
-          span.blank {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            margin-right: 10px;
-            border-radius: 1rem;
           }
           a {
             width: 100%;
