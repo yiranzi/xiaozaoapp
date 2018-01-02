@@ -1,4 +1,5 @@
 import React from 'react'
+import {Panel, PanelBody, LoadMore} from 'react-weui'
 import classNames from 'classnames'
 import Link from 'next/link'
 import ToolsUtil from '../../../util/tools'
@@ -58,8 +59,16 @@ export default class extends React.Component {
   }
   renderList () {
     const _this = this
-    const {query, testList} = this.state
-    if (DataUtil.isEmpty(testList)) return <div className='test-detail'>本课程暂无测试</div>
+    const {query, testList, done} = this.state
+    if (DataUtil.isEmpty(testList) && done) {
+      return (
+        <Panel>
+          <PanelBody>
+            <LoadMore showLine>本课程暂无测试</LoadMore>
+          </PanelBody>
+        </Panel>
+      )
+    }
     return (
       <div className='test-detail'>
         {testList.map((item, index) => {
