@@ -12,9 +12,9 @@ import {
 import DataUtil from '/util/data'
 import Layout from '../..//components/layout'
 import LoadingIcon from '../../xz-components/loadingicon'
-import GetPayInfo from '/util/getPayInfo'
-import AxiosUtil from '/util/axios'
-import TitleWithIcon from '/xz-components/titleWithIcon'
+import GetPayInfo from '../../util/getPayInfo'
+import AxiosUtil from '../../util/axios'
+import TitleWithIcon from '../../xz-components/titleWithIcon'
 import CourseSwipeContainer from '../../containers/learn/main/entry/courseSwipeContainer'
 
 export default class extends React.Component {
