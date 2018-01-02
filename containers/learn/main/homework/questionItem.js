@@ -195,14 +195,12 @@ export default class extends React.Component {
   }
 
   renderTabbar () {
-    let {questionItem} = this.props
+    let {questionItem, courseId} = this.props
     let {answerCount, workId} = questionItem
-    let {courseId} = this.props
     let {questionInfo, myAnswer} = this.state
-    answerCount = answerCount || 0
     let allAnswerIcon = <div>
       <p>全部回答</p>
-      <p>{answerCount}条</p>
+      <p>{Number(answerCount)}条</p>
     </div>
     let {score} = questionItem
     let myAnswerIcon = <div>
@@ -307,7 +305,6 @@ export default class extends React.Component {
               {this.renderGoDetailLink()}
             </MediaBoxInfo>}
             {this.renderTabbar()}
-            {/* {this.props.viewType === 'open' && <Fixfooter style={{height: '40px', padding: '5px 10px'}}><Button className='buttonStyle' onClick={() => { this.backButtonClick() }}>查看其它章节作业</Button></Fixfooter>} */}
           </ScrollLoader>
         </MediaBox>
       )
