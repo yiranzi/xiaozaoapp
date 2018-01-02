@@ -91,7 +91,6 @@ export default class extends React.Component {
     return style
   }
   close () {
-    console.log('调用')
     document.body.style.position = 'relative'
   }
   render () {
@@ -113,7 +112,7 @@ export default class extends React.Component {
             height: 100%;
             overflow: scroll;
             -webkit-overflow-scrolling: touch;
-            transition: transform 0.7s !important;
+            transition: transform 0.5s !important;
           }
           .close {
             width: 30px;
