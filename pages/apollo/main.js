@@ -428,14 +428,14 @@ export default class extends React.Component {
         <span>点击获取实习干货</span>
         <span>{'>'}</span>
       </div>
-      {this.todayDayKey > 318 && <Link href={{pathname: '/apollo/finish'}}>
+      <Link href={{pathname: '/apollo/finish'}}>
         <a style={{width: '100%'}}>
           <div className='colume-inner has-border-div'>
             <span>我已找到实习，结束打卡</span>
             <span>{'>'}</span>
           </div>
         </a>
-      </Link>}
+      </Link>
       <style>{`
         .column {
           font-size: 16px;
