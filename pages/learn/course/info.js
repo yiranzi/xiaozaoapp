@@ -15,6 +15,7 @@ import Button from '../../../xz-components/button'
 import LoadingIcon from '../../../xz-components/loadingicon'
 
 import Link from 'next/link'
+import Router from 'next/router'
 
 export default class extends React.Component {
   constructor (props) {
@@ -199,9 +200,7 @@ export default class extends React.Component {
             </a>
           </Link>
         </div>
-        <Link href={{pathname: '/learn/course/introduce', query: {courseId: courseId}}}>
-          <a style={{color: 'white'}}>概述>></a>
-        </Link>
+        <div onClick={() => { Router.replace('/learn/course/introduce?courseId=' + courseId) }}>点击查看课程详情</div>
       </div>
       <style jsx>{`
         .course-info {
