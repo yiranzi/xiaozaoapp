@@ -231,6 +231,9 @@ export default class extends React.Component {
     if (json && next && json.sectionId === next.sectionId) {
       text = '下一页'
     } else {
+      if (query.courseId && query.sectionId) {
+        AxiosUtil.get(`/api/learning/course/sectionComplete/${query.courseId}/${query.sectionId}`)
+      }
       text = '下一节'
     }
     if (query.chapterId) {
