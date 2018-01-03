@@ -39,7 +39,7 @@ export default class extends React.Component {
         <div
           className={ClassNames('item', {'current': this.state.hr || type === 'hr'})}
           onTouchStart={() => { this.setState({hr: true}) }}
-          onTouchEnd={() => { this.setState({hr: false}, () => { Router.push('/job/internship') }) }}
+          onTouchEnd={() => { this.setState({hr: false}, () => { location.href = '/job/internship' }) }}
         >
           <div className='icon'>
             {(this.state.hr || type === 'hr') ? <img src='/static/img/common/hr_active.png' /> : <img src='/static/img/common/hr.png' />}
