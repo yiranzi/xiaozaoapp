@@ -93,6 +93,7 @@ class innerComponent extends React.Component {
       })
       if (findLessonIndex !== undefined && findChapterIndex !== undefined) {
         this.setState({
+          viewType: 'hasAnyValue',
           currentLessonIndex: findLessonIndex,
           currentChapterIndex: findChapterIndex
         })
@@ -191,7 +192,7 @@ class innerComponent extends React.Component {
             return null
           } else {
             return (
-              <Panel style={{marginBottom: '30px'}} key={chapterIndex}>
+              <Panel key={chapterIndex}>
                 <PanelHeader>
                   <TitleWithIcon title={chapter.chapterName} imgUrl={'/static/img/icon/homework-icon.png'} />
                 </PanelHeader>

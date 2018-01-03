@@ -291,10 +291,13 @@ export default class extends React.Component {
       display: 'block'
     }
     let {questionItem, courseStatus} = this.props
+    // 展开对样式有调整
     if (questionItem) {
       return (
-        <MediaBox style={{marginBottom: '30px'}}>
-          <ScrollLoader onLoadMore={this.loadMore}>
+        <MediaBox style={this.props.viewType === undefined ? {marginBottom: '30px'} : {}}>
+          <ScrollLoader
+            style={this.props.viewType === undefined ? {height: 'auto'} : {height: '100vh'}}
+            onLoadMore={this.loadMore}>
             <MediaBoxTitle>
               {this.renderTitle()}
             </MediaBoxTitle>

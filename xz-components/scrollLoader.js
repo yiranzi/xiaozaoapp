@@ -46,7 +46,7 @@ export default class ScrollLoader extends React.Component {
 
   render () {
     return (
-      <div className='scroll' onScroll={this.scrollHandler}>
+      <div style={this.props.style} className='scroll' onScroll={this.scrollHandler}>
         {this.props.children}
         <style jsx>{`
           .scroll {
