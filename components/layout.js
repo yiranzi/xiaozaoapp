@@ -2,6 +2,7 @@ import React from 'react'
 import Header from './partical/header'
 import {Toptips} from 'react-weui'
 import weui from 'weui'
+import rweui from 'react-weui/build/dist/react-weui.css'
 import DefaultCss from '../config/defaultCss'
 
 export default class Layout extends React.Component {
@@ -24,6 +25,7 @@ export default class Layout extends React.Component {
         .main {
           max-width: 640px;
           margin: auto;
+          overflow-x: hidden;
         }
       `}</style>
     )
@@ -35,6 +37,7 @@ export default class Layout extends React.Component {
         {/* <script src='/static/js/retcode.js' /> */}
         <Header />
         <style dangerouslySetInnerHTML={{__html: weui}} />
+        <style dangerouslySetInnerHTML={{__html: rweui}} />
         <DefaultCss />
         {this.renderChild()}
         {this.renderGlobalCss()}
