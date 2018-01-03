@@ -26,20 +26,48 @@ export default class extends React.Component {
 
   render () {
     let hideStyle = {display: 'none'}
-    let showStyle = {display: 'block'}
+    let showStyle = {display: 'flex'}
     console.log(this.state.isPlay)
     return (
       <div className='vedio-with-img' onClick={this.clickTitle}>
-        <video ref='video' style={this.state.isPlay ? showStyle : hideStyle} src={'https://video.xiaozao.org/final.mp4'} />
-        <div style={this.state.isPlay ? hideStyle : showStyle} >
-          <img src={'/static/img/buygether/buyBg_1.png'} />
+        <video style={this.state.isPlay ? showStyle : hideStyle}
+          controls={'control'} ref='video'
+          src={'https://video.xiaozao.org/final.mp4'} />
+        <div className='pause-img' style={this.state.isPlay ? hideStyle : showStyle} >
+          <div className='pause-shadow' />
+          <img className='pause-button' src={'/static/img/buygether/pause_button.png'} />
         </div>
 
         <style jsx>{`
           .vedio-with-img {
             height: 210px;
           }
-          .vedio-with-img img {
+          .pause-img {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('/static/img/buygether/buyBg_1.png');
+            background-size:100% 100%;
+          }
+           .pause-shadow {
+            width: 100%;
+            height: 210px;
+            background-color: rgba(62,132,224,0.4);
+            position: absolute;
+            left: 0;
+            top: 0;
+          }
+          .pause-button {
+            position: relative;
+            z-index: 10px;
+            width: 100px;
+            height: 100px;
+          }
+          .pause-bg {
+            position: relative;
+            z-index: 8;
             width: 100%;
             height: 100%;
           }
