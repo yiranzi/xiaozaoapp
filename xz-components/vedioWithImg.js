@@ -37,7 +37,7 @@ export default class extends React.Component {
           <div className='pause-shadow' />
           <img className='pause-button' src={'/static/img/buygether/pause_button.png'} />
           <div className='tips-content'>
-            <p>点击查看合作企业负责人寄语</p>
+            <p>点击查看合作企业代表寄语</p>
           </div>
         </div>
 
