@@ -249,7 +249,8 @@ export default class extends React.Component {
             show={this.state.cityfullpage_show}
             onRequestClose={e => this.setState({cityfullpage_show: false})}>
             <div className='select-list'
-              onClick={e => this.setState({cityfullpage_show: false})}>
+              onClick={e => this.setState({cityfullpage_show: false})}
+              onTouchEnd={() => { this.setState({cityfullpage_show: false}) }}>
               <h3 className='label'>选择城市：</h3>
               <div>
                 <Button size='small' className='select-btn'
@@ -294,7 +295,8 @@ export default class extends React.Component {
             show={this.state.sectionfullpage_show}
             onRequestClose={e => this.setState({sectionfullpage_show: false})}>
             <div className='select-list'
-              onClick={e => this.setState({sectionfullpage_show: false})}>
+              onClick={e => this.setState({sectionfullpage_show: false})}
+              onTouchEnd={() => { this.setState({sectionfullpage_show: false}) }}>
               <h3 className='label'>选择职能：</h3>
               <div>
                 <Button size='small' className='select-btn'
