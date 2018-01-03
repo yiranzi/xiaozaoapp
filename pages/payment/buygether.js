@@ -726,7 +726,7 @@ export default class extends React.Component {
           <div ref='topFixedPos' style={{height: '56px', position: 'relative'}}>
             {this.renderNavBar()}
           </div>}
-          <img src={'/static/img/buygether/intro/intro_1_1.png'} />
+          <img src={'/static/img/buygether/intro/intro_1_1.jpeg'} />
           <img src={'/static/img/buygether/intro/intro_1_2.png'} />
           <img src={'/static/img/buygether/intro/intro_2_1.png'} />
           <div id='process' style={{height: '56px', backgroundColor: 'white'}} />
