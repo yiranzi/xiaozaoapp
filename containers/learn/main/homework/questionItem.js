@@ -294,7 +294,7 @@ export default class extends React.Component {
     // 展开对样式有调整
     if (questionItem) {
       return (
-        <MediaBox style={this.props.viewType === undefined ? {marginBottom: '30px'} : {}}>
+        <MediaBox style={this.props.viewType === undefined ? {marginBottom: '30px'} : {position: 'static'}}>
           <ScrollLoader
             style={this.props.viewType === undefined ? {height: 'auto'} : {height: '100vh'}}
             onLoadMore={this.loadMore}>
