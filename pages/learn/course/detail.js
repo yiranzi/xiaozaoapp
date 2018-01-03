@@ -24,6 +24,7 @@ export default class extends React.Component {
         pageNumber: '',
         workId: []
       },
+      showQuestionButton: false,
       currentCourseDetail: {}, // 设置title所需要的字段
       array: [], // 上一页下一页
       menuContent: {}, // 左侧课程列表
@@ -291,7 +292,8 @@ export default class extends React.Component {
       menuContent,
       homeworkContent,
       currentCourseDetail,
-      detail
+      detail,
+      showQuestionButton
     } = this.state
     let questionListAfterFix = 'courseId=' + query.courseId + '&' +
             'sectionId=' + query.sectionId + '&' +
@@ -329,12 +331,18 @@ export default class extends React.Component {
                 />
               )
             })}
-            <Link
-              href={`/learn/course/questionList?${questionListAfterFix}`}>
+            <div className='question wx-text-center'>
+              {showQuestionButton && (
+                <Link href={`/learn/course/questionList?${questionListAfterFix}`}>
+                  <Button size='small' style={{marginTop: '8px', backgroundColor: '#3E84E0'}}>对学习内容有疑问？点击查看导师答疑</Button>
+                </Link>
+              )}
               <Button
-                style={{marginTop: '2rem', backgroundColor: ThemeConfig.color.red, position: 'fixed', bottom: '48px'}}
-              >对学习内容有疑问？点击查看导师答疑</Button>
-            </Link>
+                size='small'
+                style={{float: 'right', padding: '1px 2px', fontSize: '0.75rem', backgroundColor: '#3E84E0'}}
+                onClick={() => { this.setState({showQuestionButton: !this.state.showQuestionButton}) }}
+              >提<br />问</Button>
+            </div>
           </div>
         )}
         <style global jsx>{`
@@ -377,6 +385,11 @@ export default class extends React.Component {
             right: 5px;
             top: 50%;
             z-index: 999;
+          }
+          .question {
+            position: fixed;
+            width: 100%;
+            bottom: 48px;
           }
         `}</style>
       </Layout>
