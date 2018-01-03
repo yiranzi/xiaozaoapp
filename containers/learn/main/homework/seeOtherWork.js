@@ -23,7 +23,7 @@ export default class extends React.Component {
   renderStudentAnswer (index, answerData) {
     if (answerData) {
       let {nickname, headimgurl, updateTime, starCount, star, id: studentAnswerId, answer, score} = answerData
-      return (<MediaBox key={index}>
+      return (<MediaBox style={{position: 'static'}} key={index}>
         {answerData.overStatus && <img style={{position: 'absolute', width: '50px', right: '0px', top: '0'}}src='/static/img/study/homework-late.png' />}
         <Title nickname={nickname} headimgurl={headimgurl} time={updateTime}
           starCount={starCount} star={star} starId={studentAnswerId} />
