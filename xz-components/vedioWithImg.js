@@ -35,17 +35,22 @@ export default class extends React.Component {
           src={'https://video.xiaozao.org/final.mp4'} />
         <div className='pause-img' style={this.state.isPlay ? hideStyle : showStyle} >
           <div className='pause-shadow' />
-          <img className='pause-button' src={'/static/img/buygether/pause_button.png'} />
+          <div>
+            <img className='pause-button' src={'/static/img/buygether/pause_button.png'} />
+            <p>点击查看合作企业负责人寄语</p>
+          </div>
         </div>
 
         <style jsx>{`
           .vedio-with-img {
             height: 210px;
           }
+
           .pause-img {
             height: 100%;
             width: 100%;
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
             align-items: center;
             background-image: url('/static/img/buygether/buyBg_1.png');
@@ -58,6 +63,13 @@ export default class extends React.Component {
             position: absolute;
             left: 0;
             top: 0;
+          }
+          .vedio-with-img p {
+            font-size: 20px;
+            position: relative;
+            width: 100%;
+            z-index: 10px;
+            color: white;
           }
           .pause-button {
             position: relative;
