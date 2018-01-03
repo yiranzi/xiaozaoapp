@@ -16,6 +16,7 @@ import GroupCard from '../../containers/buygether/groupcard'
 import Link from 'next/link'
 import {HelpPopFunc} from '../../containers/buygether/helpPopFunc'
 import Slider from 'react-slick'
+import VedioWithImg from '../../xz-components/vedioWithImg'
 import {
   LoadMore
 } from 'react-weui'
@@ -650,7 +651,7 @@ export default class extends React.Component {
     return (
       <div style={style}>
         <div className='nav-bar'>
-          <a href='#intro1'>引言</a>
+          {/*<a href='#intro1'>引言</a>*/}
           <a href='#intro2'>概述</a>
           <a href='#process'>项目安排</a>
           <a href='#get'>收获</a>
@@ -721,27 +722,19 @@ export default class extends React.Component {
     return (<div className='div-with-bottom'>
       {this.renderTitle('课程详情')}
       <div className='intro-div-content'>
-        <div id='intro1'>
+        <div id='intro2'>
           <div ref='topFixedPos' style={{height: '56px', position: 'relative'}}>
             {this.renderNavBar()}
           </div>}
-          <img src={'/static/img/buygether/intro/intro_0_0.png'} />
-          <img src={'/static/img/buygether/intro/intro_0_1.png'} />
-          <img src={'/static/img/buygether/intro/intro_0_2.png'} />
-          <img src={'/static/img/buygether/intro/intro_0_3.png'} />
-          <div id='intro2' style={{height: '56px', backgroundColor: 'white'}} />
-        </div>
-        <div>
-          <img src={'/static/img/buygether/intro/intro_1_1.png'} />
+          <img src={'/static/img/buygether/intro/intro_1_1.jpeg'} />
           <img src={'/static/img/buygether/intro/intro_1_2.png'} />
           <img src={'/static/img/buygether/intro/intro_2_1.png'} />
-          {this.renderDivBanner(0)}
           <div id='process' style={{height: '56px', backgroundColor: 'white'}} />
         </div>
         <div>
           <img src={'/static/img/buygether/intro/intro_3_1.png'} />
           <img src={'/static/img/buygether/intro/intro_3_2.png'} />
-          {this.renderDivBanner(1)}
+          {this.renderDivBanner(0)}
           <div id='get' style={{height: '56px', backgroundColor: 'white'}} />
         </div>
         <div>
@@ -749,6 +742,7 @@ export default class extends React.Component {
           <img src={'/static/img/buygether/intro/intro_4_2.png'} />
           <img src={'/static/img/buygether/intro/intro_4_3.png'} />
           <img src={'/static/img/buygether/intro/intro_4_4.png'} />
+          {this.renderDivBanner(1)}
           <img src={'/static/img/buygether/intro/intro_4_5.png'} />
           <div id='team' style={{height: '56px', backgroundColor: 'white'}} />
         </div>
@@ -823,12 +817,13 @@ export default class extends React.Component {
   renderTop () {
     return (
       <div>
-        <div className='top-banner'>
-          <img className='bg-img1' src={'/static/img/buygether/buyBg_1.png'} />
+        <VedioWithImg />
+        {/*<div className='top-banner'>*/}
+          {/*<img className='bg-img1' src={'/static/img/buygether/buyBg_1.png'} />*/}
           {/*<div className='text-line'>*/}
             {/*<Scrolling interval={10000} />*/}
           {/*</div>*/}
-        </div>
+        {/*</div>*/}
         {/*<video width='100%' controls>*/}
           {/*<source src='/static/img/buygether/movie.mp4' type='video/mp4' />*/}
         {/*</video>*/}
