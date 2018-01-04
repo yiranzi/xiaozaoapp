@@ -200,7 +200,7 @@ export default class extends React.Component {
             </a>
           </Link>
         </div>
-        <div onClick={() => { Router.replace('/learn/course/introduce?courseId=' + courseId) }}>点击查看课程详情</div>
+        <div onClick={() => { Router.replace('/learn/course/introduce?courseId=' + courseId) }}>点击查看课程介绍</div>
       </div>
       <style jsx>{`
         .course-info {
