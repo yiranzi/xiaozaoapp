@@ -339,7 +339,7 @@ export default class extends React.Component {
               )}
               <Button
                 size='small'
-                style={{float: 'right', padding: '1px 2px', fontSize: '0.75rem', backgroundColor: '#3E84E0'}}
+                style={{float: 'right', marginRight: '0.5rem', fontSize: '0.75rem', backgroundColor: '#3E84E0'}}
                 onClick={() => { this.setState({showQuestionButton: !this.state.showQuestionButton}) }}
               >提<br />问</Button>
             </div>
