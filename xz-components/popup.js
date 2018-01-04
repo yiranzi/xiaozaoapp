@@ -83,6 +83,14 @@ export default class extends React.Component {
       document.body.style.position = 'relative'
     }
   }
+
+  componentWillUnmount () {
+    // fix back bug
+    document.body.style.position = ''
+    document.body.style.top = ''
+    document.body.style.width = ''
+  }
+
   getStyle () {
     let style = this.renderStyle()
     if (this.props.show) {
