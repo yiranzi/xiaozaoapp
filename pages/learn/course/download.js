@@ -61,31 +61,30 @@ export default class extends React.Component {
           </p>
         </MediaBox>)
       })
-      return (<Panel>
-        <PanelHeader className='wx-text-center'>
-          资料下载
-        </PanelHeader>
-        <PanelBody>
-          {list.length > 0 && listElement}
-          {list.length === 0 && <LoadMore showLine>本课程暂无资料</LoadMore>}
-        </PanelBody>
-        <style global jsx>{`
-          .weui-media-box__desc {
-            display: block !important;
-          }
-          .resource-content {
-            background-color: #fff;
-            border: 1px solid ${ThemeConfig.color.border};
-            padding: 15px;
-          }
-          .download-btn {
-            width: auto !important;
-          }
-          .weui-panel {
-            background-color: transparent !important;
-          }
-        `}</style>
-      </Panel>)
+      return (
+        <Panel>
+          <PanelBody>
+            {list.length > 0 && listElement}
+            {list.length === 0 && <LoadMore showLine>本课程暂无资料</LoadMore>}
+          </PanelBody>
+          <style global jsx>{`
+            .weui-media-box__desc {
+              display: block !important;
+            }
+            .resource-content {
+              background-color: #fff;
+              border: 1px solid ${ThemeConfig.color.border};
+              padding: 15px;
+            }
+            .download-btn {
+              width: auto !important;
+            }
+            .weui-panel {
+              background-color: transparent !important;
+            }
+          `}</style>
+        </Panel>
+      )
     }
   }
 
