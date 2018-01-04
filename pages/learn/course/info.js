@@ -1,7 +1,7 @@
 import React from 'react'
 import Notice from '../../../containers/learn/main/notice'
 import Homework from '../../../containers/learn/main/homework/homework'
-// import Discuss from '/containers/learn/main/discuss'
+import ChapterList from '/containers/learn/main/chapterList'
 import Achieve from '../../../containers/learn/main/achieve'
 import Introduce from '../../../containers/learn/main/introduce'
 import { Tab, NavBarItem, Progress } from 'react-weui'
@@ -77,9 +77,9 @@ export default class extends React.Component {
     let {courseId, courseStatus} = this.state
     return (<div className='course-tab-bar'>
       <Tab type='navbar'>
+        <NavBarItem label='章节'><ChapterList courseId={courseId} /></NavBarItem>
         {this.renderByPayStatus()}
         <NavBarItem label='作业'><Homework courseStatus={courseStatus} courseId={courseId} /></NavBarItem>
-        {/* <NavBarItem label='讨论'><Discuss courseId={courseId} /></NavBarItem> */}
         <NavBarItem label='成就'><Achieve courseId={courseId} /></NavBarItem>
       </Tab>
       <style global jsx>{`
