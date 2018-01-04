@@ -332,26 +332,32 @@ export default class extends React.Component {
               )
             })}
             <div
-              className='question wx-text-center'
-              style={{
-                position: 'fixed',
-                width: '100%',
-                bottom: '48px'
-              }}
-            >
+              className='question wx-text-center'>
               {showQuestionButton && (
                 <Link href={`/learn/course/questionList?${questionListAfterFix}`}>
-                  <Button size='small' style={{marginTop: '8px', backgroundColor: '#3E84E0'}}>对学习内容有疑问？点击查看导师答疑</Button>
+                  <img
+                    src='/static/img/learn/course/question-button.png'
+                    style={{width: '70%', marginTop: '6px'}}
+                  />
                 </Link>
               )}
-              <Button
-                size='small'
-                style={{float: 'right', marginRight: '0.5rem', fontSize: '0.75rem', backgroundColor: '#3E84E0'}}
+              <img
+                src='/static/img/learn/course/question.png'
+                style={{width: '3rem', float: 'right'}}
                 onClick={() => { this.setState({showQuestionButton: !this.state.showQuestionButton}) }}
-              >提<br />问</Button>
+              />
             </div>
           </div>
         )}
+        <style jsx>{`
+          .question {
+            position: fixed;
+            width: 100%;
+            bottom: 60px;
+            padding: 0 10px;
+            box-sizing: border-box;
+          }
+        `}</style>
         <style global jsx>{`
           .course-detail {
             padding-top: 1rem;
