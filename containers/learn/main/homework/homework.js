@@ -68,14 +68,10 @@ class innerComponent extends React.Component {
     let {data: allHomeworkData} = this.props
     let homeworkCount = 0
     let finishCount = 0
-    console.log(allHomeworkData)
-    console.log(allHomeworkData.length)
     if (allHomeworkData && allHomeworkData.length > 0) {
       allHomeworkData.forEach((chapter, index) => {
-        console.log(chapter)
         let questionList = chapter.childLearningCourseWorkDTOList
         if (questionList && questionList.length > 0) {
-          console.log(questionList)
           questionList.forEach((questionItem, lessonIndex) => {
             homeworkCount++
             if (questionItem.overwork) {
@@ -245,8 +241,6 @@ class innerComponent extends React.Component {
   renderHomeworkProcess () {
     if (this.props.courseStatus !== 'unbuyed') {
       let {finishCount, homeworkCount} = this.state
-      console.log(finishCount)
-      console.log(homeworkCount)
       return (<div className='top-process'>
         <img src={'/static/img/learn/process-icon.png'} />
         <p>作业完成进度</p>

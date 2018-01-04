@@ -10,26 +10,35 @@ import {
 import DateUtil from '/util/date'
 // 原始组件
 class innerComponent extends React.Component {
+  goRouter (path) {
+    if (path) {
+      location.href = path
+    }
+  }
+
   render () {
     let {data} = this.props
+    let fontSize = '14px'
     if (data && data.length > 0) {
       return (<Panel className='introduce'>
         {data.map((ele, index) => {
           let createTime = DateUtil.format(ele.createTime, 'yyyy-MM-dd')
-          return (<MediaBox key={index}>
-            <MediaBoxTitle>
-              <div className='introduce-title'>
-                <p>{ele.title}</p>
-                <p className='create-time'>{createTime}</p>
-                <style jsx>{`
-                  .introduce-title {
-                    display: flex;
-                    justify-content: space-between;
-                  }
-                `}</style>
-              </div>
-            </MediaBoxTitle>
-            <MediaBoxDescription style={{display: 'block'}}>
+          return (<MediaBox key={index} onClick={() => { this.goRouter(ele.path) }}>
+            {ele.type && <MediaBoxTitle style={{fontSize: fontSize}}>
+              {ele.type}
+            </MediaBoxTitle>}
+            <div className='introduce-title' style={{fontSize: fontSize}}>
+              <p>{ele.title}</p>
+              <p className='create-time'>{createTime}</p>
+              <style jsx>{`
+                .introduce-title {
+                  display: flex;
+                  justify-content: space-between;
+                  margin: 8px auto;
+                }
+              `}</style>
+            </div>
+            <MediaBoxDescription style={{display: 'block', fontSize: fontSize}}>
               <span dangerouslySetInnerHTML={{__html: ele.content}} />
             </MediaBoxDescription>
           </MediaBox>)
