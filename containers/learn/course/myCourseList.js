@@ -2,7 +2,7 @@ import React from 'react'
 import { Progress } from 'react-weui'
 import DateUtil from '../../../util/date'
 import LoadingIcon from '../../../xz-components/loadingicon'
-import Link from 'next/link'
+import RenderLine from '../../../containers/learn/course/renderLine'
 
 export default class extends React.Component {
   renderProgressBar (current, total) {
@@ -43,63 +43,13 @@ export default class extends React.Component {
           content = afterCalcCount + '人已完成'
           break
       }
-      let imgUrl = cover || '/static/img/learn/cover_little.png'
-      let pathname = path || '/learn/course/info'
-      return (
-        <Link key={key} href={{ pathname: pathname, query: { courseId: courseId } }}>
-          <a style={{width: '100%'}}>
-            <div className='course-view-line'>
-              <div className='course-img' >
-                <img src={imgUrl} />
-              </div>
-              <div className='course-info' >
-                <div className='course-info-title'>{courseName}</div>
-                {this.renderProgressBar(overSection, totalSection)}
-                <div className='more-info'>
-                  <span>{content}</span>
-                  <span>{DateUtil.format(new Date(endDate), 'yyyy-MM-dd')}结束</span>
-                </div>
-              </div>
-
-            </div>
-            <style jsx>{`
-              .course-view-line {
-                height: 80px;
-                font-size: 14px;
-                display: flex;
-                background-color: white;
-                margin: 5px auto;
-              }
-              .course-img {
-                flex: 1;
-              }
-              .course-img img {
-                width: 100%;
-                height: 100%;
-              }
-              .course-info {
-                padding: 5px;
-                flex: 2;
-                display: flex;
-                flex-wrap: wrap;
-                align-items: center;
-              }
-              .course-info > div {
-                width: 100%;
-              }
-              .course-info-title {
-                font-size: 16px;
-                font-weight: normal;
-              }
-              .more-info {
-                display: flex;
-                justify-content: space-between;
-                font-size: 12px;
-              }
-            `}</style>
-          </a>
-        </Link>
-      )
+      let title = courseName
+      let studyCount = content
+      let time = `${DateUtil.format(new Date(endDate), 'yyyy-MM-dd')}结束`
+      let process = this.renderProgressBar(overSection, totalSection)
+      return (<RenderLine
+        courseId={courseId} cover={cover} path={path} key={key}
+        title={title} count={studyCount} time={time} process={process} />)
     }
   }
 
@@ -119,6 +69,9 @@ export default class extends React.Component {
               <h4>{courseStautsName[statusIndex]}</h4>
               {list}
               <style jsx>{`
+                .course-div {
+                  margin-bottom: 5px;
+                }
                 .course-div h1 {
                   font-size: 18px;
                 }
@@ -139,11 +92,6 @@ export default class extends React.Component {
           .my-course-list {
             padding: 10px;
             background-color: #efeff4;
-          }
-        `}</style>
-        <style global jsx>{`
-          .weui-navbar+.weui-tab__panel {
-            padding-top: 40px !important;
           }
         `}</style>
       </div>
