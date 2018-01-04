@@ -131,7 +131,7 @@ export default class extends React.Component {
                           <Panel className={classNames({'active': Number(section.id) === Number(sectionId)})}>
                             <Cell access>
                               <CellHeader>{this.renderMenuStatus(section.overSection, query.sectionId, section.id)}</CellHeader>
-                              <CellBody>{section.name}</CellBody>
+                              <CellBody style={{fontSize: '0.85rem'}}>{section.name}</CellBody>
                               <CellFooter />
                             </Cell>
                           </Panel>
@@ -240,7 +240,13 @@ export default class extends React.Component {
       >
         {DataUtil.isEmpty(homeworkContent) ? <LoadingIcon /> : (
           <div className='homework'>
-            <div className='title'><img src='/static/img/learn/cover_long.jpeg' /><h2 className='course-name'>{menuContent.courseName}</h2></div>
+            <div className='title'>
+              <img src='/static/img/learn/cover_long.jpeg' />
+              <div className='text-wrap'>
+                <h3 className='course-name'>作业列表</h3>
+                <h4>点击可查看相应作业</h4>
+              </div>
+            </div>
             {homeworkContent.map((chapter, index) => {
               return (
                 <Accordion
@@ -281,11 +287,12 @@ export default class extends React.Component {
           .title img{
             width: 100%;
           }
-          .title .course-name {
+          .title .text-wrap {
             position: absolute;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
+            text-align: center;
           }
           .chapter {
             padding: 1rem 1.5rem;
