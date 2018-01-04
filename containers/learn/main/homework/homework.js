@@ -44,7 +44,9 @@ class innerComponent extends React.Component {
       currentQuestion: undefined,
       currentLessonIndex: undefined,
       currentChapterIndex: undefined,
-      viewType: undefined
+      viewType: undefined,
+      homeworkCount: 0,
+      finishCount: 0
     }
     this.chooseChapterAndLesson = this.chooseChapterAndLesson.bind(this)
   }
@@ -58,6 +60,35 @@ class innerComponent extends React.Component {
     if (a) {
       history.go(-1)
     }
+    this.setProcess()
+  }
+
+  // 增加作业进度条
+  setProcess () {
+    let {data: allHomeworkData} = this.props
+    let homeworkCount = 0
+    let finishCount = 0
+    console.log(allHomeworkData)
+    console.log(allHomeworkData.length)
+    if (allHomeworkData && allHomeworkData.length > 0) {
+      allHomeworkData.forEach((chapter, index) => {
+        console.log(chapter)
+        let questionList = chapter.childLearningCourseWorkDTOList
+        if (questionList && questionList.length > 0) {
+          console.log(questionList)
+          questionList.forEach((questionItem, lessonIndex) => {
+            homeworkCount++
+            if (questionItem.overwork) {
+              finishCount++
+            }
+          })
+        }
+      })
+    }
+    this.setState({
+      homeworkCount: homeworkCount,
+      finishCount: finishCount
+    })
   }
 
   // 监听history.back
@@ -211,16 +242,44 @@ class innerComponent extends React.Component {
     }
   }
 
+  renderHomeworkProcess () {
+    if (this.props.courseStatus !== 'unbuyed') {
+      let {finishCount, homeworkCount} = this.state
+      console.log(finishCount)
+      console.log(homeworkCount)
+      return (<div className='top-process'>
+        <img src={'/static/img/learn/process-icon.png'} />
+        <p>作业完成进度</p>
+        <span>{`${Number(finishCount)}/${Number(homeworkCount)}`}</span>
+        <style jsx>{`
+          .top-process {
+            padding: 10px;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          .top-process img {
+            width: 15px;
+            margin-right: 10px;
+          }
+        `}</style>
+      </div>)
+    }
+  }
+
   render () {
     let {data: allHomeworkByLesson} = this.props
     if (allHomeworkByLesson && allHomeworkByLesson.length > 0) {
       return (
         <div className='homework-page'>
           {this.props.courseStatus === 'unbuyed' && <h1 className='title'>立即报名课程，解锁以下作业</h1>}
+          {this.renderHomeworkProcess()}
           {this.renderAllChapter()}
           <style jsx>{`
             .homework-page {
               background-color: #efeff4
+              padding-top: 10px;
             }
             .title {
               padding-top: 25px;
