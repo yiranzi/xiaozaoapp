@@ -331,7 +331,14 @@ export default class extends React.Component {
                 />
               )
             })}
-            <div className='question wx-text-center'>
+            <div
+              className='question wx-text-center'
+              style={{
+                position: 'fixed',
+                width: '100%',
+                bottom: '48px'
+              }}
+            >
               {showQuestionButton && (
                 <Link href={`/learn/course/questionList?${questionListAfterFix}`}>
                   <Button size='small' style={{marginTop: '8px', backgroundColor: '#3E84E0'}}>对学习内容有疑问？点击查看导师答疑</Button>
@@ -385,11 +392,6 @@ export default class extends React.Component {
             right: 5px;
             top: 50%;
             z-index: 999;
-          }
-          .question {
-            position: fixed;
-            width: 100%;
-            bottom: 48px;
           }
         `}</style>
       </Layout>
