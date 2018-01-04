@@ -4,13 +4,13 @@ import {Alert} from '../../../../xz-components/alert'
 import DateUtil from '../../../../util/date'
 import SeeMyWork from '../../../../containers/learn/main/homework/seeMyWork'
 import SeeOtherWork from '../../../../containers/learn/main/homework/seeOtherWork'
+import Description from '../../../../containers/learn/main/homework/commentBox/description'
 import ScrollLoader from '../../../../xz-components/scrollLoader'
 import {
   MediaBox,
   MediaBoxTitle,
   MediaBoxDescription,
-  MediaBoxInfo,
-  InfiniteLoader
+  MediaBoxInfo
 } from 'react-weui'
 import Link from 'next/link'
 import AxiosUtil from '/util/axios'
@@ -71,8 +71,9 @@ export default class extends React.Component {
   }
 
   clickContent () {
-    const seeMyHomeWork = 1
-    this.onTabClick(seeMyHomeWork)
+    // 这边新增了点击展开，关闭之前的tabbar点击。
+    // const seeMyHomeWork = 1
+    // this.onTabClick(seeMyHomeWork)
   }
 
   onTabClick (index) {
@@ -265,11 +266,6 @@ export default class extends React.Component {
     )
   }
 
-  renderContent () {
-    let {questionItem} = this.props
-    return (<span onClick={() => { this.clickContent() }} dangerouslySetInnerHTML={{__html: questionItem.question}} />)
-  }
-
   renderGoDetailLink () {
     let {questionItem, courseId} = this.props
     let {chapterId: menuId, pageNumber, sectionId, workId} = questionItem
@@ -301,9 +297,9 @@ export default class extends React.Component {
             <MediaBoxTitle>
               {this.renderTitle()}
             </MediaBoxTitle>
-            <MediaBoxDescription style={style}>
-              {this.renderContent()}
-            </MediaBoxDescription>
+            <div onClick={() => { this.clickContent() }} >
+              <Description content={questionItem.question} canFold />
+            </div>
             {courseStatus === 'doing' && <MediaBoxInfo>
               {this.renderGoDetailLink()}
             </MediaBoxInfo>}

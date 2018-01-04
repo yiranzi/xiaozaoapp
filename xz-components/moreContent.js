@@ -10,10 +10,28 @@ export default class extends React.Component {
       style: {
         lineHeight: `${this.LineHeight}px`,
         maxHeight: `${height * this.LineHeight}px`,
-        overflowY: 'hidden'
+        overflowY: 'hidden',
+        canRender: false
       },
       isShow: false
     }
+    window.setTimeout(() => {
+      this.setState({
+        canRender: true
+      })
+    }, 1000)
+  }
+
+  componentWillReceiveProps () {
+    console.log('componentWillReceiveProps')
+    this.setState({
+      canRender: false
+    })
+    window.setTimeout(() => {
+      this.setState({
+        canRender: true
+      })
+    }, 1000)
   }
 
   change () {
@@ -39,19 +57,25 @@ export default class extends React.Component {
     }
   }
 
+  isShowModal (qwe) {
+    let {out, inner} = this.refs
+    if (!this.state.isShow && out && inner && this.state.canRender) {
+      if (inner.offsetHeight > 60) {
+        return (<div className='modal' />)
+      }
+    }
+  }
+
   render () {
     const {style} = this.state
     return (
-      <div className='more' onClick={() => { this.change() }}>
+      <div ref='haha' className='more' onClick={() => { this.change() }}>
         <div className='title'>{this.props.title}</div>
-        <div className='content' style={style}><div>{this.props.children}</div></div>
+        <div ref='out' className='content' style={style}><div className={'inner'} ref='inner'>{this.props.children}</div></div>
+        {this.isShowModal(this.props.children)}
         <style jsx>{`
           .more {
-            {/*background-color: ${ThemeConfig.color.gray};*/}
-            {/*box-shadow: 0 1px 6px rgba(0,0,0,.2);*/}
-            {/*padding: 1rem;*/}
-            {/*margin: 1rem 0;*/}
-            {/*border-radius: 10px;*/}
+            position: relative;
           }
           .more .title {
             font-size: ${ThemeConfig.size.normal};
@@ -67,6 +91,20 @@ export default class extends React.Component {
             word-break:break-all;
             text-overflow: ellipsis;
           }
+        `}</style>
+        <style jsx global>{`
+          .more .modal {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 20px;
+            width: 100%;
+            z-index: 10;
+            height: 20px;
+            background: -moz-linear-gradient(bottom,rgba(255,255,255,.1),rgba(255,255,255,0));
+            background: -webkit-gradient(linear,0 top,0 bottom,from(rgba(255,255,255,0)),to(#fff));
+          }
+
         `}</style>
       </div>
     )
