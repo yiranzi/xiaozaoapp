@@ -8,10 +8,10 @@ export default class extends React.Component {
     if (ele) {
       let {buyCount, courseId, title, start, cover, path} = ele
       let studyCount = `${buyCount}人正在学习`
-      let time = `${DateUtil.format(new Date(start), 'yyyy-MM-dd')}开课`
+      // 推荐课程时间不转格式，后端返回什么显示什么
       return (<RenderLine
         courseId={courseId} cover={cover} path={path} key={key}
-        title={title} count={studyCount} time={time} />)
+        title={title} count={studyCount} time={start} />)
     }
   }
 
