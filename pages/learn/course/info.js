@@ -83,7 +83,7 @@ export default class extends React.Component {
     console.log('!!!!!')
     console.log(index)
     this.setState({currentSelect: index})
-    const homeWorkTab = 0
+    const homeWorkTab = 2
     if (index === homeWorkTab) {
       let homeWorkData = await AxiosUtil.get(`/api/work/workList/${this.state.courseId}`, true)
       this.setState({
@@ -99,10 +99,10 @@ export default class extends React.Component {
     let {courseId, courseStatus} = this.state
     return (<div className='course-tab-bar'>
       <Tab type='navbar' onChange={(index) => { this.changeUpdata(index) }}>
-        <NavBarItem label='作业'><Homework data={this.state.homeWorkData} courseStatus={courseStatus} courseId={courseId} /></NavBarItem>
-
-        <NavBarItem label='章节'><ChapterListPage courseId={courseId} /></NavBarItem>
+        {courseStatus !== undefined && courseStatus !== 'unbuyed' &&
+        <NavBarItem label='目录'><ChapterListPage courseId={courseId} /></NavBarItem>}
         {this.renderByPayStatus()}
+        <NavBarItem label='作业'><Homework data={this.state.homeWorkData} courseStatus={courseStatus} courseId={courseId} /></NavBarItem>
         <NavBarItem label='成就'><Achieve courseId={courseId} /></NavBarItem>
       </Tab>
       <style global jsx>{`

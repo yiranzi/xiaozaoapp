@@ -40,7 +40,7 @@ export default class extends React.Component {
       if (canFold) {
         return (<div>
           <span className='desc'>
-            <MoreContent height={2}><div dangerouslySetInnerHTML={{__html: content}} /></MoreContent>
+            <MoreContent motalFrom={this.props.motalFrom} motalTo={this.props.motalTo} height={2}><div dangerouslySetInnerHTML={{__html: content}} /></MoreContent>
           </span>
           <style jsx>{`
             .desc {

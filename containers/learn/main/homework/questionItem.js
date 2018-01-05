@@ -298,7 +298,7 @@ export default class extends React.Component {
               {this.renderTitle()}
             </MediaBoxTitle>
             <div onClick={() => { this.clickContent() }} >
-              <Description content={questionItem.question} canFold />
+              <Description motalFrom={'rgba(255,255,255,0)'} motalTo={'rgba(255,255,255,1)'} content={questionItem.question} canFold />
             </div>
             {courseStatus === 'doing' && <MediaBoxInfo>
               {this.renderGoDetailLink()}

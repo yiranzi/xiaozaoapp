@@ -24,7 +24,7 @@ class innerComponent extends React.Component {
         {data.map((ele, index) => {
           let createTime = DateUtil.format(ele.createTime, 'yyyy-MM-dd')
           return (<MediaBox key={index} onClick={() => { this.goRouter(ele.path) }}>
-            {ele.type && <MediaBoxTitle style={{fontSize: fontSize}}>
+            {ele.type && <MediaBoxTitle style={{fontSize: fontSize, fontWeight: 'bold'}}>
               {ele.type}
             </MediaBoxTitle>}
             <div className='introduce-title' style={{fontSize: fontSize}}>
