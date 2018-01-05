@@ -11,6 +11,7 @@ import {
   MediaBoxDescription
 } from 'react-weui'
 import TitleWithIcon from '/xz-components/titleWithIcon'
+import Loadingicon from '/xz-components/loadingicon'
 import Router from 'next/router'
 import ToolsUtil from '/util/tools'
 
@@ -33,8 +34,7 @@ import ToolsUtil from '/util/tools'
  * 重新加载 清空pageOpenTag
  */
 
-
-class innerComponent extends React.Component {
+export default class extends React.Component {
   needChangeWhenTab = true
   scrollTop
   pageOpenTag = 'windowstatus'
@@ -284,31 +284,20 @@ class innerComponent extends React.Component {
         </div>
       )
     } else {
-      return (
-        <Panel className='introduce'>
-          <MediaBox>
-            <MediaBoxTitle />
-            <MediaBoxDescription style={{display: 'block'}}>
-              本课程暂无作业
-            </MediaBoxDescription>
-          </MediaBox>
-        </Panel>
-      )
+      if (allHomeworkByLesson === undefined) {
+        return (<Loadingicon />)
+      } else {
+        return (
+          <Panel className='introduce'>
+            <MediaBox>
+              <MediaBoxTitle />
+              <MediaBoxDescription style={{display: 'block'}}>
+                本课程暂无作业
+              </MediaBoxDescription>
+            </MediaBox>
+          </Panel>
+        )
+      }
     }
-  }
-}
-
-// 自定义拉取数据的方法
-// updateFunc会刷新数据
-const getData = async function (courseId) {
-  return (AxiosUtil.get(`/api/work/workList/${courseId}`, true))
-}
-
-// 返回包裹后的组件
-export default class extends React.Component {
-  RenderComponent = HocRenderContent(innerComponent, getData)
-  render () {
-    let RenderComponent = this.RenderComponent
-    return (<RenderComponent {...this.props} />)
   }
 }

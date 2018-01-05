@@ -27,7 +27,9 @@ export default class extends React.Component {
       courseName: undefined,
       finishSection: undefined,
       totalSection: undefined,
-      totalChapter: undefined
+      totalChapter: undefined,
+      currentSelect: 0,
+      homeWorkData: undefined
     }
   }
 
@@ -36,6 +38,8 @@ export default class extends React.Component {
     let courseId = parseInt(ToolsUtil.getQueryString('courseId'))
     this.setState({
       courseId: courseId
+    }, () => {
+      this.changeUpdata(this.state.currentSelect)
     })
     this.getPayStatus(courseId)
   }
@@ -73,13 +77,32 @@ export default class extends React.Component {
     })
   }
 
+  // tabbar切换的时候 如果是homework 就拉取（会被缓存，不会反复拉区）
+  // 其他模块的请求仍然同步发起。不被这里控制
+  changeUpdata = async (index) => {
+    console.log('!!!!!')
+    console.log(index)
+    this.setState({currentSelect: index})
+    const homeWorkTab = 0
+    if (index === homeWorkTab) {
+      let homeWorkData = await AxiosUtil.get(`/api/work/workList/${this.state.courseId}`, true)
+      this.setState({
+        homeWorkData: homeWorkData
+      })
+    }
+  }
+
+  // 这块无奈修改为有currentselect 为了解决 homework组件无法响应被点击 进而无法计算高度的问题
+  // 修改后homework数据有这里进行异步拉取。
+  // 这个改动会略微影响homework加载速度（点击后才发布请求）
   renderTabbar () {
     let {courseId, courseStatus} = this.state
     return (<div className='course-tab-bar'>
-      <Tab type='navbar'>
+      <Tab type='navbar' onChange={(index) => { this.changeUpdata(index) }}>
+        <NavBarItem label='作业'><Homework data={this.state.homeWorkData} courseStatus={courseStatus} courseId={courseId} /></NavBarItem>
+
         <NavBarItem label='章节'><ChapterListPage courseId={courseId} /></NavBarItem>
         {this.renderByPayStatus()}
-        <NavBarItem label='作业'><Homework courseStatus={courseStatus} courseId={courseId} /></NavBarItem>
         <NavBarItem label='成就'><Achieve courseId={courseId} /></NavBarItem>
       </Tab>
       <style global jsx>{`
