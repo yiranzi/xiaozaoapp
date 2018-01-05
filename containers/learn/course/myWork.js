@@ -18,6 +18,7 @@ export default class extends React.Component {
       isPlaying: false,
       workDetail: {},
       myAnswer: {},
+      myWork: '',
       evaluate: {},
       disabled: true,
       showToast: false,
@@ -44,12 +45,14 @@ export default class extends React.Component {
   }
   submitWork = async (type) => {
     const {courseId, workId} = this.props
-    const {myWork} = this.state
+    const {myWork, workDetail} = this.state
     if (DataUtil.isEmpty(myWork)) { Alert({content: '请先完成作业然后提交'}); return false }
     this.showLoading()
     try {
       if (ToolsUtil.isUploader(type)) {
-        await AxiosUtil.post(`/api/work/workFileComplete/${courseId}/${workId}`, myWork.formdata)
+        let res = await AxiosUtil.post(`/api/work/workFileComplete/${courseId}/${workId}`, myWork.formdata)
+        workDetail.answer = res
+        this.setState({workDetail: workDetail})
         this.editMyWork()
         this.showToast()
       }

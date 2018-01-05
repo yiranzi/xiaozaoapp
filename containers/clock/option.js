@@ -25,23 +25,17 @@ export default class extends React.Component {
       )
     } else if (ToolsUtil.isUploader(type)) {
       if (disabled) {
-        let {defaultValue} = this.props
-        let _answer
-        if (!DataUtil.isEmpty(defaultValue)) {
-          _answer = defaultValue.name
-        }
-
-        if (_answer) {
-          if (ToolsUtil.isImg(_answer)) {
-            return <img style={{maxWidth: '100%'}} src={`http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/learning/workFile/${_answer}`} />
+        if (answer) {
+          if (ToolsUtil.isImg(answer)) {
+            return <img style={{maxWidth: '100%'}} src={`http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/learning/workFile/${answer}`} />
           } else {
-            return <div>{_answer}</div>
+            return <div>文件</div>
           }
         } else {
           if (ToolsUtil.isImg(answer)) {
             return <img style={{maxWidth: '100%'}} src={`http://xiaozaoresource.oss-cn-shanghai.aliyuncs.com/learning/workFile/${answer}`} />
           } else {
-            return <div>{answer}</div>
+            return <div>文件</div>
           }
         }
       } else {
