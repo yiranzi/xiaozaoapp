@@ -10,28 +10,10 @@ export default class extends React.Component {
       style: {
         lineHeight: `${this.LineHeight}px`,
         maxHeight: `${height * this.LineHeight}px`,
-        overflowY: 'hidden',
-        canRender: false
+        overflowY: 'hidden'
       },
       isShow: false
     }
-    window.setTimeout(() => {
-      this.setState({
-        canRender: true
-      })
-    }, 1000)
-  }
-
-  componentWillReceiveProps () {
-    console.log('componentWillReceiveProps')
-    this.setState({
-      canRender: false
-    })
-    window.setTimeout(() => {
-      this.setState({
-        canRender: true
-      })
-    }, 1000)
   }
 
   change () {
@@ -57,11 +39,16 @@ export default class extends React.Component {
     }
   }
 
-  isShowModal (qwe) {
+  // 多行显示蒙版
+  isShowModal () {
     let {out, inner} = this.refs
-    if (!this.state.isShow && out && inner && this.state.canRender) {
-      if (inner.offsetHeight > 60) {
-        return (<div className='modal' />)
+    if (!this.state.isShow && out && inner) {
+      if (inner.offsetHeight > this.LineHeight * this.props.height) {
+        return (
+          <div className='modal'>
+            <img />
+          </div>
+        )
       }
     }
   }
@@ -72,7 +59,7 @@ export default class extends React.Component {
       <div ref='haha' className='more' onClick={() => { this.change() }}>
         <div className='title'>{this.props.title}</div>
         <div ref='out' className='content' style={style}><div className={'inner'} ref='inner'>{this.props.children}</div></div>
-        {this.isShowModal(this.props.children)}
+        {this.isShowModal()}
         <style jsx>{`
           .more {
             position: relative;
@@ -103,6 +90,22 @@ export default class extends React.Component {
             height: 20px;
             background: -moz-linear-gradient(bottom,rgba(255,255,255,.1),rgba(255,255,255,0));
             background: -webkit-gradient(linear,0 top,0 bottom,from(rgba(255,255,255,0)),to(#fff));
+          }
+          .more .modal::after {
+            content: " ";
+            display: inline-block;
+            height: 6px;
+            width: 6px;
+            border-width: 2px 2px 0 0;
+            border-color: #c8c8cd;
+            border-style: solid;
+            transform: matrix(.71,.71,-.71,.71,0,0);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            margin-left: 3px;
+            transition: transform .3s;
+            transform: rotate(134deg);
           }
 
         `}</style>
