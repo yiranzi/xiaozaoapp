@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import DataUtil from '../../../util/data'
 import classNames from 'classnames'
-import {Cells, Cell, CellHeader, CellBody, CellFooter, Icon} from 'react-weui'
+import {Cell, CellBody, CellFooter, CellHeader, Cells, Icon, MediaBox, MediaBoxTitle, MediaBoxDescription} from 'react-weui'
 import ThemeConfig from '../../../config/theme'
 import Layout from '../../../components/layout'
 import Footer from '../../../containers/learn/footer'
@@ -281,7 +281,7 @@ export default class extends React.Component {
   }
   renderHomeWork () {
     const {homeWorkShow} = this.state
-    const {query, homeworkContent, menuContent} = this.props
+    const {query, homeworkContent, done} = this.props
 
     return (
       <Popup
@@ -291,9 +291,20 @@ export default class extends React.Component {
         position='right'
         close={false}
       >
-        {DataUtil.isEmpty(homeworkContent) ? <LoadingIcon /> : (
+        {!done && <LoadingIcon />}
+        {done && (
           <div className='homework'>
             <div className='title wx-text-center'>作业列表</div>
+            {DataUtil.isEmpty(homeworkContent) && (
+              <Panel className='introduce'>
+                <MediaBox>
+                  <MediaBoxTitle />
+                  <MediaBoxDescription style={{display: 'block'}}>
+                    本课程暂无作业
+                  </MediaBoxDescription>
+                </MediaBox>
+              </Panel>
+            )}
             {homeworkContent.map((chapter, index) => {
               return (
                 <Accordion
@@ -326,6 +337,7 @@ export default class extends React.Component {
           .homework {
             min-height: 100%;
             padding: 0.5rem;
+            box-sizing: border-box;
           }
           .title {
             text-align: center;

@@ -29,7 +29,8 @@ export default class extends React.Component {
       array: [], // 上一页下一页
       menuContent: {}, // 左侧课程列表
       homeworkContent: {}, // 右侧作业列表
-      detail: {} // 需要展示的内容,
+      detail: {}, // 需要展示的内容,
+      done: false
     }
   }
 
@@ -124,7 +125,7 @@ export default class extends React.Component {
      * 作业列表
      */
     let homeworkContent = await AxiosUtil.get(`/api/work/workList/${courseId}`)
-    this.setState({homeworkContent: homeworkContent})
+    this.setState({homeworkContent: homeworkContent, done: true})
 
     let workId = []
     homeworkContent.map((item, index) => {
@@ -293,7 +294,8 @@ export default class extends React.Component {
       homeworkContent,
       currentCourseDetail,
       detail,
-      showQuestionButton
+      showQuestionButton,
+      done
     } = this.state
     let questionListAfterFix = 'courseId=' + query.courseId + '&' +
             'sectionId=' + query.sectionId + '&' +
@@ -305,6 +307,7 @@ export default class extends React.Component {
         query={query}
         menuContent={menuContent}
         homeworkContent={homeworkContent}
+        done={done}
         onChangeCourse={(sectionId) => { this.onChangeCourse(sectionId) }}
         onChangeHomeWork={(workId) => { this.onChangeHomeWork(workId) }}
       >
