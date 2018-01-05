@@ -13,7 +13,7 @@ export default class extends React.Component {
     let {headimgurl, nickname, time, starCount, star, starId} = this.props
     if (headimgurl) {
       return (<MediaBoxTitle>
-        <Cell style={{padding: '0'}}>
+        <Cell style={{padding: '0', position: 'static'}}>
           <CellHeader>
             <img src={headimgurl} style={{display: `block`, width: `20px`, marginRight: `5px`}} />
           </CellHeader>

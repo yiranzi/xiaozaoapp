@@ -76,7 +76,7 @@ export default class extends React.Component {
             z-index: 10;
             height: 20px;
             background: -moz-linear-gradient(bottom,rgba(239,239,244,.1),rgba(239,239,244,0));
-            background: -webkit-gradient(linear,0 top,0 bottom,from(rgba(239,239,244,0)),to(rgba(239,239,244,1)));
+            background: -webkit-gradient(linear,0 top,0 bottom,from(rgba(239,239,244,0.2)),to(rgba(239,239,244,1)));
           }
         `}</style>}
             {true && <style>{`
@@ -109,9 +109,11 @@ export default class extends React.Component {
       <div ref='haha' className='more' onClick={() => { this.change() }}>
         <div className='title'>{this.props.title}</div>
         <div ref='out' className='content' style={style}><div className={'inner'} ref='inner'>{this.props.children}</div></div>
-        {this.isShowModal()}
+        <div className={'modal-out-div'}>
+          {this.isShowModal()}
+        </div>
         <style jsx>{`
-          .more {
+          .modal-out-div {
             position: relative;
           }
           .more .title {
