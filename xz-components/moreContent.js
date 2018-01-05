@@ -10,10 +10,16 @@ export default class extends React.Component {
       style: {
         lineHeight: `${this.LineHeight}px`,
         maxHeight: `${height * this.LineHeight}px`,
-        overflowY: 'hidden'
+        overflowY: 'hidden',
+        canRender: false
       },
       isShow: false
     }
+    window.setTimeout(() => {
+      this.setState({
+        canRender: true
+      })
+    }, 100)
   }
 
   change () {
@@ -42,11 +48,55 @@ export default class extends React.Component {
   // 多行显示蒙版
   isShowModal () {
     let {out, inner} = this.refs
-    if (!this.state.isShow && out && inner) {
+    if (!this.state.isShow && out && inner && this.state.canRender) {
       if (inner.offsetHeight > this.LineHeight * this.props.height) {
         return (
           <div className='modal'>
-            <img />
+            {this.props.modalFrom === 1 && <style>{`
+          .modal {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 20px;
+            width: 100%;
+            z-index: 10;
+            height: 20px;
+            background: -moz-linear-gradient(bottom,rgba(255,255,255,.1),rgba(255,255,255,0));
+            background: -webkit-gradient(linear,0 top,0 bottom,from(rgba(255,255,255,0)),to(rgba(255,255,255,1)));
+          }
+        `}</style>}
+
+            {this.props.modalFrom === 2 && <style>{`
+          .modal {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 20px;
+            width: 100%;
+            z-index: 10;
+            height: 20px;
+            background: -moz-linear-gradient(bottom,rgba(239,239,244,.1),rgba(239,239,244,0));
+            background: -webkit-gradient(linear,0 top,0 bottom,from(rgba(239,239,244,0)),to(rgba(239,239,244,1)));
+          }
+        `}</style>}
+            {true && <style>{`
+          .modal::after {
+            content: " ";
+            display: inline-block;
+            height: 6px;
+            width: 6px;
+            border-width: 2px 2px 0 0;
+            border-color: #c8c8cd;
+            border-style: solid;
+            transform: matrix(.71,.71,-.71,.71,0,0);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            margin-left: 3px;
+            transition: transform .3s;
+            transform: rotate(134deg);
+          }
+        `}</style>}
           </div>
         )
       }
@@ -54,6 +104,7 @@ export default class extends React.Component {
   }
 
   render () {
+    console.log(this.props)
     const {style} = this.state
     return (
       <div ref='haha' className='more' onClick={() => { this.change() }}>
@@ -79,37 +130,10 @@ export default class extends React.Component {
             text-overflow: ellipsis;
           }
         `}</style>
-        <style jsx global>{`
-          .more .modal {
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            height: 20px;
-            width: 100%;
-            z-index: 10;
-            height: 20px;
-            background: -moz-linear-gradient(bottom,rgba(255,255,255,.1),rgba(255,255,255,0));
-            background: -webkit-gradient(linear,0 top,0 bottom,from(rgba(255,255,255,0)),to(#fff));
-          }
-          .more .modal::after {
-            content: " ";
-            display: inline-block;
-            height: 6px;
-            width: 6px;
-            border-width: 2px 2px 0 0;
-            border-color: #c8c8cd;
-            border-style: solid;
-            transform: matrix(.71,.71,-.71,.71,0,0);
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            margin-left: 3px;
-            transition: transform .3s;
-            transform: rotate(134deg);
-          }
-
-        `}</style>
       </div>
     )
   }
 }
+
+
+

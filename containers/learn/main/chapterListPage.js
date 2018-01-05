@@ -14,7 +14,6 @@ const getData = async function (courseId) {
 export default class extends React.Component {
   RenderComponent = HocRenderContent(ChapterList, getData)
   render () {
-    console.log(this.props)
     let RenderComponent = this.RenderComponent
     return (<RenderComponent {...this.props} />)
   }

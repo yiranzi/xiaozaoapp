@@ -80,8 +80,6 @@ export default class extends React.Component {
   // tabbar切换的时候 如果是homework 就拉取（会被缓存，不会反复拉区）
   // 其他模块的请求仍然同步发起。不被这里控制
   changeUpdata = async (index) => {
-    console.log('!!!!!')
-    console.log(index)
     this.setState({currentSelect: index})
     const homeWorkTab = 2
     if (index === homeWorkTab) {

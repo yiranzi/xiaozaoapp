@@ -139,7 +139,7 @@ export default class extends React.Component {
                   <CellBody style={{fontSize: '0.85rem'}}>
                     <div className='chapter-with-time'>
                       {section.name}
-                      {true && section.estimate && <span>{section.estimate}min</span>}
+                      {true && section.estimate && <span>{section.estimate}</span>}
                     </div>
                   </CellBody>
                   <CellFooter />
@@ -156,7 +156,7 @@ export default class extends React.Component {
             flex-wrap: nowrap;
           }
           .chapter-with-time span {
-            min-width: 80px;
+            min-width: 50px;
           }
           .chapter {
             margin-left: 10px;
@@ -236,7 +236,6 @@ export default class extends React.Component {
                   {this.renderPreTest(menu, courseId)}
                   {/* 章节列表 */}
                   {this.renderChapter(menu, courseId, sectionId)}
-
                   {/* 笔试列表 */}
                   {this.renderWritten(menu, sectionId)}
                   {/* 课后测试 */}
