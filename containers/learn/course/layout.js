@@ -114,67 +114,69 @@ export default class extends React.Component {
                     key={`accord_${index}`}
                     header={this.renderType(menu.name, menu.type)}
                   >
-                    {/* 课前测试 */}
-                    <div className='pre-test'>
-                      {menu.preTestId && (
-                        <Cells>
-                          <Cell access>
-                            <CellBody>
-                              <Link
-                                href={`/learn/course/testDetail?courseId=${query.courseId}&testId=${menu.preTestId}`}
-                              ><a className='wx-block' style={{fontSize: '1rem'}}><span className='written' />课前测试</a></Link></CellBody>
-                            <CellFooter />
-                          </Cell>
-                        </Cells>
-                      )}
-                    </div>
-                    {/* 章节列表 */}
-                    <div className='chapter'>
-                      {menu.sectionMenuDTOList && menu.sectionMenuDTOList.map((section, index) => {
-                        return (
-                          <a
-                            className='step'
-                            key={`section_${index}`} onClick={() => { this.jumpTo(courseId, menu.id, section.id, 1) }}>
-                            <Panel className={classNames({'active': Number(section.id) === Number(sectionId)})}>
-                              <Cell access>
-                                <CellHeader>{this.renderMenuStatus(section.overSection, query.sectionId, section.id)}</CellHeader>
-                                <CellBody style={{fontSize: '0.85rem'}}>{section.name}</CellBody>
-                                <CellFooter />
-                              </Cell>
-                            </Panel>
-                          </a>
-                        )
-                      })}
-                    </div>
-                    {/* 笔试列表 */}
-                    <div className='written'>
-                      {menu.secondMenuDTOList && menu.secondMenuDTOList.map((section, index) => {
-                        return (
-                          <a className='step' key={`section_${index}`}>
-                            <Panel className={classNames({'active': Number(section.id) === Number(sectionId)})}>
-                              <Cell access>
-                                <CellHeader><span className='icon' /></CellHeader>
-                                <CellBody>{section.name}</CellBody>
-                                <CellFooter />
-                              </Cell>
-                            </Panel>
-                          </a>
-                        )
-                      })}
-                    </div>
-                    {/* 课后测试 */}
-                    <div className='after-test'>
-                      {menu.afterTestId && (
-                        <Cells>
-                          <Cell access>
-                            <CellBody>
-                              <Link
-                                href={`/learn/course/testDetail?courseId=${query.courseId}&testId=${menu.afterTestId}`}
-                              ><a className='wx-block' style={{fontSize: '1rem'}}><span className='written' />课后测试</a></Link></CellBody>
-                            <CellFooter />
-                          </Cell>
-                        </Cells>
-                      )}
+                    <div className='inner-content-list'>
+                      {/* 课前测试 */}
+                      <div className='pre-test'>
+                        {menu.preTestId && (
+                          <Cells>
+                            <Cell access>
+                              <CellBody>
+                                <Link
+                                  href={`/learn/course/testDetail?courseId=${query.courseId}&testId=${menu.preTestId}`}
+                                ><a className='wx-block' style={{fontSize: '1rem'}}><span className='written' />课前测试</a></Link></CellBody>
+                              <CellFooter />
+                            </Cell>
+                          </Cells>
+                        )}
+                      </div>
+                      {/* 章节列表 */}
+                      <div className='chapter'>
+                        {menu.sectionMenuDTOList && menu.sectionMenuDTOList.map((section, index) => {
+                          return (
+                            <a
+                              className='step'
+                              key={`section_${index}`} onClick={() => { this.jumpTo(courseId, menu.id, section.id, 1) }}>
+                              <Panel className={classNames({'active': Number(section.id) === Number(sectionId)})}>
+                                <Cell access>
+                                  <CellHeader>{this.renderMenuStatus(section.overSection, query.sectionId, section.id)}</CellHeader>
+                                  <CellBody style={{fontSize: '0.85rem'}}>{section.name}</CellBody>
+                                  <CellFooter />
+                                </Cell>
+                              </Panel>
+                            </a>
+                          )
+                        })}
+                      </div>
+                      {/* 笔试列表 */}
+                      <div className='written'>
+                        {menu.secondMenuDTOList && menu.secondMenuDTOList.map((section, index) => {
+                          return (
+                            <a className='step' key={`section_${index}`}>
+                              <Panel className={classNames({'active': Number(section.id) === Number(sectionId)})}>
+                                <Cell access>
+                                  <CellHeader><span className='icon' /></CellHeader>
+                                  <CellBody>{section.name}</CellBody>
+                                  <CellFooter />
+                                </Cell>
+                              </Panel>
+                            </a>
+                          )
+                        })}
+                      </div>
+                      {/* 课后测试 */}
+                      <div className='after-test'>
+                        {menu.afterTestId && (
+                          <Cells>
+                            <Cell access>
+                              <CellBody>
+                                <Link
+                                  href={`/learn/course/testDetail?courseId=${query.courseId}&testId=${menu.afterTestId}`}
+                                ><a className='wx-block' style={{fontSize: '1rem'}}><span className='written' />课后测试</a></Link></CellBody>
+                              <CellFooter />
+                            </Cell>
+                          </Cells>
+                        )}
+                      </div>
                     </div>
                   </Accordion>
                 )
@@ -185,6 +187,9 @@ export default class extends React.Component {
         <style jsx>{`
           .course-menu {
             padding: 0.5rem;
+          }
+          .course-menu .inner-content-list {
+            margin-left: 10px;
           }
           .title {
             text-align: center;
