@@ -139,7 +139,7 @@ export default class extends React.Component {
                   <CellBody style={{fontSize: '0.85rem'}}>
                     <div className='chapter-with-time'>
                       {section.name}
-                      {true && section.estimate && <span>耗时{section.estimate}min</span>}
+                      {true && section.estimate && <span>{section.estimate}min</span>}
                     </div>
                   </CellBody>
                   <CellFooter />

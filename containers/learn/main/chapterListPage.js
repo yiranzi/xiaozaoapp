@@ -6,7 +6,6 @@ import ChapterList from './chapterList'
 
 // 自定义拉取数据的方法
 const getData = async function (courseId) {
-  console.log('getData')
   let menuContent = await AxiosUtil.get(`/api/learning/course/${courseId}`)
   return menuContent
 }
