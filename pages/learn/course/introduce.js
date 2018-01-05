@@ -42,7 +42,7 @@ export default class extends React.Component {
           {payStatus && (
             <Fixfooter
               style={{textAlign: 'center', backgroundColor: '#3E84E0', color: '#fff'}}
-              onClick={() => { Router.push(`/learn/course/info${location.search}`) }}
+              onClick={() => { Router.replace(`/learn/course/info${location.search}`) }}
             >返回课程</Fixfooter>
           )}
         </div>
