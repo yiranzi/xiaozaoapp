@@ -195,11 +195,10 @@ export default class extends React.Component {
         <Toast icon='loading' show={this.state.showLoading}>Loading...</Toast>
         <div className='test-detail'>
           <div className='header wx-text-center'>
-            <div className='name'>{testDetail.chapterTitle}</div>
+            <div className='name'>{testDetail.title}</div>
             <div className='end-date'>
               本章测试截止时间为<span style={{color: ThemeConfig.color.red, fontSize: '1rem', marginLeft: '0.5rem'}}>{DateUtil.format(testDetail.endTime, 'yyyy-MM-dd hh:mm')}</span>
             </div>
-            <div className='tips'>超过截止时间完成的测试将不会被助教点评</div>
           </div>
           <div className='content'>
             {testDetail.topicDTOList.map((item, index) => {
@@ -255,9 +254,6 @@ export default class extends React.Component {
             font-weight: bold;
           }
           .header .end-date {
-            font-size: 0.85rem;
-          }
-          .header .tips {
             font-size: 0.85rem;
           }
           .content {

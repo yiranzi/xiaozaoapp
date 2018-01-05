@@ -88,6 +88,7 @@ export default class extends React.Component {
           }
           .chapter-description {
             margin-left: 2.5rem;
+            font-size: 0.85rem;
           }
           .stamp img {
             margin-left: 1rem;
@@ -122,6 +123,7 @@ export default class extends React.Component {
           }
           .chapter-description {
             margin-left: 2.5rem;
+            font-size: 0.85rem;
           }
           .status {
             margin-right: 4rem;
