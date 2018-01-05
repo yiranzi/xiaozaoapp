@@ -57,8 +57,80 @@ export default class extends React.Component {
       return <span className='next' style={nextStyle}>课后</span>
     }
   }
+  renderFinish (item) {
+    return (
+      <div className='test-item'>
+        <div className='wx-space-left'>
+          <div className='icon'><img src='/static/img/icon/prise.png' /></div>
+          <div className='wx-space-center' style={{width: '100%'}}>
+            <div className='chapter-title'>{item.title}</div>
+            <div className='wx-space-left'>
+              <div className='score'>{item.answerTotalScore}/{item.score}</div>
+              <div className='stamp'>
+                {item.answerTotalScore >= item.passScore && <img src='/static/img/learn/test/pass.png' />}
+                {item.answerTotalScore < item.passScore && <img src='/static/img/learn/test/fail.png' />}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className='chapter-description'>{item.description}</div>
+        <style jsx>{`
+          .test-item {
+            width: 100%;
+            padding: 0.5rem 2rem;
+            box-sizing: border-box;
+          }
+          .icon {
+            margin-right: 1rem;
+          }
+          .icon img {
+            width: 1.5rem;
+          }
+          .chapter-description {
+            margin-left: 2.5rem;
+          }
+          .stamp img {
+            margin-left: 1rem;
+            width: 3rem;
+          }
+        `}</style>
+      </div>
+    )
+  }
+  renderUnFinish (item) {
+    return (
+      <div className='test-item'>
+        <div className='wx-space-left'>
+          <div className='icon'><img src='/static/img/icon/uprise.png' /></div>
+          <div className='wx-space-center' style={{width: '100%'}}>
+            <div className='chapter-title'>{item.title}</div>
+            <div className='status'>未完成</div>
+          </div>
+        </div>
+        <div className='chapter-description'>{item.description}</div>
+        <style jsx>{`
+          .test-item {
+            width: 100%;
+            padding: 0.5rem 2rem;
+            box-sizing: border-box;
+          }
+          .icon {
+            margin-right: 1rem;
+          }
+          .icon img {
+            width: 1.5rem;
+          }
+          .chapter-description {
+            margin-left: 2.5rem;
+          }
+          .status {
+            margin-right: 4rem;
+          }
+        `}</style>
+      </div>
+    )
+  }
   renderList () {
-    const _this = this
     const {query, testList, done} = this.state
     if (DataUtil.isEmpty(testList) && done) {
       return (
@@ -71,56 +143,31 @@ export default class extends React.Component {
     }
     return (
       <div className='test-detail'>
-        {testList.map((item, index) => {
+        {testList.map((group, index) => {
           return (
-            <Card key={`test-item-${index}`} className={classNames({'next': item.type === 2})}>
-              <Link href={{pathname: '/learn/course/testDetail', query: {courseId: query.courseId, testId: item.testId}}}>
-                {_this.isFinish(item.answerTotalScore) ? (
-                  <div className='test-item wx-space-center'>
-                    <div className='left wx-space-left'>
-                      <div className='icon'><img src='/static/img/icon/prise.png' /></div>
-                      <div className='chapter-title'><div>{this.renderTestType(item.type)}</div>{item.chapterTitle}</div>
-                    </div>
-                    <div className='result'>
-                      {`${item.answerTotalScore}分/${item.totalScore}分`}
-                    </div>
-                  </div>
-                ) : (
-                  <div className='test-item wx-space-center'>
-                    <div className='left wx-space-left'>
-                      <div className='icon'><img src='/static/img/icon/uprise.png' /></div>
-                      <div className='chapter-title'><div>{this.renderTestType(item.type)}</div>{item.chapterTitle}</div>
-                    </div>
-                    <div className='result'>未完成</div>
-                  </div>
-                )}
-              </Link>
-            </Card>
+            <div className='chapter-item' key={`chapter_group_${index}`}>
+              <div className='title'>{group.title}</div>
+              <div className='content'>
+                {group.learningTestDetailDTOList.map((item, index) => {
+                  return (
+                    <Link
+                      href={{
+                        pathname: '/learn/course/testDetail',
+                        query: {courseId: query.courseId, testId: item.id}}}
+                    >
+                      <a style={{width: '100%'}}>
+                        <div className='section-detail' key={`section-detail-${index}`}>
+                          {this.isFinish(item.answerTotalScore) && this.renderFinish(item)}
+                          {!this.isFinish(item.answerTotalScore) && this.renderUnFinish(item)}
+                        </div>
+                      </a>
+                    </Link>
+                  )
+                })}
+              </div>
+            </div>
           )
         })}
-        <style jsx>{`
-          .icon img {
-            width: 1.5rem;
-          }
-          .left {
-            flex: 3;
-            white-space: nowrap;
-            overflow: hidden;
-            min-width: 0;
-          }
-          .result {
-            flex: 1;
-            text-align: right;
-          }
-          .chapter-title {
-            margin-left: 0.5rem;
-          }
-        `}</style>
-        <style global jsx>{`
-          .card.next {
-            margin-bottom: 2rem;
-          }
-        `}</style>
       </div>
     )
   }
@@ -129,24 +176,18 @@ export default class extends React.Component {
     return (
       <Layout>
         <div className='test-page'>
+          <div className='title'>测试</div>
           {done && this.renderList()}
           {!done && <LoadingIcon />}
         </div>
         <Footer type='test' />
         <style jsx>{`
           .test-page {
-            font-size: 1rem;
-            padding-left: 1rem;
-            padding-right: 1rem;
+            padding: 2rem 1rem 4rem 1rem;
           }
-          .test-page .test-detail .test-item .left .chapter-title {
-            margin-left: 0.5rem;
-          }
-          .test-page .test-detail .test-item .icon {
-            width: 2rem;
-          }
-          .test-page .test-detail .test-item .icon img {
-            width: 100%;
+          .title {
+            text-align: center;
+            font-weight: bold;
           }
         `}</style>
       </Layout>
