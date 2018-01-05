@@ -293,13 +293,7 @@ export default class extends React.Component {
       >
         {DataUtil.isEmpty(homeworkContent) ? <LoadingIcon /> : (
           <div className='homework'>
-            <div className='title'>
-              <img src='/static/img/learn/cover_long.jpeg' />
-              <div className='text-wrap'>
-                <h3 className='course-name'>作业列表</h3>
-                <h4>点击可查看相应作业</h4>
-              </div>
-            </div>
+            <div className='title wx-text-center'>作业列表</div>
             {homeworkContent.map((chapter, index) => {
               return (
                 <Accordion
@@ -331,21 +325,12 @@ export default class extends React.Component {
         <style jsx>{`
           .homework {
             min-height: 100%;
-            background-color: #fff;
+            padding: 0.5rem;
           }
           .title {
-            position: relative;
-            color: #fff;
-          }
-          .title img{
-            width: 100%;
-          }
-          .title .text-wrap {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
             text-align: center;
+            font-weight: bold;
+            padding: 0.5rem;
           }
           .chapter {
             padding: 1rem 1.5rem;
