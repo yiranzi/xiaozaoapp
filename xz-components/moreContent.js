@@ -104,7 +104,6 @@ export default class extends React.Component {
   }
 
   render () {
-    console.log(this.props)
     const {style} = this.state
     return (
       <div ref='haha' className='more' onClick={() => { this.change() }}>

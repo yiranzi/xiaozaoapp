@@ -28,19 +28,16 @@ export default class ScrollLoader extends React.Component {
     if (this.scrollTimer && !this.finishBool && !this.state.loading) {
       let target = e.target
       let scrollPercent = Math.floor(( (target.scrollTop + target.clientHeight) / target.scrollHeight) * 100)
-      console.log(scrollPercent)
       if (scrollPercent > 85) {
-        console.log('get')
         this.setState({
           loading: true
         })
         this.props.onLoadMore(this.resolveLoading, this.finish)
       }
-      console.log('123')
       this.scrollTimer = false
       window.setTimeout(() => {
         this.scrollTimer = true
-      }, 500)
+      }, 100)
     }
   }
 
