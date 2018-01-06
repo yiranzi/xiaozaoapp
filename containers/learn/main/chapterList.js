@@ -138,7 +138,7 @@ export default class extends React.Component {
                   <CellHeader>{this.renderMenuStatus(section.overSection, sectionId, section.id)}</CellHeader>
                   <CellBody style={{fontSize: '0.85rem'}}>
                     <div className='chapter-with-time'>
-                      {section.name}
+                      <p>{section.name}</p>
                       {true && section.estimate && <span>{section.estimate}</span>}
                     </div>
                   </CellBody>
@@ -156,7 +156,15 @@ export default class extends React.Component {
             flex-wrap: nowrap;
           }
           .chapter-with-time span {
-            min-width: 50px;
+            min-width: 125px;
+            text-align: left;
+          }
+          .chapter-with-time p {
+            overflow : hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
           }
           .chapter {
             margin-left: 10px;
