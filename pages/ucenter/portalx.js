@@ -2,6 +2,7 @@ import React from 'react'
 import AxiosUtil from '../../util/axios'
 import UCenterLayout from '../../containers/ucenter/layoutbackup'
 import { Page, Cells, Cell, CellBody, CellFooter } from 'react-weui'
+import Link from 'next/link'
 
 export default class extends React.Component {
   constructor (props) {
@@ -82,11 +83,13 @@ export default class extends React.Component {
               </CellBody>
             </Cell>
             <Cell access>
-              <a href='/ucenter/classroomx' style={{width: '100%'}}>
-                <CellBody>
-                  我的教室
-                </CellBody>
-              </a>
+              <Link href='/learn/entry'>
+                <a style={{width: '100%'}}>
+                  <CellBody>
+                    我的教室
+                  </CellBody>
+                </a>
+              </Link>
               <CellFooter />
             </Cell>
             {/*<Cell access>*/}

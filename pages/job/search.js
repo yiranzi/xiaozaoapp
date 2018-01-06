@@ -84,7 +84,7 @@ export default class extends React.Component {
     this.setState({ dataState: 'loading' })
     try {
       let pageList = await AxiosUtil.post(
-        '/api/private/job/internship',
+        '/api/job/internship',
         this.state.params
       )
       this.state.params.pn = this.state.params.pn + 1

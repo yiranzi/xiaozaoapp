@@ -19,8 +19,7 @@ import {
   CellFooter,
   CellsTips,
   TextArea,
-  Input,
-  Toast
+  Input
 } from 'react-weui'
 
 export default class extends React.Component {
@@ -83,7 +82,7 @@ export default class extends React.Component {
 
   loadUserMailInfo = async () => {
     try {
-      let mailInfo = await AxiosUtil.get('/api/private/mailing/userMailInfo')
+      let mailInfo = await AxiosUtil.get('/api/mailing/userMailInfo')
       if (mailInfo) {
         this.state.mailingObj.mailBody = mailInfo.mailBody
         this.state.mailingObj.userPhone = mailInfo.phone
@@ -103,7 +102,7 @@ export default class extends React.Component {
   loadJobData = async () => {
     const jobId = ToolsUtil.getQueryString('jobId')
     try {
-      let job = await AxiosUtil.get(`/api/private/job/${jobId}`)
+      let job = await AxiosUtil.get(`/api/job/${jobId}`)
       this.setState({
         job: job,
         isRender: false
@@ -134,8 +133,7 @@ export default class extends React.Component {
   * */
   mailing () {
     let {toptips} = this.state
-    if (ToolsUtil.strIsEmpty(this.state.mailingObj.userPhone) ||
-      !ToolsUtil.isPhone(this.state.mailingObj.userPhone)) {
+    if (ToolsUtil.strIsEmpty(this.state.mailingObj.userPhone)) {
       toptips.type = 'warn'
       toptips.show = true
       toptips.msg = '请输入正确的手机号'

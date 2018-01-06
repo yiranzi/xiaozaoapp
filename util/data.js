@@ -13,6 +13,10 @@ dataUtil.isEmpty = function (data) {
   return data.length === 0
 }
 
+dataUtil.isNull = function (data) {
+  return data === null
+}
+
 dataUtil.uuid = function (len, radix) {
   let chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('')
   let uuid = []
@@ -57,6 +61,25 @@ dataUtil.imgFormat = function (base64, name, type) {
       return bb.getBlob(format)
     }
   }
+}
+
+/**
+ * list => [{'name': 'w', 'age': 11}, {'name': 'x', 'age': 12}]
+ * name => 'name'
+ * return {'w': [{'name': 'w', 'age': 11}], 'x': [{'name': 'x', 'age': 12}]}
+ * @param {Array} list 
+ * @param {string} name 
+ */
+
+dataUtil.groupBy = function (list, name) {
+  if (dataUtil.isEmpty(list)) return []
+  if (dataUtil.isEmpty(name)) return list
+  let json = {}
+  list.forEach((item) => {
+    json[item[name]] = json[item[name]] || []
+    json[item[name]].push(item)
+  })
+  return json
 }
 
 module.exports = dataUtil

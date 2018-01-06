@@ -82,7 +82,7 @@ export default class extends React.Component {
         <Fixfooter>
           <Button
             key={1}
-            style={{backgroundColor: 'rgb(255, 93, 93)'}} 
+            style={{backgroundColor: 'rgb(255, 93, 93)'}}
             onClick={() => { location.href = '/interviewvip/introPage' }}
           >优惠报名</Button>
         </Fixfooter>

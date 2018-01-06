@@ -96,7 +96,7 @@ export default class extends React.Component {
   renderEnter () {
     let state = this.props.canEnter
     if (state) {
-      return <Button style={{backgroundColor: 'fdc23e'}} onClick={() => {this.goPath('/interviewvip/list') }}>进入群面</Button>
+      return <Button style={{backgroundColor: 'fdc23e'}} onClick={() => { this.goPath('/interviewvip/list') }}>进入群面</Button>
     } else {
       return <Button disabled >未开始</Button>
     }

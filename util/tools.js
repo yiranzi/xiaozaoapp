@@ -1,7 +1,32 @@
+const DataUtils = require('./data')
 const fs = require('fs')
+const cheerio = require('cheerio')
 const path = require('path')
 
 let ToolsUtil = {}
+// 添加图片类型后缀
+// ToolsUtil.addByType = function (imgUrl, type) {
+//   let name
+//   switch (type) {
+//     case 'native':
+//       name = '_0'
+//       break
+//     case 'show':
+//       name = '_1'
+//       break
+//   }
+//   let stringArr = ['.jpg', '.png', '.jpeg']
+//   let resultUrl
+//   let result = stringArr.find((reg, index) => {
+//     return (imgUrl.search(new RegExp(reg)) !== -1)
+//   })
+//   if (result !== -1) {
+//     resultUrl = imgUrl.replace(result, name) + result
+//   } else {
+//     resultUrl =  imgUrl
+//   }
+//   return resultUrl
+// }
 
 // 获取url参数
 ToolsUtil.getQueryString = function (name) {
@@ -9,6 +34,53 @@ ToolsUtil.getQueryString = function (name) {
   var r = window.location.search.substr(1).match(reg)
   if (r != null) return unescape(r[2])
   return null
+}
+
+ToolsUtil.parseHtml = function (content) {
+  const $ = cheerio.load(content, {
+    decodeEntities: false
+  })
+  let pContent = $('p')
+
+  let array = []
+
+  pContent.map((index, item) => {
+    let wrap = $(item).html()
+    // 有视频
+    let video = wrap.match(/video/)
+    let training = wrap.match(/traning/)
+
+    if (video) {
+      let src = wrap.match(/src="([^"]*)"/)
+      let playerId = 'player_' + DataUtils.uuid(11)
+      array.push({
+        'html': {
+          content: `<video id="${playerId}" class="video-js" style="display:none;"></video>`
+        }
+      })
+      array.push({
+        'video': {
+          playerId: playerId,
+          src: src[1].replace(/https:/, 'http:')
+        }
+      })
+      // 有练习
+    } else if (training) {
+      let id = wrap.match(/id="([^"]*)"/)
+      array.push({
+        'traning': {
+          id: id[1]
+        }
+      })
+    } else {
+      array.push({
+        'html': {
+          content: wrap
+        }
+      })
+    }
+  })
+  return array
 }
 
 // 遍历文件夹
@@ -24,6 +96,7 @@ ToolsUtil.walkDir = function (dir, files) {
     }
   })
 }
+
 // next.config.js exportPathMap
 ToolsUtil.exportPathMap = function () {
   const dir = path.join(__dirname, '../pages')
@@ -60,27 +133,27 @@ ToolsUtil.isString = function (str) {
 
 // 单选题
 ToolsUtil.isRadio = function (type) {
-  return type === 1
+  return parseInt(type) === 1
 }
 
 // 多选题
 ToolsUtil.isCheckBox = function (type) {
-  return type === 2
+  return parseInt(type) === 2
 }
 
 // 上传图片
 ToolsUtil.isUploader = function (type) {
-  return type === 3
+  return parseInt(type) === 3
 }
 
 // 文本题
 ToolsUtil.isTextarea = function (type) {
-  return type === 4
+  return parseInt(type) === 4
 }
 
 // 上传音频
 ToolsUtil.isRecord = function (type) {
-  return type === 5
+  return parseInt(type) === 5
 }
 
 // 是否空字符串
@@ -97,6 +170,23 @@ ToolsUtil.isPhone = function (str) {
 ToolsUtil.isMail = function (str) {
   // eslint-disable-next-line max-len
   return /^\b(^[_A-Za-z0-9-]+(\.[_A-Za-z0-9-]+)*@([A-Za-z0-9-])+(\.[A-Za-z0-9-]+)*((\.[A-Za-z0-9]{2,})|(\.[A-Za-z0-9]{2,}\.[A-Za-z0-9]{2,}))$)\b$/.test(str)
+}
+
+// 环境
+ToolsUtil.getEnv = function () {
+  return process.env.NODE_ENV
+}
+
+ToolsUtil.isDev = function () {
+  return ToolsUtil.getEnv() === 'development'
+}
+
+ToolsUtil.isProd = function () {
+  return ToolsUtil.getEnv() === 'production'
+}
+
+ToolsUtil.replaceAll = function (str, s1, s2) {
+  return str.replace(new RegExp(s1,'gm'), s2)
 }
 
 module.exports = ToolsUtil

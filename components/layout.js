@@ -1,5 +1,6 @@
 import React from 'react'
 import Header from './partical/header'
+import ToolsUtil from '../util/tools'
 import {Toptips} from 'react-weui'
 import weui from 'weui'
 import rweui from 'react-weui/build/dist/react-weui.css'
@@ -33,8 +34,9 @@ export default class Layout extends React.Component {
 
   render () {
     return (
-      <div>
-        {/* <script src='/static/js/retcode.js' /> */}
+      <div {...this.props}>
+        {ToolsUtil.isProd() && <script src='/static/js/retcode.js' />}
+        {ToolsUtil.isProd() && <script async src='https://www.googletagmanager.com/gtag/js?id=UA-110942316-1' />}
         <Header />
         <style dangerouslySetInnerHTML={{__html: weui}} />
         <style dangerouslySetInnerHTML={{__html: rweui}} />
@@ -42,7 +44,10 @@ export default class Layout extends React.Component {
         {this.renderChild()}
         {this.renderGlobalCss()}
         <script src='/static/js/jweixin.js' />
-        <script src='/static/js/baidutongji.js' />
+        {ToolsUtil.isProd() && <script src='/static/js/baidutongji.js' />}
+        <link href='/static/js/video-js.css' rel='stylesheet' />
+        <script src='/static/js/video.js' />
+        <script src='/static/js/videojs-contrib-hls.min.js' />
         <style global jsx>{`
           body {
             font-size: 12pt;

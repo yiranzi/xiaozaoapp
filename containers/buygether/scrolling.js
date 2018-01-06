@@ -60,8 +60,7 @@ export default class extends React.Component {
       count--
       let randomValueA = parseInt(stringA.length * Math.random())
       let randomValueC = parseInt(stringC.length * Math.random())
-      // arr.push(<div>{`来自${stringA[randomValueA]}的同学${stringC[randomValueC]}张能力卡`}</div>)
-      arr.push(<div>{`来自${stringA[randomValueA]}的同学正在拼单课程`}</div>)
+      arr.push(<div>{`来自${stringA[randomValueA]}的同学购买了${stringC[randomValueC]}张能力卡`}</div>)
     }
     this.staticDate = arr
   }
