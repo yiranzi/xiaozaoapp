@@ -3,12 +3,12 @@ import Link from 'next/link'
 
 export default class extends React.Component {
   render () {
-    let {courseId, cover, path, title, count, time, process, key} = this.props
+    let {courseId, cover, path, title, count, time, process} = this.props
     if (courseId) {
       let imgUrl = cover || '/static/img/learn/cover_little.png'
       let pathname = path || '/learn/course/info'
       return (
-        <Link key={key} href={{ pathname: pathname, query: { courseId: courseId } }}>
+        <Link href={{ pathname: pathname, query: { courseId: courseId } }}>
           <a style={{width: '100%'}}>
             <div className='course-view-line'>
               <div className='course-img' >
