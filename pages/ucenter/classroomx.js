@@ -20,7 +20,7 @@ export default class extends React.Component {
 
   loadBuyCourseList = async () => {
     try {
-      let courseList = await AxiosUtil.get('/api/private/learning/myCourse')
+      let courseList = await AxiosUtil.get('/api/learning/myCourse')
       this.setState({
         courseList: courseList
       })
