@@ -63,7 +63,7 @@ export default class extends React.Component {
         <style jsx>{`
           .top-banner {
             width: 100%;
-            height: 200px;
+            height: 160px;
           }
         `}</style>
       </div>
