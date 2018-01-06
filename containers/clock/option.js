@@ -13,12 +13,16 @@ export default class extends React.Component {
     const name = `answer_${id}`
 
     if (ToolsUtil.isTextarea(type)) {
+      let newAnswer = answer
+      if (disabled) {
+        newAnswer = ToolsUtil.replaceAll(answer, '\n', '<br />')
+      }
       return (
         <TextArea
           key={name}
           placeholder='请输入您的答案'
           maxLength={5000}
-          defaultValue={answer}
+          defaultValue={newAnswer}
           onChange={(value) => { this.props.onChange(id, value) }}
           disabled={disabled}
         />

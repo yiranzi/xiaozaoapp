@@ -185,4 +185,8 @@ ToolsUtil.isProd = function () {
   return ToolsUtil.getEnv() === 'production'
 }
 
+ToolsUtil.replaceAll = function (str, s1, s2) {
+  return str.replace(new RegExp(s1,'gm'), s2)
+}
+
 module.exports = ToolsUtil
