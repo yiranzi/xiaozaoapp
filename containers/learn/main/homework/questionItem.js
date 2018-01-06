@@ -271,9 +271,9 @@ export default class extends React.Component {
 
   renderGoDetailLink () {
     let {questionItem, courseId} = this.props
-    let {chapterId: menuId, pageNumber, sectionId, workId} = questionItem
+    let {chapterId, pageNumber, sectionId} = questionItem
     return (
-      <Link href={{pathname: '/learn/course/detail', query: { courseId: courseId, menuId: menuId, pageNumber: pageNumber, sectionId: sectionId, workId: workId }}}>
+      <Link href={{pathname: '/learn/course/detail', query: { courseId: courseId, chapterId: chapterId, pageNumber: pageNumber, sectionId: sectionId }}}>
         <a style={{color: '#CECECE'}}>查看相关知识点</a>
       </Link>
     )
