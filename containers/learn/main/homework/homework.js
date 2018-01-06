@@ -55,17 +55,15 @@ export default class extends React.Component {
   // 如果窗口打开。那么手动back。
   componentWillMount () {
     this.setChapterMode(this.props)
-    //
     let a = ToolsUtil.getQueryString(this.pageOpenTag)
     if (a) {
       history.go(-1)
     }
-    this.setProcess()
+    this.setProcess(this.props.data)
   }
 
   // 增加作业进度条
-  setProcess () {
-    let {data: allHomeworkData} = this.props
+  setProcess (allHomeworkData) {
     let homeworkCount = 0
     let finishCount = 0
     if (allHomeworkData && allHomeworkData.length > 0) {
@@ -74,7 +72,7 @@ export default class extends React.Component {
         if (questionList && questionList.length > 0) {
           questionList.forEach((questionItem, lessonIndex) => {
             homeworkCount++
-            if (questionItem.overwork) {
+            if (questionItem.overWork) {
               finishCount++
             }
           })
@@ -93,7 +91,12 @@ export default class extends React.Component {
   // 如果这里面能控制tab。那么直接在这里初始化 并且将index设置undefin。
   // 但是没办法，只能通过viewType多跑一层。
   componentWillReceiveProps (nextProps) {
+    // 设置进度
     this.setChapterMode(nextProps)
+    let data = nextProps.data
+    if (data) {
+      this.setProcess(data)
+    }
     // 计算路由
     let type = ToolsUtil.getQueryString(this.pageOpenTag)
     if (!type && this.state.viewType === 'open') {

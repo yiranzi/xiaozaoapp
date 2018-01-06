@@ -131,6 +131,9 @@ export default class extends React.Component {
   }
 
   loadMore = async (resolve, finish) => {
+    if (this.state.currentSelect !== 0) {
+      return
+    }
     // 判定页码是否是最后一页。
     if (this.state.currentPage >= this.totalSize) {
       finish()

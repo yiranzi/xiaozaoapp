@@ -47,7 +47,6 @@ export default class extends React.Component {
 
   // 多行显示蒙版
   isShowModal1 () {
-    console.log(this.props.modalFrom)
     let {out, inner} = this.refs
     if (!this.state.isShow && out && inner && this.state.canRender) {
       if (inner.offsetHeight > this.LineHeight * this.props.height) {
@@ -92,7 +91,6 @@ export default class extends React.Component {
 
   // 多行显示蒙版
   isShowModal2 () {
-    console.log(this.props.modalFrom)
     let {out, inner} = this.refs
     if (!this.state.isShow && out && inner && this.state.canRender) {
       if (inner.offsetHeight > this.LineHeight * this.props.height) {
