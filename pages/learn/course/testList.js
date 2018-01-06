@@ -178,7 +178,6 @@ export default class extends React.Component {
     return (
       <Layout>
         <div className='test-page'>
-          <div className='title'>测试</div>
           {done && this.renderList()}
           {!done && <LoadingIcon />}
         </div>
@@ -186,10 +185,6 @@ export default class extends React.Component {
         <style jsx>{`
           .test-page {
             padding: 2rem 1rem 4rem 1rem;
-          }
-          .title {
-            text-align: center;
-            font-weight: bold;
           }
         `}</style>
       </Layout>
