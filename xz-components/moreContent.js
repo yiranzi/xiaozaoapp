@@ -46,57 +46,89 @@ export default class extends React.Component {
   }
 
   // 多行显示蒙版
-  isShowModal () {
+  isShowModal1 () {
+    console.log(this.props.modalFrom)
     let {out, inner} = this.refs
     if (!this.state.isShow && out && inner && this.state.canRender) {
       if (inner.offsetHeight > this.LineHeight * this.props.height) {
         return (
-          <div className='modal'>
-            {this.props.modalFrom === 1 && <style>{`
-          .modal {
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            height: 20px;
-            width: 100%;
-            z-index: 10;
-            height: 20px;
-            background: -moz-linear-gradient(bottom,rgba(255,255,255,.1),rgba(255,255,255,0));
-            background: -webkit-gradient(linear,0 top,0 bottom,from(rgba(255,255,255,0)),to(rgba(255,255,255,1)));
-          }
-        `}</style>}
+          <div className='modal1'>
+            <style>{`
+              .modal1 {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                height: 20px;
+                width: 100%;
+                z-index: 10;
+                height: 20px;
+                background: -moz-linear-gradient(bottom,rgba(255,255,255,.1),rgba(255,255,255,0));
+                background: -webkit-gradient(linear,0 top,0 bottom,from(rgba(255,255,255,0.2)),to(rgba(255,255,255,1)));
+              }
+            `}</style>
+            <style>{`
+              .modal1::after {
+                content: " ";
+                display: inline-block;
+                height: 6px;
+                width: 6px;
+                border-width: 2px 2px 0 0;
+                border-color: #c8c8cd;
+                border-style: solid;
+                transform: matrix(.71,.71,-.71,.71,0,0);
+                position: absolute;
+                bottom: -10px;
+                left: 50%;
+                margin-left: 3px;
+                transition: transform .3s;
+                transform: rotate(134deg);
+              }
+            `}</style>
+          </div>
+        )
+      }
+    }
+  }
 
-            {this.props.modalFrom === 2 && <style>{`
-          .modal {
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            height: 20px;
-            width: 100%;
-            z-index: 10;
-            height: 20px;
-            background: -moz-linear-gradient(bottom,rgba(239,239,244,.1),rgba(239,239,244,0));
-            background: -webkit-gradient(linear,0 top,0 bottom,from(rgba(239,239,244,0.2)),to(rgba(239,239,244,1)));
-          }
-        `}</style>}
-            {true && <style>{`
-          .modal::after {
-            content: " ";
-            display: inline-block;
-            height: 6px;
-            width: 6px;
-            border-width: 2px 2px 0 0;
-            border-color: #c8c8cd;
-            border-style: solid;
-            transform: matrix(.71,.71,-.71,.71,0,0);
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            margin-left: 3px;
-            transition: transform .3s;
-            transform: rotate(134deg);
-          }
-        `}</style>}
+  // 多行显示蒙版
+  isShowModal2 () {
+    console.log(this.props.modalFrom)
+    let {out, inner} = this.refs
+    if (!this.state.isShow && out && inner && this.state.canRender) {
+      if (inner.offsetHeight > this.LineHeight * this.props.height) {
+        return (
+          <div className='modal2'>
+            <style>{`
+              .modal2 {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                height: 20px;
+                width: 100%;
+                z-index: 10;
+                height: 20px;
+                background: -moz-linear-gradient(bottom,rgba(239,239,244,.1),rgba(239,239,244,0));
+                background: -webkit-gradient(linear,0 top,0 bottom,from(rgba(239,239,244,0.2)),to(rgba(239,239,244,1)));
+              }
+            `}</style>
+            <style>{`
+              .modal2::after {
+                content: " ";
+                display: inline-block;
+                height: 6px;
+                width: 6px;
+                border-width: 2px 2px 0 0;
+                border-color: #c8c8cd;
+                border-style: solid;
+                transform: matrix(.71,.71,-.71,.71,0,0);
+                position: absolute;
+                bottom: -10px;
+                left: 50%;
+                margin-left: 3px;
+                transition: transform .3s;
+                transform: rotate(134deg);
+              }
+            `}</style>
           </div>
         )
       }
@@ -110,7 +142,7 @@ export default class extends React.Component {
         <div className='title'>{this.props.title}</div>
         <div ref='out' className='content' style={style}><div className={'inner'} ref='inner'>{this.props.children}</div></div>
         <div className={'modal-out-div'}>
-          {this.isShowModal()}
+          {this.props.modalFrom === 1 ? this.isShowModal1() : this.isShowModal2()}
         </div>
         <style jsx>{`
           .modal-out-div {
