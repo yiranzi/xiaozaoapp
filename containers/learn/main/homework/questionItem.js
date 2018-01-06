@@ -295,7 +295,7 @@ export default class extends React.Component {
       return (
         <MediaBox style={this.props.viewType === undefined ? {marginBottom: '10px'} : {position: 'static'}}>
           <ScrollLoader
-            style={this.props.viewType === undefined ? {height: 'auto'} : {height: '100vh'}}
+            style={this.props.viewType === undefined ? {height: 'auto'} : {height: '90vh'}}
             onLoadMore={this.loadMore}>
             <MediaBoxTitle>
               {this.renderTitle()}

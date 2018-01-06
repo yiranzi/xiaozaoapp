@@ -47,7 +47,7 @@ export default class ScrollLoader extends React.Component {
         {this.props.children}
         <style jsx>{`
           .scroll {
-            height: 100vh;
+            height: 90vh;
             overflow: scroll;
             -webkit-overflow-scrolling: touch;
           }
