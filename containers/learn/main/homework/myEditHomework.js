@@ -5,8 +5,8 @@ import Button from '../../../../xz-components/button'
 export default class extends React.Component {
   jumpTo () {
     let {questionItem, courseId} = this.props
-    let {chapterId: menuId, pageNumber, sectionId, workId} = questionItem
-    Router.push(`/learn/course/detail?courseId=${courseId}&menuId=${menuId}&pageNumber=${pageNumber}&sectionId=${sectionId}&workId=${workId}`)
+    let {chapterId, pageNumber, sectionId} = questionItem
+    Router.push(`/learn/course/detail?courseId=${courseId}&chapterId=${chapterId}&pageNumber=${pageNumber}&sectionId=${sectionId}`)
   }
   render () {
     return (
