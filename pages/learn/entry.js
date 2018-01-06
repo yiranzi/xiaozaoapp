@@ -46,7 +46,7 @@ export default class extends React.Component {
 
   renderBanner () {
     const {bannerList} = this.state
-    if (DataUtil.isEmpty(bannerList)) return <LoadingIcon />
+    if (DataUtil.isEmpty(bannerList)) return null
     return (
       <div className='top-banner'>
         <Swiper>
@@ -71,27 +71,31 @@ export default class extends React.Component {
   }
 
   render () {
-    const { tab } = this.state
-    return (
-      <Layout>
-        <div className='learn-system-entry'>
-          {this.renderBanner()}
-          <Tab>
-            <NavBar>
-              <NavBarItem active={tab === 'mine'} onClick={(e) => this.setState({tab: 'mine'})}>我的课程</NavBarItem>
-              <NavBarItem active={tab === 'recommand'} onClick={(e) => this.setState({tab: 'recommand'})}>推荐课程</NavBarItem>
-            </NavBar>
-            <TabBody>
-              <div style={{display: tab === 'mine' ? null : 'none'}}>
-                <MyCourseList myCourseList={this.state.myCourseList} done={this.state.done} />
-              </div>
-              <div style={{display: tab === 'recommand' ? null : 'none'}}>
-                <RecommandCourseList courseRecommend={this.state.courseRecommend} />
-              </div>
-            </TabBody>
-          </Tab>
-        </div>
-      </Layout>
-    )
+    const { tab, done } = this.state
+    if (!done) {
+      return <LoadingIcon />
+    } else {
+      return (
+        <Layout>
+          <div className='learn-system-entry'>
+            {this.renderBanner()}
+            <Tab>
+              <NavBar>
+                <NavBarItem active={tab === 'mine'} onClick={(e) => this.setState({tab: 'mine'})}>我的课程</NavBarItem>
+                <NavBarItem active={tab === 'recommand'} onClick={(e) => this.setState({tab: 'recommand'})}>推荐课程</NavBarItem>
+              </NavBar>
+              <TabBody>
+                <div style={{display: tab === 'mine' ? null : 'none'}}>
+                  <MyCourseList myCourseList={this.state.myCourseList} />
+                </div>
+                <div style={{display: tab === 'recommand' ? null : 'none'}}>
+                  <RecommandCourseList courseRecommend={this.state.courseRecommend} />
+                </div>
+              </TabBody>
+            </Tab>
+          </div>
+        </Layout>
+      )
+    }
   }
 }

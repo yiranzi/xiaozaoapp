@@ -83,8 +83,6 @@ export default class extends React.Component {
   }
 
   render () {
-    const { done } = this.props
-    if (!done) return <LoadingIcon />
     return (
       <div className='my-course-list'>
         {this.renderList()}
