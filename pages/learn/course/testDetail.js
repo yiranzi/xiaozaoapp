@@ -197,7 +197,7 @@ export default class extends React.Component {
           <div className='header wx-text-center'>
             <div className='name'>{testDetail.title}</div>
             <div className='end-date'>
-              本章测试截止时间为<span style={{color: ThemeConfig.color.red, fontSize: '1rem', marginLeft: '0.5rem'}}>{DateUtil.format(testDetail.endTime, 'yyyy-MM-dd hh:mm')}</span>
+              为保证学习效果，请在<span style={{color: ThemeConfig.color.red, fontSize: '1rem', marginLeft: '0.5rem'}}>{DateUtil.format(testDetail.endTime, 'yyyy-MM-dd hh:mm')}前完成本测试</span>
             </div>
           </div>
           <div className='content'>
