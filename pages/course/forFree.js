@@ -23,7 +23,7 @@ export default class extends React.Component {
   componentDidMount = async () => {
     let courseId = ToolsUtil.getQueryString('courseId')
     let packageId = ToolsUtil.getQueryString('packageId')
-    let courseDetail = await AxiosUtil.get('/api/private/learning/courseDetail/' + courseId)
+    let courseDetail = await AxiosUtil.get('/api/learning/courseDetail/' + courseId)
     this.setState({courseId: courseId, packageId: packageId, courseDetail: courseDetail})
   }
   buyFree = async () => {
@@ -53,7 +53,7 @@ export default class extends React.Component {
   }
   renderButton (buyed) {
     if (buyed) {
-      return <a style={{display: 'block'}} href='/ucenter/classroom'><Button style={{backgroundColor: ThemeConfig.color.red}}>去上课</Button></a>
+      return <a style={{display: 'block'}} href={'/learn/course/info/?courseId=' + this.state.courseId}><Button style={{backgroundColor: ThemeConfig.color.red}}>去上课</Button></a>
     } else {
       return <Button onClick={() => { this.buyFree() }} style={{backgroundColor: ThemeConfig.color.red}}>马上报名</Button>
     }
