@@ -37,6 +37,8 @@ export default class Layout extends React.Component {
       <div {...this.props}>
         {ToolsUtil.isProd() && <script src='/static/js/retcode.js' />}
         {ToolsUtil.isProd() && <script async src='https://www.googletagmanager.com/gtag/js?id=UA-110942316-1' />}
+        {/*生产环境GA-id*/}
+        {ToolsUtil.isDev() && <script async src='https://www.googletagmanager.com/gtag/js?id=UA-111694630-1' />}
         <Header />
         <style dangerouslySetInnerHTML={{__html: weui}} />
         <style dangerouslySetInnerHTML={{__html: rweui}} />
