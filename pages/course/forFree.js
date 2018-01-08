@@ -68,7 +68,7 @@ export default class extends React.Component {
         <div className='course'>
           <div className='header'>
             <div className='logo'>小灶能力派</div>
-            <div className='classroom'><a href='/ucenter/classroom' style={{display: 'block'}}><Button style={{backgroundColor: '#241d66', width: 'auto', padding: '0.5rem 1rem'}}>我的教室</Button></a></div>
+            <div className='classroom'><a href='/learn/entry' style={{display: 'block'}}><Button style={{backgroundColor: '#241d66', width: 'auto', padding: '0.5rem 1rem'}}>我的教室</Button></a></div>
           </div>
           <div className='title'>{courseDetail.name}</div>
           <div className='detail'>
