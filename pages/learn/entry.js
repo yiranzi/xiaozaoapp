@@ -4,13 +4,13 @@ import {
   TabBody,
   NavBar,
   NavBarItem,
-  Swiper
 } from 'react-weui'
 import MyCourseList from '../../containers/learn/course/myCourseList'
 import RecommandCourseList from '../../containers/learn/course/recommandCourseList'
 import DataUtil from '/util/data'
 import Layout from '../..//components/layout'
 import LoadingIcon from '../../xz-components/loadingicon'
+import Swiper from '../../xz-components/swiper'
 import GetPayInfo from '../../util/getPayInfo'
 import AxiosUtil from '../../util/axios'
 
@@ -49,7 +49,7 @@ export default class extends React.Component {
     if (DataUtil.isEmpty(bannerList)) return null
     return (
       <div className='top-banner'>
-        <Swiper>
+        <Swiper height={160}>
           {bannerList.map((item, index) => {
             return (
               <div key={`banner-${index}`}>
@@ -63,7 +63,7 @@ export default class extends React.Component {
         <style jsx>{`
           .top-banner {
             width: 100%;
-            height: 200px;
+            height: 160px;
           }
         `}</style>
       </div>

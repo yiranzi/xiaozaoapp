@@ -54,7 +54,14 @@ export default class extends React.Component {
   }
   render () {
     return (
-      <div className='material'>{this.renderMaterial(this.props.content)}</div>
+      <div className='material'>
+        {this.renderMaterial(this.props.content)}
+        <style jsx>{`
+          .material {
+            word-wrap: break-word;
+          }
+        `}</style>
+      </div>
     )
   }
 }

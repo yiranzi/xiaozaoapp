@@ -70,7 +70,8 @@ export default class extends React.Component {
     //   editStatus: true
     // })
     let {courseId, questionItem} = this.props
-    let url = `/learn/course/detail?courseId=${courseId}&chapterId=${questionItem.chapterId}&pageNumber=${questionItem.pageNumber}`
+    let {chapterId, pageNumber, sectionId} = questionItem
+    let url = `/learn/course/detail?courseId=${courseId}&chapterId=${chapterId}&pageNumber=${pageNumber}&sectionId=${sectionId}`
     Router.push(url)
   }
 
