@@ -48,7 +48,7 @@ ToolsUtil.parseHtml = function (content) {
     let wrap = $(item).html()
     // 有视频
     let video = wrap.match(/video/)
-    let training = wrap.match(/traning/)
+    let training = wrap.match(/traning/i)
 
     if (video) {
       let src = wrap.match(/src="([^"]*)"/)
