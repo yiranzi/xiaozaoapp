@@ -4,13 +4,13 @@ import {
   TabBody,
   NavBar,
   NavBarItem,
-  Swiper
 } from 'react-weui'
 import MyCourseList from '../../containers/learn/course/myCourseList'
 import RecommandCourseList from '../../containers/learn/course/recommandCourseList'
 import DataUtil from '/util/data'
 import Layout from '../..//components/layout'
 import LoadingIcon from '../../xz-components/loadingicon'
+import Swiper from '../../xz-components/swiper'
 import GetPayInfo from '../../util/getPayInfo'
 import AxiosUtil from '../../util/axios'
 
