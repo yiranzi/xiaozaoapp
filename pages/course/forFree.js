@@ -5,6 +5,7 @@ import ToolsUtil from '../../util/tools'
 import ThemeConfig from '../../config/theme'
 import Button from '../../xz-components/button'
 import {Toast} from 'react-weui'
+import Link from 'next/link'
 
 export default class extends React.Component {
   constructor (props) {
@@ -53,7 +54,7 @@ export default class extends React.Component {
   }
   renderButton (buyed) {
     if (buyed) {
-      return <a style={{display: 'block'}} href={'/learn/course/info/?courseId=' + this.state.courseId}><Button style={{backgroundColor: ThemeConfig.color.red}}>去上课</Button></a>
+      return <Link href={'/learn/course/info/?courseId=' + this.state.courseId}><a style={{display: 'block'}}><Button style={{backgroundColor: ThemeConfig.color.red}}>去上课</Button></a></Link>
     } else {
       return <Button onClick={() => { this.buyFree() }} style={{backgroundColor: ThemeConfig.color.red}}>马上报名</Button>
     }
@@ -68,7 +69,7 @@ export default class extends React.Component {
         <div className='course'>
           <div className='header'>
             <div className='logo'>小灶能力派</div>
-            <div className='classroom'><a href='/learn/entry' style={{display: 'block'}}><Button style={{backgroundColor: '#241d66', width: 'auto', padding: '0.5rem 1rem'}}>我的教室</Button></a></div>
+            <div className='classroom'><Link href='/learn/entry'><a style={{display: 'block'}}><Button style={{backgroundColor: '#241d66', width: 'auto', padding: '0.5rem 1rem'}}>我的教室</Button></a></Link></div>
           </div>
           <div className='title'>{courseDetail.name}</div>
           <div className='detail'>
@@ -86,7 +87,7 @@ export default class extends React.Component {
           }
           <div className='btn-group'>
             {this.state.buyed
-              ? <a style={{display: 'block'}} href='/ucenter/classroom'><Button style={{backgroundColor: ThemeConfig.color.red}}>去上课</Button></a>
+              ? <Link href={'/learn/course/info/?courseId=' + this.state.courseId}><a style={{display: 'block'}}><Button style={{backgroundColor: ThemeConfig.color.red}}>去上课</Button></a></Link>
               : this.renderButton(courseDetail.buyed)
             }
           </div>
