@@ -104,7 +104,9 @@ export default class extends React.Component {
         `}</style>
         <style global jsx>{`
           .material img {
-            width: 100%;
+            width: auto;
+            height: auto;
+            max-width: 100% !important;
           }
         `}</style>
       </div>
