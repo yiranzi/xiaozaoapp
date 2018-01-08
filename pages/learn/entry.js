@@ -49,7 +49,7 @@ export default class extends React.Component {
     if (DataUtil.isEmpty(bannerList)) return null
     return (
       <div className='top-banner'>
-        <Swiper>
+        <Swiper height={160}>
           {bannerList.map((item, index) => {
             return (
               <div key={`banner-${index}`}>
