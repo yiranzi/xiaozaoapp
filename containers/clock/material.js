@@ -61,6 +61,12 @@ export default class extends React.Component {
             word-wrap: break-word;
           }
         `}</style>
+        <style global jsx>{`
+          .material img {
+            width: 100% !important;
+            height: auto !important;
+          }
+        `}</style>
       </div>
     )
   }

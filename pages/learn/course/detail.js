@@ -385,7 +385,7 @@ export default class extends React.Component {
           .course-detail .detail img,
           .home-work img {
             max-width: 100% !important;
-            height: auto;
+            height: auto !important;
           }
           .home-work li {
             list-style-type: none;

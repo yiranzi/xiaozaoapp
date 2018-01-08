@@ -18,20 +18,26 @@ class innerComponent extends React.Component {
             )
           })}
           <style jsx>{`
-          .introduce-div {
-            text-align: left;
-            padding: 10px;
-          }
-          .introduce-section {
-            margin: 10px auto;
-          }
-          .introduce-section h1 {
-            font-size: 16px;
-          }
-          .introduce-section .content {
-            font-size: 14px;
-          }
-        `}</style>
+            .introduce-div {
+              text-align: left;
+              padding: 10px;
+            }
+            .introduce-section {
+              margin: 10px auto;
+            }
+            .introduce-section h1 {
+              font-size: 16px;
+            }
+            .introduce-section .content {
+              font-size: 14px;
+            }
+          `}</style>
+          <style global jsx>{`
+            img {
+              max-width: 100% !important;
+              height: auto !important;
+            }
+          `}</style>
         </div>
       )
     } else {

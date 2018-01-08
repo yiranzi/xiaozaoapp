@@ -35,27 +35,30 @@ export default class extends React.Component {
   render () {
     let {courseName, payStatus, courseId} = this.state
     if (courseName) {
-      return (<Layout>
-        <div className='introduce'>
-          <h1>{courseName}</h1>
-          <Introduce courseId={this.state.courseId} />
-          {payStatus && (
-            <Fixfooter
-              style={{textAlign: 'center', backgroundColor: '#3E84E0', color: '#fff'}}
-              onClick={() => { Router.replace(`/learn/course/info${location.search}`) }}
-            >返回课程</Fixfooter>
-          )}
-        </div>
-        <style jsx>{`
-          .introduce {
-            text-align: center;
-            padding: 10px;
-          }
-          .introduce h1 {
-            font-size: 20px;
-          }
-        `}</style>
-      </Layout>)
+      return (
+        <Layout>
+          <div className='introduce'>
+            <h1>{courseName}</h1>
+            <Introduce courseId={this.state.courseId} />
+            {payStatus && (
+              <Fixfooter
+                style={{textAlign: 'center', backgroundColor: '#3E84E0', color: '#fff'}}
+                onClick={() => { Router.replace(`/learn/course/info${location.search}`) }}
+              >返回课程</Fixfooter>
+            )}
+          </div>
+          <style jsx>{`
+            .introduce {
+              text-align: center;
+              padding: 10px;
+              padding-bottom: 4rem;
+            }
+            .introduce h1 {
+              font-size: 20px;
+            }
+          `}</style>
+        </Layout>
+      )
     } else {
       return (<Layout>
         <Loading />
