@@ -205,7 +205,6 @@ class Swiper extends Component {
   }
 
   render () {
-    console.log('234234234')
     const { className, children, height, width, defaultIndex, direction, speed, indicators, ...domProps } = this.props
     let clx = classNames('react-weui-swiper__container', className, {
       'react-weui-swiper__container-horizontal': direction === 'horizontal',
