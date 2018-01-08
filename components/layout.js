@@ -23,7 +23,9 @@ export default class Layout extends React.Component {
   renderGlobalCss () {
     return (
       <style global jsx>{`
-        .main {
+        body {
+          font-size: 12pt;
+          font-family: PingFang SC,Helvetica Neue,Helvetica,Arial,Hiragino Sans GB,Microsoft Yahei,sans-serif !important;
           max-width: 640px;
           margin: auto;
           overflow-x: hidden;
@@ -35,27 +37,17 @@ export default class Layout extends React.Component {
   render () {
     return (
       <div {...this.props}>
+        <Header />
         {ToolsUtil.isProd() && <script src='/static/js/retcode.js' />}
         {ToolsUtil.isProd() && <script async src='https://www.googletagmanager.com/gtag/js?id=UA-110942316-1' />}
-        {/*生产环境GA-id*/}
+        {ToolsUtil.isProd() && <script src='/static/js/baidutongji.js' />}
+        {/* 生产环境GA-id */}
         {ToolsUtil.isDev() && <script async src='https://www.googletagmanager.com/gtag/js?id=UA-111694630-1' />}
-        <Header />
+        {this.renderChild()}
+        {this.renderGlobalCss()}
         <style dangerouslySetInnerHTML={{__html: weui}} />
         <style dangerouslySetInnerHTML={{__html: rweui}} />
         <DefaultCss />
-        {this.renderChild()}
-        {this.renderGlobalCss()}
-        <script src='/static/js/jweixin.js' />
-        {ToolsUtil.isProd() && <script src='/static/js/baidutongji.js' />}
-        <link href='/static/js/video-js.css' rel='stylesheet' />
-        <script src='/static/js/video.js' />
-        <script src='/static/js/videojs-contrib-hls.min.js' />
-        <style global jsx>{`
-          body {
-            font-size: 12pt;
-            font-family: PingFang SC,Helvetica Neue,Helvetica,Arial,Hiragino Sans GB,Microsoft Yahei,sans-serif !important;
-          }
-        `}</style>
       </div>
     )
   }
