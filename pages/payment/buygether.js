@@ -651,13 +651,24 @@ export default class extends React.Component {
     return (
       <div style={style}>
         <div className='nav-bar'>
-          {/*<a href='#intro1'>引言</a>*/}
-          <a href='#intro2'>概述</a>
-          <a href='#process'>项目安排</a>
-          <a href='#get'>收获</a>
-          <a href='#team'>项目团队</a>
-          <a href='#feedback'>学员反馈</a>
-          <a href='#pay'>报名</a>
+          <Link replace href='#intro2'>
+            <a>概述</a>
+          </Link>
+          <Link replace href='#process'>
+            <a>项目安排</a>
+          </Link>
+          <Link replace href='#get'>
+            <a>收获</a>
+          </Link>
+          <Link replace href='#team'>
+            <a>项目团队</a>
+          </Link>
+          <Link replace href='#feedback'>
+            <a>学员反馈</a>
+          </Link>
+          <Link replace href='#pay'>
+            <a>报名</a>
+          </Link>
         </div>
         <style>{`
           .nav-bar {
