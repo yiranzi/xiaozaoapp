@@ -4,17 +4,16 @@ import Layout from '../../components/layout'// container
 import AxiosUtil from '../../util/axios'
 import WxShare from '../../xz-components/newWxShare'
 import wxPay from '../../util/wxPay'// 工具类
-import BuyPop from '../../containers/buygether/buypop'
-import Triangle from '../../containers/buygether/poptag'
-import Scrolling from '../../containers/buygether/scrolling'
+import BuyPop from '../../containers/abilitycollege/buygether/buypop'
+import Triangle from '../../containers/abilitycollege/buygether/poptag'
 import Fixfooter from '../../xz-components/fixfooter'
 import ToolsUtil from '../../util/tools'
 import {Alert} from '../../xz-components/alert'
 import {Confirm} from '/xz-components/confirm'
 import {ModalBoxPopFunc} from '../../xz-components/modalbox'
-import GroupCard from '../../containers/buygether/groupcard'
+import GroupCard from '../../containers/abilitycollege/buygether/groupcard'
 import Link from 'next/link'
-import {HelpPopFunc} from '../../containers/buygether/helpPopFunc'
+import {HelpPopFunc} from '../../containers/abilitycollege/buygether/helpPopFunc'
 import Slider from 'react-slick'
 import VedioWithImg from '../../xz-components/vedioWithImg'
 import {
@@ -550,13 +549,13 @@ export default class extends React.Component {
         </div>
         <div className='right' onClick={() => { this.buyMyGroup() }}>
           <div className='single-price'>
-            <span>￥4999</span>
+            <span>￥5199</span>
             <p>原价购买</p>
           </div>
           <div className='group-price'>
             <img style={{height: '70%'}}src='/static/img/buygether/buy.png' />
             <div className='price-inner'>
-              <span>￥3999</span>
+              <span>￥4199</span>
               <p>特惠开团</p>
             </div>
           </div>
@@ -864,7 +863,7 @@ export default class extends React.Component {
 
   renderShowHelpButtonPop () {
     let {showHelpButtonPop} = this.state
-    let borderStyle = {
+    let divStyle = {
       height: '30px',
       lineHeight: '30px',
       borderRadius: '30px',
@@ -872,21 +871,21 @@ export default class extends React.Component {
       bottom: '0px',
       backgroundColor: '#3e84e0'
     }
-    let style = {}
+    let transformStyle = {}
     if (showHelpButtonPop) {
-      style = {
+      transformStyle = {
         transform: 'translateX(0px)'
       }
     } else {
-      style = {
-        transform: 'ttranslateX(-300px)'
+      transformStyle = {
+        transform: 'translateX(-300px)'
       }
     }
     return (
-      <div style={style} className='pop-out-div' onClick={() => { HelpPopFunc() }}>
+      <div style={transformStyle} className='pop-out-div' onClick={() => { HelpPopFunc() }}>
         <Triangle
-          triangleStyle={{borderColor: '#3e84e0  transparent transparent #3e84e0'}}
-          style={borderStyle}>
+          divStyle={divStyle}
+          triangleStyle={{borderColor: '#3e84e0  transparent transparent #3e84e0'}}>
           <div className='inner-content'>
             <img src='/static/img/buygether/headImg_help.png' />
             <p>关于课程和分期的问题，我可以帮你解答哦</p>
