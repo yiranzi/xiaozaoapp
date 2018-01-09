@@ -5,8 +5,8 @@ import React from 'react'
  */
 export default class extends React.Component {
   render () {
-    return (<div style={this.props.style} className='org_box'>
-      <span style={this.props.borderStyle} className='org_bot_cor' />
+    return (<div style={this.props.divStyle} className='org_box'>
+      <span style={this.props.triangleStyle} className='org_bot_cor' />
       {this.props.children}
       <style jsx>{`
         .org_box{
@@ -14,7 +14,7 @@ export default class extends React.Component {
             height: 20px;
             line-height: 20px;
             border-radius: 5px;
-            background: #cba46b;
+            background-color: #cba46b;
             position: absolute;
             font-size: 12px;
             color: white;

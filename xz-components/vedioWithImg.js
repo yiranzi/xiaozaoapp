@@ -27,7 +27,6 @@ export default class extends React.Component {
   render () {
     let hideStyle = {display: 'none'}
     let showStyle = {display: 'flex'}
-    console.log(this.state.isPlay)
     return (
       <div className='vedio-with-img' onClick={this.clickTitle}>
         <video style={this.state.isPlay ? showStyle : hideStyle}
