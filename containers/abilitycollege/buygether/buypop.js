@@ -1,22 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {ChooseBar, ChooseItem} from '../../../xz-components/choosebar'
-// import Triangle from '../../abilitycollege/buygether/poptag'
 
 export default class extends React.Component {
-  newGroupDiscount = 10 // 开团立减
-  coupon = 0.9 // 折扣
+  // newGroupDiscount = 10 // 开团立减
+  // coupon = 0.9 // 折扣
   static propTypes = {
     dataInfo: PropTypes.array,
-    // defaultSelect: PropTypes.number,
     buyButtonCallBack: PropTypes.func,
-    joinInfo: PropTypes.object,
-    cancelCallBack: PropTypes.func
+    cancelCallBack: PropTypes.func,
+    joinInfo: PropTypes.object
   }
 
   static defaultProps = {
     dataInfo: [], // 购买回调
-    defaultSelect: 0, // 初始选中
     buyButtonCallBack: function () {}, // 购买回调
     cancelCallBack: function () {}, // 取消购买回调
     joinInfo: {}
@@ -26,17 +23,10 @@ export default class extends React.Component {
     super(props)
     this.state = {
       currentSelect: 0,
-      render: false
+      render: true
     }
     this.onChange = this.onChange.bind(this)
     this.buyButtonClick = this.buyButtonClick.bind(this)
-  }
-
-  componentDidMount () {
-    this.setState({
-      currentSelect: this.props.defaultActiveKey,
-      render: true
-    })
   }
 
   renderTitle () {
@@ -87,7 +77,6 @@ export default class extends React.Component {
           <span className='content-color'>3.人满成团</span>
         </div>
         <br />
-        {/*<span style={{textAlign: 'left'}}> </span>*/}
         <style jsx>{`
           .title {
             text-align: left;
@@ -192,21 +181,12 @@ export default class extends React.Component {
 
   calcPrice (priceInfo, type) {
     let value = 100
-    // let isNewGroup
-    // if (this.props.joinInfo && this.props.joinInfo.groupId) {
-    //   isNewGroup = false
-    // } else {
-    //   isNewGroup = true
-    // }
     let isCoupon = this.props.couponInfo
     let {showPrice, price} = priceInfo
     let couponPrice = price
     if (isCoupon) {
       couponPrice = couponPrice * this.coupon
     }
-    // if (isNewGroup) {
-    //   couponPrice -= this.newGroupDiscount * value
-    // }
     let calcPrice
     switch (type) {
       case 'origin':
@@ -277,21 +257,21 @@ export default class extends React.Component {
     this.props.buyButtonCallBack(typeId, groupId)
   }
 
-  renderCoupon () {
-    if (this.props.couponInfo) {
-      let {nickname} = this.props.couponInfo
-      return (<div className='coupon-div'>
-        <p> ◉ 已使用{nickname}赠送的优惠券，享9折优惠！</p>
-        <p>报名后你的好友{nickname}将免费获得一张能力卡</p>
-        <style jsx>{`
-        .coupon-div {
-          margin-bottom: 10px;
-          padding: 0px 10px;
-        }
-      `}</style>
-      </div>)
-    }
-  }
+  // renderCoupon () {
+  //   if (this.props.couponInfo) {
+  //     let {nickname} = this.props.couponInfo
+  //     return (<div className='coupon-div'>
+  //       <p> ◉ 已使用{nickname}赠送的优惠券，享9折优惠！</p>
+  //       <p>报名后你的好友{nickname}将免费获得一张能力卡</p>
+  //       <style jsx>{`
+  //       .coupon-div {
+  //         margin-bottom: 10px;
+  //         padding: 0px 10px;
+  //       }
+  //     `}</style>
+  //     </div>)
+  //   }
+  // }
 
   render () {
     if (this.state.render) {
