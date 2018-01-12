@@ -84,6 +84,7 @@ export default class extends React.Component {
         window.history.replaceState(null, '', location.href + this.littleShareUrl)
       }
     }
+    alert(shareProp.link)
     console.log(shareProp.link)
     this.wxConfig.setShareConfig(shareProp)
   }
