@@ -46,8 +46,10 @@ class ModalBox extends React.Component {
       position: 'relative'
     }
     let style = Object.assign(innerDivDefaultStyle, this.props.style)
-    return (<div style={style}>
-      {this.props.innerDiv}
+    return (<div style={style} onClick={(e) => { console.log(12312);e.stopPropagation() }}>
+      <div>
+        {this.props.innerDiv}
+      </div>
     </div>)
   }
   cancelClick () {

@@ -10,6 +10,7 @@ import {
 import AxiosUtil from '../../util/axios'
 import Slider from 'react-slick'
 import {HelpPopFunc} from '../../containers/buygether/helpPopFunc'
+import GiftPop from '../../containers/abilitycollege/main/giftPop'
 
 export default class extends React.Component {
   constructor (props) {
@@ -492,6 +493,7 @@ export default class extends React.Component {
             {this.renderCourseType2()}
             {this.renderFeedbackBanner()}
             {this.renderAdvBanner()}
+            <GiftPop />
           </div>
           <Footer type='college' />
         </div>

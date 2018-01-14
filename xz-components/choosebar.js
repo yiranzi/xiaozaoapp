@@ -56,22 +56,6 @@ export class ChooseBar extends React.Component {
     })
   }
 
-  render () {
-    // chooseBar默认样式
-    let tabStyle = {
-      boxSizing: 'border-box',
-      margin: 'auto',
-      width: '100%',
-      padding: '0px 10px'
-    }
-    let finalStyle = this.objectAssign(tabStyle, this.props.style)
-    return (
-      <div style={finalStyle}>
-        {this.renderChooseList()}
-      </div>
-    )
-  }
-
   getTabs () {
     return React.Children.map(this.props.children, (c) => {
       return {
@@ -146,4 +130,21 @@ export class ChooseBar extends React.Component {
       })
     }
   }
+
+  render () {
+    // chooseBar默认样式
+    let tabStyle = {
+      boxSizing: 'border-box',
+      margin: 'auto',
+      width: '100%',
+      padding: '0px 10px'
+    }
+    let finalStyle = this.objectAssign(tabStyle, this.props.style)
+    return (
+      <div style={finalStyle}>
+        {this.renderChooseList()}
+      </div>
+    )
+  }
+
 }

@@ -351,13 +351,13 @@ export default class extends React.Component {
           </div>
           <div className='right' onClick={() => { this.showBuyMyGroupPop() }}>
             <div className='single-price'>
-              <span style={{fontSize: '16px'}}>￥{showPrice}</span>
+              <span style={{fontSize: '16px'}}>￥{parseInt(showPrice / 100)}</span>
               <p>原价购买</p>
             </div>
             <div className='group-price'>
-              <img style={{height: '70%'}} src='/static/img/buygether/buy.png' />
+              <img style={{height: '35px'}} src='/static/img/buygether/buy.png' />
               <div>
-                <span style={{fontSize: '16px'}}>￥{price}</span>
+                <span style={{fontSize: '16px'}}>￥{parseInt(price / 100)}</span>
                 <p>特惠开团</p>
               </div>
             </div>
